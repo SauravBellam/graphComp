@@ -49,6 +49,26 @@ parallel, A2 as the long pole, then A5, A6.
 What runs in parallel: A1 shards, A2 shards, A3 are independent; A4 and A5 only need A1; A2
 analysis needs A2 + A1; A6 needs A1 and (optionally) A2. `run_all.py` encodes exactly this DAG.
 
+## Where each claim's evidence lives
+
+Every pooled number comes with raw numerators and denominators per task, plus an interval from
+`stats.py`: Wilson for task-level yes/no rates, task-cluster bootstrap for pooled edge ratios, and
+exact McNemar for paired comparisons on the same tasks.
+
+| Question | File and field |
+| --- | --- |
+| Are async defs missing? (finding 5.1) | `a1/a1_summary.json` `omission_direct_files`, `omission_per_repo`; modules made only of async defs: `omission_inferred_module_files` |
+| What do the tools return for a missing def? | `a1/a1_async_audit.csv` `q_name_*`, `q_qual_*` (self / no_match / wrong_node, tier, wrong node is a test, same name); totals in `a1_summary.json` `misresolution` |
+| ...for the gold function of each task? | `a1/a1_gold_symbols.jsonl` `agent_query_*`; `a1_tasks.csv` `n_gold_query_wrong_node` |
+| How many tasks have async gold functions? | `a1_summary.json` `task_rates.has_gold_async`, per repo |
+| Did each A2 run actually work? | `a2/a2_run_status.csv` `run_class`, missing modules, patch strategies, fail-to-pass check against `tasks.jsonl`; `a2_summary.json` `coverage` |
+| Which runs count? | `usable` = both runs clean and at least one expected fail-to-pass test confirmed; summaries report `usable_tasks` and `all_analyzed_tasks` |
+| How much of the real call graph does the provided graph hold, and why is the rest missing? | `a2_summary.json` `usable_tasks.<all|nontest|gold>_<direct|any>`: `recall_representable`, `recall_agent_facing`, `miss_share_by_cause` (missed between existing nodes vs absent async / nested / sync endpoint); every edge in `a2_dyn_edges.jsonl` |
+| Is the provided graph precise where code ran? | `observed_precision`; unconfirmed static edges in `a2_static_unconfirmed.jsonl` |
+| Does the fix site exist in the graph and do the failing tests reach it? (H-A2) | `a2_gold.jsonl` status `in_graph_executed / in_graph_not_executed / absent_executed / absent_not_executed`, static reachability; task rates in `a2_summary.json` |
+| Does symbol-only search lose to free text? (H-A4) | `a5/a5_summary.json` hit rates with Wilson intervals, `paired_mcnemar` |
+| What produced these results? | `run_report.json` `manifest` (tasks.jsonl sha256, file counts and sizes, code commit, dirty flag); per task `a2_runs/<id>/env_freeze.txt`, `deps.json` |
+
 ## VERIFY-ON-DATA checklist (assumptions made without the archive)
 
 1. **Node-id prefix rules** (`common.path_to_module_candidates`, `ModuleIndex`): `docs_src/` and
@@ -89,4 +109,7 @@ analysis needs A2 + A1; A6 needs A1 and (optionally) A2. `run_all.py` encodes ex
 No competition data (Kaggle blocked, rules forbid mirrors), no Docker daemon, no GPU, no
 huggingface.co. Hence: A3 is untested against a real encoder (only its vector-statistics path ran);
 the Docker backend of A2 is untested (the venv backend is tested end to end); everything else ran on
-the synthetic fixture (`pytest tests/`).
+the synthetic fixture (`pytest tests/`, 7 tests). The fixture includes an async def whose name
+collides with a sync method, a module made only of async defs, a nested function, a generator, a
+spurious static edge, a missed sync edge, `docs_src/` and `src/` files, a new method added by the
+gold patch, and two tasks sharing one commit across shards.

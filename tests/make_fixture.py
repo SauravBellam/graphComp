@@ -99,6 +99,13 @@ def run(x):
 @register
 def handler(x):
     return compute(x) + 1
+
+
+async def total(n):
+    return Engine(1).total(n)
+''',
+    "mini/aio.py": '''async def fetch(x):
+    return x
 ''',
     "docs_src/tutorial/tutorial001.py": '''from mini import compute
 
@@ -132,7 +139,7 @@ class TestEngine:
 PATCH_1 = """diff --git a/mini/core.py b/mini/core.py
 --- a/mini/core.py
 +++ b/mini/core.py
-@@ -26,7 +26,7 @@ class Engine:
+@@ -23,7 +23,7 @@ class Engine:
 
  def compute(x):
      eng = Engine(2)
@@ -145,7 +152,7 @@ PATCH_1 = """diff --git a/mini/core.py b/mini/core.py
 TEST_PATCH_1 = """diff --git a/tests/test_core.py b/tests/test_core.py
 --- a/tests/test_core.py
 +++ b/tests/test_core.py
-@@ -3,9 +3,9 @@ from mini.core import Engine, compute, run, acompute, handler
+@@ -3,10 +3,10 @@ from mini.core import Engine, compute, run, acompute, handler
  
  
  def test_compute():
@@ -163,7 +170,7 @@ TEST_PATCH_1 = """diff --git a/tests/test_core.py b/tests/test_core.py
 PATCH_2 = """diff --git a/mini/core.py b/mini/core.py
 --- a/mini/core.py
 +++ b/mini/core.py
-@@ -31,7 +31,7 @@ def compute(x):
+@@ -28,7 +28,7 @@ def compute(x):
 
  async def acompute(x):
      await asyncio.sleep(0)
@@ -209,7 +216,7 @@ diff --git a/src/minisrc/extra.py b/src/minisrc/extra.py
 diff --git a/mini/core.py b/mini/core.py
 --- a/mini/core.py
 +++ b/mini/core.py
-@@ -21,6 +21,9 @@ class Engine:
+@@ -20,6 +20,9 @@ class Engine:
      def total(self, n):
          return sum(gen_values(n))
 
@@ -223,7 +230,7 @@ diff --git a/mini/core.py b/mini/core.py
 TEST_PATCH_3 = """diff --git a/tests/test_core.py b/tests/test_core.py
 --- a/tests/test_core.py
 +++ b/tests/test_core.py
-@@ -12,3 +12,7 @@ def test_run():
+@@ -13,3 +13,7 @@ def test_run():
  class TestEngine:
      def test_total(self):
          assert Engine(1).total(3) == 6
@@ -271,11 +278,11 @@ def make_graph(files: dict, with_double: bool = False) -> dict:
         node("mini.core", ""), node("mini.util", ""), node("mini", ""),
         node("mini.util.helper", seg(util, 3, 4)), node("mini.util.unused_helper", seg(util, 7, 8)),
         node("mini.util.gen_values", seg(util, 11, 13)),
-        node("mini.core.register", seg(core, 8, 10)), node("mini.core.Engine", seg(core, 13, 22)),
+        node("mini.core.register", seg(core, 8, 10)), node("mini.core.Engine", seg(core, 13, 21)),
         node("mini.core.Engine.__init__", seg(core, 14, 15)), node("mini.core.Engine.run", seg(core, 17, 18)),
-        node("mini.core.Engine.total", seg(core, 20, 21)), node("mini.core.compute", seg(core, 25, 27)),
+        node("mini.core.Engine.total", seg(core, 20, 21)), node("mini.core.compute", seg(core, 24, 26)),
         # NOTE: mini.core.acompute (async def) deliberately omitted; run.<locals>.inner omitted
-        node("mini.core.run", seg(core, 35, 38)), node("mini.core.handler", seg(core, 41, 43)),
+        node("mini.core.run", seg(core, 34, 37)), node("mini.core.handler", seg(core, 40, 42)),
         node("tutorial.tutorial001.read_items", "def read_items():\n    return compute(3)"),   # docs_src. dropped
         node("minisrc.extra.extra_fn", "def extra_fn(x):\n    return x - 3"),                 # src. dropped
         node("tests.test_core.test_compute", "def test_compute():\n    assert compute(1) == 4"),

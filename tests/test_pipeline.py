@@ -57,12 +57,34 @@ def test_common_units(fixture_dir):
     assert path_to_module_candidates("docs_src/tutorial/tutorial001.py")[1] == ("tutorial.tutorial001", "drop:docs_src")
 
 
+def test_resolver_matches_harness():
+    import random
+    from common import Resolver, resolve_node_name
+    rng = random.Random(0)
+    segs = ["a", "b", "Foo", "foo", "run", "Run", "get", "get_item", "x_y", "tests", "test_run"]
+    ids = list(dict.fromkeys(".".join(rng.choice(segs) for _ in range(rng.randint(1, 5))) for _ in range(400)))
+    r = Resolver(ids)
+    queries = segs + [".".join(rng.choice(segs) for _ in range(rng.randint(1, 3))) for _ in range(300)] + ["FOO", "un", "zz", "et_it"]
+    for q in queries:
+        assert r.resolve(q) == resolve_node_name(q, ids), q
+
+
+def test_stats():
+    from stats import mcnemar, ratio_ci, wilson
+    w = wilson(5, 10)
+    assert w["p"] == 0.5 and abs(w["lo"] - 0.2366) < 1e-3 and abs(w["hi"] - 0.7634) < 1e-3
+    m = mcnemar([True] * 8 + [False] * 2, [False] * 8 + [True] * 2)
+    assert m["a_only"] == 8 and m["b_only"] == 2 and abs(m["p_exact"] - 0.109375) < 1e-6
+    r = ratio_ci([1, 2, 3], [2, 4, 6])
+    assert r["ratio"] == 0.5 and r["lo"] == 0.5 and r["hi"] == 0.5
+
+
 def test_a1_outputs(results):
     tasks = {r["instance_id"]: r for r in read_csv(results / "a1" / "a1_tasks.csv")}
     assert set(tasks) == {"mini_1", "mini_2", "mini_3"}
     t1 = tasks["mini_1"]
     assert t1["graph_available"] == "True" and t1["snapshot_available"] == "True"
-    assert "mini.core.compute" in json.loads(t1["gold_nodes"])
+    assert json.loads(t1["gold_nodes"]) == ["mini.core.compute"]
     assert t1["d_any_undirected"] == "0"          # compute is itself an anchor
     assert t1["v_file_rank"] not in ("", None)
     t2 = tasks["mini_2"]
@@ -75,41 +97,70 @@ def test_a1_outputs(results):
     assert rules["src/minisrc/extra.py"] == "drop:src"
     new = [g for g in gold if g["instance_id"] == "mini_3" and g["new_symbol"]]
     assert {g["qualname"] for g in new} == {"Engine.double", "extra_new"}
+    acomp = next(g for g in gold if g["instance_id"] == "mini_2" and g["qualname"] == "acompute")
+    assert acomp["agent_query_outcome"] == "no_match"
     graphs = read_csv(results / "a1" / "a1_graphs.csv")
     assert len(graphs) == 2
-    g = graphs[0]
-    assert json.loads(g["edge_types"]) == {"calls": 12} or json.loads(g["edge_types"]) == {"calls": 13}
-    assert float(g["pct_containment_in_calls"]) > 0
-    summ = json.loads((results / "a1" / "a1_summary_shard0of2.json").read_text())
-    assert "async_audit" in summ
+    assert json.loads(graphs[0]["edge_types"]) == {"calls": 12}
+    assert float(graphs[0]["pct_containment_in_calls"]) > 0
+    # merged summary: no double counting across shards that share a commit
+    summ = json.loads((results / "a1" / "a1_summary.json").read_text())
+    assert summ["merged_from_shards"]
+    assert summ["omission_direct_files"]["async_function"] == {**summ["omission_direct_files"]["async_function"], "total": 4, "present": 0}
+    assert summ["omission_direct_files"]["function"]["present"] == summ["omission_direct_files"]["function"]["total"]
+    assert summ["omission_inferred_module_files"]["async_function"]["total"] == 2      # mini/aio.py, only async defs
+    # async `total` is absent and its name silently resolves to the sync method Engine.total
+    audit = read_csv(results / "a1" / "a1_async_audit.csv")
+    tot = [r for r in audit if r["node_id"] == "mini.core.total"]
+    assert tot and all(r["q_name_outcome"] == "wrong_node" and r["q_name_resolved"] == "mini.core.Engine.total"
+                       and r["q_name_tier"] == "suffix" for r in tot)
+    mis = summ["misresolution"]["async_function|absent|q_name"]
+    assert mis["outcomes"] == {"no_match": 4, "wrong_node": 2}
+    assert summ["task_rates"]["has_gold_async"]["k"] == 1
 
 
 def test_a2_outputs(results):
     st = json.loads((results / "a2_runs" / "mini_1" / "status.json").read_text())
     assert st["done"], st
-    assert st["pre"]["exit"] not in (None, 0) and st["post"]["exit"] == 0, st
+    assert st["pre"]["run_class"] == "clean" and st["post"]["exit"] == 0, st
+    assert st["test_patch_strategy"] == "exact" and st["gold_patch_strategy"] == "exact"
+    assert "pytest" in (results / "a2_runs" / "mini_1" / "env_freeze.txt").read_text().lower()
     tr = json.loads((results / "a2_runs" / "mini_1" / "trace_pre.json").read_text())
     assert tr["outcomes"]["tests/test_core.py::test_compute"] == "failed"
-    names = set(tr["functions"])
-    assert "mini.core.compute" in names and "mini.core.run.<locals>.inner" in names
-    assert "mini.util.gen_values" in names
-    rows = {r["instance_id"]: r for r in read_csv(results / "a2" / "a2_tasks.csv")}
-    r1 = rows["mini_1"]
-    assert r1["n_fail_to_pass"] == "2"      # test_compute and test_run both flip
-    assert r1["gold_any_dyn_reachable"] == "True" and r1["gold_any_static_reachable"] == "True"
-    assert float(r1["recall_direct"]) > 0 and float(r1["observed_precision"]) > 0
+    kinds = dict(zip(tr["functions"], tr["kinds"]))
+    assert kinds["mini.util.gen_values"] == "generator" and kinds["mini.core.compute"] == "function"
     # generator resumes are deduplicated: the gen_values edge appears once, from Engine.total
-    dyn = [(e[0], e[1]) for e in tr["edges_direct"]]
     fn = tr["functions"]
-    gen_callers = {fn[c] for c, e in dyn if fn[e] == "mini.util.gen_values"}
+    gen_callers = {fn[c] for c, e, _ in tr["edges_direct"] if fn[e] == "mini.util.gen_values"}
     assert gen_callers == {"mini.core.Engine.total"}
-    r2 = rows["mini_2"]
-    assert r2["gold_any_dyn_reachable"] == "False"  # async gold fn is not a graph node -> not representable
-    assert json.loads(r2["map_status"]).get("missing", 0) >= 1
-    r3 = rows["mini_3"]
-    # Engine.__init__ executed -> collapsed to the gold class Engine; new test function is not a base-graph node
-    assert r3["gold_any_dyn_reachable"] == "True" and r3["gold_any_static_reachable"] == "False"
-    assert json.loads(r3["f2p_source_levels"]).get("function", 0) == 0
+
+    status = {r["instance_id"]: r for r in read_csv(results / "a2" / "a2_run_status.csv")}
+    assert all(r["run_class"] == "clean" and r["usable"] == "True" for r in status.values())
+    assert all(r["n_f2p_confirmed"] == r["n_f2p_expected"] == "1" for r in status.values())
+
+    rows = {r["instance_id"]: r for r in read_csv(results / "a2" / "a2_tasks.csv")}
+    r1, r2, r3 = rows["mini_1"], rows["mini_2"], rows["mini_3"]
+    assert r1["gold_in_graph_executed"] == "1" and r1["gold_any_static_reachable"] == "True"
+    assert int(r1["all_any_absent_nested"]) >= 1 and int(r1["all_any_missed_between_nodes"]) >= 1
+    # the async gold function runs in the failing test but has no node: absent_executed
+    assert r2["gold_absent_executed"] == "1" and int(r2["all_any_absent_async"]) >= 1
+    # Engine.__init__ executed -> collapsed to the gold class Engine; the new method runs only post-fix
+    assert r3["gold_in_graph_executed"] == "1" and r3["gold_new_symbol_executed_post"] == "1"
+    assert r3["gold_any_static_reachable"] == "False"
+
+    edges = [json.loads(l) for l in (results / "a2" / "a2_dyn_edges.jsonl").read_text().splitlines()]
+    miss = [e for e in edges if e["instance_id"] == "mini_1" and e["cause"] == "missed_between_nodes"]
+    assert any(e["src"] == "mini.util.gen_values" and e["dst"] == "mini.util.helper" and e["subcause"] == "sync" for e in miss)
+    assert any(e["cause"] == "absent_async" and e["dst"] == "mini.core.acompute" for e in edges)
+
+    summ = json.loads((results / "a2" / "a2_summary.json").read_text())
+    assert summ["coverage"]["usable"]["k"] == 3
+    assert summ["coverage"]["patch_strategies"]["gold"] == {"exact": 3}
+    u = summ["usable_tasks"]["all_any"]
+    assert u["recall_representable"]["den"] >= u["recall_representable"]["num"] > 0
+    assert u["recall_agent_facing"]["den"] > u["recall_representable"]["den"]
+    assert set(u["miss_share_by_cause"]) == {"missed_between_nodes", "absent_async", "absent_nested", "absent_sync"}
+    assert summ["usable_tasks"]["tasks_gold_absent_but_executed"]["k"] == 1
 
 
 def test_a4_a5_a6(results):
@@ -118,8 +169,13 @@ def test_a4_a5_a6(results):
     a5 = {r["instance_id"]: r for r in read_csv(results / "a5" / "a5_tasks.csv")}
     assert a5["mini_1"]["a_harness_hit10_node"] == "True"
     assert a5["mini_1"]["b_bm25_node_rank"] != ""
+    s5 = json.loads((results / "a5" / "a5_summary.json").read_text())
+    ov = s5["overall_tasks_with_gold_nodes"]
+    assert {"k", "n", "lo", "hi"} <= set(ov["a_harness"]["hit10_node"])
+    assert "p_exact" in ov["paired_mcnemar"]["a_harness_vs_b_bm25"]["hit10_node"]
     prof = {r["instance_id"]: r for r in read_csv(results / "a6" / "task_profile.csv")}
     assert prof["mini_1"]["cell"].startswith("d0|")
+    assert prof["mini_1"]["a2_usable"] == "True" and prof["mini_1"]["a2_recall_representable_any"] != ""
     g2 = json.loads(next((results / "a6" / "graphs_v2").glob("*.json")).read_text())
     types = {e["type"] for e in g2["edges"]}
     assert {"contains", "imports", "calls_static", "calls_dynamic", "tests"} <= types
@@ -127,3 +183,16 @@ def test_a4_a5_a6(results):
     assert "mini.core.acompute" in ids and "tutorial.tutorial001.read_items" in ids and "minisrc.extra.extra_fn" in ids
     report = json.loads((results / "run_report.json").read_text())
     assert report["all_ok"]
+    assert report["manifest"]["tasks_jsonl_sha256"] and report["manifest"]["graphs_files"] == 3
+
+
+def test_classify_pytest():
+    sys.path.insert(0, str(ROOT / "planA" / "a2"))
+    from run_task import classify_pytest
+    imp = classify_pytest(2, "_____ ERROR collecting tests/test_x.py _____\nE   ModuleNotFoundError: No module named 'dirty_equals'\n1 error in 0.2s")
+    assert imp["run_class"] == "import_error" and imp["missing_modules"] == ["dirty_equals"]
+    assert imp["collection_errors"] == ["tests/test_x.py"]
+    assert classify_pytest(5, "no tests ran in 0.01s")["run_class"] == "no_tests"
+    assert classify_pytest(1, "1 failed, 3 passed in 0.1s")["run_class"] == "clean"
+    assert classify_pytest(None, "")["run_class"] == "timeout"
+    assert classify_pytest(4, "ERROR: usage")["run_class"] == "crashed"

@@ -280,6 +280,58 @@ def resolve_node_name(query: str, node_ids: Iterable[str]) -> tuple[str | None, 
     return None, "none"
 
 
+class Resolver:
+    """Indexed equivalent of ``resolve_node_name`` (same tiers, same tie-break, same answers).
+
+    Suffix tiers are looked up by the last k dot-segments instead of scanning every node, so the
+    A1 misresolution audit can resolve every definition of every graph. Falls back to the exact
+    scan for queries containing ';' or ids containing ';'.
+    """
+
+    def __init__(self, node_ids: Iterable[str]):
+        self.ids = list(node_ids)
+        self.idset = set(self.ids)
+        self.has_semicolon = any(";" in n for n in self.ids)
+        self.by_suffix: dict[str, list[str]] = defaultdict(list)
+        self.by_suffix_ci: dict[str, list[str]] = defaultdict(list)
+        self.lower = [n.lower() for n in self.ids]
+        for n in self.ids:
+            parts = n.split(".")
+            for k in range(1, len(parts)):
+                suf = ".".join(parts[-k:])
+                self.by_suffix[suf].append(n)
+                self.by_suffix_ci[suf.lower()].append(n)
+            self.by_suffix_ci.setdefault("\x00full\x00" + n.lower(), []).append(n)
+
+    @staticmethod
+    def _best(cands: list[str]) -> str:
+        return min(cands, key=lambda x: (len(x.split(".")), len(x)))
+
+    def resolve(self, query: str) -> tuple[str | None, str]:
+        if self.has_semicolon or ";" in query:
+            return resolve_node_name(query, self.ids)
+        if query in self.idset:
+            return query, "exact"
+        c = self.by_suffix.get(query)
+        if c:
+            return self._best(c), "suffix"
+        lq = query.lower()
+        c = list(self.by_suffix_ci.get("\x00full\x00" + lq, [])) + list(self.by_suffix_ci.get(lq, []))
+        if c:
+            # keep graph order for ties, like the reference implementation
+            c = sorted(set(c), key=lambda n: self._pos(n))
+            return self._best(c), "ci"
+        c = [n for n, l in zip(self.ids, self.lower) if query in n or lq in l]
+        if c:
+            return self._best(c), "substring"
+        return None, "none"
+
+    def _pos(self, n: str) -> int:
+        if not hasattr(self, "_posmap"):
+            self._posmap = {x: i for i, x in enumerate(self.ids)}
+        return self._posmap[n]
+
+
 # ----------------------------------------------------------------------------
 # Unified diffs
 # ----------------------------------------------------------------------------
@@ -518,11 +570,23 @@ class ModuleIndex:
             for k in range(1, len(parts) + 1):
                 self.module_ids.add(".".join(parts[:k]))
 
-    def module_for(self, rel_path: str) -> tuple[str | None, str]:
-        """Returns (module id, rule) choosing the first candidate that is a prefix of some node id."""
-        for mod, rule in path_to_module_candidates(rel_path):
+    def module_for(self, rel_path: str, infer: bool = False) -> tuple[str | None, str]:
+        """Returns (module id, rule) choosing the first candidate that is a prefix of some node id.
+
+        With ``infer=True``, a file whose module has no nodes at all (e.g. a module that contains only
+        async defs, if those are dropped) is still mapped when its parent package is a prefix of some
+        node id; the rule is then reported as ``inferred:<rule>``. Without this, such files would be
+        silently excluded from the omission audit.
+        """
+        cands = path_to_module_candidates(rel_path)
+        for mod, rule in cands:
             if mod in self.module_ids:
                 return mod, rule
+        if infer:
+            for mod, rule in cands:
+                parent = mod.rsplit(".", 1)[0] if "." in mod else None
+                if parent and parent in self.module_ids:
+                    return mod, f"inferred:{rule}"
         return None, "none"
 
 

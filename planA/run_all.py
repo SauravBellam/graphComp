@@ -51,6 +51,41 @@ def run(name: str, cmd: list[str], log_dir: Path) -> dict:
     return rec
 
 
+def manifest(data: Path) -> dict:
+    """What produced these results: data checksums/sizes, code commit, interpreter and packages."""
+    import hashlib
+    import platform
+    m = {"python": sys.version, "platform": platform.platform()}
+    t = data / "tasks.jsonl"
+    if t.exists():
+        m["tasks_jsonl_sha256"] = hashlib.sha256(t.read_bytes()).hexdigest()
+    for kind in ("graphs", "embeddings", "snapshots", "wheels"):
+        d = data / kind
+        if d.exists():
+            files = [f for f in d.iterdir() if f.is_file()]
+            m[f"{kind}_files"] = len(files)
+            m[f"{kind}_nonempty"] = sum(1 for f in files if f.stat().st_size > 100)
+            m[f"{kind}_bytes"] = sum(f.stat().st_size for f in files)
+    if (data / "graphs").exists():
+        h = hashlib.sha256()
+        for f in sorted((data / "graphs").iterdir()):
+            if f.is_file():
+                h.update(f.name.encode())
+                h.update(str(f.stat().st_size).encode())
+        m["graphs_name_size_digest"] = h.hexdigest()
+    try:
+        m["code_commit"] = subprocess.run(["git", "rev-parse", "HEAD"], cwd=HERE, capture_output=True, text=True).stdout.strip()
+        m["code_dirty"] = bool(subprocess.run(["git", "status", "--porcelain"], cwd=HERE, capture_output=True, text=True).stdout.strip())
+    except Exception:  # noqa: BLE001
+        pass
+    try:
+        import numpy, scipy  # noqa: E401
+        m["numpy"], m["scipy"] = numpy.__version__, scipy.__version__
+    except Exception:  # noqa: BLE001
+        pass
+    return m
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--data", required=True, type=Path)
@@ -144,6 +179,7 @@ def main(argv=None):
     pool.shutdown(wait=True)
 
     report = {"data": str(args.data), "out": str(out), "stages": sorted(stages), "steps": results,
+              "manifest": manifest(args.data),
               "all_ok": all(r["exit"] == 0 for r in results)}
     (out / "run_report.json").write_text(json.dumps(report, indent=2))
     print(json.dumps(report, indent=2))

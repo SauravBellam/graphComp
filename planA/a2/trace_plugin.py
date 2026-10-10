@@ -87,6 +87,7 @@ class Tracer:
         self.func_ids: dict[tuple, int] = {}      # (filename, qualname) -> idx
         self.func_names: list[str] = []
         self.func_files: list[str] = []
+        self.func_kind: list[str] = []            # function|async_function|generator|async_generator
         self.edges_direct: dict[tuple[int, int], set[str]] = {}
         self.edges_vialib: dict[tuple[int, int], set[str]] = {}
         self.per_test_exec: dict[str, set[int]] = {}
@@ -118,6 +119,9 @@ class Tracer:
             self.func_ids[key] = idx
             self.func_names.append(f"{mod}.{key[1]}")
             self.func_files.append(rel)
+            fl = code.co_flags
+            self.func_kind.append("async_generator" if fl & 0x200 else "async_function" if fl & 0x80
+                                  else "generator" if fl & 0x20 else "function")
         return idx
 
     # --- profile hook
@@ -177,7 +181,7 @@ class Tracer:
         data = {
             "phase": PHASE, "root": ROOT, "python": sys.version, "first_lasti": FIRST_LASTI,
             "n_events": self.n_events, "written_at": time.time(),
-            "functions": self.func_names, "files": self.func_files,
+            "functions": self.func_names, "files": self.func_files, "kinds": self.func_kind,
             "tests": tests,
             "outcomes": {t: self.outcomes.get(t, "unknown") for t in tests if not t.startswith("<")},
             "per_test_exec": {t: sorted(s) for t, s in self.per_test_exec.items()},

@@ -33,6 +33,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import re
 import shlex
 import shutil
 import subprocess
@@ -159,18 +160,24 @@ def install_deps(py: str, ws: Path, wheels: Path | None, log: Path, timeout: int
         step("httpx_tests", f"{base} {find} trio anyio 'pytest-asyncio' trustme uvicorn chardet brotli zstandard socksio h2")
     r = sh(f"{shlex.quote(py)} -c \"import importlib,sys; print(sys.version)\"", cwd=ws, log=log)
     rec["python"] = r.stdout.strip()
+    fr = sh(f"{shlex.quote(py)} -m pip freeze --all", cwd=ws)
+    rec["freeze"] = fr.stdout.splitlines()
     return rec
 
 
-def apply_patch(ws: Path, patch_text: str, name: str, env: dict, log: Path) -> bool:
+def apply_patch(ws: Path, patch_text: str, name: str, env: dict, log: Path) -> str | None:
+    """Apply like the harness (4 fallbacks). Returns the strategy that worked ('exact' when plain
+    git apply succeeded), or None. Anything but 'exact' means the patch did not match the snapshot
+    cleanly and should be looked at."""
     p = ws.parent / f"{name}.patch"
     p.write_text(patch_text if patch_text.endswith("\n") else patch_text + "\n", encoding="utf-8")
-    for flags in ("", "-3", "--ignore-space-change --ignore-whitespace", "--recount"):
+    for label, flags in (("exact", ""), ("3way", "-3"), ("ignore_whitespace", "--ignore-space-change --ignore-whitespace"),
+                         ("recount", "--recount")):
         r = sh(f"git apply --unsafe-paths {flags} {shlex.quote(str(p))}", cwd=ws, env=env, log=log)
         if r.returncode == 0:
-            return True
+            return label
     r = sh(f"patch -p1 --batch --forward < {shlex.quote(str(p))}", cwd=ws, env=env, log=log)
-    return r.returncode == 0
+    return "gnu_patch" if r.returncode == 0 else None
 
 
 def run_pytest(py: str, ws: Path, targets: list[str], env: dict, out_json: Path, phase: str, log: Path, timeout: int) -> dict:
@@ -186,11 +193,44 @@ def run_pytest(py: str, ws: Path, targets: list[str], env: dict, out_json: Path,
     try:
         r = sh(cmd, cwd=ws, env=env, timeout=timeout, log=log)
         return {"exit": r.returncode, "seconds": round(time.time() - t0, 1), "timeout": False,
+                **classify_pytest(r.returncode, r.stdout + "\n" + r.stderr),
                 "stdout_tail": r.stdout[-3000:], "stderr_tail": r.stderr[-2000:]}
     except subprocess.TimeoutExpired as e:
         return {"exit": None, "seconds": round(time.time() - t0, 1), "timeout": True,
                 "stdout_tail": (e.stdout or "")[-3000:] if isinstance(e.stdout, str) else "",
                 "stderr_tail": (e.stderr or "")[-2000:] if isinstance(e.stderr, str) else ""}
+
+
+PYTEST_EXIT = {0: "all_passed", 1: "some_failed", 2: "interrupted", 3: "internal_error", 4: "usage_error", 5: "no_tests"}
+_MISSING_MOD = re.compile(r"(?:ModuleNotFoundError|ImportError): No module named '([^']+)'")
+_COLLECT_ERR = re.compile(r"ERROR collecting (\S+)")
+_SUMMARY = re.compile(r"(\d+) (passed|failed|error|errors|skipped|xfailed|xpassed|deselected)")
+
+
+def classify_pytest(code: int | None, text: str) -> dict:
+    """Classify a pytest run so environment failures are not mistaken for results.
+
+    run_class: clean (tests collected and ran; failures allowed), collection_error, no_tests,
+    import_error (missing module before/while collecting), crashed (exit 3/4), timeout.
+    """
+    counts = {}
+    for n, k in _SUMMARY.findall(text or ""):
+        k = "error" if k == "errors" else k
+        counts[k] = counts.get(k, 0) + int(n)
+    missing = sorted(set(_MISSING_MOD.findall(text or "")))
+    coll = sorted(set(_COLLECT_ERR.findall(text or "")))
+    if code is None:
+        cls = "timeout"
+    elif code == 5 or (code in (0, 1) and sum(counts.get(k, 0) for k in ("passed", "failed")) == 0 and not counts.get("error")):
+        cls = "no_tests"
+    elif coll or code == 2:
+        cls = "import_error" if missing else "collection_error"
+    elif code in (3, 4):
+        cls = "crashed"
+    else:
+        cls = "clean"
+    return {"exit_meaning": PYTEST_EXIT.get(code, "timeout" if code is None else f"exit_{code}"),
+            "run_class": cls, "counts": counts, "missing_modules": missing, "collection_errors": coll[:20]}
 
 
 def run_one_venv(task: Task, data: Path, out: Path, cache: Path, wheels: Path | None, timeout: int, keep: bool) -> dict:
@@ -233,16 +273,19 @@ def run_one_venv(task: Task, data: Path, out: Path, cache: Path, wheels: Path | 
         with open(ws / ".git" / "info" / "exclude", "a") as f:
             f.write("__pycache__/\n*.pyc\n.pytest_cache/\n*.egg-info/\nbuild/\ndist/\n.coverage\n")
         status["deps"] = install_deps(py, ws, wheels, log, timeout)
+        (tdir / "env_freeze.txt").write_text("\n".join(status["deps"].pop("freeze", [])) + "\n")
         (tdir / "deps.json").write_text(json.dumps(status["deps"], indent=2))
         write_test_config(ws)
         git(ws, "add -A", env)
         git(ws, "commit -q -m baseline --allow-empty", env)
         targets = [p for p in patch_files(task.test_patch) if p.endswith(".py") and Path(p).name != "conftest.py"]
         status["targets"] = targets
-        status["test_patch_applied"] = apply_patch(ws, task.test_patch, "test", env, log) if task.test_patch.strip() else True
+        status["test_patch_strategy"] = apply_patch(ws, task.test_patch, "test", env, log) if task.test_patch.strip() else "empty"
+        status["test_patch_applied"] = status["test_patch_strategy"] is not None
         write_test_config(ws)
         status["pre"] = run_pytest(py, ws, targets, env, tdir / "trace_pre.json", "pre", tdir / "pytest_pre.log", timeout)
-        status["gold_patch_applied"] = apply_patch(ws, task.patch, "gold", env, log) if task.patch.strip() else True
+        status["gold_patch_strategy"] = apply_patch(ws, task.patch, "gold", env, log) if task.patch.strip() else "empty"
+        status["gold_patch_applied"] = status["gold_patch_strategy"] is not None
         status["post"] = run_pytest(py, ws, targets, env, tdir / "trace_post.json", "post", tdir / "pytest_post.log", timeout)
         status["trace_pre_exists"] = (tdir / "trace_pre.json").exists()
         status["trace_post_exists"] = (tdir / "trace_post.json").exists()

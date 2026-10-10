@@ -37,8 +37,9 @@ from collections import Counter, defaultdict
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+from stats import wilson  # noqa: E402
 from common import (  # noqa: E402
-    BM25, Graph, ModuleIndex, Snapshot, Task, bfs_distance, containment_edge, extract_identifiers,
+    BM25, Graph, ModuleIndex, Resolver, Snapshot, Task, bfs_distance, containment_edge, extract_identifiers,
     find_snapshot, flat_identifiers, get_graph, gold_symbols, is_test_path, iter_defs, load_tasks,
     pct, qualname_to_node_id, resolve_node_name, shard, write_csv, write_jsonl,
 )
@@ -75,22 +76,49 @@ def graph_stats(g: Graph) -> dict:
     }
 
 
+def agent_queries(qualname: str) -> list[str]:
+    """Names an agent would plausibly pass to get_code_neighbors / search_similar_code for a def:
+    the bare name and, for methods, Class.method."""
+    parts = qualname.split(".")
+    qs = [parts[-1]]
+    if len(parts) >= 2 and "<locals>" not in parts[-2]:
+        qs.append(".".join(parts[-2:]))
+    return list(dict.fromkeys(qs))
+
+
+def classify_resolution(target: str, resolved: str | None, present: bool) -> str:
+    """self: lands on the def itself; no_match: tool returns nothing (honest miss);
+    wrong_node: tool silently returns a different symbol."""
+    if resolved is None:
+        return "no_match"
+    if resolved == target:
+        return "self"
+    return "wrong_node"
+
+
 def async_audit(g: Graph, snap: Snapshot, max_files: int | None = None) -> tuple[list[dict], dict]:
-    """For every .py file whose module has >=1 node, list defs and whether they are graph nodes."""
+    """Omission + misresolution audit over every def of every .py file that maps into the graph.
+
+    Omission: is the def a graph node? (split sync / async / class / nested)
+    Misresolution: what does the harness resolver return when an agent asks for the def by its
+    bare name or Class.method? (self / no_match / wrong_node, with tier and whether the wrong node is
+    a test node or shares the queried name)
+    Files whose module has no node at all but whose parent package does are included with
+    rule ``inferred:*`` (e.g. a module made only of async defs); report them separately.
+    """
     mi = ModuleIndex(g)
+    res = Resolver(g.nodes)
     rows = []
     agg = Counter()
     files = snap.list_files(".py")
-    # only files that map to a module with at least one node (so missing defs are real omissions)
     targets = []
     for f in files:
-        mod, rule = mi.module_for(f)
+        mod, rule = mi.module_for(f, infer=True)
         if mod is None:
             agg["files_unmapped"] += 1
             continue
-        if not any(nid == mod or nid.startswith(mod + ".") for nid in g.nodes):
-            agg["files_module_without_nodes"] += 1
-            continue
+        if rule.startswith("inferred"):
+            agg["files_inferred_module_without_nodes"] += 1
         targets.append((f, mod, rule))
     if max_files:
         targets = targets[:max_files]
@@ -105,9 +133,20 @@ def async_audit(g: Graph, snap: Snapshot, max_files: int | None = None) -> tuple
             cat = "nested" if d.nested else d.kind
             agg[f"{cat}_total"] += 1
             agg[f"{cat}_present"] += int(present)
-            rows.append({"graph_key": g.key, "file": f, "module": mod, "rule": rule, "node_id": nid,
-                         "kind": d.kind, "nested": d.nested, "present": present,
-                         "decorators": ";".join(d.decorators)[:200], "is_test": is_test_path(f)})
+            row = {"graph_key": g.key, "file": f, "module": mod, "rule": rule, "node_id": nid,
+                   "kind": d.kind, "nested": d.nested, "present": present,
+                   "decorators": ";".join(d.decorators)[:200], "is_test": is_test_path(f)}
+            for qi, q in enumerate(agent_queries(d.qualname)):
+                r_id, tier = res.resolve(q)
+                outcome = classify_resolution(nid, r_id, present)
+                key = "q_name" if qi == 0 else "q_qual"
+                row[f"{key}"] = q
+                row[f"{key}_resolved"] = r_id
+                row[f"{key}_tier"] = tier
+                row[f"{key}_outcome"] = outcome
+                row[f"{key}_resolved_is_test"] = bool(r_id and g.is_test_node(r_id))
+                row[f"{key}_resolved_same_name"] = bool(r_id and r_id.rsplit(".", 1)[-1] == d.qualname.rsplit(".", 1)[-1])
+            rows.append(row)
     agg["files_checked"] = len(targets)
     return rows, dict(agg)
 
@@ -128,10 +167,21 @@ def task_profile(task: Task, g: Graph | None, snap: Snapshot | None, bm25_cache:
     mi = ModuleIndex(g) if g else None
     gold_nodes: list[str] = []
     n_sym = n_present = n_nested = n_new = n_async = n_async_present = 0
+    resolver = Resolver(g.nodes) if g else None
+    n_gold_wrong = n_gold_nomatch = 0
     for s in syms:
-        mod, rule = (mi.module_for(s.file) if mi else (None, "none"))
+        mod, rule = (mi.module_for(s.file, infer=True) if mi else (None, "none"))
         nid = qualname_to_node_id(mod, s.qualname) if mod else None
         present = bool(g and nid and nid in g.nodes)
+        qres = {}
+        if resolver is not None and s.qualname and not s.new_symbol:
+            q = agent_queries(s.qualname)[-1]          # most specific name an agent would type
+            r_id, tier = resolver.resolve(q)
+            outcome = classify_resolution(nid, r_id, present)
+            qres = {"agent_query": q, "agent_query_resolved": r_id, "agent_query_tier": tier,
+                    "agent_query_outcome": outcome}
+            n_gold_wrong += int(outcome == "wrong_node")
+            n_gold_nomatch += int(outcome == "no_match")
         if s.qualname is not None:
             n_sym += 1
             n_present += int(present)
@@ -144,10 +194,11 @@ def task_profile(task: Task, g: Graph | None, snap: Snapshot | None, bm25_cache:
             gold_nodes.append(nid)
         gold_rows.append({"instance_id": task.instance_id, "file": s.file, "qualname": s.qualname, "kind": s.kind,
                           "nested": s.nested, "new_symbol": s.new_symbol, "source": s.source,
-                          "module": mod, "prefix_rule": rule, "node_id": nid, "present_in_graph": present})
+                          "module": mod, "prefix_rule": rule, "node_id": nid, "present_in_graph": present, **qres})
     row.update({"n_gold_symbols": n_sym, "n_gold_symbols_present": n_present, "n_gold_nested": n_nested,
                 "n_gold_new_symbols": n_new, "n_gold_async": n_async, "n_gold_async_present": n_async_present,
-                "gold_nodes": sorted(set(gold_nodes)), "module_level_only": n_sym == 0})
+                "gold_nodes": sorted(set(gold_nodes)), "module_level_only": n_sym == 0,
+                "n_gold_query_wrong_node": n_gold_wrong, "n_gold_query_no_match": n_gold_nomatch})
     if g is None:
         return row, gold_rows, id_rows
 
@@ -319,28 +370,77 @@ def summarize(task_rows, graph_rows, async_rows, id_rows) -> dict:
         "identifier_tier_hist": dict(Counter(r["tier"] for r in id_rows)),
         "identifier_resolved_to_test_node": sum(1 for r in id_rows if r.get("resolved_is_test")),
         "identifier_resolved_to_gold": sum(1 for r in id_rows if r.get("resolved_is_gold")),
-        "edge_types_union": dict(sum((Counter(json.loads(r["edge_types"])) for r in graph_rows), Counter())),
+        "edge_types_union": dict(sum((Counter(r["edge_types"] if isinstance(r["edge_types"], dict) else json.loads(r["edge_types"])) for r in graph_rows), Counter())),
     }
     if async_rows:
-        agg = Counter()
-        for r in async_rows:
-            cat = "nested" if r["nested"] else r["kind"]
-            agg[f"{cat}_total"] += 1
-            agg[f"{cat}_present"] += int(r["present"])
-        s["async_audit"] = {
-            k: v for k, v in agg.items()
-        }
-        for cat in ("function", "async_function", "class", "nested"):
-            s["async_audit"][f"{cat}_present_pct"] = pct(agg[f"{cat}_present"], agg[f"{cat}_total"])
-        per_repo = defaultdict(Counter)
         key_repo = {g["graph_key"]: g["repo"] for g in graph_rows}
+
+        def omission(rows):
+            out = {}
+            for cat in ("function", "async_function", "class", "nested"):
+                rs = [r for r in rows if ("nested" if r["nested"] else r["kind"]) == cat]
+                out[cat] = {"total": len(rs), "present": sum(1 for r in rs if r["present"]),
+                            "present_rate": wilson(sum(1 for r in rs if r["present"]), len(rs))}
+            return out
+
+        def misres(rows):
+            out = {}
+            for cat in ("function", "async_function", "class"):
+                for pres in (True, False):
+                    rs = [r for r in rows if not r["nested"] and r["kind"] == cat and r["present"] == pres]
+                    if not rs:
+                        continue
+                    for key in ("q_name", "q_qual"):
+                        rq = [r for r in rs if r.get(f"{key}_outcome")]
+                        if not rq:
+                            continue
+                        oc = Counter(r[f"{key}_outcome"] for r in rq)
+                        wrong = [r for r in rq if r[f"{key}_outcome"] == "wrong_node"]
+                        out[f"{cat}|{'present' if pres else 'absent'}|{key}"] = {
+                            "n": len(rq), "outcomes": dict(oc),
+                            "wrong_node_rate": wilson(oc["wrong_node"], len(rq)),
+                            "wrong_node_tiers": dict(Counter(r[f"{key}_tier"] for r in wrong)),
+                            "wrong_node_is_test": sum(1 for r in wrong if r[f"{key}_resolved_is_test"]),
+                            "wrong_node_same_name": sum(1 for r in wrong if r[f"{key}_resolved_same_name"])}
+            return out
+
+        direct = [r for r in async_rows if not str(r["rule"]).startswith("inferred")]
+        inferred = [r for r in async_rows if str(r["rule"]).startswith("inferred")]
+        s["omission_direct_files"] = omission(direct)
+        s["omission_inferred_module_files"] = omission(inferred)
+        s["misresolution"] = misres(async_rows)
+        per_repo = defaultdict(list)
+        for r in direct:
+            per_repo[key_repo.get(r["graph_key"], "?")].append(r)
+        s["omission_per_repo"] = {k: omission(v) for k, v in per_repo.items()}
+        per_repo_all = defaultdict(list)
         for r in async_rows:
-            cat = "nested" if r["nested"] else r["kind"]
-            c = per_repo[key_repo.get(r["graph_key"], "?")]
-            c[f"{cat}_total"] += 1
-            c[f"{cat}_present"] += int(r["present"])
-        s["async_audit_per_repo"] = {k: dict(v) for k, v in per_repo.items()}
+            per_repo_all[key_repo.get(r["graph_key"], "?")].append(r)
+        s["misresolution_per_repo"] = {k: misres(v) for k, v in per_repo_all.items()}
+    # task-level rates with intervals
+    n_graph = [r for r in task_rows if r.get("graph_available")]
+    s["task_rates"] = {
+        "d_defined": wilson(sum(1 for r in n_graph if r.get("d_defined")), len(n_graph)),
+        "v_high": wilson(sum(1 for r in n_graph if r.get("v_high")), len(n_graph)),
+        "has_gold_async": wilson(sum(1 for r in n_graph if (r.get("n_gold_async") or 0) > 0), len(n_graph)),
+        "gold_query_wrong_node": wilson(sum(1 for r in n_graph if (r.get("n_gold_query_wrong_node") or 0) > 0), len(n_graph)),
+    }
+    s["gold_symbol_present_rate"] = wilson(s["gold_symbols_present"], s["gold_symbols"])
+    s["gold_async_present_rate"] = wilson(s["gold_async_present"], s["gold_async"])
+    s["task_rates_per_repo"] = {
+        repo: {"n": len(rs),
+               "has_gold_async": wilson(sum(1 for r in rs if (r.get("n_gold_async") or 0) > 0), len(rs)),
+               "gold_query_wrong_node": wilson(sum(1 for r in rs if (r.get("n_gold_query_wrong_node") or 0) > 0), len(rs)),
+               "d_defined": wilson(sum(1 for r in rs if r.get("d_defined")), len(rs))}
+        for repo, rs in _group(n_graph, "repo").items()}
     return s
+
+
+def _group(rows, key):
+    out = defaultdict(list)
+    for r in rows:
+        out[r[key]].append(r)
+    return out
 
 
 def merge_shards(out: Path) -> None:
@@ -356,11 +456,15 @@ def merge_shards(out: Path) -> None:
                     if c not in cols:
                         cols.append(c)
                 rows.extend(r)
-        if stem in ("a1_graphs",):
+        # shards that share a base commit each audit that graph: keep one copy
+        keyf = {"a1_graphs": lambda r: r["graph_key"],
+                "a1_async_audit": lambda r: (r["graph_key"], r["file"], r["node_id"], r["kind"], r["nested"])}.get(stem)
+        if keyf is not None:
             seen, ded = set(), []
             for r in rows:
-                if r["graph_key"] not in seen:
-                    seen.add(r["graph_key"])
+                k = keyf(r)
+                if k not in seen:
+                    seen.add(k)
                     ded.append(r)
             rows = ded
         if rows:
@@ -374,6 +478,40 @@ def merge_shards(out: Path) -> None:
             lines.extend(Path(p).read_text(encoding="utf-8").splitlines())
         if lines:
             (out / f"{stem}.jsonl").write_text("\n".join(lines) + "\n")
+    # recompute the summary over all shards (per-shard summaries cover only their slice)
+    def load(stem):
+        p = out / f"{stem}.csv"
+        if not p.exists():
+            return []
+        with open(p, newline="", encoding="utf-8") as f:
+            return [{k: _coerce(v, k) for k, v in r.items()} for r in csv.DictReader(f)]
+    ids = [json.loads(l) for l in (out / "a1_identifiers.jsonl").read_text().splitlines()] if (out / "a1_identifiers.jsonl").exists() else []
+    summ = summarize(load("a1_tasks"), load("a1_graphs"), load("a1_async_audit"), ids)
+    summ["merged_from_shards"] = True
+    (out / "a1_summary.json").write_text(json.dumps(summ, indent=2))
+
+
+def _coerce(v, key=""):
+    """CSV string -> python value (bools, ints, floats, JSON lists/dicts, empty -> None)."""
+    if v is None or v == "":
+        return None
+    if key == "edge_types":
+        return v
+    if v in ("True", "False"):
+        return v == "True"
+    if v[:1] in "[{":
+        try:
+            return json.loads(v)
+        except Exception:
+            return v
+    try:
+        return int(v)
+    except ValueError:
+        pass
+    try:
+        return float(v)
+    except ValueError:
+        return v
 
 
 if __name__ == "__main__":
