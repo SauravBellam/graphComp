@@ -30,13 +30,29 @@ Read `compPhilosophy.md` before writing anything. Its rules apply to code too: e
 | A3 encoder ID, A4 probe | same box, CPU torch | +10 GB for models | EmbeddingGemma v1 (`google/embeddinggemma-300m`) is gated: needs a Hugging Face token with access accepted. v2 (`google/embeddinggemma-2`) is open |
 | A2 dynamic tracing | 16 vCPU, 64 GB (e.g. e2-standard-16), Docker | 150 GB | Run ~7 containers in parallel at 2 vCPU / 4 GB each (the harness's limits). Embarrassingly parallel across tasks; shard across VMs |
 
-## 4. Current status (Oct 10)
+## 4. Current status (Oct 10, updated later the same day)
 
-- **No experiments have run yet.** The schedule in the plan is ~3 days behind.
-- A partial implementation exists in `planA/` (written in an earlier session):
-  - `planA/common.py`: helpers (graph loading, harness-like name resolution, unified-diff parsing, gold-function mapping via `ast`, snapshot reading from `.tgz`, issue-identifier extraction, a small BM25).
-  - `planA/a1_census.py`: A1 + B1 (graph stats, gold coverage, structural distance d, BM25 visibility v). **Runs**: tested on 6 tasks, 9 s. Treat it as a draft: review it, fix the issues below, and test on all 129 before trusting numbers.
-  - A2, A3, A4, A5, A6 are **not written**. Design notes for A2 are in section 6.
+- **No experiments have run on the real data yet.** The schedule in the plan is ~3 days behind.
+- The earlier partial `planA/` draft, `compPhilosophy.md` and `archive/` were **not in this repository**
+  (only this file was committed), and the cloud sandbox cannot reach Kaggle or huggingface.co. The
+  archive lives on the user's machine at `/Users/sauravbellam/Desktop/Projects/graphComp/archive`.
+- A **complete Plan A implementation now exists in `planA/`** (A1/B1, A2 tracer + sharded runner +
+  analysis, A3, A4, A5, A6, and `run_all.py`, which runs every independent step in parallel). It was
+  written against the harness source (swegemma 0.2.7, obtained from public entrant repos) and the
+  HARNESS_README, and tested end to end on a synthetic archive (`pytest tests/`). Read
+  `planA/README.md` first: it lists every `VERIFY-ON-DATA` assumption that must be checked on the
+  real archive before any number is reported, and the exact commands to run.
+- Facts settled from the harness source: graph JSON is networkx node-link (`edges` key; nodes
+  `id`,`name`,`text`; edges `source`,`target`,`type`), embeddings `.npz` keyed by node id,
+  `get_code_neighbors(edge_type=...)` compares with `==` (so `"CALLS"` matches nothing when data
+  holds `calls`; unknown 8.2 is settled by code, confirm on data), `search_similar_code` resolves the
+  query via the 4-tier `resolve_node_name` (exact, `.`/`;` suffix, case-insensitive, substring; ties
+  to fewest dots then shortest id), Phase-2 pytest is `python3 -s -m pytest <test files> -p no:anyio
+  -o timeout=0 -o python_classes="Test* *Test" -q` with a harness-written `pytest.ini`/`conftest.py`.
+- Another entrant's notes (ns-0437/gemma4-developer-agent, agent notes point 10) independently claim:
+  "only `calls` edges, no async functions, ~half the graph/embedding files are empty (one of each
+  hard-link pair), embeddings have one dominant direction". Finding 5.1 is therefore corroborated but
+  not yet ours to report until A1 runs on all 127 graphs.
 
 ## 5. Findings from the first test run (verify across all graphs before reporting)
 
