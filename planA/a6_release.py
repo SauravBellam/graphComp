@@ -161,7 +161,7 @@ def add_dynamic_edges(gv2: dict, g, tasks_for_key: list, runs: Path, a2_rows: di
                 if st == "missing" and nid in node_ids:
                     st = "node"  # present in the typed graph though not in the provided one
                 mapped.append((nid, st))
-            f2p = set(a2_rows.get(t.instance_id, {}).get("fail_to_pass", []))
+            f2p = set(a2_rows.get(t.instance_id, {}).get("f2p_observed", []))
             tests = tr.get("tests", [])
             for c, e, tl in tr["edges_direct"]:
                 (cn, cs), (en, es) = mapped[c], mapped[e]
@@ -211,7 +211,7 @@ def main(argv=None):
     if args.a2_analysis and (args.a2_analysis / "a2_tasks.csv").exists():
         with open(args.a2_analysis / "a2_tasks.csv", newline="", encoding="utf-8") as f:
             for r in csv.DictReader(f):
-                for k in ("fail_to_pass", "gold_static_reachable_directed", "gold_executed_by_f2p_pre", "gold_executed_by_f2p_post"):
+                for k in ("f2p_observed",):
                     try:
                         r[k] = json.loads(r[k]) if r.get(k) else []
                     except Exception:
@@ -256,16 +256,28 @@ def main(argv=None):
             "multi_file": a.get("multi_file"), "n_gold_src_files": a.get("n_gold_src_files"),
             "n_gold_symbols": a.get("n_gold_symbols"), "n_gold_symbols_present": a.get("n_gold_symbols_present"),
             "gold_nodes": a.get("gold_nodes"), "n_identifiers": a.get("n_identifiers"), "n_anchors": a.get("n_resolved_any"),
-            "a2_recall_direct": b.get("recall_direct"), "a2_observed_precision": b.get("observed_precision"),
-            "a2_pct_nontest_nodes_executed": b.get("pct_nontest_nodes_executed"),
-            "a2_n_fail_to_pass": b.get("n_fail_to_pass"), "a2_gold_static_reachable": b.get("gold_any_static_reachable"),
-            "a2_gold_dyn_reachable": b.get("gold_any_dyn_reachable"),
+            "a2_run_class": b.get("run_class"), "a2_usable": b.get("usable"),
+            "a2_recall_representable_any": _ratio(b, "all_any_captured", ["all_any_captured", "all_any_missed_between_nodes"]),
+            "a2_recall_agent_facing_any": _ratio(b, "all_any_captured", ["all_any_captured", "all_any_missed_between_nodes",
+                                                                         "all_any_absent_async", "all_any_absent_nested", "all_any_absent_sync"]),
+            "a2_observed_precision": _ratio(b, "n_static_confirmed", ["n_static_observed"]),
+            "a2_n_f2p_confirmed": b.get("n_f2p_confirmed"),
+            "a2_gold_in_graph_executed": b.get("gold_in_graph_executed"), "a2_gold_absent_executed": b.get("gold_absent_executed"),
+            "a2_gold_static_reachable": b.get("gold_any_static_reachable"),
             "cell": _cell(a),
         })
     write_csv(args.out / "task_profile.csv", prof)
     summary["task_profile_cells"] = dict(Counter(p["cell"] for p in prof))
     (args.out / "a6_summary.json").write_text(json.dumps(summary, indent=2))
     print(json.dumps({k: v for k, v in summary.items() if k != "graphs"}, indent=2))
+
+
+def _ratio(row: dict, num: str, dens: list[str]):
+    try:
+        d = sum(int(row[k]) for k in dens)
+        return round(int(row[num]) / d, 4) if d else None
+    except (KeyError, ValueError, TypeError):
+        return None
 
 
 def _cell(a: dict) -> str:

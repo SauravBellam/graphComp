@@ -30,6 +30,7 @@ import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from a1_census import module_of_node  # noqa: E402
+from stats import mcnemar, mean_ci, wilson  # noqa: E402
 from common import (  # noqa: E402
     BM25, ModuleIndex, extract_identifiers, flat_identifiers, get_embeddings, get_graph, is_test_path, load_tasks,
     pct, read_jsonl, resolve_node_name, write_csv,
@@ -159,18 +160,32 @@ def main(argv=None):
     with_gold = [r for r in valid if r["n_gold_nodes"] > 0]
 
     def summ(rs):
-        return {m: {"hit10_node_pct": pct(sum(1 for r in rs if r.get(f"{m}_hit10_node")), len(rs)),
-                    "hit5_file_pct": pct(sum(1 for r in rs if r.get(f"{m}_hit5_file")), len(rs)),
-                    "mrr_node": round(sum(r.get(f"{m}_rr_node", 0) for r in rs) / len(rs), 4) if rs else None,
-                    "empty_pct": pct(sum(1 for r in rs if r.get(f"{m}_n_returned") == 0), len(rs))} for m in modes}
+        out = {}
+        for m in modes:
+            out[m] = {"hit10_node": wilson(sum(1 for r in rs if r.get(f"{m}_hit10_node")), len(rs)),
+                      "hit5_file": wilson(sum(1 for r in rs if r.get(f"{m}_hit5_file")), len(rs)),
+                      "mrr_node": mean_ci([r.get(f"{m}_rr_node", 0) for r in rs]),
+                      "empty": wilson(sum(1 for r in rs if r.get(f"{m}_n_returned") == 0), len(rs))}
+        # paired comparisons on the same tasks (H-A4: symbol-only harness mode vs free text / BM25)
+        pairs = [("a_harness", "b_bm25"), ("a_harness", "d_harness_1hop"), ("a0_anchors", "a_harness")]
+        if "c_freetext" in modes:
+            pairs += [("a_harness", "c_freetext"), ("b_bm25", "c_freetext")]
+        out["paired_mcnemar"] = {
+            f"{a}_vs_{b}": {metric: mcnemar([bool(r.get(f"{a}_{metric}")) for r in rs], [bool(r.get(f"{b}_{metric}")) for r in rs])
+                            for metric in ("hit10_node", "hit5_file")}
+            for a, b in pairs}
+        return out
 
     per_repo = defaultdict(list)
     for r in with_gold:
         per_repo[r["repo"]].append(r)
     summary = {"n_tasks": len(rows), "n_valid": len(valid), "n_with_gold_nodes": len(with_gold),
-               "tasks_zero_anchors": sum(1 for r in valid if r["n_anchors"] == 0),
+               "tasks_zero_anchors": wilson(sum(1 for r in valid if r["n_anchors"] == 0), len(valid)),
                "overall_tasks_with_gold_nodes": summ(with_gold),
-               "per_repo": {k: summ(v) for k, v in per_repo.items()}}
+               "per_repo": {k: summ(v) for k, v in per_repo.items()},
+               "note": "Hit rates are over tasks with >=1 gold node present in the graph; tasks whose gold "
+                       "functions are all absent (e.g. async) cannot be hit by any graph-based mode and are "
+                       "counted in n_valid - n_with_gold_nodes."}
     (args.out / "a5_summary.json").write_text(json.dumps(summary, indent=2))
     print(json.dumps(summary, indent=2))
 
