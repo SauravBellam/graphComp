@@ -188,6 +188,9 @@ def test_a4_a5_a6(results):
     assert a5["mini_1"]["b_bm25_node_rank"] != ""
     s5 = json.loads((results / "a5" / "a5_summary.json").read_text())
     ov = s5["overall_tasks_with_gold_nodes"]
+    # gap fixes: all-task denominators and the snapshot BM25 mode
+    assert s5["overall_all_tasks"]["a_harness"]["hit10_node"]["n"] == s5["n_valid"]
+    assert "e_bm25_snapshot" in s5["overall_all_tasks"] and "e_bm25_snapshot" in ov
     assert {"k", "n", "lo", "hi"} <= set(ov["a_harness"]["hit10_node"])
     assert "p_exact" in ov["paired_mcnemar"]["a_harness_vs_b_bm25"]["hit10_node"]
     prof = {r["instance_id"]: r for r in read_csv(results / "a6" / "task_profile.csv")}
@@ -271,8 +274,8 @@ def test_entry_nodes():
     assert entry_nodes([], tr, mapped) == set() and entry_nodes(["tests/t.py::test_a"], None, mapped) == set()
 
 
-def test_a8_scoring():
-    from a8_metrics import aggregate, required_tests, score_submission
+def test_a9_scoring():
+    from a9_metrics import aggregate, required_tests, score_submission
     from common import Task
     tp = "+def test_new():\n+    pass\n"
     t = Task(instance_id="x", repo="r/r", base_commit="c", test_patch=tp)
@@ -304,3 +307,74 @@ def test_a8_scoring():
     tests3 = required_tests(t3, {"tests/t.py::test_m": "failed"}, {"tests/t.py::test_m": "passed"})
     assert tests3[0]["source"] == "all_target_tests" and not tests3[0]["named"] and tests3[0]["discriminating"]
     assert score_submission(tests3, {"tests/t.py::test_m": "passed"})["strict_resolved"]
+def test_f2p_truly_added_and_pre_skipped():
+    sys.path.insert(0, str(ROOT / "planA" / "a2"))
+    from analyze import check_f2p, expected_f2p, expected_f2p_truly_added
+    from common import Task
+    # test_moved is removed and re-added (moved), test_new is truly added, test_skip is skipped pre-fix
+    tp = ("-def test_moved():\n-    pass\n+def test_moved():\n+    pass\n+def test_new():\n+    pass\n"
+          "+def test_skip():\n+    pass\n")
+    t = Task(instance_id="x", repo="r/r", base_commit="c", test_patch=tp)
+    assert expected_f2p(t)[0] == ["test_moved", "test_new", "test_skip"]
+    assert expected_f2p_truly_added(t)[0] == ["test_new", "test_skip"]
+    pre = {"t.py::test_moved": "passed", "t.py::test_new": "failed", "t.py::test_skip": "skipped"}
+    post = {"t.py::test_moved": "passed", "t.py::test_new": "passed", "t.py::test_skip": "passed"}
+    r = check_f2p(t, pre, post)
+    assert r["n_f2p_confirmed"] == 1 and r["n_f2p_pre_passed"] == 1 and r["n_f2p_pre_skipped"] == 1
+    assert r["n_f2p_added_expected"] == 2 and r["n_f2p_added_confirmed"] == 1 and r["n_f2p_added_pre_skipped"] == 1
+    assert r["harness_all_expected_pass_post"]
+
+
+def test_a8_classify():
+    import ast
+    from a8_edge_audit import classify, index_defs
+    src = ("class Foo:\n    def __init__(self):\n        self.helper()\n        Bar()\n"
+           "    def run(self, x):\n        compute(x)\n        x.process()\n        super().run(x)\n"
+           "        register(cb)\n        return 'nothing_here'\n"
+           "def outer():\n    def inner():\n        return deep()\n    return inner\n")
+    d, lines = index_defs(ast.parse(src)), src.splitlines()
+    want = {("Foo.run", "compute", False): "call_direct", ("Foo.run", "process", False): "call_attr_other",
+            ("Foo.run", "run", False): "call_super", ("Foo.run", "cb", False): "referenced",
+            ("Foo.run", "nothing_here", False): "text_only", ("Foo.run", "zzz", False): "no_reference",
+            ("Foo", "helper", False): "call_self", ("Foo", "Bar", True): "instantiation",
+            ("Foo.run", "__call__", False): "implicit_dunder", ("outer", "deep", False): "call_in_nested_scope",
+            ("outer.<locals>.inner", "deep", False): "call_direct"}
+    for (caller, callee, is_cls), how in want.items():
+        assert classify(d.get(caller), lines, callee, is_cls)[0] == how, (caller, callee)
+
+
+def test_a8_on_fixture(results, fixture_dir, tmp_path):
+    out = tmp_path / "a8"
+    p = subprocess.run([sys.executable, str(ROOT / "planA" / "a8_edge_audit.py"), "--data", str(fixture_dir),
+                        "--a2", str(results / "a2"), "--out", str(out), "--cache", str(tmp_path / "cache")],
+                       capture_output=True, text=True, timeout=600)
+    assert p.returncode == 0, p.stderr[-2000:]
+    rows = read_csv(out / "a8_edges.csv")
+    assert {r["population"] for r in rows} >= {"captured"}
+    assert all(r["how"] for r in rows)
+    s = json.loads((out / "a8_summary.json").read_text())
+    assert "captured" in s["all_edges"]
+
+
+def test_run_phase_deselects_hung_test(tmp_path):
+    """A test that swallows pytest-timeout's interrupt hangs the session; run_phase must kill the
+    process group, deselect that test, record it as failed and still produce a full trace."""
+    sys.path.insert(0, str(ROOT / "planA" / "a2"))
+    from run_task import run_phase
+    ws = tmp_path / "ws"
+    ws.mkdir()
+    (ws / "test_h.py").write_text("def test_ok():\n    assert True\n\n"
+                                  "def test_hang():\n    while True:\n        try:\n            while True:\n                pass\n"
+                                  "        except BaseException:\n            pass\n\n"
+                                  "def test_after():\n    assert True\n")
+    tdir = tmp_path / "out"
+    tdir.mkdir()
+    env = dict(os.environ)
+    env["PYTHONPATH"] = str(ROOT / "planA" / "a2")
+    env.pop("PYTEST_ADDOPTS", None)
+    r = run_phase(sys.executable, ws, ["test_h.py"], env, tdir, "pre", timeout=20, test_timeout=2, deselect_hung=True)
+    assert r["hung_tests"] == ["test_h.py::test_hang"], r
+    assert r["run_class"] == "clean" and len(r["attempts"]) == 2
+    tr = json.loads((tdir / "trace_pre.json").read_text())
+    assert tr["partial"] is False and tr["outcomes"]["test_h.py::test_hang"] == "failed"
+    assert tr["outcomes"]["test_h.py::test_ok"] == "passed" and tr["outcomes"]["test_h.py::test_after"] == "passed"

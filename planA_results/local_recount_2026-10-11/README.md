@@ -15,6 +15,6 @@ Produced on the analysis machine from files already in this repository, with the
 | Folder | Command |
 | --- | --- |
 | `a2_v2/` | `a2/analyze.py --data <stand-in archive> --runs vm-a2/results/a2_runs --a1 <a1_tasks.csv + a1_gold_symbols.jsonl> --out a2_v2` |
-| `a8/` | `a8_metrics.py --data <stand-in> --a1 <same> --a2-analysis a2_v2 --runs vm-a2/results/a2_runs --out a8` |
+| `a9/` | `a9_metrics.py --data <stand-in> --a1 <same> --a2-analysis a2_v2 --runs vm-a2/results/a2_runs --out a9` |
 
-`ops/rerun_fixes.sh` reproduces both on the VM against the real archive, into `<results>/a2_v2` and `<results>/a8`.
+`ops/rerun_fixes.sh` reproduces both on the VM against the real archive, into `<results>/a2_v2` and `<results>/a9`.

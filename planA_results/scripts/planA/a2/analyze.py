@@ -172,11 +172,28 @@ def test_node_id(nodeid: str) -> str:
 
 # --- fail-to-pass expectations (same matching rules as swegemma verification) -------------------
 
+_ADDED_TEST_DEF = re.compile(r"^\+\s*(?:async\s+)?def\s+(test_[A-Za-z0-9_]+)\s*\(", re.M)
+_REMOVED_TEST_DEF = re.compile(r"^-\s*(?:async\s+)?def\s+(test_[A-Za-z0-9_]+)\s*\(", re.M)
+
+
 def expected_f2p(task) -> tuple[list[str], str]:
+    """The harness's rule: FAIL_TO_PASS when given, else every `def test_*` on a '+' line of test_patch."""
     if task.FAIL_TO_PASS:
         return list(task.FAIL_TO_PASS), "tasks.jsonl"
-    added = re.findall(r"^\+\s*(?:async\s+)?def\s+(test_[A-Za-z0-9_]+)\s*\(", task.test_patch or "", re.M)
+    added = _ADDED_TEST_DEF.findall(task.test_patch or "")
     return list(dict.fromkeys(added)), "test_patch_added_defs"
+
+
+def expected_f2p_truly_added(task) -> tuple[list[str], str]:
+    """Diff-aware variant: drop test names that also appear on a '-' def line of the patch, i.e. tests
+    the patch moves or rewrites rather than adds (their pre-fix version existed and could pass). Used as
+    a sensitivity set next to the harness rule; FAIL_TO_PASS, when given, is used unchanged."""
+    if task.FAIL_TO_PASS:
+        return list(task.FAIL_TO_PASS), "tasks.jsonl"
+    patch = task.test_patch or ""
+    removed = set(_REMOVED_TEST_DEF.findall(patch))
+    added = [n for n in _ADDED_TEST_DEF.findall(patch) if n not in removed]
+    return list(dict.fromkeys(added)), "test_patch_truly_added_defs"
 
 
 def _matches(nodeid: str, req: str) -> bool:
@@ -197,8 +214,7 @@ def _matches(nodeid: str, req: str) -> bool:
     return name == req_short or base == req_base
 
 
-def check_f2p(task, pre_out: dict, post_out: dict) -> dict:
-    reqs, source = expected_f2p(task)
+def _f2p_statuses(reqs: list[str], pre_out: dict, post_out: dict) -> tuple[Counter, list[str]]:
     statuses = []
     uncollected_pre_tests: list[str] = []
     for req in reqs:
@@ -209,6 +225,7 @@ def check_f2p(task, pre_out: dict, post_out: dict) -> dict:
         post_ok = all(post_out.get(t) == "passed" for t in hits)
         pre_bad = any(pre_out.get(t) in ("failed", "error") for t in hits)
         pre_missing = all(t not in pre_out for t in hits)
+        pre_skipped = all(pre_out.get(t) == "skipped" for t in hits if t in pre_out) and not pre_missing
         if pre_bad and post_ok:
             statuses.append("confirmed")
         elif pre_missing and post_ok:
@@ -216,19 +233,37 @@ def check_f2p(task, pre_out: dict, post_out: dict) -> dict:
             # would count the pre state as failing (non-zero exit); keep it apart from a real pre pass
             statuses.append("uncollected_pre")
             uncollected_pre_tests += [t for t in hits if post_out.get(t) == "passed"]
+        elif pre_skipped and post_ok:
+            statuses.append("pre_skipped")    # skipped before the fix, passed after: not a pre pass
         elif not pre_bad:
             statuses.append("pre_passed")
         else:
             statuses.append("post_failed")
-    c = Counter(statuses)
+    return Counter(statuses), uncollected_pre_tests
+
+
+def check_f2p(task, pre_out: dict, post_out: dict) -> dict:
+    reqs, source = expected_f2p(task)
+    c, uncollected_pre_tests = _f2p_statuses(reqs, pre_out, post_out)
     observed = [t for t, o in pre_out.items() if o in ("failed", "error") and post_out.get(t) == "passed"]
     extra = [t for t in observed if not any(_matches(t, r) for r in reqs)]
     post_counts = Counter(post_out.values())
-    all_post_pass = bool(reqs) and c["confirmed"] + c["uncollected_pre"] + c["pre_passed"] == len(reqs)
+    passes_post = ("confirmed", "uncollected_pre", "pre_skipped", "pre_passed")
+    all_post_pass = bool(reqs) and sum(c[k] for k in passes_post) == len(reqs)
+    # diff-aware sensitivity set: only tests the patch truly adds (not moved / rewritten ones)
+    reqs_add, source_add = expected_f2p_truly_added(task)
+    ca, _ = _f2p_statuses(reqs_add, pre_out, post_out)
+    added = {"f2p_added_expected_source": source_add, "n_f2p_added_expected": len(reqs_add),
+             "n_f2p_added_confirmed": ca["confirmed"], "n_f2p_added_uncollected_pre": ca["uncollected_pre"],
+             "n_f2p_added_pre_skipped": ca["pre_skipped"], "n_f2p_added_pre_passed": ca["pre_passed"],
+             "n_f2p_added_post_failed": ca["post_failed"], "n_f2p_added_not_collected": ca["not_collected"],
+             "f2p_added_all_confirmed": bool(reqs_add) and ca["confirmed"] == len(reqs_add),
+             "f2p_added_all_confirmed_or_uncollected": bool(reqs_add) and ca["confirmed"] + ca["uncollected_pre"] == len(reqs_add)}
     return {"f2p_expected_source": source, "n_f2p_expected": len(reqs), "n_f2p_confirmed": c["confirmed"],
-            "n_f2p_uncollected_pre": c["uncollected_pre"],
+            "n_f2p_uncollected_pre": c["uncollected_pre"], "n_f2p_pre_skipped": c["pre_skipped"],
             "n_f2p_pre_passed": c["pre_passed"], "n_f2p_post_failed": c["post_failed"],
             "n_f2p_not_collected": c["not_collected"], "n_f2p_observed": len(observed), "n_f2p_extra": len(extra),
+            **added,
             "f2p_all_confirmed": bool(reqs) and c["confirmed"] == len(reqs),
             "f2p_all_confirmed_or_uncollected": bool(reqs) and c["confirmed"] + c["uncollected_pre"] == len(reqs),
             # the harness's own criterion needs only the post run: exit 0 and every required test passed
@@ -268,11 +303,23 @@ def run_validity(tdir: Path, st: dict) -> dict:
 
 # --- per task analysis -----------------------------------------------------------------------
 
-def analyze_task(task, g: Graph, tr_pre: dict, tr_post: dict | None, gold_rows: list[dict],
-                 kind_fallback: dict[str, str]) -> tuple[dict, list[dict], list[dict], list[dict]]:
+def pre_trace_missing(tr_pre: dict | None) -> bool:
+    """No usable pre-fix trace: absent (run killed) or no test executed (collection/import error)."""
+    if not tr_pre:
+        return True
+    return not any(not t.startswith("<") for t in tr_pre.get("per_test_exec", {}))
+
+
+def analyze_task(task, g: Graph, tr_pre: dict | None, tr_post: dict | None, gold_rows: list[dict],
+                 kind_fallback: dict[str, str], edges_from_post: bool = False
+                 ) -> tuple[dict, list[dict], list[dict], list[dict]]:
+    """edges_from_post: attribute edges (recall / precision) from the post-fix trace instead of the
+    pre-fix one. Only used, opt-in, when the pre-fix trace is missing or empty; edges incident to a
+    gold symbol are then dropped from the counts because the patch changed those functions."""
     m = Mapper(g)
-    mp = map_trace(tr_pre, m, kind_fallback)
+    mp = map_trace(tr_pre, m, kind_fallback) if tr_pre else []
     mq = map_trace(tr_post, m, kind_fallback) if tr_post else []
+    tr_edges, m_edges = (tr_post, mq) if edges_from_post else (tr_pre or {}, mp)
 
     def collapse(n: str) -> str:
         return n[:-9] if n.endswith(".__init__") and n[:-9] in g.nodes else n
@@ -281,16 +328,17 @@ def analyze_task(task, g: Graph, tr_pre: dict, tr_post: dict | None, gold_rows: 
     static_norm = {(s, d) for s, d in static_norm if s != d and not containment_edge(s, d)}
     gold_ids = {r["node_id"] for r in gold_rows if r.get("node_id") and r.get("qualname") and not r.get("new_symbol")}
 
-    pre_out = tr_pre.get("outcomes", {})
+    pre_out = (tr_pre or {}).get("outcomes", {})
     post_out = (tr_post or {}).get("outcomes", {})
     f2p = check_f2p(task, pre_out, post_out)
     f2p_tests = f2p["f2p_observed"]
 
-    # ---- edge attribution
-    tests = tr_pre.get("tests", [])
+    # ---- edge attribution (pre-fix trace; post-fix trace only under edges_from_post)
+    tests = tr_edges.get("tests", [])
     edges: dict[tuple[int, int], dict] = {}
+    n_gold_edges_dropped = 0
     for channel in ("edges_direct", "edges_vialib"):
-        for c, e, tl in tr_pre.get(channel, []):
+        for c, e, tl in tr_edges.get(channel, []):
             k = (c, e)
             if k in edges:
                 edges[k]["n_tests"] = max(edges[k]["n_tests"], len(tl))
@@ -302,9 +350,12 @@ def analyze_task(task, g: Graph, tr_pre: dict, tr_post: dict | None, gold_rows: 
     counts = Counter()
     captured_pairs, dyn_node_pairs = set(), set()
     for rec in edges.values():
-        a, b = mp[rec["c"]], mp[rec["e"]]
+        a, b = m_edges[rec["c"]], m_edges[rec["e"]]
         if a["module_level"] or b["module_level"]:
             n_module_level += 1
+            continue
+        if edges_from_post and ({a["nid"], a["raw"], b["nid"], b["raw"]} & gold_ids):
+            n_gold_edges_dropped += 1     # post-fix code of a patched function: not the base graph's call
             continue
 
         def absent_reason(x):
@@ -346,7 +397,9 @@ def analyze_task(task, g: Graph, tr_pre: dict, tr_post: dict | None, gold_rows: 
                          "subcause": sub, "nontest": nontest, "gold_incident": gold_inc, "n_tests": rec["n_tests"],
                          "seen_in_f2p_test": rec["f2p"]})
 
-    executed = {x["nid"] for x in mp if x["status"] in ("node", "collapsed_init")}
+    executed = {x["nid"] for x in m_edges if x["status"] in ("node", "collapsed_init")}
+    if edges_from_post:
+        executed -= gold_ids
     static_observed = {(s, d) for s, d in static_norm if s in executed and d in executed}
     static_confirmed = static_observed & dyn_node_pairs
     unconfirmed = [{"instance_id": task.instance_id, "src": s, "dst": d,
@@ -365,7 +418,7 @@ def analyze_task(task, g: Graph, tr_pre: dict, tr_post: dict | None, gold_rows: 
                         out.add(v)
         return out
 
-    all_tests_pre = [t for t in tr_pre.get("per_test_exec", {}) if not t.startswith("<")]
+    all_tests_pre = [t for t in (tr_pre or {}).get("per_test_exec", {}) if not t.startswith("<")]
     exec_f2p = executed_by(mp, tr_pre, f2p_tests) | executed_by(mq, tr_post, f2p_tests)
     exec_any = executed_by(mp, tr_pre, all_tests_pre) | (executed_by(mq, tr_post, [t for t in (tr_post or {}).get("per_test_exec", {}) if not t.startswith("<")]) if tr_post else set())
     # (a) sources = the f2p test's own node when the base graph has it (rare: f2p tests are new)
@@ -430,6 +483,7 @@ def analyze_task(task, g: Graph, tr_pre: dict, tr_post: dict | None, gold_rows: 
            "n_dyn_module_level_edges": n_module_level, "n_dyn_self_or_containment": n_self,
            "n_static_calls": len(static_norm), "n_static_observed": len(static_observed),
            "n_static_confirmed": len(static_confirmed),
+           "edges_from": "post" if edges_from_post else "pre", "n_gold_edges_dropped": n_gold_edges_dropped,
            **f2p, "f2p_source_levels": dict(levels)}
     row["f2p_observed"] = row["f2p_observed"][:30]
     row["f2p_uncollected_pre"] = row["f2p_uncollected_pre"][:30]
@@ -562,7 +616,9 @@ def summarize(rows: list[dict]) -> dict:
             sum(1 for r in exec_entry if not r["gold_any_static_reachable_entry"] and r["gold_executed_static_reachable_entry_undirected"] > 0), len(exec_entry))
         b["gold_min_hops_from_entry_hist"] = dict(Counter(str(r.get("gold_min_hops_from_entry_directed")) for r in exec_entry))
         b["f2p_statuses"] = {k: sum(r.get(f"n_f2p_{k}", 0) for r in rs)
-                             for k in ("expected", "confirmed", "uncollected_pre", "pre_passed", "post_failed", "not_collected")}
+                             for k in ("expected", "confirmed", "uncollected_pre", "pre_skipped", "pre_passed", "post_failed", "not_collected")}
+        b["f2p_statuses_truly_added"] = {k: sum(r.get(f"n_f2p_added_{k}", 0) for r in rs)
+                                         for k in ("expected", "confirmed", "uncollected_pre", "pre_skipped", "pre_passed", "post_failed", "not_collected")}
         b["tasks_harness_resolved_post"] = wilson(sum(1 for r in rs if r.get("harness_all_expected_pass_post")), len(rs))
         b["gold_status_counts"] = {k: sum(r[f"gold_{k}"] for r in rs) for k in
                                    ("in_graph_executed", "in_graph_not_executed", "absent_executed", "absent_not_executed",
@@ -574,10 +630,20 @@ def summarize(rows: list[dict]) -> dict:
 
     usable = [r for r in rows if r.get("usable")]
     strict = [r for r in usable if r.get("f2p_all_confirmed")]
+    strict_added = [r for r in usable if r.get("f2p_added_all_confirmed")]
+    # edge-only extension: usable tasks plus tasks whose edges came from the post-fix trace (pre trace
+    # missing/empty) and whose post run passed every expected test. Use for recall/precision only.
+    post_edges = [r for r in rows if r.get("edges_from") == "post" and r.get("post_run_class") == "clean"
+                  and r.get("harness_all_expected_pass_post")]
     by_repo = defaultdict(list)
     for r in rows:
         by_repo[r["repo"]].append(r)
-    return {"usable_tasks": block(usable), "strict_tasks": block(strict), "all_analyzed_tasks": block(rows),
+    out = {"usable_tasks": block(usable), "strict_tasks": block(strict),
+           "strict_truly_added_tasks": block(strict_added)}
+    if post_edges:
+        out["usable_plus_post_edge_tasks"] = block(usable + [r for r in post_edges if not r.get("usable")])
+        out["post_edge_tasks_only"] = block(post_edges)
+    return {**out, "all_analyzed_tasks": block(rows),
             "per_repo_usable": {k: block([r for r in v if r.get("usable")]) for k, v in by_repo.items()},
             "per_repo_all": {k: block(v) for k, v in by_repo.items()}}
 
@@ -588,6 +654,10 @@ def main(argv=None):
     ap.add_argument("--runs", required=True, type=Path, help="A2 run dir (<out> of run_task.py)")
     ap.add_argument("--a1", required=True, type=Path, help="A1 output dir")
     ap.add_argument("--out", required=True, type=Path)
+    ap.add_argument("--edges-from-post-when-pre-missing", action="store_true",
+                    help="for tasks whose pre-fix trace is missing or empty (killed run, collection/import "
+                         "error), attribute edges from the post-fix trace (gold-incident edges dropped); "
+                         "reported in separate summary blocks, 'usable' is unchanged")
     args = ap.parse_args(argv)
     args.out.mkdir(parents=True, exist_ok=True)
 
@@ -614,17 +684,23 @@ def main(argv=None):
         tr_pre = load_trace(tdir / "trace_pre.json")
         tr_post = load_trace(tdir / "trace_post.json")
         srow = {"instance_id": t.instance_id, "repo": t.repo, **val}
-        if g is None or tr_pre is None:
+        use_post = bool(args.edges_from_post_when_pre_missing and tr_post and pre_trace_missing(tr_pre))
+        if g is None or (tr_pre is None and not use_post):
             srow["usable"] = False
             status_rows.append(srow)
             continue
-        row, dyn, unconf, gold = analyze_task(t, g, tr_pre, tr_post, gold_by_task.get(t.instance_id, []), kind_fallback)
+        row, dyn, unconf, gold = analyze_task(t, g, tr_pre, tr_post, gold_by_task.get(t.instance_id, []), kind_fallback,
+                                              edges_from_post=use_post)
         row["run_class"] = val["run_class"]
+        row["post_run_class"] = val.get("post_run_class")
         row["usable"] = val["run_class"] == "clean" and row["n_f2p_confirmed"] > 0
         row["strict"] = bool(row["usable"] and row["f2p_all_confirmed"])
+        row["strict_truly_added"] = bool(row["usable"] and row["f2p_added_all_confirmed"])
         srow.update({k: row[k] for k in ("n_f2p_expected", "f2p_expected_source", "n_f2p_confirmed", "n_f2p_uncollected_pre",
-                                         "n_f2p_pre_passed", "n_f2p_post_failed", "n_f2p_not_collected", "n_f2p_extra",
-                                         "harness_all_expected_pass_post", "usable", "strict")})
+                                         "n_f2p_pre_skipped", "n_f2p_pre_passed", "n_f2p_post_failed", "n_f2p_not_collected",
+                                         "n_f2p_extra", "n_f2p_added_expected", "n_f2p_added_confirmed",
+                                         "harness_all_expected_pass_post", "usable", "strict", "strict_truly_added",
+                                         "edges_from")})
         status_rows.append(srow)
         rows.append(row)
         dyn_all += dyn
@@ -654,6 +730,11 @@ def main(argv=None):
                               "tasks_all_expected_confirmed_or_uncollected": sum(1 for r in rows if r.get("f2p_all_confirmed_or_uncollected")),
                               "tasks_harness_resolved_post": sum(1 for r in rows if r.get("harness_all_expected_pass_post")),
                               "tasks_strict": sum(1 for r in rows if r.get("strict")),
+                              "tasks_strict_truly_added": sum(1 for r in rows if r.get("strict_truly_added")),
+                              "pre_skipped": sum(r.get("n_f2p_pre_skipped", 0) for r in rows),
+                              "truly_added_expected": sum(r.get("n_f2p_added_expected", 0) for r in rows),
+                              "truly_added_confirmed": sum(r.get("n_f2p_added_confirmed", 0) for r in rows),
+                              "tasks_edges_from_post": sum(1 for r in rows if r.get("edges_from") == "post"),
                               "expected": sum(r.get("n_f2p_expected", 0) for r in rows),
                               "confirmed": sum(r.get("n_f2p_confirmed", 0) for r in rows),
                               "uncollected_pre": sum(r.get("n_f2p_uncollected_pre", 0) for r in rows),

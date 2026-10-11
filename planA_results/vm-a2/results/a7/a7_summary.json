@@ -1,0 +1,2410 @@
+{
+  "per_repo": {
+    "fastapi/fastapi": {
+      "n_graphs": 67,
+      "provided": {
+        "matched_def": 256383,
+        "matched_nested_flat": 8033,
+        "class_dropped_method": 1409
+      },
+      "defs": {
+        "async_function|absent_async": 56389,
+        "class|present": 51431,
+        "function|present": 205054,
+        "nested|absent_async": 4428,
+        "nested|present_nested_flat": 12915,
+        "class|present_class_dropped": 1279,
+        "nested|present_class_dropped": 404
+      }
+    },
+    "psf/requests": {
+      "n_graphs": 12,
+      "provided": {
+        "matched_def": 6658,
+        "matched_nested_flat": 277,
+        "class_dropped_method": 1619,
+        "unmatched": 268
+      },
+      "defs": {
+        "class|present": 869,
+        "function|present": 5869,
+        "function|present_class_dropped": 1425,
+        "nested|absent_nested": 340,
+        "nested|present_class_dropped": 242,
+        "nested|present_nested_flat": 412
+      }
+    },
+    "Textualize/rich": {
+      "n_graphs": 47,
+      "provided": {
+        "matched_def": 86613,
+        "matched_nested_flat": 5985
+      },
+      "defs": {
+        "class|present": 10174,
+        "function|present": 77708,
+        "nested|absent_async": 47,
+        "nested|absent_nested": 47,
+        "nested|present_nested_flat": 8042
+      }
+    },
+    "encode/httpx": {
+      "n_graphs": 1,
+      "provided": {
+        "matched_def": 739,
+        "matched_nested_flat": 1
+      },
+      "defs": {
+        "async_function|absent_async": 98,
+        "class|present": 78,
+        "function|present": 661,
+        "nested|absent_async": 2,
+        "nested|present_nested_flat": 1
+      }
+    }
+  },
+  "graphs": [
+    {
+      "graph_key": "fastapi_016ab760faba1813ba235d5582a014a58bd2f417",
+      "n_provided": 4287,
+      "provided": {
+        "matched_def": 4142,
+        "matched_nested_flat": 145
+      },
+      "defs": {
+        "async_function|absent_async": 734,
+        "class|present": 641,
+        "function|present": 3501,
+        "nested|absent_async": 75,
+        "nested|present_nested_flat": 235
+      },
+      "files_checked": 1023,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "fastapi_1fcec88ad2df4541b6a81c4786c4d039dc745e1e",
+      "n_provided": 4479,
+      "provided": {
+        "matched_def": 4326,
+        "class_dropped_method": 36,
+        "matched_nested_flat": 117
+      },
+      "defs": {
+        "async_function|absent_async": 1053,
+        "class|present": 947,
+        "class|present_class_dropped": 33,
+        "function|present": 3379,
+        "nested|absent_async": 74,
+        "nested|present_class_dropped": 10,
+        "nested|present_nested_flat": 188
+      },
+      "files_checked": 1161,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "fastapi_3c54a8f07b70cdd40e3d81ea319e9fcccd2481d2",
+      "n_provided": 3757,
+      "provided": {
+        "matched_def": 3612,
+        "class_dropped_method": 36,
+        "matched_nested_flat": 109
+      },
+      "defs": {
+        "async_function|absent_async": 857,
+        "class|present": 814,
+        "class|present_class_dropped": 33,
+        "function|present": 2798,
+        "nested|absent_async": 59,
+        "nested|present_class_dropped": 10,
+        "nested|present_nested_flat": 176
+      },
+      "files_checked": 1079,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "fastapi_516169428d2fa189d34318ebc469a082c49c1189",
+      "n_provided": 3837,
+      "provided": {
+        "matched_def": 3688,
+        "class_dropped_method": 36,
+        "matched_nested_flat": 113
+      },
+      "defs": {
+        "async_function|absent_async": 923,
+        "class|present": 835,
+        "class|present_class_dropped": 33,
+        "function|present": 2853,
+        "nested|absent_async": 61,
+        "nested|present_class_dropped": 10,
+        "nested|present_nested_flat": 181
+      },
+      "files_checked": 1088,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "fastapi_6513d4daa16a536d17743de6a292f49bd06388a4",
+      "n_provided": 4264,
+      "provided": {
+        "matched_def": 4116,
+        "matched_nested_flat": 138,
+        "class_dropped_method": 10
+      },
+      "defs": {
+        "async_function|absent_async": 885,
+        "class|present": 815,
+        "class|present_class_dropped": 6,
+        "function|present": 3301,
+        "nested|absent_async": 82,
+        "nested|present_class_dropped": 6,
+        "nested|present_nested_flat": 210
+      },
+      "files_checked": 1025,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "fastapi_811fa898752e7f5697733a2958ff79ad8dfb5276",
+      "n_provided": 3818,
+      "provided": {
+        "matched_def": 3671,
+        "matched_nested_flat": 111,
+        "class_dropped_method": 36
+      },
+      "defs": {
+        "async_function|absent_async": 915,
+        "class|present": 834,
+        "class|present_class_dropped": 33,
+        "function|present": 2837,
+        "nested|absent_async": 61,
+        "nested|present_class_dropped": 10,
+        "nested|present_nested_flat": 179
+      },
+      "files_checked": 1085,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "fastapi_a7f2dbe976bf72703376f0cd04487bfc4a849f83",
+      "n_provided": 3255,
+      "provided": {
+        "matched_def": 3134,
+        "matched_nested_flat": 87,
+        "class_dropped_method": 34
+      },
+      "defs": {
+        "async_function|absent_async": 830,
+        "class|present": 735,
+        "class|present_class_dropped": 31,
+        "function|present": 2416,
+        "nested|absent_async": 52,
+        "nested|present_class_dropped": 10,
+        "nested|present_nested_flat": 146
+      },
+      "files_checked": 1014,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "fastapi_cff2236dacb7aedcaf2d2de0873cfbc9bb2b897a",
+      "n_provided": 3774,
+      "provided": {
+        "matched_def": 3628,
+        "class_dropped_method": 36,
+        "matched_nested_flat": 110
+      },
+      "defs": {
+        "async_function|absent_async": 867,
+        "class|present": 815,
+        "class|present_class_dropped": 33,
+        "function|present": 2813,
+        "nested|absent_async": 59,
+        "nested|present_class_dropped": 10,
+        "nested|present_nested_flat": 177
+      },
+      "files_checked": 1082,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "fastapi_eead41bf4cf8587b4d86091dd3eabbb85796e717",
+      "n_provided": 3761,
+      "provided": {
+        "matched_def": 3616,
+        "matched_nested_flat": 109,
+        "class_dropped_method": 36
+      },
+      "defs": {
+        "async_function|absent_async": 858,
+        "class|present": 814,
+        "class|present_class_dropped": 33,
+        "function|present": 2802,
+        "nested|absent_async": 59,
+        "nested|present_class_dropped": 10,
+        "nested|present_nested_flat": 176
+      },
+      "files_checked": 1080,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "requests_382fc2c0c6c0ef0874bc65bc1175f97c073e5086",
+      "n_provided": 714,
+      "provided": {
+        "matched_def": 537,
+        "matched_nested_flat": 22,
+        "class_dropped_method": 133,
+        "unmatched": 22
+      },
+      "defs": {
+        "class|present": 69,
+        "function|present": 468,
+        "function|present_class_dropped": 117,
+        "nested|absent_nested": 28,
+        "nested|present_class_dropped": 20,
+        "nested|present_nested_flat": 28
+      },
+      "files_checked": 35,
+      "repo": "psf/requests"
+    },
+    {
+      "graph_key": "rich_01b85ac116c4635b6ddb8b488be8254be6df2a84",
+      "n_provided": 1925,
+      "provided": {
+        "matched_def": 1801,
+        "matched_nested_flat": 124
+      },
+      "defs": {
+        "class|present": 213,
+        "function|present": 1615,
+        "nested|absent_async": 1,
+        "nested|absent_nested": 1,
+        "nested|present_nested_flat": 167
+      },
+      "files_checked": 188,
+      "repo": "Textualize/rich"
+    },
+    {
+      "graph_key": "rich_1fc7cb210ae52eb099df39818ddb9569e5b14c7b",
+      "n_provided": 2015,
+      "provided": {
+        "matched_def": 1882,
+        "matched_nested_flat": 133
+      },
+      "defs": {
+        "class|present": 219,
+        "function|present": 1690,
+        "nested|absent_async": 1,
+        "nested|absent_nested": 1,
+        "nested|present_nested_flat": 178
+      },
+      "files_checked": 206,
+      "repo": "Textualize/rich"
+    },
+    {
+      "graph_key": "rich_49117ced6648a432d85951f72dce777038f6ce09",
+      "n_provided": 1979,
+      "provided": {
+        "matched_def": 1848,
+        "matched_nested_flat": 131
+      },
+      "defs": {
+        "class|present": 216,
+        "function|present": 1659,
+        "nested|absent_async": 1,
+        "nested|absent_nested": 1,
+        "nested|present_nested_flat": 176
+      },
+      "files_checked": 188,
+      "repo": "Textualize/rich"
+    },
+    {
+      "graph_key": "rich_66074922edabeac684434b4d87ee994fb97b0627",
+      "n_provided": 1970,
+      "provided": {
+        "matched_def": 1845,
+        "matched_nested_flat": 125
+      },
+      "defs": {
+        "class|present": 216,
+        "function|present": 1656,
+        "nested|absent_async": 1,
+        "nested|absent_nested": 1,
+        "nested|present_nested_flat": 168
+      },
+      "files_checked": 188,
+      "repo": "Textualize/rich"
+    },
+    {
+      "graph_key": "rich_9ec419154102acce7363e3958bec6c261864d7fb",
+      "n_provided": 1961,
+      "provided": {
+        "matched_def": 1836,
+        "matched_nested_flat": 125
+      },
+      "defs": {
+        "class|present": 216,
+        "function|present": 1647,
+        "nested|absent_async": 1,
+        "nested|absent_nested": 1,
+        "nested|present_nested_flat": 168
+      },
+      "files_checked": 188,
+      "repo": "Textualize/rich"
+    },
+    {
+      "graph_key": "rich_e1e6d745f670ff3df6b8f47377c0a4006cb74066",
+      "n_provided": 1953,
+      "provided": {
+        "matched_def": 1829,
+        "matched_nested_flat": 124
+      },
+      "defs": {
+        "class|present": 216,
+        "function|present": 1640,
+        "nested|absent_async": 1,
+        "nested|absent_nested": 1,
+        "nested|present_nested_flat": 167
+      },
+      "files_checked": 188,
+      "repo": "Textualize/rich"
+    },
+    {
+      "graph_key": "fastapi_08924400c2c75533685148b029defcf6913f1def",
+      "n_provided": 4330,
+      "provided": {
+        "matched_def": 4197,
+        "matched_nested_flat": 129,
+        "class_dropped_method": 4
+      },
+      "defs": {
+        "async_function|absent_async": 870,
+        "class|present": 772,
+        "class|present_class_dropped": 4,
+        "function|present": 3425,
+        "nested|absent_async": 73,
+        "nested|present_nested_flat": 191
+      },
+      "files_checked": 1127,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "fastapi_202b2d2f5f331db9102b5dbcef071a9e09bed10e",
+      "n_provided": 4380,
+      "provided": {
+        "matched_def": 4210,
+        "matched_nested_flat": 170
+      },
+      "defs": {
+        "async_function|absent_async": 742,
+        "class|present": 646,
+        "function|present": 3564,
+        "nested|absent_async": 84,
+        "nested|present_nested_flat": 284
+      },
+      "files_checked": 1024,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "fastapi_3fe6522aaed4d36d6a38175a4a8137ee0fc62451",
+      "n_provided": 4487,
+      "provided": {
+        "matched_def": 4331,
+        "matched_nested_flat": 120,
+        "class_dropped_method": 36
+      },
+      "defs": {
+        "async_function|absent_async": 1053,
+        "class|present": 947,
+        "class|present_class_dropped": 33,
+        "function|present": 3384,
+        "nested|absent_async": 76,
+        "nested|present_class_dropped": 10,
+        "nested|present_nested_flat": 191
+      },
+      "files_checked": 1162,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "fastapi_5265c4f5cb4d8fb4fb5015bccf1a6de8f3fc6044",
+      "n_provided": 3698,
+      "provided": {
+        "matched_def": 3566,
+        "matched_nested_flat": 98,
+        "class_dropped_method": 34
+      },
+      "defs": {
+        "async_function|absent_async": 849,
+        "class|present": 810,
+        "class|present_class_dropped": 31,
+        "function|present": 2756,
+        "nested|absent_async": 58,
+        "nested|present_class_dropped": 10,
+        "nested|present_nested_flat": 165
+      },
+      "files_checked": 1069,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "fastapi_6b53786f626db95a42fd0f66afd360bab161f4b1",
+      "n_provided": 4597,
+      "provided": {
+        "matched_def": 4442,
+        "class_dropped_method": 10,
+        "matched_nested_flat": 145
+      },
+      "defs": {
+        "async_function|absent_async": 864,
+        "class|present": 815,
+        "class|present_class_dropped": 6,
+        "function|present": 3627,
+        "nested|absent_async": 83,
+        "nested|present_class_dropped": 6,
+        "nested|present_nested_flat": 221
+      },
+      "files_checked": 1143,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "fastapi_861b22c40897a03d2d7e5926923d962121ed5e2e",
+      "n_provided": 3263,
+      "provided": {
+        "matched_def": 3142,
+        "matched_nested_flat": 87,
+        "class_dropped_method": 34
+      },
+      "defs": {
+        "async_function|absent_async": 830,
+        "class|present": 735,
+        "class|present_class_dropped": 31,
+        "function|present": 2424,
+        "nested|absent_async": 52,
+        "nested|present_class_dropped": 10,
+        "nested|present_nested_flat": 146
+      },
+      "files_checked": 1015,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "fastapi_aee8e78078e8a7f2736d3cab7a1cb7197356951c",
+      "n_provided": 3780,
+      "provided": {
+        "matched_def": 3633,
+        "matched_nested_flat": 111,
+        "class_dropped_method": 36
+      },
+      "defs": {
+        "async_function|absent_async": 867,
+        "class|present": 816,
+        "class|present_class_dropped": 33,
+        "function|present": 2817,
+        "nested|absent_async": 59,
+        "nested|present_class_dropped": 10,
+        "nested|present_nested_flat": 178
+      },
+      "files_checked": 1084,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "fastapi_d2c17b603d2f986d5f3800d3bf24acba8e1f485b",
+      "n_provided": 4094,
+      "provided": {
+        "matched_def": 3955,
+        "matched_nested_flat": 139
+      },
+      "defs": {
+        "async_function|absent_async": 692,
+        "class|present": 618,
+        "function|present": 3337,
+        "nested|absent_async": 67,
+        "nested|present_nested_flat": 225
+      },
+      "files_checked": 979,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "fastapi_f1d750fddad90e2faad6c3cc5c85c7687b787e89",
+      "n_provided": 4401,
+      "provided": {
+        "matched_def": 4225,
+        "matched_nested_flat": 176
+      },
+      "defs": {
+        "async_function|absent_async": 742,
+        "class|present": 647,
+        "function|present": 3578,
+        "nested|absent_async": 84,
+        "nested|present_nested_flat": 291
+      },
+      "files_checked": 1024,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "requests_6360477c52303c9445b45fa8744b02d05a2f0905",
+      "n_provided": 733,
+      "provided": {
+        "matched_def": 553,
+        "matched_nested_flat": 23,
+        "class_dropped_method": 135,
+        "unmatched": 22
+      },
+      "defs": {
+        "class|present": 70,
+        "function|present": 483,
+        "function|present_class_dropped": 119,
+        "nested|absent_nested": 28,
+        "nested|present_class_dropped": 20,
+        "nested|present_nested_flat": 36
+      },
+      "files_checked": 35,
+      "repo": "psf/requests"
+    },
+    {
+      "graph_key": "rich_05ff970926cbd0b5d0acb6fc18cdbd1fc971e582",
+      "n_provided": 2006,
+      "provided": {
+        "matched_def": 1874,
+        "matched_nested_flat": 132
+      },
+      "defs": {
+        "class|present": 218,
+        "function|present": 1683,
+        "nested|absent_async": 1,
+        "nested|absent_nested": 1,
+        "nested|present_nested_flat": 177
+      },
+      "files_checked": 206,
+      "repo": "Textualize/rich"
+    },
+    {
+      "graph_key": "rich_27701029082052c6541031b6f139097230253900",
+      "n_provided": 2014,
+      "provided": {
+        "matched_def": 1882,
+        "matched_nested_flat": 132
+      },
+      "defs": {
+        "class|present": 219,
+        "function|present": 1690,
+        "nested|absent_async": 1,
+        "nested|absent_nested": 1,
+        "nested|present_nested_flat": 177
+      },
+      "files_checked": 206,
+      "repo": "Textualize/rich"
+    },
+    {
+      "graph_key": "rich_4c5d305bb902ce97011666ada19e48d0b27b49e1",
+      "n_provided": 1952,
+      "provided": {
+        "matched_def": 1828,
+        "matched_nested_flat": 124
+      },
+      "defs": {
+        "class|present": 216,
+        "function|present": 1639,
+        "nested|absent_async": 1,
+        "nested|absent_nested": 1,
+        "nested|present_nested_flat": 167
+      },
+      "files_checked": 189,
+      "repo": "Textualize/rich"
+    },
+    {
+      "graph_key": "rich_6764b24739b580c0c32ff5ef0b971ed4cfcf4f75",
+      "n_provided": 1998,
+      "provided": {
+        "matched_def": 1867,
+        "matched_nested_flat": 131
+      },
+      "defs": {
+        "class|present": 218,
+        "function|present": 1676,
+        "nested|absent_async": 1,
+        "nested|absent_nested": 1,
+        "nested|present_nested_flat": 176
+      },
+      "files_checked": 206,
+      "repo": "Textualize/rich"
+    },
+    {
+      "graph_key": "rich_9f620dc50c0008c35e9f8493f198e6e593574a70",
+      "n_provided": 1936,
+      "provided": {
+        "matched_def": 1812,
+        "matched_nested_flat": 124
+      },
+      "defs": {
+        "class|present": 216,
+        "function|present": 1623,
+        "nested|absent_async": 1,
+        "nested|absent_nested": 1,
+        "nested|present_nested_flat": 167
+      },
+      "files_checked": 188,
+      "repo": "Textualize/rich"
+    },
+    {
+      "graph_key": "rich_e2a982d5ea747f0deb7f78e8eaa5b4be7d9194cf",
+      "n_provided": 1958,
+      "provided": {
+        "matched_def": 1834,
+        "matched_nested_flat": 124
+      },
+      "defs": {
+        "class|present": 216,
+        "function|present": 1645,
+        "nested|absent_async": 1,
+        "nested|absent_nested": 1,
+        "nested|present_nested_flat": 167
+      },
+      "files_checked": 188,
+      "repo": "Textualize/rich"
+    },
+    {
+      "graph_key": "fastapi_08b09e5236e315b6f10265ed229f130d4befb4ea",
+      "n_provided": 3837,
+      "provided": {
+        "matched_def": 3688,
+        "matched_nested_flat": 113,
+        "class_dropped_method": 36
+      },
+      "defs": {
+        "async_function|absent_async": 927,
+        "class|present": 835,
+        "class|present_class_dropped": 33,
+        "function|present": 2853,
+        "nested|absent_async": 61,
+        "nested|present_class_dropped": 10,
+        "nested|present_nested_flat": 181
+      },
+      "files_checked": 1088,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "fastapi_22b02e26f9e8c7e32bd8266e2b0ebe8bb3a0db2b",
+      "n_provided": 4259,
+      "provided": {
+        "matched_def": 4114,
+        "matched_nested_flat": 145
+      },
+      "defs": {
+        "async_function|absent_async": 733,
+        "class|present": 640,
+        "function|present": 3474,
+        "nested|absent_async": 75,
+        "nested|present_nested_flat": 235
+      },
+      "files_checked": 1021,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "fastapi_425a4c5bb1d1a8e00007e82e5188fc4d30585767",
+      "n_provided": 3630,
+      "provided": {
+        "matched_def": 3503,
+        "class_dropped_method": 34,
+        "matched_nested_flat": 93
+      },
+      "defs": {
+        "async_function|absent_async": 842,
+        "class|present": 804,
+        "class|present_class_dropped": 31,
+        "function|present": 2699,
+        "nested|absent_async": 56,
+        "nested|present_class_dropped": 10,
+        "nested|present_nested_flat": 155
+      },
+      "files_checked": 1061,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "fastapi_54f8aeeb9a15e4d5a12401ec5549840966df0087",
+      "n_provided": 4354,
+      "provided": {
+        "matched_def": 4213,
+        "matched_nested_flat": 137,
+        "class_dropped_method": 4
+      },
+      "defs": {
+        "async_function|absent_async": 873,
+        "class|present": 775,
+        "class|present_class_dropped": 4,
+        "function|present": 3438,
+        "nested|absent_async": 76,
+        "nested|present_nested_flat": 206
+      },
+      "files_checked": 1131,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "fastapi_6cf40df24d1d199fd25d034fc87fcae284fc23a2",
+      "n_provided": 3750,
+      "provided": {
+        "matched_def": 3606,
+        "class_dropped_method": 35,
+        "matched_nested_flat": 109
+      },
+      "defs": {
+        "async_function|absent_async": 854,
+        "class|present": 813,
+        "class|present_class_dropped": 32,
+        "function|present": 2793,
+        "nested|absent_async": 59,
+        "nested|present_class_dropped": 10,
+        "nested|present_nested_flat": 176
+      },
+      "files_checked": 1078,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "fastapi_8e50c55fd90c4433ddc9096ff439da9498a8314a",
+      "n_provided": 4363,
+      "provided": {
+        "matched_def": 4222,
+        "matched_nested_flat": 137,
+        "class_dropped_method": 4
+      },
+      "defs": {
+        "async_function|absent_async": 873,
+        "class|present": 775,
+        "class|present_class_dropped": 4,
+        "function|present": 3447,
+        "nested|absent_async": 76,
+        "nested|present_nested_flat": 206
+      },
+      "files_checked": 1132,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "fastapi_bc06e4296d588f39f38c7ac2fc96d3913c565962",
+      "n_provided": 4115,
+      "provided": {
+        "matched_def": 3976,
+        "matched_nested_flat": 139
+      },
+      "defs": {
+        "async_function|absent_async": 692,
+        "class|present": 623,
+        "function|present": 3353,
+        "nested|absent_async": 67,
+        "nested|present_nested_flat": 225
+      },
+      "files_checked": 984,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "fastapi_e2354a0a063f2fcb890ec568f1a98e136a39fd25",
+      "n_provided": 3698,
+      "provided": {
+        "matched_def": 3566,
+        "class_dropped_method": 34,
+        "matched_nested_flat": 98
+      },
+      "defs": {
+        "async_function|absent_async": 849,
+        "class|present": 810,
+        "class|present_class_dropped": 31,
+        "function|present": 2756,
+        "nested|absent_async": 58,
+        "nested|present_class_dropped": 10,
+        "nested|present_nested_flat": 165
+      },
+      "files_checked": 1069,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "fastapi_f2687dc1bb01f4cb62eee90e656b61c38c2aaf6a",
+      "n_provided": 4275,
+      "provided": {
+        "matched_def": 4142,
+        "class_dropped_method": 4,
+        "matched_nested_flat": 129
+      },
+      "defs": {
+        "async_function|absent_async": 870,
+        "class|present": 766,
+        "class|present_class_dropped": 4,
+        "function|present": 3376,
+        "nested|absent_async": 73,
+        "nested|present_nested_flat": 191
+      },
+      "files_checked": 1114,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "requests_661970d171d9c3e12e4c789c4768db647d8c4da0",
+      "n_provided": 758,
+      "provided": {
+        "matched_def": 573,
+        "matched_nested_flat": 24,
+        "class_dropped_method": 137,
+        "unmatched": 24
+      },
+      "defs": {
+        "class|present": 78,
+        "function|present": 515,
+        "function|present_class_dropped": 120,
+        "nested|absent_nested": 30,
+        "nested|present_class_dropped": 21,
+        "nested|present_nested_flat": 37
+      },
+      "files_checked": 36,
+      "repo": "psf/requests"
+    },
+    {
+      "graph_key": "rich_0ba607dc080c9f102b5ae5346bcdb70d6e9c969d",
+      "n_provided": 1958,
+      "provided": {
+        "matched_def": 1834,
+        "matched_nested_flat": 124
+      },
+      "defs": {
+        "class|present": 216,
+        "function|present": 1645,
+        "nested|absent_async": 1,
+        "nested|absent_nested": 1,
+        "nested|present_nested_flat": 167
+      },
+      "files_checked": 188,
+      "repo": "Textualize/rich"
+    },
+    {
+      "graph_key": "rich_2809954800af15b4027364cebf82390fe23dc194",
+      "n_provided": 1978,
+      "provided": {
+        "matched_def": 1847,
+        "matched_nested_flat": 131
+      },
+      "defs": {
+        "class|present": 216,
+        "function|present": 1658,
+        "nested|absent_async": 1,
+        "nested|absent_nested": 1,
+        "nested|present_nested_flat": 174
+      },
+      "files_checked": 188,
+      "repo": "Textualize/rich"
+    },
+    {
+      "graph_key": "rich_4d6d631a3d2deddf8405522d4b8c976a6d35726c",
+      "n_provided": 1986,
+      "provided": {
+        "matched_def": 1855,
+        "matched_nested_flat": 131
+      },
+      "defs": {
+        "class|present": 217,
+        "function|present": 1665,
+        "nested|absent_async": 1,
+        "nested|absent_nested": 1,
+        "nested|present_nested_flat": 176
+      },
+      "files_checked": 188,
+      "repo": "Textualize/rich"
+    },
+    {
+      "graph_key": "rich_720800e6930d85ad027b1e9bd0cbb96b5e994ce3",
+      "n_provided": 1933,
+      "provided": {
+        "matched_def": 1809,
+        "matched_nested_flat": 124
+      },
+      "defs": {
+        "class|present": 216,
+        "function|present": 1620,
+        "nested|absent_async": 1,
+        "nested|absent_nested": 1,
+        "nested|present_nested_flat": 167
+      },
+      "files_checked": 188,
+      "repo": "Textualize/rich"
+    },
+    {
+      "graph_key": "rich_aca9467ec6a482b3bed1ba7d2e3de72271c5f817",
+      "n_provided": 1920,
+      "provided": {
+        "matched_def": 1796,
+        "matched_nested_flat": 124
+      },
+      "defs": {
+        "class|present": 213,
+        "function|present": 1610,
+        "nested|absent_async": 1,
+        "nested|absent_nested": 1,
+        "nested|present_nested_flat": 167
+      },
+      "files_checked": 188,
+      "repo": "Textualize/rich"
+    },
+    {
+      "graph_key": "rich_e76f3c3ea78481342e21a7b3328075462ab69c2b",
+      "n_provided": 1936,
+      "provided": {
+        "matched_def": 1812,
+        "matched_nested_flat": 124
+      },
+      "defs": {
+        "class|present": 216,
+        "function|present": 1623,
+        "nested|absent_async": 1,
+        "nested|absent_nested": 1,
+        "nested|present_nested_flat": 167
+      },
+      "files_checked": 188,
+      "repo": "Textualize/rich"
+    },
+    {
+      "graph_key": "fastapi_0bdc3ca3732e3742e094bea2b320e9774659ac38",
+      "n_provided": 3250,
+      "provided": {
+        "matched_def": 3130,
+        "matched_nested_flat": 86,
+        "class_dropped_method": 34
+      },
+      "defs": {
+        "async_function|absent_async": 828,
+        "class|present": 734,
+        "class|present_class_dropped": 31,
+        "function|present": 2413,
+        "nested|absent_async": 52,
+        "nested|present_class_dropped": 10,
+        "nested|present_nested_flat": 145
+      },
+      "files_checked": 1012,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "fastapi_27c0f7e75fc0ce26ca75295d455eb36f0ca033d3",
+      "n_provided": 3314,
+      "provided": {
+        "matched_def": 3192,
+        "matched_nested_flat": 88,
+        "class_dropped_method": 34
+      },
+      "defs": {
+        "async_function|absent_async": 833,
+        "class|present": 741,
+        "class|present_class_dropped": 31,
+        "function|present": 2468,
+        "nested|absent_async": 56,
+        "nested|present_class_dropped": 10,
+        "nested|present_nested_flat": 149
+      },
+      "files_checked": 1025,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "fastapi_464c359bb03f7ba72330198cc9f44df36194837d",
+      "n_provided": 4338,
+      "provided": {
+        "matched_def": 4205,
+        "matched_nested_flat": 129,
+        "class_dropped_method": 4
+      },
+      "defs": {
+        "async_function|absent_async": 872,
+        "class|present": 775,
+        "class|present_class_dropped": 4,
+        "function|present": 3430,
+        "nested|absent_async": 75,
+        "nested|present_nested_flat": 191
+      },
+      "files_checked": 1129,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "fastapi_566e3157a5517784c741dbf36e39687af326fe90",
+      "n_provided": 3689,
+      "provided": {
+        "matched_def": 3557,
+        "matched_nested_flat": 98,
+        "class_dropped_method": 34
+      },
+      "defs": {
+        "async_function|absent_async": 849,
+        "class|present": 809,
+        "class|present_class_dropped": 31,
+        "function|present": 2748,
+        "nested|absent_async": 58,
+        "nested|present_class_dropped": 10,
+        "nested|present_nested_flat": 165
+      },
+      "files_checked": 1068,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "fastapi_6e49dc029541aaa896fa63c47647ccd3f066df67",
+      "n_provided": 3601,
+      "provided": {
+        "matched_def": 3474,
+        "class_dropped_method": 34,
+        "matched_nested_flat": 93
+      },
+      "defs": {
+        "async_function|absent_async": 840,
+        "class|present": 783,
+        "class|present_class_dropped": 31,
+        "function|present": 2691,
+        "nested|absent_async": 56,
+        "nested|present_class_dropped": 10,
+        "nested|present_nested_flat": 155
+      },
+      "files_checked": 1057,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "fastapi_930b27e5fa32ce150ddcea61f0c913435ae71c83",
+      "n_provided": 3775,
+      "provided": {
+        "matched_def": 3629,
+        "matched_nested_flat": 110,
+        "class_dropped_method": 36
+      },
+      "defs": {
+        "async_function|absent_async": 867,
+        "class|present": 815,
+        "class|present_class_dropped": 33,
+        "function|present": 2814,
+        "nested|absent_async": 59,
+        "nested|present_class_dropped": 10,
+        "nested|present_nested_flat": 177
+      },
+      "files_checked": 1082,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "fastapi_c0836dc1b7f4ba91e9563c8c4ccd0ebe655bc914",
+      "n_provided": 4193,
+      "provided": {
+        "matched_def": 4050,
+        "matched_nested_flat": 143
+      },
+      "defs": {
+        "async_function|absent_async": 717,
+        "class|present": 630,
+        "function|present": 3420,
+        "nested|absent_async": 71,
+        "nested|present_nested_flat": 233
+      },
+      "files_checked": 1007,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "fastapi_e94028ab60d18080810910352bc9129e8046c92d",
+      "n_provided": 4364,
+      "provided": {
+        "matched_def": 4221,
+        "matched_nested_flat": 139,
+        "class_dropped_method": 4
+      },
+      "defs": {
+        "async_function|absent_async": 879,
+        "class|present": 775,
+        "class|present_class_dropped": 4,
+        "function|present": 3446,
+        "nested|absent_async": 71,
+        "nested|present_nested_flat": 225
+      },
+      "files_checked": 1132,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "httpx_4acf5c2c37714cc63b5cf71b3e284fca83c90311",
+      "n_provided": 740,
+      "provided": {
+        "matched_def": 739,
+        "matched_nested_flat": 1
+      },
+      "defs": {
+        "async_function|absent_async": 98,
+        "class|present": 78,
+        "function|present": 661,
+        "nested|absent_async": 2,
+        "nested|present_nested_flat": 1
+      },
+      "files_checked": 45,
+      "repo": "encode/httpx"
+    },
+    {
+      "graph_key": "requests_6f205ff422bccd5e4c4fc0b64c5f3e7df5181db6",
+      "n_provided": 759,
+      "provided": {
+        "matched_def": 573,
+        "matched_nested_flat": 24,
+        "class_dropped_method": 138,
+        "unmatched": 24
+      },
+      "defs": {
+        "class|present": 78,
+        "function|present": 515,
+        "function|present_class_dropped": 121,
+        "nested|absent_nested": 30,
+        "nested|present_class_dropped": 21,
+        "nested|present_nested_flat": 37
+      },
+      "files_checked": 36,
+      "repo": "psf/requests"
+    },
+    {
+      "graph_key": "rich_0c8bb032ad3b54a32fdb8a43f5ab457c8cd6dcb1",
+      "n_provided": 1926,
+      "provided": {
+        "matched_def": 1802,
+        "matched_nested_flat": 124
+      },
+      "defs": {
+        "class|present": 213,
+        "function|present": 1616,
+        "nested|absent_async": 1,
+        "nested|absent_nested": 1,
+        "nested|present_nested_flat": 167
+      },
+      "files_checked": 188,
+      "repo": "Textualize/rich"
+    },
+    {
+      "graph_key": "rich_2b5d648b2c62960deb6439f4204ed8fa6eb3cf7b",
+      "n_provided": 1970,
+      "provided": {
+        "matched_def": 1845,
+        "matched_nested_flat": 125
+      },
+      "defs": {
+        "class|present": 216,
+        "function|present": 1656,
+        "nested|absent_async": 1,
+        "nested|absent_nested": 1,
+        "nested|present_nested_flat": 168
+      },
+      "files_checked": 188,
+      "repo": "Textualize/rich"
+    },
+    {
+      "graph_key": "rich_53757bc234cf18977cade41a5b64f3abaccb0b85",
+      "n_provided": 1986,
+      "provided": {
+        "matched_def": 1855,
+        "matched_nested_flat": 131
+      },
+      "defs": {
+        "class|present": 217,
+        "function|present": 1665,
+        "nested|absent_async": 1,
+        "nested|absent_nested": 1,
+        "nested|present_nested_flat": 176
+      },
+      "files_checked": 188,
+      "repo": "Textualize/rich"
+    },
+    {
+      "graph_key": "rich_7a168a27c5097805b3bafa495f35e3955004ff4a",
+      "n_provided": 1936,
+      "provided": {
+        "matched_def": 1812,
+        "matched_nested_flat": 124
+      },
+      "defs": {
+        "class|present": 216,
+        "function|present": 1623,
+        "nested|absent_async": 1,
+        "nested|absent_nested": 1,
+        "nested|present_nested_flat": 167
+      },
+      "files_checked": 188,
+      "repo": "Textualize/rich"
+    },
+    {
+      "graph_key": "rich_ae15db600976a7999d21653002f338d0761b180c",
+      "n_provided": 1954,
+      "provided": {
+        "matched_def": 1830,
+        "matched_nested_flat": 124
+      },
+      "defs": {
+        "class|present": 216,
+        "function|present": 1641,
+        "nested|absent_async": 1,
+        "nested|absent_nested": 1,
+        "nested|present_nested_flat": 167
+      },
+      "files_checked": 188,
+      "repo": "Textualize/rich"
+    },
+    {
+      "graph_key": "rich_edc6b0a39b6df1c0e26d409bb5c5eda7149b2de6",
+      "n_provided": 1971,
+      "provided": {
+        "matched_def": 1846,
+        "matched_nested_flat": 125
+      },
+      "defs": {
+        "class|present": 216,
+        "function|present": 1657,
+        "nested|absent_async": 1,
+        "nested|absent_nested": 1,
+        "nested|present_nested_flat": 168
+      },
+      "files_checked": 188,
+      "repo": "Textualize/rich"
+    },
+    {
+      "graph_key": "fastapi_0dd42b746e17d33a74ea267a62eace9ccdccf345",
+      "n_provided": 4353,
+      "provided": {
+        "matched_def": 4212,
+        "matched_nested_flat": 137,
+        "class_dropped_method": 4
+      },
+      "defs": {
+        "async_function|absent_async": 872,
+        "class|present": 775,
+        "class|present_class_dropped": 4,
+        "function|present": 3437,
+        "nested|absent_async": 75,
+        "nested|present_nested_flat": 206
+      },
+      "files_checked": 1130,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "fastapi_2b212ddd7604891d42e2ffbafe764c334230bdb7",
+      "n_provided": 4269,
+      "provided": {
+        "matched_def": 4116,
+        "matched_nested_flat": 143,
+        "class_dropped_method": 10
+      },
+      "defs": {
+        "async_function|absent_async": 885,
+        "class|present": 815,
+        "class|present_class_dropped": 6,
+        "function|present": 3301,
+        "nested|absent_async": 82,
+        "nested|present_class_dropped": 6,
+        "nested|present_nested_flat": 219
+      },
+      "files_checked": 1026,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "fastapi_48d58ae3b6ef4ded5a4794618c00345667256d98",
+      "n_provided": 4194,
+      "provided": {
+        "matched_def": 4051,
+        "matched_nested_flat": 143
+      },
+      "defs": {
+        "async_function|absent_async": 717,
+        "class|present": 630,
+        "function|present": 3421,
+        "nested|absent_async": 71,
+        "nested|present_nested_flat": 233
+      },
+      "files_checked": 1007,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "fastapi_5c1f87c56387a96dbdddb2b1c4ec9ba48dcebc4e",
+      "n_provided": 3238,
+      "provided": {
+        "matched_def": 3121,
+        "matched_nested_flat": 83,
+        "class_dropped_method": 34
+      },
+      "defs": {
+        "async_function|absent_async": 828,
+        "class|present": 731,
+        "class|present_class_dropped": 31,
+        "function|present": 2407,
+        "nested|absent_async": 52,
+        "nested|present_class_dropped": 10,
+        "nested|present_nested_flat": 140
+      },
+      "files_checked": 1012,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "fastapi_6ee87478d821171139264cd9cd17cbd2232934ce",
+      "n_provided": 4248,
+      "provided": {
+        "matched_def": 4103,
+        "matched_nested_flat": 145
+      },
+      "defs": {
+        "async_function|absent_async": 733,
+        "class|present": 637,
+        "function|present": 3466,
+        "nested|absent_async": 75,
+        "nested|present_nested_flat": 235
+      },
+      "files_checked": 1021,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "fastapi_94a1ee749e63591e6e275b726a66e07a25f6c407",
+      "n_provided": 4128,
+      "provided": {
+        "matched_def": 3988,
+        "matched_nested_flat": 140
+      },
+      "defs": {
+        "async_function|absent_async": 692,
+        "class|present": 625,
+        "function|present": 3363,
+        "nested|absent_async": 67,
+        "nested|present_nested_flat": 227
+      },
+      "files_checked": 985,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "fastapi_c57ac7bdf3613798c94caceff562a41fa16d4a2d",
+      "n_provided": 3792,
+      "provided": {
+        "matched_def": 3645,
+        "class_dropped_method": 36,
+        "matched_nested_flat": 111
+      },
+      "defs": {
+        "async_function|absent_async": 885,
+        "class|present": 821,
+        "class|present_class_dropped": 33,
+        "function|present": 2824,
+        "nested|absent_async": 59,
+        "nested|present_class_dropped": 10,
+        "nested|present_nested_flat": 178
+      },
+      "files_checked": 1085,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "fastapi_eacbce24c9d299c6a28110d9fc8ac50f53cddb08",
+      "n_provided": 4330,
+      "provided": {
+        "matched_def": 4197,
+        "class_dropped_method": 4,
+        "matched_nested_flat": 129
+      },
+      "defs": {
+        "async_function|absent_async": 870,
+        "class|present": 772,
+        "class|present_class_dropped": 4,
+        "function|present": 3425,
+        "nested|absent_async": 73,
+        "nested|present_nested_flat": 191
+      },
+      "files_checked": 1127,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "requests_0b401c76b6e80a4eecf3c690085b2553f6e261ca",
+      "n_provided": 754,
+      "provided": {
+        "matched_def": 573,
+        "matched_nested_flat": 24,
+        "class_dropped_method": 135,
+        "unmatched": 22
+      },
+      "defs": {
+        "class|present": 78,
+        "function|present": 515,
+        "function|present_class_dropped": 119,
+        "nested|absent_nested": 28,
+        "nested|present_class_dropped": 20,
+        "nested|present_nested_flat": 37
+      },
+      "files_checked": 36,
+      "repo": "psf/requests"
+    },
+    {
+      "graph_key": "requests_7407309c8a8a73aa2f4337184025d440bbedab7a",
+      "n_provided": 733,
+      "provided": {
+        "matched_def": 553,
+        "matched_nested_flat": 23,
+        "class_dropped_method": 135,
+        "unmatched": 22
+      },
+      "defs": {
+        "class|present": 70,
+        "function|present": 483,
+        "function|present_class_dropped": 119,
+        "nested|absent_nested": 28,
+        "nested|present_class_dropped": 20,
+        "nested|present_nested_flat": 36
+      },
+      "files_checked": 35,
+      "repo": "psf/requests"
+    },
+    {
+      "graph_key": "rich_0f2f51b872d14588de3a65968f5cdde6fb5694a3",
+      "n_provided": 1970,
+      "provided": {
+        "matched_def": 1845,
+        "matched_nested_flat": 125
+      },
+      "defs": {
+        "class|present": 216,
+        "function|present": 1656,
+        "nested|absent_async": 1,
+        "nested|absent_nested": 1,
+        "nested|present_nested_flat": 168
+      },
+      "files_checked": 188,
+      "repo": "Textualize/rich"
+    },
+    {
+      "graph_key": "rich_368e8ad77c95a6bef8f9d332039091d1417296bc",
+      "n_provided": 1924,
+      "provided": {
+        "matched_def": 1800,
+        "matched_nested_flat": 124
+      },
+      "defs": {
+        "class|present": 213,
+        "function|present": 1614,
+        "nested|absent_async": 1,
+        "nested|absent_nested": 1,
+        "nested|present_nested_flat": 167
+      },
+      "files_checked": 188,
+      "repo": "Textualize/rich"
+    },
+    {
+      "graph_key": "rich_577def22dd83b999c5937cb2bf2ed49600943325",
+      "n_provided": 1944,
+      "provided": {
+        "matched_def": 1820,
+        "matched_nested_flat": 124
+      },
+      "defs": {
+        "class|present": 216,
+        "function|present": 1631,
+        "nested|absent_async": 1,
+        "nested|absent_nested": 1,
+        "nested|present_nested_flat": 167
+      },
+      "files_checked": 188,
+      "repo": "Textualize/rich"
+    },
+    {
+      "graph_key": "rich_7d36119f8378b36129502c3281a7faffef837e02",
+      "n_provided": 1984,
+      "provided": {
+        "matched_def": 1853,
+        "matched_nested_flat": 131
+      },
+      "defs": {
+        "class|present": 217,
+        "function|present": 1663,
+        "nested|absent_async": 1,
+        "nested|absent_nested": 1,
+        "nested|present_nested_flat": 176
+      },
+      "files_checked": 188,
+      "repo": "Textualize/rich"
+    },
+    {
+      "graph_key": "rich_b6f2f7aa5b27f612f391cd28212aff51ad0d42d1",
+      "n_provided": 1959,
+      "provided": {
+        "matched_def": 1835,
+        "matched_nested_flat": 124
+      },
+      "defs": {
+        "class|present": 216,
+        "function|present": 1646,
+        "nested|absent_async": 1,
+        "nested|absent_nested": 1,
+        "nested|present_nested_flat": 167
+      },
+      "files_checked": 188,
+      "repo": "Textualize/rich"
+    },
+    {
+      "graph_key": "rich_fc41075a3206d2a5fd846c6f41c4d2becab814fa",
+      "n_provided": 2015,
+      "provided": {
+        "matched_def": 1883,
+        "matched_nested_flat": 132
+      },
+      "defs": {
+        "class|present": 219,
+        "function|present": 1691,
+        "nested|absent_async": 1,
+        "nested|absent_nested": 1,
+        "nested|present_nested_flat": 177
+      },
+      "files_checked": 206,
+      "repo": "Textualize/rich"
+    },
+    {
+      "graph_key": "fastapi_16d75d90eb96976a57b94cc24e4018859cd54c4d",
+      "n_provided": 3238,
+      "provided": {
+        "matched_def": 3121,
+        "matched_nested_flat": 83,
+        "class_dropped_method": 34
+      },
+      "defs": {
+        "async_function|absent_async": 828,
+        "class|present": 731,
+        "class|present_class_dropped": 31,
+        "function|present": 2407,
+        "nested|absent_async": 52,
+        "nested|present_class_dropped": 10,
+        "nested|present_nested_flat": 140
+      },
+      "files_checked": 1012,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "fastapi_2cf04ee30db9df2db04a5b1e0d2c625dfbf1a211",
+      "n_provided": 3627,
+      "provided": {
+        "matched_def": 3500,
+        "matched_nested_flat": 93,
+        "class_dropped_method": 34
+      },
+      "defs": {
+        "async_function|absent_async": 841,
+        "class|present": 804,
+        "class|present_class_dropped": 31,
+        "function|present": 2696,
+        "nested|absent_async": 56,
+        "nested|present_class_dropped": 10,
+        "nested|present_nested_flat": 155
+      },
+      "files_checked": 1060,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "fastapi_4976568fc7cb7501729d8f84d946cde1e91299cd",
+      "n_provided": 3768,
+      "provided": {
+        "matched_def": 3623,
+        "class_dropped_method": 36,
+        "matched_nested_flat": 109
+      },
+      "defs": {
+        "async_function|absent_async": 861,
+        "class|present": 815,
+        "class|present_class_dropped": 33,
+        "function|present": 2808,
+        "nested|absent_async": 59,
+        "nested|present_class_dropped": 10,
+        "nested|present_nested_flat": 176
+      },
+      "files_checked": 1081,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "fastapi_603df6e36f59cc4a3e189f506b8f36d1e816c3ac",
+      "n_provided": 3822,
+      "provided": {
+        "matched_def": 3674,
+        "matched_nested_flat": 112,
+        "class_dropped_method": 36
+      },
+      "defs": {
+        "async_function|absent_async": 915,
+        "class|present": 835,
+        "class|present_class_dropped": 33,
+        "function|present": 2839,
+        "nested|absent_async": 61,
+        "nested|present_class_dropped": 10,
+        "nested|present_nested_flat": 180
+      },
+      "files_checked": 1086,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "fastapi_7132a690461c2367f22556eb87c2b5eb7d9cfb45",
+      "n_provided": 3619,
+      "provided": {
+        "matched_def": 3492,
+        "class_dropped_method": 34,
+        "matched_nested_flat": 93
+      },
+      "defs": {
+        "async_function|absent_async": 840,
+        "class|present": 800,
+        "class|present_class_dropped": 31,
+        "function|present": 2692,
+        "nested|absent_async": 56,
+        "nested|present_class_dropped": 10,
+        "nested|present_nested_flat": 155
+      },
+      "files_checked": 1058,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "fastapi_972a967d5d3fa24d450637c36c6b7ad1f1d8c1b6",
+      "n_provided": 3677,
+      "provided": {
+        "matched_def": 3548,
+        "class_dropped_method": 34,
+        "matched_nested_flat": 95
+      },
+      "defs": {
+        "async_function|absent_async": 849,
+        "class|present": 809,
+        "class|present_class_dropped": 31,
+        "function|present": 2739,
+        "nested|absent_async": 57,
+        "nested|present_class_dropped": 10,
+        "nested|present_nested_flat": 162
+      },
+      "files_checked": 1067,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "fastapi_c6487ed632056e450d844846a1b63be551a3cbc6",
+      "n_provided": 3715,
+      "provided": {
+        "matched_def": 3583,
+        "class_dropped_method": 34,
+        "matched_nested_flat": 98
+      },
+      "defs": {
+        "async_function|absent_async": 849,
+        "class|present": 812,
+        "class|present_class_dropped": 31,
+        "function|present": 2771,
+        "nested|absent_async": 58,
+        "nested|present_class_dropped": 10,
+        "nested|present_nested_flat": 165
+      },
+      "files_checked": 1073,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "fastapi_eaf611f9ee56de4f16c837d4f487a4b9fca507c4",
+      "n_provided": 3685,
+      "provided": {
+        "matched_def": 3554,
+        "matched_nested_flat": 97,
+        "class_dropped_method": 34
+      },
+      "defs": {
+        "async_function|absent_async": 849,
+        "class|present": 809,
+        "class|present_class_dropped": 31,
+        "function|present": 2745,
+        "nested|absent_async": 57,
+        "nested|present_class_dropped": 10,
+        "nested|present_nested_flat": 164
+      },
+      "files_checked": 1067,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "requests_0b4d494192de489701d3a2e32acef8fb5d3f042e",
+      "n_provided": 711,
+      "provided": {
+        "matched_def": 534,
+        "matched_nested_flat": 22,
+        "class_dropped_method": 133,
+        "unmatched": 22
+      },
+      "defs": {
+        "class|present": 69,
+        "function|present": 465,
+        "function|present_class_dropped": 117,
+        "nested|absent_nested": 28,
+        "nested|present_class_dropped": 20,
+        "nested|present_nested_flat": 28
+      },
+      "files_checked": 35,
+      "repo": "psf/requests"
+    },
+    {
+      "graph_key": "requests_7a13c041dbef42f9f3feb14110f02626f6892e9a",
+      "n_provided": 712,
+      "provided": {
+        "matched_def": 535,
+        "matched_nested_flat": 22,
+        "class_dropped_method": 133,
+        "unmatched": 22
+      },
+      "defs": {
+        "class|present": 69,
+        "function|present": 466,
+        "function|present_class_dropped": 117,
+        "nested|absent_nested": 28,
+        "nested|present_class_dropped": 20,
+        "nested|present_nested_flat": 28
+      },
+      "files_checked": 35,
+      "repo": "psf/requests"
+    },
+    {
+      "graph_key": "rich_19c67b9a3479841e9133bea94607c89ee931d3fc",
+      "n_provided": 2021,
+      "provided": {
+        "matched_def": 1886,
+        "matched_nested_flat": 135
+      },
+      "defs": {
+        "class|present": 219,
+        "function|present": 1694,
+        "nested|absent_async": 1,
+        "nested|absent_nested": 1,
+        "nested|present_nested_flat": 180
+      },
+      "files_checked": 206,
+      "repo": "Textualize/rich"
+    },
+    {
+      "graph_key": "rich_36fe3f7ca9becca4777861d5e6e625f5a4a37545",
+      "n_provided": 2011,
+      "provided": {
+        "matched_def": 1879,
+        "matched_nested_flat": 132
+      },
+      "defs": {
+        "class|present": 219,
+        "function|present": 1687,
+        "nested|absent_async": 1,
+        "nested|absent_nested": 1,
+        "nested|present_nested_flat": 177
+      },
+      "files_checked": 206,
+      "repo": "Textualize/rich"
+    },
+    {
+      "graph_key": "rich_58ac15120fe254886c10d6253667733c83604cb4",
+      "n_provided": 2017,
+      "provided": {
+        "matched_def": 1884,
+        "matched_nested_flat": 133
+      },
+      "defs": {
+        "class|present": 219,
+        "function|present": 1692,
+        "nested|absent_async": 1,
+        "nested|absent_nested": 1,
+        "nested|present_nested_flat": 178
+      },
+      "files_checked": 206,
+      "repo": "Textualize/rich"
+    },
+    {
+      "graph_key": "rich_8a616de8e25db3c93abaaa220c493d80878de69d",
+      "n_provided": 1926,
+      "provided": {
+        "matched_def": 1802,
+        "matched_nested_flat": 124
+      },
+      "defs": {
+        "class|present": 213,
+        "function|present": 1616,
+        "nested|absent_async": 1,
+        "nested|absent_nested": 1,
+        "nested|present_nested_flat": 167
+      },
+      "files_checked": 188,
+      "repo": "Textualize/rich"
+    },
+    {
+      "graph_key": "rich_c478588f3c228a4e86741a057c42b452d7bc6bce",
+      "n_provided": 1957,
+      "provided": {
+        "matched_def": 1833,
+        "matched_nested_flat": 124
+      },
+      "defs": {
+        "class|present": 216,
+        "function|present": 1644,
+        "nested|absent_async": 1,
+        "nested|absent_nested": 1,
+        "nested|present_nested_flat": 167
+      },
+      "files_checked": 188,
+      "repo": "Textualize/rich"
+    },
+    {
+      "graph_key": "rich_fde5d6eee3b0437eaecdcbf6f8b11aeab3a5d503",
+      "n_provided": 1953,
+      "provided": {
+        "matched_def": 1829,
+        "matched_nested_flat": 124
+      },
+      "defs": {
+        "class|present": 216,
+        "function|present": 1640,
+        "nested|absent_async": 1,
+        "nested|absent_nested": 1,
+        "nested|present_nested_flat": 167
+      },
+      "files_checked": 189,
+      "repo": "Textualize/rich"
+    },
+    {
+      "graph_key": "fastapi_1b3bea8b6be2220cc1544653ea785d2134fcb35b",
+      "n_provided": 4596,
+      "provided": {
+        "matched_def": 4455,
+        "matched_nested_flat": 131,
+        "class_dropped_method": 10
+      },
+      "defs": {
+        "async_function|absent_async": 874,
+        "class|present": 820,
+        "class|present_class_dropped": 6,
+        "function|present": 3635,
+        "nested|absent_async": 73,
+        "nested|present_class_dropped": 6,
+        "nested|present_nested_flat": 207
+      },
+      "files_checked": 1143,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "fastapi_2f9c914d440e99fe8b62646b51e4d24c5bcd858b",
+      "n_provided": 4151,
+      "provided": {
+        "matched_def": 4011,
+        "matched_nested_flat": 140
+      },
+      "defs": {
+        "async_function|absent_async": 702,
+        "class|present": 626,
+        "function|present": 3385,
+        "nested|absent_async": 67,
+        "nested|present_nested_flat": 227
+      },
+      "files_checked": 992,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "fastapi_4a98a66778987648d2195155c9cbe0824d67b02a",
+      "n_provided": 3944,
+      "provided": {
+        "matched_def": 3791,
+        "matched_nested_flat": 117,
+        "class_dropped_method": 36
+      },
+      "defs": {
+        "async_function|absent_async": 963,
+        "class|present": 875,
+        "class|present_class_dropped": 33,
+        "function|present": 2916,
+        "nested|absent_async": 74,
+        "nested|present_class_dropped": 10,
+        "nested|present_nested_flat": 188
+      },
+      "files_checked": 1122,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "fastapi_60699f306b67dc1f4918ebea17f04d7a48cda645",
+      "n_provided": 3939,
+      "provided": {
+        "matched_def": 3786,
+        "class_dropped_method": 36,
+        "matched_nested_flat": 117
+      },
+      "defs": {
+        "async_function|absent_async": 960,
+        "class|present": 874,
+        "class|present_class_dropped": 33,
+        "function|present": 2912,
+        "nested|absent_async": 73,
+        "nested|present_class_dropped": 10,
+        "nested|present_nested_flat": 188
+      },
+      "files_checked": 1121,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "fastapi_71a17b5932e38bcf798fcd05c5bb384e6d4db5bf",
+      "n_provided": 3931,
+      "provided": {
+        "matched_def": 3782,
+        "matched_nested_flat": 113,
+        "class_dropped_method": 36
+      },
+      "defs": {
+        "async_function|absent_async": 960,
+        "class|present": 874,
+        "class|present_class_dropped": 33,
+        "function|present": 2908,
+        "nested|absent_async": 73,
+        "nested|present_class_dropped": 10,
+        "nested|present_nested_flat": 181
+      },
+      "files_checked": 1120,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "fastapi_9a9c4ad5d06f5fe8ee6775a5aeaa2f83c854f263",
+      "n_provided": 4377,
+      "provided": {
+        "matched_def": 4207,
+        "matched_nested_flat": 170
+      },
+      "defs": {
+        "async_function|absent_async": 742,
+        "class|present": 646,
+        "function|present": 3561,
+        "nested|absent_async": 84,
+        "nested|present_nested_flat": 281
+      },
+      "files_checked": 1024,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "fastapi_cb83b83dcf78eab4ea17d504db5abcda705fbdc4",
+      "n_provided": 4256,
+      "provided": {
+        "matched_def": 4111,
+        "matched_nested_flat": 145
+      },
+      "defs": {
+        "async_function|absent_async": 733,
+        "class|present": 640,
+        "function|present": 3471,
+        "nested|absent_async": 75,
+        "nested|present_nested_flat": 235
+      },
+      "files_checked": 1021,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "fastapi_eb1d50479ba0ac873e4ffa08a824b1d822ca3a17",
+      "n_provided": 3826,
+      "provided": {
+        "matched_def": 3678,
+        "matched_nested_flat": 112,
+        "class_dropped_method": 36
+      },
+      "defs": {
+        "async_function|absent_async": 918,
+        "class|present": 835,
+        "class|present_class_dropped": 33,
+        "function|present": 2843,
+        "nested|absent_async": 61,
+        "nested|present_class_dropped": 10,
+        "nested|present_nested_flat": 180
+      },
+      "files_checked": 1087,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "requests_0e322af87745eff34caffe4df68456ebc20d9068",
+      "n_provided": 730,
+      "provided": {
+        "matched_def": 550,
+        "matched_nested_flat": 23,
+        "class_dropped_method": 135,
+        "unmatched": 22
+      },
+      "defs": {
+        "class|present": 70,
+        "function|present": 480,
+        "function|present_class_dropped": 119,
+        "nested|absent_nested": 28,
+        "nested|present_class_dropped": 20,
+        "nested|present_nested_flat": 36
+      },
+      "files_checked": 36,
+      "repo": "psf/requests"
+    },
+    {
+      "graph_key": "requests_b684dcb9bbf3aa557d1238e72062c4a29737dd1c",
+      "n_provided": 753,
+      "provided": {
+        "matched_def": 572,
+        "matched_nested_flat": 24,
+        "class_dropped_method": 135,
+        "unmatched": 22
+      },
+      "defs": {
+        "class|present": 78,
+        "function|present": 514,
+        "function|present_class_dropped": 119,
+        "nested|absent_nested": 28,
+        "nested|present_class_dropped": 20,
+        "nested|present_nested_flat": 37
+      },
+      "files_checked": 36,
+      "repo": "psf/requests"
+    },
+    {
+      "graph_key": "rich_1ad6f73a4d1d3b40ac3f879feccfaad66412bd1d",
+      "n_provided": 1933,
+      "provided": {
+        "matched_def": 1809,
+        "matched_nested_flat": 124
+      },
+      "defs": {
+        "class|present": 216,
+        "function|present": 1620,
+        "nested|absent_async": 1,
+        "nested|absent_nested": 1,
+        "nested|present_nested_flat": 167
+      },
+      "files_checked": 188,
+      "repo": "Textualize/rich"
+    },
+    {
+      "graph_key": "rich_3b70db5a2997de191f7db3e422dbe4da35ca1c95",
+      "n_provided": 1980,
+      "provided": {
+        "matched_def": 1849,
+        "matched_nested_flat": 131
+      },
+      "defs": {
+        "class|present": 216,
+        "function|present": 1660,
+        "nested|absent_async": 1,
+        "nested|absent_nested": 1,
+        "nested|present_nested_flat": 176
+      },
+      "files_checked": 188,
+      "repo": "Textualize/rich"
+    },
+    {
+      "graph_key": "rich_5ba9cb56e68dcdf2db50c214d8f1412c8a50761b",
+      "n_provided": 1969,
+      "provided": {
+        "matched_def": 1844,
+        "matched_nested_flat": 125
+      },
+      "defs": {
+        "class|present": 216,
+        "function|present": 1655,
+        "nested|absent_async": 1,
+        "nested|absent_nested": 1,
+        "nested|present_nested_flat": 168
+      },
+      "files_checked": 188,
+      "repo": "Textualize/rich"
+    },
+    {
+      "graph_key": "rich_96dd4b60e3a7c647c43a85ad375afa690b3bb85b",
+      "n_provided": 2000,
+      "provided": {
+        "matched_def": 1869,
+        "matched_nested_flat": 131
+      },
+      "defs": {
+        "class|present": 218,
+        "function|present": 1678,
+        "nested|absent_async": 1,
+        "nested|absent_nested": 1,
+        "nested|present_nested_flat": 176
+      },
+      "files_checked": 206,
+      "repo": "Textualize/rich"
+    },
+    {
+      "graph_key": "rich_c595fa95068dd2c5095d25446b2f0571bc0b3995",
+      "n_provided": 2010,
+      "provided": {
+        "matched_def": 1878,
+        "matched_nested_flat": 132
+      },
+      "defs": {
+        "class|present": 218,
+        "function|present": 1687,
+        "nested|absent_async": 1,
+        "nested|absent_nested": 1,
+        "nested|present_nested_flat": 177
+      },
+      "files_checked": 206,
+      "repo": "Textualize/rich"
+    },
+    {
+      "graph_key": "rich_fe55a131c2780fa856464ad04d7d6dc8a1079b72",
+      "n_provided": 2001,
+      "provided": {
+        "matched_def": 1870,
+        "matched_nested_flat": 131
+      },
+      "defs": {
+        "class|present": 218,
+        "function|present": 1679,
+        "nested|absent_async": 1,
+        "nested|absent_nested": 1,
+        "nested|present_nested_flat": 176
+      },
+      "files_checked": 206,
+      "repo": "Textualize/rich"
+    },
+    {
+      "graph_key": "fastapi_1e78a36b7310003f0ff634627d8a7bc53c6ccdee",
+      "n_provided": 4106,
+      "provided": {
+        "matched_def": 3967,
+        "matched_nested_flat": 139
+      },
+      "defs": {
+        "async_function|absent_async": 692,
+        "class|present": 622,
+        "function|present": 3345,
+        "nested|absent_async": 67,
+        "nested|present_nested_flat": 225
+      },
+      "files_checked": 982,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "fastapi_3b4b5ab8c819dce27fbaf0aa0a9c74b7f3255ec0",
+      "n_provided": 3743,
+      "provided": {
+        "matched_def": 3600,
+        "class_dropped_method": 34,
+        "matched_nested_flat": 109
+      },
+      "defs": {
+        "async_function|absent_async": 852,
+        "class|present": 812,
+        "class|present_class_dropped": 31,
+        "function|present": 2788,
+        "nested|absent_async": 59,
+        "nested|present_class_dropped": 10,
+        "nested|present_nested_flat": 176
+      },
+      "files_checked": 1077,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "fastapi_5126e099bdda51f261fd5a101b5f914991d31897",
+      "n_provided": 3768,
+      "provided": {
+        "matched_def": 3623,
+        "matched_nested_flat": 109,
+        "class_dropped_method": 36
+      },
+      "defs": {
+        "async_function|absent_async": 861,
+        "class|present": 815,
+        "class|present_class_dropped": 33,
+        "function|present": 2808,
+        "nested|absent_async": 59,
+        "nested|present_class_dropped": 10,
+        "nested|present_nested_flat": 176
+      },
+      "files_checked": 1081,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "fastapi_63d7a2b9978258d13dfc22664e60fc2110d30e20",
+      "n_provided": 3717,
+      "provided": {
+        "matched_def": 3585,
+        "class_dropped_method": 34,
+        "matched_nested_flat": 98
+      },
+      "defs": {
+        "async_function|absent_async": 852,
+        "class|present": 812,
+        "class|present_class_dropped": 31,
+        "function|present": 2773,
+        "nested|absent_async": 58,
+        "nested|present_class_dropped": 10,
+        "nested|present_nested_flat": 165
+      },
+      "files_checked": 1074,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "fastapi_740ec2787b25e59f7aa9e3df1db09d4489c22718",
+      "n_provided": 3745,
+      "provided": {
+        "matched_def": 3602,
+        "matched_nested_flat": 109,
+        "class_dropped_method": 34
+      },
+      "defs": {
+        "async_function|absent_async": 854,
+        "class|present": 812,
+        "class|present_class_dropped": 31,
+        "function|present": 2790,
+        "nested|absent_async": 59,
+        "nested|present_class_dropped": 10,
+        "nested|present_nested_flat": 176
+      },
+      "files_checked": 1078,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "fastapi_a456e92a21d5b94a67d6d0fd070218df09444443",
+      "n_provided": 4330,
+      "provided": {
+        "matched_def": 4197,
+        "matched_nested_flat": 129,
+        "class_dropped_method": 4
+      },
+      "defs": {
+        "async_function|absent_async": 870,
+        "class|present": 772,
+        "class|present_class_dropped": 4,
+        "function|present": 3425,
+        "nested|absent_async": 73,
+        "nested|present_nested_flat": 191
+      },
+      "files_checked": 1127,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "fastapi_cd31576d5704b6aef1bdadc43770238cd88aad2b",
+      "n_provided": 4363,
+      "provided": {
+        "matched_def": 4220,
+        "matched_nested_flat": 139,
+        "class_dropped_method": 4
+      },
+      "defs": {
+        "async_function|absent_async": 879,
+        "class|present": 775,
+        "class|present_class_dropped": 4,
+        "function|present": 3445,
+        "nested|absent_async": 71,
+        "nested|present_nested_flat": 218
+      },
+      "files_checked": 1132,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "fastapi_ee22a4b8ca46dcce26c8c183afc4992a888d8be2",
+      "n_provided": 4263,
+      "provided": {
+        "matched_def": 4118,
+        "matched_nested_flat": 145
+      },
+      "defs": {
+        "async_function|absent_async": 734,
+        "class|present": 641,
+        "function|present": 3477,
+        "nested|absent_async": 75,
+        "nested|present_nested_flat": 235
+      },
+      "files_checked": 1021,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "requests_1b40fdd004bfc8ba5301bcf8a6908264e9b6b877",
+      "n_provided": 732,
+      "provided": {
+        "matched_def": 552,
+        "matched_nested_flat": 23,
+        "class_dropped_method": 135,
+        "unmatched": 22
+      },
+      "defs": {
+        "class|present": 70,
+        "function|present": 482,
+        "function|present_class_dropped": 119,
+        "nested|absent_nested": 28,
+        "nested|present_class_dropped": 20,
+        "nested|present_nested_flat": 36
+      },
+      "files_checked": 35,
+      "repo": "psf/requests"
+    },
+    {
+      "graph_key": "requests_cbce031327be4f1b4b5fd041ff4dcaa8efa2ce53",
+      "n_provided": 733,
+      "provided": {
+        "matched_def": 553,
+        "matched_nested_flat": 23,
+        "class_dropped_method": 135,
+        "unmatched": 22
+      },
+      "defs": {
+        "class|present": 70,
+        "function|present": 483,
+        "function|present_class_dropped": 119,
+        "nested|absent_nested": 28,
+        "nested|present_class_dropped": 20,
+        "nested|present_nested_flat": 36
+      },
+      "files_checked": 35,
+      "repo": "psf/requests"
+    },
+    {
+      "graph_key": "rich_1d402e0c59f8765e420a5a4440eb2fca7465d1ae",
+      "n_provided": 2012,
+      "provided": {
+        "matched_def": 1880,
+        "matched_nested_flat": 132
+      },
+      "defs": {
+        "class|present": 219,
+        "function|present": 1688,
+        "nested|absent_async": 1,
+        "nested|absent_nested": 1,
+        "nested|present_nested_flat": 177
+      },
+      "files_checked": 206,
+      "repo": "Textualize/rich"
+    },
+    {
+      "graph_key": "rich_4101991898ee7a09fe1706daca24af5e1e054862",
+      "n_provided": 1964,
+      "provided": {
+        "matched_def": 1839,
+        "matched_nested_flat": 125
+      },
+      "defs": {
+        "class|present": 216,
+        "function|present": 1650,
+        "nested|absent_async": 1,
+        "nested|absent_nested": 1,
+        "nested|present_nested_flat": 168
+      },
+      "files_checked": 188,
+      "repo": "Textualize/rich"
+    },
+    {
+      "graph_key": "rich_610fd75c433c3dfcd9c296e8b91363979127b9fa",
+      "n_provided": 1949,
+      "provided": {
+        "matched_def": 1825,
+        "matched_nested_flat": 124
+      },
+      "defs": {
+        "class|present": 216,
+        "function|present": 1636,
+        "nested|absent_async": 1,
+        "nested|absent_nested": 1,
+        "nested|present_nested_flat": 167
+      },
+      "files_checked": 188,
+      "repo": "Textualize/rich"
+    },
+    {
+      "graph_key": "rich_9cb198944f8184df92217efc8b20d3fffa4b4fa0",
+      "n_provided": 2016,
+      "provided": {
+        "matched_def": 1883,
+        "matched_nested_flat": 133
+      },
+      "defs": {
+        "class|present": 219,
+        "function|present": 1691,
+        "nested|absent_async": 1,
+        "nested|absent_nested": 1,
+        "nested|present_nested_flat": 178
+      },
+      "files_checked": 206,
+      "repo": "Textualize/rich"
+    },
+    {
+      "graph_key": "rich_d0de442c08df8793c5ff36d9ad322ca5c47fc38c",
+      "n_provided": 1962,
+      "provided": {
+        "matched_def": 1837,
+        "matched_nested_flat": 125
+      },
+      "defs": {
+        "class|present": 216,
+        "function|present": 1648,
+        "nested|absent_async": 1,
+        "nested|absent_nested": 1,
+        "nested|present_nested_flat": 168
+      },
+      "files_checked": 188,
+      "repo": "Textualize/rich"
+    }
+  ],
+  "merged_from_shards": true
+}

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""A8: three task-level metrics derived from the Plan A audit, and a scorer that uses them.
+"""A9: three task-level metrics derived from the Plan A audit, and a scorer that uses them.
 
 Inputs: A1 outputs (a1_tasks.csv, a1_gold_symbols.jsonl), A2 analysis outputs (a2_tasks.csv,
 a2_gold.jsonl, a2_run_status.csv), the A2 run folders (trace_pre.json / trace_post.json, for per-test
@@ -37,7 +37,7 @@ patch (post trace) and the empty patch (pre trace). The empty patch must score 0
 strict_resolved; whatever it scores under harness_resolved is the benchmark's free floor.
 
 Outputs: task_metrics.csv, task_tests.jsonl (per required test: pre/post outcome, discriminating),
-a8_summary.json, scores_gold_vs_null.json.
+a9_summary.json, scores_gold_vs_null.json.
 """
 
 from __future__ import annotations
@@ -258,7 +258,7 @@ def main(argv=None):
         },
         "reference_submissions": {"gold_patch": aggregate(gold_scores), "empty_patch": aggregate(null_scores)},
     }
-    (args.out / "a8_summary.json").write_text(json.dumps(summ, indent=2))
+    (args.out / "a9_summary.json").write_text(json.dumps(summ, indent=2))
     (args.out / "scores_gold_vs_null.json").write_text(json.dumps({"gold_patch": gold_scores, "empty_patch": null_scores}, indent=2))
     print(json.dumps({k: v for k, v in summ.items() if k != "entry_distance"}, indent=2))
     print(json.dumps(summ["entry_distance"], indent=2))

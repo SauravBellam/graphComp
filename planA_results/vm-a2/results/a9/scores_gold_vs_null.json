@@ -1,0 +1,2256 @@
+{
+  "gold_patch": [
+    {
+      "instance_id": "fastapi_15661",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 16,
+      "n_discriminating": 16,
+      "n_disc_passed": 16
+    },
+    {
+      "instance_id": "fastapi_15588",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 7,
+      "n_discriminating": 6,
+      "n_disc_passed": 6
+    },
+    {
+      "instance_id": "fastapi_15589",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 4,
+      "n_discriminating": 2,
+      "n_disc_passed": 2
+    },
+    {
+      "instance_id": "fastapi_15030",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 33,
+      "n_discriminating": 33,
+      "n_disc_passed": 33
+    },
+    {
+      "instance_id": "fastapi_14962",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 6,
+      "n_discriminating": 3,
+      "n_disc_passed": 3
+    },
+    {
+      "instance_id": "fastapi_15280",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 1,
+      "n_discriminating": 1,
+      "n_disc_passed": 1
+    },
+    {
+      "instance_id": "fastapi_14964",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 4,
+      "n_discriminating": 2,
+      "n_disc_passed": 2
+    },
+    {
+      "instance_id": "fastapi_15023",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 0,
+      "n_discriminating": 2,
+      "n_disc_passed": 2
+    },
+    {
+      "instance_id": "fastapi_14986",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 7,
+      "n_discriminating": 5,
+      "n_disc_passed": 5
+    },
+    {
+      "instance_id": "fastapi_14978",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 22,
+      "n_discriminating": 37,
+      "n_disc_passed": 37
+    },
+    {
+      "instance_id": "requests_7505",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 1,
+      "n_discriminating": 1,
+      "n_disc_passed": 1
+    },
+    {
+      "instance_id": "requests_7502",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 1,
+      "n_discriminating": 1,
+      "n_disc_passed": 1
+    },
+    {
+      "instance_id": "requests_7433",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 1,
+      "n_discriminating": 1,
+      "n_disc_passed": 1
+    },
+    {
+      "instance_id": "requests_7427",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 9,
+      "n_discriminating": 1,
+      "n_disc_passed": 1
+    },
+    {
+      "instance_id": "requests_7315",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 1,
+      "n_discriminating": 1,
+      "n_disc_passed": 1
+    },
+    {
+      "instance_id": "requests_7328",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 2,
+      "n_discriminating": 1,
+      "n_disc_passed": 1
+    },
+    {
+      "instance_id": "requests_7309",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 0,
+      "n_discriminating": 5,
+      "n_disc_passed": 5
+    },
+    {
+      "instance_id": "requests_7205",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 1,
+      "n_discriminating": 1,
+      "n_disc_passed": 1
+    },
+    {
+      "instance_id": "rich_4070",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 1.0,
+      "n_named": 0,
+      "n_discriminating": 1,
+      "n_disc_passed": 1
+    },
+    {
+      "instance_id": "rich_4077",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 1,
+      "n_discriminating": 1,
+      "n_disc_passed": 1
+    },
+    {
+      "instance_id": "rich_4079",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": null,
+      "n_named": 1,
+      "n_discriminating": 0,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "rich_4076",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 1,
+      "n_discriminating": 4,
+      "n_disc_passed": 4
+    },
+    {
+      "instance_id": "rich_4075",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 2,
+      "n_discriminating": 1,
+      "n_disc_passed": 1
+    },
+    {
+      "instance_id": "rich_4006",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 6,
+      "n_discriminating": 10,
+      "n_disc_passed": 10
+    },
+    {
+      "instance_id": "fastapi_14258",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 1,
+      "n_discriminating": 1,
+      "n_disc_passed": 1
+    },
+    {
+      "instance_id": "fastapi_14851",
+      "harness_resolved": true,
+      "strict_resolved": false,
+      "disc_credit": null,
+      "n_named": 3,
+      "n_discriminating": 0,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "fastapi_14873",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 1,
+      "n_discriminating": 1,
+      "n_disc_passed": 1
+    },
+    {
+      "instance_id": "fastapi_13920",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 1,
+      "n_discriminating": 1,
+      "n_disc_passed": 1
+    },
+    {
+      "instance_id": "fastapi_14794",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 7,
+      "n_discriminating": 5,
+      "n_disc_passed": 5
+    },
+    {
+      "instance_id": "fastapi_14786",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 5,
+      "n_discriminating": 2,
+      "n_disc_passed": 2
+    },
+    {
+      "instance_id": "fastapi_14492",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 0,
+      "n_discriminating": 1,
+      "n_disc_passed": 1
+    },
+    {
+      "instance_id": "fastapi_14479",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 0,
+      "n_discriminating": 4,
+      "n_disc_passed": 4
+    },
+    {
+      "instance_id": "fastapi_14463",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 1,
+      "n_discriminating": 1,
+      "n_disc_passed": 1
+    },
+    {
+      "instance_id": "fastapi_12942",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 1,
+      "n_discriminating": 1,
+      "n_disc_passed": 1
+    },
+    {
+      "instance_id": "fastapi_14099",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 13,
+      "n_discriminating": 5,
+      "n_disc_passed": 5
+    },
+    {
+      "instance_id": "fastapi_14609",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 1,
+      "n_discriminating": 36,
+      "n_disc_passed": 36
+    },
+    {
+      "instance_id": "fastapi_14372",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 1,
+      "n_discriminating": 1,
+      "n_disc_passed": 1
+    },
+    {
+      "instance_id": "fastapi_14349",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 2,
+      "n_discriminating": 1,
+      "n_disc_passed": 1
+    },
+    {
+      "instance_id": "fastapi_14512",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 3,
+      "n_discriminating": 3,
+      "n_disc_passed": 3
+    },
+    {
+      "instance_id": "fastapi_14487",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 0,
+      "n_discriminating": 1,
+      "n_disc_passed": 1
+    },
+    {
+      "instance_id": "fastapi_11355",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 1,
+      "n_discriminating": 1,
+      "n_disc_passed": 1
+    },
+    {
+      "instance_id": "fastapi_14485",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 2,
+      "n_discriminating": 2,
+      "n_disc_passed": 2
+    },
+    {
+      "instance_id": "fastapi_14482",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 3,
+      "n_discriminating": 1,
+      "n_disc_passed": 1
+    },
+    {
+      "instance_id": "fastapi_14306",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 7,
+      "n_discriminating": 7,
+      "n_disc_passed": 7
+    },
+    {
+      "instance_id": "fastapi_14458",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 0,
+      "n_discriminating": 3,
+      "n_disc_passed": 3
+    },
+    {
+      "instance_id": "fastapi_14459",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 6,
+      "n_discriminating": 2,
+      "n_disc_passed": 2
+    },
+    {
+      "instance_id": "fastapi_14448",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 0,
+      "n_discriminating": 8,
+      "n_disc_passed": 8
+    },
+    {
+      "instance_id": "fastapi_14455",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 4,
+      "n_discriminating": 1,
+      "n_disc_passed": 1
+    },
+    {
+      "instance_id": "fastapi_9753",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 12,
+      "n_discriminating": 5,
+      "n_disc_passed": 5
+    },
+    {
+      "instance_id": "fastapi_14430",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 1,
+      "n_discriminating": 1,
+      "n_disc_passed": 1
+    },
+    {
+      "instance_id": "fastapi_5077",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 1,
+      "n_discriminating": 1,
+      "n_disc_passed": 1
+    },
+    {
+      "instance_id": "fastapi_9555",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 4,
+      "n_discriminating": 3,
+      "n_disc_passed": 3
+    },
+    {
+      "instance_id": "fastapi_14361",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 2,
+      "n_discriminating": 1,
+      "n_disc_passed": 1
+    },
+    {
+      "instance_id": "fastapi_13207",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 0,
+      "n_discriminating": 1,
+      "n_disc_passed": 1
+    },
+    {
+      "instance_id": "fastapi_14360",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 6,
+      "n_discriminating": 6,
+      "n_disc_passed": 6
+    },
+    {
+      "instance_id": "fastapi_14356",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 5,
+      "n_discriminating": 8,
+      "n_disc_passed": 8
+    },
+    {
+      "instance_id": "fastapi_5624",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 1,
+      "n_discriminating": 1,
+      "n_disc_passed": 1
+    },
+    {
+      "instance_id": "fastapi_14419",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 2,
+      "n_discriminating": 2,
+      "n_disc_passed": 2
+    },
+    {
+      "instance_id": "fastapi_14301",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 4,
+      "n_discriminating": 2,
+      "n_disc_passed": 2
+    },
+    {
+      "instance_id": "fastapi_14262",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 17,
+      "n_discriminating": 17,
+      "n_disc_passed": 17
+    },
+    {
+      "instance_id": "fastapi_14266",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 3,
+      "n_discriminating": 1,
+      "n_disc_passed": 1
+    },
+    {
+      "instance_id": "fastapi_14246",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 3,
+      "n_discriminating": 1,
+      "n_disc_passed": 1
+    },
+    {
+      "instance_id": "fastapi_14186",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 0,
+      "n_discriminating": 46,
+      "n_disc_passed": 46
+    },
+    {
+      "instance_id": "fastapi_9425",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 1,
+      "n_discriminating": 1,
+      "n_disc_passed": 1
+    },
+    {
+      "instance_id": "fastapi_13713",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 0,
+      "n_discriminating": 1,
+      "n_disc_passed": 1
+    },
+    {
+      "instance_id": "fastapi_14077",
+      "harness_resolved": true,
+      "strict_resolved": false,
+      "disc_credit": null,
+      "n_named": 0,
+      "n_discriminating": 0,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "rich_3718",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 2,
+      "n_discriminating": 1,
+      "n_disc_passed": 1
+    },
+    {
+      "instance_id": "rich_3934",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 1,
+      "n_discriminating": 1,
+      "n_disc_passed": 1
+    },
+    {
+      "instance_id": "rich_3953",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 2,
+      "n_discriminating": 2,
+      "n_disc_passed": 2
+    },
+    {
+      "instance_id": "rich_3944",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 1,
+      "n_discriminating": 1,
+      "n_disc_passed": 1
+    },
+    {
+      "instance_id": "rich_3942",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 0,
+      "n_discriminating": 6,
+      "n_disc_passed": 6
+    },
+    {
+      "instance_id": "rich_3938",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 4,
+      "n_discriminating": 3,
+      "n_disc_passed": 3
+    },
+    {
+      "instance_id": "rich_3882",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 1,
+      "n_discriminating": 1,
+      "n_disc_passed": 1
+    },
+    {
+      "instance_id": "rich_3894",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 1,
+      "n_discriminating": 1,
+      "n_disc_passed": 1
+    },
+    {
+      "instance_id": "rich_3935",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 1,
+      "n_discriminating": 2,
+      "n_disc_passed": 2
+    },
+    {
+      "instance_id": "rich_3905",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 2,
+      "n_discriminating": 1,
+      "n_disc_passed": 1
+    },
+    {
+      "instance_id": "rich_3930",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 75,
+      "n_discriminating": 189,
+      "n_disc_passed": 189
+    },
+    {
+      "instance_id": "httpx_3672",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 0,
+      "n_discriminating": 5,
+      "n_disc_passed": 5
+    },
+    {
+      "instance_id": "fastapi_14791",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 0,
+      "n_discriminating": 36,
+      "n_disc_passed": 36
+    },
+    {
+      "instance_id": "fastapi_15800",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 60,
+      "n_discriminating": 60,
+      "n_disc_passed": 60
+    },
+    {
+      "instance_id": "fastapi_15785",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 1.0,
+      "n_named": 5,
+      "n_discriminating": 35,
+      "n_disc_passed": 35
+    },
+    {
+      "instance_id": "fastapi_14371",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 0,
+      "n_discriminating": 207,
+      "n_disc_passed": 207
+    },
+    {
+      "instance_id": "fastapi_14605",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 0,
+      "n_discriminating": 99,
+      "n_disc_passed": 99
+    },
+    {
+      "instance_id": "fastapi_15763",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 1.0,
+      "n_named": 4,
+      "n_discriminating": 1,
+      "n_disc_passed": 1
+    },
+    {
+      "instance_id": "fastapi_14583",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 4,
+      "n_discriminating": 4,
+      "n_disc_passed": 4
+    },
+    {
+      "instance_id": "fastapi_15745",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 1.0,
+      "n_named": 31,
+      "n_discriminating": 33,
+      "n_disc_passed": 33
+    },
+    {
+      "instance_id": "fastapi_14297",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 4,
+      "n_discriminating": 3,
+      "n_disc_passed": 3
+    },
+    {
+      "instance_id": "fastapi_14303",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 2,
+      "n_discriminating": 1,
+      "n_disc_passed": 1
+    },
+    {
+      "instance_id": "fastapi_13537",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 2,
+      "n_discriminating": 2,
+      "n_disc_passed": 2
+    },
+    {
+      "instance_id": "fastapi_14953",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 16,
+      "n_discriminating": 48,
+      "n_disc_passed": 48
+    },
+    {
+      "instance_id": "fastapi_13786",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 0,
+      "n_discriminating": 24,
+      "n_disc_passed": 24
+    },
+    {
+      "instance_id": "fastapi_14616",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 4,
+      "n_discriminating": 3,
+      "n_disc_passed": 3
+    },
+    {
+      "instance_id": "fastapi_11194",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 4,
+      "n_discriminating": 2,
+      "n_disc_passed": 2
+    },
+    {
+      "instance_id": "requests_6757",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 1.0,
+      "n_named": 3,
+      "n_discriminating": 323,
+      "n_disc_passed": 323
+    },
+    {
+      "instance_id": "rich_3180",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 11,
+      "n_discriminating": 4,
+      "n_disc_passed": 4
+    },
+    {
+      "instance_id": "rich_3486",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 1.0,
+      "n_named": 2,
+      "n_discriminating": 1,
+      "n_disc_passed": 1
+    },
+    {
+      "instance_id": "rich_3777",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 2,
+      "n_discriminating": 1,
+      "n_disc_passed": 1
+    },
+    {
+      "instance_id": "rich_3468",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 1,
+      "n_discriminating": 1,
+      "n_disc_passed": 1
+    },
+    {
+      "instance_id": "rich_3782",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 1.0,
+      "n_named": 25,
+      "n_discriminating": 1,
+      "n_disc_passed": 1
+    },
+    {
+      "instance_id": "rich_3772",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 1,
+      "n_discriminating": 1,
+      "n_disc_passed": 1
+    },
+    {
+      "instance_id": "rich_3296",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 1.0,
+      "n_named": 1,
+      "n_discriminating": 1,
+      "n_disc_passed": 1
+    },
+    {
+      "instance_id": "rich_3675",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 82,
+      "n_discriminating": 1,
+      "n_disc_passed": 1
+    },
+    {
+      "instance_id": "rich_3676",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 1,
+      "n_discriminating": 1,
+      "n_disc_passed": 1
+    },
+    {
+      "instance_id": "rich_3518",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 1,
+      "n_discriminating": 1,
+      "n_disc_passed": 1
+    },
+    {
+      "instance_id": "rich_3535",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 1,
+      "n_discriminating": 1,
+      "n_disc_passed": 1
+    },
+    {
+      "instance_id": "rich_3521",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 8,
+      "n_discriminating": 4,
+      "n_disc_passed": 4
+    },
+    {
+      "instance_id": "rich_3506",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 4,
+      "n_discriminating": 1,
+      "n_disc_passed": 1
+    },
+    {
+      "instance_id": "rich_3480",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 1,
+      "n_discriminating": 1,
+      "n_disc_passed": 1
+    },
+    {
+      "instance_id": "rich_3472",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 1.0,
+      "n_named": 1,
+      "n_discriminating": 1,
+      "n_disc_passed": 1
+    },
+    {
+      "instance_id": "rich_3454",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 0,
+      "n_discriminating": 1,
+      "n_disc_passed": 1
+    },
+    {
+      "instance_id": "rich_3471",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 1,
+      "n_discriminating": 1,
+      "n_disc_passed": 1
+    },
+    {
+      "instance_id": "rich_3470",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 1,
+      "n_discriminating": 2,
+      "n_disc_passed": 2
+    },
+    {
+      "instance_id": "rich_3469",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 1.0,
+      "n_named": 1,
+      "n_discriminating": 1,
+      "n_disc_passed": 1
+    },
+    {
+      "instance_id": "rich_3052",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 2,
+      "n_discriminating": 1,
+      "n_disc_passed": 1
+    },
+    {
+      "instance_id": "rich_3278",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 16,
+      "n_discriminating": 16,
+      "n_disc_passed": 16
+    },
+    {
+      "instance_id": "rich_2943",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 1,
+      "n_discriminating": 1,
+      "n_disc_passed": 1
+    },
+    {
+      "instance_id": "rich_2725",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 4,
+      "n_discriminating": 4,
+      "n_disc_passed": 4
+    },
+    {
+      "instance_id": "rich_3105",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 0,
+      "n_discriminating": 3,
+      "n_disc_passed": 3
+    },
+    {
+      "instance_id": "rich_3130",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 1.0,
+      "n_named": 2,
+      "n_discriminating": 3,
+      "n_disc_passed": 3
+    },
+    {
+      "instance_id": "rich_3043",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 0,
+      "n_discriminating": 3,
+      "n_disc_passed": 3
+    },
+    {
+      "instance_id": "rich_3067",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 0,
+      "n_discriminating": 1,
+      "n_disc_passed": 1
+    },
+    {
+      "instance_id": "rich_3006",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 1,
+      "n_discriminating": 1,
+      "n_disc_passed": 1
+    },
+    {
+      "instance_id": "rich_3064",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 1.0,
+      "n_named": 1,
+      "n_discriminating": 1,
+      "n_disc_passed": 1
+    },
+    {
+      "instance_id": "rich_3063",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 2,
+      "n_discriminating": 1,
+      "n_disc_passed": 1
+    },
+    {
+      "instance_id": "rich_3061",
+      "harness_resolved": true,
+      "strict_resolved": true,
+      "disc_credit": 1.0,
+      "n_named": 14,
+      "n_discriminating": 12,
+      "n_disc_passed": 12
+    }
+  ],
+  "empty_patch": [
+    {
+      "instance_id": "fastapi_15661",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 16,
+      "n_discriminating": 16,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "fastapi_15588",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 7,
+      "n_discriminating": 6,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "fastapi_15589",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 4,
+      "n_discriminating": 2,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "fastapi_15030",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 33,
+      "n_discriminating": 33,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "fastapi_14962",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 6,
+      "n_discriminating": 3,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "fastapi_15280",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 1,
+      "n_discriminating": 1,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "fastapi_14964",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 4,
+      "n_discriminating": 2,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "fastapi_15023",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 0,
+      "n_discriminating": 2,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "fastapi_14986",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 7,
+      "n_discriminating": 5,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "fastapi_14978",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 22,
+      "n_discriminating": 37,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "requests_7505",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 1,
+      "n_discriminating": 1,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "requests_7502",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 1,
+      "n_discriminating": 1,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "requests_7433",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 1,
+      "n_discriminating": 1,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "requests_7427",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 9,
+      "n_discriminating": 1,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "requests_7315",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 1,
+      "n_discriminating": 1,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "requests_7328",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 2,
+      "n_discriminating": 1,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "requests_7309",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 0,
+      "n_discriminating": 5,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "requests_7205",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 1,
+      "n_discriminating": 1,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "rich_4070",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 0,
+      "n_discriminating": 1,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "rich_4077",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 1,
+      "n_discriminating": 1,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "rich_4079",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": null,
+      "n_named": 1,
+      "n_discriminating": 0,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "rich_4076",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 1,
+      "n_discriminating": 4,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "rich_4075",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 2,
+      "n_discriminating": 1,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "rich_4006",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 6,
+      "n_discriminating": 10,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "fastapi_14258",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 1,
+      "n_discriminating": 1,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "fastapi_14851",
+      "harness_resolved": true,
+      "strict_resolved": false,
+      "disc_credit": null,
+      "n_named": 3,
+      "n_discriminating": 0,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "fastapi_14873",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 1,
+      "n_discriminating": 1,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "fastapi_13920",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 1,
+      "n_discriminating": 1,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "fastapi_14794",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 7,
+      "n_discriminating": 5,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "fastapi_14786",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 5,
+      "n_discriminating": 2,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "fastapi_14492",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 0,
+      "n_discriminating": 1,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "fastapi_14479",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 0,
+      "n_discriminating": 4,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "fastapi_14463",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 1,
+      "n_discriminating": 1,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "fastapi_12942",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 1,
+      "n_discriminating": 1,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "fastapi_14099",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 13,
+      "n_discriminating": 5,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "fastapi_14609",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 1,
+      "n_discriminating": 36,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "fastapi_14372",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 1,
+      "n_discriminating": 1,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "fastapi_14349",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 2,
+      "n_discriminating": 1,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "fastapi_14512",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 3,
+      "n_discriminating": 3,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "fastapi_14487",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 0,
+      "n_discriminating": 1,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "fastapi_11355",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 1,
+      "n_discriminating": 1,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "fastapi_14485",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 2,
+      "n_discriminating": 2,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "fastapi_14482",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 3,
+      "n_discriminating": 1,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "fastapi_14306",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 7,
+      "n_discriminating": 7,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "fastapi_14458",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 0,
+      "n_discriminating": 3,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "fastapi_14459",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 6,
+      "n_discriminating": 2,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "fastapi_14448",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 0,
+      "n_discriminating": 8,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "fastapi_14455",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 4,
+      "n_discriminating": 1,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "fastapi_9753",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 12,
+      "n_discriminating": 5,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "fastapi_14430",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 1,
+      "n_discriminating": 1,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "fastapi_5077",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 1,
+      "n_discriminating": 1,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "fastapi_9555",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 4,
+      "n_discriminating": 3,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "fastapi_14361",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 2,
+      "n_discriminating": 1,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "fastapi_13207",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 0,
+      "n_discriminating": 1,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "fastapi_14360",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 6,
+      "n_discriminating": 6,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "fastapi_14356",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 5,
+      "n_discriminating": 8,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "fastapi_5624",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 1,
+      "n_discriminating": 1,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "fastapi_14419",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 2,
+      "n_discriminating": 2,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "fastapi_14301",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 4,
+      "n_discriminating": 2,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "fastapi_14262",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 17,
+      "n_discriminating": 17,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "fastapi_14266",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 3,
+      "n_discriminating": 1,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "fastapi_14246",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 3,
+      "n_discriminating": 1,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "fastapi_14186",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 0,
+      "n_discriminating": 46,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "fastapi_9425",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 1,
+      "n_discriminating": 1,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "fastapi_13713",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 0,
+      "n_discriminating": 1,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "fastapi_14077",
+      "harness_resolved": true,
+      "strict_resolved": false,
+      "disc_credit": null,
+      "n_named": 0,
+      "n_discriminating": 0,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "rich_3718",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 2,
+      "n_discriminating": 1,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "rich_3934",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 1,
+      "n_discriminating": 1,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "rich_3953",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 2,
+      "n_discriminating": 2,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "rich_3944",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 1,
+      "n_discriminating": 1,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "rich_3942",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 0,
+      "n_discriminating": 6,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "rich_3938",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 4,
+      "n_discriminating": 3,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "rich_3882",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 1,
+      "n_discriminating": 1,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "rich_3894",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 1,
+      "n_discriminating": 1,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "rich_3935",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 1,
+      "n_discriminating": 2,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "rich_3905",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 2,
+      "n_discriminating": 1,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "rich_3930",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 75,
+      "n_discriminating": 189,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "httpx_3672",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 0,
+      "n_discriminating": 5,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "fastapi_14791",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 0,
+      "n_discriminating": 36,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "fastapi_15800",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 60,
+      "n_discriminating": 60,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "fastapi_15785",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 5,
+      "n_discriminating": 35,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "fastapi_14371",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 0,
+      "n_discriminating": 207,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "fastapi_14605",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 0,
+      "n_discriminating": 99,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "fastapi_15763",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 4,
+      "n_discriminating": 1,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "fastapi_14583",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 4,
+      "n_discriminating": 4,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "fastapi_15745",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 31,
+      "n_discriminating": 33,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "fastapi_14297",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 4,
+      "n_discriminating": 3,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "fastapi_14303",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 2,
+      "n_discriminating": 1,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "fastapi_13537",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 2,
+      "n_discriminating": 2,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "fastapi_14953",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 16,
+      "n_discriminating": 48,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "fastapi_13786",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 0,
+      "n_discriminating": 24,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "fastapi_14616",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 4,
+      "n_discriminating": 3,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "fastapi_11194",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 4,
+      "n_discriminating": 2,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "requests_6757",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 3,
+      "n_discriminating": 323,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "rich_3180",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 11,
+      "n_discriminating": 4,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "rich_3486",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 2,
+      "n_discriminating": 1,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "rich_3777",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 2,
+      "n_discriminating": 1,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "rich_3468",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 1,
+      "n_discriminating": 1,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "rich_3782",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 25,
+      "n_discriminating": 1,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "rich_3772",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 1,
+      "n_discriminating": 1,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "rich_3296",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 1,
+      "n_discriminating": 1,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "rich_3675",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 82,
+      "n_discriminating": 1,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "rich_3676",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 1,
+      "n_discriminating": 1,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "rich_3518",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 1,
+      "n_discriminating": 1,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "rich_3535",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 1,
+      "n_discriminating": 1,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "rich_3521",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 8,
+      "n_discriminating": 4,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "rich_3506",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 4,
+      "n_discriminating": 1,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "rich_3480",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 1,
+      "n_discriminating": 1,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "rich_3472",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 1,
+      "n_discriminating": 1,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "rich_3454",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 0,
+      "n_discriminating": 1,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "rich_3471",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 1,
+      "n_discriminating": 1,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "rich_3470",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 1,
+      "n_discriminating": 2,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "rich_3469",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 1,
+      "n_discriminating": 1,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "rich_3052",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 2,
+      "n_discriminating": 1,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "rich_3278",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 16,
+      "n_discriminating": 16,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "rich_2943",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 1,
+      "n_discriminating": 1,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "rich_2725",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 4,
+      "n_discriminating": 4,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "rich_3105",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 0,
+      "n_discriminating": 3,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "rich_3130",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 2,
+      "n_discriminating": 3,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "rich_3043",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 0,
+      "n_discriminating": 3,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "rich_3067",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 0,
+      "n_discriminating": 1,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "rich_3006",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 1,
+      "n_discriminating": 1,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "rich_3064",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 1,
+      "n_discriminating": 1,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "rich_3063",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 2,
+      "n_discriminating": 1,
+      "n_disc_passed": 0
+    },
+    {
+      "instance_id": "rich_3061",
+      "harness_resolved": false,
+      "strict_resolved": false,
+      "disc_credit": 0.0,
+      "n_named": 14,
+      "n_discriminating": 12,
+      "n_disc_passed": 0
+    }
+  ]
+}
