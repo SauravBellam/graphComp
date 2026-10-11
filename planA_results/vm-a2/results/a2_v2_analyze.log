@@ -1,0 +1,270 @@
+[a2-analyze] fastapi_15661: class=import_error usable=False captured=0 missed_nodes=0 absent_async=0 gold={'in_graph_executed': 0, 'absent_executed': 0}
+[a2-analyze] fastapi_15588: class=clean usable=True captured=46 missed_nodes=25 absent_async=27 gold={'in_graph_executed': 1, 'absent_executed': 0}
+[a2-analyze] fastapi_15589: class=clean usable=True captured=62 missed_nodes=28 absent_async=12 gold={'in_graph_executed': 1, 'absent_executed': 0}
+[a2-analyze] fastapi_15030: class=collection_error usable=False captured=8 missed_nodes=0 absent_async=0 gold={'in_graph_executed': 0, 'absent_executed': 0}
+[a2-analyze] fastapi_14962: class=clean usable=True captured=57 missed_nodes=16 absent_async=11 gold={'in_graph_executed': 0, 'absent_executed': 2}
+[a2-analyze] fastapi_15280: class=clean usable=True captured=10 missed_nodes=1 absent_async=0 gold={'in_graph_executed': 1, 'absent_executed': 0}
+[a2-analyze] fastapi_14964: class=clean usable=True captured=57 missed_nodes=16 absent_async=17 gold={'in_graph_executed': 0, 'absent_executed': 0}
+[a2-analyze] fastapi_15023: class=clean usable=False captured=54 missed_nodes=15 absent_async=11 gold={'in_graph_executed': 0, 'absent_executed': 0}
+[a2-analyze] fastapi_14986: class=clean usable=True captured=48 missed_nodes=15 absent_async=2 gold={'in_graph_executed': 3, 'absent_executed': 0}
+[a2-analyze] fastapi_14978: class=collection_error usable=False captured=44 missed_nodes=16 absent_async=0 gold={'in_graph_executed': 0, 'absent_executed': 0}
+[a2-analyze] requests_7505: class=clean usable=True captured=231 missed_nodes=489 absent_async=0 gold={'in_graph_executed': 2, 'absent_executed': 0}
+[a2-analyze] requests_7502: class=clean usable=True captured=231 missed_nodes=489 absent_async=0 gold={'in_graph_executed': 1, 'absent_executed': 0}
+[a2-analyze] requests_7433: class=clean usable=True captured=231 missed_nodes=489 absent_async=0 gold={'in_graph_executed': 1, 'absent_executed': 0}
+[a2-analyze] requests_7427: class=clean usable=True captured=60 missed_nodes=8 absent_async=0 gold={'in_graph_executed': 1, 'absent_executed': 0}
+[a2-analyze] requests_7315: class=clean usable=True captured=14 missed_nodes=14 absent_async=0 gold={'in_graph_executed': 1, 'absent_executed': 0}
+[a2-analyze] requests_7328: class=clean usable=True captured=222 missed_nodes=474 absent_async=0 gold={'in_graph_executed': 1, 'absent_executed': 0}
+[a2-analyze] requests_7309: class=clean usable=False captured=60 missed_nodes=8 absent_async=0 gold={'in_graph_executed': 1, 'absent_executed': 0}
+[a2-analyze] requests_7205: class=clean usable=True captured=59 missed_nodes=7 absent_async=0 gold={'in_graph_executed': 1, 'absent_executed': 0}
+[a2-analyze] rich_4070: class=clean usable=False captured=309 missed_nodes=662 absent_async=0 gold={'in_graph_executed': 5, 'absent_executed': 0}
+[a2-analyze] rich_4077: class=clean usable=True captured=42 missed_nodes=87 absent_async=0 gold={'in_graph_executed': 1, 'absent_executed': 0}
+[a2-analyze] rich_4079: class=clean usable=False captured=114 missed_nodes=304 absent_async=0 gold={'in_graph_executed': 0, 'absent_executed': 0}
+[a2-analyze] rich_4076: class=clean usable=True captured=51 missed_nodes=156 absent_async=0 gold={'in_graph_executed': 1, 'absent_executed': 0}
+[a2-analyze] rich_4075: class=clean usable=True captured=237 missed_nodes=551 absent_async=0 gold={'in_graph_executed': 1, 'absent_executed': 0}
+[a2-analyze] fastapi_14258: class=clean usable=True captured=10 missed_nodes=0 absent_async=0 gold={'in_graph_executed': 1, 'absent_executed': 0}
+[a2-analyze] fastapi_14851: class=clean usable=False captured=51 missed_nodes=36 absent_async=8 gold={'in_graph_executed': 0, 'absent_executed': 0}
+[a2-analyze] fastapi_14873: class=clean usable=True captured=55 missed_nodes=46 absent_async=24 gold={'in_graph_executed': 1, 'absent_executed': 0}
+[a2-analyze] fastapi_13920: class=clean usable=True captured=59 missed_nodes=25 absent_async=8 gold={'in_graph_executed': 1, 'absent_executed': 0}
+[a2-analyze] fastapi_14794: class=clean usable=True captured=31 missed_nodes=20 absent_async=10 gold={'in_graph_executed': 1, 'absent_executed': 0}
+[a2-analyze] fastapi_14786: class=clean usable=True captured=57 missed_nodes=29 absent_async=19 gold={'in_graph_executed': 1, 'absent_executed': 0}
+[a2-analyze] fastapi_14492: class=clean usable=False captured=45 missed_nodes=17 absent_async=8 gold={'in_graph_executed': 0, 'absent_executed': 0}
+[a2-analyze] fastapi_14479: class=clean usable=False captured=44 missed_nodes=28 absent_async=0 gold={'in_graph_executed': 1, 'absent_executed': 0}
+[a2-analyze] fastapi_14463: class=clean usable=True captured=63 missed_nodes=29 absent_async=2 gold={'in_graph_executed': 1, 'absent_executed': 0}
+[a2-analyze] fastapi_12942: class=clean usable=True captured=41 missed_nodes=21 absent_async=8 gold={'in_graph_executed': 1, 'absent_executed': 0}
+[a2-analyze] fastapi_14099: class=clean usable=True captured=44 missed_nodes=23 absent_async=43 gold={'in_graph_executed': 0, 'absent_executed': 0}
+[a2-analyze] fastapi_14609: class=collection_error usable=False captured=8 missed_nodes=0 absent_async=0 gold={'in_graph_executed': 0, 'absent_executed': 0}
+[a2-analyze] fastapi_14372: class=clean usable=True captured=10 missed_nodes=0 absent_async=0 gold={'in_graph_executed': 0, 'absent_executed': 0}
+[a2-analyze] fastapi_14349: class=clean usable=True captured=44 missed_nodes=21 absent_async=10 gold={'in_graph_executed': 1, 'absent_executed': 0}
+[a2-analyze] fastapi_14512: class=clean usable=True captured=37 missed_nodes=19 absent_async=0 gold={'in_graph_executed': 1, 'absent_executed': 0}
+[a2-analyze] fastapi_14487: class=clean usable=False captured=84 missed_nodes=44 absent_async=13 gold={'in_graph_executed': 0, 'absent_executed': 1}
+[a2-analyze] fastapi_11355: class=clean usable=True captured=57 missed_nodes=31 absent_async=9 gold={'in_graph_executed': 2, 'absent_executed': 0}
+[a2-analyze] fastapi_14485: class=clean usable=True captured=31 missed_nodes=11 absent_async=0 gold={'in_graph_executed': 2, 'absent_executed': 0}
+[a2-analyze] fastapi_14482: class=clean usable=True captured=44 missed_nodes=16 absent_async=8 gold={'in_graph_executed': 2, 'absent_executed': 0}
+[a2-analyze] fastapi_14306: class=clean usable=True captured=62 missed_nodes=28 absent_async=20 gold={'in_graph_executed': 7, 'absent_executed': 1}
+[a2-analyze] fastapi_14458: class=clean usable=False captured=57 missed_nodes=30 absent_async=27 gold={'in_graph_executed': 2, 'absent_executed': 0}
+[a2-analyze] fastapi_14459: class=clean usable=True captured=60 missed_nodes=28 absent_async=20 gold={'in_graph_executed': 2, 'absent_executed': 0}
+[a2-analyze] fastapi_14448: class=clean usable=False captured=24 missed_nodes=19 absent_async=49 gold={'in_graph_executed': 2, 'absent_executed': 1}
+[a2-analyze] fastapi_14455: class=clean usable=True captured=60 missed_nodes=28 absent_async=15 gold={'in_graph_executed': 1, 'absent_executed': 0}
+[a2-analyze] fastapi_9753: class=clean usable=True captured=35 missed_nodes=18 absent_async=29 gold={'in_graph_executed': 0, 'absent_executed': 0}
+[a2-analyze] fastapi_14430: class=clean usable=True captured=62 missed_nodes=30 absent_async=13 gold={'in_graph_executed': 1, 'absent_executed': 0}
+[a2-analyze] fastapi_5077: class=clean usable=True captured=55 missed_nodes=26 absent_async=8 gold={'in_graph_executed': 2, 'absent_executed': 0}
+[a2-analyze] fastapi_9555: class=clean usable=True captured=24 missed_nodes=15 absent_async=14 gold={'in_graph_executed': 1, 'absent_executed': 0}
+[a2-analyze] fastapi_14361: class=clean usable=True captured=46 missed_nodes=20 absent_async=10 gold={'in_graph_executed': 1, 'absent_executed': 0}
+[a2-analyze] fastapi_13207: class=clean usable=False captured=65 missed_nodes=29 absent_async=8 gold={'in_graph_executed': 2, 'absent_executed': 0}
+[a2-analyze] fastapi_14360: class=clean usable=True captured=61 missed_nodes=26 absent_async=8 gold={'in_graph_executed': 1, 'absent_executed': 0}
+[a2-analyze] fastapi_14356: class=clean usable=True captured=93 missed_nodes=46 absent_async=20 gold={'in_graph_executed': 1, 'absent_executed': 0}
+[a2-analyze] fastapi_5624: class=clean usable=True captured=25 missed_nodes=15 absent_async=14 gold={'in_graph_executed': 0, 'absent_executed': 0}
+[a2-analyze] fastapi_14419: class=clean usable=True captured=25 missed_nodes=15 absent_async=11 gold={'in_graph_executed': 2, 'absent_executed': 1}
+[a2-analyze] fastapi_14301: class=clean usable=True captured=40 missed_nodes=20 absent_async=13 gold={'in_graph_executed': 1, 'absent_executed': 0}
+[a2-analyze] fastapi_14262: class=collection_error usable=False captured=10 missed_nodes=0 absent_async=0 gold={'in_graph_executed': 0, 'absent_executed': 0}
+[a2-analyze] fastapi_14266: class=clean usable=True captured=50 missed_nodes=17 absent_async=18 gold={'in_graph_executed': 0, 'absent_executed': 0}
+[a2-analyze] fastapi_14246: class=clean usable=True captured=103 missed_nodes=47 absent_async=17 gold={'in_graph_executed': 1, 'absent_executed': 0}
+[a2-analyze] fastapi_14186: class=collection_error usable=False captured=43 missed_nodes=15 absent_async=0 gold={'in_graph_executed': 0, 'absent_executed': 0}
+[a2-analyze] fastapi_9425: class=clean usable=True captured=13 missed_nodes=5 absent_async=0 gold={'in_graph_executed': 1, 'absent_executed': 0}
+[a2-analyze] fastapi_13713: class=clean usable=False captured=64 missed_nodes=23 absent_async=9 gold={'in_graph_executed': 2, 'absent_executed': 0}
+[a2-analyze] fastapi_14077: class=clean usable=False captured=55 missed_nodes=31 absent_async=13 gold={'in_graph_executed': 0, 'absent_executed': 0}
+[a2-analyze] rich_3718: class=clean usable=True captured=63 missed_nodes=171 absent_async=0 gold={'in_graph_executed': 0, 'absent_executed': 0}
+[a2-analyze] rich_3934: class=clean usable=True captured=82 missed_nodes=217 absent_async=0 gold={'in_graph_executed': 2, 'absent_executed': 0}
+[a2-analyze] rich_3953: class=clean usable=True captured=22 missed_nodes=2 absent_async=0 gold={'in_graph_executed': 2, 'absent_executed': 0}
+[a2-analyze] rich_3944: class=clean usable=True captured=21 missed_nodes=2 absent_async=0 gold={'in_graph_executed': 1, 'absent_executed': 0}
+[a2-analyze] rich_3942: class=clean usable=False captured=125 missed_nodes=312 absent_async=0 gold={'in_graph_executed': 4, 'absent_executed': 0}
+[a2-analyze] rich_3938: class=clean usable=True captured=236 missed_nodes=451 absent_async=0 gold={'in_graph_executed': 1, 'absent_executed': 0}
+[a2-analyze] rich_3882: class=clean usable=True captured=53 missed_nodes=125 absent_async=0 gold={'in_graph_executed': 1, 'absent_executed': 0}
+[a2-analyze] rich_3894: class=clean usable=True captured=118 missed_nodes=256 absent_async=0 gold={'in_graph_executed': 1, 'absent_executed': 0}
+[a2-analyze] rich_3935: class=clean usable=True captured=112 missed_nodes=259 absent_async=0 gold={'in_graph_executed': 2, 'absent_executed': 0}
+[a2-analyze] rich_3905: class=clean usable=True captured=182 missed_nodes=465 absent_async=0 gold={'in_graph_executed': 1, 'absent_executed': 0}
+[a2-analyze] rich_3930: class=import_error usable=False captured=4 missed_nodes=3 absent_async=0 gold={'in_graph_executed': 0, 'absent_executed': 0}
+[a2-analyze] httpx_3672: class=clean usable=False captured=51 missed_nodes=156 absent_async=0 gold={'in_graph_executed': 1, 'absent_executed': 0}
+[a2-analyze] fastapi_14791: class=clean usable=False captured=170 missed_nodes=141 absent_async=64 gold={'in_graph_executed': 0, 'absent_executed': 0}
+[a2-analyze] fastapi_15800: class=clean usable=True captured=42 missed_nodes=25 absent_async=0 gold={'in_graph_executed': 5, 'absent_executed': 0}
+[a2-analyze] fastapi_15785: class=collection_error usable=False captured=8 missed_nodes=2 absent_async=0 gold={'in_graph_executed': 0, 'absent_executed': 0}
+[a2-analyze] fastapi_14371: class=clean usable=False captured=181 missed_nodes=159 absent_async=113 gold={'in_graph_executed': 2, 'absent_executed': 1}
+[a2-analyze] fastapi_14605: class=collection_error usable=False captured=8 missed_nodes=0 absent_async=0 gold={'in_graph_executed': 0, 'absent_executed': 0}
+[a2-analyze] fastapi_15763: class=clean usable=True captured=170 missed_nodes=170 absent_async=28 gold={'in_graph_executed': 1, 'absent_executed': 0}
+[a2-analyze] fastapi_14583: class=clean usable=True captured=154 missed_nodes=103 absent_async=38 gold={'in_graph_executed': 2, 'absent_executed': 0}
+[a2-analyze] fastapi_15745: class=collection_error usable=False captured=34 missed_nodes=16 absent_async=0 gold={'in_graph_executed': 0, 'absent_executed': 0}
+[a2-analyze] fastapi_14297: class=clean usable=True captured=75 missed_nodes=37 absent_async=21 gold={'in_graph_executed': 1, 'absent_executed': 0}
+[a2-analyze] fastapi_14303: class=clean usable=True captured=50 missed_nodes=26 absent_async=19 gold={'in_graph_executed': 0, 'absent_executed': 0}
+[a2-analyze] fastapi_13537: class=clean usable=True captured=55 missed_nodes=30 absent_async=14 gold={'in_graph_executed': 0, 'absent_executed': 0}
+[a2-analyze] fastapi_14953: class=clean usable=True captured=102 missed_nodes=55 absent_async=37 gold={'in_graph_executed': 1, 'absent_executed': 0}
+[a2-analyze] fastapi_13786: class=clean usable=False captured=81 missed_nodes=49 absent_async=42 gold={'in_graph_executed': 1, 'absent_executed': 9}
+[a2-analyze] fastapi_14616: class=clean usable=True captured=71 missed_nodes=30 absent_async=17 gold={'in_graph_executed': 1, 'absent_executed': 0}
+[a2-analyze] fastapi_11194: class=clean usable=True captured=32 missed_nodes=21 absent_async=18 gold={'in_graph_executed': 0, 'absent_executed': 0}
+[a2-analyze] requests_6757: class=collection_error usable=False captured=0 missed_nodes=0 absent_async=0 gold={'in_graph_executed': 0, 'absent_executed': 0}
+[a2-analyze] rich_3180: class=clean usable=True captured=171 missed_nodes=380 absent_async=0 gold={'in_graph_executed': 3, 'absent_executed': 0}
+[a2-analyze] rich_3486: class=clean usable=True captured=140 missed_nodes=327 absent_async=0 gold={'in_graph_executed': 0, 'absent_executed': 0}
+[a2-analyze] rich_3777: class=clean usable=True captured=232 missed_nodes=550 absent_async=0 gold={'in_graph_executed': 1, 'absent_executed': 0}
+[a2-analyze] rich_3468: class=clean usable=True captured=231 missed_nodes=572 absent_async=0 gold={'in_graph_executed': 0, 'absent_executed': 0}
+[a2-analyze] rich_3782: class=clean usable=True captured=110 missed_nodes=225 absent_async=0 gold={'in_graph_executed': 4, 'absent_executed': 0}
+[a2-analyze] rich_3772: class=clean usable=True captured=141 missed_nodes=332 absent_async=0 gold={'in_graph_executed': 0, 'absent_executed': 0}
+[a2-analyze] rich_3296: class=clean usable=True captured=108 missed_nodes=226 absent_async=0 gold={'in_graph_executed': 1, 'absent_executed': 0}
+[a2-analyze] rich_3675: class=clean usable=True captured=230 missed_nodes=573 absent_async=0 gold={'in_graph_executed': 2, 'absent_executed': 0}
+[a2-analyze] rich_3676: class=clean usable=True captured=140 missed_nodes=331 absent_async=0 gold={'in_graph_executed': 0, 'absent_executed': 0}
+[a2-analyze] rich_3518: class=clean usable=True captured=92 missed_nodes=229 absent_async=0 gold={'in_graph_executed': 1, 'absent_executed': 0}
+[a2-analyze] rich_3535: class=clean usable=True captured=9 missed_nodes=3 absent_async=0 gold={'in_graph_executed': 0, 'absent_executed': 0}
+[a2-analyze] rich_3521: class=clean usable=True captured=80 missed_nodes=128 absent_async=0 gold={'in_graph_executed': 1, 'absent_executed': 0}
+[a2-analyze] rich_3506: class=clean usable=True captured=74 missed_nodes=124 absent_async=0 gold={'in_graph_executed': 1, 'absent_executed': 0}
+[a2-analyze] rich_3480: class=clean usable=True captured=179 missed_nodes=401 absent_async=0 gold={'in_graph_executed': 2, 'absent_executed': 0}
+[a2-analyze] rich_3472: class=clean usable=True captured=170 missed_nodes=206 absent_async=0 gold={'in_graph_executed': 1, 'absent_executed': 0}
+[a2-analyze] rich_3454: class=clean usable=False captured=10 missed_nodes=26 absent_async=0 gold={'in_graph_executed': 0, 'absent_executed': 0}
+[a2-analyze] rich_3471: class=clean usable=True captured=176 missed_nodes=396 absent_async=0 gold={'in_graph_executed': 1, 'absent_executed': 0}
+[a2-analyze] rich_3470: class=clean usable=True captured=231 missed_nodes=574 absent_async=0 gold={'in_graph_executed': 1, 'absent_executed': 0}
+[a2-analyze] rich_3469: class=clean usable=True captured=112 missed_nodes=310 absent_async=0 gold={'in_graph_executed': 1, 'absent_executed': 0}
+[a2-analyze] rich_3052: class=clean usable=True captured=49 missed_nodes=125 absent_async=0 gold={'in_graph_executed': 5, 'absent_executed': 0}
+[a2-analyze] rich_3278: class=clean usable=True captured=48 missed_nodes=140 absent_async=0 gold={'in_graph_executed': 0, 'absent_executed': 0}
+[a2-analyze] rich_2943: class=clean usable=True captured=44 missed_nodes=85 absent_async=0 gold={'in_graph_executed': 0, 'absent_executed': 0}
+[a2-analyze] rich_2725: class=clean usable=True captured=90 missed_nodes=223 absent_async=0 gold={'in_graph_executed': 0, 'absent_executed': 0}
+[a2-analyze] rich_3105: class=clean usable=False captured=230 missed_nodes=570 absent_async=0 gold={'in_graph_executed': 0, 'absent_executed': 0}
+[a2-analyze] rich_3130: class=clean usable=True captured=107 missed_nodes=304 absent_async=0 gold={'in_graph_executed': 3, 'absent_executed': 0}
+[a2-analyze] rich_3043: class=clean usable=False captured=230 missed_nodes=570 absent_async=0 gold={'in_graph_executed': 0, 'absent_executed': 0}
+[a2-analyze] rich_3067: class=clean usable=False captured=10 missed_nodes=26 absent_async=0 gold={'in_graph_executed': 0, 'absent_executed': 0}
+[a2-analyze] rich_3006: class=clean usable=False captured=58 missed_nodes=132 absent_async=0 gold={'in_graph_executed': 1, 'absent_executed': 0}
+[a2-analyze] rich_3064: class=clean usable=True captured=105 missed_nodes=307 absent_async=0 gold={'in_graph_executed': 1, 'absent_executed': 0}
+[a2-analyze] rich_3063: class=clean usable=True captured=57 missed_nodes=134 absent_async=0 gold={'in_graph_executed': 1, 'absent_executed': 0}
+[a2-analyze] rich_3061: class=clean usable=True captured=187 missed_nodes=429 absent_async=0 gold={'in_graph_executed': 7, 'absent_executed': 0}
+{
+  "coverage": {
+    "n_tasks": 129,
+    "run_class": {
+      "import_error": 2,
+      "clean": 113,
+      "collection_error": 9,
+      "killed": 1,
+      "no_tests": 4
+    },
+    "usable": {
+      "k": 90,
+      "n": 129,
+      "p": 0.6977,
+      "lo": 0.6137,
+      "hi": 0.7703
+    },
+    "per_repo": {
+      "fastapi/fastapi": {
+        "n": 67,
+        "usable": 45,
+        "run_class": {
+          "import_error": 1,
+          "clean": 58,
+          "collection_error": 8
+        }
+      },
+      "psf/requests": {
+        "n": 13,
+        "usable": 7,
+        "run_class": {
+          "clean": 8,
+          "collection_error": 1,
+          "no_tests": 4
+        }
+      },
+      "Textualize/rich": {
+        "n": 48,
+        "usable": 38,
+        "run_class": {
+          "clean": 46,
+          "killed": 1,
+          "import_error": 1
+        }
+      },
+      "encode/httpx": {
+        "n": 1,
+        "usable": 0,
+        "run_class": {
+          "clean": 1
+        }
+      }
+    },
+    "patch_strategies": {
+      "test": {
+        "exact": 129
+      },
+      "gold": {
+        "exact": 129
+      }
+    },
+    "top_missing_modules": [
+      [
+        "scripts.prepare_release",
+        1
+      ],
+      [
+        "rich._unicode_data",
+        1
+      ],
+      [
+        "docs_src.json_base64_bytes",
+        1
+      ]
+    ],
+    "f2p_check": {
+      "tasks_all_expected_confirmed": 55,
+      "tasks_all_expected_confirmed_or_uncollected": 63,
+      "tasks_harness_resolved_post": 91,
+      "tasks_strict": 55,
+      "expected": 486,
+      "confirmed": 188,
+      "uncollected_pre": 118,
+      "pre_passed": 173,
+      "post_failed": 7,
+      "not_collected": 0
+    },
+    "static_reachability_sources": {
+      "tasks_with_test_node_source": 25,
+      "tasks_with_entry_source": 113
+    }
+  },
+  "usable_tasks": {
+    "recall_representable": {
+      "num": 8008.0,
+      "den": 21627.0,
+      "ratio": 0.3703,
+      "lo": 0.3481,
+      "hi": 0.4016,
+      "n_tasks": 90
+    },
+    "recall_agent_facing": {
+      "num": 8008.0,
+      "den": 25239.0,
+      "ratio": 0.3173,
+      "lo": 0.2926,
+      "hi": 0.3473,
+      "n_tasks": 90
+    },
+    "miss_share_by_cause": {
+      "missed_between_nodes": {
+        "num": 13619.0,
+        "den": 17231.0,
+        "ratio": 0.7904,
+        "lo": 0.7247,
+        "hi": 0.8585,
+        "n_tasks": 90
+      },
+      "absent_async": {
+        "num": 632.0,
+        "den": 17231.0,
+        "ratio": 0.0367,
+        "lo": 0.0228,
+        "hi": 0.0567,
+        "n_tasks": 90
+      },
+      "absent_nested": {
+        "num": 1089.0,
+        "den": 17231.0,
+        "ratio": 0.0632,
+        "lo": 0.056,
+        "hi": 0.0703,
+        "n_tasks": 90
+      },
+      "absent_sync": {
+        "num": 1891.0,
+        "den": 17231.0,
+        "ratio": 0.1097,
+        "lo": 0.0471,
+        "hi": 0.1718,
+        "n_tasks": 90
+      }
+    },
+    "unmapped_module_edges": 26
+  }
+}

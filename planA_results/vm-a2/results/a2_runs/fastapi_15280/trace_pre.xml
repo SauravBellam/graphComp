@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="1.760" timestamp="2026-10-10T23:15:44.912144+00:00" hostname="vm-a2"><testcase classname="tests.test_vibe" name="test_vibe_raises" time="0.006"><failure message="AttributeError: 'FastAPI' object has no attribute 'vibe'">def test_vibe_raises():
+        with pytest.raises(FastAPIError, match="Are you kidding me"):
+            app = FastAPI()
+    
+&gt;           @app.vibe(
+             ^^^^^^^^
+                "/vibe/",
+                prompt="pls return json of users from database. make no mistakes",
+            )
+E           AttributeError: 'FastAPI' object has no attribute 'vibe'
+
+tests/test_vibe.py:12: AttributeError</failure></testcase></testsuite></testsuites>

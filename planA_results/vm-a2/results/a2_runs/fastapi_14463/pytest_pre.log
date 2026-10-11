@@ -1,0 +1,98 @@
+
+$ /home/sauravbellam/cache/a2/fastapi_14463/venv/bin/python -s -m pytest tests/test_additional_responses_union_duplicate_anyof.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/fastapi_14463/trace_pre.xml
+[exit 1]
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_____________________________ test_openapi_schema ______________________________
+
+    def test_openapi_schema():
+        response = client.get("/openapi.json")
+        assert response.status_code == 200, response.text
+>       assert response.json() == {
+            "openapi": "3.1.0",
+            "info": {"title": "FastAPI", "version": "0.1.0"},
+            "paths": {
+                "/route1": {
+                    "get": {
+                        "summary": "Route1",
+                        "operationId": "route1_route1_get",
+                        "responses": {
+                            "200": {
+                                "description": "Successful Response",
+                                "content": {"application/json": {"schema": {}}},
+                            },
+                            "500": {
+                                "description": "Internal Server Error",
+                                "content": {
+                                    "application/json": {
+                                        "schema": {
+                                            "anyOf": [
+                                                {"$ref": "#/components/schemas/ModelA"},
+                                                {"$ref": "#/components/schemas/ModelB"},
+                                            ],
+                                            "title": "Response 500 Route1 Route1 Get",
+                                        },
+                                        "examples": {"Case A": {"value": "a"}},
+                                    }
+                                },
+                            },
+                        },
+                    }
+                },
+                "/route2": {
+                    "get": {
+                        "summary": "Route2",
+                        "operationId": "route2_route2_get",
+                        "responses": {
+                            "200": {
+                                "description": "Successful Response",
+                                "content": {"application/json": {"schema": {}}},
+                            },
+                            "500": {
+                                "description": "Internal Server Error",
+                                "content": {
+                                    "application/json": {
+                                        "schema": {
+                                            "anyOf": [
+                                                {"$ref": "#/components/schemas/ModelA"},
+                                                {"$ref": "#/components/schemas/ModelB"},
+                                            ],
+                                            "title": "Response 500 Route2 Route2 Get",
+                                        },
+                                        "examples": {"Case A": {"value": "a"}},
+                                    }
+                                },
+                            },
+                        },
+                    }
+                },
+            },
+            "components": {
+                "schemas": {
+                    "ModelA": {
+                        "properties": {"a": {"type": "string", "title": "A"}},
+                        "type": "object",
+                        "required": ["a"],
+                        "title": "ModelA",
+                    },
+                    "ModelB": {
+                        "properties": {"b": {"type": "string", "title": "B"}},
+                        "type": "object",
+                        "required": ["b"],
+                        "title": "ModelB",
+                    },
+                }
+            },
+        }
+E       AssertionError: assert {'components'...: 'Route2'}}}} == {'components'...: 'Route2'}}}}
+E         
+E         Omitting 3 identical items, use -vv to show
+E         Differing items:
+E         {'paths': {'/route1': {'get': {'operationId': 'route1_route1_get', 'responses': {'200': {'content': {...}, 'descriptio...n': 'Successful Response'}, '500': {'content': {...}, 'description': 'Internal Server Error'}}, 'summary': 'Route2'}}}} != {'paths': {'/route1': {'get': {'operationId': 'route1_route1_get', 'responses': {'200': {'content': {...}, 'descriptio...n': 'Successful Response'}, '500': {'content': {...}, 'description': 'Internal Server Error'}}, 'summary': 'Route2'}}}}
+E         Use -v to get more diff
+
+tests/test_additional_responses_union_duplicate_anyof.py:48: AssertionError
+- generated xml file: /home/sauravbellam/results/a2_runs/fastapi_14463/trace_pre.xml -
+1 failed in 2.01s
+
+

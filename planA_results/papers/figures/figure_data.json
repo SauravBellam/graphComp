@@ -1,0 +1,260 @@
+{
+  "p1_presence": {
+    "Sync function": {
+      "total": 289266,
+      "present": 287841,
+      "present_rate": {
+        "k": 287841,
+        "n": 289266,
+        "p": 0.9951,
+        "lo": 0.9948,
+        "hi": 0.9953
+      },
+      "present_under_class_dropped_id": 1425
+    },
+    "Class": {
+      "total": 63831,
+      "present": 62552,
+      "present_rate": {
+        "k": 62552,
+        "n": 63831,
+        "p": 0.98,
+        "lo": 0.9788,
+        "hi": 0.981
+      },
+      "present_under_class_dropped_id": 1279
+    },
+    "Nested definition": {
+      "total": 18178,
+      "present": 14483,
+      "present_rate": {
+        "k": 14483,
+        "n": 18178,
+        "p": 0.7967,
+        "lo": 0.7908,
+        "hi": 0.8025
+      },
+      "present_under_class_dropped_id": 0
+    },
+    "Async function": {
+      "total": 45492,
+      "present": 0,
+      "present_rate": {
+        "k": 0,
+        "n": 45492,
+        "p": 0.0,
+        "lo": 0.0,
+        "hi": 0.0001
+      },
+      "present_under_class_dropped_id": 0
+    }
+  },
+  "p1_resolver": {
+    "Sync function, present": {
+      "Returns the definition": 169203,
+      "Wrong node: non-test": 44915,
+      "Wrong node: test": 73723,
+      "No match": 0,
+      "n": 287841
+    },
+    "Class, present": {
+      "Returns the definition": 32585,
+      "Wrong node: non-test": 23955,
+      "Wrong node: test": 6012,
+      "No match": 0,
+      "n": 62552
+    },
+    "Async function, absent": {
+      "Returns the definition": 0,
+      "Wrong node: non-test": 10073,
+      "Wrong node: test": 26851,
+      "No match": 19563,
+      "n": 56487
+    }
+  },
+  "p1_recall_precision": {
+    "All usable (91 tasks)": {
+      "recall": {
+        "num": 8032.0,
+        "den": 21653.0,
+        "ratio": 0.3709,
+        "lo": 0.3482,
+        "hi": 0.4022,
+        "n_tasks": 91
+      },
+      "precision": {
+        "num": 8013.0,
+        "den": 37433.0,
+        "ratio": 0.2141,
+        "lo": 0.1998,
+        "hi": 0.2275,
+        "n_tasks": 91
+      }
+    },
+    "fastapi (45 tasks)": {
+      "recall": {
+        "num": 2428.0,
+        "den": 3701.0,
+        "ratio": 0.656,
+        "lo": 0.6248,
+        "hi": 0.6852,
+        "n_tasks": 45
+      },
+      "precision": {
+        "num": 2428.0,
+        "den": 14744.0,
+        "ratio": 0.1647,
+        "lo": 0.15,
+        "hi": 0.1777,
+        "n_tasks": 45
+      }
+    },
+    "rich (39 tasks)": {
+      "recall": {
+        "num": 4556.0,
+        "den": 14934.0,
+        "ratio": 0.3051,
+        "lo": 0.2949,
+        "hi": 0.3178,
+        "n_tasks": 39
+      },
+      "precision": {
+        "num": 4549.0,
+        "den": 19670.0,
+        "ratio": 0.2313,
+        "lo": 0.2183,
+        "hi": 0.2434,
+        "n_tasks": 39
+      }
+    },
+    "requests (7 tasks)": {
+      "recall": {
+        "num": 1048.0,
+        "den": 3018.0,
+        "ratio": 0.3472,
+        "lo": 0.3214,
+        "hi": 0.4279,
+        "n_tasks": 7
+      },
+      "precision": {
+        "num": 1036.0,
+        "den": 3019.0,
+        "ratio": 0.3432,
+        "lo": 0.3379,
+        "hi": 0.3555,
+        "n_tasks": 7
+      }
+    }
+  },
+  "p1_edge_semantics": {
+    "captured": {
+      "Explicit call": 7096,
+      "Reference, no call": 21,
+      "Implicit dunder": 39,
+      "String or comment only": 342,
+      "No mention": 142,
+      "n": 7640
+    },
+    "unconfirmed": {
+      "Explicit call": 4638,
+      "Reference, no call": 623,
+      "Implicit dunder": 772,
+      "String or comment only": 9336,
+      "No mention": 19648,
+      "n": 35017
+    },
+    "missed": {
+      "Explicit call": 6122,
+      "Reference, no call": 3457,
+      "Implicit dunder": 2111,
+      "String or comment only": 160,
+      "No mention": 381,
+      "n": 12231
+    }
+  },
+  "p1_edge_structure": {
+    "unconfirmed": {
+      "Function to function, other": 11040,
+      "Method to its own class": 7820,
+      "To another class": 6664,
+      "Class to its base class": 4666,
+      "Class to a subclass": 4827,
+      "n": 35017
+    },
+    "missed": {
+      "Function to function, other": 6349,
+      "To another class": 319,
+      "Method to a sibling method": 5563,
+      "n": 12231
+    },
+    "captured": {
+      "Function to function, other": 5875,
+      "To another class": 1254,
+      "Class to its base class": 161,
+      "Method to its own class": 350,
+      "n": 7640
+    }
+  },
+  "p1_hops": {
+    "0": 32,
+    "1": 9,
+    "2": 13,
+    "3": 9,
+    "4": 2,
+    "5": 2,
+    "6": 1,
+    "7": 1,
+    "unreachable": 3
+  },
+  "p1_embeddings": {
+    "auroc": {
+      "Containment": 0.9032,
+      "Call-adjacent": 0.8977,
+      "Gold co-change": 0.8059,
+      "Same module": 0.6817,
+      "Name overlap": 0.6751
+    },
+    "knn": {
+      "fastapi": [
+        0.6725910447761194,
+        0.09676119402985074,
+        0.22444477611940297,
+        0.020167164179104476
+      ],
+      "requests": [
+        0.6062500000000001,
+        0.4933,
+        0.016333333333333335,
+        0.06048333333333333
+      ],
+      "rich": [
+        0.44844680851063834,
+        0.3062,
+        0.019319148936170212,
+        0.028263829787234043
+      ]
+    }
+  },
+  "p1_retrieval": {
+    "Issue identifiers resolved": {
+      "hit10_node": 30,
+      "hit5_file": 40
+    },
+    "Harness: + cosine": {
+      "hit10_node": 31,
+      "hit5_file": 43
+    },
+    "Harness + 1-hop": {
+      "hit10_node": 31,
+      "hit5_file": 45
+    },
+    "BM25 over node text": {
+      "hit10_node": 38,
+      "hit5_file": 63
+    },
+    "BM25 over source files": {
+      "hit10_node": 53,
+      "hit5_file": 85
+    }
+  }
+}

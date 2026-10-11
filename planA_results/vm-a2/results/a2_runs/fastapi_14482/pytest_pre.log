@@ -1,0 +1,236 @@
+
+$ /home/sauravbellam/cache/a2/fastapi_14482/venv/bin/python -s -m pytest tests/test_arbitrary_types.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/fastapi_14482/trace_pre.xml
+[exit 1]
+..F                                                                      [100%]
+=================================== FAILURES ===================================
+_____________________________ test_openapi_schema ______________________________
+
+self = TypeAdapter(Annotated[get_client.<locals>.FakeNumpyArray, FieldInfo(annotation=get_client.<locals>.FakeNumpyArray, req...(func=<function get_client.<locals>.<lambda> at 0x7f58b1d4d620>, return_type=PydanticUndefined, when_used='always')])])
+ns_resolver = <pydantic._internal._namespace_utils.NsResolver object at 0x7f58b2aa5240>
+force = False, raise_errors = False
+
+    def _init_core_attrs(
+        self, ns_resolver: _namespace_utils.NsResolver, force: bool, raise_errors: bool = False
+    ) -> bool:
+        """Initialize the core schema, validator, and serializer for the type.
+    
+        Args:
+            ns_resolver: The namespace resolver to use when building the core schema for the adapted type.
+            force: Whether to force the construction of the core schema, validator, and serializer.
+                If `force` is set to `False` and `_defer_build` is `True`, the core schema, validator, and serializer will be set to mocks.
+            raise_errors: Whether to raise errors if initializing any of the core attrs fails.
+    
+        Returns:
+            `True` if the core schema, validator, and serializer were successfully initialized, otherwise `False`.
+    
+        Raises:
+            PydanticUndefinedAnnotation: If `PydanticUndefinedAnnotation` occurs in`__get_pydantic_core_schema__`
+                and `raise_errors=True`.
+        """
+        if not force and self._defer_build:
+            _mock_val_ser.set_type_adapter_mocks(self)
+            self.pydantic_complete = False
+            return False
+    
+        try:
+>           self.core_schema = _getattr_no_parents(self._type, '__pydantic_core_schema__')
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+../venv/lib/python3.13/site-packages/pydantic/type_adapter.py:251: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+obj = typing.Annotated[tests.test_arbitrary_types.get_client.<locals>.FakeNumpyArray, FieldInfo(annotation=get_client.<local...r(func=<function get_client.<locals>.<lambda> at 0x7f58b1d4d620>, return_type=PydanticUndefined, when_used='always')])]
+attribute = '__pydantic_core_schema__'
+
+    def _getattr_no_parents(obj: Any, attribute: str) -> Any:
+        """Returns the attribute value without attempting to look up attributes from parent types."""
+        if hasattr(obj, '__dict__'):
+            try:
+                return obj.__dict__[attribute]
+            except KeyError:
+                pass
+    
+        slots = getattr(obj, '__slots__', None)
+        if slots is not None and attribute in slots:
+            return getattr(obj, attribute)
+        else:
+>           raise AttributeError(attribute)
+E           AttributeError: __pydantic_core_schema__
+
+../venv/lib/python3.13/site-packages/pydantic/type_adapter.py:55: AttributeError
+
+During handling of the above exception, another exception occurred:
+
+client = <starlette.testclient.TestClient object at 0x7f58b1d81a90>
+
+    @needs_pydanticv2
+    def test_openapi_schema(client: TestClient):
+>       response = client.get("openapi.json")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_arbitrary_types.py:99: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../venv/lib/python3.13/site-packages/starlette/testclient.py:473: in get
+    return super().get(
+../venv/lib/python3.13/site-packages/httpx/_client.py:1053: in get
+    return self.request(
+../venv/lib/python3.13/site-packages/starlette/testclient.py:445: in request
+    return super().request(
+../venv/lib/python3.13/site-packages/httpx/_client.py:825: in request
+    return self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../venv/lib/python3.13/site-packages/httpx/_client.py:914: in send
+    response = self._send_handling_auth(
+../venv/lib/python3.13/site-packages/httpx/_client.py:942: in _send_handling_auth
+    response = self._send_handling_redirects(
+../venv/lib/python3.13/site-packages/httpx/_client.py:979: in _send_handling_redirects
+    response = self._send_single_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../venv/lib/python3.13/site-packages/httpx/_client.py:1014: in _send_single_request
+    response = transport.handle_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../venv/lib/python3.13/site-packages/starlette/testclient.py:348: in handle_request
+    raise exc
+../venv/lib/python3.13/site-packages/starlette/testclient.py:345: in handle_request
+    portal.call(self.app, scope, receive, send)
+../venv/lib/python3.13/site-packages/anyio/from_thread.py:340: in call
+    return cast(T_Retval, self.start_task_soon(func, *args).result())
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.13/concurrent/futures/_base.py:449: in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.13/concurrent/futures/_base.py:401: in __get_result
+    raise self._exception
+../venv/lib/python3.13/site-packages/anyio/from_thread.py:265: in _call_func
+    retval = await retval_or_awaitable
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+fastapi/applications.py:1139: in __call__
+    await super().__call__(scope, receive, send)
+../venv/lib/python3.13/site-packages/starlette/applications.py:107: in __call__
+    await self.middleware_stack(scope, receive, send)
+../venv/lib/python3.13/site-packages/starlette/middleware/errors.py:186: in __call__
+    raise exc
+../venv/lib/python3.13/site-packages/starlette/middleware/errors.py:164: in __call__
+    await self.app(scope, receive, _send)
+../venv/lib/python3.13/site-packages/starlette/middleware/exceptions.py:63: in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+../venv/lib/python3.13/site-packages/starlette/_exception_handler.py:53: in wrapped_app
+    raise exc
+../venv/lib/python3.13/site-packages/starlette/_exception_handler.py:42: in wrapped_app
+    await app(scope, receive, sender)
+fastapi/middleware/asyncexitstack.py:18: in __call__
+    await self.app(scope, receive, send)
+../venv/lib/python3.13/site-packages/starlette/routing.py:716: in __call__
+    await self.middleware_stack(scope, receive, send)
+../venv/lib/python3.13/site-packages/starlette/routing.py:736: in app
+    await route.handle(scope, receive, send)
+../venv/lib/python3.13/site-packages/starlette/routing.py:290: in handle
+    await self.app(scope, receive, send)
+../venv/lib/python3.13/site-packages/starlette/routing.py:78: in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+../venv/lib/python3.13/site-packages/starlette/_exception_handler.py:53: in wrapped_app
+    raise exc
+../venv/lib/python3.13/site-packages/starlette/_exception_handler.py:42: in wrapped_app
+    await app(scope, receive, sender)
+../venv/lib/python3.13/site-packages/starlette/routing.py:75: in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+fastapi/applications.py:1094: in openapi
+    return JSONResponse(self.openapi())
+                        ^^^^^^^^^^^^^^
+fastapi/applications.py:1065: in openapi
+    self.openapi_schema = get_openapi(
+fastapi/openapi/utils.py:512: in get_openapi
+    model_name_map = get_compat_model_name_map(all_fields)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+fastapi/_compat/main.py:254: in get_compat_model_name_map
+    v2_flat_models = v2.get_flat_models_from_fields(
+fastapi/_compat/v2.py:494: in get_flat_models_from_fields
+    get_flat_models_from_field(field, known_models=known_models)
+fastapi/_compat/v2.py:482: in get_flat_models_from_field
+    get_flat_models_from_model(field_type, known_models=known_models)
+fastapi/_compat/v2.py:454: in get_flat_models_from_model
+    fields = get_model_fields(model)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+fastapi/_compat/v2.py:416: in get_model_fields
+    ModelField(field_info=field_info, name=name)
+<string>:6: in __init__
+    ???
+fastapi/_compat/v2.py:97: in __post_init__
+    self._type_adapter: TypeAdapter[Any] = TypeAdapter(
+../venv/lib/python3.13/site-packages/pydantic/type_adapter.py:208: in __init__
+    self._init_core_attrs(
+../venv/lib/python3.13/site-packages/pydantic/type_adapter.py:270: in _init_core_attrs
+    core_schema = schema_generator.generate_schema(self._type)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../venv/lib/python3.13/site-packages/pydantic/_internal/_generate_schema.py:794: in generate_schema
+    schema = self._generate_schema_inner(obj, origin)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../venv/lib/python3.13/site-packages/pydantic/_internal/_generate_schema.py:1076: in _generate_schema_inner
+    return self._annotated_schema(obj)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../venv/lib/python3.13/site-packages/pydantic/_internal/_generate_schema.py:2231: in _annotated_schema
+    schema = self._apply_annotations(source_type, annotations)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../venv/lib/python3.13/site-packages/pydantic/_internal/_generate_schema.py:2287: in _apply_annotations
+    schema = get_inner_schema(source_type)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../venv/lib/python3.13/site-packages/pydantic/_internal/_schema_generation_shared.py:84: in __call__
+    schema = self._handler(source_type)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../venv/lib/python3.13/site-packages/pydantic/_internal/_generate_schema.py:2425: in new_handler
+    schema = get_inner_schema(source)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+../venv/lib/python3.13/site-packages/pydantic/_internal/_schema_generation_shared.py:84: in __call__
+    schema = self._handler(source_type)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../venv/lib/python3.13/site-packages/pydantic/_internal/_generate_schema.py:2423: in new_handler
+    schema = annotation_get_schema(source, get_inner_schema)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../venv/lib/python3.13/site-packages/pydantic/functional_serializers.py:65: in __get_pydantic_core_schema__
+    schema = handler(source_type)
+             ^^^^^^^^^^^^^^^^^^^^
+../venv/lib/python3.13/site-packages/pydantic/_internal/_schema_generation_shared.py:84: in __call__
+    schema = self._handler(source_type)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../venv/lib/python3.13/site-packages/pydantic/_internal/_generate_schema.py:2425: in new_handler
+    schema = get_inner_schema(source)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+../venv/lib/python3.13/site-packages/pydantic/_internal/_schema_generation_shared.py:84: in __call__
+    schema = self._handler(source_type)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../venv/lib/python3.13/site-packages/pydantic/_internal/_generate_schema.py:2265: in inner_handler
+    schema = self._generate_schema_inner(obj, origin)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../venv/lib/python3.13/site-packages/pydantic/_internal/_generate_schema.py:1100: in _generate_schema_inner
+    return self.match_type(obj, origin)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../venv/lib/python3.13/site-packages/pydantic/_internal/_generate_schema.py:1163: in match_type
+    return self._unknown_type_schema(obj)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <pydantic._internal._generate_schema.GenerateSchema object at 0x7f58b1dd8310>
+obj = <class 'tests.test_arbitrary_types.get_client.<locals>.FakeNumpyArray'>
+
+    def _unknown_type_schema(self, obj: Any) -> CoreSchema:
+>       raise PydanticSchemaGenerationError(
+            f'Unable to generate pydantic-core schema for {obj!r}. '
+            'Set `arbitrary_types_allowed=True` in the model_config to ignore this error'
+            ' or implement `__get_pydantic_core_schema__` on your type to fully support it.'
+            '\n\nIf you got this error by calling handler(<some type>) within'
+            ' `__get_pydantic_core_schema__` then you likely need to call'
+            ' `handler.generate_schema(<some type>)` since we do not call'
+            ' `__get_pydantic_core_schema__` on `<some type>` otherwise to avoid infinite recursion.'
+        )
+E       pydantic.errors.PydanticSchemaGenerationError: Unable to generate pydantic-core schema for <class 'tests.test_arbitrary_types.get_client.<locals>.FakeNumpyArray'>. Set `arbitrary_types_allowed=True` in the model_config to ignore this error or implement `__get_pydantic_core_schema__` on your type to fully support it.
+E       
+E       If you got this error by calling handler(<some type>) within `__get_pydantic_core_schema__` then you likely need to call `handler.generate_schema(<some type>)` since we do not call `__get_pydantic_core_schema__` on `<some type>` otherwise to avoid infinite recursion.
+E       
+E       For further information visit https://errors.pydantic.dev/2.14/u/schema-for-unknown-type
+
+../venv/lib/python3.13/site-packages/pydantic/_internal/_generate_schema.py:719: PydanticSchemaGenerationError
+- generated xml file: /home/sauravbellam/results/a2_runs/fastapi_14482/trace_pre.xml -
+1 failed, 2 passed in 4.56s
+
+

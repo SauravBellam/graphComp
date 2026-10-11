@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="4" tests="46" time="0.968" timestamp="2026-10-10T23:21:25.381160+00:00" hostname="vm-a2"><testcase classname="test_inspect" name="test_render" file="test_inspect.py" line="97" time="0.021" /><testcase classname="test_inspect" name="test_inspect_text" file="test_inspect.py" line="108" time="0.010" /><testcase classname="test_inspect" name="test_inspect_empty_dict" file="test_inspect.py" line="125" time="0.012" /><testcase classname="test_inspect" name="test_inspect_builtin_function_except_python311" file="test_inspect.py" line="147" time="0.000"><skipped type="pytest.skip" message="rendered differently on py3.13">/home/sauravbellam/cache/a2/rich_3894/workspace/tests/test_inspect.py:148: rendered differently on py3.13</skipped></testcase><testcase classname="test_inspect" name="test_inspect_builtin_function_only_python311" file="test_inspect.py" line="168" time="0.009" /><testcase classname="test_inspect" name="test_inspect_coroutine" file="test_inspect.py" line="189" time="0.006" /><testcase classname="test_inspect" name="test_inspect_integer" file="test_inspect.py" line="202" time="0.019" /><testcase classname="test_inspect" name="test_inspect_integer_with_value" file="test_inspect.py" line="217" time="0.018" /><testcase classname="test_inspect" name="test_inspect_integer_with_methods_python38_and_python39" file="test_inspect.py" line="224" time="0.000"><skipped type="pytest.skip" message="rendered differently on py3.13">/home/sauravbellam/cache/a2/rich_3894/workspace/tests/test_inspect.py:225: rendered differently on py3.13</skipped></testcase><testcase classname="test_inspect" name="test_inspect_integer_with_methods_python310only" file="test_inspect.py" line="262" time="0.000"><skipped type="pytest.skip" message="rendered differently on py3.13">/home/sauravbellam/cache/a2/rich_3894/workspace/tests/test_inspect.py:263: rendered differently on py3.13</skipped></testcase><testcase classname="test_inspect" name="test_inspect_integer_with_methods_python311" file="test_inspect.py" line="305" time="0.000"><skipped type="pytest.skip" message="rendered differently on py3.13">/home/sauravbellam/cache/a2/rich_3894/workspace/tests/test_inspect.py:306: rendered differently on py3.13</skipped></testcase><testcase classname="test_inspect" name="test_broken_call_attr" file="test_inspect.py" line="350" time="0.008" /><testcase classname="test_inspect" name="test_inspect_swig_edge_case" file="test_inspect.py" line="369" time="0.006" /><testcase classname="test_inspect" name="test_inspect_module_with_class" file="test_inspect.py" line="384" time="0.008" /><testcase classname="test_inspect" name="test_qualname_in_slots" file="test_inspect.py" line="406" time="0.002"><failure message="AssertionError: Class with __qualname__ in __slots__ shouldn't raise Only str or Text can be appended to Text&#10;assert False">def test_qualname_in_slots():
+        from functools import lru_cache
+    
+        @lru_cache
+        class Klass:
+            __slots__ = ("__qualname__",)
+    
+        try:
+&gt;           inspect(Klass)
+
+tests/test_inspect.py:415: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+rich/__init__.py:173: in inspect
+    _console.print(_inspect)
+rich/console.py:1698: in print
+    renderables = self._collect_renderables(
+rich/console.py:1555: in _collect_renderables
+    renderable = rich_cast(renderable)
+                 ^^^^^^^^^^^^^^^^^^^^^
+rich/protocol.py:36: in rich_cast
+    renderable = cast_method()
+                 ^^^^^^^^^^^^^
+rich/_inspect.py:76: in __rich__
+    Group(*self._render()),
+    ^^^^^^^^^^^^^^^^^^^^^^
+rich/_inspect.py:153: in _render
+    signature = self._get_signature("", obj)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+rich/_inspect.py:113: in _get_signature
+    qual_signature = Text.assemble(
+rich/text.py:397: in assemble
+    append(*part)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;text 'def ' [Span(0, 4, 'inspect.def')] ''&gt;
+text = &lt;member '__qualname__' of 'Klass' objects&gt;, style = 'inspect.callable'
+
+    def append(
+        self, text: Union["Text", str], style: Optional[Union[str, "Style"]] = None
+    ) -&gt; "Text":
+        """Add text with an optional style.
+    
+        Args:
+            text (Union[Text, str]): A str or Text to append.
+            style (str, optional): A style name. Defaults to None.
+    
+        Returns:
+            Text: Returns self for chaining.
+        """
+    
+        if not isinstance(text, (str, Text)):
+&gt;           raise TypeError("Only str or Text can be appended to Text")
+E           TypeError: Only str or Text can be appended to Text
+
+rich/text.py:979: TypeError
+
+During handling of the above exception, another exception occurred:
+
+    def test_qualname_in_slots():
+        from functools import lru_cache
+    
+        @lru_cache
+        class Klass:
+            __slots__ = ("__qualname__",)
+    
+        try:
+            inspect(Klass)
+        except Exception as e:
+&gt;           assert False, f"Class with __qualname__ in __slots__ shouldn't raise {e}"
+E           AssertionError: Class with __qualname__ in __slots__ shouldn't raise Only str or Text can be appended to Text
+E           assert False
+
+tests/test_inspect.py:417: AssertionError</failure></testcase><testcase classname="test_inspect" name="test_can_handle_special_characters_in_docstrings[\x07-\\a]" file="test_inspect.py" line="419" time="0.010" /><testcase classname="test_inspect" name="test_can_handle_special_characters_in_docstrings[\x08-\\b]" file="test_inspect.py" line="419" time="0.009" /><testcase classname="test_inspect" name="test_can_handle_special_characters_in_docstrings[\x0c-\\f]" file="test_inspect.py" line="419" time="0.009" /><testcase classname="test_inspect" name="test_can_handle_special_characters_in_docstrings[\r-\\r]" file="test_inspect.py" line="419" time="0.009" /><testcase classname="test_inspect" name="test_can_handle_special_characters_in_docstrings[\x0b-\\v]" file="test_inspect.py" line="419" time="0.009" /><testcase classname="test_inspect" name="test_object_types_mro[object-expected_result0]" file="test_inspect.py" line="457" time="0.001" /><testcase classname="test_inspect" name="test_object_types_mro[obj1-expected_result1]" file="test_inspect.py" line="457" time="0.001" /><testcase classname="test_inspect" name="test_object_types_mro[hi-expected_result2]" file="test_inspect.py" line="457" time="0.001" /><testcase classname="test_inspect" name="test_object_types_mro[str-expected_result3]" file="test_inspect.py" line="457" time="0.001" /><testcase classname="test_inspect" name="test_object_types_mro[obj4-expected_result4]" file="test_inspect.py" line="457" time="0.001" /><testcase classname="test_inspect" name="test_object_types_mro[Foo-expected_result5]" file="test_inspect.py" line="457" time="0.001" /><testcase classname="test_inspect" name="test_object_types_mro[obj6-expected_result6]" file="test_inspect.py" line="457" time="0.001" /><testcase classname="test_inspect" name="test_object_types_mro[FooSubclass-expected_result7]" file="test_inspect.py" line="457" time="0.001" /><testcase classname="test_inspect" name="test_object_types_mro_as_strings[hi-expected_result0]" file="test_inspect.py" line="474" time="0.001" /><testcase classname="test_inspect" name="test_object_types_mro_as_strings[str-expected_result1]" file="test_inspect.py" line="474" time="0.001" /><testcase classname="test_inspect" name="test_object_types_mro_as_strings[obj2-expected_result2]" file="test_inspect.py" line="474" time="0.001" /><testcase classname="test_inspect" name="test_object_types_mro_as_strings[Foo-expected_result3]" file="test_inspect.py" line="474" time="0.001" /><testcase classname="test_inspect" name="test_object_types_mro_as_strings[obj4-expected_result4]" file="test_inspect.py" line="474" time="0.001" /><testcase classname="test_inspect" name="test_object_types_mro_as_strings[FooSubclass-expected_result5]" file="test_inspect.py" line="474" time="0.001" /><testcase classname="test_inspect" name="test_object_is_one_of_types[hi-types0-True]" file="test_inspect.py" line="493" time="0.001" /><testcase classname="test_inspect" name="test_object_is_one_of_types[str-types1-True]" file="test_inspect.py" line="493" time="0.001" /><testcase classname="test_inspect" name="test_object_is_one_of_types[hi-types2-True]" file="test_inspect.py" line="493" time="0.001" /><testcase classname="test_inspect" name="test_object_is_one_of_types[str-types3-True]" file="test_inspect.py" line="493" time="0.001" /><testcase classname="test_inspect" name="test_object_is_one_of_types[obj4-types4-True]" file="test_inspect.py" line="493" time="0.001" /><testcase classname="test_inspect" name="test_object_is_one_of_types[Foo-types5-True]" file="test_inspect.py" line="493" time="0.001" /><testcase classname="test_inspect" name="test_object_is_one_of_types[obj6-types6-True]" file="test_inspect.py" line="493" time="0.001" /><testcase classname="test_inspect" name="test_object_is_one_of_types[Foo-types7-True]" file="test_inspect.py" line="493" time="0.001" /><testcase classname="test_inspect" name="test_object_is_one_of_types[obj8-types8-False]" file="test_inspect.py" line="493" time="0.002" /><testcase classname="test_inspect" name="test_object_is_one_of_types[Foo-types9-False]" file="test_inspect.py" line="493" time="0.001" /><testcase classname="test_inspect" name="test_object_is_one_of_types[obj10-types10-True]" file="test_inspect.py" line="493" time="0.001" /><testcase classname="test_inspect" name="test_object_is_one_of_types[Foo-types11-True]" file="test_inspect.py" line="493" time="0.001" /></testsuite></testsuites>

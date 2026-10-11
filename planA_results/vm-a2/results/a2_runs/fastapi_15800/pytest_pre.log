@@ -1,0 +1,1404 @@
+
+$ /home/sauravbellam/cache/a2/fastapi_15800/venv/bin/python -s -m pytest tests/test_frontend.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/fastapi_15800/trace_pre.xml
+[exit 1]
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF             [100%]
+=================================== FAILURES ===================================
+_________________ test_frontend_exact_prefix_path_serves_index _________________
+
+tmp_path = PosixPath('/tmp/pytest-of-sauravbellam/pytest-7/test_frontend_exact_prefix_pat0')
+
+    def test_frontend_exact_prefix_path_serves_index(tmp_path: Path):
+        dist = tmp_path / "dist"
+        write_file(dist / "index.html", "app")
+        app = FastAPI()
+>       app.frontend("/app", directory=dist)
+        ^^^^^^^^^^^^
+E       AttributeError: 'FastAPI' object has no attribute 'frontend'
+
+tests/test_frontend.py:24: AttributeError
+_______ test_apirouter_frontend_with_router_prefix_and_frontend_subpath ________
+
+tmp_path = PosixPath('/tmp/pytest-of-sauravbellam/pytest-7/test_apirouter_frontend_with_r0')
+
+    def test_apirouter_frontend_with_router_prefix_and_frontend_subpath(tmp_path: Path):
+        dist = tmp_path / "dist"
+        write_file(dist / "asset.txt", "asset")
+        router = APIRouter(prefix="/internal")
+>       router.frontend("/ui", directory=dist)
+        ^^^^^^^^^^^^^^^
+E       AttributeError: 'APIRouter' object has no attribute 'frontend'
+
+tests/test_frontend.py:36: AttributeError
+_______________ test_frontend_fallback_rejects_invalid_fallback ________________
+
+tmp_path = PosixPath('/tmp/pytest-of-sauravbellam/pytest-7/test_frontend_fallback_rejects0')
+
+    def test_frontend_fallback_rejects_invalid_fallback(tmp_path: Path):
+        dist = tmp_path / "dist"
+        dist.mkdir()
+        app = FastAPI()
+    
+        with pytest.raises(AssertionError, match="fallback"):
+>           app.frontend("/", directory=dist, fallback="invalid")  # type: ignore[arg-type]  # ty: ignore[invalid-argument-type]
+            ^^^^^^^^^^^^
+E           AttributeError: 'FastAPI' object has no attribute 'frontend'
+
+tests/test_frontend.py:52: AttributeError
+_________________ test_index_fallback_ignores_invalid_q_value __________________
+
+tmp_path = PosixPath('/tmp/pytest-of-sauravbellam/pytest-7/test_index_fallback_ignores_in0')
+
+    def test_index_fallback_ignores_invalid_q_value(tmp_path: Path):
+        dist = tmp_path / "dist"
+        write_file(dist / "index.html", "app shell")
+        app = FastAPI()
+>       app.frontend("/", directory=dist, fallback="index.html")
+        ^^^^^^^^^^^^
+E       AttributeError: 'FastAPI' object has no attribute 'frontend'
+
+tests/test_frontend.py:59: AttributeError
+___________________ test_frontend_static_files_lookup_errors ___________________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7ff1e5685f30>
+tmp_path = PosixPath('/tmp/pytest-of-sauravbellam/pytest-7/test_frontend_static_files_loo0')
+
+    def test_frontend_static_files_lookup_errors(monkeypatch, tmp_path: Path):
+        dist = tmp_path / "dist"
+        write_file(dist / "index.html", "app")
+        app = FastAPI()
+>       app.frontend("/", directory=dist)
+        ^^^^^^^^^^^^
+E       AttributeError: 'FastAPI' object has no attribute 'frontend'
+
+tests/test_frontend.py:73: AttributeError
+______________________ test_frontend_route_group_helpers _______________________
+
+tmp_path = PosixPath('/tmp/pytest-of-sauravbellam/pytest-7/test_frontend_route_group_help0')
+
+    def test_frontend_route_group_helpers(tmp_path: Path):
+        dist = tmp_path / "dist"
+        write_file(dist / "index.html", "app")
+        app = FastAPI()
+>       app.frontend("/", directory=dist)
+        ^^^^^^^^^^^^
+E       AttributeError: 'FastAPI' object has no attribute 'frontend'
+
+tests/test_frontend.py:111: AttributeError
+______________ test_included_low_priority_routes_cache_is_reused _______________
+
+    def test_included_low_priority_routes_cache_is_reused():
+        async def low_priority_endpoint(request: Request):
+            return PlainTextResponse("low")
+    
+        router = APIRouter()
+>       router._low_priority_routes.append(Route("/low", low_priority_endpoint))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'APIRouter' object has no attribute '_low_priority_routes'
+
+tests/test_frontend.py:139: AttributeError
+_______________ test_low_priority_api_route_handles_with_context _______________
+
+    def test_low_priority_api_route_handles_with_context():
+        app = FastAPI()
+    
+        async def endpoint(request: Request) -> Response:
+            return PlainTextResponse(request.scope["path_params"]["item_id"])
+    
+        route = app.router.route_class("/low/{item_id}", endpoint=endpoint, methods=["GET"])
+>       app.router._low_priority_routes.append(route)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'APIRouter' object has no attribute '_low_priority_routes'
+
+tests/test_frontend.py:165: AttributeError
+__________ test_included_low_priority_api_route_handles_with_context ___________
+
+    def test_included_low_priority_api_route_handles_with_context():
+        router = APIRouter()
+    
+        async def endpoint(request: Request) -> Response:
+            return PlainTextResponse(request.scope["path_params"]["item_id"])
+    
+        route = router.route_class("/low/{item_id}", endpoint=endpoint, methods=["GET"])
+>       router._low_priority_routes.append(route)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'APIRouter' object has no attribute '_low_priority_routes'
+
+tests/test_frontend.py:181: AttributeError
+___________ test_normal_route_partial_match_returns_before_frontend ____________
+
+tmp_path = PosixPath('/tmp/pytest-of-sauravbellam/pytest-7/test_normal_route_partial_matc0')
+
+    def test_normal_route_partial_match_returns_before_frontend(tmp_path: Path):
+        class PartialRoute(BaseRoute):
+            def matches(self, scope):
+                return Match.PARTIAL, {}
+    
+            async def handle(self, scope, receive, send):
+                response = PlainTextResponse("partial", status_code=405)
+                await response(scope, receive, send)
+    
+        dist = tmp_path / "dist"
+        write_file(dist / "index.html", "frontend")
+        app = FastAPI()
+        app.router.routes.append(PartialRoute())
+>       app.frontend("/", directory=dist)
+        ^^^^^^^^^^^^
+E       AttributeError: 'FastAPI' object has no attribute 'frontend'
+
+tests/test_frontend.py:205: AttributeError
+_____________ test_normal_route_partial_match_wins_before_frontend _____________
+
+tmp_path = PosixPath('/tmp/pytest-of-sauravbellam/pytest-7/test_normal_route_partial_matc1')
+
+    def test_normal_route_partial_match_wins_before_frontend(tmp_path: Path):
+        dist = tmp_path / "dist"
+        write_file(dist / "api", "frontend")
+        app = FastAPI()
+    
+        @app.get("/api")
+        def read_api():
+            return {"source": "api"}
+    
+>       app.frontend("/", directory=dist)
+        ^^^^^^^^^^^^
+E       AttributeError: 'FastAPI' object has no attribute 'frontend'
+
+tests/test_frontend.py:222: AttributeError
+___________________________ test_basic_file_serving ____________________________
+
+tmp_path = PosixPath('/tmp/pytest-of-sauravbellam/pytest-7/test_basic_file_serving0')
+
+    def test_basic_file_serving(tmp_path: Path):
+        dist = tmp_path / "dist"
+        write_file(dist / "assets" / "app.js", "console.log('ok')")
+        app = FastAPI()
+>       app.frontend("/", directory=dist)
+        ^^^^^^^^^^^^
+E       AttributeError: 'FastAPI' object has no attribute 'frontend'
+
+tests/test_frontend.py:238: AttributeError
+__________________ test_existing_api_route_wins_over_frontend __________________
+
+tmp_path = PosixPath('/tmp/pytest-of-sauravbellam/pytest-7/test_existing_api_route_wins_o0')
+
+    def test_existing_api_route_wins_over_frontend(tmp_path: Path):
+        dist = tmp_path / "dist"
+        write_file(dist / "api" / "users", "frontend")
+        app = FastAPI()
+    
+        @app.get("/api/users")
+        def read_users():
+            return {"source": "api"}
+    
+>       app.frontend("/", directory=dist)
+        ^^^^^^^^^^^^
+E       AttributeError: 'FastAPI' object has no attribute 'frontend'
+
+tests/test_frontend.py:257: AttributeError
+___________ test_api_route_404_is_not_replaced_by_frontend_fallback ____________
+
+tmp_path = PosixPath('/tmp/pytest-of-sauravbellam/pytest-7/test_api_route_404_is_not_repl0')
+
+    def test_api_route_404_is_not_replaced_by_frontend_fallback(tmp_path: Path):
+        dist = tmp_path / "dist"
+        write_file(dist / "index.html", "frontend")
+        app = FastAPI()
+    
+        @app.get("/api/users")
+        def read_users():
+            raise HTTPException(status_code=404, detail="api missing")
+    
+>       app.frontend("/", directory=dist, fallback="index.html")
+        ^^^^^^^^^^^^
+E       AttributeError: 'FastAPI' object has no attribute 'frontend'
+
+tests/test_frontend.py:274: AttributeError
+__________________ test_index_fallback_for_navigation_request __________________
+
+tmp_path = PosixPath('/tmp/pytest-of-sauravbellam/pytest-7/test_index_fallback_for_naviga0')
+
+    def test_index_fallback_for_navigation_request(tmp_path: Path):
+        dist = tmp_path / "dist"
+        write_file(dist / "index.html", "app shell")
+        app = FastAPI()
+>       app.frontend("/", directory=dist, fallback="index.html")
+        ^^^^^^^^^^^^
+E       AttributeError: 'FastAPI' object has no attribute 'frontend'
+
+tests/test_frontend.py:286: AttributeError
+_________________ test_index_fallback_parses_accept_parameters _________________
+
+tmp_path = PosixPath('/tmp/pytest-of-sauravbellam/pytest-7/test_index_fallback_parses_acc0')
+
+    def test_index_fallback_parses_accept_parameters(tmp_path: Path):
+        dist = tmp_path / "dist"
+        write_file(dist / "index.html", "app shell")
+        app = FastAPI()
+>       app.frontend("/", directory=dist, fallback="index.html")
+        ^^^^^^^^^^^^
+E       AttributeError: 'FastAPI' object has no attribute 'frontend'
+
+tests/test_frontend.py:300: AttributeError
+__________________ test_index_fallback_ignores_q_zero_accept ___________________
+
+tmp_path = PosixPath('/tmp/pytest-of-sauravbellam/pytest-7/test_index_fallback_ignores_q_0')
+
+    def test_index_fallback_ignores_q_zero_accept(tmp_path: Path):
+        dist = tmp_path / "dist"
+        write_file(dist / "index.html", "app shell")
+        app = FastAPI()
+>       app.frontend("/", directory=dist, fallback="index.html")
+        ^^^^^^^^^^^^
+E       AttributeError: 'FastAPI' object has no attribute 'frontend'
+
+tests/test_frontend.py:314: AttributeError
+______ test_index_fallback_respects_explicit_html_rejection_with_wildcard ______
+
+tmp_path = PosixPath('/tmp/pytest-of-sauravbellam/pytest-7/test_index_fallback_respects_e0')
+
+    def test_index_fallback_respects_explicit_html_rejection_with_wildcard(
+        tmp_path: Path,
+    ):
+        dist = tmp_path / "dist"
+        write_file(dist / "index.html", "app shell")
+        app = FastAPI()
+>       app.frontend("/", directory=dist, fallback="index.html")
+        ^^^^^^^^^^^^
+E       AttributeError: 'FastAPI' object has no attribute 'frontend'
+
+tests/test_frontend.py:329: AttributeError
+_____ test_index_fallback_respects_explicit_xhtml_rejection_with_wildcard ______
+
+tmp_path = PosixPath('/tmp/pytest-of-sauravbellam/pytest-7/test_index_fallback_respects_e1')
+
+    def test_index_fallback_respects_explicit_xhtml_rejection_with_wildcard(
+        tmp_path: Path,
+    ):
+        dist = tmp_path / "dist"
+        write_file(dist / "index.html", "app shell")
+        app = FastAPI()
+>       app.frontend("/", directory=dist, fallback="index.html")
+        ^^^^^^^^^^^^
+E       AttributeError: 'FastAPI' object has no attribute 'frontend'
+
+tests/test_frontend.py:345: AttributeError
+_ test_index_fallback_does_not_handle_asset_like_or_non_html_requests[/assets/missing.js-*/*] _
+
+tmp_path = PosixPath('/tmp/pytest-of-sauravbellam/pytest-7/test_index_fallback_does_not_h0')
+path = '/assets/missing.js', accept = '*/*'
+
+    @pytest.mark.parametrize(
+        ("path", "accept"),
+        [
+            ("/assets/missing.js", "*/*"),
+            ("/assets/missing.css", "text/css"),
+            ("/assets/missing.png", "image/png"),
+            ("/api/missing", "application/json"),
+            ("/users/jane.doe", "text/html"),
+        ],
+    )
+    def test_index_fallback_does_not_handle_asset_like_or_non_html_requests(
+        tmp_path: Path, path: str, accept: str
+    ):
+        dist = tmp_path / "dist"
+        write_file(dist / "index.html", "app shell")
+        app = FastAPI()
+>       app.frontend("/", directory=dist, fallback="index.html")
+        ^^^^^^^^^^^^
+E       AttributeError: 'FastAPI' object has no attribute 'frontend'
+
+tests/test_frontend.py:371: AttributeError
+_ test_index_fallback_does_not_handle_asset_like_or_non_html_requests[/assets/missing.css-text/css] _
+
+tmp_path = PosixPath('/tmp/pytest-of-sauravbellam/pytest-7/test_index_fallback_does_not_h1')
+path = '/assets/missing.css', accept = 'text/css'
+
+    @pytest.mark.parametrize(
+        ("path", "accept"),
+        [
+            ("/assets/missing.js", "*/*"),
+            ("/assets/missing.css", "text/css"),
+            ("/assets/missing.png", "image/png"),
+            ("/api/missing", "application/json"),
+            ("/users/jane.doe", "text/html"),
+        ],
+    )
+    def test_index_fallback_does_not_handle_asset_like_or_non_html_requests(
+        tmp_path: Path, path: str, accept: str
+    ):
+        dist = tmp_path / "dist"
+        write_file(dist / "index.html", "app shell")
+        app = FastAPI()
+>       app.frontend("/", directory=dist, fallback="index.html")
+        ^^^^^^^^^^^^
+E       AttributeError: 'FastAPI' object has no attribute 'frontend'
+
+tests/test_frontend.py:371: AttributeError
+_ test_index_fallback_does_not_handle_asset_like_or_non_html_requests[/assets/missing.png-image/png] _
+
+tmp_path = PosixPath('/tmp/pytest-of-sauravbellam/pytest-7/test_index_fallback_does_not_h2')
+path = '/assets/missing.png', accept = 'image/png'
+
+    @pytest.mark.parametrize(
+        ("path", "accept"),
+        [
+            ("/assets/missing.js", "*/*"),
+            ("/assets/missing.css", "text/css"),
+            ("/assets/missing.png", "image/png"),
+            ("/api/missing", "application/json"),
+            ("/users/jane.doe", "text/html"),
+        ],
+    )
+    def test_index_fallback_does_not_handle_asset_like_or_non_html_requests(
+        tmp_path: Path, path: str, accept: str
+    ):
+        dist = tmp_path / "dist"
+        write_file(dist / "index.html", "app shell")
+        app = FastAPI()
+>       app.frontend("/", directory=dist, fallback="index.html")
+        ^^^^^^^^^^^^
+E       AttributeError: 'FastAPI' object has no attribute 'frontend'
+
+tests/test_frontend.py:371: AttributeError
+_ test_index_fallback_does_not_handle_asset_like_or_non_html_requests[/api/missing-application/json] _
+
+tmp_path = PosixPath('/tmp/pytest-of-sauravbellam/pytest-7/test_index_fallback_does_not_h3')
+path = '/api/missing', accept = 'application/json'
+
+    @pytest.mark.parametrize(
+        ("path", "accept"),
+        [
+            ("/assets/missing.js", "*/*"),
+            ("/assets/missing.css", "text/css"),
+            ("/assets/missing.png", "image/png"),
+            ("/api/missing", "application/json"),
+            ("/users/jane.doe", "text/html"),
+        ],
+    )
+    def test_index_fallback_does_not_handle_asset_like_or_non_html_requests(
+        tmp_path: Path, path: str, accept: str
+    ):
+        dist = tmp_path / "dist"
+        write_file(dist / "index.html", "app shell")
+        app = FastAPI()
+>       app.frontend("/", directory=dist, fallback="index.html")
+        ^^^^^^^^^^^^
+E       AttributeError: 'FastAPI' object has no attribute 'frontend'
+
+tests/test_frontend.py:371: AttributeError
+_ test_index_fallback_does_not_handle_asset_like_or_non_html_requests[/users/jane.doe-text/html] _
+
+tmp_path = PosixPath('/tmp/pytest-of-sauravbellam/pytest-7/test_index_fallback_does_not_h4')
+path = '/users/jane.doe', accept = 'text/html'
+
+    @pytest.mark.parametrize(
+        ("path", "accept"),
+        [
+            ("/assets/missing.js", "*/*"),
+            ("/assets/missing.css", "text/css"),
+            ("/assets/missing.png", "image/png"),
+            ("/api/missing", "application/json"),
+            ("/users/jane.doe", "text/html"),
+        ],
+    )
+    def test_index_fallback_does_not_handle_asset_like_or_non_html_requests(
+        tmp_path: Path, path: str, accept: str
+    ):
+        dist = tmp_path / "dist"
+        write_file(dist / "index.html", "app shell")
+        app = FastAPI()
+>       app.frontend("/", directory=dist, fallback="index.html")
+        ^^^^^^^^^^^^
+E       AttributeError: 'FastAPI' object has no attribute 'frontend'
+
+tests/test_frontend.py:371: AttributeError
+___________________ test_404_fallback_handles_missing_assets ___________________
+
+tmp_path = PosixPath('/tmp/pytest-of-sauravbellam/pytest-7/test_404_fallback_handles_miss0')
+
+    def test_404_fallback_handles_missing_assets(tmp_path: Path):
+        dist = tmp_path / "dist"
+        write_file(dist / "404.html", "missing")
+        app = FastAPI()
+>       app.frontend("/", directory=dist, fallback="404.html")
+        ^^^^^^^^^^^^
+E       AttributeError: 'FastAPI' object has no attribute 'frontend'
+
+tests/test_frontend.py:383: AttributeError
+__________________ test_auto_fallback_prefers_404_over_index ___________________
+
+tmp_path = PosixPath('/tmp/pytest-of-sauravbellam/pytest-7/test_auto_fallback_prefers_4040')
+
+    def test_auto_fallback_prefers_404_over_index(tmp_path: Path):
+        dist = tmp_path / "dist"
+        write_file(dist / "index.html", "app shell")
+        write_file(dist / "404.html", "missing")
+        app = FastAPI()
+>       app.frontend("/", directory=dist)
+        ^^^^^^^^^^^^
+E       AttributeError: 'FastAPI' object has no attribute 'frontend'
+
+tests/test_frontend.py:396: AttributeError
+______________ test_auto_fallback_uses_index_when_404_is_missing _______________
+
+tmp_path = PosixPath('/tmp/pytest-of-sauravbellam/pytest-7/test_auto_fallback_uses_index_0')
+
+    def test_auto_fallback_uses_index_when_404_is_missing(tmp_path: Path):
+        dist = tmp_path / "dist"
+        write_file(dist / "index.html", "app shell")
+        app = FastAPI()
+>       app.frontend("/", directory=dist)
+        ^^^^^^^^^^^^
+E       AttributeError: 'FastAPI' object has no attribute 'frontend'
+
+tests/test_frontend.py:408: AttributeError
+_________ test_auto_fallback_returns_normal_404_without_fallback_files _________
+
+tmp_path = PosixPath('/tmp/pytest-of-sauravbellam/pytest-7/test_auto_fallback_returns_nor0')
+
+    def test_auto_fallback_returns_normal_404_without_fallback_files(tmp_path: Path):
+        dist = tmp_path / "dist"
+        dist.mkdir()
+        app = FastAPI()
+>       app.frontend("/", directory=dist)
+        ^^^^^^^^^^^^
+E       AttributeError: 'FastAPI' object has no attribute 'frontend'
+
+tests/test_frontend.py:420: AttributeError
+_____________________ test_no_fallback_returns_normal_404 ______________________
+
+tmp_path = PosixPath('/tmp/pytest-of-sauravbellam/pytest-7/test_no_fallback_returns_norma0')
+
+    def test_no_fallback_returns_normal_404(tmp_path: Path):
+        dist = tmp_path / "dist"
+        write_file(dist / "index.html", "app shell")
+        app = FastAPI()
+>       app.frontend("/", directory=dist, fallback=None)
+        ^^^^^^^^^^^^
+E       AttributeError: 'FastAPI' object has no attribute 'frontend'
+
+tests/test_frontend.py:432: AttributeError
+______________________ test_directory_index_and_redirect _______________________
+
+tmp_path = PosixPath('/tmp/pytest-of-sauravbellam/pytest-7/test_directory_index_and_redir0')
+
+    def test_directory_index_and_redirect(tmp_path: Path):
+        dist = tmp_path / "dist"
+        write_file(dist / "about" / "index.html", "about")
+        app = FastAPI()
+>       app.frontend("/", directory=dist)
+        ^^^^^^^^^^^^
+E       AttributeError: 'FastAPI' object has no attribute 'frontend'
+
+tests/test_frontend.py:444: AttributeError
+____________ test_path_validation_and_trailing_slash_normalization _____________
+
+tmp_path = PosixPath('/tmp/pytest-of-sauravbellam/pytest-7/test_path_validation_and_trail0')
+
+    def test_path_validation_and_trailing_slash_normalization(tmp_path: Path):
+        dist = tmp_path / "dist"
+        write_file(dist / "asset.txt", "ok")
+        app = FastAPI()
+    
+        with pytest.raises(AssertionError):
+>           app.frontend("", directory=dist)
+            ^^^^^^^^^^^^
+E           AttributeError: 'FastAPI' object has no attribute 'frontend'
+
+tests/test_frontend.py:462: AttributeError
+_____________ test_frontend_path_matching_uses_segment_boundaries ______________
+
+tmp_path = PosixPath('/tmp/pytest-of-sauravbellam/pytest-7/test_frontend_path_matching_us0')
+
+    def test_frontend_path_matching_uses_segment_boundaries(tmp_path: Path):
+        dist = tmp_path / "dist"
+        write_file(dist / "index.html", "app")
+        app = FastAPI()
+>       app.frontend("/app", directory=dist, fallback="index.html")
+        ^^^^^^^^^^^^
+E       AttributeError: 'FastAPI' object has no attribute 'frontend'
+
+tests/test_frontend.py:477: AttributeError
+_____________ test_multiple_frontends_use_longest_matching_prefix ______________
+
+tmp_path = PosixPath('/tmp/pytest-of-sauravbellam/pytest-7/test_multiple_frontends_use_lo0')
+
+    def test_multiple_frontends_use_longest_matching_prefix(tmp_path: Path):
+        site = tmp_path / "site"
+        admin = tmp_path / "admin"
+        write_file(site / "index.html", "site")
+        write_file(admin / "index.html", "admin")
+        app = FastAPI()
+>       app.frontend("/", directory=site, fallback="index.html")
+        ^^^^^^^^^^^^
+E       AttributeError: 'FastAPI' object has no attribute 'frontend'
+
+tests/test_frontend.py:490: AttributeError
+_________________ test_apirouter_frontend_uses_include_prefix __________________
+
+tmp_path = PosixPath('/tmp/pytest-of-sauravbellam/pytest-7/test_apirouter_frontend_uses_i0')
+
+    def test_apirouter_frontend_uses_include_prefix(tmp_path: Path):
+        dist = tmp_path / "admin"
+        write_file(dist / "index.html", "admin")
+        router = APIRouter()
+>       router.frontend("/", directory=dist, fallback="index.html")
+        ^^^^^^^^^^^^^^^
+E       AttributeError: 'APIRouter' object has no attribute 'frontend'
+
+tests/test_frontend.py:503: AttributeError
+_________________ test_global_priority_across_included_routers _________________
+
+tmp_path = PosixPath('/tmp/pytest-of-sauravbellam/pytest-7/test_global_priority_across_in0')
+
+    def test_global_priority_across_included_routers(tmp_path: Path):
+        dist = tmp_path / "site"
+        write_file(dist / "index.html", "site")
+        site_router = APIRouter()
+>       site_router.frontend("/", directory=dist, fallback="index.html")
+        ^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'APIRouter' object has no attribute 'frontend'
+
+tests/test_frontend.py:517: AttributeError
+___________ test_nested_apirouter_frontend_uses_all_include_prefixes ___________
+
+tmp_path = PosixPath('/tmp/pytest-of-sauravbellam/pytest-7/test_nested_apirouter_frontend0')
+
+    def test_nested_apirouter_frontend_uses_all_include_prefixes(tmp_path: Path):
+        dist = tmp_path / "admin"
+        write_file(dist / "index.html", "admin")
+        child_router = APIRouter()
+>       child_router.frontend("/", directory=dist, fallback="index.html")
+        ^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'APIRouter' object has no attribute 'frontend'
+
+tests/test_frontend.py:538: AttributeError
+_____ test_low_priority_cache_updates_after_route_added_to_included_router _____
+
+tmp_path = PosixPath('/tmp/pytest-of-sauravbellam/pytest-7/test_low_priority_cache_update0')
+
+    def test_low_priority_cache_updates_after_route_added_to_included_router(
+        tmp_path: Path,
+    ):
+        dist = tmp_path / "site"
+        write_file(dist / "index.html", "site")
+        router = APIRouter()
+>       router.frontend("/", directory=dist, fallback="index.html")
+        ^^^^^^^^^^^^^^^
+E       AttributeError: 'APIRouter' object has no attribute 'frontend'
+
+tests/test_frontend.py:558: AttributeError
+________ test_normal_route_slash_redirect_wins_before_frontend_redirect ________
+
+tmp_path = PosixPath('/tmp/pytest-of-sauravbellam/pytest-7/test_normal_route_slash_redire0')
+
+    def test_normal_route_slash_redirect_wins_before_frontend_redirect(tmp_path: Path):
+        dist = tmp_path / "site"
+        write_file(dist / "api" / "index.html", "frontend")
+        app = FastAPI()
+    
+        @app.get("/api/")
+        def read_api():
+            return {"source": "api"}
+    
+>       app.frontend("/", directory=dist)
+        ^^^^^^^^^^^^
+E       AttributeError: 'FastAPI' object has no attribute 'frontend'
+
+tests/test_frontend.py:586: AttributeError
+_______________________ test_frontend_respects_root_path _______________________
+
+tmp_path = PosixPath('/tmp/pytest-of-sauravbellam/pytest-7/test_frontend_respects_root_pa0')
+
+    def test_frontend_respects_root_path(tmp_path: Path):
+        dist = tmp_path / "dist"
+        write_file(dist / "assets" / "app.js", "console.log('ok')")
+        app = FastAPI()
+>       app.frontend("/app", directory=dist)
+        ^^^^^^^^^^^^
+E       AttributeError: 'FastAPI' object has no attribute 'frontend'
+
+tests/test_frontend.py:602: AttributeError
+___________________ test_websocket_route_wins_over_frontend ____________________
+
+tmp_path = PosixPath('/tmp/pytest-of-sauravbellam/pytest-7/test_websocket_route_wins_over0')
+
+    def test_websocket_route_wins_over_frontend(tmp_path: Path):
+        dist = tmp_path / "dist"
+        write_file(dist / "ws", "frontend")
+        app = FastAPI()
+    
+        @app.websocket("/ws")
+        async def websocket_endpoint(websocket: WebSocket):
+            await websocket.accept()
+            await websocket.send_text("websocket")
+            await websocket.close()
+    
+>       app.frontend("/", directory=dist)
+        ^^^^^^^^^^^^
+E       AttributeError: 'FastAPI' object has no attribute 'frontend'
+
+tests/test_frontend.py:621: AttributeError
+___________________________ test_head_requests_work ____________________________
+
+tmp_path = PosixPath('/tmp/pytest-of-sauravbellam/pytest-7/test_head_requests_work0')
+
+    def test_head_requests_work(tmp_path: Path):
+        dist = tmp_path / "dist"
+        write_file(dist / "asset.txt", "ok")
+        app = FastAPI()
+>       app.frontend("/", directory=dist)
+        ^^^^^^^^^^^^
+E       AttributeError: 'FastAPI' object has no attribute 'frontend'
+
+tests/test_frontend.py:633: AttributeError
+_____________________ test_unsupported_methods_return_405 ______________________
+
+tmp_path = PosixPath('/tmp/pytest-of-sauravbellam/pytest-7/test_unsupported_methods_retur0')
+
+    def test_unsupported_methods_return_405(tmp_path: Path):
+        dist = tmp_path / "dist"
+        write_file(dist / "asset.txt", "ok")
+        app = FastAPI()
+>       app.frontend("/", directory=dist)
+        ^^^^^^^^^^^^
+E       AttributeError: 'FastAPI' object has no attribute 'frontend'
+
+tests/test_frontend.py:646: AttributeError
+_________ test_path_traversal_cannot_escape_directory[/../secret.txt] __________
+
+tmp_path = PosixPath('/tmp/pytest-of-sauravbellam/pytest-7/test_path_traversal_cannot_esc0')
+path = '/../secret.txt'
+
+    @pytest.mark.parametrize(
+        "path",
+        [
+            "/../secret.txt",
+            "/%2e%2e/secret.txt",
+            "/..%2fsecret.txt",
+            "/%5c..%5csecret.txt",
+            "/..%5csecret.txt",
+        ],
+    )
+    def test_path_traversal_cannot_escape_directory(tmp_path: Path, path: str):
+        dist = tmp_path / "dist"
+        write_file(dist / "index.html", "app")
+        write_file(tmp_path / "secret.txt", "secret")
+        app = FastAPI()
+>       app.frontend("/", directory=dist)
+        ^^^^^^^^^^^^
+E       AttributeError: 'FastAPI' object has no attribute 'frontend'
+
+tests/test_frontend.py:668: AttributeError
+_______ test_path_traversal_cannot_escape_directory[/%2e%2e/secret.txt] ________
+
+tmp_path = PosixPath('/tmp/pytest-of-sauravbellam/pytest-7/test_path_traversal_cannot_esc1')
+path = '/%2e%2e/secret.txt'
+
+    @pytest.mark.parametrize(
+        "path",
+        [
+            "/../secret.txt",
+            "/%2e%2e/secret.txt",
+            "/..%2fsecret.txt",
+            "/%5c..%5csecret.txt",
+            "/..%5csecret.txt",
+        ],
+    )
+    def test_path_traversal_cannot_escape_directory(tmp_path: Path, path: str):
+        dist = tmp_path / "dist"
+        write_file(dist / "index.html", "app")
+        write_file(tmp_path / "secret.txt", "secret")
+        app = FastAPI()
+>       app.frontend("/", directory=dist)
+        ^^^^^^^^^^^^
+E       AttributeError: 'FastAPI' object has no attribute 'frontend'
+
+tests/test_frontend.py:668: AttributeError
+________ test_path_traversal_cannot_escape_directory[/..%2fsecret.txt] _________
+
+tmp_path = PosixPath('/tmp/pytest-of-sauravbellam/pytest-7/test_path_traversal_cannot_esc2')
+path = '/..%2fsecret.txt'
+
+    @pytest.mark.parametrize(
+        "path",
+        [
+            "/../secret.txt",
+            "/%2e%2e/secret.txt",
+            "/..%2fsecret.txt",
+            "/%5c..%5csecret.txt",
+            "/..%5csecret.txt",
+        ],
+    )
+    def test_path_traversal_cannot_escape_directory(tmp_path: Path, path: str):
+        dist = tmp_path / "dist"
+        write_file(dist / "index.html", "app")
+        write_file(tmp_path / "secret.txt", "secret")
+        app = FastAPI()
+>       app.frontend("/", directory=dist)
+        ^^^^^^^^^^^^
+E       AttributeError: 'FastAPI' object has no attribute 'frontend'
+
+tests/test_frontend.py:668: AttributeError
+_______ test_path_traversal_cannot_escape_directory[/%5c..%5csecret.txt] _______
+
+tmp_path = PosixPath('/tmp/pytest-of-sauravbellam/pytest-7/test_path_traversal_cannot_esc3')
+path = '/%5c..%5csecret.txt'
+
+    @pytest.mark.parametrize(
+        "path",
+        [
+            "/../secret.txt",
+            "/%2e%2e/secret.txt",
+            "/..%2fsecret.txt",
+            "/%5c..%5csecret.txt",
+            "/..%5csecret.txt",
+        ],
+    )
+    def test_path_traversal_cannot_escape_directory(tmp_path: Path, path: str):
+        dist = tmp_path / "dist"
+        write_file(dist / "index.html", "app")
+        write_file(tmp_path / "secret.txt", "secret")
+        app = FastAPI()
+>       app.frontend("/", directory=dist)
+        ^^^^^^^^^^^^
+E       AttributeError: 'FastAPI' object has no attribute 'frontend'
+
+tests/test_frontend.py:668: AttributeError
+________ test_path_traversal_cannot_escape_directory[/..%5csecret.txt] _________
+
+tmp_path = PosixPath('/tmp/pytest-of-sauravbellam/pytest-7/test_path_traversal_cannot_esc4')
+path = '/..%5csecret.txt'
+
+    @pytest.mark.parametrize(
+        "path",
+        [
+            "/../secret.txt",
+            "/%2e%2e/secret.txt",
+            "/..%2fsecret.txt",
+            "/%5c..%5csecret.txt",
+            "/..%5csecret.txt",
+        ],
+    )
+    def test_path_traversal_cannot_escape_directory(tmp_path: Path, path: str):
+        dist = tmp_path / "dist"
+        write_file(dist / "index.html", "app")
+        write_file(tmp_path / "secret.txt", "secret")
+        app = FastAPI()
+>       app.frontend("/", directory=dist)
+        ^^^^^^^^^^^^
+E       AttributeError: 'FastAPI' object has no attribute 'frontend'
+
+tests/test_frontend.py:668: AttributeError
+_________________ test_symlink_outside_directory_is_not_served _________________
+
+tmp_path = PosixPath('/tmp/pytest-of-sauravbellam/pytest-7/test_symlink_outside_directory0')
+
+    def test_symlink_outside_directory_is_not_served(tmp_path: Path):
+        dist = tmp_path / "dist"
+        dist.mkdir()
+        outside = tmp_path / "secret.txt"
+        outside.write_text("secret")
+        link = dist / "secret.txt"
+        try:
+            os.symlink(outside, link)
+        except (OSError, NotImplementedError):  # pragma: no cover
+            pytest.skip("symlinks are not supported")
+        app = FastAPI()
+>       app.frontend("/", directory=dist)
+        ^^^^^^^^^^^^
+E       AttributeError: 'FastAPI' object has no attribute 'frontend'
+
+tests/test_frontend.py:687: AttributeError
+____________ test_check_dir_true_fails_early_for_missing_directory _____________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7ff1e62f89d0>
+tmp_path = PosixPath('/tmp/pytest-of-sauravbellam/pytest-7/test_check_dir_true_fails_earl0')
+
+    def test_check_dir_true_fails_early_for_missing_directory(monkeypatch, tmp_path: Path):
+        app = FastAPI()
+        monkeypatch.chdir(tmp_path)
+    
+        with pytest.raises(RuntimeError, match="does not exist") as exc_info:
+>           app.frontend("/", directory="missing")
+            ^^^^^^^^^^^^
+E           AttributeError: 'FastAPI' object has no attribute 'frontend'
+
+/home/sauravbellam/cache/a2/fastapi_15800/workspace/tests/test_frontend.py:700: AttributeError
+______ test_check_dir_false_allows_missing_directory_and_fails_on_request ______
+
+tmp_path = PosixPath('/tmp/pytest-of-sauravbellam/pytest-7/test_check_dir_false_allows_mi0')
+
+    def test_check_dir_false_allows_missing_directory_and_fails_on_request(tmp_path: Path):
+        app = FastAPI()
+>       app.frontend("/", directory=tmp_path / "missing", check_dir=False)
+        ^^^^^^^^^^^^
+E       AttributeError: 'FastAPI' object has no attribute 'frontend'
+
+tests/test_frontend.py:709: AttributeError
+____________ test_explicit_fallback_files_fail_clearly_when_missing ____________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7ff1e62e8290>
+tmp_path = PosixPath('/tmp/pytest-of-sauravbellam/pytest-7/test_explicit_fallback_files_f0')
+
+    def test_explicit_fallback_files_fail_clearly_when_missing(monkeypatch, tmp_path: Path):
+        dist = tmp_path / "dist"
+        dist.mkdir()
+        monkeypatch.chdir(tmp_path)
+        app = FastAPI()
+    
+        with pytest.raises(RuntimeError, match="index.html") as exc_info:
+>           app.frontend("/", directory="dist", fallback="index.html")
+            ^^^^^^^^^^^^
+E           AttributeError: 'FastAPI' object has no attribute 'frontend'
+
+/home/sauravbellam/cache/a2/fastapi_15800/workspace/tests/test_frontend.py:722: AttributeError
+___________________ test_frontend_routes_are_not_in_openapi ____________________
+
+tmp_path = PosixPath('/tmp/pytest-of-sauravbellam/pytest-7/test_frontend_routes_are_not_i0')
+
+    def test_frontend_routes_are_not_in_openapi(tmp_path: Path):
+        dist = tmp_path / "dist"
+        write_file(dist / "index.html", "app")
+        app = FastAPI()
+    
+        @app.get("/api")
+        def read_api():
+            return {"ok": True}
+    
+>       app.frontend("/", directory=dist, fallback="index.html")
+        ^^^^^^^^^^^^
+E       AttributeError: 'FastAPI' object has no attribute 'frontend'
+
+tests/test_frontend.py:748: AttributeError
+_ test_docs_frontend_examples[tutorial001_py310.py-files0-/asset.txt-200-asset] _
+
+tmp_path = PosixPath('/tmp/pytest-of-sauravbellam/pytest-7/test_docs_frontend_examples_tu0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7ff1e6120f30>
+example = 'tutorial001_py310.py', files = {'asset.txt': 'asset'}
+path = '/asset.txt', status_code = 200, body = 'asset'
+
+    @pytest.mark.parametrize(
+        ("example", "files", "path", "status_code", "body"),
+        [
+            (
+                "tutorial001_py310.py",
+                {"asset.txt": "asset"},
+                "/asset.txt",
+                200,
+                "asset",
+            ),
+            (
+                "tutorial002_py310.py",
+                {"index.html": "index"},
+                "/dashboard",
+                200,
+                "index",
+            ),
+            (
+                "tutorial003_py310.py",
+                {"404.html": "missing"},
+                "/missing",
+                404,
+                "missing",
+            ),
+            (
+                "tutorial004_py310.py",
+                {"index.html": "index"},
+                "/app/dashboard",
+                200,
+                "index",
+            ),
+            (
+                "tutorial005_py310.py",
+                {"index.html": "index"},
+                "/dashboard",
+                404,
+                '{"detail":"Not Found"}',
+            ),
+            (
+                "tutorial006_py310.py",
+                {"asset.txt": "asset"},
+                "/asset.txt",
+                200,
+                "asset",
+            ),
+        ],
+    )
+    def test_docs_frontend_examples(
+        tmp_path: Path,
+        monkeypatch,
+        example: str,
+        files: dict[str, str],
+        path: str,
+        status_code: int,
+        body: str,
+    ):
+        dist = tmp_path / "dist"
+        for file, content in files.items():
+            write_file(dist / file, content)
+        monkeypatch.chdir(tmp_path)
+    
+>       namespace = runpy.run_path(
+            str(Path(__file__).parents[1] / "docs_src" / "frontend" / example)
+        )
+
+/home/sauravbellam/cache/a2/fastapi_15800/workspace/tests/test_frontend.py:820: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+<frozen runpy>:286: in run_path
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+fname = '/home/sauravbellam/cache/a2/fastapi_15800/workspace/docs_src/frontend/tutorial001_py310.py'
+
+>   ???
+E   FileNotFoundError: [Errno 2] No such file or directory: '/home/sauravbellam/cache/a2/fastapi_15800/workspace/docs_src/frontend/tutorial001_py310.py'
+
+<frozen runpy>:254: FileNotFoundError
+_ test_docs_frontend_examples[tutorial002_py310.py-files1-/dashboard-200-index] _
+
+tmp_path = PosixPath('/tmp/pytest-of-sauravbellam/pytest-7/test_docs_frontend_examples_tu1')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7ff1e5622140>
+example = 'tutorial002_py310.py', files = {'index.html': 'index'}
+path = '/dashboard', status_code = 200, body = 'index'
+
+    @pytest.mark.parametrize(
+        ("example", "files", "path", "status_code", "body"),
+        [
+            (
+                "tutorial001_py310.py",
+                {"asset.txt": "asset"},
+                "/asset.txt",
+                200,
+                "asset",
+            ),
+            (
+                "tutorial002_py310.py",
+                {"index.html": "index"},
+                "/dashboard",
+                200,
+                "index",
+            ),
+            (
+                "tutorial003_py310.py",
+                {"404.html": "missing"},
+                "/missing",
+                404,
+                "missing",
+            ),
+            (
+                "tutorial004_py310.py",
+                {"index.html": "index"},
+                "/app/dashboard",
+                200,
+                "index",
+            ),
+            (
+                "tutorial005_py310.py",
+                {"index.html": "index"},
+                "/dashboard",
+                404,
+                '{"detail":"Not Found"}',
+            ),
+            (
+                "tutorial006_py310.py",
+                {"asset.txt": "asset"},
+                "/asset.txt",
+                200,
+                "asset",
+            ),
+        ],
+    )
+    def test_docs_frontend_examples(
+        tmp_path: Path,
+        monkeypatch,
+        example: str,
+        files: dict[str, str],
+        path: str,
+        status_code: int,
+        body: str,
+    ):
+        dist = tmp_path / "dist"
+        for file, content in files.items():
+            write_file(dist / file, content)
+        monkeypatch.chdir(tmp_path)
+    
+>       namespace = runpy.run_path(
+            str(Path(__file__).parents[1] / "docs_src" / "frontend" / example)
+        )
+
+/home/sauravbellam/cache/a2/fastapi_15800/workspace/tests/test_frontend.py:820: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+<frozen runpy>:286: in run_path
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+fname = '/home/sauravbellam/cache/a2/fastapi_15800/workspace/docs_src/frontend/tutorial002_py310.py'
+
+>   ???
+E   FileNotFoundError: [Errno 2] No such file or directory: '/home/sauravbellam/cache/a2/fastapi_15800/workspace/docs_src/frontend/tutorial002_py310.py'
+
+<frozen runpy>:254: FileNotFoundError
+_ test_docs_frontend_examples[tutorial003_py310.py-files2-/missing-404-missing] _
+
+tmp_path = PosixPath('/tmp/pytest-of-sauravbellam/pytest-7/test_docs_frontend_examples_tu2')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7ff1e5695f50>
+example = 'tutorial003_py310.py', files = {'404.html': 'missing'}
+path = '/missing', status_code = 404, body = 'missing'
+
+    @pytest.mark.parametrize(
+        ("example", "files", "path", "status_code", "body"),
+        [
+            (
+                "tutorial001_py310.py",
+                {"asset.txt": "asset"},
+                "/asset.txt",
+                200,
+                "asset",
+            ),
+            (
+                "tutorial002_py310.py",
+                {"index.html": "index"},
+                "/dashboard",
+                200,
+                "index",
+            ),
+            (
+                "tutorial003_py310.py",
+                {"404.html": "missing"},
+                "/missing",
+                404,
+                "missing",
+            ),
+            (
+                "tutorial004_py310.py",
+                {"index.html": "index"},
+                "/app/dashboard",
+                200,
+                "index",
+            ),
+            (
+                "tutorial005_py310.py",
+                {"index.html": "index"},
+                "/dashboard",
+                404,
+                '{"detail":"Not Found"}',
+            ),
+            (
+                "tutorial006_py310.py",
+                {"asset.txt": "asset"},
+                "/asset.txt",
+                200,
+                "asset",
+            ),
+        ],
+    )
+    def test_docs_frontend_examples(
+        tmp_path: Path,
+        monkeypatch,
+        example: str,
+        files: dict[str, str],
+        path: str,
+        status_code: int,
+        body: str,
+    ):
+        dist = tmp_path / "dist"
+        for file, content in files.items():
+            write_file(dist / file, content)
+        monkeypatch.chdir(tmp_path)
+    
+>       namespace = runpy.run_path(
+            str(Path(__file__).parents[1] / "docs_src" / "frontend" / example)
+        )
+
+/home/sauravbellam/cache/a2/fastapi_15800/workspace/tests/test_frontend.py:820: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+<frozen runpy>:286: in run_path
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+fname = '/home/sauravbellam/cache/a2/fastapi_15800/workspace/docs_src/frontend/tutorial003_py310.py'
+
+>   ???
+E   FileNotFoundError: [Errno 2] No such file or directory: '/home/sauravbellam/cache/a2/fastapi_15800/workspace/docs_src/frontend/tutorial003_py310.py'
+
+<frozen runpy>:254: FileNotFoundError
+_ test_docs_frontend_examples[tutorial004_py310.py-files3-/app/dashboard-200-index] _
+
+tmp_path = PosixPath('/tmp/pytest-of-sauravbellam/pytest-7/test_docs_frontend_examples_tu3')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7ff1e5696e50>
+example = 'tutorial004_py310.py', files = {'index.html': 'index'}
+path = '/app/dashboard', status_code = 200, body = 'index'
+
+    @pytest.mark.parametrize(
+        ("example", "files", "path", "status_code", "body"),
+        [
+            (
+                "tutorial001_py310.py",
+                {"asset.txt": "asset"},
+                "/asset.txt",
+                200,
+                "asset",
+            ),
+            (
+                "tutorial002_py310.py",
+                {"index.html": "index"},
+                "/dashboard",
+                200,
+                "index",
+            ),
+            (
+                "tutorial003_py310.py",
+                {"404.html": "missing"},
+                "/missing",
+                404,
+                "missing",
+            ),
+            (
+                "tutorial004_py310.py",
+                {"index.html": "index"},
+                "/app/dashboard",
+                200,
+                "index",
+            ),
+            (
+                "tutorial005_py310.py",
+                {"index.html": "index"},
+                "/dashboard",
+                404,
+                '{"detail":"Not Found"}',
+            ),
+            (
+                "tutorial006_py310.py",
+                {"asset.txt": "asset"},
+                "/asset.txt",
+                200,
+                "asset",
+            ),
+        ],
+    )
+    def test_docs_frontend_examples(
+        tmp_path: Path,
+        monkeypatch,
+        example: str,
+        files: dict[str, str],
+        path: str,
+        status_code: int,
+        body: str,
+    ):
+        dist = tmp_path / "dist"
+        for file, content in files.items():
+            write_file(dist / file, content)
+        monkeypatch.chdir(tmp_path)
+    
+>       namespace = runpy.run_path(
+            str(Path(__file__).parents[1] / "docs_src" / "frontend" / example)
+        )
+
+/home/sauravbellam/cache/a2/fastapi_15800/workspace/tests/test_frontend.py:820: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+<frozen runpy>:286: in run_path
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+fname = '/home/sauravbellam/cache/a2/fastapi_15800/workspace/docs_src/frontend/tutorial004_py310.py'
+
+>   ???
+E   FileNotFoundError: [Errno 2] No such file or directory: '/home/sauravbellam/cache/a2/fastapi_15800/workspace/docs_src/frontend/tutorial004_py310.py'
+
+<frozen runpy>:254: FileNotFoundError
+_ test_docs_frontend_examples[tutorial005_py310.py-files4-/dashboard-404-{"detail":"Not Found"}] _
+
+tmp_path = PosixPath('/tmp/pytest-of-sauravbellam/pytest-7/test_docs_frontend_examples_tu4')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7ff1e56b6c60>
+example = 'tutorial005_py310.py', files = {'index.html': 'index'}
+path = '/dashboard', status_code = 404, body = '{"detail":"Not Found"}'
+
+    @pytest.mark.parametrize(
+        ("example", "files", "path", "status_code", "body"),
+        [
+            (
+                "tutorial001_py310.py",
+                {"asset.txt": "asset"},
+                "/asset.txt",
+                200,
+                "asset",
+            ),
+            (
+                "tutorial002_py310.py",
+                {"index.html": "index"},
+                "/dashboard",
+                200,
+                "index",
+            ),
+            (
+                "tutorial003_py310.py",
+                {"404.html": "missing"},
+                "/missing",
+                404,
+                "missing",
+            ),
+            (
+                "tutorial004_py310.py",
+                {"index.html": "index"},
+                "/app/dashboard",
+                200,
+                "index",
+            ),
+            (
+                "tutorial005_py310.py",
+                {"index.html": "index"},
+                "/dashboard",
+                404,
+                '{"detail":"Not Found"}',
+            ),
+            (
+                "tutorial006_py310.py",
+                {"asset.txt": "asset"},
+                "/asset.txt",
+                200,
+                "asset",
+            ),
+        ],
+    )
+    def test_docs_frontend_examples(
+        tmp_path: Path,
+        monkeypatch,
+        example: str,
+        files: dict[str, str],
+        path: str,
+        status_code: int,
+        body: str,
+    ):
+        dist = tmp_path / "dist"
+        for file, content in files.items():
+            write_file(dist / file, content)
+        monkeypatch.chdir(tmp_path)
+    
+>       namespace = runpy.run_path(
+            str(Path(__file__).parents[1] / "docs_src" / "frontend" / example)
+        )
+
+/home/sauravbellam/cache/a2/fastapi_15800/workspace/tests/test_frontend.py:820: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+<frozen runpy>:286: in run_path
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+fname = '/home/sauravbellam/cache/a2/fastapi_15800/workspace/docs_src/frontend/tutorial005_py310.py'
+
+>   ???
+E   FileNotFoundError: [Errno 2] No such file or directory: '/home/sauravbellam/cache/a2/fastapi_15800/workspace/docs_src/frontend/tutorial005_py310.py'
+
+<frozen runpy>:254: FileNotFoundError
+_ test_docs_frontend_examples[tutorial006_py310.py-files5-/asset.txt-200-asset] _
+
+tmp_path = PosixPath('/tmp/pytest-of-sauravbellam/pytest-7/test_docs_frontend_examples_tu5')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7ff1e56b68a0>
+example = 'tutorial006_py310.py', files = {'asset.txt': 'asset'}
+path = '/asset.txt', status_code = 200, body = 'asset'
+
+    @pytest.mark.parametrize(
+        ("example", "files", "path", "status_code", "body"),
+        [
+            (
+                "tutorial001_py310.py",
+                {"asset.txt": "asset"},
+                "/asset.txt",
+                200,
+                "asset",
+            ),
+            (
+                "tutorial002_py310.py",
+                {"index.html": "index"},
+                "/dashboard",
+                200,
+                "index",
+            ),
+            (
+                "tutorial003_py310.py",
+                {"404.html": "missing"},
+                "/missing",
+                404,
+                "missing",
+            ),
+            (
+                "tutorial004_py310.py",
+                {"index.html": "index"},
+                "/app/dashboard",
+                200,
+                "index",
+            ),
+            (
+                "tutorial005_py310.py",
+                {"index.html": "index"},
+                "/dashboard",
+                404,
+                '{"detail":"Not Found"}',
+            ),
+            (
+                "tutorial006_py310.py",
+                {"asset.txt": "asset"},
+                "/asset.txt",
+                200,
+                "asset",
+            ),
+        ],
+    )
+    def test_docs_frontend_examples(
+        tmp_path: Path,
+        monkeypatch,
+        example: str,
+        files: dict[str, str],
+        path: str,
+        status_code: int,
+        body: str,
+    ):
+        dist = tmp_path / "dist"
+        for file, content in files.items():
+            write_file(dist / file, content)
+        monkeypatch.chdir(tmp_path)
+    
+>       namespace = runpy.run_path(
+            str(Path(__file__).parents[1] / "docs_src" / "frontend" / example)
+        )
+
+/home/sauravbellam/cache/a2/fastapi_15800/workspace/tests/test_frontend.py:820: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+<frozen runpy>:286: in run_path
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+fname = '/home/sauravbellam/cache/a2/fastapi_15800/workspace/docs_src/frontend/tutorial006_py310.py'
+
+>   ???
+E   FileNotFoundError: [Errno 2] No such file or directory: '/home/sauravbellam/cache/a2/fastapi_15800/workspace/docs_src/frontend/tutorial006_py310.py'
+
+<frozen runpy>:254: FileNotFoundError
+____________ test_low_priority_routes_can_store_non_frontend_routes ____________
+
+    def test_low_priority_routes_can_store_non_frontend_routes():
+        async def low_priority_endpoint(request):
+            return PlainTextResponse("low")
+    
+        app = FastAPI()
+>       app.router._low_priority_routes.append(Route("/low", low_priority_endpoint))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'APIRouter' object has no attribute '_low_priority_routes'
+
+tests/test_frontend.py:836: AttributeError
+_______ test_included_low_priority_routes_can_store_non_frontend_routes ________
+
+    def test_included_low_priority_routes_can_store_non_frontend_routes():
+        async def low_priority_endpoint(request):
+            return PlainTextResponse("low")
+    
+        router = APIRouter()
+>       router._low_priority_routes.append(Route("/low", low_priority_endpoint))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'APIRouter' object has no attribute '_low_priority_routes'
+
+tests/test_frontend.py:850: AttributeError
+60 failed in 4.84s
+
+

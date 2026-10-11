@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="10" time="3.564" timestamp="2026-10-10T23:16:43.591931+00:00" hostname="vm-a2"><testcase classname="tests.test_router_events" name="test_router_events" time="0.492" /><testcase classname="tests.test_router_events" name="test_app_lifespan_state" time="0.028" /><testcase classname="tests.test_router_events" name="test_router_nested_lifespan_state" time="0.032" /><testcase classname="tests.test_router_events" name="test_router_nested_lifespan_state_overriding_by_parent" time="0.018" /><testcase classname="tests.test_router_events" name="test_merged_no_return_lifespans_return_none" time="0.016" /><testcase classname="tests.test_router_events" name="test_merged_mixed_state_lifespans" time="0.014" /><testcase classname="tests.test_router_events" name="test_router_async_shutdown_handler" time="0.025" /><testcase classname="tests.test_router_events" name="test_router_sync_generator_lifespan" time="0.032" /><testcase classname="tests.test_router_events" name="test_router_async_generator_lifespan" time="0.029" /><testcase classname="tests.test_router_events" name="test_startup_shutdown_handlers_as_parameters" time="0.017"><failure message="assert False is True&#10; +  where False = State(app_startup=False, app_shutdown=False, router_startup=False, router_shutdown=False, sub_router_startup=False, sub_router_shutdown=False).app_startup">state = State(app_startup=False, app_shutdown=False, router_startup=False, router_shutdown=False, sub_router_startup=False, sub_router_shutdown=False)
+
+    def test_startup_shutdown_handlers_as_parameters(state: State) -&gt; None:
+        """Test that startup/shutdown handlers passed as parameters to FastAPI are called correctly."""
+    
+        def app_startup() -&gt; None:
+            state.app_startup = True
+    
+        def app_shutdown() -&gt; None:
+            state.app_shutdown = True
+    
+        app = FastAPI(on_startup=[app_startup], on_shutdown=[app_shutdown])
+    
+        @app.get("/")
+        def main() -&gt; dict[str, str]:
+            return {"message": "Hello World"}
+    
+        def router_startup() -&gt; None:
+            state.router_startup = True
+    
+        def router_shutdown() -&gt; None:
+            state.router_shutdown = True
+    
+        router = APIRouter(on_startup=[router_startup], on_shutdown=[router_shutdown])
+    
+        def sub_router_startup() -&gt; None:
+            state.sub_router_startup = True
+    
+        def sub_router_shutdown() -&gt; None:
+            state.sub_router_shutdown = True
+    
+        sub_router = APIRouter(
+            on_startup=[sub_router_startup], on_shutdown=[sub_router_shutdown]
+        )
+    
+        router.include_router(sub_router)
+        app.include_router(router)
+    
+        assert state.app_startup is False
+        assert state.router_startup is False
+        assert state.sub_router_startup is False
+        assert state.app_shutdown is False
+        assert state.router_shutdown is False
+        assert state.sub_router_shutdown is False
+        with TestClient(app) as client:
+&gt;           assert state.app_startup is True
+E           assert False is True
+E            +  where False = State(app_startup=False, app_shutdown=False, router_startup=False, router_shutdown=False, sub_router_startup=False, sub_router_shutdown=False).app_startup
+
+tests/test_router_events.py:365: AssertionError</failure></testcase></testsuite></testsuites>

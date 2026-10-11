@@ -1,0 +1,408 @@
+
+$ /home/sauravbellam/cache/a2/fastapi_14356/venv/bin/python -s -m pytest tests/test_query_cookie_header_model_extra_params.py tests/test_tutorial/test_header_param_models/test_tutorial003.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/fastapi_14356/trace_pre.xml
+[exit 1]
+F.F........FEFEFEFEFEFE........................                          [100%]
+==================================== ERRORS ====================================
+___ ERROR at teardown of test_header_param_model_no_underscore[tutorial003] ____
+some snapshots in this test have incorrect values.
+If you just created this value with --inline-snapshot=create, the value is now created and you can ignore this message.
+_ ERROR at teardown of test_header_param_model_no_underscore[tutorial003_py39] _
+some snapshots in this test have incorrect values.
+If you just created this value with --inline-snapshot=create, the value is now created and you can ignore this message.
+_ ERROR at teardown of test_header_param_model_no_underscore[tutorial003_py310] _
+some snapshots in this test have incorrect values.
+If you just created this value with --inline-snapshot=create, the value is now created and you can ignore this message.
+__ ERROR at teardown of test_header_param_model_no_underscore[tutorial003_an] __
+some snapshots in this test have incorrect values.
+If you just created this value with --inline-snapshot=create, the value is now created and you can ignore this message.
+_ ERROR at teardown of test_header_param_model_no_underscore[tutorial003_an_py39] _
+some snapshots in this test have incorrect values.
+If you just created this value with --inline-snapshot=create, the value is now created and you can ignore this message.
+_ ERROR at teardown of test_header_param_model_no_underscore[tutorial003_an_py310] _
+some snapshots in this test have incorrect values.
+If you just created this value with --inline-snapshot=create, the value is now created and you can ignore this message.
+=================================== FAILURES ===================================
+__________________________ test_query_pass_extra_list __________________________
+
+    def test_query_pass_extra_list():
+        client = TestClient(app)
+        resp = client.get(
+            "/query",
+            params={
+                "param": "123",
+                "param2": ["456", "789"],  # Pass a list of values as extra parameter
+            },
+        )
+        assert resp.status_code == 200
+>       assert resp.json() == {
+            "param": "123",
+            "param2": ["456", "789"],
+        }
+E       AssertionError: assert {'param': '12...aram2': '789'} == {'param': '12...'456', '789']}
+E         
+E         Omitting 1 identical items, use -vv to show
+E         Differing items:
+E         {'param2': '789'} != {'param2': ['456', '789']}
+E         Use -v to get more diff
+
+tests/test_query_cookie_header_model_extra_params.py:45: AssertionError
+_________________________ test_header_pass_extra_list __________________________
+
+    def test_header_pass_extra_list():
+        client = TestClient(app)
+    
+        resp = client.get(
+            "/header",
+            headers=[
+                ("param", "123"),
+                ("param2", "456"),  # Pass a list of values as extra parameter
+                ("param2", "789"),
+            ],
+        )
+        assert resp.status_code == 200
+        resp_json = resp.json()
+        assert "param2" in resp_json
+>       assert resp_json["param2"] == ["456", "789"]
+E       AssertionError: assert '789' == ['456', '789']
+
+tests/test_query_cookie_header_model_extra_params.py:81: AssertionError
+______________ test_header_param_model_no_underscore[tutorial003] ______________
+
+client = <starlette.testclient.TestClient object at 0x7fb200bf1220>
+
+    def test_header_param_model_no_underscore(client: TestClient):
+        response = client.get(
+            "/items/",
+            headers=[
+                ("save-data", "true"),
+                ("if-modified-since", "yesterday"),
+                ("traceparent", "123"),
+                ("x-tag", "one"),
+                ("x-tag", "two"),
+            ],
+        )
+        assert response.status_code == 422
+>       assert response.json() == snapshot(
+            {
+                "detail": [
+                    IsDict(
+                        {
+                            "type": "missing",
+                            "loc": ["header", "save_data"],
+                            "msg": "Field required",
+                            "input": {
+                                "host": "testserver",
+                                "traceparent": "123",
+                                "x_tag": [],
+                                "accept": "*/*",
+                                "accept-encoding": "gzip, deflate",
+                                "connection": "keep-alive",
+                                "user-agent": "testclient",
+                                "save-data": "true",
+                                "if-modified-since": "yesterday",
+                                "x-tag": ["one", "two"],
+                            },
+                        }
+                    )
+                    | IsDict(
+                        # TODO: remove when deprecating Pydantic v1
+                        {
+                            "type": "value_error.missing",
+                            "loc": ["header", "save_data"],
+                            "msg": "field required",
+                        }
+                    )
+                ]
+            }
+        )
+E       AssertionError: assert {'detail': [{...: 'missing'}]} == {'detail': [I...d required')]}
+E         
+E         Differing items:
+E         {'detail': [{'input': {'accept': '*/*', 'accept-encoding': 'gzip, deflate', 'connection': 'keep-alive', 'host': 'testserver', ...}, 'loc': ['header', 'save_data'], 'msg': 'Field required', 'type': 'missing'}]} != {'detail': [IsDict(type='missing', loc=['header', 'save_data'], msg='Field required', input={'host': 'testserver', 'tr...y', 'x-tag': ['one', 'two']}) | IsDict(type='value_error.missing', loc=['header', 'save_data'], msg='field required')]}
+E         Use -v to get more diff
+
+tests/test_tutorial/test_header_param_models/test_tutorial003.py:62: AssertionError
+___________ test_header_param_model_no_underscore[tutorial003_py39] ____________
+
+client = <starlette.testclient.TestClient object at 0x7fb2017b9630>
+
+    def test_header_param_model_no_underscore(client: TestClient):
+        response = client.get(
+            "/items/",
+            headers=[
+                ("save-data", "true"),
+                ("if-modified-since", "yesterday"),
+                ("traceparent", "123"),
+                ("x-tag", "one"),
+                ("x-tag", "two"),
+            ],
+        )
+        assert response.status_code == 422
+>       assert response.json() == snapshot(
+            {
+                "detail": [
+                    IsDict(
+                        {
+                            "type": "missing",
+                            "loc": ["header", "save_data"],
+                            "msg": "Field required",
+                            "input": {
+                                "host": "testserver",
+                                "traceparent": "123",
+                                "x_tag": [],
+                                "accept": "*/*",
+                                "accept-encoding": "gzip, deflate",
+                                "connection": "keep-alive",
+                                "user-agent": "testclient",
+                                "save-data": "true",
+                                "if-modified-since": "yesterday",
+                                "x-tag": ["one", "two"],
+                            },
+                        }
+                    )
+                    | IsDict(
+                        # TODO: remove when deprecating Pydantic v1
+                        {
+                            "type": "value_error.missing",
+                            "loc": ["header", "save_data"],
+                            "msg": "field required",
+                        }
+                    )
+                ]
+            }
+        )
+E       AssertionError: assert {'detail': [{...: 'missing'}]} == {'detail': [I...d required')]}
+E         
+E         Differing items:
+E         {'detail': [{'input': {'accept': '*/*', 'accept-encoding': 'gzip, deflate', 'connection': 'keep-alive', 'host': 'testserver', ...}, 'loc': ['header', 'save_data'], 'msg': 'Field required', 'type': 'missing'}]} != {'detail': [IsDict(type='missing', loc=['header', 'save_data'], msg='Field required', input={'host': 'testserver', 'tr...y', 'x-tag': ['one', 'two']}) | IsDict(type='value_error.missing', loc=['header', 'save_data'], msg='field required')]}
+E         Use -v to get more diff
+
+tests/test_tutorial/test_header_param_models/test_tutorial003.py:62: AssertionError
+___________ test_header_param_model_no_underscore[tutorial003_py310] ___________
+
+client = <starlette.testclient.TestClient object at 0x7fb2017bb930>
+
+    def test_header_param_model_no_underscore(client: TestClient):
+        response = client.get(
+            "/items/",
+            headers=[
+                ("save-data", "true"),
+                ("if-modified-since", "yesterday"),
+                ("traceparent", "123"),
+                ("x-tag", "one"),
+                ("x-tag", "two"),
+            ],
+        )
+        assert response.status_code == 422
+>       assert response.json() == snapshot(
+            {
+                "detail": [
+                    IsDict(
+                        {
+                            "type": "missing",
+                            "loc": ["header", "save_data"],
+                            "msg": "Field required",
+                            "input": {
+                                "host": "testserver",
+                                "traceparent": "123",
+                                "x_tag": [],
+                                "accept": "*/*",
+                                "accept-encoding": "gzip, deflate",
+                                "connection": "keep-alive",
+                                "user-agent": "testclient",
+                                "save-data": "true",
+                                "if-modified-since": "yesterday",
+                                "x-tag": ["one", "two"],
+                            },
+                        }
+                    )
+                    | IsDict(
+                        # TODO: remove when deprecating Pydantic v1
+                        {
+                            "type": "value_error.missing",
+                            "loc": ["header", "save_data"],
+                            "msg": "field required",
+                        }
+                    )
+                ]
+            }
+        )
+E       AssertionError: assert {'detail': [{...: 'missing'}]} == {'detail': [I...d required')]}
+E         
+E         Differing items:
+E         {'detail': [{'input': {'accept': '*/*', 'accept-encoding': 'gzip, deflate', 'connection': 'keep-alive', 'host': 'testserver', ...}, 'loc': ['header', 'save_data'], 'msg': 'Field required', 'type': 'missing'}]} != {'detail': [IsDict(type='missing', loc=['header', 'save_data'], msg='Field required', input={'host': 'testserver', 'tr...y', 'x-tag': ['one', 'two']}) | IsDict(type='value_error.missing', loc=['header', 'save_data'], msg='field required')]}
+E         Use -v to get more diff
+
+tests/test_tutorial/test_header_param_models/test_tutorial003.py:62: AssertionError
+____________ test_header_param_model_no_underscore[tutorial003_an] _____________
+
+client = <starlette.testclient.TestClient object at 0x7fb200d50210>
+
+    def test_header_param_model_no_underscore(client: TestClient):
+        response = client.get(
+            "/items/",
+            headers=[
+                ("save-data", "true"),
+                ("if-modified-since", "yesterday"),
+                ("traceparent", "123"),
+                ("x-tag", "one"),
+                ("x-tag", "two"),
+            ],
+        )
+        assert response.status_code == 422
+>       assert response.json() == snapshot(
+            {
+                "detail": [
+                    IsDict(
+                        {
+                            "type": "missing",
+                            "loc": ["header", "save_data"],
+                            "msg": "Field required",
+                            "input": {
+                                "host": "testserver",
+                                "traceparent": "123",
+                                "x_tag": [],
+                                "accept": "*/*",
+                                "accept-encoding": "gzip, deflate",
+                                "connection": "keep-alive",
+                                "user-agent": "testclient",
+                                "save-data": "true",
+                                "if-modified-since": "yesterday",
+                                "x-tag": ["one", "two"],
+                            },
+                        }
+                    )
+                    | IsDict(
+                        # TODO: remove when deprecating Pydantic v1
+                        {
+                            "type": "value_error.missing",
+                            "loc": ["header", "save_data"],
+                            "msg": "field required",
+                        }
+                    )
+                ]
+            }
+        )
+E       AssertionError: assert {'detail': [{...: 'missing'}]} == {'detail': [I...d required')]}
+E         
+E         Differing items:
+E         {'detail': [{'input': {'accept': '*/*', 'accept-encoding': 'gzip, deflate', 'connection': 'keep-alive', 'host': 'testserver', ...}, 'loc': ['header', 'save_data'], 'msg': 'Field required', 'type': 'missing'}]} != {'detail': [IsDict(type='missing', loc=['header', 'save_data'], msg='Field required', input={'host': 'testserver', 'tr...y', 'x-tag': ['one', 'two']}) | IsDict(type='value_error.missing', loc=['header', 'save_data'], msg='field required')]}
+E         Use -v to get more diff
+
+tests/test_tutorial/test_header_param_models/test_tutorial003.py:62: AssertionError
+__________ test_header_param_model_no_underscore[tutorial003_an_py39] __________
+
+client = <starlette.testclient.TestClient object at 0x7fb200d50c90>
+
+    def test_header_param_model_no_underscore(client: TestClient):
+        response = client.get(
+            "/items/",
+            headers=[
+                ("save-data", "true"),
+                ("if-modified-since", "yesterday"),
+                ("traceparent", "123"),
+                ("x-tag", "one"),
+                ("x-tag", "two"),
+            ],
+        )
+        assert response.status_code == 422
+>       assert response.json() == snapshot(
+            {
+                "detail": [
+                    IsDict(
+                        {
+                            "type": "missing",
+                            "loc": ["header", "save_data"],
+                            "msg": "Field required",
+                            "input": {
+                                "host": "testserver",
+                                "traceparent": "123",
+                                "x_tag": [],
+                                "accept": "*/*",
+                                "accept-encoding": "gzip, deflate",
+                                "connection": "keep-alive",
+                                "user-agent": "testclient",
+                                "save-data": "true",
+                                "if-modified-since": "yesterday",
+                                "x-tag": ["one", "two"],
+                            },
+                        }
+                    )
+                    | IsDict(
+                        # TODO: remove when deprecating Pydantic v1
+                        {
+                            "type": "value_error.missing",
+                            "loc": ["header", "save_data"],
+                            "msg": "field required",
+                        }
+                    )
+                ]
+            }
+        )
+E       AssertionError: assert {'detail': [{...: 'missing'}]} == {'detail': [I...d required')]}
+E         
+E         Differing items:
+E         {'detail': [{'input': {'accept': '*/*', 'accept-encoding': 'gzip, deflate', 'connection': 'keep-alive', 'host': 'testserver', ...}, 'loc': ['header', 'save_data'], 'msg': 'Field required', 'type': 'missing'}]} != {'detail': [IsDict(type='missing', loc=['header', 'save_data'], msg='Field required', input={'host': 'testserver', 'tr...y', 'x-tag': ['one', 'two']}) | IsDict(type='value_error.missing', loc=['header', 'save_data'], msg='field required')]}
+E         Use -v to get more diff
+
+tests/test_tutorial/test_header_param_models/test_tutorial003.py:62: AssertionError
+_________ test_header_param_model_no_underscore[tutorial003_an_py310] __________
+
+client = <starlette.testclient.TestClient object at 0x7fb2017bac10>
+
+    def test_header_param_model_no_underscore(client: TestClient):
+        response = client.get(
+            "/items/",
+            headers=[
+                ("save-data", "true"),
+                ("if-modified-since", "yesterday"),
+                ("traceparent", "123"),
+                ("x-tag", "one"),
+                ("x-tag", "two"),
+            ],
+        )
+        assert response.status_code == 422
+>       assert response.json() == snapshot(
+            {
+                "detail": [
+                    IsDict(
+                        {
+                            "type": "missing",
+                            "loc": ["header", "save_data"],
+                            "msg": "Field required",
+                            "input": {
+                                "host": "testserver",
+                                "traceparent": "123",
+                                "x_tag": [],
+                                "accept": "*/*",
+                                "accept-encoding": "gzip, deflate",
+                                "connection": "keep-alive",
+                                "user-agent": "testclient",
+                                "save-data": "true",
+                                "if-modified-since": "yesterday",
+                                "x-tag": ["one", "two"],
+                            },
+                        }
+                    )
+                    | IsDict(
+                        # TODO: remove when deprecating Pydantic v1
+                        {
+                            "type": "value_error.missing",
+                            "loc": ["header", "save_data"],
+                            "msg": "field required",
+                        }
+                    )
+                ]
+            }
+        )
+E       AssertionError: assert {'detail': [{...: 'missing'}]} == {'detail': [I...d required')]}
+E         
+E         Differing items:
+E         {'detail': [{'input': {'accept': '*/*', 'accept-encoding': 'gzip, deflate', 'connection': 'keep-alive', 'host': 'testserver', ...}, 'loc': ['header', 'save_data'], 'msg': 'Field required', 'type': 'missing'}]} != {'detail': [IsDict(type='missing', loc=['header', 'save_data'], msg='Field required', input={'host': 'testserver', 'tr...y', 'x-tag': ['one', 'two']}) | IsDict(type='value_error.missing', loc=['header', 'save_data'], msg='field required')]}
+E         Use -v to get more diff
+
+tests/test_tutorial/test_header_param_models/test_tutorial003.py:62: AssertionError
+- generated xml file: /home/sauravbellam/results/a2_runs/fastapi_14356/trace_pre.xml -
+8 failed, 33 passed, 6 errors in 3.08s
+
+

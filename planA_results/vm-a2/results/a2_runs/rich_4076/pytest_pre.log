@@ -1,0 +1,123 @@
+
+$ /home/sauravbellam/cache/a2/rich_4076/venv/bin/python -s -m pytest tests/test_ansi.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/rich_4076/trace_pre.xml
+[exit 1]
+FFF....................F                                                 [100%]
+=================================== FAILURES ===================================
+_________________________________ test_decode __________________________________
+
+    def test_decode():
+        console = Console(
+            force_terminal=True, legacy_windows=False, color_system="truecolor"
+        )
+        console.begin_capture()
+        console.print("Hello")
+        console.print("[b]foo[/b]")
+        console.print("[link http://example.org]bar")
+        console.print("[#ff0000 on color(200)]red")
+        console.print("[color(200) on #ff0000]red")
+        terminal_codes = console.end_capture()
+    
+        decoder = AnsiDecoder()
+        lines = list(decoder.decode(terminal_codes))
+        print(repr(lines))
+        expected = [
+            Text("Hello"),
+            Text("foo", spans=[Span(0, 3, Style.parse("bold"))]),
+            Text("bar", spans=[Span(0, 3, Style.parse("link http://example.org"))]),
+            Text("red", spans=[Span(0, 3, Style.parse("#ff0000 on color(200)"))]),
+            Text("red", spans=[Span(0, 3, Style.parse("color(200) on #ff0000"))]),
+            Text(""),
+        ]
+    
+>       assert lines == expected
+E       AssertionError: assert [<text 'Hello...ue=0))))] ''>] == [<text 'Hello...ext '' [] ''>]
+E         
+E         Right contains one more item: <text '' [] ''>
+E         Use -v to get more diff
+
+tests/test_ansi.py:33: AssertionError
+----------------------------- Captured stdout call -----------------------------
+[<text 'Hello' [] ''>, <text 'foo' [Span(0, 3, Style(bold=True))] ''>, <text 'bar' [Span(0, 3, Style(link='http://example.org'))] ''>, <text 'red' [Span(0, 3, Style(color=Color('#ff0000', ColorType.TRUECOLOR, triplet=ColorTriplet(red=255, green=0, blue=0)), bgcolor=Color('color(200)', ColorType.EIGHT_BIT, number=200)))] ''>, <text 'red' [Span(0, 3, Style(color=Color('color(200)', ColorType.EIGHT_BIT, number=200), bgcolor=Color('#ff0000', ColorType.TRUECOLOR, triplet=ColorTriplet(red=255, green=0, blue=0))))] ''>]
+_____________________________ test_decode_example ______________________________
+
+    def test_decode_example():
+        ansi_bytes = b"\x1b[01m\x1b[KC:\\Users\\stefa\\AppData\\Local\\Temp\\tmp3ydingba:\x1b[m\x1b[K In function '\x1b[01m\x1b[Kmain\x1b[m\x1b[K':\n\x1b[01m\x1b[KC:\\Users\\stefa\\AppData\\Local\\Temp\\tmp3ydingba:3:5:\x1b[m\x1b[K \x1b[01;35m\x1b[Kwarning: \x1b[m\x1b[Kunused variable '\x1b[01m\x1b[Ka\x1b[m\x1b[K' [\x1b[01;35m\x1b[K-Wunused-variable\x1b[m\x1b[K]\n    3 | int \x1b[01;35m\x1b[Ka\x1b[m\x1b[K=1;\n      |     \x1b[01;35m\x1b[K^\x1b[m\x1b[K\n"
+        ansi_text = ansi_bytes.decode("utf-8")
+    
+        text = Text.from_ansi(ansi_text)
+    
+        console = Console(
+            force_terminal=True, legacy_windows=False, color_system="truecolor"
+        )
+        with console.capture() as capture:
+            console.print(text)
+        result = capture.get()
+        print(repr(result))
+        print(result)
+        expected = "\x1b[1mC:\\Users\\stefa\\AppData\\Local\\Temp\\tmp3ydingba:\x1b[0m In function '\x1b[1mmain\x1b[0m':\n\x1b[1mC:\\Users\\stefa\\AppData\\Local\\Temp\\tmp3ydingba:3:5:\x1b[0m \x1b[1;35mwarning: \x1b[0munused variable '\x1b[1ma\x1b[0m' \n[\x1b[1;35m-Wunused-variable\x1b[0m]\n    3 | int \x1b[1;35ma\x1b[0m=1;\n      |     \x1b[1;35m^\x1b[0m\n\n"
+>       assert result == expected
+E       AssertionError: assert '\x1b[1mC:\\U...35m^\x1b[0m\n' == '\x1b[1mC:\\U...m^\x1b[0m\n\n'
+E         
+E         Skipping 264 identical leading characters in diff, use -v to show
+E           1;35m^[0m
+E         -
+
+tests/test_ansi.py:51: AssertionError
+----------------------------- Captured stdout call -----------------------------
+"\x1b[1mC:\\Users\\stefa\\AppData\\Local\\Temp\\tmp3ydingba:\x1b[0m In function '\x1b[1mmain\x1b[0m':\n\x1b[1mC:\\Users\\stefa\\AppData\\Local\\Temp\\tmp3ydingba:3:5:\x1b[0m \x1b[1;35mwarning: \x1b[0munused variable '\x1b[1ma\x1b[0m' \n[\x1b[1;35m-Wunused-variable\x1b[0m]\n    3 | int \x1b[1;35ma\x1b[0m=1;\n      |     \x1b[1;35m^\x1b[0m\n"
+[1mC:\Users\stefa\AppData\Local\Temp\tmp3ydingba:[0m In function '[1mmain[0m':
+[1mC:\Users\stefa\AppData\Local\Temp\tmp3ydingba:3:5:[0m [1;35mwarning: [0munused variable '[1ma[0m' 
+[[1;35m-Wunused-variable[0m]
+    3 | int [1;35ma[0m=1;
+      |     [1;35m^[0m
+
+_ test_decode_issue_2688[\x1b[31mFound 4 errors in 2 files (checked 18 source files)\x1b(B\x1b[m\n-Found 4 errors in 2 files (checked 18 source files)\n] _
+
+ansi_bytes = b'\x1b[31mFound 4 errors in 2 files (checked 18 source files)\x1b(B\x1b[m\n'
+expected_text = 'Found 4 errors in 2 files (checked 18 source files)\n'
+
+    @pytest.mark.parametrize(
+        "ansi_bytes, expected_text",
+        [
+            # https://github.com/Textualize/rich/issues/2688
+            (
+                b"\x1b[31mFound 4 errors in 2 files (checked 18 source files)\x1b(B\x1b[m\n",
+                "Found 4 errors in 2 files (checked 18 source files)\n",
+            ),
+            # https://mail.python.org/pipermail/python-list/2007-December/424756.html
+            (b"Hallo", "Hallo"),
+            (b"\x1b(BHallo", "Hallo"),
+            (b"\x1b(JHallo", "Hallo"),
+            (b"\x1b(BHal\x1b(Jlo", "Hallo"),
+        ],
+    )
+    def test_decode_issue_2688(ansi_bytes, expected_text):
+        text = Text.from_ansi(ansi_bytes.decode())
+    
+>       assert str(text) == expected_text
+E       AssertionError: assert 'Found 4 erro...source files)' == 'Found 4 erro...urce files)\n'
+E         
+E         Skipping 40 identical leading characters in diff, use -v to show
+E         - urce files)
+E         ?            -
+E         + urce files)
+
+tests/test_ansi.py:72: AssertionError
+_____________________________ test_decode_newlines _____________________________
+
+    def test_decode_newlines():
+        """Test newlines are preserved.
+        Regression test for https://github.com/Textualize/rich/issues/3577
+        """
+        assert Text.from_ansi("").plain == ""
+>       assert Text.from_ansi("\n").plain == "\n"
+E       AssertionError: assert '' == '\n'
+E         
+E         Strings contain only whitespace, escaping them using repr()
+E         - '\n'
+E         + ''
+
+tests/test_ansi.py:94: AssertionError
+4 failed, 20 passed in 0.65s
+
+

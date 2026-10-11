@@ -1,0 +1,75 @@
+
+$ /home/sauravbellam/cache/a2/requests_6629/venv/bin/python -s -m pytest tests/test_requests.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/requests_6629/trace_post.xml
+[exit 1]
+
+/home/sauravbellam/cache/a2/requests_6629/venv/lib/python3.13/site-packages/_pytest/config/__init__.py:318: PluggyTeardownRaisedWarning: A plugin raised an exception during an old-style hookwrapper teardown.
+Plugin: helpconfig, Hook: pytest_cmdline_parse
+AttributeError: module 'pytest' has no attribute 'StashKey'
+For more information see https://pluggy.readthedocs.io/en/stable/api_reference.html#pluggy.PluggyTeardownRaisedWarning
+  config = pluginmanager.hook.pytest_cmdline_parse(
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/sauravbellam/cache/a2/requests_6629/venv/lib/python3.13/site-packages/pytest/__main__.py", line 5, in <module>
+    raise SystemExit(pytest.console_main())
+                     ~~~~~~~~~~~~~~~~~~~^^
+  File "/home/sauravbellam/cache/a2/requests_6629/venv/lib/python3.13/site-packages/_pytest/config/__init__.py", line 185, in console_main
+    code = main()
+  File "/home/sauravbellam/cache/a2/requests_6629/venv/lib/python3.13/site-packages/_pytest/config/__init__.py", line 143, in main
+    config = _prepareconfig(args, plugins)
+  File "/home/sauravbellam/cache/a2/requests_6629/venv/lib/python3.13/site-packages/_pytest/config/__init__.py", line 318, in _prepareconfig
+    config = pluginmanager.hook.pytest_cmdline_parse(
+        pluginmanager=pluginmanager, args=args
+    )
+  File "/home/sauravbellam/cache/a2/requests_6629/venv/lib/python3.13/site-packages/pluggy/_hooks.py", line 512, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sauravbellam/cache/a2/requests_6629/venv/lib/python3.13/site-packages/pluggy/_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sauravbellam/cache/a2/requests_6629/venv/lib/python3.13/site-packages/pluggy/_callers.py", line 167, in _multicall
+    raise exception
+  File "/home/sauravbellam/cache/a2/requests_6629/venv/lib/python3.13/site-packages/pluggy/_callers.py", line 139, in _multicall
+    teardown.throw(exception)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "/home/sauravbellam/cache/a2/requests_6629/venv/lib/python3.13/site-packages/pluggy/_callers.py", line 43, in run_old_style_hookwrapper
+    teardown.send(result)
+    ~~~~~~~~~~~~~^^^^^^^^
+  File "/home/sauravbellam/cache/a2/requests_6629/venv/lib/python3.13/site-packages/_pytest/helpconfig.py", line 100, in pytest_cmdline_parse
+    config: Config = outcome.get_result()
+                     ~~~~~~~~~~~~~~~~~~^^
+  File "/home/sauravbellam/cache/a2/requests_6629/venv/lib/python3.13/site-packages/pluggy/_result.py", line 103, in get_result
+    raise exc.with_traceback(tb)
+  File "/home/sauravbellam/cache/a2/requests_6629/venv/lib/python3.13/site-packages/pluggy/_callers.py", line 38, in run_old_style_hookwrapper
+    res = yield
+          ^^^^^
+  File "/home/sauravbellam/cache/a2/requests_6629/venv/lib/python3.13/site-packages/pluggy/_callers.py", line 121, in _multicall
+    res = hook_impl.function(*args)
+  File "/home/sauravbellam/cache/a2/requests_6629/venv/lib/python3.13/site-packages/_pytest/config/__init__.py", line 1003, in pytest_cmdline_parse
+    self.parse(args)
+    ~~~~~~~~~~^^^^^^
+  File "/home/sauravbellam/cache/a2/requests_6629/venv/lib/python3.13/site-packages/_pytest/config/__init__.py", line 1283, in parse
+    self._preparse(args, addopts=addopts)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sauravbellam/cache/a2/requests_6629/venv/lib/python3.13/site-packages/_pytest/config/__init__.py", line 1172, in _preparse
+    self.pluginmanager.load_setuptools_entrypoints("pytest11")
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/home/sauravbellam/cache/a2/requests_6629/venv/lib/python3.13/site-packages/pluggy/_manager.py", line 416, in load_setuptools_entrypoints
+    plugin = ep.load()
+  File "/usr/lib/python3.13/importlib/metadata/__init__.py", line 179, in load
+    module = import_module(match.group('module'))
+  File "/usr/lib/python3.13/importlib/__init__.py", line 88, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "/home/sauravbellam/cache/a2/requests_6629/venv/lib/python3.13/site-packages/_pytest/assertion/rewrite.py", line 170, in exec_module
+    exec(co, module.__dict__)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sauravbellam/cache/a2/requests_6629/venv/lib/python3.13/site-packages/pytest_timeout.py", line 22, in <module>
+    SESSION_TIMEOUT_KEY = pytest.StashKey[float]()
+                          ^^^^^^^^^^^^^^^
+AttributeError: module 'pytest' has no attribute 'StashKey'
+

@@ -1,0 +1,87 @@
+{
+  "instance_id": "rich_3470",
+  "repo": "Textualize/rich",
+  "backend": "venv",
+  "done": true,
+  "deps": {
+    "steps": [
+      {
+        "name": "pip_upgrade",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3470/venv/bin/python -m pip install -q --disable-pip-version-check 'pip>=24' 'setuptools' 'wheel' pytest pytest-timeout",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "editable_no_deps",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3470/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-build-isolation --no-deps -e .",
+        "exit": 2,
+        "stderr_tail": "python3.13/site-packages/pip/_internal/req/req_install.py\", line 258, in supports_pyproject_editable\n    return \"build_editable\" in self.pep517_backend._supported_features()\n                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"/home/sauravbellam/cache/a2/rich_3470/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 180, in _supported_features\n    return self._call_hook(\"_supported_features\", {})\n           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/sauravbellam/cache/a2/rich_3470/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 402, in _call_hook\n    raise BackendUnavailable(\n    ...<4 lines>...\n    )\npip._vendor.pyproject_hooks._impl.BackendUnavailable: Cannot import 'poetry.core.masonry.api'\n"
+      },
+      {
+        "name": "editable_no_deps_isolated",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3470/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-deps -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "runtime_deps",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3470/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "poetry_group_dev",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3470/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels pytest black mypy pytest-cov attrs pre-commit asv importlib-metadata",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "rich_tests",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3470/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels pytest-cov attrs ipywidgets",
+        "exit": 0,
+        "stderr_tail": ""
+      }
+    ],
+    "editable_ok": true,
+    "python": "3.13.5 (main, Aug 10 2026, 12:06:59) [GCC 14.2.0]"
+  },
+  "targets": [
+    "tests/test_console.py"
+  ],
+  "test_patch_strategy": "exact",
+  "test_patch_applied": true,
+  "pre": {
+    "exit": 1,
+    "seconds": 2.7,
+    "timeout": false,
+    "exit_meaning": "some_failed",
+    "run_class": "clean",
+    "counts": {
+      "failed": 2,
+      "passed": 96
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "                                          \n                                            \u2502                                                                                          \u2502                                            \n                                            \u2502  We hope you enjoy using Rich!               Textualize https://github.com/textualize    \u2502                                            \n                                            \u2502                                                                                          \u2502                                            \n                                            \u2502  Rich is maintained with \u2764 by Textualize.io     Twitter https://twitter.com/willmcgugan  \u2502                                            \n                                            \u2502                                                                                          \u2502                                            \n                                            \u2502  - Will McGugan                                                                          \u2502                                            \n                                            \u2502                                                                                          \u2502                                            \n                                            \u2570\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u256f                                            \n___________________________ test_capture_and_record ____________________________\n\n    def test_capture_and_record() -> None:\n        \"\"\"Regression test for https://github.com/Textualize/rich/issues/2563\"\"\"\n    \n        console = Console(record=True)\n        print(\"Before Capture started:\")\n        console.print(\"[blue underline]Print 0\")\n        with console.capture() as capture:\n            console.print(\"[blue underline]Print 1\")\n            console.print(\"[blue underline]Print 2\")\n            console.print(\"[blue underline]Print 3\")\n            console.print(\"[blue underline]Print 4\")\n    \n        capture_content = capture.get()\n        print(repr(capture_content))\n        assert capture_content == \"Print 1\\nPrint 2\\nPrint 3\\nPrint 4\\n\"\n    \n        recorded_content = console.export_text()\n        print(repr(recorded_content))\n>       assert recorded_content == \"Print 0\\n\"\nE       AssertionError: assert 'Print 0\\nPri... 3\\nPrint 4\\n' == 'Print 0\\n'\nE         \nE           Print 0\nE         + Print 1\nE         + Print 1\nE         + Print 2\nE         + Print 1\nE         + Print 2...\nE         \nE         ...Full output truncated (5 lines hidden), use '-vv' to show\n\ntests/test_console.py:1044: AssertionError\n----------------------------- Captured stdout call -----------------------------\nBefore Capture started:\nPrint 0\n'Print 1\\nPrint 2\\nPrint 3\\nPrint 4\\n'\n'Print 0\\nPrint 1\\nPrint 1\\nPrint 2\\nPrint 1\\nPrint 2\\nPrint 3\\nPrint 1\\nPrint 2\\nPrint 3\\nPrint 4\\n'\n2 failed, 96 passed in 2.33s\n",
+    "stderr_tail": ""
+  },
+  "gold_patch_strategy": "exact",
+  "gold_patch_applied": true,
+  "post": {
+    "exit": 0,
+    "seconds": 2.2,
+    "timeout": false,
+    "exit_meaning": "all_passed",
+    "run_class": "clean",
+    "counts": {
+      "passed": 98
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "........................................................................ [ 73%]\n..........................                                               [100%]\n98 passed in 1.87s\n",
+    "stderr_tail": ""
+  },
+  "trace_pre_exists": true,
+  "trace_post_exists": true,
+  "seconds": 36.5
+}

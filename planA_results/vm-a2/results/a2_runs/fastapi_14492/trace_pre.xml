@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="2" time="2.990" timestamp="2026-10-10T23:17:21.127208+00:00" hostname="vm-a2"><testcase classname="tests.test_tutorial.test_metadata.test_tutorial001_1" name="test_items" time="0.384" /><testcase classname="tests.test_tutorial.test_metadata.test_tutorial001_1" name="test_openapi_schema" time="0.022"><failure message="assert {'openapi': '...': {...}}}}}}} == {'openapi': '...': {...}}}}}}}&#10;  &#10;  Omitting 2 identical items, use -vv to show&#10;  Differing items:&#10;  {'info': {'title': 'ChimichangApp', 'summary': &quot;Deadpool's favorite app. Nuff said.&quot;, 'description': '\nChimichangApp ...** (_not implemented_).\n* **Read users** (_not implemented_).\n', 'termsOfService': 'http://example.com/terms/', ...}} != {'info': {'title': 'ChimichangApp', 'summary': &quot;Deadpool's favorite app. Nuff said.&quot;, 'description': '\nChimichangApp ...** (_not implemented_).\n* **Read users** (_not implemented_).\n', 'termsOfService': 'http://example.com/terms/', ...}}&#10;  Use -v to get more diff">def test_openapi_schema():
+        response = client.get("/openapi.json")
+        assert response.status_code == 200, response.text
+&gt;       assert response.json() == {
+            "openapi": "3.1.0",
+            "info": {
+                "title": "ChimichangApp",
+                "summary": "Deadpool's favorite app. Nuff said.",
+                "description": "\nChimichangApp API helps you do awesome stuff. 🚀\n\n## Items\n\nYou can **read items**.\n\n## Users\n\nYou will be able to:\n\n* **Create users** (_not implemented_).\n* **Read users** (_not implemented_).\n",
+                "termsOfService": "http://example.com/terms/",
+                "contact": {
+                    "name": "Deadpoolio the Amazing",
+                    "url": "http://x-force.example.com/contact/",
+                    "email": "dp@x-force.example.com",
+                },
+                "license": {
+                    "name": "Apache 2.0",
+                    "identifier": "Apache-2.0",
+                },
+                "version": "0.0.1",
+            },
+            "paths": {
+                "/items/": {
+                    "get": {
+                        "summary": "Read Items",
+                        "operationId": "read_items_items__get",
+                        "responses": {
+                            "200": {
+                                "description": "Successful Response",
+                                "content": {"application/json": {"schema": {}}},
+                            }
+                        },
+                    }
+                }
+            },
+        }
+E       assert {'openapi': '...': {...}}}}}}} == {'openapi': '...': {...}}}}}}}
+E         
+E         Omitting 2 identical items, use -vv to show
+E         Differing items:
+E         {'info': {'title': 'ChimichangApp', 'summary': "Deadpool's favorite app. Nuff said.", 'description': '\nChimichangApp ...** (_not implemented_).\n* **Read users** (_not implemented_).\n', 'termsOfService': 'http://example.com/terms/', ...}} != {'info': {'title': 'ChimichangApp', 'summary': "Deadpool's favorite app. Nuff said.", 'description': '\nChimichangApp ...** (_not implemented_).\n* **Read users** (_not implemented_).\n', 'termsOfService': 'http://example.com/terms/', ...}}
+E         Use -v to get more diff
+
+tests/test_tutorial/test_metadata/test_tutorial001_1.py:17: AssertionError</failure></testcase></testsuite></testsuites>

@@ -1,0 +1,8 @@
+
+$ /home/sauravbellam/cache/a2/fastapi_14430/venv/bin/python -s -m pytest tests/test_compat.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/fastapi_14430/trace_post.xml
+[exit 0]
+.s.........ss                                                            [100%]
+- generated xml file: /home/sauravbellam/results/a2_runs/fastapi_14430/trace_post.xml -
+10 passed, 3 skipped in 1.51s
+
+

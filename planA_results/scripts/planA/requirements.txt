@@ -1,0 +1,8 @@
+numpy>=1.26
+scipy>=1.11
+networkx>=3.2
+pytest>=8
+tqdm
+# A3 / A5 mode (c) only (needs huggingface.co access; EmbeddingGemma v1 is gated -> HF_TOKEN):
+# sentence-transformers>=3.0
+# torch  (CPU build is enough)

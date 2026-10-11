@@ -1,0 +1,20 @@
+
+$ /home/sauravbellam/cache/a2/fastapi_14186/venv/bin/python -s -m pytest tests/test_compat.py tests/test_get_model_definitions_formfeed_escape.py tests/test_response_model_as_return_annotation.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/fastapi_14186/trace_pre.xml
+[exit 2]
+
+==================================== ERRORS ====================================
+____________________ ERROR collecting tests/test_compat.py _____________________
+ImportError while importing test module '/home/sauravbellam/cache/a2/fastapi_14186/workspace/tests/test_compat.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/usr/lib/python3.13/importlib/__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_compat.py:4: in <module>
+    from fastapi._compat import (
+E   ImportError: cannot import name 'may_v1' from 'fastapi._compat' (/home/sauravbellam/cache/a2/fastapi_14186/workspace/fastapi/_compat/__init__.py)
+- generated xml file: /home/sauravbellam/results/a2_runs/fastapi_14186/trace_pre.xml -
+!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
+1 error in 2.36s
+
+

@@ -1,0 +1,26 @@
+
+$ /home/sauravbellam/cache/a2/fastapi_14964/venv/bin/python -s -m pytest tests/test_deprecated_responses.py tests/test_orjson_response_class.py tests/test_tutorial/test_custom_response/test_tutorial001.py tests/test_tutorial/test_custom_response/test_tutorial001b.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/fastapi_14964/trace_pre.xml
+[exit 1]
+.F.F.....                                                                [100%]
+=================================== FAILURES ===================================
+________________ test_orjson_response_emits_deprecation_warning ________________
+
+    def test_orjson_response_emits_deprecation_warning():
+>       with pytest.warns(FastAPIDeprecationWarning, match="ORJSONResponse is deprecated"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT WARN. No warnings of type (<class 'fastapi.exceptions.FastAPIDeprecationWarning'>,) were emitted.
+E        Emitted warnings: [].
+
+tests/test_deprecated_responses.py:42: Failed
+________________ test_ujson_response_emits_deprecation_warning _________________
+
+    def test_ujson_response_emits_deprecation_warning():
+>       with pytest.warns(FastAPIDeprecationWarning, match="UJSONResponse is deprecated"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT WARN. No warnings of type (<class 'fastapi.exceptions.FastAPIDeprecationWarning'>,) were emitted.
+E        Emitted warnings: [].
+
+tests/test_deprecated_responses.py:72: Failed
+2 failed, 7 passed in 4.13s
+
+

@@ -1,0 +1,240 @@
+
+$ /home/sauravbellam/cache/a2/rich_3472/venv/bin/python -s -m pytest tests/test_pretty.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/rich_3472/trace_pre.xml
+[exit 1]
+............................................sF.....F                     [100%]
+=================================== FAILURES ===================================
+____________________________ test_attrs_broken_310 _____________________________
+
+    @skip_py37
+    @skip_py38
+    @skip_py39
+    def test_attrs_broken_310() -> None:
+        @attr.define
+        class Foo:
+            bar: int
+    
+        foo = Foo(1)
+        del foo.bar
+        result = pretty_repr(foo)
+        print(repr(result))
+        expected = "Foo(bar=AttributeError(\"'Foo' object has no attribute 'bar'\"))"
+>       assert result == expected
+E       assert 'Foo(\n    ba... \'bar\'")\n)' == 'Foo(bar=Attr...te \'bar\'"))'
+E         
+E         - Foo(bar=AttributeError("'Foo' object has no attribute 'bar'"))
+E         + Foo(
+E         +     bar=AttributeError("'tests.test_pretty.test_attrs_broken_310.<locals>.Foo' object has no attribute 'bar'")
+E         + )
+
+tests/test_pretty.py:672: AssertionError
+----------------------------- Captured stdout call -----------------------------
+'Foo(\n    bar=AttributeError("\'tests.test_pretty.test_attrs_broken_310.<locals>.Foo\' object has no attribute \'bar\'")\n)'
+_________________________ test_dataclass_no_attribute __________________________
+
+    def test_dataclass_no_attribute() -> None:
+        """Regression test for https://github.com/Textualize/rich/issues/3417"""
+        from dataclasses import dataclass, field
+    
+        @dataclass(eq=False)
+        class BadDataclass:
+            item: int = field(init=False)
+    
+        # item is not provided
+        bad_data_class = BadDataclass()
+    
+        console = Console()
+        with console.capture() as capture:
+>           console.print(bad_data_class)
+
+tests/test_pretty.py:752: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+rich/console.py:1710: in print
+    extend(render(renderable, render_options))
+rich/console.py:1331: in render
+    for render_output in iter_render:
+                         ^^^^^^^^^^^
+rich/pretty.py:307: in __rich_console__
+    pretty_str = pretty_repr(
+rich/pretty.py:907: in pretty_repr
+    node = traverse(
+rich/pretty.py:872: in traverse
+    node = _traverse(_object, root=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+obj = <[AttributeError("'BadDataclass' object has no attribute 'item'") raised in repr()] BadDataclass object at 0x7f31f43917f0>
+root = True, depth = 0
+
+    def _traverse(obj: Any, root: bool = False, depth: int = 0) -> Node:
+        """Walk the object depth first."""
+    
+        obj_id = id(obj)
+        if obj_id in visited_ids:
+            # Recursion detected
+            return Node(value_repr="...")
+    
+        obj_type = type(obj)
+        children: List[Node]
+        reached_max_depth = max_depth is not None and depth >= max_depth
+    
+        def iter_rich_args(rich_args: Any) -> Iterable[Union[Any, Tuple[str, Any]]]:
+            for arg in rich_args:
+                if _safe_isinstance(arg, tuple):
+                    if len(arg) == 3:
+                        key, child, default = arg
+                        if default == child:
+                            continue
+                        yield key, child
+                    elif len(arg) == 2:
+                        key, child = arg
+                        yield key, child
+                    elif len(arg) == 1:
+                        yield arg[0]
+                else:
+                    yield arg
+    
+        try:
+            fake_attributes = hasattr(
+                obj, "awehoi234_wdfjwljet234_234wdfoijsdfmmnxpi492"
+            )
+        except Exception:
+            fake_attributes = False
+    
+        rich_repr_result: Optional[RichReprResult] = None
+        if not fake_attributes:
+            try:
+                if hasattr(obj, "__rich_repr__") and not isclass(obj):
+                    rich_repr_result = obj.__rich_repr__()
+            except Exception:
+                pass
+    
+        if rich_repr_result is not None:
+            push_visited(obj_id)
+            angular = getattr(obj.__rich_repr__, "angular", False)
+            args = list(iter_rich_args(rich_repr_result))
+            class_name = obj.__class__.__name__
+    
+            if args:
+                children = []
+                append = children.append
+    
+                if reached_max_depth:
+                    if angular:
+                        node = Node(value_repr=f"<{class_name}...>")
+                    else:
+                        node = Node(value_repr=f"{class_name}(...)")
+                else:
+                    if angular:
+                        node = Node(
+                            open_brace=f"<{class_name} ",
+                            close_brace=">",
+                            children=children,
+                            last=root,
+                            separator=" ",
+                        )
+                    else:
+                        node = Node(
+                            open_brace=f"{class_name}(",
+                            close_brace=")",
+                            children=children,
+                            last=root,
+                        )
+                    for last, arg in loop_last(args):
+                        if _safe_isinstance(arg, tuple):
+                            key, child = arg
+                            child_node = _traverse(child, depth=depth + 1)
+                            child_node.last = last
+                            child_node.key_repr = key
+                            child_node.key_separator = "="
+                            append(child_node)
+                        else:
+                            child_node = _traverse(arg, depth=depth + 1)
+                            child_node.last = last
+                            append(child_node)
+            else:
+                node = Node(
+                    value_repr=f"<{class_name}>" if angular else f"{class_name}()",
+                    children=[],
+                    last=root,
+                )
+            pop_visited(obj_id)
+        elif _is_attr_object(obj) and not fake_attributes:
+            push_visited(obj_id)
+            children = []
+            append = children.append
+    
+            attr_fields = _get_attr_fields(obj)
+            if attr_fields:
+                if reached_max_depth:
+                    node = Node(value_repr=f"{obj.__class__.__name__}(...)")
+                else:
+                    node = Node(
+                        open_brace=f"{obj.__class__.__name__}(",
+                        close_brace=")",
+                        children=children,
+                        last=root,
+                    )
+    
+                    def iter_attrs() -> (
+                        Iterable[Tuple[str, Any, Optional[Callable[[Any], str]]]]
+                    ):
+                        """Iterate over attr fields and values."""
+                        for attr in attr_fields:
+                            if attr.repr:
+                                try:
+                                    value = getattr(obj, attr.name)
+                                except Exception as error:
+                                    # Can happen, albeit rarely
+                                    yield (attr.name, error, None)
+                                else:
+                                    yield (
+                                        attr.name,
+                                        value,
+                                        attr.repr if callable(attr.repr) else None,
+                                    )
+    
+                    for last, (name, value, repr_callable) in loop_last(iter_attrs()):
+                        if repr_callable:
+                            child_node = Node(value_repr=str(repr_callable(value)))
+                        else:
+                            child_node = _traverse(value, depth=depth + 1)
+                        child_node.last = last
+                        child_node.key_repr = name
+                        child_node.key_separator = "="
+                        append(child_node)
+            else:
+                node = Node(
+                    value_repr=f"{obj.__class__.__name__}()", children=[], last=root
+                )
+            pop_visited(obj_id)
+        elif (
+            is_dataclass(obj)
+            and not _safe_isinstance(obj, type)
+            and not fake_attributes
+            and _is_dataclass_repr(obj)
+        ):
+            push_visited(obj_id)
+            children = []
+            append = children.append
+            if reached_max_depth:
+                node = Node(value_repr=f"{obj.__class__.__name__}(...)")
+            else:
+                node = Node(
+                    open_brace=f"{obj.__class__.__name__}(",
+                    close_brace=")",
+                    children=children,
+                    last=root,
+                    empty=f"{obj.__class__.__name__}()",
+                )
+    
+                for last, field in loop_last(
+                    field for field in fields(obj) if field.repr
+                ):
+>                   child_node = _traverse(getattr(obj, field.name), depth=depth + 1)
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^
+E                   AttributeError: 'BadDataclass' object has no attribute 'item'
+
+rich/pretty.py:786: AttributeError
+2 failed, 49 passed, 1 skipped in 1.15s
+
+

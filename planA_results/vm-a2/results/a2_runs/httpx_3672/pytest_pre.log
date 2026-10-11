@@ -1,0 +1,231 @@
+
+$ /home/sauravbellam/cache/a2/httpx_3672/venv/bin/python -s -m pytest tests/test_parsers.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/httpx_3672/trace_pre.xml
+[exit 1]
+FF...F..........FF......                                                 [100%]
+=================================== FAILURES ===================================
+_________________________________ test_parser __________________________________
+
+    def test_parser():
+        stream = httpx.DuplexStream(
+            b"HTTP/1.1 200 OK\r\n"
+            b"Content-Length: 12\r\n"
+            b"Content-Type: text/plain\r\n"
+            b"\r\n"
+            b"hello, world"
+        )
+    
+        p = httpx.HTTPParser(stream, mode='CLIENT')
+        p.send_method_line(b"POST", b"/", b"HTTP/1.1")
+        p.send_headers([
+            (b"Host", b"example.com"),
+            (b"Content-Type", b"application/json"),
+            (b"Content-Length", b"23"),
+        ])
+        p.send_body(b'{"msg": "hello, world"}')
+        p.send_body(b'')
+    
+        assert stream.input_bytes() == (
+            b"HTTP/1.1 200 OK\r\n"
+            b"Content-Length: 12\r\n"
+            b"Content-Type: text/plain\r\n"
+            b"\r\n"
+            b"hello, world"
+        )
+        assert stream.output_bytes() == (
+            b"POST / HTTP/1.1\r\n"
+            b"Host: example.com\r\n"
+            b"Content-Type: application/json\r\n"
+            b"Content-Length: 23\r\n"
+            b"\r\n"
+            b'{"msg": "hello, world"}'
+        )
+    
+        protocol, code, reason_phase = p.recv_status_line()
+        headers = p.recv_headers()
+        body = p.recv_body()
+        terminator = p.recv_body()
+    
+        assert protocol == b'HTTP/1.1'
+        assert code == 200
+        assert reason_phase == b'OK'
+        assert headers == [
+            (b'Content-Length', b'12'),
+            (b'Content-Type', b'text/plain'),
+        ]
+        assert body == b'hello, world'
+        assert terminator == b''
+    
+        assert not p.is_idle()
+>       p.reset()
+E       AttributeError: 'HTTPParser' object has no attribute 'reset'
+
+tests/test_parsers.py:70: AttributeError
+______________________________ test_parser_server ______________________________
+
+    def test_parser_server():
+        stream = httpx.DuplexStream(
+            b"GET / HTTP/1.1\r\n"
+            b"Host: www.example.com\r\n"
+            b"\r\n"
+        )
+    
+        p = httpx.HTTPParser(stream, mode='SERVER')
+        method, target, protocol = p.recv_method_line()
+        headers = p.recv_headers()
+        body = p.recv_body()
+    
+        assert method == b'GET'
+        assert target == b'/'
+        assert protocol == b'HTTP/1.1'
+        assert headers == [
+            (b'Host', b'www.example.com'),
+        ]
+        assert body == b''
+    
+        p.send_status_line(b"HTTP/1.1", 200, b"OK")
+        p.send_headers([
+            (b"Content-Type", b"application/json"),
+            (b"Content-Length", b"23"),
+        ])
+        p.send_body(b'{"msg": "hello, world"}')
+        p.send_body(b'')
+    
+        assert stream.input_bytes() == (
+            b"GET / HTTP/1.1\r\n"
+            b"Host: www.example.com\r\n"
+            b"\r\n"
+        )
+        assert stream.output_bytes() == (
+            b"HTTP/1.1 200 OK\r\n"
+            b"Content-Type: application/json\r\n"
+            b"Content-Length: 23\r\n"
+            b"\r\n"
+            b'{"msg": "hello, world"}'
+        )
+    
+        assert not p.is_idle()
+>       p.reset()
+E       AttributeError: 'HTTPParser' object has no attribute 'reset'
+
+tests/test_parsers.py:116: AttributeError
+_______________________________ test_parser_repr _______________________________
+
+    def test_parser_repr():
+        stream = httpx.DuplexStream(
+            b"HTTP/1.1 200 OK\r\n"
+            b"Content-Type: application/json\r\n"
+            b"Content-Length: 23\r\n"
+            b"\r\n"
+            b'{"msg": "hello, world"}'
+        )
+    
+        p = httpx.HTTPParser(stream, mode='CLIENT')
+        assert repr(p) == "<HTTPParser [client SEND_METHOD_LINE, server WAIT]>"
+    
+        p.send_method_line(b"GET", b"/", b"HTTP/1.1")
+        assert repr(p) == "<HTTPParser [client SEND_HEADERS, server RECV_STATUS_LINE]>"
+    
+        p.send_headers([(b"Host", b"example.com")])
+        assert repr(p) == "<HTTPParser [client SEND_BODY, server RECV_STATUS_LINE]>"
+    
+        p.send_body(b'')
+        assert repr(p) == "<HTTPParser [client DONE, server RECV_STATUS_LINE]>"
+    
+        p.recv_status_line()
+        assert repr(p) == "<HTTPParser [client DONE, server RECV_HEADERS]>"
+    
+        p.recv_headers()
+        assert repr(p) == "<HTTPParser [client DONE, server RECV_BODY]>"
+    
+        p.recv_body()
+        assert repr(p) == "<HTTPParser [client DONE, server RECV_BODY]>"
+    
+        p.recv_body()
+        assert repr(p) == "<HTTPParser [client DONE, server DONE]>"
+    
+>       p.reset()
+E       AttributeError: 'HTTPParser' object has no attribute 'reset'
+
+tests/test_parsers.py:318: AttributeError
+_________________________ test_client_connection_close _________________________
+
+    def test_client_connection_close():
+        stream = httpx.DuplexStream(
+            b"HTTP/1.1 200 OK\r\n"
+            b"Content-Length: 12\r\n"
+            b"Content-Type: text/plain\r\n"
+            b"\r\n"
+            b"hello, world"
+        )
+    
+        p = httpx.HTTPParser(stream, mode='CLIENT')
+        p.send_method_line(b"GET", b"/", b"HTTP/1.1")
+        p.send_headers([
+            (b"Host", b"example.com"),
+            (b"Connection", b"close"),
+        ])
+        p.send_body(b'')
+    
+        protocol, code, reason_phase = p.recv_status_line()
+        headers = p.recv_headers()
+        body = p.recv_body()
+        terminator = p.recv_body()
+    
+        assert protocol == b'HTTP/1.1'
+        assert code == 200
+        assert reason_phase == b"OK"
+        assert headers == [
+            (b'Content-Length', b'12'),
+            (b'Content-Type', b'text/plain'),
+        ]
+        assert body == b"hello, world"
+        assert terminator == b""
+    
+        assert repr(p) == "<HTTPParser [client DONE, server DONE]>"
+    
+>       p.reset()
+E       AttributeError: 'HTTPParser' object has no attribute 'reset'
+
+tests/test_parsers.py:557: AttributeError
+_________________________ test_server_connection_close _________________________
+
+    def test_server_connection_close():
+        stream = httpx.DuplexStream(
+            b"HTTP/1.1 200 OK\r\n"
+            b"Content-Length: 12\r\n"
+            b"Content-Type: text/plain\r\n"
+            b"Connection: close\r\n"
+            b"\r\n"
+            b"hello, world"
+        )
+    
+        p = httpx.HTTPParser(stream, mode='CLIENT')
+        p.send_method_line(b"GET", b"/", b"HTTP/1.1")
+        p.send_headers([(b"Host", b"example.com")])
+        p.send_body(b'')
+    
+        protocol, code, reason_phase = p.recv_status_line()
+        headers = p.recv_headers()
+        body = p.recv_body()
+        terminator = p.recv_body()
+    
+        assert protocol == b'HTTP/1.1'
+        assert code == 200
+        assert reason_phase == b"OK"
+        assert headers == [
+            (b'Content-Length', b'12'),
+            (b'Content-Type', b'text/plain'),
+            (b'Connection', b'close'),
+        ]
+        assert body == b"hello, world"
+        assert terminator == b""
+    
+        assert repr(p) == "<HTTPParser [client DONE, server DONE]>"
+>       p.reset()
+E       AttributeError: 'HTTPParser' object has no attribute 'reset'
+
+tests/test_parsers.py:594: AttributeError
+- generated xml file: /home/sauravbellam/results/a2_runs/httpx_3672/trace_pre.xml -
+5 failed, 19 passed in 0.58s
+
+
