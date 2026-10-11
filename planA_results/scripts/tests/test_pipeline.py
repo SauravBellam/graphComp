@@ -269,3 +269,38 @@ def test_entry_nodes():
     # h (the true root) is not a node (e.g. an absent async def): the walk passes through it, so g is the entry
     assert entry_nodes(["tests/t.py::test_b[1]"], tr, mapped) == {"pkg.m.g"}
     assert entry_nodes([], tr, mapped) == set() and entry_nodes(["tests/t.py::test_a"], None, mapped) == set()
+
+
+def test_a8_scoring():
+    from a8_metrics import aggregate, required_tests, score_submission
+    from common import Task
+    tp = "+def test_new():\n+    pass\n"
+    t = Task(instance_id="x", repo="r/r", base_commit="c", test_patch=tp)
+    pre = {"tests/t.py::test_old": "passed", "tests/t.py::test_reg": "failed"}           # test_new not collectable pre
+    post = {"tests/t.py::test_old": "passed", "tests/t.py::test_reg": "passed", "tests/t.py::test_new": "passed"}
+    tests = required_tests(t, pre, post)
+    by = {r["test"]: r for r in tests}
+    assert by["tests/t.py::test_new"]["named"] and by["tests/t.py::test_new"]["discriminating"]
+    assert not by["tests/t.py::test_old"]["named"] and not by["tests/t.py::test_old"]["discriminating"]
+    assert by["tests/t.py::test_reg"]["discriminating"] and not by["tests/t.py::test_reg"]["named"]
+    gold = score_submission(tests, post, exit_zero=True)
+    assert gold == {"harness_resolved": True, "strict_resolved": True, "disc_credit": 1.0, "n_named": 1, "n_discriminating": 2, "n_disc_passed": 2}
+    null = score_submission(tests, pre, exit_zero=False)
+    assert not null["harness_resolved"] and not null["strict_resolved"] and null["disc_credit"] == 0.0
+    # a patch that fixes the named test but breaks nothing else, yet leaves test_reg failing: harness says no, credit 0.5
+    half = score_submission(tests, {**post, "tests/t.py::test_reg": "failed"})
+    assert not half["harness_resolved"] and half["disc_credit"] == 0.5
+    # a task whose required tests already pass: the empty patch resolves it under the harness rule, never strictly
+    t2 = Task(instance_id="y", repo="r/r", base_commit="c", test_patch="+def test_a():\n+    pass\n")
+    pre2 = {"tests/t.py::test_a": "passed"}
+    tests2 = required_tests(t2, pre2, pre2)
+    s2 = score_submission(tests2, pre2, exit_zero=True)
+    assert s2["harness_resolved"] and not s2["strict_resolved"] and s2["disc_credit"] is None
+    agg = aggregate([gold, null, s2])
+    assert agg["resolution_rate_harness"]["k"] == 2 and agg["resolution_rate_strict"]["k"] == 1
+    assert agg["tasks_without_discriminating_tests"] == 1 and agg["mean_disc_credit"]["n"] == 2
+    # no extracted names: exit 0 with >= 1 pass is the whole requirement
+    t3 = Task(instance_id="z", repo="r/r", base_commit="c", test_patch="-    assert x == 1\n+    assert x == 2\n")
+    tests3 = required_tests(t3, {"tests/t.py::test_m": "failed"}, {"tests/t.py::test_m": "passed"})
+    assert tests3[0]["source"] == "all_target_tests" and not tests3[0]["named"] and tests3[0]["discriminating"]
+    assert score_submission(tests3, {"tests/t.py::test_m": "passed"})["strict_resolved"]

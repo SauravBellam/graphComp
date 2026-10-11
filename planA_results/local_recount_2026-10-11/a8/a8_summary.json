@@ -1,0 +1,263 @@
+{
+  "n_tasks": 129,
+  "n_with_traces": 129,
+  "n_usable": 90,
+  "entry_distance": {
+    "tasks_defined": 81,
+    "d_entry_hist_all": {
+      "0": 39,
+      "3": 13,
+      "8": 1,
+      "4": 2,
+      "2": 10,
+      "5": 6,
+      "None": 6,
+      "7": 1,
+      "1": 2,
+      "6": 1
+    },
+    "d_entry_hist_usable": {
+      "0": 31,
+      "3": 12,
+      "8": 1,
+      "4": 2,
+      "2": 9,
+      "5": 5,
+      "None": 6,
+      "7": 1,
+      "1": 2,
+      "6": 1
+    },
+    "d_entry_max_hist_usable": {
+      "0": 23,
+      "1": 3,
+      "8": 2,
+      "3": 9,
+      "4": 4,
+      "2": 9,
+      "5": 3,
+      "None": 15,
+      "7": 1,
+      "6": 1
+    },
+    "per_repo_usable": {
+      "Textualize/rich": {
+        "0": 14,
+        "4": 1,
+        "None": 2,
+        "2": 2,
+        "3": 5,
+        "5": 3,
+        "6": 1
+      },
+      "encode/httpx": {},
+      "fastapi/fastapi": {
+        "0": 14,
+        "2": 7,
+        "5": 2,
+        "None": 4,
+        "3": 5,
+        "7": 1,
+        "1": 2
+      },
+      "psf/requests": {
+        "3": 2,
+        "8": 1,
+        "0": 3,
+        "4": 1
+      }
+    }
+  },
+  "answerability": {
+    "tasks_answerable": {
+      "k": 45,
+      "n": 129,
+      "p": 0.3488,
+      "lo": 0.272,
+      "hi": 0.4344
+    },
+    "tasks_answerable_usable": {
+      "k": 41,
+      "n": 90,
+      "p": 0.4556,
+      "lo": 0.3566,
+      "hi": 0.5582
+    },
+    "component_failure_counts": {
+      "ans_all_gold_nodes": 54,
+      "ans_no_misresolution": 26,
+      "ans_reachable": 54,
+      "ans_all_reachable": 64
+    },
+    "failure_combinations": {
+      "ans_all_gold_nodes;ans_reachable;ans_all_reachable": 17,
+      "ans_all_gold_nodes": 13,
+      "none": 45,
+      "ans_all_gold_nodes;ans_no_misresolution;ans_reachable;ans_all_reachable": 14,
+      "ans_reachable;ans_all_reachable": 22,
+      "ans_all_gold_nodes;ans_no_misresolution": 5,
+      "ans_no_misresolution;ans_all_reachable": 2,
+      "ans_all_gold_nodes;ans_no_misresolution;ans_all_reachable": 2,
+      "ans_all_gold_nodes;ans_all_reachable": 3,
+      "ans_no_misresolution": 2,
+      "ans_no_misresolution;ans_reachable;ans_all_reachable": 1,
+      "ans_all_reachable": 3
+    },
+    "per_repo": {
+      "Textualize/rich": {
+        "k": 17,
+        "n": 48,
+        "p": 0.3542,
+        "lo": 0.2343,
+        "hi": 0.4956
+      },
+      "encode/httpx": {
+        "k": 0,
+        "n": 1,
+        "p": 0.0,
+        "lo": 0.0,
+        "hi": 0.7935
+      },
+      "fastapi/fastapi": {
+        "k": 21,
+        "n": 67,
+        "p": 0.3134,
+        "lo": 0.2151,
+        "hi": 0.432
+      },
+      "psf/requests": {
+        "k": 7,
+        "n": 13,
+        "p": 0.5385,
+        "lo": 0.2914,
+        "hi": 0.7679
+      }
+    }
+  },
+  "discriminativeness": {
+    "named_required_tests": 669,
+    "named_discriminating": 461,
+    "named_passing_pre_fix": 197,
+    "named_uncollected_pre_fix": 209,
+    "named_missing_post": 6,
+    "effective_required_tests": 7153,
+    "discriminating_tests": 1547,
+    "tasks_with_no_named_tests": 22,
+    "tasks_named_disc_share_1": 59,
+    "tasks_named_disc_share_0": 3,
+    "tasks_named_disc_share_between": 41,
+    "tasks_without_any_discriminating_test": [
+      "rich_4079",
+      "fastapi_14851",
+      "fastapi_14077",
+      "requests_6629",
+      "requests_6644",
+      "requests_6589",
+      "requests_6592"
+    ],
+    "null_patch_resolvable": [
+      "fastapi_14851",
+      "fastapi_14077"
+    ],
+    "mean_disc_share_named": {
+      "mean": 0.7624,
+      "lo": 0.6982,
+      "hi": 0.8237,
+      "n": 103
+    },
+    "mean_disc_share_effective": {
+      "mean": 0.3779,
+      "lo": 0.3127,
+      "hi": 0.4481,
+      "n": 125
+    },
+    "discriminating_per_task_hist": {
+      "10": 19,
+      "6": 3,
+      "2": 13,
+      "3": 10,
+      "1": 62,
+      "5": 6,
+      "0": 7,
+      "4": 6,
+      "7": 1,
+      "8": 2
+    },
+    "per_repo_mean_disc_share_named": {
+      "Textualize/rich": {
+        "mean": 0.7667,
+        "lo": 0.6628,
+        "hi": 0.8639,
+        "n": 42
+      },
+      "encode/httpx": {
+        "mean": null,
+        "lo": null,
+        "hi": null,
+        "n": 0
+      },
+      "fastapi/fastapi": {
+        "mean": 0.7494,
+        "lo": 0.6716,
+        "hi": 0.827,
+        "n": 53
+      },
+      "psf/requests": {
+        "mean": 0.8264,
+        "lo": 0.5903,
+        "hi": 1.0,
+        "n": 8
+      }
+    }
+  },
+  "reference_submissions": {
+    "gold_patch": {
+      "n_tasks": 124,
+      "resolution_rate_harness": {
+        "k": 111,
+        "n": 124,
+        "p": 0.8952,
+        "lo": 0.8289,
+        "hi": 0.9377
+      },
+      "resolution_rate_strict": {
+        "k": 109,
+        "n": 124,
+        "p": 0.879,
+        "lo": 0.81,
+        "hi": 0.9253
+      },
+      "mean_disc_credit": {
+        "mean": 1.0,
+        "lo": 1.0,
+        "hi": 1.0,
+        "n": 121
+      },
+      "tasks_without_discriminating_tests": 3
+    },
+    "empty_patch": {
+      "n_tasks": 124,
+      "resolution_rate_harness": {
+        "k": 2,
+        "n": 124,
+        "p": 0.0161,
+        "lo": 0.0044,
+        "hi": 0.0569
+      },
+      "resolution_rate_strict": {
+        "k": 0,
+        "n": 124,
+        "p": 0.0,
+        "lo": 0.0,
+        "hi": 0.03
+      },
+      "mean_disc_credit": {
+        "mean": 0.0,
+        "lo": 0.0,
+        "hi": 0.0,
+        "n": 121
+      },
+      "tasks_without_discriminating_tests": 3
+    }
+  }
+}
