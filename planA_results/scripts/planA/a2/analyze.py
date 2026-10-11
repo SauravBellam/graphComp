@@ -34,8 +34,26 @@ fallback source of async kinds for traces written before the tracer recorded kin
 4. Gold functions (``a2_gold.jsonl``), four-way, from A1's gold symbols (absent ones included):
    in_graph_executed | in_graph_not_executed | absent_executed | absent_not_executed
    where executed = run by a confirmed fail-to-pass test before or after the fix; plus static
-   reachability (directed BFS from the f2p test node, or its class/module when the new test is not a
-   base-graph node). ``absent_executed`` is the case the graph cannot represent at all.
+   reachability. Two source sets are used for the BFS (both reported):
+     test_node : the f2p test's own node (or its class/module) when it exists in the base graph.
+                 Fail-to-pass tests are usually *new* in test_patch, so this set is empty for most
+                 tasks (Oct 10 run: 78 of 90 usable tasks) and reachability is then undefined.
+     entry     : the repo functions where the f2p test enters the library: executed non-test nodes
+                 whose observed callers in that test are all test code (the roots of the test's
+                 dynamic call forest; robust to the test client running the app in another thread).
+                 This is what an agent could reach by reading the failing test and following
+                 `calls` edges.
+   ``absent_executed`` is the case the graph cannot represent at all.
+
+Nested definitions: the provided graph lists them under a flattened id (enclosing functions and
+``<locals>`` dropped, classes kept; see common.flatten_qualname). The mapper tries that id first;
+``absent_nested`` now means "nested and not present even under the flattened id".
+
+Fail-to-pass statuses: confirmed (pre fail/error -> post pass), uncollected_pre (not collected in
+the pre run, passed post: counts as fail-to-pass under the harness, which only runs post-fix and
+needs exit 0), pre_passed (collected and passed pre), post_failed, not_collected. ``usable`` keeps
+its definition (clean runs + >= 1 confirmed); ``strict`` adds every expected test confirmed;
+``harness_resolved_post`` = post run exit 0 and every expected test passed, the harness's criterion.
 
 Outputs also: a2_tasks.csv (one row per analysed task, raw counts), a2_summary.json (pooled ratios
 with task-cluster bootstrap intervals, Wilson intervals for task-level rates, per repo).
@@ -55,8 +73,8 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent))
 sys.path.insert(0, str(HERE))
 from common import (  # noqa: E402
-    Graph, bfs_distance, containment_edge, get_graph, is_test_module_id, load_tasks, path_to_module_candidates,
-    read_jsonl, write_csv, write_jsonl,
+    Graph, bfs_distance, containment_edge, flatten_qualname, get_graph, is_test_module_id, load_tasks,
+    path_to_module_candidates, read_jsonl, write_csv, write_jsonl,
 )
 from stats import mean_ci, ratio_ci, wilson  # noqa: E402
 
@@ -102,7 +120,13 @@ class Mapper:
         if mod is None:
             res = (None, "unmapped_module")
         elif "<locals>" in qualname:
-            res = (f"{mod}.{qualname}", "nested")
+            flat = f"{mod}.{flatten_qualname(qualname)}"
+            if flat.endswith(".__init__") and flat[:-9] in self.g.nodes:
+                res = (flat[:-9], "collapsed_init")
+            elif flat in self.g.nodes:
+                res = (flat, "node")          # nested def present under the provided graph's flattened id
+            else:
+                res = (flat, "nested")        # nested and absent even when flattened
         else:
             nid = f"{mod}.{qualname}" if qualname != "<module>" else mod
             if qualname.endswith(".__init__") and f"{mod}.{qualname[:-9]}" in self.g.nodes:
@@ -176,22 +200,40 @@ def _matches(nodeid: str, req: str) -> bool:
 def check_f2p(task, pre_out: dict, post_out: dict) -> dict:
     reqs, source = expected_f2p(task)
     statuses = []
+    uncollected_pre_tests: list[str] = []
     for req in reqs:
         hits = [t for t in set(pre_out) | set(post_out) if _matches(t, req)]
         if not hits:
             statuses.append("not_collected")
             continue
-        pre_bad = any(pre_out.get(t) in ("failed", "error") for t in hits)
         post_ok = all(post_out.get(t) == "passed" for t in hits)
-        statuses.append("confirmed" if pre_bad and post_ok else ("pre_passed" if not pre_bad else "post_failed"))
+        pre_bad = any(pre_out.get(t) in ("failed", "error") for t in hits)
+        pre_missing = all(t not in pre_out for t in hits)
+        if pre_bad and post_ok:
+            statuses.append("confirmed")
+        elif pre_missing and post_ok:
+            # the test existed only after the fix (pre run could not collect its module): the harness
+            # would count the pre state as failing (non-zero exit); keep it apart from a real pre pass
+            statuses.append("uncollected_pre")
+            uncollected_pre_tests += [t for t in hits if post_out.get(t) == "passed"]
+        elif not pre_bad:
+            statuses.append("pre_passed")
+        else:
+            statuses.append("post_failed")
     c = Counter(statuses)
     observed = [t for t, o in pre_out.items() if o in ("failed", "error") and post_out.get(t) == "passed"]
     extra = [t for t in observed if not any(_matches(t, r) for r in reqs)]
+    post_counts = Counter(post_out.values())
+    all_post_pass = bool(reqs) and c["confirmed"] + c["uncollected_pre"] + c["pre_passed"] == len(reqs)
     return {"f2p_expected_source": source, "n_f2p_expected": len(reqs), "n_f2p_confirmed": c["confirmed"],
+            "n_f2p_uncollected_pre": c["uncollected_pre"],
             "n_f2p_pre_passed": c["pre_passed"], "n_f2p_post_failed": c["post_failed"],
             "n_f2p_not_collected": c["not_collected"], "n_f2p_observed": len(observed), "n_f2p_extra": len(extra),
             "f2p_all_confirmed": bool(reqs) and c["confirmed"] == len(reqs),
-            "f2p_observed": observed}
+            "f2p_all_confirmed_or_uncollected": bool(reqs) and c["confirmed"] + c["uncollected_pre"] == len(reqs),
+            # the harness's own criterion needs only the post run: exit 0 and every required test passed
+            "harness_all_expected_pass_post": all_post_pass and post_counts.get("failed", 0) == 0 and post_counts.get("error", 0) == 0,
+            "f2p_observed": observed, "f2p_uncollected_pre": sorted(set(uncollected_pre_tests))}
 
 
 # --- run validity ----------------------------------------------------------------------------
@@ -326,8 +368,10 @@ def analyze_task(task, g: Graph, tr_pre: dict, tr_post: dict | None, gold_rows: 
     all_tests_pre = [t for t in tr_pre.get("per_test_exec", {}) if not t.startswith("<")]
     exec_f2p = executed_by(mp, tr_pre, f2p_tests) | executed_by(mq, tr_post, f2p_tests)
     exec_any = executed_by(mp, tr_pre, all_tests_pre) | (executed_by(mq, tr_post, [t for t in (tr_post or {}).get("per_test_exec", {}) if not t.startswith("<")]) if tr_post else set())
+    # (a) sources = the f2p test's own node when the base graph has it (rare: f2p tests are new)
+    f2p_all = list(dict.fromkeys(f2p_tests + f2p.get("f2p_uncollected_pre", [])))
     sources, levels = set(), Counter()
-    for t in f2p_tests:
+    for t in f2p_all:
         tn = test_node_id(t)
         cur = tn
         while cur not in g.nodes and "." in cur:
@@ -339,12 +383,20 @@ def analyze_task(task, g: Graph, tr_pre: dict, tr_post: dict | None, gold_rows: 
             levels["none"] += 1
     reach_dir = bfs_distance(g, sources, directed=True) if sources else {}
     reach_und = bfs_distance(g, sources, directed=False) if sources else {}
+    # (b) sources = the nodes where the f2p test enters the library (roots of its dynamic call forest)
+    entry = entry_nodes(f2p_all, tr_pre, mp) | entry_nodes(f2p_all, tr_post, mq)
+    entry_src = {n for n in entry if not is_test_module_id(n)} or entry
+    reach_entry_dir = bfs_distance(g, entry_src, directed=True) if entry_src else {}
+    reach_entry_und = bfs_distance(g, entry_src, directed=False) if entry_src else {}
+    levels["entry_nodes"] = len(entry_src)
     gold_out = []
     gc = Counter()
     for r in gold_rows:
         if not r.get("qualname"):
             continue
         nid = r.get("node_id")
+        if nid and nid not in g.nodes and flatten_qualname(nid) in g.nodes:
+            nid = flatten_qualname(nid)       # A1 outputs from before the flattened-id fix
         if r.get("new_symbol"):
             st = "new_symbol_executed_post" if nid and nid in executed_by(mq, tr_post, f2p_tests) else "new_symbol_not_executed"
         else:
@@ -357,6 +409,13 @@ def analyze_task(task, g: Graph, tr_pre: dict, tr_post: dict | None, gold_rows: 
                          "static_reachable_directed": bool(nid and nid in reach_dir),
                          "static_hops_directed": reach_dir.get(nid) if nid else None,
                          "static_reachable_undirected": bool(nid and nid in reach_und),
+                         "static_sources_defined": bool(sources),
+                         "entry_sources_defined": bool(entry_src),
+                         "is_entry": bool(nid and nid in entry_src),
+                         "static_reachable_from_entry_directed": bool(nid and nid in reach_entry_dir),
+                         "static_hops_from_entry_directed": reach_entry_dir.get(nid) if nid else None,
+                         "static_reachable_from_entry_undirected": bool(nid and nid in reach_entry_und),
+                         "static_hops_from_entry_undirected": reach_entry_und.get(nid) if nid else None,
                          "agent_query_outcome": r.get("agent_query_outcome")})
 
     def cnt(scope, ch, cause):
@@ -373,6 +432,7 @@ def analyze_task(task, g: Graph, tr_pre: dict, tr_post: dict | None, gold_rows: 
            "n_static_confirmed": len(static_confirmed),
            **f2p, "f2p_source_levels": dict(levels)}
     row["f2p_observed"] = row["f2p_observed"][:30]
+    row["f2p_uncollected_pre"] = row["f2p_uncollected_pre"][:30]
     for scope in ("all", "nontest", "gold"):
         for ch in ("direct", "any"):
             for cause in CAUSES:
@@ -382,9 +442,80 @@ def analyze_task(task, g: Graph, tr_pre: dict, tr_post: dict | None, gold_rows: 
         row[f"gold_{st}"] = gc[st]
     row["gold_any_absent_executed"] = gc["absent_executed"] > 0
     row["gold_any_in_graph_executed"] = gc["in_graph_executed"] > 0
+    row["static_sources_defined"] = bool(sources)
+    row["n_entry_sources"] = len(entry_src)
     row["gold_any_static_reachable"] = any(x["static_reachable_directed"] for x in gold_out if x["status"].startswith("in_graph"))
     row["gold_executed_not_static"] = sum(1 for x in gold_out if x["status"] == "in_graph_executed" and not x["static_reachable_directed"])
+    ing_exec = [x for x in gold_out if x["status"] == "in_graph_executed"]
+    row["gold_any_static_reachable_entry"] = any(x["static_reachable_from_entry_directed"] for x in gold_out if x["status"].startswith("in_graph"))
+    row["gold_all_executed_static_reachable_entry"] = bool(ing_exec) and all(x["static_reachable_from_entry_directed"] for x in ing_exec)
+    row["gold_executed_not_static_entry"] = sum(1 for x in ing_exec if not x["static_reachable_from_entry_directed"])
+    row["gold_executed_is_entry"] = sum(1 for x in ing_exec if x["is_entry"])
+    row["gold_executed_static_reachable_entry_undirected"] = sum(1 for x in ing_exec if x["static_reachable_from_entry_undirected"])
+    row["gold_min_hops_from_entry_directed"] = min((x["static_hops_from_entry_directed"] for x in ing_exec
+                                                   if x["static_hops_from_entry_directed"] is not None), default=None)
     return row, dyn_rows, unconfirmed, gold_out
+
+
+def entry_nodes(f2p_tests: list[str], tr: dict | None, mapped: list[dict]) -> set[str]:
+    """Base-graph nodes where a fail-to-pass test enters the library: the roots of the test's dynamic
+    call forest, i.e. executed non-test nodes none of whose caller chains (direct or via library
+    frames, walked through frames that are not nodes) reaches another non-test node before test code.
+
+    Defined on the per-test execution set rather than on "caller is the test frame" so it also works
+    when the library runs in another thread (fastapi's TestClient runs the app through an anyio worker
+    thread, where no ancestor frame is the test)."""
+    if not tr or not f2p_tests:
+        return set()
+    tests = tr.get("tests", [])
+    tid = {t: i for i, t in enumerate(tests)}
+    pte = tr.get("per_test_exec", {})
+    fns = tr.get("functions", [])
+
+    def is_test_frame(i: int) -> bool:
+        x = mapped[i]
+        return bool(x["module_level"]) or is_test_module_id(x["nid"] or x["raw"] or fns[i])
+
+    out = set()
+    for t in f2p_tests:
+        if t not in pte or t not in tid:
+            continue
+        ti = tid[t]
+        execd = set(pte[t])
+        callers: dict[int, set[int]] = defaultdict(set)
+        for ch in ("edges_direct", "edges_vialib"):
+            for c, e, tl in tr.get(ch, []):
+                if ti in tl:
+                    callers[e].add(c)
+        def blocked(i: int) -> bool:
+            """Does some caller chain of frame i reach another non-test *node* before reaching test code?
+            Frames that are not nodes (absent async defs such as ``FastAPI.__call__``, nested or unmapped
+            functions) are walked through, so a node whose only repo ancestors are absent defs is a root."""
+            nid = mapped[i]["nid"]
+            stack = [c for c in callers.get(i, ()) if c != i]
+            seen: set[int] = set()
+            while stack:
+                c = stack.pop()
+                if c in seen:
+                    continue
+                seen.add(c)
+                if is_test_frame(c):
+                    continue
+                xc = mapped[c]
+                if xc["status"] in ("node", "collapsed_init"):
+                    if xc["nid"] != nid:
+                        return True
+                    continue
+                stack.extend(cc for cc in callers.get(c, ()) if cc != c)
+            return False
+
+        for i in execd:
+            x = mapped[i]
+            if x["status"] not in ("node", "collapsed_init") or x["module_level"] or is_test_module_id(x["nid"]):
+                continue
+            if not blocked(i):
+                out.add(x["nid"])
+    return out
 
 
 # --- summary ----------------------------------------------------------------------------------
@@ -413,8 +544,26 @@ def summarize(rows: list[dict]) -> dict:
         b["nontest_node_coverage"] = ratio_ci([r["n_nontest_nodes_executed"] for r in rs], [r["n_nontest_nodes"] for r in rs])
         b["tasks_gold_absent_but_executed"] = wilson(sum(1 for r in rs if r["gold_any_absent_executed"]), len(rs))
         b["tasks_gold_in_graph_executed"] = wilson(sum(1 for r in rs if r["gold_any_in_graph_executed"]), len(rs))
+        # (a) test-node sources: only meaningful where the f2p test exists in the base graph
+        with_src = [r for r in rs if r.get("static_sources_defined")]
+        b["tasks_static_sources_defined"] = wilson(len(with_src), len(rs))
         b["tasks_gold_static_reachable"] = wilson(sum(1 for r in rs if r["gold_any_static_reachable"]), len(rs))
+        b["tasks_gold_static_reachable_given_sources"] = wilson(sum(1 for r in with_src if r["gold_any_static_reachable"]), len(with_src))
         b["tasks_gold_executed_not_static"] = wilson(sum(1 for r in rs if r["gold_executed_not_static"] > 0), len(rs))
+        # (b) entry sources: where the f2p test enters the library (defined wherever the test ran library code)
+        with_entry = [r for r in rs if r.get("n_entry_sources", 0) > 0]
+        exec_entry = [r for r in with_entry if r.get("gold_any_in_graph_executed")]
+        b["tasks_entry_sources_defined"] = wilson(len(with_entry), len(rs))
+        b["tasks_gold_static_reachable_entry"] = wilson(sum(1 for r in exec_entry if r["gold_any_static_reachable_entry"]), len(exec_entry))
+        b["tasks_gold_all_executed_reachable_entry"] = wilson(sum(1 for r in exec_entry if r["gold_all_executed_static_reachable_entry"]), len(exec_entry))
+        b["tasks_gold_executed_not_static_entry"] = wilson(sum(1 for r in exec_entry if r["gold_executed_not_static_entry"] > 0), len(exec_entry))
+        b["tasks_gold_executed_is_entry"] = wilson(sum(1 for r in exec_entry if r["gold_executed_is_entry"] > 0), len(exec_entry))
+        b["tasks_gold_reachable_entry_undirected_only"] = wilson(
+            sum(1 for r in exec_entry if not r["gold_any_static_reachable_entry"] and r["gold_executed_static_reachable_entry_undirected"] > 0), len(exec_entry))
+        b["gold_min_hops_from_entry_hist"] = dict(Counter(str(r.get("gold_min_hops_from_entry_directed")) for r in exec_entry))
+        b["f2p_statuses"] = {k: sum(r.get(f"n_f2p_{k}", 0) for r in rs)
+                             for k in ("expected", "confirmed", "uncollected_pre", "pre_passed", "post_failed", "not_collected")}
+        b["tasks_harness_resolved_post"] = wilson(sum(1 for r in rs if r.get("harness_all_expected_pass_post")), len(rs))
         b["gold_status_counts"] = {k: sum(r[f"gold_{k}"] for r in rs) for k in
                                    ("in_graph_executed", "in_graph_not_executed", "absent_executed", "absent_not_executed",
                                     "new_symbol_executed_post", "new_symbol_not_executed")}
@@ -424,10 +573,11 @@ def summarize(rows: list[dict]) -> dict:
         return b
 
     usable = [r for r in rows if r.get("usable")]
+    strict = [r for r in usable if r.get("f2p_all_confirmed")]
     by_repo = defaultdict(list)
     for r in rows:
         by_repo[r["repo"]].append(r)
-    return {"usable_tasks": block(usable), "all_analyzed_tasks": block(rows),
+    return {"usable_tasks": block(usable), "strict_tasks": block(strict), "all_analyzed_tasks": block(rows),
             "per_repo_usable": {k: block([r for r in v if r.get("usable")]) for k, v in by_repo.items()},
             "per_repo_all": {k: block(v) for k, v in by_repo.items()}}
 
@@ -471,8 +621,10 @@ def main(argv=None):
         row, dyn, unconf, gold = analyze_task(t, g, tr_pre, tr_post, gold_by_task.get(t.instance_id, []), kind_fallback)
         row["run_class"] = val["run_class"]
         row["usable"] = val["run_class"] == "clean" and row["n_f2p_confirmed"] > 0
-        srow.update({k: row[k] for k in ("n_f2p_expected", "f2p_expected_source", "n_f2p_confirmed", "n_f2p_pre_passed",
-                                         "n_f2p_post_failed", "n_f2p_not_collected", "n_f2p_extra", "usable")})
+        row["strict"] = bool(row["usable"] and row["f2p_all_confirmed"])
+        srow.update({k: row[k] for k in ("n_f2p_expected", "f2p_expected_source", "n_f2p_confirmed", "n_f2p_uncollected_pre",
+                                         "n_f2p_pre_passed", "n_f2p_post_failed", "n_f2p_not_collected", "n_f2p_extra",
+                                         "harness_all_expected_pass_post", "usable", "strict")})
         status_rows.append(srow)
         rows.append(row)
         dyn_all += dyn
@@ -499,11 +651,18 @@ def main(argv=None):
                                      "gold": dict(Counter(str(r.get("gold_patch_strategy")) for r in status_rows))},
                 "top_missing_modules": Counter(mm for r in status_rows for mm in (r.get("pre_missing_modules") or [])).most_common(25),
                 "f2p_check": {"tasks_all_expected_confirmed": sum(1 for r in rows if r.get("f2p_all_confirmed")),
+                              "tasks_all_expected_confirmed_or_uncollected": sum(1 for r in rows if r.get("f2p_all_confirmed_or_uncollected")),
+                              "tasks_harness_resolved_post": sum(1 for r in rows if r.get("harness_all_expected_pass_post")),
+                              "tasks_strict": sum(1 for r in rows if r.get("strict")),
                               "expected": sum(r.get("n_f2p_expected", 0) for r in rows),
                               "confirmed": sum(r.get("n_f2p_confirmed", 0) for r in rows),
+                              "uncollected_pre": sum(r.get("n_f2p_uncollected_pre", 0) for r in rows),
                               "pre_passed": sum(r.get("n_f2p_pre_passed", 0) for r in rows),
                               "post_failed": sum(r.get("n_f2p_post_failed", 0) for r in rows),
-                              "not_collected": sum(r.get("n_f2p_not_collected", 0) for r in rows)}}
+                              "not_collected": sum(r.get("n_f2p_not_collected", 0) for r in rows)},
+                "static_reachability_sources": {
+                    "tasks_with_test_node_source": sum(1 for r in rows if r.get("static_sources_defined")),
+                    "tasks_with_entry_source": sum(1 for r in rows if r.get("n_entry_sources", 0) > 0)}}
     summ = {"coverage": coverage, **summarize(rows)}
     (args.out / "a2_summary.json").write_text(json.dumps(summ, indent=2))
     print(json.dumps({"coverage": coverage, "usable_tasks": summ["usable_tasks"].get("all_any")}, indent=2))

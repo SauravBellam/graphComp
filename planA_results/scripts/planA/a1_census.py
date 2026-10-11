@@ -40,8 +40,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from stats import wilson  # noqa: E402
 from common import (  # noqa: E402
     BM25, Graph, ModuleIndex, Resolver, Snapshot, Task, bfs_distance, containment_edge, extract_identifiers,
-    find_snapshot, flat_identifiers, get_graph, gold_symbols, is_test_path, iter_defs, load_tasks,
-    pct, qualname_to_node_id, resolve_node_name, shard, write_csv, write_jsonl,
+    find_snapshot, flat_identifiers, flatten_qualname, get_graph, gold_symbols, is_test_path, iter_defs, load_tasks,
+    pct, provided_node_id, qualname_to_node_id, resolve_node_name, shard, write_csv, write_jsonl,
 )
 
 
@@ -128,13 +128,21 @@ def async_audit(g: Graph, snap: Snapshot, max_files: int | None = None) -> tuple
         if src is None:
             continue
         for d in iter_defs(src):
-            nid = qualname_to_node_id(mod, d.qualname)
+            # node_id: the provided graph's scheme (nested defs flattened, see common.flatten_qualname);
+            # node_id_locals: the fully qualified ``outer.<locals>.inner`` form, kept for reference.
+            nid_locals = qualname_to_node_id(mod, d.qualname)
+            nid = provided_node_id(mod, d.qualname)
             present = nid in g.nodes
+            # a def the graph lists at module level without its class (seen for requests TestRequests methods)
+            flat_short = f"{mod}.{d.qualname.rsplit('.', 1)[-1]}"
+            class_dropped = (not present) and not d.nested and "." in flatten_qualname(d.qualname) and flat_short in g.nodes
             cat = "nested" if d.nested else d.kind
             agg[f"{cat}_total"] += 1
             agg[f"{cat}_present"] += int(present)
+            agg[f"{cat}_class_dropped"] += int(class_dropped)
             row = {"graph_key": g.key, "file": f, "module": mod, "rule": rule, "node_id": nid,
-                   "kind": d.kind, "nested": d.nested, "present": present,
+                   "node_id_locals": nid_locals, "kind": d.kind, "nested": d.nested, "present": present,
+                   "present_under_class_dropped_id": class_dropped,
                    "decorators": ";".join(d.decorators)[:200], "is_test": is_test_path(f)}
             for qi, q in enumerate(agent_queries(d.qualname)):
                 r_id, tier = res.resolve(q)
@@ -171,7 +179,8 @@ def task_profile(task: Task, g: Graph | None, snap: Snapshot | None, bm25_cache:
     n_gold_wrong = n_gold_nomatch = 0
     for s in syms:
         mod, rule = (mi.module_for(s.file, infer=True) if mi else (None, "none"))
-        nid = qualname_to_node_id(mod, s.qualname) if mod else None
+        nid = provided_node_id(mod, s.qualname) if mod else None          # provided-graph scheme
+        nid_locals = qualname_to_node_id(mod, s.qualname) if mod else None
         present = bool(g and nid and nid in g.nodes)
         qres = {}
         if resolver is not None and s.qualname and not s.new_symbol:
@@ -194,7 +203,8 @@ def task_profile(task: Task, g: Graph | None, snap: Snapshot | None, bm25_cache:
             gold_nodes.append(nid)
         gold_rows.append({"instance_id": task.instance_id, "file": s.file, "qualname": s.qualname, "kind": s.kind,
                           "nested": s.nested, "new_symbol": s.new_symbol, "source": s.source,
-                          "module": mod, "prefix_rule": rule, "node_id": nid, "present_in_graph": present, **qres})
+                          "module": mod, "prefix_rule": rule, "node_id": nid, "node_id_locals": nid_locals,
+                          "present_in_graph": present, **qres})
     row.update({"n_gold_symbols": n_sym, "n_gold_symbols_present": n_present, "n_gold_nested": n_nested,
                 "n_gold_new_symbols": n_new, "n_gold_async": n_async, "n_gold_async_present": n_async_present,
                 "gold_nodes": sorted(set(gold_nodes)), "module_level_only": n_sym == 0,
@@ -402,7 +412,8 @@ def summarize(task_rows, graph_rows, async_rows, id_rows) -> dict:
             for cat in ("function", "async_function", "class", "nested"):
                 rs = [r for r in rows if ("nested" if r["nested"] else r["kind"]) == cat]
                 out[cat] = {"total": len(rs), "present": sum(1 for r in rs if r["present"]),
-                            "present_rate": wilson(sum(1 for r in rs if r["present"]), len(rs))}
+                            "present_rate": wilson(sum(1 for r in rs if r["present"]), len(rs)),
+                            "present_under_class_dropped_id": sum(1 for r in rs if r.get("present_under_class_dropped_id"))}
             return out
 
         def misres(rows):

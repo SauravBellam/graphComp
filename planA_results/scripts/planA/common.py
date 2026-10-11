@@ -728,6 +728,33 @@ def qualname_to_node_id(module: str, qualname: str | None) -> str:
     return module if not qualname else f"{module}.{qualname}"
 
 
+def flatten_qualname(qualname: str) -> str:
+    """The provided graph's id for a nested definition.
+
+    Checked on the data (A6 ``provided_only`` nodes, Oct 11): the generator drops every enclosing
+    *function* scope and the ``<locals>`` marker but keeps class scopes, so
+    ``HTTPDigestAuth.build_digest_header.<locals>.md5_utf8`` -> ``HTTPDigestAuth.md5_utf8`` and
+    ``test_pretty.<locals>.Thing._repr_html_`` -> ``Thing._repr_html_``. Ids without ``<locals>``
+    are returned unchanged, so this is safe to apply to every qualname / node id.
+    """
+    if "<locals>" not in qualname:
+        return qualname
+    parts = qualname.split(".")
+    keep = []
+    for i, p in enumerate(parts):
+        if p == "<locals>":
+            continue
+        if i + 1 < len(parts) and parts[i + 1] == "<locals>":
+            continue          # the enclosing function
+        keep.append(p)
+    return ".".join(keep)
+
+
+def provided_node_id(module: str, qualname: str | None) -> str:
+    """Node id under the provided graph's scheme (nested defs flattened)."""
+    return module if not qualname else f"{module}.{flatten_qualname(qualname)}"
+
+
 # ----------------------------------------------------------------------------
 # Issue identifier extraction
 # ----------------------------------------------------------------------------

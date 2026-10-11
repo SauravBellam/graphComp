@@ -101,13 +101,17 @@ def test_a1_outputs(results):
     assert acomp["agent_query_outcome"] == "no_match"
     graphs = read_csv(results / "a1" / "a1_graphs.csv")
     assert len(graphs) == 2
-    assert json.loads(graphs[0]["edge_types"]) == {"calls": 12}
+    assert json.loads(graphs[0]["edge_types"]) == {"calls": 13}
     assert float(graphs[0]["pct_containment_in_calls"]) > 0
     # merged summary: no double counting across shards that share a commit
     summ = json.loads((results / "a1" / "a1_summary.json").read_text())
     assert summ["merged_from_shards"]
     assert summ["omission_direct_files"]["async_function"] == {**summ["omission_direct_files"]["async_function"], "total": 4, "present": 0}
     assert summ["omission_direct_files"]["function"]["present"] == summ["omission_direct_files"]["function"]["total"]
+    # the nested def is found under the flattened id the generator uses
+    assert summ["omission_direct_files"]["nested"]["total"] == 2 and summ["omission_direct_files"]["nested"]["present"] == 2
+    inner = [r for r in read_csv(results / "a1" / "a1_async_audit.csv") if r["node_id"] == "mini.core.inner"]
+    assert inner and all(r["present"] == "True" and r["node_id_locals"] == "mini.core.run.<locals>.inner" for r in inner)
     assert summ["omission_inferred_module_files"]["async_function"]["total"] == 2      # mini/aio.py, only async defs
     # async `total` is absent and its name silently resolves to the sync method Engine.total
     audit = read_csv(results / "a1" / "a1_async_audit.csv")
@@ -141,7 +145,12 @@ def test_a2_outputs(results):
     rows = {r["instance_id"]: r for r in read_csv(results / "a2" / "a2_tasks.csv")}
     r1, r2, r3 = rows["mini_1"], rows["mini_2"], rows["mini_3"]
     assert r1["gold_in_graph_executed"] == "1" and r1["gold_any_static_reachable"] == "True"
-    assert int(r1["all_any_absent_nested"]) >= 1 and int(r1["all_any_missed_between_nodes"]) >= 1
+    # run -> inner is a captured edge now that the nested def maps to its flattened id
+    assert int(r1["all_any_absent_nested"]) == 0 and int(r1["all_any_missed_between_nodes"]) >= 1
+    assert r1["static_sources_defined"] == "True"
+    # entry-point reachability: test_compute calls compute directly, so compute is an entry node (0 hops)
+    assert int(r1["n_entry_sources"]) >= 1 and r1["gold_any_static_reachable_entry"] == "True"
+    assert r1["gold_min_hops_from_entry_directed"] == "0"
     # the async gold function runs in the failing test but has no node: absent_executed
     assert r2["gold_absent_executed"] == "1" and int(r2["all_any_absent_async"]) >= 1
     # Engine.__init__ executed -> collapsed to the gold class Engine; the new method runs only post-fix
@@ -151,6 +160,7 @@ def test_a2_outputs(results):
     edges = [json.loads(l) for l in (results / "a2" / "a2_dyn_edges.jsonl").read_text().splitlines()]
     miss = [e for e in edges if e["instance_id"] == "mini_1" and e["cause"] == "missed_between_nodes"]
     assert any(e["src"] == "mini.util.gen_values" and e["dst"] == "mini.util.helper" and e["subcause"] == "sync" for e in miss)
+    assert any(e["instance_id"] == "mini_1" and e["cause"] == "captured" and e["src"] == "mini.core.run" and e["dst"] == "mini.core.inner" for e in edges)
     assert any(e["cause"] == "absent_async" and e["dst"] == "mini.core.acompute" for e in edges)
 
     summ = json.loads((results / "a2" / "a2_summary.json").read_text())
@@ -161,6 +171,13 @@ def test_a2_outputs(results):
     assert u["recall_agent_facing"]["den"] > u["recall_representable"]["den"]
     assert set(u["miss_share_by_cause"]) == {"missed_between_nodes", "absent_async", "absent_nested", "absent_sync"}
     assert summ["usable_tasks"]["tasks_gold_absent_but_executed"]["k"] == 1
+    # mini_2's failing test calls only the async (absent) acompute, which calls helper: the walk passes
+    # through the absent frame, so helper is the entry node (and the gold itself is absent)
+    assert summ["usable_tasks"]["tasks_entry_sources_defined"]["k"] == 3 and r2["n_entry_sources"] == "1"
+    assert r2["gold_any_static_reachable_entry"] == "False" and r2["gold_min_hops_from_entry_directed"] == ""
+    assert summ["usable_tasks"]["f2p_statuses"]["confirmed"] == 3 and summ["usable_tasks"]["f2p_statuses"]["uncollected_pre"] == 0
+    assert summ["strict_tasks"]["n_tasks"] == 3
+    assert summ["coverage"]["f2p_check"]["tasks_harness_resolved_post"] == 3
 
 
 def test_a4_a5_a6(results):
@@ -181,6 +198,12 @@ def test_a4_a5_a6(results):
     assert {"contains", "imports", "calls_static", "calls_dynamic", "tests"} <= types
     ids = {n["id"] for n in g2["nodes"]}
     assert "mini.core.acompute" in ids and "tutorial.tutorial001.read_items" in ids and "minisrc.extra.extra_fn" in ids
+    inner = next(n for n in g2["nodes"] if n["id"] == "mini.core.inner")
+    assert inner["nested"] and inner["in_provided_graph"] and inner["qualname"] == "run.<locals>.inner"
+    assert ("mini.core.run", "mini.core.inner") in {(e["source"], e["target"]) for e in g2["edges"] if e["type"] == "contains"}
+    assert not [n for n in g2["nodes"] if n["kind"] == "provided_only"]
+    # every edge endpoint is a node (no dangling `tests` edges from test_patch tests)
+    assert all(e["source"] in ids and e["target"] in ids for e in g2["edges"])
     report = json.loads((results / "run_report.json").read_text())
     assert report["all_ok"]
     assert report["manifest"]["tasks_jsonl_sha256"] and report["manifest"]["graphs_files"] == 3
@@ -196,3 +219,53 @@ def test_classify_pytest():
     assert classify_pytest(1, "1 failed, 3 passed in 0.1s")["run_class"] == "clean"
     assert classify_pytest(None, "")["run_class"] == "timeout"
     assert classify_pytest(4, "ERROR: usage")["run_class"] == "crashed"
+
+
+def test_flatten_qualname():
+    from common import flatten_qualname, provided_node_id
+    assert flatten_qualname("HTTPDigestAuth.build_digest_header.<locals>.md5_utf8") == "HTTPDigestAuth.md5_utf8"
+    assert flatten_qualname("test_pretty.<locals>.Thing._repr_html_") == "Thing._repr_html_"
+    assert flatten_qualname("a.<locals>.b.<locals>.c") == "c"
+    assert flatten_qualname("Engine.run") == "Engine.run"
+    assert provided_node_id("mini.core", "run.<locals>.inner") == "mini.core.inner"
+    assert provided_node_id("mini.core", None) == "mini.core"
+
+
+def test_check_f2p_statuses():
+    sys.path.insert(0, str(ROOT / "planA" / "a2"))
+    from analyze import check_f2p
+    from common import Task
+    tp = "+def test_a():\n+    pass\n+def test_b():\n+    pass\n+    def test_c(self):\n+        pass\n"
+    t = Task(instance_id="x", repo="r/r", base_commit="c", test_patch=tp)
+    pre = {"tests/t.py::test_a": "failed", "tests/t.py::test_b": "passed"}
+    post = {"tests/t.py::test_a": "passed", "tests/t.py::test_b": "passed", "tests/t.py::TestX::test_c": "passed"}
+    r = check_f2p(t, pre, post)
+    assert r["n_f2p_expected"] == 3 and r["n_f2p_confirmed"] == 1 and r["n_f2p_pre_passed"] == 1
+    assert r["n_f2p_uncollected_pre"] == 1 and r["f2p_uncollected_pre"] == ["tests/t.py::TestX::test_c"]
+    assert r["harness_all_expected_pass_post"] and not r["f2p_all_confirmed"]
+    post2 = dict(post, **{"tests/t.py::test_b": "failed"})
+    assert check_f2p(t, pre, post2)["harness_all_expected_pass_post"] is False
+    # a collection failure in the pre run with no collected tests at all
+    r3 = check_f2p(t, {}, post)
+    assert r3["n_f2p_uncollected_pre"] == 3 and r3["n_f2p_confirmed"] == 0 and r3["f2p_all_confirmed_or_uncollected"]
+
+
+def test_entry_nodes():
+    sys.path.insert(0, str(ROOT / "planA" / "a2"))
+    from analyze import entry_nodes
+    # test_a -> f -> g (g also called by h, which only runs in test_b); test_b -> h -> g; m is import-time
+    tr = {"tests": ["tests/t.py::test_a", "tests/t.py::test_b[1]"],
+          "functions": ["tests.t.test_a", "pkg.m.f", "tests.t.test_b", "pkg.m.g", "pkg.m.<module>", "pkg.m.h"],
+          "per_test_exec": {"tests/t.py::test_a": [0, 1, 3], "tests/t.py::test_b[1]": [2, 5, 3]},
+          "edges_direct": [[0, 1, [0]], [1, 3, [0]], [0, 4, [0]], [5, 3, [1]]],
+          "edges_vialib": [[2, 5, [1]]]}
+    mapped = [{"nid": "tests.t.test_a", "raw": "tests.t.test_a", "status": "node", "module_level": False},
+              {"nid": "pkg.m.f", "raw": "pkg.m.f", "status": "node", "module_level": False},
+              {"nid": "tests.t.test_b", "raw": "tests.t.test_b", "status": "node", "module_level": False},
+              {"nid": "pkg.m.g", "raw": "pkg.m.g", "status": "node", "module_level": False},
+              {"nid": "pkg.m", "raw": "pkg.m", "status": "node", "module_level": True},
+              {"nid": "pkg.m.h", "raw": "pkg.m.h", "status": "missing", "module_level": False}]
+    assert entry_nodes(["tests/t.py::test_a"], tr, mapped) == {"pkg.m.f"}          # g is called by f, not a root
+    # h (the true root) is not a node (e.g. an absent async def): the walk passes through it, so g is the entry
+    assert entry_nodes(["tests/t.py::test_b[1]"], tr, mapped) == {"pkg.m.g"}
+    assert entry_nodes([], tr, mapped) == set() and entry_nodes(["tests/t.py::test_a"], None, mapped) == set()

@@ -7,9 +7,10 @@ The fake repo ``mini`` mimics the traits the audit targets:
   * a sync function, an async function, a class with __init__ and a method, a generator,
     a nested function, a decorator-registered handler, a ``docs_src``-style directory and a
     ``src/``-style second package (``src/minisrc``)
-  * the provided graph OMITS the async function and nested functions (finding 5.1 / 5.3),
-    contains a containment pseudo-edge (class -> __init__), only ``calls`` edges, test nodes,
-    and drops the ``docs_src.`` prefix in ids
+  * the provided graph OMITS the async function (finding 5.1), lists the nested function under
+    a flattened id (``mini.core.inner``, as the real generator does), contains a containment
+    pseudo-edge (class -> __init__), only ``calls`` edges, test nodes, and drops the ``docs_src.``
+    prefix in ids
   * two tasks on the same base commit (shared graph) + one on a second commit
   * gold patches that change a sync function (task 1), the async function (task 2), and a
     docs_src file + a src/ file (task 3, multi-file); test patches adding failing tests
@@ -281,8 +282,10 @@ def make_graph(files: dict, with_double: bool = False) -> dict:
         node("mini.core.register", seg(core, 8, 10)), node("mini.core.Engine", seg(core, 13, 21)),
         node("mini.core.Engine.__init__", seg(core, 14, 15)), node("mini.core.Engine.run", seg(core, 17, 18)),
         node("mini.core.Engine.total", seg(core, 20, 21)), node("mini.core.compute", seg(core, 24, 26)),
-        # NOTE: mini.core.acompute (async def) deliberately omitted; run.<locals>.inner omitted
-        node("mini.core.run", seg(core, 34, 37)), node("mini.core.handler", seg(core, 40, 42)),
+        # NOTE: mini.core.acompute (async def) deliberately omitted (finding 5.1).
+        # run.<locals>.inner IS a node, under the generator's flattened id (enclosing function dropped).
+        node("mini.core.run", seg(core, 34, 37)), node("mini.core.inner", seg(core, 35, 36)),
+        node("mini.core.handler", seg(core, 40, 42)),
         node("tutorial.tutorial001.read_items", "def read_items():\n    return compute(3)"),   # docs_src. dropped
         node("minisrc.extra.extra_fn", "def extra_fn(x):\n    return x - 3"),                 # src. dropped
         node("tests.test_core.test_compute", "def test_compute():\n    assert compute(1) == 4"),
@@ -298,6 +301,7 @@ def make_graph(files: dict, with_double: bool = False) -> dict:
         ("mini.core.compute", "mini.core.Engine"),
         ("mini.core.compute", "mini.core.Engine.run"),
         ("mini.core.run", "mini.core.compute"),
+        ("mini.core.run", "mini.core.inner"),
         ("mini.core.handler", "mini.core.compute"),
         ("mini.core.handler", "mini.util.unused_helper"),       # spurious static edge (precision test)
         ("tests.test_core.test_compute", "mini.core.compute"),

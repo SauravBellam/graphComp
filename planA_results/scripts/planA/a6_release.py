@@ -34,8 +34,8 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from a2.analyze import Mapper, load_trace  # noqa: E402
 from common import (  # noqa: E402
-    ModuleIndex, Snapshot, containment_edge, find_snapshot, get_graph, is_test_path, iter_defs, load_tasks,
-    path_to_module_candidates, read_jsonl, shard, write_csv,
+    ModuleIndex, Snapshot, containment_edge, find_snapshot, flatten_qualname, get_graph, is_test_path, iter_defs,
+    load_tasks, path_to_module_candidates, read_jsonl, shard, write_csv,
 )
 
 
@@ -62,14 +62,23 @@ def build_typed_graph(task, g, snap: Snapshot) -> dict:
                                "is_async": False, "in_provided_graph": bool(g and mod in g.nodes)})
         lines = src.splitlines()
         for d in iter_defs(src):
-            if d.nested:
-                continue
-            nid = f"{mod}.{d.qualname}"
-            nodes[nid] = {"id": nid, "name": d.qualname.rsplit(".", 1)[-1], "text": "\n".join(lines[d.lineno - 1: d.end_lineno]),
+            # nested defs get the provided graph's flattened id (enclosing functions dropped, classes kept)
+            flat_q = flatten_qualname(d.qualname)
+            nid = f"{mod}.{flat_q}"
+            if d.nested and nid in nodes:
+                nodes[nid].setdefault("id_collisions", []).append(f"{mod}.{d.qualname}")
+                continue          # a top-level def already owns this id; the nested one is recorded on it
+            nodes[nid] = {"id": nid, "name": flat_q.rsplit(".", 1)[-1], "text": "\n".join(lines[d.lineno - 1: d.end_lineno]),
                           "kind": d.kind, "file": f, "lineno": d.lineno, "end_lineno": d.end_lineno,
                           "is_test": is_test_path(f), "is_async": d.kind == "async_function",
+                          "nested": d.nested, "qualname": d.qualname,
                           "in_provided_graph": bool(g and nid in g.nodes)}
-            parent = f"{mod}.{d.qualname.rsplit('.', 1)[0]}" if "." in d.qualname else mod
+            if d.nested:
+                # contained by the innermost enclosing def that is itself a node (function or class)
+                enc = d.qualname.rsplit(".<locals>.", 1)[0] if ".<locals>." in d.qualname else None
+                parent = f"{mod}.{flatten_qualname(enc)}" if enc else mod
+            else:
+                parent = f"{mod}.{d.qualname.rsplit('.', 1)[0]}" if "." in d.qualname else mod
             edges.append({"source": parent, "target": nid, "type": "contains"})
             if d.kind == "class":
                 class_short[d.qualname.rsplit(".", 1)[-1]].append(nid)
@@ -172,11 +181,19 @@ def add_dynamic_edges(gv2: dict, g, tasks_for_key: list, runs: Path, a2_rows: di
                     rec["tasks"].add(t.instance_id)
                     rec["n_tests"] += len(tl)
                     rec["n_f2p_tests"] += sum(1 for i in tl if i < len(tests) and tests[i] in f2p)
+            from a2.analyze import test_node_id
             for test, execd in tr.get("per_test_exec", {}).items():
                 if test.startswith("<"):
                     continue
-                from a2.analyze import test_node_id
                 tn = test_node_id(test)
+                if tn not in node_ids:
+                    # a test added by test_patch (not in the base tree): add it as a node rather than
+                    # emitting a dangling edge; the harness loader keeps every edge endpoint as a node
+                    gv2["nodes"].append({"id": tn, "name": tn.rsplit(".", 1)[-1], "text": "", "kind": "test_function",
+                                         "file": test.split("::")[0], "is_test": True, "is_async": False,
+                                         "from_test_patch": True, "task": t.instance_id, "in_provided_graph": False})
+                    node_ids.add(tn)
+                    cnt["test_patch_nodes"] += 1
                 for i in execd:
                     nid, st = mapped[i]
                     if st in ("node", "collapsed_init") and not is_test_path(nid.replace(".", "/")) and (tn, nid) not in seen_test:
@@ -236,6 +253,9 @@ def main(argv=None):
             kinds = Counter(n["kind"] for n in gv2["nodes"])
             summary["graphs"][key] = {"n_nodes": len(gv2["nodes"]), "node_kinds": dict(kinds), "edge_types": dict(cnt),
                                       "async_defs": sum(1 for n in gv2["nodes"] if n.get("is_async")),
+                                      "nested_defs": sum(1 for n in gv2["nodes"] if n.get("nested")),
+                                      "nested_defs_in_provided": sum(1 for n in gv2["nodes"] if n.get("nested") and n.get("in_provided_graph")),
+                                      "id_collisions": sum(len(n.get("id_collisions", [])) for n in gv2["nodes"]),
                                       "nodes_not_in_provided": sum(1 for n in gv2["nodes"] if not n.get("in_provided_graph"))}
             print(f"[a6] {key}: nodes={len(gv2['nodes'])} edges={dict(cnt)}", flush=True)
 
@@ -266,6 +286,11 @@ def main(argv=None):
             "a2_n_f2p_confirmed": b.get("n_f2p_confirmed"),
             "a2_gold_in_graph_executed": b.get("gold_in_graph_executed"), "a2_gold_absent_executed": b.get("gold_absent_executed"),
             "a2_gold_static_reachable": b.get("gold_any_static_reachable"),
+            "a2_static_sources_defined": b.get("static_sources_defined"),
+            "a2_n_entry_sources": b.get("n_entry_sources"),
+            "a2_gold_static_reachable_entry": b.get("gold_any_static_reachable_entry"),
+            "a2_gold_min_hops_from_entry": b.get("gold_min_hops_from_entry_directed"),
+            "a2_strict": b.get("strict"), "a2_harness_resolved_post": b.get("harness_all_expected_pass_post"),
             "cell": _cell(a),
         })
     write_csv(args.out / "task_profile.csv", prof)
