@@ -23,9 +23,11 @@
 \begin{document}
 
 {\LARGE\bfseries Guide for judges: ``Is the Map Right?''\par}
+\vspace{6pt}
+{\large Repository: \url{https://github.com/SauravBellam/is-the-map-right}\par}
 \vspace{8pt}
 
-This page tells you where every part of the paper comes from and how to check it. All paths are relative to \code{planA_results/} in the repository. Everything below is also packed in \code{papers/supplement_paper1.zip}, except the two largest folders noted at the end.
+This page tells you where every part of the paper comes from and how to check it. Everything named here is in the repository above; all paths are relative to its \code{planA_results/} folder.
 
 \section*{1. Read}
 
@@ -35,7 +37,6 @@ What & File\\
 \midrule
 Paper (PDF) & \code{papers/latex/paper1_is_the_map_right.pdf}\\
 Paper (LaTeX source) & \code{papers/latex/paper1_is_the_map_right.tex}\\
-Paper (Markdown, same text) & \code{papers/paper1_is_the_map_right.showdown.md}\\
 Figures (vector / PNG) & \code{papers/figures/*.pdf}, \code{papers/figures/png/*.png}\\
 Numbers behind each figure & \code{papers/figures/figure_data.json}\\
 \bottomrule
@@ -78,7 +79,7 @@ Paper section & Result files & Produced by\\
 \S5.6 Encoder & \code{vm-a2/results/a3/}, \code{vm-a2/results/a3_gemma2/} & \code{scripts/planA/a3_encoder.py}\\
 \S5.6 Similarity (Fig.~7) & \code{vm-main/results/a4/a4_summary.json}, \code{a4_relations.csv}, \code{a4_knn.csv} & \code{scripts/planA/a4_probe.py}\\
 \S5.6 Retrieval (Fig.~8) & \code{vm-a2/results/a5_v3/a5_summary.json}, \code{a5_tasks.csv} & \code{scripts/planA/a5_retrieval.py}\\
-\S6 Released graph and profile & \code{vm-a2/results/a6_v3/graphs_v2/*.json} (one per commit), \code{a6_v3/task_profile.csv} & \code{scripts/planA/a6_release.py}\\
+\S6 Released graph and profile & \code{vm-a2/results/a6_v3/graphs_v2/*.json.gz} (one per commit, gzipped), \code{a6_v3/task_profile.csv} & \code{scripts/planA/a6_release.py}\\
 Per-task tests and traces & \code{vm-a2/results/a2_runs/<task>/} (status, pytest logs, junit XML, traces, dependency logs) & \code{scripts/planA/a2/run_task.py}\\
 \bottomrule
 \end{tabularx}
@@ -109,13 +110,13 @@ cd planA_results/scripts && python3 -m pytest tests/test_pipeline.py -q
 \section*{5. History and caveats worth knowing}
 
 \begin{itemize}
-\item The first run (Oct 10) used a wrong id scheme for nested definitions; the fix and every changed number are documented in \code{FIXES_2026-10-11.md}, and the final numbers in \code{ANALYSIS_2026-10-11_VM_RERUN.md}. The paper uses only the final outputs (\code{a1_v2}, \code{a2_v3}, \code{a5_v3}, \code{a6_v3}, \code{a7}, \code{a8}).
+\item The first run (Oct 10) used a wrong id scheme for nested definitions; it was fixed and every affected step rerun. The repository contains only the final outputs (\code{a1_v2}, \code{a2_v3}, \code{a5_v3}, \code{a6_v3}, \code{a7}, \code{a8}), and the paper uses only these.
 \item One task (rich\_4006) hung on four test cases; it was recovered by deselecting them and recording them as failed (\code{vm-a2/results/a2_runs/rich_4006/status.json}, \code{hung_tests}).
 \item 15 of 129 tasks did not run cleanly in our environment (9 collection errors, 2 import errors, 4 requests tasks with no collectable tests). These reflect our dependency setup, not the tasks.
 \end{itemize}
 
-\section*{6. Not in the zip}
+\section*{6. Large files}
 
-\code{vm-a2/results/a6_v3/graphs_v2/} (662\,MB, the released typed graphs; one example is included) and \code{vm-a2/results/a1_v2/a1_async_audit.csv.gz} (per-definition census rows). Both are in the repository.
+The 127 released typed graphs are stored gzipped (\code{vm-a2/results/a6_v3/graphs_v2/*.json.gz}, 662\,MB uncompressed); \code{papers/make_figures.py} reads them as they are. The per-definition census rows are in \code{vm-a2/results/a1_v2/a1_async_audit.csv.gz}.
 
 \end{document}
