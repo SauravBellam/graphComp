@@ -37,6 +37,7 @@ import os
 import re
 import shlex
 import shutil
+import signal
 import subprocess
 import sys
 import time
@@ -181,26 +182,90 @@ def apply_patch(ws: Path, patch_text: str, name: str, env: dict, log: Path) -> s
     return "gnu_patch" if r.returncode == 0 else None
 
 
+def sh_group(cmd: str, cwd: Path, env: dict, timeout: int | None, log: Path | None) -> tuple[int | None, str, str, bool]:
+    """Run cmd in its own process group; on timeout kill the whole group (pytest and its children),
+    not just the shell. Returns (returncode or None on timeout, stdout, stderr, timed_out)."""
+    p = subprocess.Popen(cmd, shell=True, cwd=cwd, env=env, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                         text=True, start_new_session=True)
+    try:
+        out, err = p.communicate(timeout=timeout)
+        rc, timed_out = p.returncode, False
+    except subprocess.TimeoutExpired:
+        try:
+            os.killpg(p.pid, signal.SIGKILL)
+        except ProcessLookupError:
+            pass
+        out, err = p.communicate()
+        rc, timed_out = None, True
+    if log is not None:
+        with open(log, "a", encoding="utf-8") as f:
+            f.write(f"\n$ {cmd}\n[exit {rc}{' TIMEOUT (process group killed)' if timed_out else ''}]\n{out}\n{err}\n")
+    return rc, out or "", err or "", timed_out
+
+
 def run_pytest(py: str, ws: Path, targets: list[str], env: dict, out_json: Path, phase: str, log: Path, timeout: int,
-               test_timeout: int = 0) -> dict:
+               test_timeout: int = 0, deselect: list[str] | None = None, checkpoint: bool = False) -> dict:
     env = dict(env)
     env.update({"GC_TRACE_ROOT": str(ws), "GC_TRACE_OUT": str(out_json), "GC_TRACE_PHASE": phase,
-                "PYTHONSAFEPATH": "1", "PYTHONNOUSERSITE": "1"})
+                "PYTHONSAFEPATH": "1", "PYTHONNOUSERSITE": "1", "GC_TRACE_CHECKPOINT": "1" if checkpoint else ""})
     tgt = " ".join(shlex.quote(t) for t in targets) or "."
-    cmd = (f"{shlex.quote(py)} -s -m pytest {tgt} -p trace_plugin -p no:anyio -p no:cacheprovider "
-           f"-o addopts= -o timeout={int(test_timeout)} -o python_classes='Test* *Test' -q -x --no-header -rN "
+    desel = " ".join(f"--deselect {shlex.quote(d)}" for d in (deselect or []))
+    cmd = (f"{shlex.quote(py)} -s -m pytest {tgt} {desel} -p trace_plugin -p no:anyio -p no:cacheprovider "
+           f"-o addopts= -o timeout={int(test_timeout)} -o python_classes='Test* *Test' -q --no-header -rN "
            f"--junitxml={shlex.quote(str(out_json.with_suffix('.xml')))}")
-    cmd = cmd.replace(" -x ", " ")  # run all tests, do not stop at first failure
     t0 = time.time()
+    rc, out, err, timed_out = sh_group(cmd, ws, env, timeout, log)
+    res = {"exit": rc, "seconds": round(time.time() - t0, 1), "timeout": timed_out,
+           "stdout_tail": out[-3000:], "stderr_tail": err[-2000:]}
+    if not timed_out:
+        res.update(classify_pytest(rc, out + "\n" + err))
+    else:
+        res.update(classify_pytest(None, out + "\n" + err))
+    if deselect:
+        res["deselected"] = list(deselect)
+    return res
+
+
+def _running_test(trace_json: Path) -> str | None:
+    """The test a checkpointed trace was running when the process died (None if it finished)."""
     try:
-        r = sh(cmd, cwd=ws, env=env, timeout=timeout, log=log)
-        return {"exit": r.returncode, "seconds": round(time.time() - t0, 1), "timeout": False,
-                **classify_pytest(r.returncode, r.stdout + "\n" + r.stderr),
-                "stdout_tail": r.stdout[-3000:], "stderr_tail": r.stderr[-2000:]}
-    except subprocess.TimeoutExpired as e:
-        return {"exit": None, "seconds": round(time.time() - t0, 1), "timeout": True,
-                "stdout_tail": (e.stdout or "")[-3000:] if isinstance(e.stdout, str) else "",
-                "stderr_tail": (e.stderr or "")[-2000:] if isinstance(e.stderr, str) else ""}
+        d = json.loads(trace_json.read_text())
+    except Exception:  # noqa: BLE001
+        return None
+    return d.get("running_test") if d.get("partial") else None
+
+
+def run_phase(py, ws, targets, env, tdir: Path, phase: str, timeout: int, test_timeout: int,
+              deselect_hung: bool, max_hung: int = 5) -> dict:
+    """One pytest phase. With deselect_hung: the trace is checkpointed before every test; if the run is
+    killed or times out, the test it was running is deselected and the phase rerun (up to max_hung
+    times). Deselected tests are recorded as hung and written into the trace's outcomes as 'failed',
+    which is what the harness would score (its command timeout fails the run)."""
+    out_json = tdir / f"trace_{phase}.json"
+    hung: list[str] = []
+    attempts = []
+    while True:
+        r = run_pytest(py, ws, targets, env, out_json, phase, tdir / f"pytest_{phase}.log", timeout, test_timeout,
+                       deselect=hung, checkpoint=deselect_hung)
+        attempts.append({k: r.get(k) for k in ("exit", "timeout", "run_class", "seconds")})
+        killed = r.get("timeout") or (isinstance(r.get("exit"), int) and r["exit"] < 0)
+        if not (deselect_hung and killed) or len(hung) >= max_hung:
+            break
+        t = _running_test(out_json)
+        if not t or t in hung:
+            break
+        hung.append(t)
+    if hung:
+        r["hung_tests"] = hung
+        try:
+            d = json.loads(out_json.read_text())
+            d.setdefault("outcomes", {}).update({t: "failed" for t in hung})
+            d["hung_tests"] = hung
+            out_json.write_text(json.dumps(d))
+        except Exception as e:  # noqa: BLE001
+            r["hung_patch_error"] = repr(e)
+    r["attempts"] = attempts
+    return r
 
 
 PYTEST_EXIT = {0: "all_passed", 1: "some_failed", 2: "interrupted", 3: "internal_error", 4: "usage_error", 5: "no_tests"}
@@ -238,7 +303,7 @@ def classify_pytest(code: int | None, text: str) -> dict:
 
 
 def run_one_venv(task: Task, data: Path, out: Path, cache: Path, wheels: Path | None, timeout: int, keep: bool,
-                 test_timeout: int = 0) -> dict:
+                 test_timeout: int = 0, deselect_hung: bool = False) -> dict:
     tdir = out / task.instance_id
     tdir.mkdir(parents=True, exist_ok=True)
     status_p = tdir / "status.json"
@@ -252,7 +317,7 @@ def run_one_venv(task: Task, data: Path, out: Path, cache: Path, wheels: Path | 
     log = tdir / "setup.log"
     log.write_text("")
     status: dict = {"instance_id": task.instance_id, "repo": task.repo, "backend": "venv", "done": False,
-                    "test_timeout": test_timeout}
+                    "test_timeout": test_timeout, "deselect_hung": deselect_hung}
     t0 = time.time()
     sp = find_snapshot(data, task)
     if sp is None:
@@ -289,10 +354,10 @@ def run_one_venv(task: Task, data: Path, out: Path, cache: Path, wheels: Path | 
         status["test_patch_strategy"] = apply_patch(ws, task.test_patch, "test", env, log) if task.test_patch.strip() else "empty"
         status["test_patch_applied"] = status["test_patch_strategy"] is not None
         write_test_config(ws)
-        status["pre"] = run_pytest(py, ws, targets, env, tdir / "trace_pre.json", "pre", tdir / "pytest_pre.log", timeout, test_timeout)
+        status["pre"] = run_phase(py, ws, targets, env, tdir, "pre", timeout, test_timeout, deselect_hung)
         status["gold_patch_strategy"] = apply_patch(ws, task.patch, "gold", env, log) if task.patch.strip() else "empty"
         status["gold_patch_applied"] = status["gold_patch_strategy"] is not None
-        status["post"] = run_pytest(py, ws, targets, env, tdir / "trace_post.json", "post", tdir / "pytest_post.log", timeout, test_timeout)
+        status["post"] = run_phase(py, ws, targets, env, tdir, "post", timeout, test_timeout, deselect_hung)
         status["trace_pre_exists"] = (tdir / "trace_pre.json").exists()
         status["trace_post_exists"] = (tdir / "trace_post.json").exists()
         status["done"] = True
@@ -340,7 +405,8 @@ def _run_task(t: Task, args, wheels):
     """Module-level so ProcessPoolExecutor can pickle it (a closure inside main() cannot be)."""
     if args.backend == "docker":
         return run_one_docker(t, args.data, args.out, args.cache, wheels, args.timeout, args.image, args.cpus, args.mem, args.test_timeout)
-    return run_one_venv(t, args.data, args.out, args.cache, wheels, args.timeout, args.keep, args.test_timeout)
+    return run_one_venv(t, args.data, args.out, args.cache, wheels, args.timeout, args.keep, args.test_timeout,
+                        args.deselect_hung)
 
 
 def main(argv=None):
@@ -361,6 +427,10 @@ def main(argv=None):
     ap.add_argument("--test-timeout", type=int, default=0,
                     help="per-test pytest-timeout seconds (0 = off, as the harness). A hanging test then fails alone "
                          "and the session still finishes and writes its trace")
+    ap.add_argument("--deselect-hung", action="store_true",
+                    help="checkpoint the trace before every test; if a phase is killed / times out (see "
+                         "--timeout), deselect the test it was running, record it as failed (hung) and rerun the "
+                         "phase, up to 5 times. Pair with a short --timeout such as 300 (the harness's command limit)")
     args = ap.parse_args(argv)
 
     if sys.version_info < (3, 11):

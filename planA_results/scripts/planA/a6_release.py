@@ -73,15 +73,24 @@ def build_typed_graph(task, g, snap: Snapshot) -> dict:
                           "is_test": is_test_path(f), "is_async": d.kind == "async_function",
                           "nested": d.nested, "qualname": d.qualname,
                           "in_provided_graph": bool(g and nid in g.nodes)}
-            if d.nested:
-                # contained by the innermost enclosing def that is itself a node (function or class)
-                enc = d.qualname.rsplit(".<locals>.", 1)[0] if ".<locals>." in d.qualname else None
-                parent = f"{mod}.{flatten_qualname(enc)}" if enc else mod
-            else:
-                parent = f"{mod}.{d.qualname.rsplit('.', 1)[0]}" if "." in d.qualname else mod
-            edges.append({"source": parent, "target": nid, "type": "contains"})
+            # contained by the innermost enclosing def (function or class): drop the last segment and a
+            # trailing '<locals>' marker, then flatten (f.<locals>.C.m -> parent f.<locals>.C -> id C)
+            parent_q = d.qualname.rsplit(".", 1)[0] if "." in d.qualname else ""
+            if parent_q.endswith(".<locals>"):
+                parent_q = parent_q[: -len(".<locals>")]
+            parent = f"{mod}.{flatten_qualname(parent_q)}" if parent_q else mod
+            edges.append({"source": parent, "target": nid, "type": "contains", "_file_module": mod})
             if d.kind == "class":
                 class_short[d.qualname.rsplit(".", 1)[-1]].append(nid)
+    # guard: a contains edge whose parent id was never emitted (e.g. the enclosing def lost its id to a
+    # collision) is re-parented to the file's module so no edge dangles; counted for the summary
+    n_reparented = 0
+    for e in edges:
+        fm = e.pop("_file_module", None)
+        if e["type"] == "contains" and e["source"] not in nodes:
+            e["source"] = fm
+            e["reparented"] = True
+            n_reparented += 1
     # imports + inherits need a second pass with ast
     all_mods = set(mod_of_file.values())
     for f, mod in mod_of_file.items():
@@ -256,6 +265,7 @@ def main(argv=None):
                                       "nested_defs": sum(1 for n in gv2["nodes"] if n.get("nested")),
                                       "nested_defs_in_provided": sum(1 for n in gv2["nodes"] if n.get("nested") and n.get("in_provided_graph")),
                                       "id_collisions": sum(len(n.get("id_collisions", [])) for n in gv2["nodes"]),
+                                      "contains_reparented": sum(1 for e in gv2["edges"] if e.get("reparented")),
                                       "nodes_not_in_provided": sum(1 for n in gv2["nodes"] if not n.get("in_provided_graph"))}
             print(f"[a6] {key}: nodes={len(gv2['nodes'])} edges={dict(cnt)}", flush=True)
 

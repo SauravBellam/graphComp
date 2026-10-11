@@ -10,9 +10,16 @@ Modes (per task, query = problem statement):
   (c) freetext  : issue text embedded with the encoder identified in A3 (``--encoder``), cosine
                   against the provided vectors.  Skipped when no encoder is given.
   (d) harness+1hop : mode (a) plus 1-hop call neighbours of the anchors and of the top-10 hits
+  (e) bm25_snapshot: BM25 over every non-test def of the real snapshot source (id + source text),
+                  free-text issue query. Independent of the provided graph, so it can hit gold symbols
+                  the graph omits (async defs); its gold set is every gold symbol, present or not.
 Metrics: gold-node Hit@10 (any gold node in top 10) and gold-file Hit@5 (file = module of a gold
 node; a node's module via the same heuristic as A1), MRR, per repo; share of tasks where the mode
 returns nothing at all (no identifier resolves).
+
+Denominators: ``overall_tasks_with_gold_nodes`` (tasks with >= 1 gold node in the graph, the original
+report) and ``overall_all_tasks`` (all tasks; a task with no gold node counts as a miss for the graph
+modes a0/a/b/d, while mode e is scored against every gold symbol). Per repo for both.
 
 Inputs: archive + A1 outputs (a1_gold_symbols.jsonl for gold node ids; a1_tasks.csv not required).
 Outputs: a5_tasks.csv, a5_summary.json.
@@ -32,9 +39,30 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from a1_census import module_of_node  # noqa: E402
 from stats import mcnemar, mean_ci, wilson  # noqa: E402
 from common import (  # noqa: E402
-    BM25, ModuleIndex, extract_identifiers, flat_identifiers, get_embeddings, get_graph, is_test_path, load_tasks,
-    pct, read_jsonl, resolve_node_name, write_csv,
+    BM25, ModuleIndex, Snapshot, extract_identifiers, find_snapshot, flat_identifiers, get_embeddings, get_graph,
+    is_test_path, iter_defs, load_tasks, pct, provided_node_id, read_jsonl, resolve_node_name, write_csv,
 )
+
+
+def snapshot_def_docs(snap: Snapshot, mi: ModuleIndex) -> tuple[dict[str, str], dict[str, str]]:
+    """Every non-test def of the snapshot as a BM25 document, keyed by its provided-scheme node id.
+    Returns (docs, module_of_doc)."""
+    files = [f for f in snap.list_files(".py") if not is_test_path(f)]
+    texts = snap.read_many(files)
+    docs: dict[str, str] = {}
+    mod_of: dict[str, str] = {}
+    for f in files:
+        src = texts.get(f) or ""
+        mod, _ = mi.module_for(f, infer=True)
+        if mod is None:
+            continue
+        lines = src.splitlines()
+        for d in iter_defs(src):
+            nid = provided_node_id(mod, d.qualname)
+            body = "\n".join(lines[d.lineno - 1: d.end_lineno])
+            docs[nid] = (docs[nid] + "\n" + body) if nid in docs else f"{nid}\n{body}"
+            mod_of[nid] = mod
+    return docs, mod_of
 
 
 def rank_metrics(ranked: list[str], gold_nodes: set[str], gold_mods: set[str], mod_of) -> dict:
@@ -60,14 +88,20 @@ def main(argv=None):
     ap.add_argument("--encoder-prompt", default="task: code retrieval | query: ")
     ap.add_argument("--k", type=int, default=10)
     ap.add_argument("--task-ids", nargs="*", default=None)
+    ap.add_argument("--cache", type=Path, default=None, help="snapshot extraction cache (mode e)")
+    ap.add_argument("--no-snapshot-mode", action="store_true", help="skip mode (e)")
     args = ap.parse_args(argv)
+    cache = args.cache or (args.out.parent / "cache")
     args.out.mkdir(parents=True, exist_ok=True)
 
     gold_by_task: dict[str, set[str]] = defaultdict(set)
     gold_files_by_task: dict[str, set[str]] = defaultdict(set)
+    gold_all_by_task: dict[str, set[str]] = defaultdict(set)      # every gold symbol, present or not (mode e)
     for r in read_jsonl(args.a1 / "a1_gold_symbols.jsonl"):
         if r.get("node_id") and r.get("present_in_graph") and not r.get("new_symbol"):
             gold_by_task[r["instance_id"]].add(r["node_id"])
+        if r.get("node_id") and r.get("qualname") and not r.get("new_symbol"):
+            gold_all_by_task[r["instance_id"]].add(r["node_id"])
         if r.get("module"):
             gold_files_by_task[r["instance_id"]].add(r["module"])
 
@@ -78,6 +112,7 @@ def main(argv=None):
 
     rows = []
     bm_cache: dict[str, BM25] = {}
+    snap_cache: dict[str, tuple[BM25, dict[str, str]]] = {}
     for t in load_tasks(args.data, args.task_ids):
         g = get_graph(args.data, t)
         E = get_embeddings(args.data, t)
@@ -150,12 +185,27 @@ def main(argv=None):
             ft_rank = [ids[j] for j in order]
             for k, v in rank_metrics(ft_rank, gold_nodes, gold_mods, mod_of).items():
                 base[f"c_freetext_{k}"] = v
+        # (e) BM25 over the snapshot's real source defs
+        if not args.no_snapshot_mode:
+            if g.key not in snap_cache:
+                sp = find_snapshot(args.data, t)
+                if sp is not None:
+                    docs, snap_mod = snapshot_def_docs(Snapshot(sp, cache, t.instance_id), mi)
+                    snap_cache[g.key] = (BM25(docs), snap_mod)
+            if g.key in snap_cache:
+                bm_s, snap_mod = snap_cache[g.key]
+                gold_all = gold_all_by_task.get(t.instance_id, set())
+                base["n_gold_symbols_all"] = len(gold_all)
+                for k, v in rank_metrics(bm_s.rank(t.problem_statement), gold_all, gold_mods,
+                                         lambda n: snap_mod.get(n) or mod_of(n)).items():
+                    base[f"e_bm25_snapshot_{k}"] = v
         rows.append(base)
         print(f"[a5] {t.instance_id}: anchors={len(anchors)} a_hit10={base['a_harness_hit10_node']} "
               f"bm25_hit10={base['b_bm25_hit10_node']} 1hop_hit10={base['d_harness_1hop_hit10_node']}", flush=True)
 
     write_csv(args.out / "a5_tasks.csv", rows)
-    modes = ["a0_anchors", "a_harness", "d_harness_1hop", "b_bm25"] + (["c_freetext"] if encoder else [])
+    modes = (["a0_anchors", "a_harness", "d_harness_1hop", "b_bm25"] + (["c_freetext"] if encoder else [])
+             + (["e_bm25_snapshot"] if any("e_bm25_snapshot_hit10_node" in r for r in rows) else []))
     valid = [r for r in rows if "skipped" not in r]
     with_gold = [r for r in valid if r["n_gold_nodes"] > 0]
 
@@ -170,6 +220,8 @@ def main(argv=None):
         pairs = [("a_harness", "b_bm25"), ("a_harness", "d_harness_1hop"), ("a0_anchors", "a_harness")]
         if "c_freetext" in modes:
             pairs += [("a_harness", "c_freetext"), ("b_bm25", "c_freetext")]
+        if "e_bm25_snapshot" in modes:
+            pairs += [("a_harness", "e_bm25_snapshot"), ("b_bm25", "e_bm25_snapshot")]
         out["paired_mcnemar"] = {
             f"{a}_vs_{b}": {metric: mcnemar([bool(r.get(f"{a}_{metric}")) for r in rs], [bool(r.get(f"{b}_{metric}")) for r in rs])
                             for metric in ("hit10_node", "hit5_file")}
@@ -179,13 +231,19 @@ def main(argv=None):
     per_repo = defaultdict(list)
     for r in with_gold:
         per_repo[r["repo"]].append(r)
+    per_repo_all = defaultdict(list)
+    for r in valid:
+        per_repo_all[r["repo"]].append(r)
     summary = {"n_tasks": len(rows), "n_valid": len(valid), "n_with_gold_nodes": len(with_gold),
                "tasks_zero_anchors": wilson(sum(1 for r in valid if r["n_anchors"] == 0), len(valid)),
                "overall_tasks_with_gold_nodes": summ(with_gold),
+               "overall_all_tasks": summ(valid),
                "per_repo": {k: summ(v) for k, v in per_repo.items()},
-               "note": "Hit rates are over tasks with >=1 gold node present in the graph; tasks whose gold "
-                       "functions are all absent (e.g. async) cannot be hit by any graph-based mode and are "
-                       "counted in n_valid - n_with_gold_nodes."}
+               "per_repo_all_tasks": {k: summ(v) for k, v in per_repo_all.items()},
+               "note": "overall_tasks_with_gold_nodes: tasks with >=1 gold node present in the graph. "
+                       "overall_all_tasks: every task with a graph; graph modes (a0, a, b, d, c) score a miss "
+                       "where no gold node exists in the graph; mode e (bm25_snapshot) ranks the real source "
+                       "and is scored against every gold symbol, including those the graph omits."}
     (args.out / "a5_summary.json").write_text(json.dumps(summary, indent=2))
     print(json.dumps(summary, indent=2))
 
