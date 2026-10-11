@@ -50,12 +50,14 @@ this guess with a measurement):
 | Serialization flat / grouped / tree, dev slice | Kaggle | 0.6 |
 | Context 16k vs 32k (or whatever B0 allows), dev slice | Kaggle | 0.4 |
 | Model-size sweep 12B / 9B / E4B, B2 and B3 on dev slice | Kaggle | 1.2 |
+| Final benchmark check: B2 and B3 on all 129 tasks for 12B / 9B / E4B (BF16; smaller models run faster) | Kaggle + GCP | 3 |
 | Held-out slice resolution checks (2 uses) | Kaggle | 0.4 |
-| **Total** | | **about 15.5** |
+| **Total** | | **about 18.5** |
 
 Two GPUs over the 24 days from Oct 13 to Nov 6 give at most 48 GPU-days; assume half is lost to
 setup, failures and Kaggle session limits. The plan fits with margin. If B0 measures more than
-1.5 GPU-days per arm, drop B2/B3 to 2 seeds first, then drop B5, then the size sweep.
+1.5 GPU-days per arm, drop B2/B3 to 2 seeds first, then drop B5, then the dev-slice size sweep
+(the final benchmark check in section 4.4 test 6 is not cut: it decides the paper).
 
 ## 1. B0: bring-up (GCP first, then the same on Kaggle)
 
@@ -177,8 +179,12 @@ date, parameters, and which test in 4.4 it was added to pass.
 
 ### 4.4 The selection criteria (what "performs best" means, fixed before any score is computed)
 
-A version is scored on five tests. All five are computed from cached traces on CPU; only test 5
-needs new GPU time, and only on the held-out slice.
+A version is scored on six tests in two stages. Tests 1 to 5 are the development stage: they
+narrow the candidates using cached traces and the two 24-task slices. Test 6 is the decision
+stage: the version named in the paper is the one that performs best **on the full 129-task SWE
+benchmark in the harness, across all models run** (the 31B competition model and the 12B, 9B and
+E4B variants). Nothing in tests 1 to 5 is reported as the final result; they decide only which
+versions reach test 6.
 
 1. **Within-arm prediction.** On B2 (all seeds, 129 tasks): AUROC of the primary for predicting
    gold-file coverage above the median, and for resolution, with task-cluster bootstrap intervals.
@@ -190,12 +196,50 @@ needs new GPU time, and only on the held-out slice.
 4. **Anti-Goodhart.** The forced-call arm (prompt instructs a graph call every turn; dev slice,
    one seed) must score *worse* than B2 on the primary. v0 fails this by construction; any version
    that passes it has separated calls from useful calls.
-5. **Selection accuracy.** Among the dev-slice ablation arms (section 6), each version picks a
-   winner. The winners are run on the held-out slice for resolution and gold-file coverage. The
-   version whose pick has the best held-out outcome wins; ties go to the simpler version.
+5. **Selection accuracy (held-out slice).** Among the dev-slice ablation arms (section 6), each
+   version picks a winner. The winners are run on the held-out slice for resolution and gold-file
+   coverage. Versions whose pick is within the interval of the best pick advance to test 6; the
+   rest are reported as eliminated.
+6. **Full-benchmark decision, all models.** For every version that reached this stage, and for
+   every model (31B w4a16 from B2/B3; 12B, 9B, E4B from their own full-129 B2 and B3 runs):
+   (a) per-task AUROC of the primary for resolution and for gold-file coverage on all 129 tasks,
+   with task-cluster bootstrap intervals; (b) the B3-vs-B2 ordering holds for that model;
+   (c) the model ordering by scorecard primary agrees with the model ordering by resolution
+   (Kendall tau over the four models). The version with the highest mean AUROC across models
+   that also passes (b) and (c) for every model is the final scorecard. Ties go to the version
+   with fewer components. This test is run once, after everything else, and its result is the
+   paper's headline for the scorecard.
 
 The winning version is frozen as `scorecard.py --version final` and is the one Plan C uses.
-Report all six versions' results in the Writeup, including the failures.
+Report every version's results on all six tests in the Writeup, including the failures.
+
+### 4.5 Scorecard ablations: which part of it is doing the work
+
+Run these on the final version after test 6, on the same cached traces (CPU only, no new runs).
+Report them as a table in the Writeup; a scorecard whose performance cannot be attributed to
+named components is not a resource anyone can reuse.
+
+1. **Leave-one-component-out.** Recompute tests 1, 2 and 6(a) with each component removed from the
+   primary (for single-component primaries, this is the same as test 4.4 on the remaining
+   components as a group). The drop in AUROC per component is its contribution.
+2. **Single-component.** Each component alone as the primary, tests 1 and 6(a). Shows which
+   components carry signal on their own and which only help in combination.
+3. **Add-one-in from v0.** Starting from graph-call count, add components in the order of their
+   single-component AUROC and record the curve. The knee of the curve is the minimal scorecard.
+4. **Parameter sensitivity.** For each free parameter in 4.2 (R definition, link-following window,
+   need label, hub percentile and test share), recompute test 6(a) over the parameter's range on
+   the final version. A parameter the AUROC is flat over is reported as "does not matter" and set
+   to the simplest value.
+5. **Per-cell and per-model attribution.** Repeat 1 and 2 split by d x v cell and by model. The
+   expected pattern, stated as a hypothesis: resolution precision and the async hazard matter most
+   for the 31B model on fastapi; necessity match matters most on d of at least 2 with low v;
+   waste matters most at the shortest context. Any other pattern is reported as found.
+6. **Shapley attribution for the composite (v6 only, if it is the final version).** Exact Shapley
+   values over the eight components on test 6(a), since eight components give 256 subsets, which
+   is cheap on cached traces.
+7. **Oracle swap.** Recompute yield and waste with the *provided* graph as the oracle instead of
+   the Plan A oracle. If the scorecard still works, the audited map was not needed for the metric;
+   if it fails, the Plan A oracle is what makes it work. Either answer is worth a paragraph.
 
 ## 5. Order of work and the validation chain
 
@@ -208,7 +252,9 @@ Report all six versions' results in the Writeup, including the failures.
    variant).
 5. B4 seeds 1 to 2, then B6 seeds 1 to 2. Test 2 for every version. B5 if B5 feasibility passed.
 6. Kaggle ablations (section 6) on the dev slice. Every version picks a winner; run the winners on
-   the held-out slice (test 5). Freeze the final version.
+   the held-out slice (test 5). Eliminate versions that fail.
+6b. Full-129 B2 and B3 for 12B, 9B and E4B (Kaggle for the smaller ones, GCP when free). Test 6
+   across all four models. Freeze the final version. Run the scorecard ablations (4.5).
 7. Payoff surface: mixed-effects logistic regression with task random effects, condition x d x v,
    on steps-to-first-gold-read, gold-file coverage, second-file discovery, resolution; per repo and
    pooled. The final scorecard's components enter as covariates in a second model to show which
@@ -228,8 +274,11 @@ Each changes one thing. Each is one seed on the 24-task dev slice unless noted.
 | Context 16k vs max | `max_model_len` | waste rises before localization falls | waste is not an early warning; redefine it |
 | Size sweep 12B / 9B / E4B (BF16, B2 and B3) | model | necessity match and yield rise with size; waste falls | the scorecard does not track competence |
 
+The size sweep is run first on the dev slice (to catch serving problems cheaply) and then on all
+129 tasks for B2 and B3, because test 6 needs the full benchmark for every model.
+
 Serialization and context need the same harness patch mechanism as B6; schedule them after B6's
-patch exists. The size sweep runs only if GPU time remains after test 5.
+patch exists. The size sweep is not optional: its full-129 runs are the input to test 6.
 
 ## 7. Reporting rules
 
@@ -265,6 +314,68 @@ patch exists. The size sweep runs only if GPU time remains after test 5.
 | Oct 20 | B2 and B3 complete; tests 1 and 3; label v2 |
 | Oct 22 | Forced-call and qualified-names on Kaggle; test 4; tool-channel note submitted |
 | Oct 27 | B4 and B6 complete; test 2 |
-| Oct 31 | Ablations done; held-out runs; test 5; final version frozen |
+| Oct 31 | Dev-slice ablations done; held-out runs; test 5 |
+| Nov 2 | Full-129 B2/B3 for 12B, 9B, E4B done; test 6 across all models; final version frozen; scorecard ablations (4.5) |
 | Nov 4 | Plan B Writeup submitted |
 | Nov 5 to 10 | Plan C with the frozen scorecard |
+
+## 10. How the frozen scorecard feeds Plan C, with weights
+
+Plan C needs three things from Plan B: a selection signal for prompt variants and checkpoints
+(C2a, C4, C5), a per-segment reward for the adoption LoRA (C5), and a need label for the
+necessity probe (C3). All three are derived from the final scorecard and its ablations, and all
+three carry weights that are **fixed from Plan B's results and never retuned inside Plan C**.
+
+### 10.1 Selection signal (C2a prompt variants, C4 probe thresholds, C5 epochs)
+
+The signal is a weighted sum over components, computed on the 24-task dev slice:
+
+    S = sum_i w_i * z_i   subject to the veto below
+
+where `z_i` is component `i` standardized against the B2 distribution (mean 0, sd 1 across B2
+tasks and seeds, so every component is on the same scale), and `w_i` comes from the ablations:
+
+- `w_i` = the leave-one-out drop in test 6(a) AUROC for component `i` (section 4.5 item 1),
+  normalized so the weights sum to 1. A component whose drop is within its bootstrap interval of
+  zero gets `w_i = 0` and is removed from `S`.
+- Sign: components where higher is better (resolution precision, yield, link-following,
+  necessity match) enter positively; waste and the async hazard enter negatively.
+- Veto: the hallucination channel is not weighted. A candidate whose channel rate exceeds B2's
+  by more than its Wilson interval is rejected before `S` is compared.
+- Localization outcomes are not in `S`. They are what `S` is validated against, and a selection
+  signal that includes its own target is circular.
+
+Pre-registered default, used only if the ablations are not finished when Plan C starts:
+yield 0.35, resolution precision 0.20, necessity match 0.20, link-following 0.15, waste -0.10,
+with the veto. The Writeup states which weights were actually used and where they came from.
+
+### 10.2 Per-segment reward for the adoption LoRA (C5)
+
+C5 computes loss only on high-value segments (the SWE-Prime recipe). A segment is one assistant
+turn that issues a graph call plus the turn that consumes its result. Its value is
+
+    r_seg = w_yield * [returned nodes intersect R]
+          + w_follow * [next read_file lands on a returned node's file]
+          + w_prec  * [argument resolved to the intended node]
+          - w_waste * [returned node already seen or hub-of-tests]
+          - w_async * [argument named a function with no node]
+
+with the same `w_i` as 10.1, restricted to the components that have a per-call definition
+(necessity match is per task and is not in `r_seg`). Segments with `r_seg` above the B2 median
+are trained on; the rest contribute no loss. Tool-call validity is checked first, as the lit
+review's SFT failure case requires, and the training trajectories exclude both slices.
+
+### 10.3 Need label for the probe (C3, C4)
+
+The probe's positive class is the counterfactual label v2 from Plan B (tools-arm found the gold
+file, no-tools arm did not). If v2 has fewer than 10 positives, fall back to label v1 (d of at
+least 1 or v low) and say so. The probe is not trained on scorecard values; the scorecard enters
+C3 only through the label, and C4 only through the selection signal when choosing the prefill
+threshold.
+
+### 10.4 What Plan C may not do
+
+Retune `w_i`, change a component's parameters, or swap the scorecard version. Any such change is a
+new scorecard version, goes through tests 1 to 6 again, and is reported as Plan C's finding, not
+as a selection choice. The held-out slice is not used in Plan C; Plan C's final check is the full
+129 with the frozen scorecard and resolution side by side.
