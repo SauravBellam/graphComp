@@ -1,0 +1,46 @@
+
+$ /home/sauravbellam/cache/a2/requests_7309/venv/bin/python -m pip install -q --disable-pip-version-check 'pip>=24' 'setuptools' 'wheel' pytest pytest-timeout
+[exit 0]
+
+
+
+$ /home/sauravbellam/cache/a2/requests_7309/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-build-isolation --no-deps -e .
+[exit 0]
+
+
+
+$ /home/sauravbellam/cache/a2/requests_7309/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e .
+[exit 0]
+
+
+
+$ /home/sauravbellam/cache/a2/requests_7309/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e '.[test]'
+[exit 0]
+
+
+
+$ /home/sauravbellam/cache/a2/requests_7309/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -r requirements-dev.txt
+[exit 0]
+
+
+
+$ /home/sauravbellam/cache/a2/requests_7309/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels pytest-httpbin httpbin trustme pysocks
+[exit 0]
+
+
+
+$ /home/sauravbellam/cache/a2/requests_7309/venv/bin/python -c "import importlib,sys; print(sys.version)"
+[exit 0]
+3.13.5 (main, Aug 10 2026, 12:06:59) [GCC 14.2.0]
+
+
+
+$ git apply --unsafe-paths  /home/sauravbellam/cache/a2/requests_7309/test.patch
+[exit 0]
+
+
+
+$ git apply --unsafe-paths  /home/sauravbellam/cache/a2/requests_7309/gold.patch
+[exit 0]
+
+

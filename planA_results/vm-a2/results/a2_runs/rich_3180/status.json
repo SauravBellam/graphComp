@@ -1,0 +1,88 @@
+{
+  "instance_id": "rich_3180",
+  "repo": "Textualize/rich",
+  "backend": "venv",
+  "done": true,
+  "deps": {
+    "steps": [
+      {
+        "name": "pip_upgrade",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3180/venv/bin/python -m pip install -q --disable-pip-version-check 'pip>=24' 'setuptools' 'wheel' pytest pytest-timeout",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "editable_no_deps",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3180/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-build-isolation --no-deps -e .",
+        "exit": 2,
+        "stderr_tail": "python3.13/site-packages/pip/_internal/req/req_install.py\", line 258, in supports_pyproject_editable\n    return \"build_editable\" in self.pep517_backend._supported_features()\n                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"/home/sauravbellam/cache/a2/rich_3180/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 180, in _supported_features\n    return self._call_hook(\"_supported_features\", {})\n           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/sauravbellam/cache/a2/rich_3180/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 402, in _call_hook\n    raise BackendUnavailable(\n    ...<4 lines>...\n    )\npip._vendor.pyproject_hooks._impl.BackendUnavailable: Cannot import 'poetry.core.masonry.api'\n"
+      },
+      {
+        "name": "editable_no_deps_isolated",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3180/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-deps -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "runtime_deps",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3180/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "poetry_group_dev",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3180/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels pytest black mypy pytest-cov attrs pre-commit asv",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "rich_tests",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3180/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels pytest-cov attrs ipywidgets",
+        "exit": 0,
+        "stderr_tail": ""
+      }
+    ],
+    "editable_ok": true,
+    "python": "3.13.5 (main, Aug 10 2026, 12:06:59) [GCC 14.2.0]"
+  },
+  "targets": [
+    "tests/test_cells.py",
+    "tests/test_text.py"
+  ],
+  "test_patch_strategy": "exact",
+  "test_patch_applied": true,
+  "pre": {
+    "exit": 1,
+    "seconds": 1.7,
+    "timeout": false,
+    "exit_meaning": "some_failed",
+    "run_class": "clean",
+    "counts": {
+      "failed": 4,
+      "passed": 110
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "....FFF...........................................F..................... [ 63%]\n..........................................                               [100%]\n=================================== FAILURES ===================================\n_______________________________ test_chop_cells ________________________________\n\n    def test_chop_cells():\n        \"\"\"Simple example of splitting cells into lines of width 3.\"\"\"\n        text = \"abcdefghijk\"\n>       assert chop_cells(text, 3) == [\"abc\", \"def\", \"ghi\", \"jk\"]\nE       AssertionError: assert ['kji', 'hgf', 'edc', 'ba'] == ['abc', 'def', 'ghi', 'jk']\nE         \nE         At index 0 diff: 'kji' != 'abc'\nE         Use -v to get more diff\n\ntests/test_cells.py:49: AssertionError\n____________________ test_chop_cells_double_width_boundary _____________________\n\n    def test_chop_cells_double_width_boundary():\n        \"\"\"The available width lies within a double-width character.\"\"\"\n        text = \"\u3042\u308a\u304c\u3068\u3046\"\n>       assert chop_cells(text, 3) == [\"\u3042\", \"\u308a\", \"\u304c\", \"\u3068\", \"\u3046\"]\nE       AssertionError: assert ['\u3046', '\u3068', '\u304c', '\u308a', '\u3042'] == ['\u3042', '\u308a', '\u304c', '\u3068', '\u3046']\nE         \nE         At index 0 diff: '\u3046' != '\u3042'\nE         Use -v to get more diff\n\ntests/test_cells.py:55: AssertionError\n_________________________ test_chop_cells_mixed_width __________________________\n\n    def test_chop_cells_mixed_width():\n        \"\"\"Mixed single and double-width characters.\"\"\"\n        text = \"\u30421\u308a234\u304c5\u30686\u304678\"\n>       assert chop_cells(text, 3) == [\"\u30421\", \"\u308a2\", \"34\", \"\u304c5\", \"\u30686\", \"\u30467\", \"8\"]\nE       AssertionError: assert ['87', '\u30466', ...2', '\u308a1', ...] == ['\u30421', '\u308a2', ...6', '\u30467', ...]\nE         \nE         At index 0 diff: '87' != '\u30421'\nE         Use -v to get more diff\n\ntests/test_cells.py:61: AssertionError\n_____________________________ test_wrap_cjk_mixed ______________________________\n\n    def test_wrap_cjk_mixed():\n        \"\"\"Regression test covering https://github.com/Textualize/rich/issues/3176 and\n        https://github.com/Textualize/textual/issues/3567 - double width characters could\n        result in text going missing when wrapping.\"\"\"\n        text = Text(\"123\u3042\u308a\u304c\u3068\u3046\u3054\u3056\u3044\u307e\u3057\u305f\")\n        console = Console(width=20)  # let's ensure the width passed to wrap() wins.\n    \n        wrapped_lines = text.wrap(console, width=8)\n        with console.capture() as capture:\n            console.print(wrapped_lines)\n    \n>       assert capture.get() == \"123\u3042\u308a\\n\u304c\u3068\u3046\u3054\\n\u3056\u3044\u307e\u3057\\n\u305f\\n\"\nE       AssertionError: assert '123\u3042\\n\u308a\u304c\u3068\u3046\\n\u3054\u3056\u3044\u307e\\n\u305f\\n' == '123\u3042\u308a\\n\u304c\u3068\u3046\u3054\\n\u3056\u3044\u307e\u3057\\n\u305f\\n'\nE         \nE         - 123\u3042\u308a\nE         ?     -\nE         + 123\u3042\nE         - \u304c\u3068\u3046\u3054\nE         ?    -\nE         + \u308a\u304c\u3068\u3046...\nE         \nE         ...Full output truncated (6 lines hidden), use '-vv' to show\n\ntests/test_text.py:463: AssertionError\n4 failed, 110 passed in 1.30s\n",
+    "stderr_tail": ""
+  },
+  "gold_patch_strategy": "exact",
+  "gold_patch_applied": true,
+  "post": {
+    "exit": 0,
+    "seconds": 1.2,
+    "timeout": false,
+    "exit_meaning": "all_passed",
+    "run_class": "clean",
+    "counts": {
+      "passed": 114
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "........................................................................ [ 63%]\n..........................................                               [100%]\n114 passed in 0.99s\n",
+    "stderr_tail": ""
+  },
+  "trace_pre_exists": true,
+  "trace_post_exists": true,
+  "seconds": 35.8
+}

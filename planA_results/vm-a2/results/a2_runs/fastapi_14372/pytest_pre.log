@@ -1,0 +1,26 @@
+
+$ /home/sauravbellam/cache/a2/fastapi_14372/venv/bin/python -s -m pytest tests/test_depends_hashable.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/fastapi_14372/trace_pre.xml
+[exit 1]
+F                                                                        [100%]
+=================================== FAILURES ===================================
+____________________________ test_depends_hashable _____________________________
+
+    def test_depends_hashable():
+        dep()  # just for coverage
+        d1 = Depends(dep)
+        d2 = Depends(dep)
+        d3 = Depends(dep, scope="function")
+        d4 = Depends(dep, scope="function")
+    
+        s1 = Security(dep)
+        s2 = Security(dep)
+    
+>       assert hash(d1) == hash(d2)
+               ^^^^^^^^
+E       TypeError: unhashable type: 'Depends'
+
+tests/test_depends_hashable.py:22: TypeError
+- generated xml file: /home/sauravbellam/results/a2_runs/fastapi_14372/trace_pre.xml -
+1 failed in 1.38s
+
+

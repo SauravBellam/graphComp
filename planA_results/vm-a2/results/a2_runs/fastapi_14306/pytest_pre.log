@@ -1,0 +1,104 @@
+
+$ /home/sauravbellam/cache/a2/fastapi_14306/venv/bin/python -s -m pytest tests/test_validation_error_context.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/fastapi_14306/trace_pre.xml
+[exit 1]
+FFFFFFF                                                                  [100%]
+=================================== FAILURES ===================================
+___________ test_request_validation_error_includes_endpoint_context ____________
+
+    def test_request_validation_error_includes_endpoint_context():
+        captured_exception.exception = None
+        try:
+            client.get("/users/invalid")
+        except Exception:
+            pass
+    
+        assert captured_exception.exception is not None
+        error_str = str(captured_exception.exception)
+>       assert "get_user" in error_str
+E       assert 'get_user' in "[{'type': 'int_parsing', 'loc': ('path', 'user_id'), 'msg': 'Input should be a valid integer, unable to parse string as an integer', 'input': 'invalid'}]"
+
+tests/test_validation_error_context.py:96: AssertionError
+___________ test_response_validation_error_includes_endpoint_context ___________
+
+    def test_response_validation_error_includes_endpoint_context():
+        captured_exception.exception = None
+        try:
+            client.get("/items/")
+        except Exception:
+            pass
+    
+        assert captured_exception.exception is not None
+        error_str = str(captured_exception.exception)
+>       assert "get_item" in error_str
+E       assert 'get_item' in "1 validation errors:\n  {'type': 'missing', 'loc': ('response', 'id'), 'msg': 'Field required', 'input': {'name': 'Widget'}}\n"
+
+tests/test_validation_error_context.py:109: AssertionError
+__________ test_websocket_validation_error_includes_endpoint_context ___________
+
+    def test_websocket_validation_error_includes_endpoint_context():
+        captured_exception.exception = None
+        try:
+            with client.websocket_connect("/ws/invalid"):
+                pass  # pragma: no cover
+        except Exception:
+            pass
+    
+        assert captured_exception.exception is not None
+        error_str = str(captured_exception.exception)
+>       assert "websocket_endpoint" in error_str
+E       assert 'websocket_endpoint' in "[{'type': 'int_parsing', 'loc': ('path', 'item_id'), 'msg': 'Input should be a valid integer, unable to parse string as an integer', 'input': 'invalid'}]"
+
+tests/test_validation_error_context.py:123: AssertionError
+________ test_subapp_request_validation_error_includes_endpoint_context ________
+
+    def test_subapp_request_validation_error_includes_endpoint_context():
+        captured_exception.exception = None
+        try:
+            client.get("/sub/items/")
+        except Exception:
+            pass
+    
+        assert captured_exception.exception is not None
+        error_str = str(captured_exception.exception)
+>       assert "get_sub_item" in error_str
+E       assert 'get_sub_item' in "1 validation errors:\n  {'type': 'missing', 'loc': ('response', 'id'), 'msg': 'Field required', 'input': {'name': 'Widget'}}\n"
+
+tests/test_validation_error_context.py:136: AssertionError
+_______ test_subapp_websocket_validation_error_includes_endpoint_context _______
+
+    def test_subapp_websocket_validation_error_includes_endpoint_context():
+        captured_exception.exception = None
+        try:
+            with client.websocket_connect("/sub/ws/invalid"):
+                pass  # pragma: no cover
+        except Exception:
+            pass
+    
+        assert captured_exception.exception is not None
+        error_str = str(captured_exception.exception)
+>       assert "subapp_websocket_endpoint" in error_str
+E       assert 'subapp_websocket_endpoint' in "[{'type': 'int_parsing', 'loc': ('path', 'item_id'), 'msg': 'Input should be a valid integer, unable to parse string as an integer', 'input': 'invalid'}]"
+
+tests/test_validation_error_context.py:150: AssertionError
+_____________________ test_validation_error_with_only_path _____________________
+
+    def test_validation_error_with_only_path():
+        errors = [{"type": "missing", "loc": ("body", "name"), "msg": "Field required"}]
+>       exc = RequestValidationError(errors, endpoint_ctx={"path": "GET /api/test"})
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: RequestValidationError.__init__() got an unexpected keyword argument 'endpoint_ctx'
+
+tests/test_validation_error_context.py:156: TypeError
+____________________ test_validation_error_with_no_context _____________________
+
+    def test_validation_error_with_no_context():
+        errors = [{"type": "missing", "loc": ("body", "name"), "msg": "Field required"}]
+>       exc = RequestValidationError(errors, endpoint_ctx={})
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: RequestValidationError.__init__() got an unexpected keyword argument 'endpoint_ctx'
+
+tests/test_validation_error_context.py:164: TypeError
+- generated xml file: /home/sauravbellam/results/a2_runs/fastapi_14306/trace_pre.xml -
+7 failed in 2.10s
+
+

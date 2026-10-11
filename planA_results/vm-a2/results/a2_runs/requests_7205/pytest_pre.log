@@ -1,0 +1,31 @@
+
+$ /home/sauravbellam/cache/a2/requests_7205/venv/bin/python -s -m pytest tests/test_utils.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/requests_7205/trace_pre.xml
+[exit 1]
+..s................F.................................................... [ 32%]
+........................................................................ [ 65%]
+..........................................................sssssssssss... [ 98%]
+..s                                                                      [100%]
+=================================== FAILURES ===================================
+___________ TestGetNetrcAuth.test_empty_default_credentials_ignored ____________
+
+self = <tests.test_utils.TestGetNetrcAuth object at 0x7ff5a0c3a650>
+tmp_path = PosixPath('/tmp/pytest-of-sauravbellam/pytest-3/test_empty_default_credentials0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7ff5a09420f0>
+
+    def test_empty_default_credentials_ignored(self, tmp_path, monkeypatch):
+        """Empty default credentials should not be returned."""
+        netrc_path = tmp_path / ".netrc"
+        monkeypatch.setenv("NETRC", str(netrc_path))
+        with open(netrc_path, "w") as f:
+            f.write("machine example.com login user password pass\ndefault\n")
+    
+        auth = get_netrc_auth("http://httpbin.org/")
+>       assert auth is None
+E       AssertionError: assert ('', '') is None
+
+tests/test_utils.py:181: AssertionError
+- generated xml file: /home/sauravbellam/results/a2_runs/requests_7205/trace_pre.xml -
+1 failed, 205 passed, 13 skipped in 1.24s
+
+[2026-10-10 23:16:07,837] WARNING in core: flasgger is not installed; serving the static landing page at / and skipping the Swagger UI and /spec.json.
+

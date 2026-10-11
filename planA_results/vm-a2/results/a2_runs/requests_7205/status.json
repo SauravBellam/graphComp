@@ -1,0 +1,89 @@
+{
+  "instance_id": "requests_7205",
+  "repo": "psf/requests",
+  "backend": "venv",
+  "done": true,
+  "deps": {
+    "steps": [
+      {
+        "name": "pip_upgrade",
+        "cmd": "/home/sauravbellam/cache/a2/requests_7205/venv/bin/python -m pip install -q --disable-pip-version-check 'pip>=24' 'setuptools' 'wheel' pytest pytest-timeout",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "editable_no_deps",
+        "cmd": "/home/sauravbellam/cache/a2/requests_7205/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-build-isolation --no-deps -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "runtime_deps",
+        "cmd": "/home/sauravbellam/cache/a2/requests_7205/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "extra_test",
+        "cmd": "/home/sauravbellam/cache/a2/requests_7205/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e '.[test]'",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "req_requirements-dev.txt",
+        "cmd": "/home/sauravbellam/cache/a2/requests_7205/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -r requirements-dev.txt",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "requests_httpbin",
+        "cmd": "/home/sauravbellam/cache/a2/requests_7205/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels pytest-httpbin httpbin trustme pysocks",
+        "exit": 0,
+        "stderr_tail": ""
+      }
+    ],
+    "editable_ok": true,
+    "python": "3.13.5 (main, Aug 10 2026, 12:06:59) [GCC 14.2.0]"
+  },
+  "targets": [
+    "tests/test_utils.py"
+  ],
+  "test_patch_strategy": "exact",
+  "test_patch_applied": true,
+  "pre": {
+    "exit": 1,
+    "seconds": 2.2,
+    "timeout": false,
+    "exit_meaning": "some_failed",
+    "run_class": "clean",
+    "counts": {
+      "failed": 1,
+      "passed": 205,
+      "skipped": 13
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "..s................F.................................................... [ 32%]\n........................................................................ [ 65%]\n..........................................................sssssssssss... [ 98%]\n..s                                                                      [100%]\n=================================== FAILURES ===================================\n___________ TestGetNetrcAuth.test_empty_default_credentials_ignored ____________\n\nself = <tests.test_utils.TestGetNetrcAuth object at 0x7ff5a0c3a650>\ntmp_path = PosixPath('/tmp/pytest-of-sauravbellam/pytest-3/test_empty_default_credentials0')\nmonkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7ff5a09420f0>\n\n    def test_empty_default_credentials_ignored(self, tmp_path, monkeypatch):\n        \"\"\"Empty default credentials should not be returned.\"\"\"\n        netrc_path = tmp_path / \".netrc\"\n        monkeypatch.setenv(\"NETRC\", str(netrc_path))\n        with open(netrc_path, \"w\") as f:\n            f.write(\"machine example.com login user password pass\\ndefault\\n\")\n    \n        auth = get_netrc_auth(\"http://httpbin.org/\")\n>       assert auth is None\nE       AssertionError: assert ('', '') is None\n\ntests/test_utils.py:181: AssertionError\n- generated xml file: /home/sauravbellam/results/a2_runs/requests_7205/trace_pre.xml -\n1 failed, 205 passed, 13 skipped in 1.24s\n",
+    "stderr_tail": "[2026-10-10 23:16:07,837] WARNING in core: flasgger is not installed; serving the static landing page at / and skipping the Swagger UI and /spec.json.\n"
+  },
+  "gold_patch_strategy": "exact",
+  "gold_patch_applied": true,
+  "post": {
+    "exit": 0,
+    "seconds": 2.3,
+    "timeout": false,
+    "exit_meaning": "all_passed",
+    "run_class": "clean",
+    "counts": {
+      "passed": 206,
+      "skipped": 13
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "..s..................................................................... [ 32%]\n........................................................................ [ 65%]\n..........................................................sssssssssss... [ 98%]\n..s                                                                      [100%]\n- generated xml file: /home/sauravbellam/results/a2_runs/requests_7205/trace_post.xml -\n206 passed, 13 skipped in 1.24s\n",
+    "stderr_tail": "[2026-10-10 23:16:10,121] WARNING in core: flasgger is not installed; serving the static landing page at / and skipping the Swagger UI and /spec.json.\n"
+  },
+  "trace_pre_exists": true,
+  "trace_post_exists": true,
+  "seconds": 41.4
+}

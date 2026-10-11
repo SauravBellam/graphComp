@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="1" time="1.377" timestamp="2026-10-10T23:20:02.074726+00:00" hostname="vm-a2"><testcase classname="tests.test_wrapped_method_forward_reference" name="test_wrapped_method_type_inference" time="0.195" /></testsuite></testsuites>

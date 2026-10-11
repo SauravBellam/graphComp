@@ -1,0 +1,85 @@
+{
+  "instance_id": "requests_7328",
+  "repo": "psf/requests",
+  "backend": "venv",
+  "done": true,
+  "deps": {
+    "steps": [
+      {
+        "name": "pip_upgrade",
+        "cmd": "/home/sauravbellam/cache/a2/requests_7328/venv/bin/python -m pip install -q --disable-pip-version-check 'pip>=24' 'setuptools' 'wheel' pytest pytest-timeout",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "editable_no_deps",
+        "cmd": "/home/sauravbellam/cache/a2/requests_7328/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-build-isolation --no-deps -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "runtime_deps",
+        "cmd": "/home/sauravbellam/cache/a2/requests_7328/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "req_requirements-dev.txt",
+        "cmd": "/home/sauravbellam/cache/a2/requests_7328/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -r requirements-dev.txt",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "requests_httpbin",
+        "cmd": "/home/sauravbellam/cache/a2/requests_7328/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels pytest-httpbin httpbin trustme pysocks",
+        "exit": 0,
+        "stderr_tail": ""
+      }
+    ],
+    "editable_ok": true,
+    "python": "3.13.5 (main, Aug 10 2026, 12:06:59) [GCC 14.2.0]"
+  },
+  "targets": [
+    "tests/test_requests.py"
+  ],
+  "test_patch_strategy": "exact",
+  "test_patch_applied": true,
+  "pre": {
+    "exit": 1,
+    "seconds": 48.7,
+    "timeout": false,
+    "exit_meaning": "some_failed",
+    "run_class": "clean",
+    "counts": {
+      "failed": 1,
+      "passed": 335,
+      "skipped": 1,
+      "xfailed": 1
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": ".................................F...................................... [ 21%]\n.................................................s...................... [ 42%]\n........................................................................ [ 63%]\n.......................x................................................ [ 85%]\n..................................................                       [100%]\n=================================== FAILURES ===================================\n_____________ TestRequests.test_redirect_history_no_self_reference _____________\n\nself = <tests.test_requests.TestRequests object at 0x7f3e986a7b10>\nhttpbin = <function prepare_url.<locals>.inner at 0x7f3e995999e0>\n\n    def test_redirect_history_no_self_reference(self, httpbin):\n        r = requests.get(httpbin(\"redirect\", \"3\"))\n        assert r.status_code == 200\n        assert len(r.history) == 3\n        for i, resp in enumerate(r.history):\n>           assert resp not in resp.history\nE           assert <Response [302]> not in [<Response [302]>]\nE            +  where [<Response [302]>] = <Response [302]>.history\n\ntests/test_requests.py:225: AssertionError\n----------------------------- Captured stderr call -----------------------------\n127.0.0.1 - - [10/Oct/2026 23:15:28] \"GET /redirect/3 HTTP/1.1\" 302 227\n127.0.0.1 - - [10/Oct/2026 23:15:28] \"GET /relative-redirect/2 HTTP/1.1\" 302 0\n127.0.0.1 - - [10/Oct/2026 23:15:28] \"GET /relative-redirect/1 HTTP/1.1\" 302 0\n127.0.0.1 - - [10/Oct/2026 23:15:28] \"GET /get HTTP/1.1\" 200 272\n=============================== warnings summary ===============================\ntests/test_requests.py::TestPreparingURLs::test_different_connection_pool_for_tls_settings_verify_True\ntests/test_requests.py::TestPreparingURLs::test_different_connection_pool_for_tls_settings_verify_bundle_expired_cert\ntests/test_requests.py::TestPreparingURLs::test_different_connection_pool_for_tls_settings_verify_bundle_unexpired_cert\ntests/test_requests.py::TestPreparingURLs::test_different_connection_pool_for_mtls_settings\n  /home/sauravbellam/cache/a2/requests_7328/venv/lib/python3.13/site-packages/urllib3/connectionpool.py:1129: InsecureRequestWarning: Unverified HTTPS request is being made to host 'localhost'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings\n    warnings.warn(\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n- generated xml file: /home/sauravbellam/results/a2_runs/requests_7328/trace_pre.xml -\n1 failed, 335 passed, 1 skipped, 1 xfailed, 4 warnings in 47.68s\n",
+    "stderr_tail": "[2026-10-10 23:15:26,448] WARNING in core: flasgger is not installed; serving the static landing page at / and skipping the Swagger UI and /spec.json.\n127.0.0.1 - - [10/Oct/2026 23:15:29] \"POST /post HTTP/1.1\" 200 363\n127.0.0.1 - - [10/Oct/2026 23:15:29] \"GET /relative-redirect/20 HTTP/1.1\" 302 0\n127.0.0.1 - - [10/Oct/2026 23:15:29] \"HEAD /get HTTP/1.1\" 200 0\n127.0.0.1 - - [10/Oct/2026 23:15:29] \"HEAD /get HTTP/1.1\" 200 0\n127.0.0.1 - - [10/Oct/2026 23:15:32] \"GET /get HTTP/1.1\" 200 313\n127.0.0.1 - - [10/Oct/2026 23:15:32] \"GET /basic-auth/user/pass HTTP/1.1\" 200 46\n127.0.0.1 - - [10/Oct/2026 23:15:33] \"POST /post HTTP/1.1\" 200 416\n127.0.0.1 - - [10/Oct/2026 23:15:33] \"GET /get?f%C3%B8%C3%B8=f%C3%B8%C3%B8 HTTP/1.1\" 200 340\n127.0.0.1 - - [10/Oct/2026 23:15:34] \"POST /post HTTP/1.1\" 200 114077\n127.0.0.1 - - [10/Oct/2026 23:15:34] \"POST /post HTTP/1.1\" 200 114053\n127.0.0.1 - - [10/Oct/2026 23:15:34] \"GET / HTTP/1.1\" 200 13760\n127.0.0.1 - - [10/Oct/2026 23:15:34] \"GET /headers HTTP/1.1\" 200 239\n127.0.0.1 - - [10/Oct/2026 23:15:34] \"GET /get?foo=bar&FOO=bar HTTP/1.1\" 200 326\n127.0.0.1 - - [10/Oct/2026 23:15:35] \"GET /get HTTP/1.1\" 200 272\n127.0.0.1 - - [10/Oct/2026 23:15:35] \"GET /status/204 HTTP/1.1\" 204 0\n127.0.0.1 - - [10/Oct/2026 23:16:05] \"GET /status/500 HTTP/1.1\" 500 0\n127.0.0.1 - - [10/Oct/2026 23:16:05] \"GET /status/200 HTTP/1.1\" 200 0\n127.0.0.1 - - [10/Oct/2026 23:16:06] \"GET /redirect-to?url=http%3A%2F%2F%3A1 HTTP/1.1\" 302 0\n"
+  },
+  "gold_patch_strategy": "exact",
+  "gold_patch_applied": true,
+  "post": {
+    "exit": 0,
+    "seconds": 49.3,
+    "timeout": false,
+    "exit_meaning": "all_passed",
+    "run_class": "clean",
+    "counts": {
+      "passed": 336,
+      "skipped": 1,
+      "xfailed": 1
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "........................................................................ [ 21%]\n.................................................spytest-httpbin server hit an exception serving request: [SSL: TLSV1_ALERT_UNKNOWN_CA] tlsv1 alert unknown ca (_ssl.c:1029)\nattempting to ignore so the rest of the tests can run\n...................... [ 42%]\n........................................................................ [ 63%]\n.......................x................................................ [ 85%]\n..................................................                       [100%]\n=============================== warnings summary ===============================\ntests/test_requests.py::TestPreparingURLs::test_different_connection_pool_for_tls_settings_verify_True\ntests/test_requests.py::TestPreparingURLs::test_different_connection_pool_for_tls_settings_verify_bundle_expired_cert\ntests/test_requests.py::TestPreparingURLs::test_different_connection_pool_for_tls_settings_verify_bundle_unexpired_cert\ntests/test_requests.py::TestPreparingURLs::test_different_connection_pool_for_mtls_settings\n  /home/sauravbellam/cache/a2/requests_7328/venv/lib/python3.13/site-packages/urllib3/connectionpool.py:1129: InsecureRequestWarning: Unverified HTTPS request is being made to host 'localhost'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings\n    warnings.warn(\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n- generated xml file: /home/sauravbellam/results/a2_runs/requests_7328/trace_post.xml -\n336 passed, 1 skipped, 1 xfailed, 4 warnings in 48.17s\n",
+    "stderr_tail": "[2026-10-10 23:16:15,032] WARNING in core: flasgger is not installed; serving the static landing page at / and skipping the Swagger UI and /spec.json.\n127.0.0.1 - - [10/Oct/2026 23:16:17] \"GET /cookies HTTP/1.1\" 200 40\n127.0.0.1 - - [10/Oct/2026 23:16:17] \"GET /cookies HTTP/1.1\" 200 40\n127.0.0.1 - - [10/Oct/2026 23:16:18] \"GET /get HTTP/1.1\" 200 272\n127.0.0.1 - - [10/Oct/2026 23:16:21] \"GET /basic-auth/user/pass HTTP/1.1\" 200 46\n127.0.0.1 - - [10/Oct/2026 23:16:22] \"POST /post HTTP/1.1\" 200 416\n127.0.0.1 - - [10/Oct/2026 23:16:22] \"POST /post HTTP/1.1\" 200 438\n127.0.0.1 - - [10/Oct/2026 23:16:22] \"GET /gzip HTTP/1.1\" 200 196\n127.0.0.1 - - [10/Oct/2026 23:16:23] \"GET /get?test=foo&test=baz HTTP/1.1\" 200 338\n127.0.0.1 - - [10/Oct/2026 23:16:23] \"POST /post HTTP/1.1\" 200 114087\n127.0.0.1 - - [10/Oct/2026 23:16:23] \"GET /headers HTTP/1.1\" 200 239\n127.0.0.1 - - [10/Oct/2026 23:16:23] \"GET /get HTTP/1.1\" 200 272\n127.0.0.1 - - [10/Oct/2026 23:16:24] \"GET /status/204 HTTP/1.1\" 204 0\n127.0.0.1 - - [10/Oct/2026 23:16:54] \"GET /status/200 HTTP/1.1\" 200 0\n127.0.0.1 - - [10/Oct/2026 23:16:54] \"GET /redirect-to?url=http%3A%2F%2F%3A1 HTTP/1.1\" 302 0\n"
+  },
+  "trace_pre_exists": true,
+  "trace_post_exists": true,
+  "seconds": 128.5
+}

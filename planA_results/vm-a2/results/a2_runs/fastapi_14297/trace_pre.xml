@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="3" skipped="3" tests="14" time="3.675" timestamp="2026-10-10T23:23:04.766758+00:00" hostname="vm-a2"><testcase classname="tests.test_compat" name="test_model_field_default_required" time="0.002" /><testcase classname="tests.test_compat" name="test_v1_plain_validator_function" time="0.000"><skipped type="pytest.skip" message="requires python3.13-">/home/sauravbellam/cache/a2/fastapi_14297/workspace/tests/test_compat.py:30: requires python3.13-</skipped></testcase><testcase classname="tests.test_compat" name="test_is_model_field" time="0.001" /><testcase classname="tests.test_compat" name="test_get_model_config" time="0.001" /><testcase classname="tests.test_compat" name="test_complex" time="0.199" /><testcase classname="tests.test_compat" name="test_propagates_pydantic2_model_config" time="0.022" /><testcase classname="tests.test_compat" name="test_is_bytes_sequence_annotation_union" time="0.002" /><testcase classname="tests.test_compat" name="test_is_uploadfile_sequence_annotation" time="0.002" /><testcase classname="tests.test_compat" name="test_serialize_sequence_value_with_optional_list" time="0.003"><failure message="TypeError: issubclass() arg 1 must be a class">@needs_pydanticv2
+    def test_serialize_sequence_value_with_optional_list():
+        """Test that serialize_sequence_value handles optional lists correctly."""
+        from fastapi._compat import v2
+    
+        field_info = FieldInfo(annotation=Union[List[str], None])
+        field = v2.ModelField(name="items", field_info=field_info)
+&gt;       result = v2.serialize_sequence_value(field=field, value=["a", "b", "c"])
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_compat.py:146: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+fastapi/_compat/v2.py:374: in serialize_sequence_value
+    assert issubclass(origin_type, shared.sequence_types)  # type: ignore[arg-type]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.13/typing.py:1669: in __subclasscheck__
+    return issubclass(cls, self.__origin__)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+cls = &lt;class 'collections.abc.Sequence'&gt;, subclass = typing.Union
+
+&gt;   ???
+E   TypeError: issubclass() arg 1 must be a class
+
+&lt;frozen abc&gt;:123: TypeError</failure></testcase><testcase classname="tests.test_compat" name="test_serialize_sequence_value_with_none_first_in_union" time="0.002"><failure message="TypeError: issubclass() arg 1 must be a class">@needs_pydanticv2
+    def test_serialize_sequence_value_with_none_first_in_union():
+        """Test that serialize_sequence_value handles Union[None, List[...]] correctly."""
+        from fastapi._compat import v2
+    
+        field_info = FieldInfo(annotation=Union[None, List[str]])
+        field = v2.ModelField(name="items", field_info=field_info)
+&gt;       result = v2.serialize_sequence_value(field=field, value=["x", "y"])
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_compat.py:158: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+fastapi/_compat/v2.py:374: in serialize_sequence_value
+    assert issubclass(origin_type, shared.sequence_types)  # type: ignore[arg-type]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.13/typing.py:1669: in __subclasscheck__
+    return issubclass(cls, self.__origin__)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+cls = &lt;class 'collections.abc.Sequence'&gt;, subclass = typing.Union
+
+&gt;   ???
+E   TypeError: issubclass() arg 1 must be a class
+
+&lt;frozen abc&gt;:123: TypeError</failure></testcase><testcase classname="tests.test_compat" name="test_is_pv1_scalar_field" time="0.000"><skipped type="pytest.skip" message="requires python3.13-">/home/sauravbellam/cache/a2/fastapi_14297/workspace/tests/test_compat.py:163: requires python3.13-</skipped></testcase><testcase classname="tests.test_compat" name="test_get_model_fields_cached" time="0.000"><skipped type="pytest.skip" message="requires python3.13-">/home/sauravbellam/cache/a2/fastapi_14297/workspace/tests/test_compat.py:175: requires python3.13-</skipped></testcase><testcase classname="tests.test_optional_file_list" name="test_optional_bytes_list" time="0.021"><failure message="TypeError: issubclass() arg 1 must be a class">def test_optional_bytes_list():
+        client = TestClient(app)
+&gt;       response = client.post(
+            "/files",
+            files=[("files", b"content1"), ("files", b"content2")],
+        )
+
+tests/test_optional_file_list.py:18: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../venv/lib/python3.13/site-packages/starlette/testclient.py:546: in post
+    return super().post(
+../venv/lib/python3.13/site-packages/httpx/_client.py:1144: in post
+    return self.request(
+../venv/lib/python3.13/site-packages/starlette/testclient.py:445: in request
+    return super().request(
+../venv/lib/python3.13/site-packages/httpx/_client.py:825: in request
+    return self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../venv/lib/python3.13/site-packages/httpx/_client.py:914: in send
+    response = self._send_handling_auth(
+../venv/lib/python3.13/site-packages/httpx/_client.py:942: in _send_handling_auth
+    response = self._send_handling_redirects(
+../venv/lib/python3.13/site-packages/httpx/_client.py:979: in _send_handling_redirects
+    response = self._send_single_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../venv/lib/python3.13/site-packages/httpx/_client.py:1014: in _send_single_request
+    response = transport.handle_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../venv/lib/python3.13/site-packages/starlette/testclient.py:348: in handle_request
+    raise exc
+../venv/lib/python3.13/site-packages/starlette/testclient.py:345: in handle_request
+    portal.call(self.app, scope, receive, send)
+../venv/lib/python3.13/site-packages/anyio/from_thread.py:340: in call
+    return cast(T_Retval, self.start_task_soon(func, *args).result())
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.13/concurrent/futures/_base.py:456: in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.13/concurrent/futures/_base.py:401: in __get_result
+    raise self._exception
+../venv/lib/python3.13/site-packages/anyio/from_thread.py:265: in _call_func
+    retval = await retval_or_awaitable
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+fastapi/applications.py:1134: in __call__
+    await super().__call__(scope, receive, send)
+../venv/lib/python3.13/site-packages/starlette/applications.py:107: in __call__
+    await self.middleware_stack(scope, receive, send)
+../venv/lib/python3.13/site-packages/starlette/middleware/errors.py:186: in __call__
+    raise exc
+../venv/lib/python3.13/site-packages/starlette/middleware/errors.py:164: in __call__
+    await self.app(scope, receive, _send)
+../venv/lib/python3.13/site-packages/starlette/middleware/exceptions.py:63: in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+../venv/lib/python3.13/site-packages/starlette/_exception_handler.py:53: in wrapped_app
+    raise exc
+../venv/lib/python3.13/site-packages/starlette/_exception_handler.py:42: in wrapped_app
+    await app(scope, receive, sender)
+fastapi/middleware/asyncexitstack.py:18: in __call__
+    await self.app(scope, receive, send)
+../venv/lib/python3.13/site-packages/starlette/routing.py:716: in __call__
+    await self.middleware_stack(scope, receive, send)
+../venv/lib/python3.13/site-packages/starlette/routing.py:736: in app
+    await route.handle(scope, receive, send)
+../venv/lib/python3.13/site-packages/starlette/routing.py:290: in handle
+    await self.app(scope, receive, send)
+fastapi/routing.py:125: in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+../venv/lib/python3.13/site-packages/starlette/_exception_handler.py:53: in wrapped_app
+    raise exc
+../venv/lib/python3.13/site-packages/starlette/_exception_handler.py:42: in wrapped_app
+    await app(scope, receive, sender)
+fastapi/routing.py:111: in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+fastapi/routing.py:381: in app
+    solved_result = await solve_dependencies(
+fastapi/dependencies/utils.py:673: in solve_dependencies
+    ) = await request_body_to_args(  # body_params checked above
+fastapi/dependencies/utils.py:945: in request_body_to_args
+    body_to_process = await _extract_form_body(fields_to_extract, received_body)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+fastapi/dependencies/utils.py:909: in _extract_form_body
+    value = serialize_sequence_value(field=field, value=results)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+fastapi/_compat/main.py:221: in serialize_sequence_value
+    return v2.serialize_sequence_value(field=field, value=value)  # type: ignore[arg-type]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+fastapi/_compat/v2.py:374: in serialize_sequence_value
+    assert issubclass(origin_type, shared.sequence_types)  # type: ignore[arg-type]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.13/typing.py:1669: in __subclasscheck__
+    return issubclass(cls, self.__origin__)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+cls = &lt;class 'collections.abc.Sequence'&gt;, subclass = typing.Union
+
+&gt;   ???
+E   TypeError: issubclass() arg 1 must be a class
+
+&lt;frozen abc&gt;:123: TypeError</failure></testcase><testcase classname="tests.test_optional_file_list" name="test_optional_bytes_list_no_files" time="0.008" /></testsuite></testsuites>

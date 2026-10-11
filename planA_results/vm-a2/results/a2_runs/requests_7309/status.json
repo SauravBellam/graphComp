@@ -1,0 +1,89 @@
+{
+  "instance_id": "requests_7309",
+  "repo": "psf/requests",
+  "backend": "venv",
+  "done": true,
+  "deps": {
+    "steps": [
+      {
+        "name": "pip_upgrade",
+        "cmd": "/home/sauravbellam/cache/a2/requests_7309/venv/bin/python -m pip install -q --disable-pip-version-check 'pip>=24' 'setuptools' 'wheel' pytest pytest-timeout",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "editable_no_deps",
+        "cmd": "/home/sauravbellam/cache/a2/requests_7309/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-build-isolation --no-deps -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "runtime_deps",
+        "cmd": "/home/sauravbellam/cache/a2/requests_7309/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "extra_test",
+        "cmd": "/home/sauravbellam/cache/a2/requests_7309/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e '.[test]'",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "req_requirements-dev.txt",
+        "cmd": "/home/sauravbellam/cache/a2/requests_7309/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -r requirements-dev.txt",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "requests_httpbin",
+        "cmd": "/home/sauravbellam/cache/a2/requests_7309/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels pytest-httpbin httpbin trustme pysocks",
+        "exit": 0,
+        "stderr_tail": ""
+      }
+    ],
+    "editable_ok": true,
+    "python": "3.13.5 (main, Aug 10 2026, 12:06:59) [GCC 14.2.0]"
+  },
+  "targets": [
+    "tests/test_utils.py"
+  ],
+  "test_patch_strategy": "exact",
+  "test_patch_applied": true,
+  "pre": {
+    "exit": 1,
+    "seconds": 2.6,
+    "timeout": false,
+    "exit_meaning": "some_failed",
+    "run_class": "clean",
+    "counts": {
+      "failed": 5,
+      "passed": 202,
+      "skipped": 13
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "  ),\n            (\n                \"multipart/form-data; boundary = something ; 'boundary2=something_else' ; no_equals \",\n                (\n                    \"multipart/form-data\",\n                    {\n                        \"boundary\": \"something\",\n                        \"boundary2\": \"something_else\",\n                    },\n                ),\n            ),\n            (\n                'multipart/form-data; boundary = something ; \"boundary2=something_else\" ; no_equals ',\n                (\n                    \"multipart/form-data\",\n                    {\n                        \"boundary\": \"something\",\n                        \"boundary2\": \"something_else\",\n                    },\n                ),\n            ),\n            (\"application/json ; ; \", (\"application/json\", {})),\n        ),\n    )\n    def test__parse_content_type_header(value, expected):\n>       assert _parse_content_type_header(value) == expected\nE       AssertionError: assert ('multipart/f...quals': True}) == ('multipart/f...ething_else'})\nE         \nE         At index 1 diff: {'boundary': 'something', 'boundary2': 'something_else', 'no_equals': True} != {'boundary': 'something', 'boundary2': 'something_else'}\nE         Use -v to get more diff\n\ntests/test_utils.py:633: AssertionError\n______________ test_get_encoding_from_headers[value3-ISO-8859-1] _______________\n\nvalue = {'content-type': 'text/html; charset'}, expected = 'ISO-8859-1'\n\n    @pytest.mark.parametrize(\n        \"value, expected\",\n        (\n            (CaseInsensitiveDict(), None),\n            (\n                CaseInsensitiveDict({\"content-type\": \"application/json; charset=utf-8\"}),\n                \"utf-8\",\n            ),\n            (CaseInsensitiveDict({\"content-type\": \"text/plain\"}), \"ISO-8859-1\"),\n            (\n                CaseInsensitiveDict({\"content-type\": \"text/html; charset\"}),\n                \"ISO-8859-1\",\n            ),\n        ),\n    )\n    def test_get_encoding_from_headers(value, expected):\n>       assert get_encoding_from_headers(value) == expected\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\ntests/test_utils.py:652: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nheaders = {'content-type': 'text/html; charset'}\n\n    def get_encoding_from_headers(headers):\n        \"\"\"Returns encodings from given HTTP Header Dict.\n    \n        :param headers: dictionary to extract encoding from.\n        :rtype: str\n        \"\"\"\n    \n        content_type = headers.get(\"content-type\")\n    \n        if not content_type:\n            return None\n    \n        content_type, params = _parse_content_type_header(content_type)\n    \n        if \"charset\" in params:\n>           return params[\"charset\"].strip(\"'\\\"\")\n                   ^^^^^^^^^^^^^^^^^^^^^^^\nE           AttributeError: 'bool' object has no attribute 'strip'\n\nsrc/requests/utils.py:544: AttributeError\n- generated xml file: /home/sauravbellam/results/a2_runs/requests_7309/trace_pre.xml -\n5 failed, 202 passed, 13 skipped in 1.56s\n",
+    "stderr_tail": "[2026-10-10 23:16:08,785] WARNING in core: flasgger is not installed; serving the static landing page at / and skipping the Swagger UI and /spec.json.\n"
+  },
+  "gold_patch_strategy": "exact",
+  "gold_patch_applied": true,
+  "post": {
+    "exit": 0,
+    "seconds": 2.0,
+    "timeout": false,
+    "exit_meaning": "all_passed",
+    "run_class": "clean",
+    "counts": {
+      "passed": 207,
+      "skipped": 13
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "..s..................................................................... [ 32%]\n........................................................................ [ 65%]\n...........................................................sssssssssss.. [ 98%]\n...s                                                                     [100%]\n- generated xml file: /home/sauravbellam/results/a2_runs/requests_7309/trace_post.xml -\n207 passed, 13 skipped in 1.06s\n",
+    "stderr_tail": "[2026-10-10 23:16:11,192] WARNING in core: flasgger is not installed; serving the static landing page at / and skipping the Swagger UI and /spec.json.\n"
+  },
+  "trace_pre_exists": true,
+  "trace_post_exists": true,
+  "seconds": 44.2
+}

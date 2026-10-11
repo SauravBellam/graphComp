@@ -1,0 +1,87 @@
+{
+  "instance_id": "rich_3105",
+  "repo": "Textualize/rich",
+  "backend": "venv",
+  "done": true,
+  "deps": {
+    "steps": [
+      {
+        "name": "pip_upgrade",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3105/venv/bin/python -m pip install -q --disable-pip-version-check 'pip>=24' 'setuptools' 'wheel' pytest pytest-timeout",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "editable_no_deps",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3105/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-build-isolation --no-deps -e .",
+        "exit": 2,
+        "stderr_tail": "python3.13/site-packages/pip/_internal/req/req_install.py\", line 258, in supports_pyproject_editable\n    return \"build_editable\" in self.pep517_backend._supported_features()\n                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"/home/sauravbellam/cache/a2/rich_3105/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 180, in _supported_features\n    return self._call_hook(\"_supported_features\", {})\n           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/sauravbellam/cache/a2/rich_3105/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 402, in _call_hook\n    raise BackendUnavailable(\n    ...<4 lines>...\n    )\npip._vendor.pyproject_hooks._impl.BackendUnavailable: Cannot import 'poetry.core.masonry.api'\n"
+      },
+      {
+        "name": "editable_no_deps_isolated",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3105/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-deps -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "runtime_deps",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3105/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "poetry_group_dev",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3105/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels pytest black mypy pytest-cov attrs pre-commit asv",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "rich_tests",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3105/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels pytest-cov attrs ipywidgets",
+        "exit": 0,
+        "stderr_tail": ""
+      }
+    ],
+    "editable_ok": true,
+    "python": "3.13.5 (main, Aug 10 2026, 12:06:59) [GCC 14.2.0]"
+  },
+  "targets": [
+    "tests/test_console.py"
+  ],
+  "test_patch_strategy": "exact",
+  "test_patch_applied": true,
+  "pre": {
+    "exit": 1,
+    "seconds": 1.2,
+    "timeout": false,
+    "exit_meaning": "some_failed",
+    "run_class": "clean",
+    "counts": {
+      "failed": 3,
+      "passed": 93
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "\">foo </span><span style=\"font-weight: bold\"><a href=\"https://example.org\">Click</a></span>\\n</code></pre>\\n</body>\\n</html>\\n'\n>       assert html == expected\nE       assert '<!DOCTYPE ht...y>\\n</html>\\n' == '<!DOCTYPE ht...y>\\n</html>\\n'\nE         \nE         Skipping 228 identical leading characters in diff, use -v to show\nE         - ace\"><code style=\"font-family:inherit\"><span style=\"font-weight: bold\">foo </span><span style=\"font-weight: bold\"><a href=\"https://example.org\">Click</a></span>\nE         ?           ----------------------------\nE         + ace\"><code><span style=\"font-weight: bold\">foo </span><span style=\"font-weight: bold\"><a href=\"https://example.org\">Click</a></span>\nE           </code></pre>\nE           </body>\nE           </html>\n\ntests/test_console.py:542: AssertionError\n----------------------------- Captured stdout call -----------------------------\nfoo Click\n'<!DOCTYPE html>\\n<html>\\n<head>\\n<meta charset=\"UTF-8\">\\n<style>\\n\\nbody {\\n    color: #000000;\\n    background-color: #ffffff;\\n}\\n</style>\\n</head>\\n<body>\\n    <pre style=\"font-family:Menlo,\\'DejaVu Sans Mono\\',consolas,\\'Courier New\\',monospace\"><code><span style=\"font-weight: bold\">foo </span><span style=\"font-weight: bold\"><a href=\"https://example.org\">Click</a></span>\\n</code></pre>\\n</body>\\n</html>\\n'\n________________________________ test_save_html ________________________________\n\n    def test_save_html():\n        expected = '<!DOCTYPE html>\\n<html>\\n<head>\\n<meta charset=\"UTF-8\">\\n<style>\\n\\nbody {\\n    color: #000000;\\n    background-color: #ffffff;\\n}\\n</style>\\n</head>\\n<body>\\n    <pre style=\"font-family:Menlo,\\'DejaVu Sans Mono\\',consolas,\\'Courier New\\',monospace\"><code style=\"font-family:inherit\">foo\\n</code></pre>\\n</body>\\n</html>\\n'\n        console = Console(record=True, width=100)\n        console.print(\"foo\")\n        with tempfile.TemporaryDirectory() as path:\n            export_path = os.path.join(path, \"example.html\")\n            console.save_html(export_path)\n            with open(export_path, \"rt\") as html_file:\n                html = html_file.read()\n                print(repr(html))\n>               assert html == expected\nE               assert '<!DOCTYPE ht...y>\\n</html>\\n' == '<!DOCTYPE ht...y>\\n</html>\\n'\nE                 \nE                 Skipping 228 identical leading characters in diff, use -v to show\nE                 - ace\"><code style=\"font-family:inherit\">foo\nE                 + ace\"><code>foo\nE                   </code></pre>\nE                   </body>\nE                   </html>\n\ntests/test_console.py:603: AssertionError\n----------------------------- Captured stdout call -----------------------------\nfoo\n'<!DOCTYPE html>\\n<html>\\n<head>\\n<meta charset=\"UTF-8\">\\n<style>\\n\\nbody {\\n    color: #000000;\\n    background-color: #ffffff;\\n}\\n</style>\\n</head>\\n<body>\\n    <pre style=\"font-family:Menlo,\\'DejaVu Sans Mono\\',consolas,\\'Courier New\\',monospace\"><code>foo\\n</code></pre>\\n</body>\\n</html>\\n'\n3 failed, 93 passed in 0.82s\n",
+    "stderr_tail": ""
+  },
+  "gold_patch_strategy": "exact",
+  "gold_patch_applied": true,
+  "post": {
+    "exit": 0,
+    "seconds": 1.1,
+    "timeout": false,
+    "exit_meaning": "all_passed",
+    "run_class": "clean",
+    "counts": {
+      "passed": 96
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "........................................................................ [ 75%]\n........................                                                 [100%]\n96 passed in 0.79s\n",
+    "stderr_tail": ""
+  },
+  "trace_pre_exists": true,
+  "trace_post_exists": true,
+  "seconds": 32.9
+}

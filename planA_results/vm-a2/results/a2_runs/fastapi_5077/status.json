@@ -1,0 +1,111 @@
+{
+  "instance_id": "fastapi_5077",
+  "repo": "fastapi/fastapi",
+  "backend": "venv",
+  "done": true,
+  "deps": {
+    "steps": [
+      {
+        "name": "pip_upgrade",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_5077/venv/bin/python -m pip install -q --disable-pip-version-check 'pip>=24' 'setuptools' 'wheel' pytest pytest-timeout",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "editable_no_deps",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_5077/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-build-isolation --no-deps -e .",
+        "exit": 2,
+        "stderr_tail": "v/lib/python3.13/site-packages/pip/_internal/req/req_install.py\", line 258, in supports_pyproject_editable\n    return \"build_editable\" in self.pep517_backend._supported_features()\n                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"/home/sauravbellam/cache/a2/fastapi_5077/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 180, in _supported_features\n    return self._call_hook(\"_supported_features\", {})\n           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/sauravbellam/cache/a2/fastapi_5077/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 402, in _call_hook\n    raise BackendUnavailable(\n    ...<4 lines>...\n    )\npip._vendor.pyproject_hooks._impl.BackendUnavailable: Cannot import 'pdm.backend'\n"
+      },
+      {
+        "name": "editable_no_deps_isolated",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_5077/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-deps -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "runtime_deps",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_5077/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "extra_all",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_5077/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e '.[all]'",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "extra_standard",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_5077/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e '.[standard]'",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "req_requirements-tests.txt",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_5077/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -r requirements-tests.txt",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "req_requirements-docs-tests.txt",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_5077/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -r requirements-docs-tests.txt",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "req_requirements.txt",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_5077/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -r requirements.txt",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "fastapi_tests",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_5077/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels httpx 'python-multipart' email-validator pyyaml orjson ujson 'sqlmodel' 'dirty-equals' 'pytest-asyncio' 'flask' 'passlib[bcrypt]' 'pyjwt' 'inline-snapshot'",
+        "exit": 0,
+        "stderr_tail": ""
+      }
+    ],
+    "editable_ok": true,
+    "python": "3.13.5 (main, Aug 10 2026, 12:06:59) [GCC 14.2.0]"
+  },
+  "targets": [
+    "tests/forward_reference_type.py",
+    "tests/test_wrapped_method_forward_reference.py"
+  ],
+  "test_patch_strategy": "exact",
+  "test_patch_applied": true,
+  "pre": {
+    "exit": 1,
+    "seconds": 3.1,
+    "timeout": false,
+    "exit_meaning": "some_failed",
+    "run_class": "clean",
+    "counts": {
+      "failed": 1
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "F                                                                        [100%]\n=================================== FAILURES ===================================\n______________________ test_wrapped_method_type_inference ______________________\n\n    def test_wrapped_method_type_inference():\n        \"\"\"\n        Regression test ensuring that when a method imported from another module\n        is decorated with something that sets the __wrapped__ attribute (functools.wraps),\n        then the types are still processed correctly, including dereferencing of forward\n        references.\n        \"\"\"\n        app = FastAPI()\n        client = TestClient(app)\n        app.post(\"/endpoint\")(passthrough(forwardref_method))\n        app.post(\"/endpoint2\")(passthrough(passthrough(forwardref_method)))\n        with client:\n            response = client.post(\"/endpoint\", json={\"input\": {\"x\": 0}})\n            response2 = client.post(\"/endpoint2\", json={\"input\": {\"x\": 0}})\n>       assert response.json() == response2.json() == {\"x\": 1}\nE       AssertionError: assert {'detail': [{...: 'missing'}]} == {'x': 1}\nE         \nE         Left contains 1 more item:\nE         {'detail': [{'input': None,\nE                      'loc': ['query', 'input'],\nE                      'msg': 'Field required',\nE                      'type': 'missing'}]}\nE         Right contains 1 more item:\nE         {'x': 1}\nE         Use -v to get more diff\n\ntests/test_wrapped_method_forward_reference.py:31: AssertionError\n- generated xml file: /home/sauravbellam/results/a2_runs/fastapi_5077/trace_pre.xml -\n1 failed in 1.87s\n",
+    "stderr_tail": ""
+  },
+  "gold_patch_strategy": "exact",
+  "gold_patch_applied": true,
+  "post": {
+    "exit": 0,
+    "seconds": 2.2,
+    "timeout": false,
+    "exit_meaning": "all_passed",
+    "run_class": "clean",
+    "counts": {
+      "passed": 1
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": ".                                                                        [100%]\n- generated xml file: /home/sauravbellam/results/a2_runs/fastapi_5077/trace_post.xml -\n1 passed in 1.43s\n",
+    "stderr_tail": ""
+  },
+  "trace_pre_exists": true,
+  "trace_post_exists": true,
+  "seconds": 81.3
+}

@@ -1,0 +1,120 @@
+
+$ /home/sauravbellam/cache/a2/fastapi_14605/venv/bin/python -s -m pytest tests/benchmarks/test_general_performance.py tests/test_compat_params_v1.py tests/test_pydantic_v1_deprecation_warnings.py tests/test_regex_deprecated_body.py tests/test_regex_deprecated_params.py tests/test_schema_extra_examples.py tests/test_tutorial/test_pydantic_v1_in_v2/test_tutorial002.py tests/test_tutorial/test_pydantic_v1_in_v2/test_tutorial003.py tests/test_tutorial/test_pydantic_v1_in_v2/test_tutorial004.py tests/test_tutorial/test_query_params_str_validations/test_tutorial004.py tests/test_tutorial/test_request_form_models/test_tutorial002_pv1.py tests/test_tutorial/test_schema_extra_example/test_tutorial001_pv1.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/fastapi_14605/trace_pre.xml
+[exit 2]
+
+==================================== ERRORS ====================================
+________ ERROR collecting tests/benchmarks/test_general_performance.py _________
+ImportError while importing test module '/home/sauravbellam/cache/a2/fastapi_14605/workspace/tests/benchmarks/test_general_performance.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/usr/lib/python3.13/importlib/__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/benchmarks/test_general_performance.py:9: in <module>
+    from fastapi.exceptions import FastAPIDeprecationWarning
+E   ImportError: cannot import name 'FastAPIDeprecationWarning' from 'fastapi.exceptions' (/home/sauravbellam/cache/a2/fastapi_14605/workspace/fastapi/exceptions.py)
+_______________ ERROR collecting tests/test_compat_params_v1.py ________________
+ImportError while importing test module '/home/sauravbellam/cache/a2/fastapi_14605/workspace/tests/test_compat_params_v1.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/usr/lib/python3.13/importlib/__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_compat_params_v1.py:6: in <module>
+    from fastapi.exceptions import FastAPIDeprecationWarning
+E   ImportError: cannot import name 'FastAPIDeprecationWarning' from 'fastapi.exceptions' (/home/sauravbellam/cache/a2/fastapi_14605/workspace/fastapi/exceptions.py)
+_______ ERROR collecting tests/test_pydantic_v1_deprecation_warnings.py ________
+ImportError while importing test module '/home/sauravbellam/cache/a2/fastapi_14605/workspace/tests/test_pydantic_v1_deprecation_warnings.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/usr/lib/python3.13/importlib/__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_pydantic_v1_deprecation_warnings.py:4: in <module>
+    from fastapi.exceptions import FastAPIDeprecationWarning
+E   ImportError: cannot import name 'FastAPIDeprecationWarning' from 'fastapi.exceptions' (/home/sauravbellam/cache/a2/fastapi_14605/workspace/fastapi/exceptions.py)
+_____________ ERROR collecting tests/test_regex_deprecated_body.py _____________
+ImportError while importing test module '/home/sauravbellam/cache/a2/fastapi_14605/workspace/tests/test_regex_deprecated_body.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/usr/lib/python3.13/importlib/__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_regex_deprecated_body.py:6: in <module>
+    from fastapi.exceptions import FastAPIDeprecationWarning
+E   ImportError: cannot import name 'FastAPIDeprecationWarning' from 'fastapi.exceptions' (/home/sauravbellam/cache/a2/fastapi_14605/workspace/fastapi/exceptions.py)
+____________ ERROR collecting tests/test_regex_deprecated_params.py ____________
+ImportError while importing test module '/home/sauravbellam/cache/a2/fastapi_14605/workspace/tests/test_regex_deprecated_params.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/usr/lib/python3.13/importlib/__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_regex_deprecated_params.py:6: in <module>
+    from fastapi.exceptions import FastAPIDeprecationWarning
+E   ImportError: cannot import name 'FastAPIDeprecationWarning' from 'fastapi.exceptions' (/home/sauravbellam/cache/a2/fastapi_14605/workspace/fastapi/exceptions.py)
+_____________ ERROR collecting tests/test_schema_extra_examples.py _____________
+ImportError while importing test module '/home/sauravbellam/cache/a2/fastapi_14605/workspace/tests/test_schema_extra_examples.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/usr/lib/python3.13/importlib/__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_schema_extra_examples.py:6: in <module>
+    from fastapi.exceptions import FastAPIDeprecationWarning
+E   ImportError: cannot import name 'FastAPIDeprecationWarning' from 'fastapi.exceptions' (/home/sauravbellam/cache/a2/fastapi_14605/workspace/fastapi/exceptions.py)
+_ ERROR collecting tests/test_tutorial/test_pydantic_v1_in_v2/test_tutorial002.py _
+ImportError while importing test module '/home/sauravbellam/cache/a2/fastapi_14605/workspace/tests/test_tutorial/test_pydantic_v1_in_v2/test_tutorial002.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/usr/lib/python3.13/importlib/__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_tutorial/test_pydantic_v1_in_v2/test_tutorial002.py:5: in <module>
+    from fastapi.exceptions import FastAPIDeprecationWarning
+E   ImportError: cannot import name 'FastAPIDeprecationWarning' from 'fastapi.exceptions' (/home/sauravbellam/cache/a2/fastapi_14605/workspace/fastapi/exceptions.py)
+_ ERROR collecting tests/test_tutorial/test_pydantic_v1_in_v2/test_tutorial003.py _
+ImportError while importing test module '/home/sauravbellam/cache/a2/fastapi_14605/workspace/tests/test_tutorial/test_pydantic_v1_in_v2/test_tutorial003.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/usr/lib/python3.13/importlib/__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_tutorial/test_pydantic_v1_in_v2/test_tutorial003.py:5: in <module>
+    from fastapi.exceptions import FastAPIDeprecationWarning
+E   ImportError: cannot import name 'FastAPIDeprecationWarning' from 'fastapi.exceptions' (/home/sauravbellam/cache/a2/fastapi_14605/workspace/fastapi/exceptions.py)
+_ ERROR collecting tests/test_tutorial/test_pydantic_v1_in_v2/test_tutorial004.py _
+ImportError while importing test module '/home/sauravbellam/cache/a2/fastapi_14605/workspace/tests/test_tutorial/test_pydantic_v1_in_v2/test_tutorial004.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/usr/lib/python3.13/importlib/__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_tutorial/test_pydantic_v1_in_v2/test_tutorial004.py:5: in <module>
+    from fastapi.exceptions import FastAPIDeprecationWarning
+E   ImportError: cannot import name 'FastAPIDeprecationWarning' from 'fastapi.exceptions' (/home/sauravbellam/cache/a2/fastapi_14605/workspace/fastapi/exceptions.py)
+_ ERROR collecting tests/test_tutorial/test_request_form_models/test_tutorial002_pv1.py _
+ImportError while importing test module '/home/sauravbellam/cache/a2/fastapi_14605/workspace/tests/test_tutorial/test_request_form_models/test_tutorial002_pv1.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/usr/lib/python3.13/importlib/__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_tutorial/test_request_form_models/test_tutorial002_pv1.py:5: in <module>
+    from fastapi.exceptions import FastAPIDeprecationWarning
+E   ImportError: cannot import name 'FastAPIDeprecationWarning' from 'fastapi.exceptions' (/home/sauravbellam/cache/a2/fastapi_14605/workspace/fastapi/exceptions.py)
+_ ERROR collecting tests/test_tutorial/test_schema_extra_example/test_tutorial001_pv1.py _
+ImportError while importing test module '/home/sauravbellam/cache/a2/fastapi_14605/workspace/tests/test_tutorial/test_schema_extra_example/test_tutorial001_pv1.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/usr/lib/python3.13/importlib/__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_tutorial/test_schema_extra_example/test_tutorial001_pv1.py:5: in <module>
+    from fastapi.exceptions import FastAPIDeprecationWarning
+E   ImportError: cannot import name 'FastAPIDeprecationWarning' from 'fastapi.exceptions' (/home/sauravbellam/cache/a2/fastapi_14605/workspace/fastapi/exceptions.py)
+- generated xml file: /home/sauravbellam/results/a2_runs/fastapi_14605/trace_pre.xml -
+!!!!!!!!!!!!!!!!!!! Interrupted: 11 errors during collection !!!!!!!!!!!!!!!!!!!
+11 errors in 3.46s
+
+

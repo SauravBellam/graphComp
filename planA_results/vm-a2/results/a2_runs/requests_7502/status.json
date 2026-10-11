@@ -1,0 +1,85 @@
+{
+  "instance_id": "requests_7502",
+  "repo": "psf/requests",
+  "backend": "venv",
+  "done": true,
+  "deps": {
+    "steps": [
+      {
+        "name": "pip_upgrade",
+        "cmd": "/home/sauravbellam/cache/a2/requests_7502/venv/bin/python -m pip install -q --disable-pip-version-check 'pip>=24' 'setuptools' 'wheel' pytest pytest-timeout",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "editable_no_deps",
+        "cmd": "/home/sauravbellam/cache/a2/requests_7502/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-build-isolation --no-deps -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "runtime_deps",
+        "cmd": "/home/sauravbellam/cache/a2/requests_7502/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "req_requirements-dev.txt",
+        "cmd": "/home/sauravbellam/cache/a2/requests_7502/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -r requirements-dev.txt",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "requests_httpbin",
+        "cmd": "/home/sauravbellam/cache/a2/requests_7502/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels pytest-httpbin httpbin trustme pysocks",
+        "exit": 0,
+        "stderr_tail": ""
+      }
+    ],
+    "editable_ok": true,
+    "python": "3.13.5 (main, Aug 10 2026, 12:06:59) [GCC 14.2.0]"
+  },
+  "targets": [
+    "tests/test_requests.py"
+  ],
+  "test_patch_strategy": "exact",
+  "test_patch_applied": true,
+  "pre": {
+    "exit": 1,
+    "seconds": 51.0,
+    "timeout": false,
+    "exit_meaning": "some_failed",
+    "run_class": "clean",
+    "counts": {
+      "failed": 1,
+      "passed": 337,
+      "skipped": 1,
+      "xfailed": 1
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "    ^^^^^^^^^^^^^^^^^^^^^^^^^\nsrc/requests/sessions.py:541: in prepare_request\n    p.prepare(\nsrc/requests/models.py:445: in prepare\n    self.prepare_body(data, files, json)\nsrc/requests/models.py:638: in prepare_body\n    (body, content_type) = self._encode_files(files, raw_data)\n                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nsrc/requests/models.py:250: in _encode_files\n    body, content_type = encode_multipart_formdata(new_fields)\n                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nfields = [<urllib3.fields.RequestField object at 0x7ff599c46e00>]\nboundary = 'f4b5e353e5cc97bb7a2f63beb4e4f1a2'\n\n    def encode_multipart_formdata(\n        fields: _TYPE_FIELDS, boundary: str | None = None\n    ) -> tuple[bytes, str]:\n        \"\"\"\n        Encode a dictionary of ``fields`` using the multipart/form-data MIME format.\n    \n        :param fields:\n            Dictionary of fields or list of (key, :class:`~urllib3.fields.RequestField`).\n            Values are processed by :func:`urllib3.fields.RequestField.from_tuples`.\n    \n        :param boundary:\n            If not specified, then a random boundary will be generated using\n            :func:`urllib3.filepost.choose_boundary`.\n        \"\"\"\n        body = BytesIO()\n        if boundary is None:\n            boundary = choose_boundary()\n    \n        for field in iter_field_objects(fields):\n            body.write(f\"--{boundary}\\r\\n\".encode(\"latin-1\"))\n    \n            writer(body).write(field.render_headers())\n            data = field.data\n    \n            if isinstance(data, int):\n                data = str(data)  # Backwards compatibility\n    \n            if isinstance(data, str):\n                writer(body).write(data)\n            else:\n>               body.write(data)\nE               TypeError: a bytes-like object is required, not '_TemporaryFileWrapper'\n\n../venv/lib/python3.13/site-packages/urllib3/filepost.py:81: TypeError\n=============================== warnings summary ===============================\ntests/test_requests.py::TestPreparingURLs::test_different_connection_pool_for_tls_settings_verify_True\ntests/test_requests.py::TestPreparingURLs::test_different_connection_pool_for_tls_settings_verify_bundle_expired_cert\ntests/test_requests.py::TestPreparingURLs::test_different_connection_pool_for_tls_settings_verify_bundle_unexpired_cert\ntests/test_requests.py::TestPreparingURLs::test_different_connection_pool_for_mtls_settings\n  /home/sauravbellam/cache/a2/requests_7502/venv/lib/python3.13/site-packages/urllib3/connectionpool.py:1129: InsecureRequestWarning: Unverified HTTPS request is being made to host 'localhost'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings\n    warnings.warn(\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n1 failed, 337 passed, 1 skipped, 1 xfailed, 4 warnings in 49.89s\n",
+    "stderr_tail": "[2026-10-10 23:15:25,899] WARNING in core: flasgger is not installed; serving the static landing page at / and skipping the Swagger UI and /spec.json.\n127.0.0.1 - - [10/Oct/2026 23:15:28] \"GET /get HTTP/1.1\" 200 208\n127.0.0.1 - - [10/Oct/2026 23:15:28] \"HEAD /get HTTP/1.1\" 200 0\n127.0.0.1 - - [10/Oct/2026 23:15:28] \"HEAD /get HTTP/1.1\" 200 0\n127.0.0.1 - - [10/Oct/2026 23:15:28] \"GET /get HTTP/1.1\" 200 272\n127.0.0.1 - - [10/Oct/2026 23:15:28] \"GET /get?test=true&q=test HTTP/1.1\" 200 317\n127.0.0.1 - - [10/Oct/2026 23:15:28] \"GET /cookies HTTP/1.1\" 200 40\n127.0.0.1 - - [10/Oct/2026 23:15:29] \"HEAD /get HTTP/1.1\" 200 0\n127.0.0.1 - - [10/Oct/2026 23:15:33] \"GET /status/500 HTTP/1.1\" 500 0\n127.0.0.1 - - [10/Oct/2026 23:15:33] \"GET /get?foo=f%C3%B8%C3%B8 HTTP/1.1\" 200 320\n127.0.0.1 - - [10/Oct/2026 23:15:35] \"POST /post HTTP/1.1\" 200 115062\n127.0.0.1 - - [10/Oct/2026 23:15:35] \"GET / HTTP/1.1\" 200 13760\n127.0.0.1 - - [10/Oct/2026 23:15:35] \"GET / HTTP/1.1\" 200 13760\n127.0.0.1 - - [10/Oct/2026 23:15:35] \"GET /html HTTP/1.1\" 200 3741\n127.0.0.1 - - [10/Oct/2026 23:16:07] \"GET /status/500 HTTP/1.1\" 500 0\n127.0.0.1 - - [10/Oct/2026 23:16:07] \"GET /status/200 HTTP/1.1\" 200 0\n"
+  },
+  "gold_patch_strategy": "exact",
+  "gold_patch_applied": true,
+  "post": {
+    "exit": 0,
+    "seconds": 47.4,
+    "timeout": false,
+    "exit_meaning": "all_passed",
+    "run_class": "clean",
+    "counts": {
+      "passed": 338,
+      "skipped": 1,
+      "xfailed": 1
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "........................................................................ [ 21%]\n.................................................s.pytest-httpbin server hit an exception serving request: [SSL: TLSV1_ALERT_UNKNOWN_CA] tlsv1 alert unknown ca (_ssl.c:1029)\nattempting to ignore so the rest of the tests can run\n..................... [ 42%]\n........................................................................ [ 63%]\n.........................x.............................................. [ 84%]\n....................................................                     [100%]\n=============================== warnings summary ===============================\ntests/test_requests.py::TestPreparingURLs::test_different_connection_pool_for_tls_settings_verify_True\ntests/test_requests.py::TestPreparingURLs::test_different_connection_pool_for_tls_settings_verify_bundle_expired_cert\ntests/test_requests.py::TestPreparingURLs::test_different_connection_pool_for_tls_settings_verify_bundle_unexpired_cert\ntests/test_requests.py::TestPreparingURLs::test_different_connection_pool_for_mtls_settings\n  /home/sauravbellam/cache/a2/requests_7502/venv/lib/python3.13/site-packages/urllib3/connectionpool.py:1129: InsecureRequestWarning: Unverified HTTPS request is being made to host 'localhost'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings\n    warnings.warn(\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n338 passed, 1 skipped, 1 xfailed, 4 warnings in 46.16s\n",
+    "stderr_tail": "[2026-10-10 23:16:17,001] WARNING in core: flasgger is not installed; serving the static landing page at / and skipping the Swagger UI and /spec.json.\n127.0.0.1 - - [10/Oct/2026 23:16:20] \"GET /get HTTP/1.1\" 200 272\n127.0.0.1 - - [10/Oct/2026 23:16:20] \"GET /response-headers?Set-Cookie=foo%3Ddeleted%3B+expires%3DThu%2C+01-Jan-1970+00%3A00%3A01+GMT HTTP/1.1\" 200 138\n127.0.0.1 - - [10/Oct/2026 23:16:20] \"HEAD /get HTTP/1.1\" 200 0\n127.0.0.1 - - [10/Oct/2026 23:16:22] \"GET /digest-auth/auth/user/pass/SHA-512 HTTP/1.1\" 401 0\n127.0.0.1 - - [10/Oct/2026 23:16:22] \"POST /post HTTP/1.1\" 200 361\n127.0.0.1 - - [10/Oct/2026 23:16:22] \"GET /get?f%C3%B8%C3%B8=f%C3%B8%C3%B8 HTTP/1.1\" 200 340\n127.0.0.1 - - [10/Oct/2026 23:16:22] \"PUT /put HTTP/1.1\" 200 412\n127.0.0.1 - - [10/Oct/2026 23:16:23] \"GET /get?test=foo&test=baz HTTP/1.1\" 200 338\n127.0.0.1 - - [10/Oct/2026 23:16:23] \"POST /post?blah=asdf1234 HTTP/1.1\" 200 115133\n127.0.0.1 - - [10/Oct/2026 23:16:23] \"POST /post HTTP/1.1\" 200 115086\n127.0.0.1 - - [10/Oct/2026 23:16:23] \"POST /post HTTP/1.1\" 200 115062\n127.0.0.1 - - [10/Oct/2026 23:16:23] \"GET / HTTP/1.1\" 200 13760\n127.0.0.1 - - [10/Oct/2026 23:16:24] \"POST /post HTTP/1.1\" 200 430\n"
+  },
+  "trace_pre_exists": true,
+  "trace_post_exists": true,
+  "seconds": 128.4
+}

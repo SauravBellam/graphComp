@@ -1,0 +1,93 @@
+{
+  "instance_id": "fastapi_15589",
+  "repo": "fastapi/fastapi",
+  "backend": "venv",
+  "done": true,
+  "deps": {
+    "steps": [
+      {
+        "name": "pip_upgrade",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_15589/venv/bin/python -m pip install -q --disable-pip-version-check 'pip>=24' 'setuptools' 'wheel' pytest pytest-timeout",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "editable_no_deps",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_15589/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-build-isolation --no-deps -e .",
+        "exit": 2,
+        "stderr_tail": "lib/python3.13/site-packages/pip/_internal/req/req_install.py\", line 258, in supports_pyproject_editable\n    return \"build_editable\" in self.pep517_backend._supported_features()\n                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"/home/sauravbellam/cache/a2/fastapi_15589/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 180, in _supported_features\n    return self._call_hook(\"_supported_features\", {})\n           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/sauravbellam/cache/a2/fastapi_15589/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 402, in _call_hook\n    raise BackendUnavailable(\n    ...<4 lines>...\n    )\npip._vendor.pyproject_hooks._impl.BackendUnavailable: Cannot import 'pdm.backend'\n"
+      },
+      {
+        "name": "editable_no_deps_isolated",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_15589/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-deps -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "runtime_deps",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_15589/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "extra_all",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_15589/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e '.[all]'",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "extra_standard",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_15589/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e '.[standard]'",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "fastapi_tests",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_15589/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels httpx 'python-multipart' email-validator pyyaml orjson ujson 'sqlmodel' 'dirty-equals' 'pytest-asyncio' 'flask' 'passlib[bcrypt]' 'pyjwt' 'inline-snapshot'",
+        "exit": 0,
+        "stderr_tail": ""
+      }
+    ],
+    "editable_ok": true,
+    "python": "3.13.5 (main, Aug 10 2026, 12:06:59) [GCC 14.2.0]"
+  },
+  "targets": [
+    "tests/test_query_cookie_header_model_extra_params.py"
+  ],
+  "test_patch_strategy": "exact",
+  "test_patch_applied": true,
+  "pre": {
+    "exit": 1,
+    "seconds": 4.4,
+    "timeout": false,
+    "exit_meaning": "some_failed",
+    "run_class": "clean",
+    "counts": {
+      "failed": 2,
+      "passed": 5
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "....FF.                                                                  [100%]\n=================================== FAILURES ===================================\n_____ test_header_model_prefers_hyphenated_header_with_convert_underscores _____\n\n    def test_header_model_prefers_hyphenated_header_with_convert_underscores():\n        client = TestClient(app)\n    \n        resp = client.get(\n            \"/header-requires-hyphen\",\n            headers=[\n                (\"x-user-id\", \"hyphenated-value\"),\n                (\"x_user_id\", \"underscore-value\"),\n            ],\n        )\n    \n        assert resp.status_code == 200\n>       assert resp.json() == {\"x_user_id\": \"hyphenated-value\"}\nE       AssertionError: assert {'x_user_id':...rscore-value'} == {'x_user_id':...enated-value'}\nE         \nE         Differing items:\nE         {'x_user_id': 'underscore-value'} != {'x_user_id': 'hyphenated-value'}\nE         Use -v to get more diff\n\ntests/test_query_cookie_header_model_extra_params.py:115: AssertionError\n_____ test_header_model_rejects_underscore_header_with_convert_underscores _____\n\n    def test_header_model_rejects_underscore_header_with_convert_underscores():\n        client = TestClient(app)\n    \n        resp = client.get(\n            \"/header-requires-hyphen\", headers={\"x_user_id\": \"underscore-value\"}\n        )\n    \n>       assert resp.status_code == 422\nE       assert 200 == 422\nE        +  where 200 = <Response [200 OK]>.status_code\n\ntests/test_query_cookie_header_model_extra_params.py:125: AssertionError\n2 failed, 5 passed in 2.93s\n",
+    "stderr_tail": ""
+  },
+  "gold_patch_strategy": "exact",
+  "gold_patch_applied": true,
+  "post": {
+    "exit": 0,
+    "seconds": 3.5,
+    "timeout": false,
+    "exit_meaning": "all_passed",
+    "run_class": "clean",
+    "counts": {
+      "passed": 7
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": ".......                                                                  [100%]\n7 passed in 2.31s\n",
+    "stderr_tail": ""
+  },
+  "trace_pre_exists": true,
+  "trace_post_exists": true,
+  "seconds": 56.9
+}

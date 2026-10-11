@@ -1,0 +1,90 @@
+{
+  "instance_id": "rich_4070",
+  "repo": "Textualize/rich",
+  "backend": "venv",
+  "done": true,
+  "test_timeout": 60,
+  "deps": {
+    "steps": [
+      {
+        "name": "pip_upgrade",
+        "cmd": "/home/sauravbellam/cache/a2/rich_4070/venv/bin/python -m pip install -q --disable-pip-version-check 'pip>=24' 'setuptools' 'wheel' pytest pytest-timeout",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "editable_no_deps",
+        "cmd": "/home/sauravbellam/cache/a2/rich_4070/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-build-isolation --no-deps -e .",
+        "exit": 2,
+        "stderr_tail": "python3.13/site-packages/pip/_internal/req/req_install.py\", line 258, in supports_pyproject_editable\n    return \"build_editable\" in self.pep517_backend._supported_features()\n                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"/home/sauravbellam/cache/a2/rich_4070/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 180, in _supported_features\n    return self._call_hook(\"_supported_features\", {})\n           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/sauravbellam/cache/a2/rich_4070/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 402, in _call_hook\n    raise BackendUnavailable(\n    ...<4 lines>...\n    )\npip._vendor.pyproject_hooks._impl.BackendUnavailable: Cannot import 'poetry.core.masonry.api'\n"
+      },
+      {
+        "name": "editable_no_deps_isolated",
+        "cmd": "/home/sauravbellam/cache/a2/rich_4070/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-deps -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "runtime_deps",
+        "cmd": "/home/sauravbellam/cache/a2/rich_4070/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "poetry_group_dev",
+        "cmd": "/home/sauravbellam/cache/a2/rich_4070/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels pytest black mypy pytest-cov attrs pre-commit typing-extensions",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "rich_tests",
+        "cmd": "/home/sauravbellam/cache/a2/rich_4070/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels pytest-cov attrs ipywidgets",
+        "exit": 0,
+        "stderr_tail": ""
+      }
+    ],
+    "editable_ok": true,
+    "python": "3.13.5 (main, Aug 10 2026, 12:06:59) [GCC 14.2.0]"
+  },
+  "targets": [
+    "tests/test_console.py",
+    "tests/test_syntax.py"
+  ],
+  "test_patch_strategy": "exact",
+  "test_patch_applied": true,
+  "pre": {
+    "exit": 1,
+    "seconds": 62.6,
+    "timeout": false,
+    "exit_meaning": "some_failed",
+    "run_class": "clean",
+    "counts": {
+      "failed": 7,
+      "passed": 117
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": ";227;227;221;48;2;39;40;34m  \\x1b[0m\\x1b[38;2;101;102;96;48;2;39;40;34m 7 \\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m        \\x1b[0m\\x1b[38;2;102;217;239;48;2;39;40;34mreturn\\x1b[0m\\n\\x1b[1;38;2;227;227;221;48;2;39;40;34m  \\x1b[0m\\x1b[38;2;101;102;96;48;2;39;40;34m 8 \\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m    \\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34mfirst\\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m \\x1b[0m\\x1b[38;2;255;70;137;48;2;39;40;34m=\\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m \\x1b[0m\\x1b[38;2;102;217;239;48;2;39;40;34mTrue\\x1b[0m\\n\\x1b[1;38;2;227;227;221;48;2;39;40;34m  \\x1b[0m\\x1b[38;2;101;102;96;48;2;39;40;34m 9 \\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m    \\x1b[0m\\x1b[38;2;102;217;239;48;2;39;40;34mfor\\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m \\x1b[0m\\x1b[9;38;2;248;248;242;48;2;39;40;34mvalue\\x1b[0m\\x1b[9;38;2;248;248;242;48;2;39;40;34m \\x1b[0m\\x1b[9;38;2;255;70;137;48;2;39;40;34min\\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m \\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34miter_values\\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m:\\x1b[0m\\n\\x1b[1;38;2;227;227;221;48;2;39;40;34m  \\x1b[0m\\x1b[38;2;101;102;96;48;2;39;40;34m10 \\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m        \\x1b[0m\\x1b[38;2;102;217;239;48;2;39;40;34myield\\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m \\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34mfirst\\x1b[0m\\x1b[1;38;2;248;248;242;48;2;39;40;34m,\\x1b[0m\\x1b[1;38;2;248;248;242;48;2;39;40;34m \\x1b[0m\\x1b[1;38;2;102;217;239;48;2;39;40;34mFalse\\x1b[0m\\x1b[1;38;2;248;248;242;48;2;39;40;34m,\\x1b[0m\\x1b[1;38;2;248;248;242;48;2;39;40;34m \\x1b[0m\\x1b[1;38;2;248;248;242;48;2;39;40;34mprevious_value\\x1b[0m\\n\\x1b[1;38;2;227;227;221;48;2;39;40;34m  \\x1b[0m\\x1b[38;2;101;102;96;48;2;39;40;34m11 \\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m        \\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34mfirst\\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m \\x1b[0m\\x1b[38;2;255;70;137;48;2;39;40;34m=\\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m \\x1b[0m\\x1b[38;2;102;217;239;48;2;39;40;34mFalse\\x1b[0m\\n\\x1b[1;38;2;227;227;221;48;2;39;40;34m  \\x1b[0m\\x1b[38;2;101;102;96;48;2;39;40;34m12 \\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m        \\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34mprevious_value\\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m \\x1b[0m\\x1b[38;2;255;70;137;48;2;39;40;34m=\\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m \\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34mvalue\\x1b[0m\\n\\x1b[1;38;2;227;227;221;48;2;39;40;34m  \\x1b[0m\\x1b[38;2;101;102;96;48;2;39;40;34m13 \\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m    \\x1b[0m\\x1b[38;2;102;217;239;48;2;39;40;34myield\\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m \\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34mfirst\\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m,\\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m \\x1b[0m\\x1b[38;2;102;217;239;48;2;39;40;34mTrue\\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m,\\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m \\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34mprevious_value\\x1b[0m\\n'\n7 failed, 117 passed in 62.33s (0:01:02)\n",
+    "stderr_tail": ""
+  },
+  "gold_patch_strategy": "exact",
+  "gold_patch_applied": true,
+  "post": {
+    "exit": 1,
+    "seconds": 2.5,
+    "timeout": false,
+    "exit_meaning": "some_failed",
+    "run_class": "clean",
+    "counts": {
+      "failed": 6,
+      "passed": 118
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "\\x1b[1;38;2;227;227;221;48;2;39;40;34m  \\x1b[0m\\x1b[38;2;101;102;96;48;2;39;40;34m 7 \\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m        \\x1b[0m\\x1b[38;2;102;217;239;48;2;39;40;34mreturn\\x1b[0m\\n\\x1b[1;38;2;227;227;221;48;2;39;40;34m  \\x1b[0m\\x1b[38;2;101;102;96;48;2;39;40;34m 8 \\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m    \\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34mfirst\\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m \\x1b[0m\\x1b[38;2;255;70;137;48;2;39;40;34m=\\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m \\x1b[0m\\x1b[38;2;102;217;239;48;2;39;40;34mTrue\\x1b[0m\\n\\x1b[1;38;2;227;227;221;48;2;39;40;34m  \\x1b[0m\\x1b[38;2;101;102;96;48;2;39;40;34m 9 \\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m    \\x1b[0m\\x1b[38;2;102;217;239;48;2;39;40;34mfor\\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m \\x1b[0m\\x1b[9;38;2;248;248;242;48;2;39;40;34mvalue\\x1b[0m\\x1b[9;38;2;248;248;242;48;2;39;40;34m \\x1b[0m\\x1b[9;38;2;255;70;137;48;2;39;40;34min\\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m \\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34miter_values\\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m:\\x1b[0m\\n\\x1b[1;38;2;227;227;221;48;2;39;40;34m  \\x1b[0m\\x1b[38;2;101;102;96;48;2;39;40;34m10 \\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m        \\x1b[0m\\x1b[38;2;102;217;239;48;2;39;40;34myield\\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m \\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34mfirst\\x1b[0m\\x1b[1;38;2;248;248;242;48;2;39;40;34m,\\x1b[0m\\x1b[1;38;2;248;248;242;48;2;39;40;34m \\x1b[0m\\x1b[1;38;2;102;217;239;48;2;39;40;34mFalse\\x1b[0m\\x1b[1;38;2;248;248;242;48;2;39;40;34m,\\x1b[0m\\x1b[1;38;2;248;248;242;48;2;39;40;34m \\x1b[0m\\x1b[1;38;2;248;248;242;48;2;39;40;34mprevious_value\\x1b[0m\\n\\x1b[1;38;2;227;227;221;48;2;39;40;34m  \\x1b[0m\\x1b[38;2;101;102;96;48;2;39;40;34m11 \\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m        \\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34mfirst\\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m \\x1b[0m\\x1b[38;2;255;70;137;48;2;39;40;34m=\\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m \\x1b[0m\\x1b[38;2;102;217;239;48;2;39;40;34mFalse\\x1b[0m\\n\\x1b[1;38;2;227;227;221;48;2;39;40;34m  \\x1b[0m\\x1b[38;2;101;102;96;48;2;39;40;34m12 \\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m        \\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34mprevious_value\\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m \\x1b[0m\\x1b[38;2;255;70;137;48;2;39;40;34m=\\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m \\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34mvalue\\x1b[0m\\n\\x1b[1;38;2;227;227;221;48;2;39;40;34m  \\x1b[0m\\x1b[38;2;101;102;96;48;2;39;40;34m13 \\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m    \\x1b[0m\\x1b[38;2;102;217;239;48;2;39;40;34myield\\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m \\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34mfirst\\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m,\\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m \\x1b[0m\\x1b[38;2;102;217;239;48;2;39;40;34mTrue\\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m,\\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m \\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34mprevious_value\\x1b[0m\\n'\n6 failed, 118 passed in 2.19s\n",
+    "stderr_tail": ""
+  },
+  "trace_pre_exists": true,
+  "trace_post_exists": true,
+  "seconds": 83.8
+}

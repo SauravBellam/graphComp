@@ -1,0 +1,8 @@
+
+$ /home/sauravbellam/cache/a2/fastapi_14099/venv/bin/python -s -m pytest tests/test_dependency_after_yield_raise.py tests/test_dependency_after_yield_streaming.py tests/test_dependency_after_yield_websockets.py tests/test_dependency_contextmanager.py tests/test_route_scope.py tests/test_tutorial/test_dependencies/test_tutorial008c.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/fastapi_14099/trace_post.xml
+[exit 0]
+....................................................                     [100%]
+- generated xml file: /home/sauravbellam/results/a2_runs/fastapi_14099/trace_post.xml -
+52 passed in 3.18s
+
+

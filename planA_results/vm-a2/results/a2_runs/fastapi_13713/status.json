@@ -1,0 +1,112 @@
+{
+  "instance_id": "fastapi_13713",
+  "repo": "fastapi/fastapi",
+  "backend": "venv",
+  "done": true,
+  "deps": {
+    "steps": [
+      {
+        "name": "pip_upgrade",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_13713/venv/bin/python -m pip install -q --disable-pip-version-check 'pip>=24' 'setuptools' 'wheel' pytest pytest-timeout",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "editable_no_deps",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_13713/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-build-isolation --no-deps -e .",
+        "exit": 2,
+        "stderr_tail": "lib/python3.13/site-packages/pip/_internal/req/req_install.py\", line 258, in supports_pyproject_editable\n    return \"build_editable\" in self.pep517_backend._supported_features()\n                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"/home/sauravbellam/cache/a2/fastapi_13713/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 180, in _supported_features\n    return self._call_hook(\"_supported_features\", {})\n           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/sauravbellam/cache/a2/fastapi_13713/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 402, in _call_hook\n    raise BackendUnavailable(\n    ...<4 lines>...\n    )\npip._vendor.pyproject_hooks._impl.BackendUnavailable: Cannot import 'pdm.backend'\n"
+      },
+      {
+        "name": "editable_no_deps_isolated",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_13713/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-deps -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "runtime_deps",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_13713/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "extra_all",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_13713/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e '.[all]'",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "extra_standard",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_13713/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e '.[standard]'",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "req_requirements-tests.txt",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_13713/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -r requirements-tests.txt",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "req_requirements-docs-tests.txt",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_13713/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -r requirements-docs-tests.txt",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "req_requirements.txt",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_13713/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -r requirements.txt",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "fastapi_tests",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_13713/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels httpx 'python-multipart' email-validator pyyaml orjson ujson 'sqlmodel' 'dirty-equals' 'pytest-asyncio' 'flask' 'passlib[bcrypt]' 'pyjwt' 'inline-snapshot'",
+        "exit": 0,
+        "stderr_tail": ""
+      }
+    ],
+    "editable_ok": true,
+    "python": "3.13.5 (main, Aug 10 2026, 12:06:59) [GCC 14.2.0]"
+  },
+  "targets": [
+    "tests/main.py",
+    "tests/test_application.py"
+  ],
+  "test_patch_strategy": "exact",
+  "test_patch_applied": true,
+  "pre": {
+    "exit": 1,
+    "seconds": 2.8,
+    "timeout": false,
+    "exit_meaning": "some_failed",
+    "run_class": "clean",
+    "counts": {
+      "failed": 1,
+      "passed": 7
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": " {\n                                    \"application/json\": {\n                                        \"schema\": {\n                                            \"type\": \"array\",\n                                            \"items\": {\"type\": \"integer\"},\n                                            \"title\": \"Response Get Query List Default Query List Default Get\",\n                                        }\n                                    }\n                                },\n                            },\n                            \"422\": {\n                                \"description\": \"Validation Error\",\n                                \"content\": {\n                                    \"application/json\": {\n                                        \"schema\": {\n                                            \"$ref\": \"#/components/schemas/HTTPValidationError\"\n                                        }\n                                    }\n                                },\n                            },\n                        },\n                    }\n                },\n            },\n            \"components\": {\n                \"schemas\": {\n                    \"ValidationError\": {\n                        \"title\": \"ValidationError\",\n                        \"required\": [\"loc\", \"msg\", \"type\"],\n                        \"type\": \"object\",\n                        \"properties\": {\n                            \"loc\": {\n                                \"title\": \"Location\",\n                                \"type\": \"array\",\n                                \"items\": {\n                                    \"anyOf\": [{\"type\": \"string\"}, {\"type\": \"integer\"}]\n                                },\n                            },\n                            \"msg\": {\"title\": \"Message\", \"type\": \"string\"},\n                            \"type\": {\"title\": \"Error Type\", \"type\": \"string\"},\n                        },\n                    },\n                    \"HTTPValidationError\": {\n                        \"title\": \"HTTPValidationError\",\n                        \"type\": \"object\",\n                        \"properties\": {\n                            \"detail\": {\n                                \"title\": \"Detail\",\n                                \"type\": \"array\",\n                                \"items\": {\"$ref\": \"#/components/schemas/ValidationError\"},\n                            }\n                        },\n                    },\n                }\n            },\n        }\nE       AssertionError: assert {'components'...l Id'}}, ...}} == {'components'... '3.1.0', ...}\nE         \nE         Omitting 4 identical items, use -vv to show\nE         Right contains 1 more item:\nE         {'externalDocs': {'description': 'External API documentation.',\nE                           'url': 'https://docs.example.com/api-general'}}\nE         Use -v to get more diff\n\ntests/test_application.py:58: AssertionError\n- generated xml file: /home/sauravbellam/results/a2_runs/fastapi_13713/trace_pre.xml -\n1 failed, 7 passed in 1.86s\n",
+    "stderr_tail": ""
+  },
+  "gold_patch_strategy": "exact",
+  "gold_patch_applied": true,
+  "post": {
+    "exit": 0,
+    "seconds": 2.5,
+    "timeout": false,
+    "exit_meaning": "all_passed",
+    "run_class": "clean",
+    "counts": {
+      "passed": 8
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "........                                                                 [100%]\n- generated xml file: /home/sauravbellam/results/a2_runs/fastapi_13713/trace_post.xml -\n8 passed in 1.70s\n",
+    "stderr_tail": ""
+  },
+  "trace_pre_exists": true,
+  "trace_post_exists": true,
+  "seconds": 84.6
+}

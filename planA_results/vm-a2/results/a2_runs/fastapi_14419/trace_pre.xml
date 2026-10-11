@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="2" time="2.030" timestamp="2026-10-10T23:20:29.076111+00:00" hostname="vm-a2"><testcase classname="tests.test_security_scopes" name="test_security_scopes_dependency_called_once" time="0.221"><failure message="assert 2 == 1">client = &lt;starlette.testclient.TestClient object at 0x7faa74078050&gt;
+call_counter = {'count': 2}
+
+    def test_security_scopes_dependency_called_once(
+        client: TestClient, call_counter: Dict[str, int]
+    ):
+        response = client.get("/")
+    
+        assert response.status_code == 200
+&gt;       assert call_counter["count"] == 1
+E       assert 2 == 1
+
+tests/test_security_scopes.py:46: AssertionError</failure></testcase><testcase classname="tests.test_security_scopes_sub_dependency" name="test_security_scopes_sub_dependency_caching" time="0.016"><failure message="assert 2 == 1">client = &lt;starlette.testclient.TestClient object at 0x7faa74017110&gt;
+call_counts = {'get_current_user': 2, 'get_db_session': 2, 'get_user_items': 1, 'get_user_me': 2}
+
+    def test_security_scopes_sub_dependency_caching(
+        client: TestClient, call_counts: Dict[str, int]
+    ):
+        response = client.get("/")
+    
+        assert response.status_code == 200
+&gt;       assert call_counts["get_db_session"] == 1
+E       assert 2 == 1
+
+tests/test_security_scopes_sub_dependency.py:83: AssertionError</failure></testcase></testsuite></testsuites>

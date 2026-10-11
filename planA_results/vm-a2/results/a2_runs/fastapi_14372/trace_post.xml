@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="1" time="1.197" timestamp="2026-10-10T23:18:38.208272+00:00" hostname="vm-a2"><testcase classname="tests.test_depends_hashable" name="test_depends_hashable" time="0.003" /></testsuite></testsuites>

@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="6" failures="8" skipped="0" tests="41" time="2.958" timestamp="2026-10-10T23:20:15.138586+00:00" hostname="vm-a2"><testcase classname="tests.test_query_cookie_header_model_extra_params" name="test_query_pass_extra_list" time="0.227"><failure message="AssertionError: assert {'param': '12...aram2': '789'} == {'param': '12...'456', '789']}&#10;  &#10;  Omitting 1 identical items, use -vv to show&#10;  Differing items:&#10;  {'param2': '789'} != {'param2': ['456', '789']}&#10;  Use -v to get more diff">def test_query_pass_extra_list():
+        client = TestClient(app)
+        resp = client.get(
+            "/query",
+            params={
+                "param": "123",
+                "param2": ["456", "789"],  # Pass a list of values as extra parameter
+            },
+        )
+        assert resp.status_code == 200
+&gt;       assert resp.json() == {
+            "param": "123",
+            "param2": ["456", "789"],
+        }
+E       AssertionError: assert {'param': '12...aram2': '789'} == {'param': '12...'456', '789']}
+E         
+E         Omitting 1 identical items, use -vv to show
+E         Differing items:
+E         {'param2': '789'} != {'param2': ['456', '789']}
+E         Use -v to get more diff
+
+tests/test_query_cookie_header_model_extra_params.py:45: AssertionError</failure></testcase><testcase classname="tests.test_query_cookie_header_model_extra_params" name="test_query_pass_extra_single" time="0.009" /><testcase classname="tests.test_query_cookie_header_model_extra_params" name="test_header_pass_extra_list" time="0.010"><failure message="AssertionError: assert '789' == ['456', '789']">def test_header_pass_extra_list():
+        client = TestClient(app)
+    
+        resp = client.get(
+            "/header",
+            headers=[
+                ("param", "123"),
+                ("param2", "456"),  # Pass a list of values as extra parameter
+                ("param2", "789"),
+            ],
+        )
+        assert resp.status_code == 200
+        resp_json = resp.json()
+        assert "param2" in resp_json
+&gt;       assert resp_json["param2"] == ["456", "789"]
+E       AssertionError: assert '789' == ['456', '789']
+
+tests/test_query_cookie_header_model_extra_params.py:81: AssertionError</failure></testcase><testcase classname="tests.test_query_cookie_header_model_extra_params" name="test_header_pass_extra_single" time="0.007" /><testcase classname="tests.test_query_cookie_header_model_extra_params" name="test_cookie_pass_extra_list" time="0.008" /><testcase classname="tests.test_tutorial.test_header_param_models.test_tutorial003" name="test_header_param_model[tutorial003]" time="0.021" /><testcase classname="tests.test_tutorial.test_header_param_models.test_tutorial003" name="test_header_param_model[tutorial003_py39]" time="0.013" /><testcase classname="tests.test_tutorial.test_header_param_models.test_tutorial003" name="test_header_param_model[tutorial003_py310]" time="0.016" /><testcase classname="tests.test_tutorial.test_header_param_models.test_tutorial003" name="test_header_param_model[tutorial003_an]" time="0.022" /><testcase classname="tests.test_tutorial.test_header_param_models.test_tutorial003" name="test_header_param_model[tutorial003_an_py39]" time="0.017" /><testcase classname="tests.test_tutorial.test_header_param_models.test_tutorial003" name="test_header_param_model[tutorial003_an_py310]" time="0.014" /><testcase classname="tests.test_tutorial.test_header_param_models.test_tutorial003" name="test_header_param_model_no_underscore[tutorial003]" time="0.147"><failure message="AssertionError: assert {'detail': [{...: 'missing'}]} == {'detail': [I...d required')]}&#10;  &#10;  Differing items:&#10;  {'detail': [{'input': {'accept': '*/*', 'accept-encoding': 'gzip, deflate', 'connection': 'keep-alive', 'host': 'testserver', ...}, 'loc': ['header', 'save_data'], 'msg': 'Field required', 'type': 'missing'}]} != {'detail': [IsDict(type='missing', loc=['header', 'save_data'], msg='Field required', input={'host': 'testserver', 'tr...y', 'x-tag': ['one', 'two']}) | IsDict(type='value_error.missing', loc=['header', 'save_data'], msg='field required')]}&#10;  Use -v to get more diff">client = &lt;starlette.testclient.TestClient object at 0x7fb200bf1220&gt;
+
+    def test_header_param_model_no_underscore(client: TestClient):
+        response = client.get(
+            "/items/",
+            headers=[
+                ("save-data", "true"),
+                ("if-modified-since", "yesterday"),
+                ("traceparent", "123"),
+                ("x-tag", "one"),
+                ("x-tag", "two"),
+            ],
+        )
+        assert response.status_code == 422
+&gt;       assert response.json() == snapshot(
+            {
+                "detail": [
+                    IsDict(
+                        {
+                            "type": "missing",
+                            "loc": ["header", "save_data"],
+                            "msg": "Field required",
+                            "input": {
+                                "host": "testserver",
+                                "traceparent": "123",
+                                "x_tag": [],
+                                "accept": "*/*",
+                                "accept-encoding": "gzip, deflate",
+                                "connection": "keep-alive",
+                                "user-agent": "testclient",
+                                "save-data": "true",
+                                "if-modified-since": "yesterday",
+                                "x-tag": ["one", "two"],
+                            },
+                        }
+                    )
+                    | IsDict(
+                        # TODO: remove when deprecating Pydantic v1
+                        {
+                            "type": "value_error.missing",
+                            "loc": ["header", "save_data"],
+                            "msg": "field required",
+                        }
+                    )
+                ]
+            }
+        )
+E       AssertionError: assert {'detail': [{...: 'missing'}]} == {'detail': [I...d required')]}
+E         
+E         Differing items:
+E         {'detail': [{'input': {'accept': '*/*', 'accept-encoding': 'gzip, deflate', 'connection': 'keep-alive', 'host': 'testserver', ...}, 'loc': ['header', 'save_data'], 'msg': 'Field required', 'type': 'missing'}]} != {'detail': [IsDict(type='missing', loc=['header', 'save_data'], msg='Field required', input={'host': 'testserver', 'tr...y', 'x-tag': ['one', 'two']}) | IsDict(type='value_error.missing', loc=['header', 'save_data'], msg='field required')]}
+E         Use -v to get more diff
+
+tests/test_tutorial/test_header_param_models/test_tutorial003.py:62: AssertionError</failure></testcase><testcase classname="tests.test_tutorial.test_header_param_models.test_tutorial003" name="test_header_param_model_no_underscore[tutorial003]" time="0.000"><error message="failed on teardown with &quot;Failed: some snapshots in this test have incorrect values.&#10;If you just created this value with --inline-snapshot=create, the value is now created and you can ignore this message.&quot;">some snapshots in this test have incorrect values.
+If you just created this value with --inline-snapshot=create, the value is now created and you can ignore this message.</error></testcase><testcase classname="tests.test_tutorial.test_header_param_models.test_tutorial003" name="test_header_param_model_no_underscore[tutorial003_py39]" time="0.009"><failure message="AssertionError: assert {'detail': [{...: 'missing'}]} == {'detail': [I...d required')]}&#10;  &#10;  Differing items:&#10;  {'detail': [{'input': {'accept': '*/*', 'accept-encoding': 'gzip, deflate', 'connection': 'keep-alive', 'host': 'testserver', ...}, 'loc': ['header', 'save_data'], 'msg': 'Field required', 'type': 'missing'}]} != {'detail': [IsDict(type='missing', loc=['header', 'save_data'], msg='Field required', input={'host': 'testserver', 'tr...y', 'x-tag': ['one', 'two']}) | IsDict(type='value_error.missing', loc=['header', 'save_data'], msg='field required')]}&#10;  Use -v to get more diff">client = &lt;starlette.testclient.TestClient object at 0x7fb2017b9630&gt;
+
+    def test_header_param_model_no_underscore(client: TestClient):
+        response = client.get(
+            "/items/",
+            headers=[
+                ("save-data", "true"),
+                ("if-modified-since", "yesterday"),
+                ("traceparent", "123"),
+                ("x-tag", "one"),
+                ("x-tag", "two"),
+            ],
+        )
+        assert response.status_code == 422
+&gt;       assert response.json() == snapshot(
+            {
+                "detail": [
+                    IsDict(
+                        {
+                            "type": "missing",
+                            "loc": ["header", "save_data"],
+                            "msg": "Field required",
+                            "input": {
+                                "host": "testserver",
+                                "traceparent": "123",
+                                "x_tag": [],
+                                "accept": "*/*",
+                                "accept-encoding": "gzip, deflate",
+                                "connection": "keep-alive",
+                                "user-agent": "testclient",
+                                "save-data": "true",
+                                "if-modified-since": "yesterday",
+                                "x-tag": ["one", "two"],
+                            },
+                        }
+                    )
+                    | IsDict(
+                        # TODO: remove when deprecating Pydantic v1
+                        {
+                            "type": "value_error.missing",
+                            "loc": ["header", "save_data"],
+                            "msg": "field required",
+                        }
+                    )
+                ]
+            }
+        )
+E       AssertionError: assert {'detail': [{...: 'missing'}]} == {'detail': [I...d required')]}
+E         
+E         Differing items:
+E         {'detail': [{'input': {'accept': '*/*', 'accept-encoding': 'gzip, deflate', 'connection': 'keep-alive', 'host': 'testserver', ...}, 'loc': ['header', 'save_data'], 'msg': 'Field required', 'type': 'missing'}]} != {'detail': [IsDict(type='missing', loc=['header', 'save_data'], msg='Field required', input={'host': 'testserver', 'tr...y', 'x-tag': ['one', 'two']}) | IsDict(type='value_error.missing', loc=['header', 'save_data'], msg='field required')]}
+E         Use -v to get more diff
+
+tests/test_tutorial/test_header_param_models/test_tutorial003.py:62: AssertionError</failure></testcase><testcase classname="tests.test_tutorial.test_header_param_models.test_tutorial003" name="test_header_param_model_no_underscore[tutorial003_py39]" time="0.000"><error message="failed on teardown with &quot;Failed: some snapshots in this test have incorrect values.&#10;If you just created this value with --inline-snapshot=create, the value is now created and you can ignore this message.&quot;">some snapshots in this test have incorrect values.
+If you just created this value with --inline-snapshot=create, the value is now created and you can ignore this message.</error></testcase><testcase classname="tests.test_tutorial.test_header_param_models.test_tutorial003" name="test_header_param_model_no_underscore[tutorial003_py310]" time="0.013"><failure message="AssertionError: assert {'detail': [{...: 'missing'}]} == {'detail': [I...d required')]}&#10;  &#10;  Differing items:&#10;  {'detail': [{'input': {'accept': '*/*', 'accept-encoding': 'gzip, deflate', 'connection': 'keep-alive', 'host': 'testserver', ...}, 'loc': ['header', 'save_data'], 'msg': 'Field required', 'type': 'missing'}]} != {'detail': [IsDict(type='missing', loc=['header', 'save_data'], msg='Field required', input={'host': 'testserver', 'tr...y', 'x-tag': ['one', 'two']}) | IsDict(type='value_error.missing', loc=['header', 'save_data'], msg='field required')]}&#10;  Use -v to get more diff">client = &lt;starlette.testclient.TestClient object at 0x7fb2017bb930&gt;
+
+    def test_header_param_model_no_underscore(client: TestClient):
+        response = client.get(
+            "/items/",
+            headers=[
+                ("save-data", "true"),
+                ("if-modified-since", "yesterday"),
+                ("traceparent", "123"),
+                ("x-tag", "one"),
+                ("x-tag", "two"),
+            ],
+        )
+        assert response.status_code == 422
+&gt;       assert response.json() == snapshot(
+            {
+                "detail": [
+                    IsDict(
+                        {
+                            "type": "missing",
+                            "loc": ["header", "save_data"],
+                            "msg": "Field required",
+                            "input": {
+                                "host": "testserver",
+                                "traceparent": "123",
+                                "x_tag": [],
+                                "accept": "*/*",
+                                "accept-encoding": "gzip, deflate",
+                                "connection": "keep-alive",
+                                "user-agent": "testclient",
+                                "save-data": "true",
+                                "if-modified-since": "yesterday",
+                                "x-tag": ["one", "two"],
+                            },
+                        }
+                    )
+                    | IsDict(
+                        # TODO: remove when deprecating Pydantic v1
+                        {
+                            "type": "value_error.missing",
+                            "loc": ["header", "save_data"],
+                            "msg": "field required",
+                        }
+                    )
+                ]
+            }
+        )
+E       AssertionError: assert {'detail': [{...: 'missing'}]} == {'detail': [I...d required')]}
+E         
+E         Differing items:
+E         {'detail': [{'input': {'accept': '*/*', 'accept-encoding': 'gzip, deflate', 'connection': 'keep-alive', 'host': 'testserver', ...}, 'loc': ['header', 'save_data'], 'msg': 'Field required', 'type': 'missing'}]} != {'detail': [IsDict(type='missing', loc=['header', 'save_data'], msg='Field required', input={'host': 'testserver', 'tr...y', 'x-tag': ['one', 'two']}) | IsDict(type='value_error.missing', loc=['header', 'save_data'], msg='field required')]}
+E         Use -v to get more diff
+
+tests/test_tutorial/test_header_param_models/test_tutorial003.py:62: AssertionError</failure></testcase><testcase classname="tests.test_tutorial.test_header_param_models.test_tutorial003" name="test_header_param_model_no_underscore[tutorial003_py310]" time="0.000"><error message="failed on teardown with &quot;Failed: some snapshots in this test have incorrect values.&#10;If you just created this value with --inline-snapshot=create, the value is now created and you can ignore this message.&quot;">some snapshots in this test have incorrect values.
+If you just created this value with --inline-snapshot=create, the value is now created and you can ignore this message.</error></testcase><testcase classname="tests.test_tutorial.test_header_param_models.test_tutorial003" name="test_header_param_model_no_underscore[tutorial003_an]" time="0.012"><failure message="AssertionError: assert {'detail': [{...: 'missing'}]} == {'detail': [I...d required')]}&#10;  &#10;  Differing items:&#10;  {'detail': [{'input': {'accept': '*/*', 'accept-encoding': 'gzip, deflate', 'connection': 'keep-alive', 'host': 'testserver', ...}, 'loc': ['header', 'save_data'], 'msg': 'Field required', 'type': 'missing'}]} != {'detail': [IsDict(type='missing', loc=['header', 'save_data'], msg='Field required', input={'host': 'testserver', 'tr...y', 'x-tag': ['one', 'two']}) | IsDict(type='value_error.missing', loc=['header', 'save_data'], msg='field required')]}&#10;  Use -v to get more diff">client = &lt;starlette.testclient.TestClient object at 0x7fb200d50210&gt;
+
+    def test_header_param_model_no_underscore(client: TestClient):
+        response = client.get(
+            "/items/",
+            headers=[
+                ("save-data", "true"),
+                ("if-modified-since", "yesterday"),
+                ("traceparent", "123"),
+                ("x-tag", "one"),
+                ("x-tag", "two"),
+            ],
+        )
+        assert response.status_code == 422
+&gt;       assert response.json() == snapshot(
+            {
+                "detail": [
+                    IsDict(
+                        {
+                            "type": "missing",
+                            "loc": ["header", "save_data"],
+                            "msg": "Field required",
+                            "input": {
+                                "host": "testserver",
+                                "traceparent": "123",
+                                "x_tag": [],
+                                "accept": "*/*",
+                                "accept-encoding": "gzip, deflate",
+                                "connection": "keep-alive",
+                                "user-agent": "testclient",
+                                "save-data": "true",
+                                "if-modified-since": "yesterday",
+                                "x-tag": ["one", "two"],
+                            },
+                        }
+                    )
+                    | IsDict(
+                        # TODO: remove when deprecating Pydantic v1
+                        {
+                            "type": "value_error.missing",
+                            "loc": ["header", "save_data"],
+                            "msg": "field required",
+                        }
+                    )
+                ]
+            }
+        )
+E       AssertionError: assert {'detail': [{...: 'missing'}]} == {'detail': [I...d required')]}
+E         
+E         Differing items:
+E         {'detail': [{'input': {'accept': '*/*', 'accept-encoding': 'gzip, deflate', 'connection': 'keep-alive', 'host': 'testserver', ...}, 'loc': ['header', 'save_data'], 'msg': 'Field required', 'type': 'missing'}]} != {'detail': [IsDict(type='missing', loc=['header', 'save_data'], msg='Field required', input={'host': 'testserver', 'tr...y', 'x-tag': ['one', 'two']}) | IsDict(type='value_error.missing', loc=['header', 'save_data'], msg='field required')]}
+E         Use -v to get more diff
+
+tests/test_tutorial/test_header_param_models/test_tutorial003.py:62: AssertionError</failure></testcase><testcase classname="tests.test_tutorial.test_header_param_models.test_tutorial003" name="test_header_param_model_no_underscore[tutorial003_an]" time="0.000"><error message="failed on teardown with &quot;Failed: some snapshots in this test have incorrect values.&#10;If you just created this value with --inline-snapshot=create, the value is now created and you can ignore this message.&quot;">some snapshots in this test have incorrect values.
+If you just created this value with --inline-snapshot=create, the value is now created and you can ignore this message.</error></testcase><testcase classname="tests.test_tutorial.test_header_param_models.test_tutorial003" name="test_header_param_model_no_underscore[tutorial003_an_py39]" time="0.012"><failure message="AssertionError: assert {'detail': [{...: 'missing'}]} == {'detail': [I...d required')]}&#10;  &#10;  Differing items:&#10;  {'detail': [{'input': {'accept': '*/*', 'accept-encoding': 'gzip, deflate', 'connection': 'keep-alive', 'host': 'testserver', ...}, 'loc': ['header', 'save_data'], 'msg': 'Field required', 'type': 'missing'}]} != {'detail': [IsDict(type='missing', loc=['header', 'save_data'], msg='Field required', input={'host': 'testserver', 'tr...y', 'x-tag': ['one', 'two']}) | IsDict(type='value_error.missing', loc=['header', 'save_data'], msg='field required')]}&#10;  Use -v to get more diff">client = &lt;starlette.testclient.TestClient object at 0x7fb200d50c90&gt;
+
+    def test_header_param_model_no_underscore(client: TestClient):
+        response = client.get(
+            "/items/",
+            headers=[
+                ("save-data", "true"),
+                ("if-modified-since", "yesterday"),
+                ("traceparent", "123"),
+                ("x-tag", "one"),
+                ("x-tag", "two"),
+            ],
+        )
+        assert response.status_code == 422
+&gt;       assert response.json() == snapshot(
+            {
+                "detail": [
+                    IsDict(
+                        {
+                            "type": "missing",
+                            "loc": ["header", "save_data"],
+                            "msg": "Field required",
+                            "input": {
+                                "host": "testserver",
+                                "traceparent": "123",
+                                "x_tag": [],
+                                "accept": "*/*",
+                                "accept-encoding": "gzip, deflate",
+                                "connection": "keep-alive",
+                                "user-agent": "testclient",
+                                "save-data": "true",
+                                "if-modified-since": "yesterday",
+                                "x-tag": ["one", "two"],
+                            },
+                        }
+                    )
+                    | IsDict(
+                        # TODO: remove when deprecating Pydantic v1
+                        {
+                            "type": "value_error.missing",
+                            "loc": ["header", "save_data"],
+                            "msg": "field required",
+                        }
+                    )
+                ]
+            }
+        )
+E       AssertionError: assert {'detail': [{...: 'missing'}]} == {'detail': [I...d required')]}
+E         
+E         Differing items:
+E         {'detail': [{'input': {'accept': '*/*', 'accept-encoding': 'gzip, deflate', 'connection': 'keep-alive', 'host': 'testserver', ...}, 'loc': ['header', 'save_data'], 'msg': 'Field required', 'type': 'missing'}]} != {'detail': [IsDict(type='missing', loc=['header', 'save_data'], msg='Field required', input={'host': 'testserver', 'tr...y', 'x-tag': ['one', 'two']}) | IsDict(type='value_error.missing', loc=['header', 'save_data'], msg='field required')]}
+E         Use -v to get more diff
+
+tests/test_tutorial/test_header_param_models/test_tutorial003.py:62: AssertionError</failure></testcase><testcase classname="tests.test_tutorial.test_header_param_models.test_tutorial003" name="test_header_param_model_no_underscore[tutorial003_an_py39]" time="0.000"><error message="failed on teardown with &quot;Failed: some snapshots in this test have incorrect values.&#10;If you just created this value with --inline-snapshot=create, the value is now created and you can ignore this message.&quot;">some snapshots in this test have incorrect values.
+If you just created this value with --inline-snapshot=create, the value is now created and you can ignore this message.</error></testcase><testcase classname="tests.test_tutorial.test_header_param_models.test_tutorial003" name="test_header_param_model_no_underscore[tutorial003_an_py310]" time="0.007"><failure message="AssertionError: assert {'detail': [{...: 'missing'}]} == {'detail': [I...d required')]}&#10;  &#10;  Differing items:&#10;  {'detail': [{'input': {'accept': '*/*', 'accept-encoding': 'gzip, deflate', 'connection': 'keep-alive', 'host': 'testserver', ...}, 'loc': ['header', 'save_data'], 'msg': 'Field required', 'type': 'missing'}]} != {'detail': [IsDict(type='missing', loc=['header', 'save_data'], msg='Field required', input={'host': 'testserver', 'tr...y', 'x-tag': ['one', 'two']}) | IsDict(type='value_error.missing', loc=['header', 'save_data'], msg='field required')]}&#10;  Use -v to get more diff">client = &lt;starlette.testclient.TestClient object at 0x7fb2017bac10&gt;
+
+    def test_header_param_model_no_underscore(client: TestClient):
+        response = client.get(
+            "/items/",
+            headers=[
+                ("save-data", "true"),
+                ("if-modified-since", "yesterday"),
+                ("traceparent", "123"),
+                ("x-tag", "one"),
+                ("x-tag", "two"),
+            ],
+        )
+        assert response.status_code == 422
+&gt;       assert response.json() == snapshot(
+            {
+                "detail": [
+                    IsDict(
+                        {
+                            "type": "missing",
+                            "loc": ["header", "save_data"],
+                            "msg": "Field required",
+                            "input": {
+                                "host": "testserver",
+                                "traceparent": "123",
+                                "x_tag": [],
+                                "accept": "*/*",
+                                "accept-encoding": "gzip, deflate",
+                                "connection": "keep-alive",
+                                "user-agent": "testclient",
+                                "save-data": "true",
+                                "if-modified-since": "yesterday",
+                                "x-tag": ["one", "two"],
+                            },
+                        }
+                    )
+                    | IsDict(
+                        # TODO: remove when deprecating Pydantic v1
+                        {
+                            "type": "value_error.missing",
+                            "loc": ["header", "save_data"],
+                            "msg": "field required",
+                        }
+                    )
+                ]
+            }
+        )
+E       AssertionError: assert {'detail': [{...: 'missing'}]} == {'detail': [I...d required')]}
+E         
+E         Differing items:
+E         {'detail': [{'input': {'accept': '*/*', 'accept-encoding': 'gzip, deflate', 'connection': 'keep-alive', 'host': 'testserver', ...}, 'loc': ['header', 'save_data'], 'msg': 'Field required', 'type': 'missing'}]} != {'detail': [IsDict(type='missing', loc=['header', 'save_data'], msg='Field required', input={'host': 'testserver', 'tr...y', 'x-tag': ['one', 'two']}) | IsDict(type='value_error.missing', loc=['header', 'save_data'], msg='field required')]}
+E         Use -v to get more diff
+
+tests/test_tutorial/test_header_param_models/test_tutorial003.py:62: AssertionError</failure></testcase><testcase classname="tests.test_tutorial.test_header_param_models.test_tutorial003" name="test_header_param_model_no_underscore[tutorial003_an_py310]" time="0.000"><error message="failed on teardown with &quot;Failed: some snapshots in this test have incorrect values.&#10;If you just created this value with --inline-snapshot=create, the value is now created and you can ignore this message.&quot;">some snapshots in this test have incorrect values.
+If you just created this value with --inline-snapshot=create, the value is now created and you can ignore this message.</error></testcase><testcase classname="tests.test_tutorial.test_header_param_models.test_tutorial003" name="test_header_param_model_defaults[tutorial003]" time="0.006" /><testcase classname="tests.test_tutorial.test_header_param_models.test_tutorial003" name="test_header_param_model_defaults[tutorial003_py39]" time="0.006" /><testcase classname="tests.test_tutorial.test_header_param_models.test_tutorial003" name="test_header_param_model_defaults[tutorial003_py310]" time="0.006" /><testcase classname="tests.test_tutorial.test_header_param_models.test_tutorial003" name="test_header_param_model_defaults[tutorial003_an]" time="0.005" /><testcase classname="tests.test_tutorial.test_header_param_models.test_tutorial003" name="test_header_param_model_defaults[tutorial003_an_py39]" time="0.005" /><testcase classname="tests.test_tutorial.test_header_param_models.test_tutorial003" name="test_header_param_model_defaults[tutorial003_an_py310]" time="0.005" /><testcase classname="tests.test_tutorial.test_header_param_models.test_tutorial003" name="test_header_param_model_invalid[tutorial003]" time="0.010" /><testcase classname="tests.test_tutorial.test_header_param_models.test_tutorial003" name="test_header_param_model_invalid[tutorial003_py39]" time="0.008" /><testcase classname="tests.test_tutorial.test_header_param_models.test_tutorial003" name="test_header_param_model_invalid[tutorial003_py310]" time="0.010" /><testcase classname="tests.test_tutorial.test_header_param_models.test_tutorial003" name="test_header_param_model_invalid[tutorial003_an]" time="0.008" /><testcase classname="tests.test_tutorial.test_header_param_models.test_tutorial003" name="test_header_param_model_invalid[tutorial003_an_py39]" time="0.008" /><testcase classname="tests.test_tutorial.test_header_param_models.test_tutorial003" name="test_header_param_model_invalid[tutorial003_an_py310]" time="0.008" /><testcase classname="tests.test_tutorial.test_header_param_models.test_tutorial003" name="test_header_param_model_extra[tutorial003]" time="0.022" /><testcase classname="tests.test_tutorial.test_header_param_models.test_tutorial003" name="test_header_param_model_extra[tutorial003_py39]" time="0.009" /><testcase classname="tests.test_tutorial.test_header_param_models.test_tutorial003" name="test_header_param_model_extra[tutorial003_py310]" time="0.008" /><testcase classname="tests.test_tutorial.test_header_param_models.test_tutorial003" name="test_header_param_model_extra[tutorial003_an]" time="0.008" /><testcase classname="tests.test_tutorial.test_header_param_models.test_tutorial003" name="test_header_param_model_extra[tutorial003_an_py39]" time="0.008" /><testcase classname="tests.test_tutorial.test_header_param_models.test_tutorial003" name="test_header_param_model_extra[tutorial003_an_py310]" time="0.009" /><testcase classname="tests.test_tutorial.test_header_param_models.test_tutorial003" name="test_openapi_schema[tutorial003]" time="0.123" /><testcase classname="tests.test_tutorial.test_header_param_models.test_tutorial003" name="test_openapi_schema[tutorial003_py39]" time="0.025" /><testcase classname="tests.test_tutorial.test_header_param_models.test_tutorial003" name="test_openapi_schema[tutorial003_py310]" time="0.026" /><testcase classname="tests.test_tutorial.test_header_param_models.test_tutorial003" name="test_openapi_schema[tutorial003_an]" time="0.027" /><testcase classname="tests.test_tutorial.test_header_param_models.test_tutorial003" name="test_openapi_schema[tutorial003_an_py39]" time="0.030" /><testcase classname="tests.test_tutorial.test_header_param_models.test_tutorial003" name="test_openapi_schema[tutorial003_an_py310]" time="0.025" /></testsuite></testsuites>

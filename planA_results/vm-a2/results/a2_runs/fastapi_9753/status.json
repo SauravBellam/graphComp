@@ -1,0 +1,111 @@
+{
+  "instance_id": "fastapi_9753",
+  "repo": "fastapi/fastapi",
+  "backend": "venv",
+  "done": true,
+  "deps": {
+    "steps": [
+      {
+        "name": "pip_upgrade",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_9753/venv/bin/python -m pip install -q --disable-pip-version-check 'pip>=24' 'setuptools' 'wheel' pytest pytest-timeout",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "editable_no_deps",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_9753/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-build-isolation --no-deps -e .",
+        "exit": 2,
+        "stderr_tail": "v/lib/python3.13/site-packages/pip/_internal/req/req_install.py\", line 258, in supports_pyproject_editable\n    return \"build_editable\" in self.pep517_backend._supported_features()\n                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"/home/sauravbellam/cache/a2/fastapi_9753/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 180, in _supported_features\n    return self._call_hook(\"_supported_features\", {})\n           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/sauravbellam/cache/a2/fastapi_9753/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 402, in _call_hook\n    raise BackendUnavailable(\n    ...<4 lines>...\n    )\npip._vendor.pyproject_hooks._impl.BackendUnavailable: Cannot import 'pdm.backend'\n"
+      },
+      {
+        "name": "editable_no_deps_isolated",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_9753/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-deps -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "runtime_deps",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_9753/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "extra_all",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_9753/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e '.[all]'",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "extra_standard",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_9753/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e '.[standard]'",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "req_requirements-tests.txt",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_9753/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -r requirements-tests.txt",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "req_requirements-docs-tests.txt",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_9753/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -r requirements-docs-tests.txt",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "req_requirements.txt",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_9753/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -r requirements.txt",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "fastapi_tests",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_9753/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels httpx 'python-multipart' email-validator pyyaml orjson ujson 'sqlmodel' 'dirty-equals' 'pytest-asyncio' 'flask' 'passlib[bcrypt]' 'pyjwt' 'inline-snapshot'",
+        "exit": 0,
+        "stderr_tail": ""
+      }
+    ],
+    "editable_ok": true,
+    "python": "3.13.5 (main, Aug 10 2026, 12:06:59) [GCC 14.2.0]"
+  },
+  "targets": [
+    "tests/test_dependency_partial.py"
+  ],
+  "test_patch_strategy": "exact",
+  "test_patch_applied": true,
+  "pre": {
+    "exit": 1,
+    "seconds": 8.8,
+    "timeout": false,
+    "exit_meaning": "some_failed",
+    "run_class": "clean",
+    "counts": {
+      "failed": 5,
+      "passed": 7
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": ": in wrapped_app\n    raise exc\n../venv/lib/python3.13/site-packages/starlette/_exception_handler.py:42: in wrapped_app\n    await app(scope, receive, sender)\nfastapi/middleware/asyncexitstack.py:18: in __call__\n    await self.app(scope, receive, send)\n../venv/lib/python3.13/site-packages/starlette/routing.py:716: in __call__\n    await self.middleware_stack(scope, receive, send)\n../venv/lib/python3.13/site-packages/starlette/routing.py:736: in app\n    await route.handle(scope, receive, send)\n../venv/lib/python3.13/site-packages/starlette/routing.py:290: in handle\n    await self.app(scope, receive, send)\nfastapi/routing.py:119: in app\n    await wrap_app_handling_exceptions(app, request)(scope, receive, send)\n../venv/lib/python3.13/site-packages/starlette/_exception_handler.py:53: in wrapped_app\n    raise exc\n../venv/lib/python3.13/site-packages/starlette/_exception_handler.py:42: in wrapped_app\n    await app(scope, receive, sender)\nfastapi/routing.py:105: in app\n    response = await f(request)\n               ^^^^^^^^^^^^^^^^\nfastapi/routing.py:407: in app\n    content = await serialize_response(\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    async def serialize_response(\n        *,\n        field: Optional[ModelField] = None,\n        response_content: Any,\n        include: Optional[IncEx] = None,\n        exclude: Optional[IncEx] = None,\n        by_alias: bool = True,\n        exclude_unset: bool = False,\n        exclude_defaults: bool = False,\n        exclude_none: bool = False,\n        is_coroutine: bool = True,\n    ) -> Any:\n        if field:\n            errors = []\n            if not hasattr(field, \"serialize\"):\n                # pydantic v1\n                response_content = _prepare_response_content(\n                    response_content,\n                    exclude_unset=exclude_unset,\n                    exclude_defaults=exclude_defaults,\n                    exclude_none=exclude_none,\n                )\n            if is_coroutine:\n                value, errors_ = field.validate(response_content, {}, loc=(\"response\",))\n            else:\n                value, errors_ = await run_in_threadpool(\n                    field.validate, response_content, {}, loc=(\"response\",)\n                )\n            if isinstance(errors_, list):\n                errors.extend(errors_)\n            elif errors_:\n                errors.append(errors_)\n            if errors:\n>               raise ResponseValidationError(\n                    errors=_normalize_errors(errors), body=response_content\n                )\nE               fastapi.exceptions.ResponseValidationError: 1 validation errors:\nE                 {'type': 'string_type', 'loc': ('response',), 'msg': 'Input should be a valid string', 'input': <coroutine object MethodsDependency.asynchronous at 0x7fbaf866db40>}\n\nfastapi/routing.py:248: ResponseValidationError\n- generated xml file: /home/sauravbellam/results/a2_runs/fastapi_9753/trace_pre.xml -\n5 failed, 7 passed in 7.63s\n",
+    "stderr_tail": "/home/sauravbellam/cache/a2/fastapi_9753/venv/lib/python3.13/site-packages/_pytest/unraisableexception.py:33: RuntimeWarning: coroutine 'MethodsDependency.asynchronous' was never awaited\n  gc.collect()\nRuntimeWarning: Enable tracemalloc to get the object allocation traceback\n"
+  },
+  "gold_patch_strategy": "exact",
+  "gold_patch_applied": true,
+  "post": {
+    "exit": 0,
+    "seconds": 2.9,
+    "timeout": false,
+    "exit_meaning": "all_passed",
+    "run_class": "clean",
+    "counts": {
+      "passed": 12
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "............                                                             [100%]\n- generated xml file: /home/sauravbellam/results/a2_runs/fastapi_9753/trace_post.xml -\n12 passed in 1.92s\n",
+    "stderr_tail": ""
+  },
+  "trace_pre_exists": true,
+  "trace_post_exists": true,
+  "seconds": 89.7
+}

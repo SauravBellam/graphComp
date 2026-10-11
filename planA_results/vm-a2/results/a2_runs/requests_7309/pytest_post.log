@@ -1,0 +1,12 @@
+
+$ /home/sauravbellam/cache/a2/requests_7309/venv/bin/python -s -m pytest tests/test_utils.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/requests_7309/trace_post.xml
+[exit 0]
+..s..................................................................... [ 32%]
+........................................................................ [ 65%]
+...........................................................sssssssssss.. [ 98%]
+...s                                                                     [100%]
+- generated xml file: /home/sauravbellam/results/a2_runs/requests_7309/trace_post.xml -
+207 passed, 13 skipped in 1.06s
+
+[2026-10-10 23:16:11,192] WARNING in core: flasgger is not installed; serving the static landing page at / and skipping the Swagger UI and /spec.json.
+
