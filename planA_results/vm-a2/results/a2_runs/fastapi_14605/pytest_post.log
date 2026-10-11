@@ -1,0 +1,9 @@
+
+$ /home/sauravbellam/cache/a2/fastapi_14605/venv/bin/python -s -m pytest tests/benchmarks/test_general_performance.py tests/test_compat_params_v1.py tests/test_pydantic_v1_deprecation_warnings.py tests/test_regex_deprecated_body.py tests/test_regex_deprecated_params.py tests/test_schema_extra_examples.py tests/test_tutorial/test_pydantic_v1_in_v2/test_tutorial002.py tests/test_tutorial/test_pydantic_v1_in_v2/test_tutorial003.py tests/test_tutorial/test_pydantic_v1_in_v2/test_tutorial004.py tests/test_tutorial/test_query_params_str_validations/test_tutorial004.py tests/test_tutorial/test_request_form_models/test_tutorial002_pv1.py tests/test_tutorial/test_schema_extra_example/test_tutorial001_pv1.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/fastapi_14605/trace_post.xml
+[exit 0]
+........................................................................ [ 72%]
+...........................                                              [100%]
+- generated xml file: /home/sauravbellam/results/a2_runs/fastapi_14605/trace_post.xml -
+99 passed, 1 skipped in 4.58s
+
+

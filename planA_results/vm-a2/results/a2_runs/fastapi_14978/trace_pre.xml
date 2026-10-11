@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="2" failures="0" skipped="0" tests="2" time="3.134" timestamp="2026-10-10T23:15:44.898105+00:00" hostname="vm-a2"><testcase classname="" name="tests.test_strict_content_type_nested" time="0.000"><error message="collection failure">tests/test_strict_content_type_nested.py:8: in &lt;module&gt;
+    inner_strict = APIRouter(prefix="/strict", strict_content_type=True)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   TypeError: APIRouter.__init__() got an unexpected keyword argument 'strict_content_type'</error></testcase><testcase classname="" name="tests.test_strict_content_type_router_level" time="0.000"><error message="collection failure">tests/test_strict_content_type_router_level.py:6: in &lt;module&gt;
+    router_lax = APIRouter(prefix="/lax", strict_content_type=False)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   TypeError: APIRouter.__init__() got an unexpected keyword argument 'strict_content_type'</error></testcase></testsuite></testsuites>

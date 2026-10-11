@@ -1,0 +1,9 @@
+
+$ /home/sauravbellam/cache/a2/fastapi_14953/venv/bin/python -s -m pytest tests/test_request_params/test_file/test_list.py tests/test_request_params/test_file/test_optional.py tests/test_request_params/test_file/test_optional_list.py tests/test_request_params/test_file/test_required.py tests/test_tutorial/test_json_base64_bytes/test_tutorial001.py tests/test_tutorial/test_request_files/test_tutorial001.py tests/test_tutorial/test_request_files/test_tutorial001_02.py tests/test_tutorial/test_request_files/test_tutorial001_03.py tests/test_tutorial/test_request_files/test_tutorial002.py tests/test_tutorial/test_request_files/test_tutorial003.py tests/test_tutorial/test_request_forms_and_files/test_tutorial001.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/fastapi_14953/trace_post.xml
+[exit 0]
+........................................................................ [ 37%]
+........................................................................ [ 75%]
+................................................                         [100%]
+192 passed in 11.61s
+
+

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="11" time="2.706" timestamp="2026-10-10T23:20:53.655630+00:00" hostname="vm-a2"><testcase classname="test_live" name="test_live_state" file="test_live.py" line="23" time="0.010" /><testcase classname="test_live" name="test_growing_display" file="test_live.py" line="37" time="0.034" /><testcase classname="test_live" name="test_growing_display_transient" file="test_live.py" line="53" time="0.024" /><testcase classname="test_live" name="test_growing_display_overflow_ellipsis" file="test_live.py" line="68" time="0.044" /><testcase classname="test_live" name="test_growing_display_overflow_crop" file="test_live.py" line="85" time="0.023" /><testcase classname="test_live" name="test_growing_display_overflow_visible" file="test_live.py" line="100" time="0.024" /><testcase classname="test_live" name="test_growing_display_autorefresh" file="test_live.py" line="115" time="2.025" /><testcase classname="test_live" name="test_growing_display_console_redirect" file="test_live.py" line="129" time="0.086" /><testcase classname="test_live" name="test_growing_display_file_console" file="test_live.py" line="145" time="0.011" /><testcase classname="test_live" name="test_live_screen" file="test_live.py" line="160" time="0.006" /><testcase classname="test_live" name="test_live_empty" file="test_live.py" line="171" time="0.005"><failure message="AssertionError: assert '\n' not in '\x1b[?25l\r...n\x1b[?25h\r'&#10;  &#10;  '\n' is contained here:&#10;    #x1B[?25l&#10;    #x1B[2K&#10;  ? ----&#10;    #x1B[?25h">def test_live_empty() -&gt; None:
+        """Regression test for https://github.com/Textualize/rich/issues/3796
+    
+        No NL should be written if there was nothing rendered.
+        """
+    
+        from rich.console import Group
+    
+        console = create_capture_console(width=20, height=5)
+        console.begin_capture()
+        with Live(Group(), console=console, transient=True):
+            pass
+        result = console.end_capture()
+        print(repr(result))
+&gt;       assert "\n" not in result
+E       AssertionError: assert '\n' not in '\x1b[?25l\r...n\x1b[?25h\r'
+E         
+E         '\n' is contained here:
+E           #x1B[?25l
+E           #x1B[2K
+E         ? ----
+E           #x1B[?25h
+
+tests/test_live.py:186: AssertionError</failure></testcase></testsuite></testsuites>

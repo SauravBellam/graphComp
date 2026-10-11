@@ -1,0 +1,61 @@
+
+$ /home/sauravbellam/cache/a2/requests_7328/venv/bin/python -s -m pytest tests/test_requests.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/requests_7328/trace_pre.xml
+[exit 1]
+.................................F...................................... [ 21%]
+.................................................s...................... [ 42%]
+........................................................................ [ 63%]
+.......................x................................................ [ 85%]
+..................................................                       [100%]
+=================================== FAILURES ===================================
+_____________ TestRequests.test_redirect_history_no_self_reference _____________
+
+self = <tests.test_requests.TestRequests object at 0x7f3e986a7b10>
+httpbin = <function prepare_url.<locals>.inner at 0x7f3e995999e0>
+
+    def test_redirect_history_no_self_reference(self, httpbin):
+        r = requests.get(httpbin("redirect", "3"))
+        assert r.status_code == 200
+        assert len(r.history) == 3
+        for i, resp in enumerate(r.history):
+>           assert resp not in resp.history
+E           assert <Response [302]> not in [<Response [302]>]
+E            +  where [<Response [302]>] = <Response [302]>.history
+
+tests/test_requests.py:225: AssertionError
+----------------------------- Captured stderr call -----------------------------
+127.0.0.1 - - [10/Oct/2026 23:15:28] "GET /redirect/3 HTTP/1.1" 302 227
+127.0.0.1 - - [10/Oct/2026 23:15:28] "GET /relative-redirect/2 HTTP/1.1" 302 0
+127.0.0.1 - - [10/Oct/2026 23:15:28] "GET /relative-redirect/1 HTTP/1.1" 302 0
+127.0.0.1 - - [10/Oct/2026 23:15:28] "GET /get HTTP/1.1" 200 272
+=============================== warnings summary ===============================
+tests/test_requests.py::TestPreparingURLs::test_different_connection_pool_for_tls_settings_verify_True
+tests/test_requests.py::TestPreparingURLs::test_different_connection_pool_for_tls_settings_verify_bundle_expired_cert
+tests/test_requests.py::TestPreparingURLs::test_different_connection_pool_for_tls_settings_verify_bundle_unexpired_cert
+tests/test_requests.py::TestPreparingURLs::test_different_connection_pool_for_mtls_settings
+  /home/sauravbellam/cache/a2/requests_7328/venv/lib/python3.13/site-packages/urllib3/connectionpool.py:1129: InsecureRequestWarning: Unverified HTTPS request is being made to host 'localhost'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+- generated xml file: /home/sauravbellam/results/a2_runs/requests_7328/trace_pre.xml -
+1 failed, 335 passed, 1 skipped, 1 xfailed, 4 warnings in 47.68s
+
+[2026-10-10 23:15:26,448] WARNING in core: flasgger is not installed; serving the static landing page at / and skipping the Swagger UI and /spec.json.
+127.0.0.1 - - [10/Oct/2026 23:15:29] "POST /post HTTP/1.1" 200 363
+127.0.0.1 - - [10/Oct/2026 23:15:29] "GET /relative-redirect/20 HTTP/1.1" 302 0
+127.0.0.1 - - [10/Oct/2026 23:15:29] "HEAD /get HTTP/1.1" 200 0
+127.0.0.1 - - [10/Oct/2026 23:15:29] "HEAD /get HTTP/1.1" 200 0
+127.0.0.1 - - [10/Oct/2026 23:15:32] "GET /get HTTP/1.1" 200 313
+127.0.0.1 - - [10/Oct/2026 23:15:32] "GET /basic-auth/user/pass HTTP/1.1" 200 46
+127.0.0.1 - - [10/Oct/2026 23:15:33] "POST /post HTTP/1.1" 200 416
+127.0.0.1 - - [10/Oct/2026 23:15:33] "GET /get?f%C3%B8%C3%B8=f%C3%B8%C3%B8 HTTP/1.1" 200 340
+127.0.0.1 - - [10/Oct/2026 23:15:34] "POST /post HTTP/1.1" 200 114077
+127.0.0.1 - - [10/Oct/2026 23:15:34] "POST /post HTTP/1.1" 200 114053
+127.0.0.1 - - [10/Oct/2026 23:15:34] "GET / HTTP/1.1" 200 13760
+127.0.0.1 - - [10/Oct/2026 23:15:34] "GET /headers HTTP/1.1" 200 239
+127.0.0.1 - - [10/Oct/2026 23:15:34] "GET /get?foo=bar&FOO=bar HTTP/1.1" 200 326
+127.0.0.1 - - [10/Oct/2026 23:15:35] "GET /get HTTP/1.1" 200 272
+127.0.0.1 - - [10/Oct/2026 23:15:35] "GET /status/204 HTTP/1.1" 204 0
+127.0.0.1 - - [10/Oct/2026 23:16:05] "GET /status/500 HTTP/1.1" 500 0
+127.0.0.1 - - [10/Oct/2026 23:16:05] "GET /status/200 HTTP/1.1" 200 0
+127.0.0.1 - - [10/Oct/2026 23:16:06] "GET /redirect-to?url=http%3A%2F%2F%3A1 HTTP/1.1" 302 0
+

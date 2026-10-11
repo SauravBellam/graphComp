@@ -1,0 +1,95 @@
+
+$ /home/sauravbellam/cache/a2/fastapi_14485/venv/bin/python -s -m pytest tests/test_stringified_annotation_dependency.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/fastapi_14485/trace_pre.xml
+[exit 1]
+EE                                                                       [100%]
+==================================== ERRORS ====================================
+__________________________ ERROR at setup of test_get __________________________
+
+    @pytest.fixture(name="client")
+    def client_fixture() -> TestClient:
+        app = FastAPI()
+    
+>       @app.get("/")
+         ^^^^^^^^^^^^
+
+tests/test_stringified_annotation_dependency.py:36: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+fastapi/routing.py:1128: in decorator
+    self.add_api_route(
+fastapi/routing.py:1067: in add_api_route
+    route = route_class(
+fastapi/routing.py:686: in __init__
+    self.dependant = get_dependant(
+fastapi/dependencies/utils.py:303: in get_dependant
+    sub_dependant = get_dependant(
+fastapi/dependencies/utils.py:277: in get_dependant
+    endpoint_signature = get_typed_signature(call)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^
+fastapi/dependencies/utils.py:214: in get_typed_signature
+    signature = inspect.signature(call, eval_str=True)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.13/inspect.py:3375: in signature
+    return Signature.from_callable(obj, follow_wrapped=follow_wrapped,
+/usr/lib/python3.13/inspect.py:3098: in from_callable
+    return _signature_from_callable(obj, sigcls=cls,
+/usr/lib/python3.13/inspect.py:2587: in _signature_from_callable
+    return _signature_from_function(sigcls, obj,
+/usr/lib/python3.13/inspect.py:2410: in _signature_from_function
+    annotations = get_annotations(func, globals=globals, locals=locals, eval_str=eval_str)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.13/inspect.py:292: in get_annotations
+    value if not isinstance(value, str) else eval(value, globals, locals)
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+>   ???
+E   NameError: name 'AsyncGenerator' is not defined
+
+<string>:1: NameError
+____________________ ERROR at setup of test_openapi_schema _____________________
+
+    @pytest.fixture(name="client")
+    def client_fixture() -> TestClient:
+        app = FastAPI()
+    
+>       @app.get("/")
+         ^^^^^^^^^^^^
+
+tests/test_stringified_annotation_dependency.py:36: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+fastapi/routing.py:1128: in decorator
+    self.add_api_route(
+fastapi/routing.py:1067: in add_api_route
+    route = route_class(
+fastapi/routing.py:686: in __init__
+    self.dependant = get_dependant(
+fastapi/dependencies/utils.py:303: in get_dependant
+    sub_dependant = get_dependant(
+fastapi/dependencies/utils.py:277: in get_dependant
+    endpoint_signature = get_typed_signature(call)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^
+fastapi/dependencies/utils.py:214: in get_typed_signature
+    signature = inspect.signature(call, eval_str=True)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.13/inspect.py:3375: in signature
+    return Signature.from_callable(obj, follow_wrapped=follow_wrapped,
+/usr/lib/python3.13/inspect.py:3098: in from_callable
+    return _signature_from_callable(obj, sigcls=cls,
+/usr/lib/python3.13/inspect.py:2587: in _signature_from_callable
+    return _signature_from_function(sigcls, obj,
+/usr/lib/python3.13/inspect.py:2410: in _signature_from_function
+    annotations = get_annotations(func, globals=globals, locals=locals, eval_str=eval_str)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.13/inspect.py:292: in get_annotations
+    value if not isinstance(value, str) else eval(value, globals, locals)
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+>   ???
+E   NameError: name 'AsyncGenerator' is not defined
+
+<string>:1: NameError
+- generated xml file: /home/sauravbellam/results/a2_runs/fastapi_14485/trace_pre.xml -
+2 errors in 3.94s
+
+

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="1" failures="0" skipped="0" tests="1" time="1.012" timestamp="2026-10-10T23:15:43.846913+00:00" hostname="vm-a2"><testcase classname="" name="tests.test_prepare_release" time="0.000"><error message="collection failure">ImportError while importing test module '/home/sauravbellam/cache/a2/fastapi_15661/workspace/tests/test_prepare_release.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/usr/lib/python3.13/importlib/__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_prepare_release.py:7: in &lt;module&gt;
+    from scripts.prepare_release import (
+E   ModuleNotFoundError: No module named 'scripts.prepare_release'</error></testcase></testsuite></testsuites>

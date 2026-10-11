@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="3" skipped="0" tests="4" time="1.789" timestamp="2026-10-10T23:22:26.212466+00:00" hostname="vm-a2"><testcase classname="tests.test_json_type" name="test_form_json_list" time="0.239"><failure message="AssertionError: {&quot;detail&quot;:[{&quot;type&quot;:&quot;json_type&quot;,&quot;loc&quot;:[&quot;body&quot;,&quot;items&quot;],&quot;msg&quot;:&quot;JSON input should be string, bytes or bytearray&quot;,&quot;input&quot;:[&quot;[\&quot;abc\&quot;, \&quot;def\&quot;]&quot;]}]}&#10;assert 422 == 200&#10; +  where 422 = &lt;Response [422 Unprocessable Entity]&gt;.status_code">def test_form_json_list():
+        response = client.post(
+            "/form-json-list", data={"items": json.dumps(["abc", "def"])}
+        )
+&gt;       assert response.status_code == 200, response.text
+E       AssertionError: {"detail":[{"type":"json_type","loc":["body","items"],"msg":"JSON input should be string, bytes or bytearray","input":["[\"abc\", \"def\"]"]}]}
+E       assert 422 == 200
+E        +  where 422 = &lt;Response [422 Unprocessable Entity]&gt;.status_code
+
+tests/test_json_type.py:38: AssertionError</failure></testcase><testcase classname="tests.test_json_type" name="test_query_json_list" time="0.007"><failure message="AssertionError: {&quot;detail&quot;:[{&quot;type&quot;:&quot;json_type&quot;,&quot;loc&quot;:[&quot;query&quot;,&quot;items&quot;],&quot;msg&quot;:&quot;JSON input should be string, bytes or bytearray&quot;,&quot;input&quot;:[&quot;[\&quot;abc\&quot;, \&quot;def\&quot;]&quot;]}]}&#10;assert 422 == 200&#10; +  where 422 = &lt;Response [422 Unprocessable Entity]&gt;.status_code">def test_query_json_list():
+        response = client.get(
+            "/query-json-list", params={"items": json.dumps(["abc", "def"])}
+        )
+&gt;       assert response.status_code == 200, response.text
+E       AssertionError: {"detail":[{"type":"json_type","loc":["query","items"],"msg":"JSON input should be string, bytes or bytearray","input":["[\"abc\", \"def\"]"]}]}
+E       assert 422 == 200
+E        +  where 422 = &lt;Response [422 Unprocessable Entity]&gt;.status_code
+
+tests/test_json_type.py:46: AssertionError</failure></testcase><testcase classname="tests.test_json_type" name="test_header_json_list" time="0.006"><failure message="AssertionError: {&quot;detail&quot;:[{&quot;type&quot;:&quot;json_type&quot;,&quot;loc&quot;:[&quot;header&quot;,&quot;x-items&quot;],&quot;msg&quot;:&quot;JSON input should be string, bytes or bytearray&quot;,&quot;input&quot;:[&quot;[\&quot;abc\&quot;, \&quot;def\&quot;]&quot;]}]}&#10;assert 422 == 200&#10; +  where 422 = &lt;Response [422 Unprocessable Entity]&gt;.status_code">def test_header_json_list():
+        response = client.get(
+            "/header-json-list", headers={"x-items": json.dumps(["abc", "def"])}
+        )
+&gt;       assert response.status_code == 200, response.text
+E       AssertionError: {"detail":[{"type":"json_type","loc":["header","x-items"],"msg":"JSON input should be string, bytes or bytearray","input":["[\"abc\", \"def\"]"]}]}
+E       assert 422 == 200
+E        +  where 422 = &lt;Response [422 Unprocessable Entity]&gt;.status_code
+
+tests/test_json_type.py:54: AssertionError</failure></testcase><testcase classname="tests.test_json_type" name="test_cookie_json_list" time="0.007" /></testsuite></testsuites>

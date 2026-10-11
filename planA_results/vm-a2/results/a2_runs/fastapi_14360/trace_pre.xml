@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="6" skipped="0" tests="6" time="1.998" timestamp="2026-10-10T23:20:15.316932+00:00" hostname="vm-a2"><testcase classname="tests.test_request_param_model_by_alias" name="test_query_model_with_alias" time="0.231"><failure message="AssertionError: {&quot;detail&quot;:[{&quot;type&quot;:&quot;missing&quot;,&quot;loc&quot;:[&quot;query&quot;,&quot;param_alias&quot;],&quot;msg&quot;:&quot;Field required&quot;,&quot;input&quot;:{&quot;param&quot;:&quot;value&quot;}}]}&#10;assert 422 == 200&#10; +  where 422 = &lt;Response [422 Unprocessable Entity]&gt;.status_code">def test_query_model_with_alias():
+        client = TestClient(app)
+        response = client.get("/query", params={"param_alias": "value"})
+&gt;       assert response.status_code == 200, response.text
+E       AssertionError: {"detail":[{"type":"missing","loc":["query","param_alias"],"msg":"Field required","input":{"param":"value"}}]}
+E       assert 422 == 200
+E        +  where 422 = &lt;Response [422 Unprocessable Entity]&gt;.status_code
+
+tests/test_request_param_model_by_alias.py:32: AssertionError</failure></testcase><testcase classname="tests.test_request_param_model_by_alias" name="test_header_model_with_alias" time="0.010"><failure message="AssertionError: {&quot;detail&quot;:[{&quot;type&quot;:&quot;missing&quot;,&quot;loc&quot;:[&quot;header&quot;,&quot;param_alias&quot;],&quot;msg&quot;:&quot;Field required&quot;,&quot;input&quot;:{&quot;param&quot;:&quot;value&quot;,&quot;host&quot;:&quot;testserver&quot;,&quot;accept&quot;:&quot;*/*&quot;,&quot;accept-encoding&quot;:&quot;gzip, deflate&quot;,&quot;connection&quot;:&quot;keep-alive&quot;,&quot;user-agent&quot;:&quot;testclient&quot;}}]}&#10;assert 422 == 200&#10; +  where 422 = &lt;Response [422 Unprocessable Entity]&gt;.status_code">def test_header_model_with_alias():
+        client = TestClient(app)
+        response = client.get("/header", headers={"param_alias": "value"})
+&gt;       assert response.status_code == 200, response.text
+E       AssertionError: {"detail":[{"type":"missing","loc":["header","param_alias"],"msg":"Field required","input":{"param":"value","host":"testserver","accept":"*/*","accept-encoding":"gzip, deflate","connection":"keep-alive","user-agent":"testclient"}}]}
+E       assert 422 == 200
+E        +  where 422 = &lt;Response [422 Unprocessable Entity]&gt;.status_code
+
+tests/test_request_param_model_by_alias.py:39: AssertionError</failure></testcase><testcase classname="tests.test_request_param_model_by_alias" name="test_cookie_model_with_alias" time="0.008"><failure message="AssertionError: {&quot;detail&quot;:[{&quot;type&quot;:&quot;missing&quot;,&quot;loc&quot;:[&quot;cookie&quot;,&quot;param_alias&quot;],&quot;msg&quot;:&quot;Field required&quot;,&quot;input&quot;:{&quot;param&quot;:&quot;value&quot;}}]}&#10;assert 422 == 200&#10; +  where 422 = &lt;Response [422 Unprocessable Entity]&gt;.status_code">def test_cookie_model_with_alias():
+        client = TestClient(app)
+        client.cookies.set("param_alias", "value")
+        response = client.get("/cookie")
+&gt;       assert response.status_code == 200, response.text
+E       AssertionError: {"detail":[{"type":"missing","loc":["cookie","param_alias"],"msg":"Field required","input":{"param":"value"}}]}
+E       assert 422 == 200
+E        +  where 422 = &lt;Response [422 Unprocessable Entity]&gt;.status_code
+
+tests/test_request_param_model_by_alias.py:47: AssertionError</failure></testcase><testcase classname="tests.test_request_param_model_by_alias" name="test_query_model_with_alias_by_name" time="0.008"><failure message="AssertionError: assert {} == {'param': 'value'}&#10;  &#10;  Right contains 1 more item:&#10;  {'param': 'value'}&#10;  Use -v to get more diff">def test_query_model_with_alias_by_name():
+        client = TestClient(app)
+        response = client.get("/query", params={"param": "value"})
+        assert response.status_code == 422, response.text
+        details = response.json()
+        if PYDANTIC_V2:
+&gt;           assert details["detail"][0]["input"] == {"param": "value"}
+E           AssertionError: assert {} == {'param': 'value'}
+E             
+E             Right contains 1 more item:
+E             {'param': 'value'}
+E             Use -v to get more diff
+
+tests/test_request_param_model_by_alias.py:57: AssertionError</failure></testcase><testcase classname="tests.test_request_param_model_by_alias" name="test_header_model_with_alias_by_name" time="0.005"><failure message="AssertionError: assert {'accept': '*/*', 'accept-encoding': 'gzip, deflate', 'connection': 'keep-alive', 'host': 'testserver', ...} == IsPartialDict(param='value')&#10; +  where IsPartialDict(param='value') = IsPartialDict({'param': 'value'})">def test_header_model_with_alias_by_name():
+        client = TestClient(app)
+        response = client.get("/header", headers={"param": "value"})
+        assert response.status_code == 422, response.text
+        details = response.json()
+        if PYDANTIC_V2:
+&gt;           assert details["detail"][0]["input"] == IsPartialDict({"param": "value"})
+E           AssertionError: assert {'accept': '*/*', 'accept-encoding': 'gzip, deflate', 'connection': 'keep-alive', 'host': 'testserver', ...} == IsPartialDict(param='value')
+E            +  where IsPartialDict(param='value') = IsPartialDict({'param': 'value'})
+
+tests/test_request_param_model_by_alias.py:66: AssertionError</failure></testcase><testcase classname="tests.test_request_param_model_by_alias" name="test_cookie_model_with_alias_by_name" time="0.008"><failure message="AssertionError: assert {} == {'param': 'value'}&#10;  &#10;  Right contains 1 more item:&#10;  {'param': 'value'}&#10;  Use -v to get more diff">def test_cookie_model_with_alias_by_name():
+        client = TestClient(app)
+        client.cookies.set("param", "value")
+        response = client.get("/cookie")
+        assert response.status_code == 422, response.text
+        details = response.json()
+        if PYDANTIC_V2:
+&gt;           assert details["detail"][0]["input"] == {"param": "value"}
+E           AssertionError: assert {} == {'param': 'value'}
+E             
+E             Right contains 1 more item:
+E             {'param': 'value'}
+E             Use -v to get more diff
+
+tests/test_request_param_model_by_alias.py:76: AssertionError</failure></testcase></testsuite></testsuites>

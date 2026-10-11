@@ -1,0 +1,18 @@
+
+$ /home/sauravbellam/cache/a2/fastapi_14371/venv/bin/python -s -m pytest tests/test_request_params/test_body/test_list.py tests/test_request_params/test_body/test_optional_list.py tests/test_request_params/test_body/test_optional_str.py tests/test_request_params/test_body/test_required_str.py tests/test_request_params/test_cookie/test_optional_str.py tests/test_request_params/test_cookie/test_required_str.py tests/test_request_params/test_file/test_list.py tests/test_request_params/test_file/test_optional.py tests/test_request_params/test_file/test_optional_list.py tests/test_request_params/test_file/test_required.py tests/test_request_params/test_form/test_list.py tests/test_request_params/test_form/test_optional_list.py tests/test_request_params/test_form/test_optional_str.py tests/test_request_params/test_form/test_required_str.py tests/test_request_params/test_header/test_list.py tests/test_request_params/test_header/test_optional_list.py tests/test_request_params/test_header/test_optional_str.py tests/test_request_params/test_header/test_required_str.py tests/test_request_params/test_path/test_required_str.py tests/test_request_params/test_query/test_list.py tests/test_request_params/test_query/test_optional_list.py tests/test_request_params/test_query/test_optional_str.py tests/test_request_params/test_query/test_required_str.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/fastapi_14371/trace_post.xml
+[exit 0]
+........................................................................ [  9%]
+........................................................................ [ 19%]
+........................................................................ [ 29%]
+........................................................................ [ 38%]
+........................................................................ [ 48%]
+........................................................................ [ 58%]
+........................................................................ [ 67%]
+........................................................................ [ 77%]
+........................................................................ [ 87%]
+........................................................................ [ 96%]
+........................                                                 [100%]
+- generated xml file: /home/sauravbellam/results/a2_runs/fastapi_14371/trace_post.xml -
+744 passed in 11.39s
+
+

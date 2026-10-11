@@ -1,0 +1,83 @@
+{
+  "instance_id": "requests_7427",
+  "repo": "psf/requests",
+  "backend": "venv",
+  "done": true,
+  "deps": {
+    "steps": [
+      {
+        "name": "pip_upgrade",
+        "cmd": "/home/sauravbellam/cache/a2/requests_7427/venv/bin/python -m pip install -q --disable-pip-version-check 'pip>=24' 'setuptools' 'wheel' pytest pytest-timeout",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "editable_no_deps",
+        "cmd": "/home/sauravbellam/cache/a2/requests_7427/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-build-isolation --no-deps -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "runtime_deps",
+        "cmd": "/home/sauravbellam/cache/a2/requests_7427/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "req_requirements-dev.txt",
+        "cmd": "/home/sauravbellam/cache/a2/requests_7427/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -r requirements-dev.txt",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "requests_httpbin",
+        "cmd": "/home/sauravbellam/cache/a2/requests_7427/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels pytest-httpbin httpbin trustme pysocks",
+        "exit": 0,
+        "stderr_tail": ""
+      }
+    ],
+    "editable_ok": true,
+    "python": "3.13.5 (main, Aug 10 2026, 12:06:59) [GCC 14.2.0]"
+  },
+  "targets": [
+    "tests/test_utils.py"
+  ],
+  "test_patch_strategy": "exact",
+  "test_patch_applied": true,
+  "pre": {
+    "exit": 1,
+    "seconds": 2.7,
+    "timeout": false,
+    "exit_meaning": "some_failed",
+    "run_class": "clean",
+    "counts": {
+      "failed": 1,
+      "passed": 215,
+      "skipped": 13
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "..s..................................................................... [ 31%]\n........................................................................ [ 62%]\n.................................................................F..ssss [ 94%]\nsssssss.....s                                                            [100%]\n=================================== FAILURES ===================================\n_ test_should_bypass_proxies_no_proxy_domain_boundary[http://prelocalhost/-False] _\n\nurl = 'http://prelocalhost/', expected = False\n\n    @pytest.mark.parametrize(\n        \"url, expected\",\n        (\n            (\"http://localhost/\", True),\n            (\"http://anotherdomain.com:8888/\", True),\n            (\"http://newdomain.com:1234/\", True),\n            (\"http://www.newdomain.com:1234/\", True),\n            (\"http://foo.d.o.t/\", True),\n            (\"http://d.o.t/\", True),\n            (\"http://prelocalhost/\", False),\n            (\"http://newdomain.com/\", False),\n            (\"http://newdomain.com:1235/\", False),\n        ),\n    )\n    def test_should_bypass_proxies_no_proxy_domain_boundary(url, expected):\n        \"\"\"Ensure no_proxy matching respects domain boundaries and does not\n        greedily match domains that merely endswith the no_proxy entry.\n        See CPython bpo-39057.\n        \"\"\"\n        no_proxy = \"localhost, anotherdomain.com, newdomain.com:1234, .d.o.t\"\n>       assert should_bypass_proxies(url, no_proxy=no_proxy) == expected\nE       AssertionError: assert True == False\nE        +  where True = should_bypass_proxies('http://prelocalhost/', no_proxy='localhost, anotherdomain.com, newdomain.com:1234, .d.o.t')\n\ntests/test_utils.py:867: AssertionError\n1 failed, 215 passed, 13 skipped in 1.72s\n",
+    "stderr_tail": "[2026-10-10 23:15:26,009] WARNING in core: flasgger is not installed; serving the static landing page at / and skipping the Swagger UI and /spec.json.\n"
+  },
+  "gold_patch_strategy": "exact",
+  "gold_patch_applied": true,
+  "post": {
+    "exit": 0,
+    "seconds": 2.4,
+    "timeout": false,
+    "exit_meaning": "all_passed",
+    "run_class": "clean",
+    "counts": {
+      "passed": 216,
+      "skipped": 13
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "..s..................................................................... [ 31%]\n........................................................................ [ 62%]\n....................................................................ssss [ 94%]\nsssssss.....s                                                            [100%]\n216 passed, 13 skipped in 1.49s\n",
+    "stderr_tail": "[2026-10-10 23:15:28,624] WARNING in core: flasgger is not installed; serving the static landing page at / and skipping the Swagger UI and /spec.json.\n"
+  },
+  "trace_pre_exists": true,
+  "trace_post_exists": true,
+  "seconds": 35.1
+}

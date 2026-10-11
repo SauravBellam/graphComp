@@ -1,0 +1,100 @@
+{
+  "data": "/home/sauravbellam/graphComp/archive",
+  "out": "/home/sauravbellam/results",
+  "stages": [
+    "a1",
+    "a4",
+    "a5"
+  ],
+  "steps": [
+    {
+      "name": "a1_shard0",
+      "exit": 0,
+      "seconds": 125.8,
+      "log": "/home/sauravbellam/results/logs/a1_shard0.log"
+    },
+    {
+      "name": "a1_shard1",
+      "exit": 0,
+      "seconds": 126.5,
+      "log": "/home/sauravbellam/results/logs/a1_shard1.log"
+    },
+    {
+      "name": "a1_shard2",
+      "exit": 0,
+      "seconds": 128.9,
+      "log": "/home/sauravbellam/results/logs/a1_shard2.log"
+    },
+    {
+      "name": "a1_shard3",
+      "exit": 0,
+      "seconds": 134.9,
+      "log": "/home/sauravbellam/results/logs/a1_shard3.log"
+    },
+    {
+      "name": "a1_shard4",
+      "exit": 0,
+      "seconds": 116.4,
+      "log": "/home/sauravbellam/results/logs/a1_shard4.log"
+    },
+    {
+      "name": "a1_shard5",
+      "exit": 0,
+      "seconds": 116.1,
+      "log": "/home/sauravbellam/results/logs/a1_shard5.log"
+    },
+    {
+      "name": "a1_shard6",
+      "exit": 0,
+      "seconds": 114.1,
+      "log": "/home/sauravbellam/results/logs/a1_shard6.log"
+    },
+    {
+      "name": "a1_shard7",
+      "exit": 0,
+      "seconds": 113.0,
+      "log": "/home/sauravbellam/results/logs/a1_shard7.log"
+    },
+    {
+      "name": "a1_merge",
+      "exit": 0,
+      "seconds": 21.5,
+      "log": "/home/sauravbellam/results/logs/a1_merge.log"
+    },
+    {
+      "name": "a4",
+      "exit": 0,
+      "seconds": 146.4,
+      "log": "/home/sauravbellam/results/logs/a4.log"
+    },
+    {
+      "name": "a5",
+      "exit": 0,
+      "seconds": 102.4,
+      "log": "/home/sauravbellam/results/logs/a5.log"
+    }
+  ],
+  "manifest": {
+    "python": "3.13.5 (main, Aug 10 2026, 12:06:59) [GCC 14.2.0]",
+    "platform": "Linux-6.12.111+deb13-cloud-amd64-x86_64-with-glibc2.41",
+    "tasks_jsonl_sha256": "e4b3fd60f69dbc2b9213e54eeb9636db78aefe92c1d06269d73d9f5f8f3c8ad6",
+    "graphs_files": 127,
+    "graphs_nonempty": 127,
+    "graphs_bytes": 422050109,
+    "embeddings_files": 127,
+    "embeddings_nonempty": 127,
+    "embeddings_bytes": 467546088,
+    "snapshots_files": 130,
+    "snapshots_nonempty": 130,
+    "snapshots_bytes": 21519552603,
+    "wheels_files": 124,
+    "wheels_nonempty": 124,
+    "wheels_bytes": 27810465,
+    "graphs_name_size_digest": "cfe4805bad241dd7e28f2cd84d13e1823c1f6ffb76b674b3796f89f7fb44d1bc",
+    "code_commit": "",
+    "code_dirty": false,
+    "numpy": "2.2.4",
+    "scipy": "1.15.3"
+  },
+  "all_ok": true
+}

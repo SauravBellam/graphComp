@@ -1,0 +1,89 @@
+{
+  "instance_id": "rich_3894",
+  "repo": "Textualize/rich",
+  "backend": "venv",
+  "done": true,
+  "deps": {
+    "steps": [
+      {
+        "name": "pip_upgrade",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3894/venv/bin/python -m pip install -q --disable-pip-version-check 'pip>=24' 'setuptools' 'wheel' pytest pytest-timeout",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "editable_no_deps",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3894/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-build-isolation --no-deps -e .",
+        "exit": 2,
+        "stderr_tail": "python3.13/site-packages/pip/_internal/req/req_install.py\", line 258, in supports_pyproject_editable\n    return \"build_editable\" in self.pep517_backend._supported_features()\n                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"/home/sauravbellam/cache/a2/rich_3894/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 180, in _supported_features\n    return self._call_hook(\"_supported_features\", {})\n           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/sauravbellam/cache/a2/rich_3894/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 402, in _call_hook\n    raise BackendUnavailable(\n    ...<4 lines>...\n    )\npip._vendor.pyproject_hooks._impl.BackendUnavailable: Cannot import 'poetry.core.masonry.api'\n"
+      },
+      {
+        "name": "editable_no_deps_isolated",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3894/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-deps -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "runtime_deps",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3894/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "poetry_group_dev",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3894/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels pytest black mypy pytest-cov attrs pre-commit typing-extensions",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "rich_tests",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3894/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels pytest-cov attrs ipywidgets",
+        "exit": 0,
+        "stderr_tail": ""
+      }
+    ],
+    "editable_ok": true,
+    "python": "3.13.5 (main, Aug 10 2026, 12:06:59) [GCC 14.2.0]"
+  },
+  "targets": [
+    "tests/test_inspect.py"
+  ],
+  "test_patch_strategy": "exact",
+  "test_patch_applied": true,
+  "pre": {
+    "exit": 1,
+    "seconds": 1.5,
+    "timeout": false,
+    "exit_meaning": "some_failed",
+    "run_class": "clean",
+    "counts": {
+      "failed": 1,
+      "passed": 41,
+      "skipped": 4
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "...s....sss...F...............................                           [100%]\n=================================== FAILURES ===================================\n____________________________ test_qualname_in_slots ____________________________\n\n    def test_qualname_in_slots():\n        from functools import lru_cache\n    \n        @lru_cache\n        class Klass:\n            __slots__ = (\"__qualname__\",)\n    \n        try:\n>           inspect(Klass)\n\ntests/test_inspect.py:415: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \nrich/__init__.py:173: in inspect\n    _console.print(_inspect)\nrich/console.py:1698: in print\n    renderables = self._collect_renderables(\nrich/console.py:1555: in _collect_renderables\n    renderable = rich_cast(renderable)\n                 ^^^^^^^^^^^^^^^^^^^^^\nrich/protocol.py:36: in rich_cast\n    renderable = cast_method()\n                 ^^^^^^^^^^^^^\nrich/_inspect.py:76: in __rich__\n    Group(*self._render()),\n    ^^^^^^^^^^^^^^^^^^^^^^\nrich/_inspect.py:153: in _render\n    signature = self._get_signature(\"\", obj)\n                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nrich/_inspect.py:113: in _get_signature\n    qual_signature = Text.assemble(\nrich/text.py:397: in assemble\n    append(*part)\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = <text 'def ' [Span(0, 4, 'inspect.def')] ''>\ntext = <member '__qualname__' of 'Klass' objects>, style = 'inspect.callable'\n\n    def append(\n        self, text: Union[\"Text\", str], style: Optional[Union[str, \"Style\"]] = None\n    ) -> \"Text\":\n        \"\"\"Add text with an optional style.\n    \n        Args:\n            text (Union[Text, str]): A str or Text to append.\n            style (str, optional): A style name. Defaults to None.\n    \n        Returns:\n            Text: Returns self for chaining.\n        \"\"\"\n    \n        if not isinstance(text, (str, Text)):\n>           raise TypeError(\"Only str or Text can be appended to Text\")\nE           TypeError: Only str or Text can be appended to Text\n\nrich/text.py:979: TypeError\n\nDuring handling of the above exception, another exception occurred:\n\n    def test_qualname_in_slots():\n        from functools import lru_cache\n    \n        @lru_cache\n        class Klass:\n            __slots__ = (\"__qualname__\",)\n    \n        try:\n            inspect(Klass)\n        except Exception as e:\n>           assert False, f\"Class with __qualname__ in __slots__ shouldn't raise {e}\"\nE           AssertionError: Class with __qualname__ in __slots__ shouldn't raise Only str or Text can be appended to Text\nE           assert False\n\ntests/test_inspect.py:417: AssertionError\n1 failed, 41 passed, 4 skipped in 0.98s\n",
+    "stderr_tail": ""
+  },
+  "gold_patch_strategy": "exact",
+  "gold_patch_applied": true,
+  "post": {
+    "exit": 0,
+    "seconds": 0.8,
+    "timeout": false,
+    "exit_meaning": "all_passed",
+    "run_class": "clean",
+    "counts": {
+      "passed": 42,
+      "skipped": 4
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "...s....sss...................................                           [100%]\n42 passed, 4 skipped in 0.52s\n",
+    "stderr_tail": ""
+  },
+  "trace_pre_exists": true,
+  "trace_post_exists": true,
+  "seconds": 36.1
+}

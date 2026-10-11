@@ -1,0 +1,122 @@
+{
+  "instance_id": "fastapi_14791",
+  "repo": "fastapi/fastapi",
+  "backend": "venv",
+  "done": true,
+  "deps": {
+    "steps": [
+      {
+        "name": "pip_upgrade",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14791/venv/bin/python -m pip install -q --disable-pip-version-check 'pip>=24' 'setuptools' 'wheel' pytest pytest-timeout",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "editable_no_deps",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14791/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-build-isolation --no-deps -e .",
+        "exit": 2,
+        "stderr_tail": "lib/python3.13/site-packages/pip/_internal/req/req_install.py\", line 258, in supports_pyproject_editable\n    return \"build_editable\" in self.pep517_backend._supported_features()\n                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"/home/sauravbellam/cache/a2/fastapi_14791/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 180, in _supported_features\n    return self._call_hook(\"_supported_features\", {})\n           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/sauravbellam/cache/a2/fastapi_14791/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 402, in _call_hook\n    raise BackendUnavailable(\n    ...<4 lines>...\n    )\npip._vendor.pyproject_hooks._impl.BackendUnavailable: Cannot import 'pdm.backend'\n"
+      },
+      {
+        "name": "editable_no_deps_isolated",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14791/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-deps -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "runtime_deps",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14791/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "extra_all",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14791/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e '.[all]'",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "extra_standard",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14791/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e '.[standard]'",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "fastapi_tests",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14791/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels httpx 'python-multipart' email-validator pyyaml orjson ujson 'sqlmodel' 'dirty-equals' 'pytest-asyncio' 'flask' 'passlib[bcrypt]' 'pyjwt' 'inline-snapshot'",
+        "exit": 0,
+        "stderr_tail": ""
+      }
+    ],
+    "editable_ok": true,
+    "python": "3.13.5 (main, Aug 10 2026, 12:06:59) [GCC 14.2.0]"
+  },
+  "targets": [
+    "tests/test_additional_properties.py",
+    "tests/test_additional_properties_bool.py",
+    "tests/test_additional_responses_custom_model_in_callback.py",
+    "tests/test_additional_responses_default_validationerror.py",
+    "tests/test_annotated.py",
+    "tests/test_application.py",
+    "tests/test_dependency_duplicates.py",
+    "tests/test_enforce_once_required_parameter.py",
+    "tests/test_extra_routes.py",
+    "tests/test_filter_pydantic_sub_model_pv2.py",
+    "tests/test_forms_single_param.py",
+    "tests/test_generate_unique_id_function.py",
+    "tests/test_get_model_definitions_formfeed_escape.py",
+    "tests/test_get_request_body.py",
+    "tests/test_include_router_defaults_overrides.py",
+    "tests/test_infer_param_optionality.py",
+    "tests/test_modules_same_name_body/test_main.py",
+    "tests/test_multi_body_errors.py",
+    "tests/test_multi_query_errors.py",
+    "tests/test_no_schema_split.py",
+    "tests/test_openapi_examples.py",
+    "tests/test_openapi_query_parameter_extension.py",
+    "tests/test_openapi_separate_input_output_schemas.py",
+    "tests/test_param_in_path_and_dependency.py",
+    "tests/test_param_include_in_schema.py",
+    "tests/test_put_no_body.py",
+    "tests/test_regex_deprecated_body.py",
+    "tests/test_regex_deprecated_params.py",
+    "tests/test_repeated_dependency_schema.py"
+  ],
+  "test_patch_strategy": "exact",
+  "test_patch_applied": true,
+  "pre": {
+    "exit": 1,
+    "seconds": 12.6,
+    "timeout": false,
+    "exit_meaning": "some_failed",
+    "run_class": "clean",
+    "counts": {
+      "failed": 36,
+      "passed": 129,
+      "error": 6
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "                 }\n                        },\n                        \"type\": \"object\",\n                        \"title\": \"HTTPValidationError\",\n                    },\n                    \"ValidationError\": {\n                        \"properties\": {\n                            \"ctx\": {\"title\": \"Context\", \"type\": \"object\"},\n                            \"input\": {\"title\": \"Input\"},\n                            \"loc\": {\n                                \"items\": {\n                                    \"anyOf\": [{\"type\": \"string\"}, {\"type\": \"integer\"}]\n                                },\n                                \"type\": \"array\",\n                                \"title\": \"Location\",\n                            },\n                            \"msg\": {\"type\": \"string\", \"title\": \"Message\"},\n                            \"type\": {\"type\": \"string\", \"title\": \"Error Type\"},\n                        },\n                        \"type\": \"object\",\n                        \"required\": [\"loc\", \"msg\", \"type\"],\n                        \"title\": \"ValidationError\",\n                    },\n                }\n            },\n        }\nE       AssertionError: assert {'openapi': '...tionError'}}}} == {'openapi': '...tionError'}}}}\nE         \nE         Omitting 3 identical items, use -vv to show\nE         Differing items:\nE         {'components': {'schemas': {'HTTPValidationError': {'properties': {'detail': {'items': {...}, 'type': 'array', 'title'...'string', 'title': 'Error Type'}}, 'type': 'object', 'required': ['loc', 'msg', 'type'], 'title': 'ValidationError'}}}} != {'components': {'schemas': {'HTTPValidationError': {'properties': {'detail': {'items': {...}, 'type': 'array', 'title'...tring', 'title': 'Message'}, ...}, 'type': 'object', 'required': ['loc', 'msg', 'type'], 'title': 'ValidationError'}}}}\nE         Use -v to get more diff\n\ntests/test_regex_deprecated_params.py:68: AssertionError\n_________________________________ test_schema __________________________________\n\n    def test_schema():\n        response = client.get(\"/openapi.json\")\n        assert response.status_code == status.HTTP_200_OK\n        actual_schema = response.json()\n>       assert actual_schema == schema\nE       AssertionError: assert {'openapi': '...tionError'}}}} == {'components'...'Get Deps'}}}}\nE         \nE         Omitting 3 identical items, use -vv to show\nE         Differing items:\nE         {'components': {'schemas': {'HTTPValidationError': {'properties': {'detail': {'items': {...}, 'type': 'array', 'title'...'string', 'title': 'Error Type'}}, 'type': 'object', 'required': ['loc', 'msg', 'type'], 'title': 'ValidationError'}}}} != {'components': {'schemas': {'HTTPValidationError': {'properties': {'detail': {'items': {...}, 'title': 'Detail', 'type...Message', 'type': 'string'}, ...}, 'required': ['loc', 'msg', 'type'], 'title': 'ValidationError', 'type': 'object'}}}}\nE         Use -v to get more diff\n\ntests/test_repeated_dependency_schema.py:95: AssertionError\n36 failed, 129 passed, 6 errors in 11.38s\n",
+    "stderr_tail": ""
+  },
+  "gold_patch_strategy": "exact",
+  "gold_patch_applied": true,
+  "post": {
+    "exit": 0,
+    "seconds": 10.1,
+    "timeout": false,
+    "exit_meaning": "all_passed",
+    "run_class": "clean",
+    "counts": {
+      "passed": 165
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "........................................................................ [ 43%]\n........................................................................ [ 87%]\n.....................                                                    [100%]\n165 passed in 9.06s\n",
+    "stderr_tail": ""
+  },
+  "trace_pre_exists": true,
+  "trace_post_exists": true,
+  "seconds": 62.5
+}

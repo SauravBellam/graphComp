@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="1" tests="21" time="2.231" timestamp="2026-10-10T23:23:21.588020+00:00" hostname="vm-a2"><testcase classname="test_traceback" name="test_handler" file="test_traceback.py" line="12" time="0.138" /><testcase classname="test_traceback" name="test_capture" file="test_traceback.py" line="62" time="0.001" /><testcase classname="test_traceback" name="test_no_exception" file="test_traceback.py" line="70" time="0.001" /><testcase classname="test_traceback" name="test_print_exception" file="test_traceback.py" line="92" time="0.028" /><testcase classname="test_traceback" name="test_print_exception_no_msg" file="test_traceback.py" line="102" time="0.030" /><testcase classname="test_traceback" name="test_print_exception_locals" file="test_traceback.py" line="113" time="0.046" /><testcase classname="test_traceback" name="test_syntax_error" file="test_traceback.py" line="126" time="0.038" /><testcase classname="test_traceback" name="test_nested_exception" file="test_traceback.py" line="137" time="0.093" /><testcase classname="test_traceback" name="test_caused_exception" file="test_traceback.py" line="164" time="0.096" /><testcase classname="test_traceback" name="test_filename_with_bracket" file="test_traceback.py" line="191" time="0.049" /><testcase classname="test_traceback" name="test_filename_not_a_file" file="test_traceback.py" line="201" time="0.050" /><testcase classname="test_traceback" name="test_traceback_console_theme_applies" file="test_traceback.py" line="211" time="0.067" /><testcase classname="test_traceback" name="test_broken_str" file="test_traceback.py" line="235" time="0.058" /><testcase classname="test_traceback" name="test_guess_lexer" file="test_traceback.py" line="250" time="0.001" /><testcase classname="test_traceback" name="test_guess_lexer_yaml_j2" file="test_traceback.py" line="257" time="1.013" /><testcase classname="test_traceback" name="test_recursive" file="test_traceback.py" line="267" time="0.128" /><testcase classname="test_traceback" name="test_suppress" file="test_traceback.py" line="285" time="0.001" /><testcase classname="test_traceback" name="test_rich_traceback_omit_optional_local_flag[True-3-expected_frame_names0]" file="test_traceback.py" line="295" time="0.001" /><testcase classname="test_traceback" name="test_rich_traceback_omit_optional_local_flag[False-4-expected_frame_names1]" file="test_traceback.py" line="295" time="0.001" /><testcase classname="test_traceback" name="test_traceback_finely_grained_missing" file="test_traceback.py" line="331" time="0.000"><skipped type="pytest.skip" message="Not applicable after Python 3.11">/home/sauravbellam/cache/a2/rich_3486/workspace/tests/test_traceback.py:332: Not applicable after Python 3.11</skipped></testcase><testcase classname="test_traceback" name="test_traceback_finely_grained" file="test_traceback.py" line="344" time="0.001"><failure message="AttributeError: 'Frame' object has no attribute 'last_instruction'">@pytest.mark.skipif(
+        sys.version_info.minor &lt; 11, reason="Not applicable before Python 3.11"
+    )
+    def test_traceback_finely_grained() -&gt; None:
+        """Check that last instruction is populated."""
+        try:
+&gt;           1 / 0
+E           ZeroDivisionError: division by zero
+
+tests/test_traceback.py:351: ZeroDivisionError
+
+During handling of the above exception, another exception occurred:
+
+    @pytest.mark.skipif(
+        sys.version_info.minor &lt; 11, reason="Not applicable before Python 3.11"
+    )
+    def test_traceback_finely_grained() -&gt; None:
+        """Check that last instruction is populated."""
+        try:
+            1 / 0
+        except:
+            traceback = Traceback()
+&gt;           last_instruction = traceback.trace.stacks[-1].frames[-1].last_instruction
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           AttributeError: 'Frame' object has no attribute 'last_instruction'
+
+tests/test_traceback.py:354: AttributeError</failure></testcase></testsuite></testsuites>

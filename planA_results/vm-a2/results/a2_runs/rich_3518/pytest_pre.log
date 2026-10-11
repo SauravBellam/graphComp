@@ -1,0 +1,21 @@
+
+$ /home/sauravbellam/cache/a2/rich_3518/venv/bin/python -s -m pytest tests/test_table.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/rich_3518/trace_pre.xml
+[exit 1]
+...................F                                                     [100%]
+=================================== FAILURES ===================================
+___________________ test_columns_highlight_added_by_add_row ____________________
+
+    def test_columns_highlight_added_by_add_row() -> None:
+        """Regression test for https://github.com/Textualize/rich/issues/3517"""
+        table = Table(show_header=False, highlight=True)
+        table.add_row("1", repr("FOO"))
+    
+>       assert table.columns[0].highlight == table.highlight
+E       AssertionError: assert False == True
+E        +  where False = Column(header='', footer='', header_style='', footer_style='', style='', justify='left', vertical='top', overflow='ellipsis', width=None, min_width=None, max_width=None, ratio=None, no_wrap=False, highlight=False, _index=0, _cells=['1']).highlight
+E        +  and   True = <rich.table.Table object at 0x7f640ddc6c10>.highlight
+
+tests/test_table.py:371: AssertionError
+1 failed, 19 passed in 0.95s
+
+

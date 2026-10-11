@@ -1,0 +1,19 @@
+
+$ /home/sauravbellam/cache/a2/fastapi_15661/venv/bin/python -s -m pytest tests/test_prepare_release.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/fastapi_15661/trace_pre.xml
+[exit 2]
+
+==================================== ERRORS ====================================
+________________ ERROR collecting tests/test_prepare_release.py ________________
+ImportError while importing test module '/home/sauravbellam/cache/a2/fastapi_15661/workspace/tests/test_prepare_release.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/usr/lib/python3.13/importlib/__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_prepare_release.py:7: in <module>
+    from scripts.prepare_release import (
+E   ModuleNotFoundError: No module named 'scripts.prepare_release'
+!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
+1 error in 1.12s
+
+

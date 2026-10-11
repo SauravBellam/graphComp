@@ -1,0 +1,116 @@
+{
+  "instance_id": "fastapi_14099",
+  "repo": "fastapi/fastapi",
+  "backend": "venv",
+  "done": true,
+  "deps": {
+    "steps": [
+      {
+        "name": "pip_upgrade",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14099/venv/bin/python -m pip install -q --disable-pip-version-check 'pip>=24' 'setuptools' 'wheel' pytest pytest-timeout",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "editable_no_deps",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14099/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-build-isolation --no-deps -e .",
+        "exit": 2,
+        "stderr_tail": "lib/python3.13/site-packages/pip/_internal/req/req_install.py\", line 258, in supports_pyproject_editable\n    return \"build_editable\" in self.pep517_backend._supported_features()\n                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 180, in _supported_features\n    return self._call_hook(\"_supported_features\", {})\n           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 402, in _call_hook\n    raise BackendUnavailable(\n    ...<4 lines>...\n    )\npip._vendor.pyproject_hooks._impl.BackendUnavailable: Cannot import 'pdm.backend'\n"
+      },
+      {
+        "name": "editable_no_deps_isolated",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14099/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-deps -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "runtime_deps",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14099/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "extra_all",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14099/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e '.[all]'",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "extra_standard",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14099/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e '.[standard]'",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "req_requirements-tests.txt",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14099/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -r requirements-tests.txt",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "req_requirements-docs-tests.txt",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14099/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -r requirements-docs-tests.txt",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "req_requirements.txt",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14099/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -r requirements.txt",
+        "exit": 0,
+        "stderr_tail": "  DEPRECATION: Building 'jieba' using the legacy setup.py bdist_wheel mechanism, which will be removed in a future version. pip 25.3 will enforce this behaviour change. A possible replacement is to use the standardized build interface by setting the `--use-pep517` option, (possibly combined with `--no-build-isolation`), or adding a `pyproject.toml` file to the source tree of 'jieba'. Discussion can be found at https://github.com/pypa/pip/issues/6334\n"
+      },
+      {
+        "name": "fastapi_tests",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14099/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels httpx 'python-multipart' email-validator pyyaml orjson ujson 'sqlmodel' 'dirty-equals' 'pytest-asyncio' 'flask' 'passlib[bcrypt]' 'pyjwt' 'inline-snapshot'",
+        "exit": 0,
+        "stderr_tail": ""
+      }
+    ],
+    "editable_ok": true,
+    "python": "3.13.5 (main, Aug 10 2026, 12:06:59) [GCC 14.2.0]"
+  },
+  "targets": [
+    "tests/test_dependency_after_yield_raise.py",
+    "tests/test_dependency_after_yield_streaming.py",
+    "tests/test_dependency_after_yield_websockets.py",
+    "tests/test_dependency_contextmanager.py",
+    "tests/test_route_scope.py",
+    "tests/test_tutorial/test_dependencies/test_tutorial008c.py"
+  ],
+  "test_patch_strategy": "exact",
+  "test_patch_applied": true,
+  "pre": {
+    "exit": 1,
+    "seconds": 5.7,
+    "timeout": false,
+    "exit_meaning": "some_failed",
+    "run_class": "clean",
+    "counts": {
+      "failed": 5,
+      "passed": 47
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": " for chunk in self.body_iterator:\n../venv/lib/python3.13/site-packages/starlette/concurrency.py:61: in iterate_in_threadpool\n    yield await anyio.to_thread.run_sync(_next, as_iterator)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n../venv/lib/python3.13/site-packages/anyio/to_thread.py:65: in run_sync\n    return await get_async_backend().run_sync_in_worker_thread(\n../venv/lib/python3.13/site-packages/anyio/_backends/_asyncio.py:2706: in run_sync_in_worker_thread\n    return await future\n           ^^^^^^^^^^^^\n../venv/lib/python3.13/site-packages/anyio/_backends/_asyncio.py:1100: in run\n    result = context.run(func, *args)\n             ^^^^^^^^^^^^^^^^^^^^^^^^\n../venv/lib/python3.13/site-packages/starlette/concurrency.py:50: in _next\n    return next(iterator)\n           ^^^^^^^^^^^^^^\ntests/test_dependency_after_yield_streaming.py:67: in iter_data\n    yield from session\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = <tests.test_dependency_after_yield_streaming.Session object at 0x7f896b541090>\n\n    def __iter__(self) -> Generator[str, None, None]:\n        for item in self.data:\n            if self.open:\n                yield item\n            else:\n>               raise ValueError(\"Session closed\")\nE               ValueError: Session closed\n\ntests/test_dependency_after_yield_streaming.py:21: ValueError\n____________________________ test_background_tasks _____________________________\n\n    def test_background_tasks():\n        response = client.get(\"/context_b_bg\")\n        data = response.json()\n        assert data[\"context_b\"] == \"started b\"\n        assert data[\"context_a\"] == \"started a\"\n        assert data[\"bg\"] == \"not set\"\n        middleware_state = json.loads(response.headers[\"x-state\"])\n>       assert middleware_state[\"context_b\"] == \"started b\"\nE       AssertionError: assert 'finished b with a: started a' == 'started b'\nE         \nE         - started b\nE         + finished b with a: started a\n\ntests/test_dependency_contextmanager.py:289: AssertionError\n__________________________ test_sync_background_tasks __________________________\n\n    def test_sync_background_tasks():\n        response = client.get(\"/sync_context_b_bg\")\n        data = response.json()\n        assert data[\"context_b\"] == \"started b\"\n        assert data[\"context_a\"] == \"started a\"\n        assert data[\"sync_bg\"] == \"not set\"\n        assert state[\"context_b\"] == \"finished b with a: started a\"\n        assert state[\"context_a\"] == \"finished a\"\n>       assert state[\"sync_bg\"] == \"sync_bg set - b: started b - a: started a\"\nE       AssertionError: assert 'sync_bg set ...a: finished a' == 'sync_bg set ... a: started a'\nE         \nE         - sync_bg set - b: started b - a: started a\nE         + sync_bg set - b: finished b with a: started a - a: finished a\n\ntests/test_dependency_contextmanager.py:400: AssertionError\n- generated xml file: /home/sauravbellam/results/a2_runs/fastapi_14099/trace_pre.xml -\n5 failed, 47 passed in 4.63s\n",
+    "stderr_tail": ""
+  },
+  "gold_patch_strategy": "exact",
+  "gold_patch_applied": true,
+  "post": {
+    "exit": 0,
+    "seconds": 4.2,
+    "timeout": false,
+    "exit_meaning": "all_passed",
+    "run_class": "clean",
+    "counts": {
+      "passed": 52
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "....................................................                     [100%]\n- generated xml file: /home/sauravbellam/results/a2_runs/fastapi_14099/trace_post.xml -\n52 passed in 3.18s\n",
+    "stderr_tail": ""
+  },
+  "trace_pre_exists": true,
+  "trace_post_exists": true,
+  "seconds": 111.2
+}

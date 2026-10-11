@@ -1,0 +1,7 @@
+
+$ /home/sauravbellam/cache/a2/rich_3942/venv/bin/python -s -m pytest tests/_card_render.py tests/test_markdown.py tests/test_markdown_no_hyperlinks.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/rich_3942/trace_post.xml
+[exit 0]
+........                                                                 [100%]
+8 passed in 0.89s
+
+

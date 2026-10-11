@@ -1,0 +1,161 @@
+$ /usr/bin/python3 /home/sauravbellam/graphComp/governDynamics-claude-upbeat-gauss-uswau0/planA/a4_probe.py --data /home/sauravbellam/graphComp/archive --out /home/sauravbellam/results/a4 --a1 /home/sauravbellam/results/a1
+
+[a4] fastapi_016ab760faba1813ba235d5582a014a58bd2f417: calls=0.990, containment=0.992, same_module=0.837, name_overlap=0.887, gold_cochange=0.963, random=0.765
+[a4] fastapi_08924400c2c75533685148b029defcf6913f1def: calls=0.990, containment=0.992, same_module=0.838, name_overlap=0.934, random=0.773
+[a4] fastapi_08b09e5236e315b6f10265ed229f130d4befb4ea: calls=0.991, containment=0.992, same_module=0.844, name_overlap=0.917, gold_cochange=0.986, random=0.780
+[a4] fastapi_0bdc3ca3732e3742e094bea2b320e9774659ac38: calls=0.991, containment=0.992, same_module=0.855, name_overlap=0.949, random=0.789
+[a4] fastapi_0dd42b746e17d33a74ea267a62eace9ccdccf345: calls=0.990, containment=0.992, same_module=0.841, name_overlap=0.915, random=0.771
+[a4] fastapi_16d75d90eb96976a57b94cc24e4018859cd54c4d: calls=0.991, containment=0.992, same_module=0.856, name_overlap=0.942, random=0.788
+[a4] fastapi_1b3bea8b6be2220cc1544653ea785d2134fcb35b: calls=0.990, containment=0.992, same_module=0.836, name_overlap=0.898, gold_cochange=0.892, random=0.766
+[a4] fastapi_1e78a36b7310003f0ff634627d8a7bc53c6ccdee: calls=0.990, containment=0.992, same_module=0.834, name_overlap=0.903, random=0.769
+[a4] fastapi_1fcec88ad2df4541b6a81c4786c4d039dc745e1e: calls=0.990, containment=0.992, same_module=0.838, name_overlap=0.889, random=0.771
+[a4] fastapi_202b2d2f5f331db9102b5dbcef071a9e09bed10e: calls=0.990, containment=0.991, same_module=0.841, name_overlap=0.920, gold_cochange=0.997, random=0.766
+[a4] fastapi_22b02e26f9e8c7e32bd8266e2b0ebe8bb3a0db2b: calls=0.990, containment=0.992, same_module=0.832, name_overlap=0.929, random=0.766
+[a4] fastapi_27c0f7e75fc0ce26ca75295d455eb36f0ca033d3: calls=0.990, containment=0.992, same_module=0.848, name_overlap=0.954, random=0.787
+[a4] fastapi_2b212ddd7604891d42e2ffbafe764c334230bdb7: calls=0.990, containment=0.992, same_module=0.838, name_overlap=0.903, random=0.768
+[a4] fastapi_2cf04ee30db9df2db04a5b1e0d2c625dfbf1a211: calls=0.991, containment=0.992, same_module=0.847, name_overlap=0.931, random=0.778
+[a4] fastapi_2f9c914d440e99fe8b62646b51e4d24c5bcd858b: calls=0.990, containment=0.992, same_module=0.836, name_overlap=0.907, gold_cochange=0.998, random=0.765
+[a4] fastapi_3b4b5ab8c819dce27fbaf0aa0a9c74b7f3255ec0: calls=0.991, containment=0.992, same_module=0.846, name_overlap=0.932, random=0.783
+[a4] fastapi_3c54a8f07b70cdd40e3d81ea319e9fcccd2481d2: calls=0.991, containment=0.992, same_module=0.842, name_overlap=0.926, random=0.781
+[a4] fastapi_3fe6522aaed4d36d6a38175a4a8137ee0fc62451: calls=0.990, containment=0.992, same_module=0.837, name_overlap=0.914, gold_cochange=0.931, random=0.771
+[a4] fastapi_425a4c5bb1d1a8e00007e82e5188fc4d30585767: calls=0.991, containment=0.992, same_module=0.848, name_overlap=0.933, gold_cochange=0.881, random=0.782
+[a4] fastapi_464c359bb03f7ba72330198cc9f44df36194837d: calls=0.990, containment=0.992, same_module=0.837, name_overlap=0.898, random=0.770
+[a4] fastapi_48d58ae3b6ef4ded5a4794618c00345667256d98: calls=0.990, containment=0.992, same_module=0.838, name_overlap=0.924, gold_cochange=0.998, random=0.767
+[a4] fastapi_4976568fc7cb7501729d8f84d946cde1e91299cd: calls=0.991, containment=0.992, same_module=0.845, name_overlap=0.908, gold_cochange=0.994, random=0.780
+[a4] fastapi_4a98a66778987648d2195155c9cbe0824d67b02a: calls=0.991, containment=0.992, same_module=0.847, name_overlap=0.929, random=0.782
+[a4] fastapi_5126e099bdda51f261fd5a101b5f914991d31897: calls=0.991, containment=0.992, same_module=0.846, name_overlap=0.923, gold_cochange=0.983, random=0.778
+[a4] fastapi_516169428d2fa189d34318ebc469a082c49c1189: calls=0.991, containment=0.992, same_module=0.850, name_overlap=0.935, gold_cochange=1.000, random=0.782
+[a4] fastapi_5265c4f5cb4d8fb4fb5015bccf1a6de8f3fc6044: calls=0.991, containment=0.992, same_module=0.843, name_overlap=0.931, random=0.778
+[a4] fastapi_54f8aeeb9a15e4d5a12401ec5549840966df0087: calls=0.990, containment=0.992, same_module=0.840, name_overlap=0.912, random=0.772
+[a4] fastapi_566e3157a5517784c741dbf36e39687af326fe90: calls=0.991, containment=0.992, same_module=0.844, name_overlap=0.926, gold_cochange=0.923, random=0.782
+[a4] fastapi_5c1f87c56387a96dbdddb2b1c4ec9ba48dcebc4e: calls=0.991, containment=0.992, same_module=0.855, name_overlap=0.949, gold_cochange=0.987, random=0.790
+[a4] fastapi_603df6e36f59cc4a3e189f506b8f36d1e816c3ac: calls=0.991, containment=0.992, same_module=0.848, name_overlap=0.914, random=0.779
+[a4] fastapi_60699f306b67dc1f4918ebea17f04d7a48cda645: calls=0.991, containment=0.992, same_module=0.847, name_overlap=0.933, gold_cochange=0.953, random=0.782
+[a4] fastapi_63d7a2b9978258d13dfc22664e60fc2110d30e20: calls=0.991, containment=0.992, same_module=0.846, name_overlap=0.937, gold_cochange=0.989, random=0.780
+[a4] fastapi_6513d4daa16a536d17743de6a292f49bd06388a4: calls=0.990, containment=0.992, same_module=0.834, name_overlap=0.884, gold_cochange=0.999, random=0.769
+[a4] fastapi_6b53786f626db95a42fd0f66afd360bab161f4b1: calls=0.990, containment=0.992, same_module=0.834, name_overlap=0.916, gold_cochange=0.921, random=0.766
+[a4] fastapi_6cf40df24d1d199fd25d034fc87fcae284fc23a2: calls=0.991, containment=0.992, same_module=0.847, name_overlap=0.924, random=0.778
+[a4] fastapi_6e49dc029541aaa896fa63c47647ccd3f066df67: calls=0.991, containment=0.992, same_module=0.842, name_overlap=0.925, gold_cochange=0.952, random=0.777
+[a4] fastapi_6ee87478d821171139264cd9cd17cbd2232934ce: calls=0.990, containment=0.992, same_module=0.834, name_overlap=0.907, random=0.766
+[a4] fastapi_7132a690461c2367f22556eb87c2b5eb7d9cfb45: calls=0.991, containment=0.992, same_module=0.845, name_overlap=0.918, random=0.781
+[a4] fastapi_71a17b5932e38bcf798fcd05c5bb384e6d4db5bf: calls=0.991, containment=0.992, same_module=0.850, name_overlap=0.897, gold_cochange=0.990, random=0.780
+[a4] fastapi_740ec2787b25e59f7aa9e3df1db09d4489c22718: calls=0.991, containment=0.992, same_module=0.844, name_overlap=0.914, random=0.782
+[a4] fastapi_811fa898752e7f5697733a2958ff79ad8dfb5276: calls=0.991, containment=0.992, same_module=0.843, name_overlap=0.930, gold_cochange=0.962, random=0.778
+[a4] fastapi_861b22c40897a03d2d7e5926923d962121ed5e2e: calls=0.990, containment=0.992, same_module=0.851, name_overlap=0.952, random=0.788
+[a4] fastapi_8e50c55fd90c4433ddc9096ff439da9498a8314a: calls=0.990, containment=0.992, same_module=0.838, name_overlap=0.923, gold_cochange=0.988, random=0.772
+[a4] fastapi_930b27e5fa32ce150ddcea61f0c913435ae71c83: calls=0.991, containment=0.992, same_module=0.844, name_overlap=0.941, gold_cochange=0.951, random=0.780
+[a4] fastapi_94a1ee749e63591e6e275b726a66e07a25f6c407: calls=0.990, containment=0.992, same_module=0.837, name_overlap=0.902, gold_cochange=0.993, random=0.764
+[a4] fastapi_972a967d5d3fa24d450637c36c6b7ad1f1d8c1b6: calls=0.991, containment=0.992, same_module=0.842, name_overlap=0.913, random=0.777
+[a4] fastapi_9a9c4ad5d06f5fe8ee6775a5aeaa2f83c854f263: calls=0.990, containment=0.992, same_module=0.838, name_overlap=0.921, random=0.767
+[a4] fastapi_a456e92a21d5b94a67d6d0fd070218df09444443: calls=0.990, containment=0.992, same_module=0.836, name_overlap=0.911, random=0.772
+[a4] fastapi_a7f2dbe976bf72703376f0cd04487bfc4a849f83: calls=0.991, containment=0.992, same_module=0.852, name_overlap=0.940, random=0.789
+[a4] fastapi_aee8e78078e8a7f2736d3cab7a1cb7197356951c: calls=0.991, containment=0.992, same_module=0.845, name_overlap=0.913, random=0.781
+[a4] fastapi_bc06e4296d588f39f38c7ac2fc96d3913c565962: calls=0.990, containment=0.992, same_module=0.835, name_overlap=0.907, gold_cochange=0.922, random=0.768
+[a4] fastapi_c0836dc1b7f4ba91e9563c8c4ccd0ebe655bc914: calls=0.990, containment=0.992, same_module=0.836, name_overlap=0.907, gold_cochange=1.000, random=0.770
+[a4] fastapi_c57ac7bdf3613798c94caceff562a41fa16d4a2d: calls=0.991, containment=0.992, same_module=0.844, name_overlap=0.942, gold_cochange=0.996, random=0.782
+[a4] fastapi_c6487ed632056e450d844846a1b63be551a3cbc6: calls=0.991, containment=0.992, same_module=0.842, name_overlap=0.939, random=0.778
+[a4] fastapi_cb83b83dcf78eab4ea17d504db5abcda705fbdc4: calls=0.990, containment=0.992, same_module=0.836, name_overlap=0.913, gold_cochange=0.538, random=0.764
+[a4] fastapi_cd31576d5704b6aef1bdadc43770238cd88aad2b: calls=0.990, containment=0.992, same_module=0.838, name_overlap=0.936, random=0.768
+[a4] fastapi_cff2236dacb7aedcaf2d2de0873cfbc9bb2b897a: calls=0.991, containment=0.992, same_module=0.844, name_overlap=0.924, random=0.777
+[a4] fastapi_d2c17b603d2f986d5f3800d3bf24acba8e1f485b: calls=0.990, containment=0.992, same_module=0.834, name_overlap=0.916, random=0.766
+[a4] fastapi_e2354a0a063f2fcb890ec568f1a98e136a39fd25: calls=0.991, containment=0.992, same_module=0.842, name_overlap=0.918, gold_cochange=0.940, random=0.779
+[a4] fastapi_e94028ab60d18080810910352bc9129e8046c92d: calls=0.990, containment=0.992, same_module=0.840, name_overlap=0.927, random=0.768
+[a4] fastapi_eacbce24c9d299c6a28110d9fc8ac50f53cddb08: calls=0.990, containment=0.992, same_module=0.841, name_overlap=0.914, random=0.769
+[a4] fastapi_eaf611f9ee56de4f16c837d4f487a4b9fca507c4: calls=0.991, containment=0.992, same_module=0.842, name_overlap=0.920, random=0.778
+[a4] fastapi_eb1d50479ba0ac873e4ffa08a824b1d822ca3a17: calls=0.991, containment=0.992, same_module=0.843, name_overlap=0.923, gold_cochange=0.981, random=0.781
+[a4] fastapi_ee22a4b8ca46dcce26c8c183afc4992a888d8be2: calls=0.990, containment=0.992, same_module=0.836, name_overlap=0.903, random=0.766
+[a4] fastapi_eead41bf4cf8587b4d86091dd3eabbb85796e717: calls=0.991, containment=0.992, same_module=0.845, name_overlap=0.924, random=0.779
+[a4] fastapi_f1d750fddad90e2faad6c3cc5c85c7687b787e89: calls=0.990, containment=0.991, same_module=0.838, name_overlap=0.904, gold_cochange=0.987, random=0.765
+[a4] fastapi_f2687dc1bb01f4cb62eee90e656b61c38c2aaf6a: calls=0.990, containment=0.992, same_module=0.837, name_overlap=0.901, random=0.769
+[a4] httpx_4acf5c2c37714cc63b5cf71b3e284fca83c90311: calls=0.989, containment=0.991, same_module=0.953, name_overlap=0.882, gold_cochange=0.917, random=0.871
+[a4] requests_0b401c76b6e80a4eecf3c690085b2553f6e261ca: calls=0.990, containment=0.991, same_module=0.904, name_overlap=0.983, random=0.864
+[a4] requests_0b4d494192de489701d3a2e32acef8fb5d3f042e: calls=0.989, containment=0.990, same_module=0.901, name_overlap=0.930, random=0.858
+[a4] requests_0e322af87745eff34caffe4df68456ebc20d9068: calls=0.989, containment=0.991, same_module=0.906, name_overlap=0.878, random=0.858
+[a4] requests_1b40fdd004bfc8ba5301bcf8a6908264e9b6b877: calls=0.989, containment=0.990, same_module=0.904, name_overlap=0.903, random=0.860
+[a4] requests_382fc2c0c6c0ef0874bc65bc1175f97c073e5086: calls=0.989, containment=0.990, same_module=0.900, name_overlap=0.851, random=0.856
+[a4] requests_6360477c52303c9445b45fa8744b02d05a2f0905: calls=0.989, containment=0.991, same_module=0.897, name_overlap=0.917, random=0.860
+[a4] requests_661970d171d9c3e12e4c789c4768db647d8c4da0: calls=0.990, containment=0.991, same_module=0.906, name_overlap=0.891, random=0.864
+[a4] requests_6f205ff422bccd5e4c4fc0b64c5f3e7df5181db6: calls=0.990, containment=0.991, same_module=0.903, name_overlap=0.984, gold_cochange=0.948, random=0.864
+[a4] requests_7407309c8a8a73aa2f4337184025d440bbedab7a: calls=0.989, containment=0.991, same_module=0.898, name_overlap=0.944, random=0.860
+[a4] requests_7a13c041dbef42f9f3feb14110f02626f6892e9a: calls=0.989, containment=0.991, same_module=0.898, name_overlap=0.672, random=0.856
+[a4] requests_b684dcb9bbf3aa557d1238e72062c4a29737dd1c: calls=0.990, containment=0.991, same_module=0.905, name_overlap=0.966, random=0.863
+[a4] requests_cbce031327be4f1b4b5fd041ff4dcaa8efa2ce53: calls=0.989, containment=0.991, same_module=0.904, name_overlap=0.953, random=0.861
+[a4] rich_01b85ac116c4635b6ddb8b488be8254be6df2a84: calls=0.985, containment=0.985, same_module=0.956, name_overlap=0.929, random=0.901
+[a4] rich_05ff970926cbd0b5d0acb6fc18cdbd1fc971e582: calls=0.985, containment=0.985, same_module=0.956, name_overlap=0.906, gold_cochange=0.991, random=0.900
+[a4] rich_0ba607dc080c9f102b5ae5346bcdb70d6e9c969d: calls=0.985, containment=0.985, same_module=0.957, name_overlap=0.924, random=0.900
+[a4] rich_0c8bb032ad3b54a32fdb8a43f5ab457c8cd6dcb1: calls=0.985, containment=0.985, same_module=0.956, name_overlap=0.903, random=0.901
+[a4] rich_0f2f51b872d14588de3a65968f5cdde6fb5694a3: calls=0.985, containment=0.985, same_module=0.955, name_overlap=0.889, random=0.901
+[a4] rich_19c67b9a3479841e9133bea94607c89ee931d3fc: calls=0.985, containment=0.985, same_module=0.954, name_overlap=0.907, random=0.900
+[a4] rich_1ad6f73a4d1d3b40ac3f879feccfaad66412bd1d: calls=0.985, containment=0.986, same_module=0.955, name_overlap=0.914, random=0.900
+[a4] rich_1d402e0c59f8765e420a5a4440eb2fca7465d1ae: calls=0.985, containment=0.985, same_module=0.957, name_overlap=0.916, gold_cochange=0.999, random=0.899
+[a4] rich_1fc7cb210ae52eb099df39818ddb9569e5b14c7b: calls=0.985, containment=0.985, same_module=0.954, name_overlap=0.922, gold_cochange=0.983, random=0.900
+[a4] rich_27701029082052c6541031b6f139097230253900: calls=0.985, containment=0.985, same_module=0.952, name_overlap=0.916, random=0.899
+[a4] rich_2809954800af15b4027364cebf82390fe23dc194: calls=0.985, containment=0.985, same_module=0.954, name_overlap=0.880, random=0.901
+[a4] rich_2b5d648b2c62960deb6439f4204ed8fa6eb3cf7b: calls=0.985, containment=0.985, same_module=0.957, name_overlap=0.941, gold_cochange=0.992, random=0.901
+[a4] rich_368e8ad77c95a6bef8f9d332039091d1417296bc: calls=0.985, containment=0.985, same_module=0.957, name_overlap=0.898, random=0.900
+[a4] rich_36fe3f7ca9becca4777861d5e6e625f5a4a37545: calls=0.985, containment=0.985, same_module=0.954, name_overlap=0.934, random=0.900
+[a4] rich_3b70db5a2997de191f7db3e422dbe4da35ca1c95: calls=0.985, containment=0.985, same_module=0.954, name_overlap=0.892, gold_cochange=0.965, random=0.900
+[a4] rich_4101991898ee7a09fe1706daca24af5e1e054862: calls=0.985, containment=0.985, same_module=0.957, name_overlap=0.912, random=0.900
+[a4] rich_49117ced6648a432d85951f72dce777038f6ce09: calls=0.985, containment=0.985, same_module=0.953, name_overlap=0.903, gold_cochange=0.995, random=0.899
+[a4] rich_4c5d305bb902ce97011666ada19e48d0b27b49e1: calls=0.985, containment=0.985, same_module=0.952, name_overlap=0.902, random=0.902
+[a4] rich_4d6d631a3d2deddf8405522d4b8c976a6d35726c: calls=0.985, containment=0.985, same_module=0.952, name_overlap=0.888, random=0.901
+[a4] rich_53757bc234cf18977cade41a5b64f3abaccb0b85: calls=0.985, containment=0.985, same_module=0.956, name_overlap=0.920, gold_cochange=0.811, random=0.900
+[a4] rich_577def22dd83b999c5937cb2bf2ed49600943325: calls=0.985, containment=0.986, same_module=0.954, name_overlap=0.897, random=0.899
+[a4] rich_58ac15120fe254886c10d6253667733c83604cb4: calls=0.985, containment=0.985, same_module=0.956, name_overlap=0.907, random=0.900
+[a4] rich_5ba9cb56e68dcdf2db50c214d8f1412c8a50761b: calls=0.985, containment=0.985, same_module=0.953, name_overlap=0.928, random=0.901
+[a4] rich_610fd75c433c3dfcd9c296e8b91363979127b9fa: calls=0.985, containment=0.986, same_module=0.955, name_overlap=0.927, random=0.901
+[a4] rich_66074922edabeac684434b4d87ee994fb97b0627: calls=0.985, containment=0.985, same_module=0.955, name_overlap=0.913, random=0.901
+[a4] rich_6764b24739b580c0c32ff5ef0b971ed4cfcf4f75: calls=0.985, containment=0.985, same_module=0.955, name_overlap=0.917, gold_cochange=0.868, random=0.898
+[a4] rich_720800e6930d85ad027b1e9bd0cbb96b5e994ce3: calls=0.985, containment=0.986, same_module=0.956, name_overlap=0.917, gold_cochange=0.989, random=0.900
+[a4] rich_7a168a27c5097805b3bafa495f35e3955004ff4a: calls=0.985, containment=0.986, same_module=0.956, name_overlap=0.918, gold_cochange=0.972, random=0.900
+[a4] rich_7d36119f8378b36129502c3281a7faffef837e02: calls=0.985, containment=0.985, same_module=0.956, name_overlap=0.926, random=0.900
+[a4] rich_8a616de8e25db3c93abaaa220c493d80878de69d: calls=0.985, containment=0.985, same_module=0.957, name_overlap=0.923, random=0.900
+[a4] rich_96dd4b60e3a7c647c43a85ad375afa690b3bb85b: calls=0.985, containment=0.985, same_module=0.956, name_overlap=0.893, random=0.900
+[a4] rich_9cb198944f8184df92217efc8b20d3fffa4b4fa0: calls=0.985, containment=0.985, same_module=0.955, name_overlap=0.941, random=0.901
+[a4] rich_9ec419154102acce7363e3958bec6c261864d7fb: calls=0.985, containment=0.985, same_module=0.956, name_overlap=0.913, gold_cochange=0.995, random=0.901
+[a4] rich_9f620dc50c0008c35e9f8493f198e6e593574a70: calls=0.985, containment=0.986, same_module=0.956, name_overlap=0.927, random=0.901
+[a4] rich_aca9467ec6a482b3bed1ba7d2e3de72271c5f817: calls=0.985, containment=0.986, same_module=0.955, name_overlap=0.930, gold_cochange=0.987, random=0.900
+[a4] rich_ae15db600976a7999d21653002f338d0761b180c: calls=0.985, containment=0.985, same_module=0.955, name_overlap=0.903, gold_cochange=0.954, random=0.900
+[a4] rich_b6f2f7aa5b27f612f391cd28212aff51ad0d42d1: calls=0.985, containment=0.985, same_module=0.957, name_overlap=0.905, random=0.900
+[a4] rich_c478588f3c228a4e86741a057c42b452d7bc6bce: calls=0.985, containment=0.985, same_module=0.957, name_overlap=0.903, random=0.901
+[a4] rich_c595fa95068dd2c5095d25446b2f0571bc0b3995: calls=0.985, containment=0.985, same_module=0.955, name_overlap=0.921, gold_cochange=0.986, random=0.900
+[a4] rich_d0de442c08df8793c5ff36d9ad322ca5c47fc38c: calls=0.985, containment=0.985, same_module=0.955, name_overlap=0.938, gold_cochange=0.959, random=0.900
+[a4] rich_e1e6d745f670ff3df6b8f47377c0a4006cb74066: calls=0.985, containment=0.985, same_module=0.953, name_overlap=0.919, random=0.900
+[a4] rich_e2a982d5ea747f0deb7f78e8eaa5b4be7d9194cf: calls=0.985, containment=0.985, same_module=0.955, name_overlap=0.903, random=0.901
+[a4] rich_e76f3c3ea78481342e21a7b3328075462ab69c2b: calls=0.985, containment=0.986, same_module=0.955, name_overlap=0.920, gold_cochange=0.994, random=0.901
+[a4] rich_edc6b0a39b6df1c0e26d409bb5c5eda7149b2de6: calls=0.985, containment=0.985, same_module=0.953, name_overlap=0.916, gold_cochange=0.992, random=0.901
+[a4] rich_fc41075a3206d2a5fd846c6f41c4d2becab814fa: calls=0.985, containment=0.985, same_module=0.956, name_overlap=0.918, gold_cochange=0.914, random=0.900
+[a4] rich_fde5d6eee3b0437eaecdcbf6f8b11aeab3a5d503: calls=0.985, containment=0.985, same_module=0.954, name_overlap=0.911, random=0.901
+[a4] rich_fe55a131c2780fa856464ad04d7d6dc8a1079b72: calls=0.985, containment=0.985, same_module=0.954, name_overlap=0.906, gold_cochange=0.904, random=0.900
+{
+  "calls": {
+    "n_graphs": 127,
+    "cos_mean_avg": 0.9881,
+    "auroc_avg": 0.8977
+  },
+  "containment": {
+    "n_graphs": 127,
+    "cos_mean_avg": 0.9894,
+    "auroc_avg": 0.9032
+  },
+  "same_module": {
+    "n_graphs": 127,
+    "cos_mean_avg": 0.8904,
+    "auroc_avg": 0.6817
+  },
+  "name_overlap": {
+    "n_graphs": 127,
+    "cos_mean_avg": 0.9161,
+    "auroc_avg": 0.6751
+  },
+  "gold_cochange": {
+    "n_graphs": 51,
+    "cos_mean_avg": 0.9551,
+    "auroc_avg": 0.8059
+  },
+  "random": {
+    "n_graphs": 127,
+    "cos_mean_avg": 0.8303,
+    "auroc_avg": null
+  }
+}

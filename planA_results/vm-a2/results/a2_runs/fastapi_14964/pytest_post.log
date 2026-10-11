@@ -1,0 +1,7 @@
+
+$ /home/sauravbellam/cache/a2/fastapi_14964/venv/bin/python -s -m pytest tests/test_deprecated_responses.py tests/test_orjson_response_class.py tests/test_tutorial/test_custom_response/test_tutorial001.py tests/test_tutorial/test_custom_response/test_tutorial001b.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/fastapi_14964/trace_post.xml
+[exit 0]
+.........                                                                [100%]
+9 passed in 3.03s
+
+

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="108" time="1.599" timestamp="2026-10-10T23:24:11.678733+00:00" hostname="vm-a2"><testcase classname="test_text" name="test_span" file="test_text.py" line="11" time="0.003" /><testcase classname="test_text" name="test_span_split" file="test_text.py" line="18" time="0.002" /><testcase classname="test_text" name="test_span_move" file="test_text.py" line="24" time="0.002" /><testcase classname="test_text" name="test_span_right_crop" file="test_text.py" line="28" time="0.001" /><testcase classname="test_text" name="test_len" file="test_text.py" line="33" time="0.002" /><testcase classname="test_text" name="test_cell_len" file="test_text.py" line="37" time="0.002" /><testcase classname="test_text" name="test_bool" file="test_text.py" line="42" time="0.002" /><testcase classname="test_text" name="test_str" file="test_text.py" line="47" time="0.002" /><testcase classname="test_text" name="test_repr" file="test_text.py" line="51" time="0.001" /><testcase classname="test_text" name="test_add" file="test_text.py" line="55" time="0.002" /><testcase classname="test_text" name="test_eq" file="test_text.py" line="61" time="0.002" /><testcase classname="test_text" name="test_contain" file="test_text.py" line="67" time="0.002" /><testcase classname="test_text" name="test_plain_property" file="test_text.py" line="75" time="0.002" /><testcase classname="test_text" name="test_plain_property_setter" file="test_text.py" line="82" time="0.001" /><testcase classname="test_text" name="test_from_markup" file="test_text.py" line="93" time="0.002" /><testcase classname="test_text" name="test_from_ansi" file="test_text.py" line="99" time="0.007" /><testcase classname="test_text" name="test_copy" file="test_text.py" line="117" time="0.002" /><testcase classname="test_text" name="test_rstrip" file="test_text.py" line="127" time="0.002" /><testcase classname="test_text" name="test_rstrip_end" file="test_text.py" line="133" time="0.002" /><testcase classname="test_text" name="test_stylize" file="test_text.py" line="139" time="0.001" /><testcase classname="test_text" name="test_stylize_before" file="test_text.py" line="147" time="0.002" /><testcase classname="test_text" name="test_stylize_negative_index" file="test_text.py" line="154" time="0.001" /><testcase classname="test_text" name="test_highlight_regex" file="test_text.py" line="160" time="0.003" /><testcase classname="test_text" name="test_highlight_regex_callable" file="test_text.py" line="192" time="0.002" /><testcase classname="test_text" name="test_highlight_words" file="test_text.py" line="212" time="0.002" /><testcase classname="test_text" name="test_set_length" file="test_text.py" line="243" time="0.002" /><testcase classname="test_text" name="test_console_width" file="test_text.py" line="262" time="0.002" /><testcase classname="test_text" name="test_join" file="test_text.py" line="270" time="0.002" /><testcase classname="test_text" name="test_trim_spans" file="test_text.py" line="276" time="0.002" /><testcase classname="test_text" name="test_pad_left" file="test_text.py" line="283" time="0.002" /><testcase classname="test_text" name="test_pad_right" file="test_text.py" line="289" time="0.002" /><testcase classname="test_text" name="test_append" file="test_text.py" line="295" time="0.002" /><testcase classname="test_text" name="test_append_text" file="test_text.py" line="310" time="0.001" /><testcase classname="test_text" name="test_end" file="test_text.py" line="317" time="0.004" /><testcase classname="test_text" name="test_split" file="test_text.py" line="324" time="0.002" /><testcase classname="test_text" name="test_split_spans" file="test_text.py" line="343" time="0.002" /><testcase classname="test_text" name="test_divide" file="test_text.py" line="352" time="0.002" /><testcase classname="test_text" name="test_right_crop" file="test_text.py" line="395" time="0.001" /><testcase classname="test_text" name="test_wrap_3" file="test_text.py" line="403" time="0.002" /><testcase classname="test_text" name="test_wrap_4" file="test_text.py" line="413" time="0.002" /><testcase classname="test_text" name="test_wrap_wrapped_word_length_greater_than_available_width" file="test_text.py" line="422" time="0.002" /><testcase classname="test_text" name="test_wrap_cjk" file="test_text.py" line="432" time="0.003" /><testcase classname="test_text" name="test_wrap_cjk_width_mid_character" file="test_text.py" line="441" time="0.002" /><testcase classname="test_text" name="test_wrap_cjk_mixed" file="test_text.py" line="451" time="0.005" /><testcase classname="test_text" name="test_wrap_long" file="test_text.py" line="465" time="0.002" /><testcase classname="test_text" name="test_wrap_overflow" file="test_text.py" line="474" time="0.002" /><testcase classname="test_text" name="test_wrap_overflow_long" file="test_text.py" line="483" time="0.002" /><testcase classname="test_text" name="test_wrap_long_words" file="test_text.py" line="490" time="0.002" /><testcase classname="test_text" name="test_wrap_long_words_2" file="test_text.py" line="502" time="0.002" /><testcase classname="test_text" name="test_wrap_long_words_followed_by_other_words" file="test_text.py" line="513" time="0.002" /><testcase classname="test_text" name="test_wrap_long_word_preceeded_by_word_of_full_line_length" file="test_text.py" line="527" time="0.002" /><testcase classname="test_text" name="test_wrap_multiple_consecutive_spaces" file="test_text.py" line="541" time="0.002" /><testcase classname="test_text" name="test_wrap_long_words_justify_left" file="test_text.py" line="554" time="0.002" /><testcase classname="test_text" name="test_wrap_leading_and_trailing_whitespace" file="test_text.py" line="565" time="0.002" /><testcase classname="test_text" name="test_no_wrap_no_crop" file="test_text.py" line="576" time="0.002" /><testcase classname="test_text" name="test_fit" file="test_text.py" line="590" time="0.001" /><testcase classname="test_text" name="test_wrap_tabs" file="test_text.py" line="597" time="0.001" /><testcase classname="test_text" name="test_render" file="test_text.py" line="605" time="0.003" /><testcase classname="test_text" name="test_render_simple" file="test_text.py" line="616" time="0.002" /><testcase classname="test_text" name="test_print[.-.\n]" file="test_text.py" line="624" time="0.008" /><testcase classname="test_text" name="test_print[print_text1-. .\n]" file="test_text.py" line="624" time="0.002" /><testcase classname="test_text" name="test_print[print_text2-Hello World !\n]" file="test_text.py" line="624" time="0.002" /><testcase classname="test_text" name="test_print_sep_end[.-.X]" file="test_text.py" line="638" time="0.002" /><testcase classname="test_text" name="test_print_sep_end[print_text1-..X]" file="test_text.py" line="638" time="0.002" /><testcase classname="test_text" name="test_print_sep_end[print_text2-HelloWorld!X]" file="test_text.py" line="638" time="0.003" /><testcase classname="test_text" name="test_tabs_to_spaces" file="test_text.py" line="652" time="0.002" /><testcase classname="test_text" name="test_tabs_to_spaces_spans[-4--expected_spans0]" file="test_text.py" line="675" time="0.002" /><testcase classname="test_text" name="test_tabs_to_spaces_spans[\t-4-    -expected_spans1]" file="test_text.py" line="675" time="0.002" /><testcase classname="test_text" name="test_tabs_to_spaces_spans[\tbar-4-    bar-expected_spans2]" file="test_text.py" line="675" time="0.002" /><testcase classname="test_text" name="test_tabs_to_spaces_spans[foo\tbar-4-foo bar-expected_spans3]" file="test_text.py" line="675" time="0.002" /><testcase classname="test_text" name="test_tabs_to_spaces_spans[foo\nbar\nbaz-4-foo\nbar\nbaz-expected_spans4]" file="test_text.py" line="675" time="0.003" /><testcase classname="test_text" name="test_tabs_to_spaces_spans[[bold]foo\tbar-4-foo bar-expected_spans5]" file="test_text.py" line="675" time="0.003" /><testcase classname="test_text" name="test_tabs_to_spaces_spans[[bold]\tbar-4-    bar-expected_spans6]" file="test_text.py" line="675" time="0.002" /><testcase classname="test_text" name="test_tabs_to_spaces_spans[\t[bold]bar-4-    bar-expected_spans7]" file="test_text.py" line="675" time="0.002" /><testcase classname="test_text" name="test_tabs_to_spaces_spans[[red]foo\tbar\n[green]egg\tbaz-8-foo     bar\negg     baz-expected_spans8]" file="test_text.py" line="675" time="0.003" /><testcase classname="test_text" name="test_tabs_to_spaces_spans[[bold]X\tY-8-X       Y-expected_spans9]" file="test_text.py" line="675" time="0.002" /><testcase classname="test_text" name="test_tabs_to_spaces_spans[[bold]\U0001f4a9\t\U0001f4a9-8-\U0001f4a9      \U0001f4a9-expected_spans10]" file="test_text.py" line="675" time="0.002" /><testcase classname="test_text" name="test_tabs_to_spaces_spans[[bold]\U0001f4a9\U0001f4a9\U0001f4a9\U0001f4a9\t\U0001f4a9-8-\U0001f4a9\U0001f4a9\U0001f4a9\U0001f4a9        \U0001f4a9-expected_spans11]" file="test_text.py" line="675" time="0.002" /><testcase classname="test_text" name="test_markup_switch" file="test_text.py" line="762" time="0.002" /><testcase classname="test_text" name="test_emoji" file="test_text.py" line="769" time="0.002" /><testcase classname="test_text" name="test_emoji_switch" file="test_text.py" line="776" time="0.002" /><testcase classname="test_text" name="test_assemble" file="test_text.py" line="783" time="0.001" /><testcase classname="test_text" name="test_assemble_meta" file="test_text.py" line="789" time="0.001" /><testcase classname="test_text" name="test_styled" file="test_text.py" line="797" time="0.001" /><testcase classname="test_text" name="test_strip_control_codes" file="test_text.py" line="804" time="0.001" /><testcase classname="test_text" name="test_get_style_at_offset" file="test_text.py" line="811" time="0.001" /><testcase classname="test_text" name="test_truncate_ellipsis[Hello-10-Hello]" file="test_text.py" line="818" time="0.001" /><testcase classname="test_text" name="test_truncate_ellipsis[Hello-5-Hello]" file="test_text.py" line="818" time="0.002" /><testcase classname="test_text" name="test_truncate_ellipsis[Hello-4-Hel\u2026]" file="test_text.py" line="818" time="0.002" /><testcase classname="test_text" name="test_truncate_ellipsis[Hello-3-He\u2026]" file="test_text.py" line="818" time="0.002" /><testcase classname="test_text" name="test_truncate_ellipsis[Hello-2-H\u2026]" file="test_text.py" line="818" time="0.002" /><testcase classname="test_text" name="test_truncate_ellipsis[Hello-1-\u2026]" file="test_text.py" line="818" time="0.002" /><testcase classname="test_text" name="test_truncate_ellipsis_pad[Hello-5-Hello]" file="test_text.py" line="835" time="0.003" /><testcase classname="test_text" name="test_truncate_ellipsis_pad[Hello-10-Hello     ]" file="test_text.py" line="835" time="0.002" /><testcase classname="test_text" name="test_truncate_ellipsis_pad[Hello-3-He\u2026]" file="test_text.py" line="835" time="0.002" /><testcase classname="test_text" name="test_pad" file="test_text.py" line="849" time="0.001" /><testcase classname="test_text" name="test_align_left" file="test_text.py" line="855" time="0.002" /><testcase classname="test_text" name="test_align_right" file="test_text.py" line="861" time="0.002" /><testcase classname="test_text" name="test_align_center" file="test_text.py" line="867" time="0.002" /><testcase classname="test_text" name="test_detect_indentation" file="test_text.py" line="873" time="0.002" /><testcase classname="test_text" name="test_indentation_guides" file="test_text.py" line="889" time="0.003" /><testcase classname="test_text" name="test_slice" file="test_text.py" line="911" time="0.003" /><testcase classname="test_text" name="test_wrap_invalid_style" file="test_text.py" line="925" time="0.006" /><testcase classname="test_text" name="test_apply_meta" file="test_text.py" line="932" time="0.002" /><testcase classname="test_text" name="test_on" file="test_text.py" line="943" time="0.002" /><testcase classname="test_text" name="test_markup_property" file="test_text.py" line="953" time="0.003" /><testcase classname="test_text" name="test_extend_style" file="test_text.py" line="969" time="0.002" /><testcase classname="test_text" name="test_append_tokens" file="test_text.py" line="985" time="0.003"><failure message="IndexError: list index out of range">def test_append_tokens() -&gt; None:
+        """Regression test for https://github.com/Textualize/rich/issues/3014"""
+    
+        console = Console()
+        t = Text().append_tokens(
+            [
+                (
+                    "long text that will be wrapped with a control code \r\n",
+                    "red",
+                ),
+            ]
+        )
+        with console.capture() as capture:
+&gt;           console.print(t, width=40)
+
+tests/test_text.py:999: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+rich/console.py:1710: in print
+    extend(render(renderable, render_options))
+rich/console.py:1331: in render
+    for render_output in iter_render:
+                         ^^^^^^^^^^^
+rich/text.py:694: in __rich_console__
+    lines = self.wrap(
+rich/text.py:1234: in wrap
+    new_lines = line.divide(offsets)
+                ^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;text 'long text that will be wrapped with a control code ' [Span(0, 52, 'red')]&gt;
+offsets = [38]
+
+    def divide(self, offsets: Iterable[int]) -&gt; Lines:
+        """Divide text in to a number of lines at given offsets.
+    
+        Args:
+            offsets (Iterable[int]): Offsets used to divide text.
+    
+        Returns:
+            Lines: New RichText instances between offsets.
+        """
+        _offsets = list(offsets)
+    
+        if not _offsets:
+            return Lines([self.copy()])
+    
+        text = self.plain
+        text_length = len(text)
+        divide_offsets = [0, *_offsets, text_length]
+        line_ranges = list(zip(divide_offsets, divide_offsets[1:]))
+    
+        style = self.style
+        justify = self.justify
+        overflow = self.overflow
+        _Text = Text
+        new_lines = Lines(
+            _Text(
+                text[start:end],
+                style=style,
+                justify=justify,
+                overflow=overflow,
+            )
+            for start, end in line_ranges
+        )
+        if not self._spans:
+            return new_lines
+    
+        _line_appends = [line._spans.append for line in new_lines._lines]
+        line_count = len(line_ranges)
+        _Span = Span
+    
+        for span_start, span_end, style in self._spans:
+            lower_bound = 0
+            upper_bound = line_count
+            start_line_no = (lower_bound + upper_bound) // 2
+    
+            while True:
+                line_start, line_end = line_ranges[start_line_no]
+                if span_start &lt; line_start:
+                    upper_bound = start_line_no - 1
+                elif span_start &gt; line_end:
+                    lower_bound = start_line_no + 1
+                else:
+                    break
+                start_line_no = (lower_bound + upper_bound) // 2
+    
+            if span_end &lt; line_end:
+                end_line_no = start_line_no
+            else:
+                end_line_no = lower_bound = start_line_no
+                upper_bound = line_count
+    
+                while True:
+&gt;                   line_start, line_end = line_ranges[end_line_no]
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^
+E                   IndexError: list index out of range
+
+rich/text.py:1164: IndexError</failure></testcase></testsuite></testsuites>

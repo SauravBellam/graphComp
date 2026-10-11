@@ -1,0 +1,7 @@
+
+$ /home/sauravbellam/cache/a2/fastapi_14794/venv/bin/python -s -m pytest tests/test_response_dependency.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/fastapi_14794/trace_post.xml
+[exit 0]
+.......                                                                  [100%]
+7 passed in 2.35s
+
+

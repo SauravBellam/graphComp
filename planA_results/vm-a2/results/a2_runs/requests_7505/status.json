@@ -1,0 +1,85 @@
+{
+  "instance_id": "requests_7505",
+  "repo": "psf/requests",
+  "backend": "venv",
+  "done": true,
+  "deps": {
+    "steps": [
+      {
+        "name": "pip_upgrade",
+        "cmd": "/home/sauravbellam/cache/a2/requests_7505/venv/bin/python -m pip install -q --disable-pip-version-check 'pip>=24' 'setuptools' 'wheel' pytest pytest-timeout",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "editable_no_deps",
+        "cmd": "/home/sauravbellam/cache/a2/requests_7505/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-build-isolation --no-deps -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "runtime_deps",
+        "cmd": "/home/sauravbellam/cache/a2/requests_7505/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "req_requirements-dev.txt",
+        "cmd": "/home/sauravbellam/cache/a2/requests_7505/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -r requirements-dev.txt",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "requests_httpbin",
+        "cmd": "/home/sauravbellam/cache/a2/requests_7505/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels pytest-httpbin httpbin trustme pysocks",
+        "exit": 0,
+        "stderr_tail": ""
+      }
+    ],
+    "editable_ok": true,
+    "python": "3.13.5 (main, Aug 10 2026, 12:06:59) [GCC 14.2.0]"
+  },
+  "targets": [
+    "tests/test_requests.py"
+  ],
+  "test_patch_strategy": "exact",
+  "test_patch_applied": true,
+  "pre": {
+    "exit": 1,
+    "seconds": 50.5,
+    "timeout": false,
+    "exit_meaning": "some_failed",
+    "run_class": "clean",
+    "counts": {
+      "failed": 1,
+      "passed": 338,
+      "skipped": 1,
+      "xfailed": 1
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "........................................................................ [ 21%]\n.................................................s.pytest-httpbin server hit an exception serving request: [SSL: TLSV1_ALERT_UNKNOWN_CA] tlsv1 alert unknown ca (_ssl.c:1029)\nattempting to ignore so the rest of the tests can run\n....F................ [ 42%]\n........................................................................ [ 63%]\n..........................x............................................. [ 84%]\n.....................................................                    [100%]\n=================================== FAILURES ===================================\n________________ TestRequests.test_post_getattr_proxy_read_only ________________\n\nself = <tests.test_requests.TestRequests object at 0x7fc83eb99400>\nhttpbin = <function prepare_url.<locals>.inner at 0x7fc83ed39e40>\n\n    def test_post_getattr_proxy_read_only(self, httpbin):\n    \n        class ReadProxy:\n            def __init__(self):\n                self._file = io.BytesIO(b\"streamed body\")\n    \n            def __getattr__(self, name):\n                if name == \"__iter__\":\n                    raise AttributeError(name)\n                return getattr(self._file, name)\n    \n        r = requests.post(httpbin(\"post\"), data=ReadProxy())\n        assert r.status_code == 200\n>       assert r.json()[\"data\"] == \"streamed body\"\nE       AssertionError: assert '' == 'streamed body'\nE         \nE         - streamed body\n\ntests/test_requests.py:1114: AssertionError\n----------------------------- Captured stderr call -----------------------------\n127.0.0.1 - - [10/Oct/2026 23:15:34] \"POST /post HTTP/1.1\" 200 444\n=============================== warnings summary ===============================\ntests/test_requests.py::TestPreparingURLs::test_different_connection_pool_for_tls_settings_verify_True\ntests/test_requests.py::TestPreparingURLs::test_different_connection_pool_for_tls_settings_verify_bundle_expired_cert\ntests/test_requests.py::TestPreparingURLs::test_different_connection_pool_for_tls_settings_verify_bundle_unexpired_cert\ntests/test_requests.py::TestPreparingURLs::test_different_connection_pool_for_mtls_settings\n  /home/sauravbellam/cache/a2/requests_7505/venv/lib/python3.13/site-packages/urllib3/connectionpool.py:1129: InsecureRequestWarning: Unverified HTTPS request is being made to host 'localhost'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings\n    warnings.warn(\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n1 failed, 338 passed, 1 skipped, 1 xfailed, 4 warnings in 49.41s\n",
+    "stderr_tail": "[2026-10-10 23:15:25,891] WARNING in core: flasgger is not installed; serving the static landing page at / and skipping the Swagger UI and /spec.json.\n127.0.0.1 - - [10/Oct/2026 23:15:29] \"GET /cookies HTTP/1.1\" 200 40\n127.0.0.1 - - [10/Oct/2026 23:15:29] \"GET /basic-auth/user/pass HTTP/1.1\" 200 46\n127.0.0.1 - - [10/Oct/2026 23:15:33] \"POST /post HTTP/1.1\" 200 361\n127.0.0.1 - - [10/Oct/2026 23:15:33] \"GET /get?f%C3%B8%C3%B8=f%C3%B8%C3%B8 HTTP/1.1\" 200 340\n127.0.0.1 - - [10/Oct/2026 23:15:33] \"GET /%C3%B8?foo=foo HTTP/1.1\" 404 207\n127.0.0.1 - - [10/Oct/2026 23:15:33] \"PUT /put HTTP/1.1\" 200 412\n127.0.0.1 - - [10/Oct/2026 23:15:34] \"GET / HTTP/1.1\" 200 13760\n127.0.0.1 - - [10/Oct/2026 23:15:34] \"GET /get?test=foo&test=baz HTTP/1.1\" 200 338\n127.0.0.1 - - [10/Oct/2026 23:15:34] \"POST /post HTTP/1.1\" 200 115622\n127.0.0.1 - - [10/Oct/2026 23:15:34] \"POST /post HTTP/1.1\" 200 115622\n127.0.0.1 - - [10/Oct/2026 23:15:35] \"POST /post HTTP/1.1\" 200 115524\n127.0.0.1 - - [10/Oct/2026 23:15:35] \"GET /get HTTP/1.1\" 200 285\n"
+  },
+  "gold_patch_strategy": "exact",
+  "gold_patch_applied": true,
+  "post": {
+    "exit": 0,
+    "seconds": 48.3,
+    "timeout": false,
+    "exit_meaning": "all_passed",
+    "run_class": "clean",
+    "counts": {
+      "passed": 339,
+      "skipped": 1,
+      "xfailed": 1
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "........................................................................ [ 21%]\n.................................................s.pytest-httpbin server hit an exception serving request: [SSL: TLSV1_ALERT_UNKNOWN_CA] tlsv1 alert unknown ca (_ssl.c:1029)\nattempting to ignore so the rest of the tests can run\n..................... [ 42%]\n........................................................................ [ 63%]\n..........................x............................................. [ 84%]\n.....................................................                    [100%]\n=============================== warnings summary ===============================\ntests/test_requests.py::TestPreparingURLs::test_different_connection_pool_for_tls_settings_verify_True\ntests/test_requests.py::TestPreparingURLs::test_different_connection_pool_for_tls_settings_verify_bundle_expired_cert\ntests/test_requests.py::TestPreparingURLs::test_different_connection_pool_for_tls_settings_verify_bundle_unexpired_cert\ntests/test_requests.py::TestPreparingURLs::test_different_connection_pool_for_mtls_settings\n  /home/sauravbellam/cache/a2/requests_7505/venv/lib/python3.13/site-packages/urllib3/connectionpool.py:1129: InsecureRequestWarning: Unverified HTTPS request is being made to host 'localhost'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings\n    warnings.warn(\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n339 passed, 1 skipped, 1 xfailed, 4 warnings in 47.14s\n",
+    "stderr_tail": "[2026-10-10 23:16:16,359] WARNING in core: flasgger is not installed; serving the static landing page at / and skipping the Swagger UI and /spec.json.\n127.0.0.1 - - [10/Oct/2026 23:16:18] \"GET /get HTTP/1.1\" 200 208\n127.0.0.1 - - [10/Oct/2026 23:16:18] \"POST /post HTTP/1.1\" 200 363\n127.0.0.1 - - [10/Oct/2026 23:16:19] \"HEAD /get HTTP/1.1\" 200 0\n127.0.0.1 - - [10/Oct/2026 23:16:19] \"HEAD /get HTTP/1.1\" 200 0\n127.0.0.1 - - [10/Oct/2026 23:16:19] \"GET /get HTTP/1.1\" 200 272\n127.0.0.1 - - [10/Oct/2026 23:16:19] \"GET /cookies HTTP/1.1\" 200 40\n127.0.0.1 - - [10/Oct/2026 23:16:19] \"GET /cookies HTTP/1.1\" 200 40\n127.0.0.1 - - [10/Oct/2026 23:16:19] \"HEAD /get HTTP/1.1\" 200 0\n127.0.0.1 - - [10/Oct/2026 23:16:22] \"GET /digest-auth/auth/user/pass/SHA-512 HTTP/1.1\" 401 0\n127.0.0.1 - - [10/Oct/2026 23:16:22] \"POST /post HTTP/1.1\" 200 416\n127.0.0.1 - - [10/Oct/2026 23:16:22] \"GET /gzip HTTP/1.1\" 200 197\n127.0.0.1 - - [10/Oct/2026 23:16:23] \"POST /post HTTP/1.1\" 200 115612\n127.0.0.1 - - [10/Oct/2026 23:16:24] \"POST /post HTTP/1.1\" 200 430\n"
+  },
+  "trace_pre_exists": true,
+  "trace_post_exists": true,
+  "seconds": 128.8
+}
