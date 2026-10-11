@@ -7,6 +7,7 @@
 #   A2  analyze: nested mapping, entry-point reachability, fail-to-pass statuses, strict / harness sets
 #   A6  rerun  : v2 graphs with nested defs, no dangling test edges, new task-profile columns
 #   A5  rerun  : hit rates change only through A1's gold node set (nested gold symbols now resolvable)
+#   A8  new    : per-task metrics (entry distance, answerability, discriminating tests) and reference scores
 #
 # Usage (on the VM that holds the archive and results/a2_runs; vm-a2 in the Oct 10 layout):
 #   bash planA/../ops/rerun_fixes.sh ~/graphComp/archive ~/results ~/cache 8
@@ -49,6 +50,10 @@ echo "A5_EXIT $? $(date)"
 $PY planA/a6_release.py --data "$DATA" --a1 "$RES/a1_v2" --a2-runs "$RES/a2_runs" --a2-analysis "$RES/a2_v2" \
     --out "$RES/a6_v2" --cache "$CACHE" > "$RES/a6_v2.log" 2>&1
 echo "A6_EXIT $? $(date)"
+
+# A8: entry distance, tool answerability, test discriminativeness + gold/empty-patch reference scores
+$PY planA/a8_metrics.py --data "$DATA" --a1 "$RES/a1_v2" --a2-analysis "$RES/a2_v2" --runs "$RES/a2_runs" --out "$RES/a8" > "$RES/a8.log" 2>&1
+echo "A8_EXIT $? $(date)"
 
 # provenance
 ( cd "$HERE" && find planA tests ops -type f \( -name '*.py' -o -name '*.sh' \) -print0 | sort -z | xargs -0 sha256sum ) > "$RES/scripts_sha256_v2.txt"
