@@ -80,7 +80,7 @@ All steps are CPU-only and run under Python 3.13.5, the harness's interpreter ve
 \label{fig:presence}
 \end{figure}
 
-Figure~\ref{fig:presence} gives presence by kind. Restricted to non-test source files, sync functions are 100\% present and async functions 0 of 28,113. The missing classes and sync functions are id-scheme effects that the reconciliation accounts for in full: fastapi lists 1,683 inner pydantic \code{Config} classes without their model class, and requests lists a subset of test methods without their test class. Every missing nested definition in fastapi and rich is itself async; in requests a further 340 are methods of helper classes defined inside test functions.
+Figure~\ref{fig:presence} gives presence by kind. Restricted to non-test source files, sync functions are 100\% present and async functions 0 of 28,113. The missing classes and sync functions are id-scheme effects that the reconciliation accounts for in full: fastapi lists 1,683 inner pydantic \code{Config} classes without their model class, and requests lists a subset of test methods without their test class. Every missing nested definition in fastapi is itself async, as is every one in rich except a single class defined inside a test function; in requests a further 340 are methods of helper classes defined inside test functions.
 
 The omission falls on the code that needs fixing. Of 711 gold-patch symbols, 81 are async and none is a node; one appears present only because the nested async \code{FastAPI.setup.<locals>.openapi} flattens to the id of a different, sync method, \code{FastAPI.openapi}. Overall 470 of 711 gold symbols (66.1\%, CI 62.6 to 69.5) are nodes. 22 tasks have an async gold symbol, 21 of them in fastapi, which is 31\% of fastapi tasks. In 3 usable tasks a gold function that the failing test executes has no node at all. fastapi is an async web framework, and for its request-handling path the graph is silent.
 
@@ -142,7 +142,7 @@ This contradicts our hypothesis that the graph would be precise but incomplete, 
 
 Reading the caller's source explains both numbers (Figure~\ref{fig:semantics}). Captured edges have an explicit call site 88.6\% of the time, mostly bare calls (55.3\%) and instantiations (19.0\%): what a name-matching walker finds. Missed calls are method dispatch that the walker does not resolve: calls on other objects (23.4\%), \code{self.} calls (15.9\%), references passed as callbacks (28.3\%) and implicit dunder calls (17.3\%). The 35,017 unexercised edges mostly have no textual basis in the caller: in 56.1\% the callee is not mentioned at all and in 26.7\% only in a string or comment.
 
-Figure~\ref{fig:structure} shows what they are instead. Of all unexercised non-test edges, 22.3\% point from a method to its own class, 13.8\% from a class to a subclass and 13.3\% from a class to a base class; among missed calls, 45.5\% run between two methods of the same class. We infer that the generator stores containment and inheritance, in both directions, under the label \texttt{calls}, which also explains why 8 to 21\% of \texttt{calls} edges per graph point from a symbol to its own member. An agent following ``callers'' and ``callees'' is in part walking a class hierarchy.
+Figure~\ref{fig:structure} shows what they are instead. Of all unexercised non-test edges, 22.3\% point from a method to its own class, 13.8\% from a class to a subclass and 13.3\% from a class to a base class; among missed calls, 45.5\% run between two methods of the same class. We infer that the generator stores containment and inheritance, in both directions, under the label \texttt{calls}, which also explains why 8 to 21\% (30\% in the single httpx graph) of \texttt{calls} edges per graph point from a symbol to its own member. An agent following ``callers'' and ``callees'' is in part walking a class hierarchy.
 
 \subsection{The graph connects failing tests to the fix}\label{sec:reach}
 
@@ -159,7 +159,7 @@ We had hypothesized that gold functions would often be reachable at runtime but 
 
 \subsection{Embeddings and retrieval}\label{sec:embed}
 
-\paragraph{The encoder is not public EmbeddingGemma.} No candidate approaches identification: the best mean cosine to the provided vectors is 0.073 for EmbeddingGemma 300m (name variant, document prompt), 0.015 for EmbeddingGemma~2 and 0.036 for the MiniLM control, with pairwise rank correlation at most 0.16. The provided vectors are not unit-normalised and are strongly anisotropic: mean cosine to the mean vector is 0.87 to 0.95, the first principal component explains 44\% to 75\% of the variance, and the top-1 neighbour cosine averages 0.999.
+\paragraph{The encoder is not public EmbeddingGemma.} No candidate approaches identification: the best mean cosine to the provided vectors is 0.073 for EmbeddingGemma 300m (name variant, document prompt), 0.015 for EmbeddingGemma~2 and 0.036 for the MiniLM control, with pairwise rank correlation at most 0.17 for either EmbeddingGemma (0.21 for the control). The provided vectors are not unit-normalised and are strongly anisotropic: mean cosine to the mean vector is 0.87 to 0.95, the first principal component explains 44\% to 75\% of the variance, and the top-1 neighbour cosine averages 0.999.
 
 \begin{figure}[t]
 \centering

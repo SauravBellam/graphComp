@@ -69,7 +69,7 @@ All steps are CPU-only and run on two 8- and 16-core VMs under Python 3.13.5, th
 | Nested definition | 18,178 | 14,483 | 79.7% |
 | Async function | 45,492 | 0 | 0% |
 
-Restricted to non-test source files, sync functions are 100% present and async functions 0 of 28,113. The missing classes and sync functions are id-scheme effects that A7 accounts for in full: fastapi lists 1,683 inner pydantic `Config` classes without their model class, and requests lists a subset of test methods without their test class. Every nested definition that is missing is itself async.
+Restricted to non-test source files, sync functions are 100% present and async functions 0 of 28,113. The missing classes and sync functions are id-scheme effects that A7 accounts for in full: fastapi lists 1,683 inner pydantic `Config` classes without their model class, and requests lists a subset of test methods without their test class. Every missing nested definition in fastapi is itself async, as is every one in rich except a single class defined inside a test function.
 
 The omission falls on the code that needs fixing. Of 711 gold-patch symbols, 81 are async and none is a node; one appears present only because the nested async `FastAPI.setup.<locals>.openapi` flattens to the id of a different, sync method, `FastAPI.openapi`. 22 tasks have an async gold symbol, 21 of them in fastapi, which is 31% of fastapi tasks. In 3 usable tasks a gold function that the failing test executes has no node at all. fastapi is an async web framework; for its request handling path the graph is silent.
 
@@ -106,7 +106,7 @@ Reading the caller's source explains both numbers.
 | Name only in a string or comment | 4.5% | 26.7% | 1.3% |
 | No mention at all | 1.9% | 56.1% | 3.1% |
 
-Captured edges are what a name-matching walker finds: bare calls and instantiations. Missed calls are method dispatch the walker does not resolve: `self.` calls, calls on objects, callbacks and dunders. The 35,017 unexercised non-test edges mostly have no textual basis in the caller. Classifying all of them structurally, 22.3% point from a method to its own class, 13.8% from a class to a subclass and 13.3% from a class to a base class; among missed calls, 45.5% run between two methods of the same class. We infer that the generator stores containment and inheritance, in both directions, under the label `calls`. That reading also explains a feature noticed early: 8 to 21% of `calls` edges per graph point from a symbol to its own member. An agent following "callers" and "callees" is in part walking a class hierarchy.
+Captured edges are what a name-matching walker finds: bare calls and instantiations. Missed calls are method dispatch the walker does not resolve: `self.` calls, calls on objects, callbacks and dunders. The 35,017 unexercised non-test edges mostly have no textual basis in the caller. Classifying all of them structurally, 22.3% point from a method to its own class, 13.8% from a class to a subclass and 13.3% from a class to a base class; among missed calls, 45.5% run between two methods of the same class. We infer that the generator stores containment and inheritance, in both directions, under the label `calls`. That reading also explains a feature noticed early: 8 to 21% (30% in the single httpx graph) of `calls` edges per graph point from a symbol to its own member. An agent following "callers" and "callees" is in part walking a class hierarchy.
 
 ### 5.5 The graph connects failing tests to the fix
 
@@ -120,7 +120,7 @@ We had hypothesized that gold functions would often be reachable at runtime but 
 
 ### 5.6 Embeddings and retrieval
 
-**The encoder is not public EmbeddingGemma.** No candidate approaches identification: best mean cosine to the provided vectors is 0.073 for EmbeddingGemma 300m (name, document prompt), 0.015 for EmbeddingGemma 2, and 0.036 for the MiniLM control, with pairwise rank correlation at most 0.16. The provided vectors are not unit-normalised, and are strongly anisotropic: mean cosine to the mean vector is 0.87 to 0.95, and top-1 neighbour cosine averages 0.999.
+**The encoder is not public EmbeddingGemma.** No candidate approaches identification: best mean cosine to the provided vectors is 0.073 for EmbeddingGemma 300m (name, document prompt), 0.015 for EmbeddingGemma 2, and 0.036 for the MiniLM control, with pairwise rank correlation at most 0.17 for either EmbeddingGemma (0.21 for the control). The provided vectors are not unit-normalised, and are strongly anisotropic: mean cosine to the mean vector is 0.87 to 0.95, and top-1 neighbour cosine averages 0.999.
 
 **What similarity tracks.** Cosine separates call-adjacent pairs from random pairs (mean AUROC 0.90 over 127 graphs) and containment pairs (0.90), gold co-change pairs less (0.81), same-module and name-overlap pairs weakly (0.68). But a node's ten nearest neighbours are 45% to 67% test nodes and only 2% to 6% call neighbours, so the tool mostly returns tests.
 
