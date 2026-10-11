@@ -11,6 +11,7 @@ normal-vision dE >= 19.6); slots below 3:1 contrast carry direct numeric labels 
 from __future__ import annotations
 
 import csv
+import gzip
 import json
 from collections import Counter, defaultdict
 from pathlib import Path
@@ -165,7 +166,8 @@ def p1_edge_structure():
 
     def graph(gk):
         if gk not in cache:
-            d = load(R / "a6_v3" / "graphs_v2" / f"{gk}.json")
+            gp = R / "a6_v3" / "graphs_v2" / f"{gk}.json"
+            d = load(gp) if gp.exists() else json.loads(gzip.open(str(gp) + ".gz", "rt", encoding="utf-8").read())
             nodes = {n["id"]: n for n in d["nodes"]}
             inh = defaultdict(set)
             for e in d["edges"]:
@@ -411,8 +413,11 @@ def p2_strata():
 
 
 if __name__ == "__main__":
-    for f in (p1_presence, p1_resolver, p1_recall_precision, p1_edge_semantics, p1_edge_structure, p1_hops,
-              p1_embeddings, p1_retrieval, p2_named_tests, p2_disc_per_task, p2_reference_scores, p2_strata):
+    figs = [p1_presence, p1_resolver, p1_recall_precision, p1_edge_semantics, p1_edge_structure, p1_hops,
+            p1_embeddings, p1_retrieval]
+    if (R / "a9" / "a9_summary.json").exists():          # paper 2 inputs (absent in the paper-1 release)
+        figs += [p2_named_tests, p2_disc_per_task, p2_reference_scores, p2_strata]
+    for f in figs:
         f()
         plt.close("all")
         print("ok", f.__name__, flush=True)
