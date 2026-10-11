@@ -17,7 +17,7 @@ cd planA_results
 python3 papers/verify_paper1_numbers.py
 ```
 
-Standard library only; a few seconds. It recomputes 66 claims from the result files and prints PASS or FAIL with the source of each. Result: 63 PASS, 3 FAIL, 9 INFO (saved in `planA_results/papers/verify_paper1_numbers.out.txt`). The three FAIL lines are small discrepancies in the paper's text, listed in the guide for judges.
+Standard library only; a few seconds. It recomputes 66 claims from the result files and prints PASS or FAIL with the source of each. Result: 66 PASS, 0 FAIL, 9 INFO (saved in `planA_results/papers/verify_paper1_numbers.out.txt`); INFO lines are values shown only in figures.
 
 ## Layout
 

@@ -49,19 +49,9 @@ cd planA_results
 python3 papers/verify_paper1_numbers.py
 \end{Verbatim}
 
-Standard library only, a few seconds. It re-reads the result files and compares 66 quantitative claims in the paper with the values in the files, printing PASS or FAIL with the source file of each. The saved output is \code{papers/verify_paper1_numbers.out.txt}: \textbf{63 PASS, 3 FAIL, 9 INFO} (INFO lines list values that appear only in figures).
+Standard library only, a few seconds. It re-reads the result files and compares 66 quantitative claims in the paper with the values in the files, printing PASS or FAIL with the source file of each. The saved output is \code{papers/verify_paper1_numbers.out.txt}: \textbf{66 PASS, 0 FAIL, 9 INFO} (INFO lines list values that appear only in figures). The script exits non-zero if any claim fails.
 
-The three FAIL lines are real discrepancies in the paper text, kept visible rather than hidden:
-
-\begin{tabularx}{\linewidth}{@{}LLL@{}}
-\toprule
-Paper says & Files say & Size of the effect\\
-\midrule
-``Every missing nested definition in fastapi and rich is itself async'' (\S5.1) & rich has one non-async missing nested definition, a class two levels deep in \code{tests/test_inspect.py}, absent in each of its 47 graphs & One test-only definition; fastapi holds\\
-``8 to 21\% of \texttt{calls} edges per graph point from a symbol to its own member'' (\S5.4) & 8\% to 21\% in 126 graphs; the single httpx graph is 29.8\% & One graph of 127\\
-``pairwise rank correlation at most 0.16'' (\S5.6) & maximum over all variants is 0.17 for EmbeddingGemma 300m, 0.14 for EmbeddingGemma 2, 0.21 for the MiniLM control & No candidate approaches identification either way (best mean cosine 0.073)\\
-\bottomrule
-\end{tabularx}
+An earlier draft of the paper had three small wording errors that this script caught (\S5.1, a single non-async test class in rich; \S5.4, the httpx graph at 30\%; \S5.6, a rank-correlation bound of 0.17 rather than 0.16). The paper text was corrected; no result changed.
 
 \section*{3. Where each section's results live}
 
