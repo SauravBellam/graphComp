@@ -8,7 +8,7 @@
 Showdown Markdown version of paper 1 (same text as the LaTeX, with marked image slots): `paper1_is_the_map_right.showdown.md`.
 PNG figures for inserting into it: `figures/png/*.png`.
 
-For judges: `FOR_JUDGES.md` (claim-to-file map, reproduction), `verify_paper1_numbers.py` (checks 66 claims against the result files; output in `verify_paper1_numbers.out.txt`), `supplement_paper1.zip` (scripts, results and paper files in one 7 MB bundle).
+For judges: `FOR_JUDGES.md` (PDF: `latex/for_judges.pdf`) (claim-to-file map, reproduction), `verify_paper1_numbers.py` (checks 66 claims against the result files; output in `verify_paper1_numbers.out.txt`), `supplement_paper1.zip` (scripts, results and paper files in one 7 MB bundle).
 
 Figures: `figures/*.pdf`, drawn by `make_figures.py` from the result files under `planA_results/`
 (run from `planA_results/`: `python papers/make_figures.py`); `figures/figure_data.json` holds the
