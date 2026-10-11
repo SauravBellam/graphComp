@@ -16,8 +16,16 @@ of those two.
 ## 0. Compute, and what it forces
 
 Two single L4 GPUs (24 GB each): one GCP `g2-standard-8` (8 vCPU, 32 GB RAM, persistent disk,
-no session limit) and one Kaggle L4 notebook (session-limited, no persistent state between
-sessions). A quota increase is pending; nothing below depends on it.
+no session limit, 200 GB persistent disk) and one Kaggle L4 notebook (session-limited, no
+persistent state between sessions). GCP quota is capped at one L4; no multi-GPU machine will be
+available, so the single-L4 context limit measured in B0 is a stated condition of every Plan B
+number, not a fallback. B0 tries `gpu_memory_utilization` 0.90 and 0.95 before lowering
+`max_model_len`.
+
+Model placement for test 6: 31B w4a16 on GCP; E4B and 9B in BF16 on Kaggle (9B is about 18 GB of
+weights and may need a shorter context, recorded as for the 31B); **12B is dropped from test 6**,
+since BF16 12B does not fit on one L4 with any KV cache and a quantized 12B would confound size
+with precision in the model ordering. Test 6 therefore runs over three models.
 
 What a single L4 forces:
 
@@ -49,10 +57,10 @@ this guess with a measurement):
 | Thinking budget 0 vs 4096, dev slice | Kaggle | 0.4 |
 | Serialization flat / grouped / tree, dev slice | Kaggle | 0.6 |
 | Context 16k vs 32k (or whatever B0 allows), dev slice | Kaggle | 0.4 |
-| Model-size sweep 12B / 9B / E4B, B2 and B3 on dev slice | Kaggle | 1.2 |
-| Final benchmark check: B2 and B3 on all 129 tasks for 12B / 9B / E4B (BF16; smaller models run faster) | Kaggle + GCP | 3 |
+| Model-size sweep 9B / E4B, B2 and B3 on dev slice | Kaggle | 0.8 |
+| Final benchmark check: B2 and B3 on all 129 tasks for 9B / E4B (BF16; smaller models run faster) | Kaggle | 2 |
 | Held-out slice resolution checks (2 uses) | Kaggle | 0.4 |
-| **Total** | | **about 18.5** |
+| **Total** | | **about 17.5** |
 
 Two GPUs over the 24 days from Oct 13 to Nov 6 give at most 48 GPU-days; assume half is lost to
 setup, failures and Kaggle session limits. The plan fits with margin. If B0 measures more than
@@ -182,8 +190,8 @@ date, parameters, and which test in 4.4 it was added to pass.
 A version is scored on six tests in two stages. Tests 1 to 5 are the development stage: they
 narrow the candidates using cached traces and the two 24-task slices. Test 6 is the decision
 stage: the version named in the paper is the one that performs best **on the full 129-task SWE
-benchmark in the harness, across all models run** (the 31B competition model and the 12B, 9B and
-E4B variants). Nothing in tests 1 to 5 is reported as the final result; they decide only which
+benchmark in the harness, across all models run** (the 31B competition model and the 9B and E4B
+variants; 12B dropped, section 0). Nothing in tests 1 to 5 is reported as the final result; they decide only which
 versions reach test 6.
 
 1. **Within-arm prediction.** On B2 (all seeds, 129 tasks): AUROC of the primary for predicting
@@ -201,11 +209,11 @@ versions reach test 6.
    coverage. Versions whose pick is within the interval of the best pick advance to test 6; the
    rest are reported as eliminated.
 6. **Full-benchmark decision, all models.** For every version that reached this stage, and for
-   every model (31B w4a16 from B2/B3; 12B, 9B, E4B from their own full-129 B2 and B3 runs):
+   every model (31B w4a16 from B2/B3; 9B and E4B from their own full-129 B2 and B3 runs):
    (a) per-task AUROC of the primary for resolution and for gold-file coverage on all 129 tasks,
    with task-cluster bootstrap intervals; (b) the B3-vs-B2 ordering holds for that model;
    (c) the model ordering by scorecard primary agrees with the model ordering by resolution
-   (Kendall tau over the four models). The version with the highest mean AUROC across models
+   (Kendall tau over the three models). The version with the highest mean AUROC across models
    that also passes (b) and (c) for every model is the final scorecard. Ties go to the version
    with fewer components. This test is run once, after everything else, and its result is the
    paper's headline for the scorecard.
@@ -253,8 +261,7 @@ named components is not a resource anyone can reuse.
 5. B4 seeds 1 to 2, then B6 seeds 1 to 2. Test 2 for every version. B5 if B5 feasibility passed.
 6. Kaggle ablations (section 6) on the dev slice. Every version picks a winner; run the winners on
    the held-out slice (test 5). Eliminate versions that fail.
-6b. Full-129 B2 and B3 for 12B, 9B and E4B (Kaggle for the smaller ones, GCP when free). Test 6
-   across all four models. Freeze the final version. Run the scorecard ablations (4.5).
+6b. Full-129 B2 and B3 for 9B and E4B on Kaggle. Test 6 across all three models. Freeze the final version. Run the scorecard ablations (4.5).
 7. Payoff surface: mixed-effects logistic regression with task random effects, condition x d x v,
    on steps-to-first-gold-read, gold-file coverage, second-file discovery, resolution; per repo and
    pooled. The final scorecard's components enter as covariates in a second model to show which
@@ -272,7 +279,7 @@ Each changes one thing. Each is one seed on the 24-task dev slice unless noted.
 | Thinking 0 vs 4096 | `thinking_budget` | necessity match moves; resolution precision does not | the two components are confounded |
 | Serialization flat / grouped-by-file / tree | harness patch on `get_code_neighbors` output format | link-following moves; yield constant by construction | link-following is not measuring delivery |
 | Context 16k vs max | `max_model_len` | waste rises before localization falls | waste is not an early warning; redefine it |
-| Size sweep 12B / 9B / E4B (BF16, B2 and B3) | model | necessity match and yield rise with size; waste falls | the scorecard does not track competence |
+| Size sweep 9B / E4B (BF16, B2 and B3) | model | necessity match and yield rise with size; waste falls | the scorecard does not track competence |
 
 The size sweep is run first on the dev slice (to catch serving problems cheaply) and then on all
 129 tasks for B2 and B3, because test 6 needs the full benchmark for every model.
@@ -315,7 +322,7 @@ patch exists. The size sweep is not optional: its full-129 runs are the input to
 | Oct 22 | Forced-call and qualified-names on Kaggle; test 4; tool-channel note submitted |
 | Oct 27 | B4 and B6 complete; test 2 |
 | Oct 31 | Dev-slice ablations done; held-out runs; test 5 |
-| Nov 2 | Full-129 B2/B3 for 12B, 9B, E4B done; test 6 across all models; final version frozen; scorecard ablations (4.5) |
+| Nov 2 | Full-129 B2/B3 for 9B, E4B done; test 6 across all models; final version frozen; scorecard ablations (4.5) |
 | Nov 4 | Plan B Writeup submitted |
 | Nov 5 to 10 | Plan C with the frozen scorecard |
 
