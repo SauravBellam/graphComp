@@ -83,8 +83,8 @@ claim("5.1", "non-test source: async present", "0 of 28,113", f"{oms['async_func
 claim("5.1", "fastapi Config classes listed without model (class-dropped ids)", "1,683",
       f"{a7['fastapi/fastapi']['defs'].get('class|present_class_dropped', 0) + a7['fastapi/fastapi']['defs'].get('nested|present_class_dropped', 0):,}", "a7/a7_summary.json")
 claim("5.1", "requests: missing nested defs (methods of classes inside test functions)", 340, a7["psf/requests"]["defs"].get("nested|absent_nested"), "a7/a7_summary.json")
-claim("5.1", "fastapi+rich: missing nested defs that are NOT async ('every missing nested definition ... is itself async')", 0,
-      a7["fastapi/fastapi"]["defs"].get("nested|absent_nested", 0) + a7["Textualize/rich"]["defs"].get("nested|absent_nested", 0),
+claim("5.1", "missing nested defs that are NOT async, fastapi / rich (rich: 'a single class', once per graph)", "0 / 47",
+      f'{a7["fastapi/fastapi"]["defs"].get("nested|absent_nested", 0)} / {a7["Textualize/rich"]["defs"].get("nested|absent_nested", 0)}',
       "a7/a7_summary.json; rich's 47 = one test class, test_inspect.py ...<locals>.Something.Thing, absent in each of 47 graphs")
 async_present = [g for g in gold if g["kind"] == "async_function" and g["present_in_graph"]]
 claim("5.1", "async gold symbols counted present only through an id collision", "1 (FastAPI.setup.<locals>.openapi)",
@@ -141,7 +141,10 @@ claim("5.4/Fig5", "unexercised: own class / subclass / base class", "22.3 / 13.8
       "a8/a8_edges.csv + a6_v3/graphs_v2 (papers/make_figures.py p1_edge_structure)")
 claim("5.4/Fig5", "missed: same-class sibling methods", "45.5", pct(es["missed"].get("Method to a sibling method", 0) / n_mis), "same")
 cont = [float(g["pct_containment_in_calls"]) for g in graphs1 if g.get("pct_containment_in_calls")]
-claim("5.4", "calls edges per graph pointing to own member (all 127 graphs)", "8 to 21%", f"{min(cont):.0f} to {max(cont):.0f}%",
+non_httpx = [float(g["pct_containment_in_calls"]) for g in graphs1 if g.get("pct_containment_in_calls") and "httpx" not in g["repo"]]
+httpx_ = [float(g["pct_containment_in_calls"]) for g in graphs1 if g.get("pct_containment_in_calls") and "httpx" in g["repo"]]
+claim("5.4", "calls edges per graph pointing to own member: other 126 graphs / single httpx graph", "8 to 21% / 30%",
+      f"{min(non_httpx):.0f} to {max(non_httpx):.0f}% / {', '.join(f'{x:.0f}' for x in httpx_)}%",
       "a1_v2/a1_graphs.csv; fastapi 7.9-9.1, rich 15.1-15.6, requests 20.6-20.9, httpx (1 graph) 29.8")
 
 # ---- 5.5 / Fig 6
@@ -158,7 +161,8 @@ b300 = best("google/embeddinggemma-300m", a3pm)
 claim("5.6", "best cosine EmbeddingGemma 300m (variant, prompt)", "0.073 (name, document)", f"{b300[0]:.3f} ({b300[1]['variant']}, {b300[1]['prompt']})", "a3/a3_per_model.csv")
 claim("5.6", "best cosine EmbeddingGemma 2 / MiniLM", "0.015 / 0.036",
       f"{best('google/embeddinggemma-2', a3pm)[0]:.3f} / {best('sentence-transformers/all-MiniLM-L6-v2', a3pm)[0]:.3f}", "a3/, a3_gemma2/ a3_per_model.csv")
-claim("5.6", "max pairwise rank correlation over all variants", "0.16", f"{max(float(r['spearman_pairwise']) for r in a3pm if r['spearman_pairwise']):.2f}",
+mx = lambda pre: max(float(r['spearman_pairwise']) for r in a3pm if r['spearman_pairwise'] and r['model'].startswith(pre))  # noqa: E731
+claim("5.6", "max pairwise rank correlation: either EmbeddingGemma / MiniLM control", "0.17 / 0.21", f"{mx('google/embeddinggemma'):.2f} / {mx('sentence-transformers'):.2f}",
       "a3 per_model.csv; per model: EmbeddingGemma 300m 0.17, EmbeddingGemma 2 0.14, MiniLM control 0.21")
 claim("5.6", "cos to mean vector range", "0.87 to 0.95", f"{min(float(r['cos_to_mean_vector_mean']) for r in vstats):.2f} to {max(float(r['cos_to_mean_vector_mean']) for r in vstats):.2f}", "a3/a3_vectors_stats.csv")
 claim("5.6", "PC1 share range", "44% to 75%", f"{min(float(r['pc1_explained']) for r in vstats) * 100:.0f}% to {max(float(r['pc1_explained']) for r in vstats) * 100:.0f}%", "a3/a3_vectors_stats.csv")

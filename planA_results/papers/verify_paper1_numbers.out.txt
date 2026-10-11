@@ -64,9 +64,9 @@ PASS  5.1 fastapi Config classes listed without model (class-dropped ids)
 PASS  5.1 requests: missing nested defs (methods of classes inside test functions)
       paper: 340
       files: 340   [a7/a7_summary.json]
-FAIL  5.1 fastapi+rich: missing nested defs that are NOT async ('every missing nested definition ... is itself async')
-      paper: 0
-      files: 47   [a7/a7_summary.json; rich's 47 = one test class, test_inspect.py ...<locals>.Something.Thing, absent in each of 47 graphs]
+PASS  5.1 missing nested defs that are NOT async, fastapi / rich (rich: 'a single class', once per graph)
+      paper: 0 / 47
+      files: 0 / 47   [a7/a7_summary.json; rich's 47 = one test class, test_inspect.py ...<locals>.Something.Thing, absent in each of 47 graphs]
 PASS  5.1 async gold symbols counted present only through an id collision
       paper: 1 (FastAPI.setup.<locals>.openapi)
       files: 1 (FastAPI.setup.<locals>.openapi)   [a1_v2/a1_gold_symbols.jsonl]
@@ -145,9 +145,9 @@ PASS  5.4/Fig5 unexercised: own class / subclass / base class
 PASS  5.4/Fig5 missed: same-class sibling methods
       paper: 45.5
       files: 45.5   [same]
-FAIL  5.4 calls edges per graph pointing to own member (all 127 graphs)
-      paper: 8 to 21%
-      files: 8 to 30%   [a1_v2/a1_graphs.csv; fastapi 7.9-9.1, rich 15.1-15.6, requests 20.6-20.9, httpx (1 graph) 29.8]
+PASS  5.4 calls edges per graph pointing to own member: other 126 graphs / single httpx graph
+      paper: 8 to 21% / 30%
+      files: 8 to 21% / 30%   [a1_v2/a1_graphs.csv; fastapi 7.9-9.1, rich 15.1-15.6, requests 20.6-20.9, httpx (1 graph) 29.8]
 PASS  5.5 usable tasks with an entry set
       paper: 86 of 91
       files: 86 of 91   [a2_v3/a2_summary.json]
@@ -169,9 +169,9 @@ PASS  5.6 best cosine EmbeddingGemma 300m (variant, prompt)
 PASS  5.6 best cosine EmbeddingGemma 2 / MiniLM
       paper: 0.015 / 0.036
       files: 0.015 / 0.036   [a3/, a3_gemma2/ a3_per_model.csv]
-FAIL  5.6 max pairwise rank correlation over all variants
-      paper: 0.16
-      files: 0.21   [a3 per_model.csv; per model: EmbeddingGemma 300m 0.17, EmbeddingGemma 2 0.14, MiniLM control 0.21]
+PASS  5.6 max pairwise rank correlation: either EmbeddingGemma / MiniLM control
+      paper: 0.17 / 0.21
+      files: 0.17 / 0.21   [a3 per_model.csv; per model: EmbeddingGemma 300m 0.17, EmbeddingGemma 2 0.14, MiniLM control 0.21]
 PASS  5.6 cos to mean vector range
       paper: 0.87 to 0.95
       files: 0.87 to 0.95   [a3/a3_vectors_stats.csv]
@@ -224,4 +224,4 @@ PASS  S7 hand-review sample size
       paper: 80
       files: 80   [a8/a8_sample.csv]
 
-63 PASS, 3 FAIL, 9 INFO
+66 PASS, 0 FAIL, 9 INFO
