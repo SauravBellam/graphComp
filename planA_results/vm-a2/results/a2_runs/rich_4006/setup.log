@@ -1,10 +1,10 @@
 
-$ /home/sauravbellam/cache/a2/rich_4006/venv/bin/python -m pip install -q --disable-pip-version-check 'pip>=24' 'setuptools' 'wheel' pytest pytest-timeout
+$ /home/sauravbellam/results/../cache/a2/rich_4006/venv/bin/python -m pip install -q --disable-pip-version-check 'pip>=24' 'setuptools' 'wheel' pytest pytest-timeout
 [exit 0]
 
 
 
-$ /home/sauravbellam/cache/a2/rich_4006/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-build-isolation --no-deps -e .
+$ /home/sauravbellam/results/../cache/a2/rich_4006/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-build-isolation --no-deps -e .
 [exit 2]
 
 ERROR: Exception:
@@ -96,38 +96,38 @@ Traceback (most recent call last):
 pip._vendor.pyproject_hooks._impl.BackendUnavailable: Cannot import 'poetry.core.masonry.api'
 
 
-$ /home/sauravbellam/cache/a2/rich_4006/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-deps -e .
+$ /home/sauravbellam/results/../cache/a2/rich_4006/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-deps -e .
 [exit 0]
 
 
 
-$ /home/sauravbellam/cache/a2/rich_4006/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e .
+$ /home/sauravbellam/results/../cache/a2/rich_4006/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e .
 [exit 0]
 
 
 
-$ /home/sauravbellam/cache/a2/rich_4006/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels pytest black mypy pytest-cov attrs pre-commit typing-extensions
+$ /home/sauravbellam/results/../cache/a2/rich_4006/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels pytest black mypy pytest-cov attrs pre-commit typing-extensions
 [exit 0]
 
 
 
-$ /home/sauravbellam/cache/a2/rich_4006/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels pytest-cov attrs ipywidgets
+$ /home/sauravbellam/results/../cache/a2/rich_4006/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels pytest-cov attrs ipywidgets
 [exit 0]
 
 
 
-$ /home/sauravbellam/cache/a2/rich_4006/venv/bin/python -c "import importlib,sys; print(sys.version)"
+$ /home/sauravbellam/results/../cache/a2/rich_4006/venv/bin/python -c "import importlib,sys; print(sys.version)"
 [exit 0]
 3.13.5 (main, Aug 10 2026, 12:06:59) [GCC 14.2.0]
 
 
 
-$ git apply --unsafe-paths  /home/sauravbellam/cache/a2/rich_4006/test.patch
+$ git apply --unsafe-paths  /home/sauravbellam/results/../cache/a2/rich_4006/test.patch
 [exit 0]
 
 
 
-$ git apply --unsafe-paths  /home/sauravbellam/cache/a2/rich_4006/gold.patch
+$ git apply --unsafe-paths  /home/sauravbellam/results/../cache/a2/rich_4006/gold.patch
 [exit 0]
 
 
