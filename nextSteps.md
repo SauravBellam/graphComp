@@ -1,6 +1,6 @@
 # After Plan A: next steps and a graph-navigation metric for checkpoint-time evaluation
 
-Written Oct 11, 2026 from the Plan A outputs in `planA_results/` and the Oct 7 research plans.
+Written Oct 11, 2026 from the Plan A outputs in `planA_results/` and the Oct 7 research plans; corrected the same day against the paper draft. The work order for everything after shipping Plan A is `HANDOFF_planBC.md`.
 Status language follows `compPhilosophy.md`: a number below is a Plan A measurement; anything
 about agents is a hypothesis until a Plan B run exists.
 
@@ -13,7 +13,7 @@ about agents is a hypothesis until a Plan B run exists.
 | What does the harness resolver return for a short name? | present function queried by bare name: wrong node 41% (suffix tier, same name, 62% of those a test node); absent async def by bare name: wrong node 65%; 26 of 129 tasks have a gold function whose bare-name query lands on a wrong node | `a1_summary.json` `misresolution` |
 | How much of the real call graph is in the provided `calls` edges? | recall 38% (between existing nodes), 31% agent-facing; 71 to 81% of misses are between nodes that both exist, so this is not only the async hole | `a2_summary.json` `usable_tasks` |
 | Are the provided edges right where code ran? | observed precision 21% (lower bound; tests exercise narrow paths) | `a2_summary.json` `observed_precision` |
-| Can the failing test reach the fix site through the provided graph? | gold executed by fail-to-pass tests in 78% of usable tasks, but statically reachable from the test in **5.6%**; 72% executed-but-unreachable | `a2_summary.json` `tasks_gold_*` |
+| Can the failing test reach the fix site through the provided graph? | Oct 10 analysis (test nodes as seeds): 5.6%. **Superseded by the paper's entry-set analysis: 69 of 72 tasks reachable along directed `calls`, gold is an entry point in 32.** See `HANDOFF_planBC.md` section 0 | `a2_v3` (paper), `a2_summary.json` (old) |
 | Which encoder made the 256-d vectors? | none of EmbeddingGemma-300m, EmbeddingGemma-2, MiniLM (best mean cosine 0.07); vectors are not unit-norm (mean norm 4.5), PC1 holds 44 to 75% of variance, mean pairwise cosine 0.80 to 0.91 | `a3_summary.json` (both) |
 | What does cosine track? | call adjacency AUROC 0.90, containment 0.90, gold co-change 0.81, same module 0.68, name overlap 0.68 | `a4_summary.json` |
 | What does `search_similar_code` retrieve for the issue text? | harness mode: node Hit@10 27%, file Hit@5 34%, empty for 41% of tasks (no resolvable anchor); BM25 over node text: 33% / 52%, file-level gain p = 0.0008 (McNemar); adding 1-hop neighbours changes nothing | `a5_summary.json` |
@@ -22,7 +22,7 @@ about agents is a hypothesis until a Plan B run exists.
 Two things in this table were not in the Oct 7 plan and change what comes next:
 
 1. The embeddings look structural, not textual. Cosine separates call-adjacent pairs (0.90) far better than name-overlap pairs (0.68), and no text encoder comes close. If the vectors are a function of the graph (node2vec-style or a GNN over the provided edges), then `search_similar_code` is a second view of `get_code_neighbors`, which is exactly what A5 saw (1-hop adds nothing). This is cheaply testable and should be settled before the write-up says "unknown encoder".
-2. Routing from failing test to fix site through the provided graph is near-impossible (5.6%). Any agent strategy of the form "start at the test, follow callers" cannot work on the map as given. It can on the v2 graph, which carries `calls_dynamic` and `tests` edges. That is Plan B's B6 and it just became the most interesting arm.
+2. (Corrected Oct 11.) The paper's entry-set analysis shows the provided graph does route from where failing tests enter the library to the fix in 69 of 72 tasks. The obstacles are absent async code, class-structure edges labelled `calls`, and hub distance, not missing connectivity. B6 (v2-graph tools) stays in Plan B but is not promoted; see `HANDOFF_planBC.md`.
 
 ## 2. Next steps, in order
 
@@ -42,9 +42,9 @@ Two things in this table were not in the Oct 7 plan and change what comes next:
 
 Nothing in Plans B or C, and nothing in the metric below, can be validated until `swegemma eval` runs on the 129 tasks with the per-turn tool log. Start B0 the day the Plan A draft is done. The budget check in the plan still holds: if one 129-task pass takes more than a GPU-day, drop to 2 seeds before dropping any arm.
 
-### 2.4 Then Plan B as designed, with B6 promoted
+### 2.4 Then Plan B as designed
 
-Run B2 (baseline) and B3 (no graph tools) paired first, then B6 (tools over the v2 graph) before B4/B5 (push). Reason: Plan A says the provided map cannot route test to fix site; the v2 map can. The push arms test delivery; B6 tests the map. The map result is the one Plan A set up.
+Run B2 (baseline) and B3 (no graph tools) paired first, then B4 (push), B6 (v2-graph tools), B5. The full work order, with the strata the paper added (async gold, gold-is-entry-point), is `HANDOFF_planBC.md`.
 
 ## 3. The proposal: a graph-navigation metric that runs between training checkpoints
 

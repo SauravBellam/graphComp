@@ -1,5 +1,10 @@
 # Plan A results: run of 2026-10-10
 
+> **Superseded.** This is the first run, with a wrong id scheme for nested definitions. The final
+> results used by the paper (`a1_v2`, `a2_v3`, `a5_v3`, `a6_v3`, `a7`, `a8`), the paper itself and
+> a verifier script are in https://github.com/SauravBellam/is-the-map-right. Plan B and C inputs
+> must come from there; see `HANDOFF_planBC.md`.
+
 Raw outputs of every Plan A step, copied from the two GCP VMs, plus the scripts that produced
 them. Nothing here has been interpreted or edited; result files are exactly as the scripts wrote them.
 
