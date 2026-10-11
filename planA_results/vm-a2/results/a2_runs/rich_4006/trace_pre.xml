@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="6" skipped="0" tests="63" time="240.412" timestamp="2026-10-11T08:55:48.390720+00:00" hostname="vm-a2"><testcase classname="test_cells" name="test_get_character_cell_size[\x00-0]" file="test_cells.py" line="18" time="0.005" /><testcase classname="test_cells" name="test_get_character_cell_size[\u200d-0]" file="test_cells.py" line="18" time="0.001" /><testcase classname="test_cells" name="test_get_character_cell_size[a-1]" file="test_cells.py" line="18" time="0.001" /><testcase classname="test_cells" name="test_get_character_cell_size[\U0001f4a9-2]" file="test_cells.py" line="18" time="0.001" /><testcase classname="test_cells" name="test_get_character_cell_size[\U000e01f0-0]" file="test_cells.py" line="18" time="0.001" /><testcase classname="test_cells" name="test_cell_len_long_string" file="test_cells.py" line="33" time="0.001" /><testcase classname="test_cells" name="test_cell_len_short_string" file="test_cells.py" line="40" time="0.001" /><testcase classname="test_cells" name="test_set_cell_size" file="test_cells.py" line="47" time="0.001" /><testcase classname="test_cells" name="test_set_cell_size_infinite" file="test_cells.py" line="62" time="0.004" /><testcase classname="test_cells" name="test_split_text[--1--]" file="test_cells.py" line="77" time="0.001" /><testcase classname="test_cells" name="test_split_text[x--1--x]" file="test_cells.py" line="77" time="0.001" /><testcase classname="test_cells" name="test_split_text[x-1-x-]" file="test_cells.py" line="77" time="0.001" /><testcase classname="test_cells" name="test_split_text[x-2-x-]" file="test_cells.py" line="77" time="0.001" /><testcase classname="test_cells" name="test_split_text[-0--]" file="test_cells.py" line="77" time="0.001" /><testcase classname="test_cells" name="test_split_text[-1--]" file="test_cells.py" line="77" time="0.001" /><testcase classname="test_cells" name="test_split_text[a-0--a]" file="test_cells.py" line="77" time="0.001" /><testcase classname="test_cells" name="test_split_text[a-1-a-]" file="test_cells.py" line="77" time="0.001" /><testcase classname="test_cells" name="test_split_text[\U0001f4a9-0--\U0001f4a9]" file="test_cells.py" line="77" time="0.001" /><testcase classname="test_cells" name="test_split_text[\U0001f4a9-1- - ]" file="test_cells.py" line="77" time="0.001" /><testcase classname="test_cells" name="test_split_text[\U0001f4a9-2-\U0001f4a9-]" file="test_cells.py" line="77" time="0.001" /><testcase classname="test_cells" name="test_split_text[\U0001f4a9x-1- - x]" file="test_cells.py" line="77" time="0.001" /><testcase classname="test_cells" name="test_split_text[\U0001f4a9x-2-\U0001f4a9-x]" file="test_cells.py" line="77" time="0.001" /><testcase classname="test_cells" name="test_split_text[\U0001f4a9x-3-\U0001f4a9x-]" file="test_cells.py" line="77" time="0.001" /><testcase classname="test_cells" name="test_split_text[\U0001f469\u200d\U0001f527-0--\U0001f469\u200d\U0001f527]" file="test_cells.py" line="77" time="0.001" /><testcase classname="test_cells" name="test_split_text[\U0001f469\u200d\U0001f527-1- - ]" file="test_cells.py" line="77" time="0.001" /><testcase classname="test_cells" name="test_split_text[\U0001f469\u200d\U0001f527-2-\U0001f469\u200d\U0001f527-]" file="test_cells.py" line="77" time="0.001" /><testcase classname="test_cells" name="test_split_text[\U0001f469\u200d\U0001f527x-1- - x]" file="test_cells.py" line="77" time="0.001" /><testcase classname="test_cells" name="test_split_text[\U0001f469\u200d\U0001f527x-2-\U0001f469\u200d\U0001f527-x]" file="test_cells.py" line="77" time="0.001" /><testcase classname="test_cells" name="test_split_text[\U0001f469\u200d\U0001f527x-3-\U0001f469\u200d\U0001f527x-]" file="test_cells.py" line="77" time="0.001" /><testcase classname="test_cells" name="test_split_text[xxxxxxxxxxxxxxx\U0001f4a9\U0001f4a9-10-xxxxxxxxxx-xxxxx\U0001f4a9\U0001f4a9]" file="test_cells.py" line="77" time="0.001" /><testcase classname="test_cells" name="test_split_text[xxxxxxxxxxxxxxx\U0001f4a9\U0001f4a9-15-xxxxxxxxxxxxxxx-\U0001f4a9\U0001f4a9]" file="test_cells.py" line="77" time="0.001" /><testcase classname="test_cells" name="test_split_text[xxxxxxxxxxxxxxx\U0001f4a9\U0001f4a9-16-xxxxxxxxxxxxxxx - \U0001f4a9]" file="test_cells.py" line="77" time="0.001" /><testcase classname="test_cells" name="test_split_text[\U0001f4a9\U0001f4a9-3-\U0001f4a9 - ]" file="test_cells.py" line="77" time="0.001" /><testcase classname="test_cells" name="test_split_text[\U0001f4a9\U0001f4a9xxxxxxxxxx-2-\U0001f4a9-\U0001f4a9xxxxxxxxxx]" file="test_cells.py" line="77" time="0.001" /><testcase classname="test_cells" name="test_split_text[\U0001f4a9\U0001f4a9xxxxxxxxxx-3-\U0001f4a9 - xxxxxxxxxx]" file="test_cells.py" line="77" time="0.001" /><testcase classname="test_cells" name="test_split_text[\U0001f4a9\U0001f4a9xxxxxxxxxx-4-\U0001f4a9\U0001f4a9-xxxxxxxxxx]" file="test_cells.py" line="77" time="0.001" /><testcase classname="test_cells" name="test_chop_cells" file="test_cells.py" line="118" time="0.001" /><testcase classname="test_cells" name="test_chop_cells_double_width_boundary" file="test_cells.py" line="124" time="0.001" /><testcase classname="test_cells" name="test_chop_cells_mixed_width" file="test_cells.py" line="130" time="0.001" /><testcase classname="test_cells" name="test_chop_cells_zero_width[-expected0]" file="test_cells.py" line="136" time="0.001" /><testcase classname="test_cells" name="test_chop_cells_zero_width[\x1b-expected1]" file="test_cells.py" line="136" time="60.000"><failure message="Failed: Timeout (&gt;60.0s) from pytest-timeout.">text = '\x1b', expected = []
+
+    @pytest.mark.parametrize(
+        "text,expected",
+        [
+            ("", []),
+            ("\x1b", []),
+            ("\x1b\x1b", []),
+            ("\x1b\x1b\x1b", []),
+            ("\x1b\x1b\x1b\x1b", []),
+        ],
+    )
+    def test_chop_cells_zero_width(text: str, expected: list[str]) -&gt; None:
+        """Test zer width characters being chopped."""
+&gt;       assert chop_cells(text, 3) == expected
+               ^^^^^^^^^^^^^^^^^^^
+
+tests/test_cells.py:149: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+rich/cells.py:318: in chop_cells
+    spans, _ = split_graphemes(text, unicode_version)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+text = '\x1b', unicode_version = 'auto'
+
+    def split_graphemes(
+        text: str, unicode_version: str = "auto"
+    ) -&gt; "tuple[list[CellSpan], int]":
+        """Divide text into spans that define a single grapheme.
+    
+        Args:
+            text: String to split.
+            unicode_version: Unicode version, `"auto"` to auto detect, `"latest"` for the latest unicode version.
+    
+        Returns:
+            List of spans.
+        """
+    
+        cell_table = load_cell_table(unicode_version)
+        codepoint_count = len(text)
+        index = 0
+        last_measured_character: str | None = None
+    
+        total_width = 0
+        spans: list[tuple[int, int, int]] = []
+        SPECIAL = {"\u200d", "\ufe0f"}
+        while index &lt; codepoint_count:
+            if (character := text[index]) in SPECIAL:
+                if character == "\u200d":
+                    # zero width joiner
+                    index += 2
+                    if spans:
+                        start, _end, cell_length = spans[-1]
+                        spans[-1] = (start, index, cell_length)
+                elif last_measured_character:
+                    # variation selector 16
+                    index += 1
+                    if spans:
+                        start, _end, cell_length = spans[-1]
+                        if last_measured_character in cell_table.narrow_to_wide:
+                            last_measured_character = None
+                            cell_length += 1
+                            total_width += 1
+                        spans[-1] = (start, index, cell_length)
+                continue
+    
+&gt;           if character_width := get_character_cell_size(character, unicode_version):
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           Failed: Timeout (&gt;60.0s) from pytest-timeout.
+
+rich/cells.py:202: Failed</failure></testcase><testcase classname="test_cells" name="test_chop_cells_zero_width[\x1b\x1b-expected2]" file="test_cells.py" line="136" time="60.000"><failure message="Failed: Timeout (&gt;60.0s) from pytest-timeout.">text = '\x1b\x1b', expected = []
+
+    @pytest.mark.parametrize(
+        "text,expected",
+        [
+            ("", []),
+            ("\x1b", []),
+            ("\x1b\x1b", []),
+            ("\x1b\x1b\x1b", []),
+            ("\x1b\x1b\x1b\x1b", []),
+        ],
+    )
+    def test_chop_cells_zero_width(text: str, expected: list[str]) -&gt; None:
+        """Test zer width characters being chopped."""
+&gt;       assert chop_cells(text, 3) == expected
+               ^^^^^^^^^^^^^^^^^^^
+
+tests/test_cells.py:149: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+rich/cells.py:318: in chop_cells
+    spans, _ = split_graphemes(text, unicode_version)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+text = '\x1b\x1b', unicode_version = 'auto'
+
+    def split_graphemes(
+        text: str, unicode_version: str = "auto"
+    ) -&gt; "tuple[list[CellSpan], int]":
+        """Divide text into spans that define a single grapheme.
+    
+        Args:
+            text: String to split.
+            unicode_version: Unicode version, `"auto"` to auto detect, `"latest"` for the latest unicode version.
+    
+        Returns:
+            List of spans.
+        """
+    
+        cell_table = load_cell_table(unicode_version)
+        codepoint_count = len(text)
+        index = 0
+        last_measured_character: str | None = None
+    
+        total_width = 0
+        spans: list[tuple[int, int, int]] = []
+        SPECIAL = {"\u200d", "\ufe0f"}
+        while index &lt; codepoint_count:
+            if (character := text[index]) in SPECIAL:
+                if character == "\u200d":
+                    # zero width joiner
+                    index += 2
+                    if spans:
+                        start, _end, cell_length = spans[-1]
+                        spans[-1] = (start, index, cell_length)
+                elif last_measured_character:
+                    # variation selector 16
+                    index += 1
+                    if spans:
+                        start, _end, cell_length = spans[-1]
+                        if last_measured_character in cell_table.narrow_to_wide:
+                            last_measured_character = None
+                            cell_length += 1
+                            total_width += 1
+                        spans[-1] = (start, index, cell_length)
+                continue
+    
+&gt;           if character_width := get_character_cell_size(character, unicode_version):
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           Failed: Timeout (&gt;60.0s) from pytest-timeout.
+
+rich/cells.py:202: Failed</failure></testcase><testcase classname="test_cells" name="test_chop_cells_zero_width[\x1b\x1b\x1b-expected3]" file="test_cells.py" line="136" time="60.000"><failure message="Failed: Timeout (&gt;60.0s) from pytest-timeout.">text = '\x1b\x1b\x1b', expected = []
+
+    @pytest.mark.parametrize(
+        "text,expected",
+        [
+            ("", []),
+            ("\x1b", []),
+            ("\x1b\x1b", []),
+            ("\x1b\x1b\x1b", []),
+            ("\x1b\x1b\x1b\x1b", []),
+        ],
+    )
+    def test_chop_cells_zero_width(text: str, expected: list[str]) -&gt; None:
+        """Test zer width characters being chopped."""
+&gt;       assert chop_cells(text, 3) == expected
+               ^^^^^^^^^^^^^^^^^^^
+
+tests/test_cells.py:149: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+rich/cells.py:318: in chop_cells
+    spans, _ = split_graphemes(text, unicode_version)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+text = '\x1b\x1b\x1b', unicode_version = 'auto'
+
+    def split_graphemes(
+        text: str, unicode_version: str = "auto"
+    ) -&gt; "tuple[list[CellSpan], int]":
+        """Divide text into spans that define a single grapheme.
+    
+        Args:
+            text: String to split.
+            unicode_version: Unicode version, `"auto"` to auto detect, `"latest"` for the latest unicode version.
+    
+        Returns:
+            List of spans.
+        """
+    
+        cell_table = load_cell_table(unicode_version)
+        codepoint_count = len(text)
+        index = 0
+        last_measured_character: str | None = None
+    
+        total_width = 0
+        spans: list[tuple[int, int, int]] = []
+        SPECIAL = {"\u200d", "\ufe0f"}
+        while index &lt; codepoint_count:
+            if (character := text[index]) in SPECIAL:
+                if character == "\u200d":
+                    # zero width joiner
+                    index += 2
+                    if spans:
+                        start, _end, cell_length = spans[-1]
+                        spans[-1] = (start, index, cell_length)
+                elif last_measured_character:
+                    # variation selector 16
+                    index += 1
+                    if spans:
+                        start, _end, cell_length = spans[-1]
+                        if last_measured_character in cell_table.narrow_to_wide:
+                            last_measured_character = None
+                            cell_length += 1
+                            total_width += 1
+                        spans[-1] = (start, index, cell_length)
+                continue
+    
+&gt;           if character_width := get_character_cell_size(character, unicode_version):
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           Failed: Timeout (&gt;60.0s) from pytest-timeout.
+
+rich/cells.py:202: Failed</failure></testcase><testcase classname="test_cells" name="test_chop_cells_zero_width[\x1b\x1b\x1b\x1b-expected4]" file="test_cells.py" line="136" time="60.000"><failure message="Failed: Timeout (&gt;60.0s) from pytest-timeout.">text = '\x1b\x1b\x1b\x1b', expected = []
+
+    @pytest.mark.parametrize(
+        "text,expected",
+        [
+            ("", []),
+            ("\x1b", []),
+            ("\x1b\x1b", []),
+            ("\x1b\x1b\x1b", []),
+            ("\x1b\x1b\x1b\x1b", []),
+        ],
+    )
+    def test_chop_cells_zero_width(text: str, expected: list[str]) -&gt; None:
+        """Test zer width characters being chopped."""
+&gt;       assert chop_cells(text, 3) == expected
+               ^^^^^^^^^^^^^^^^^^^
+
+tests/test_cells.py:149: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+rich/cells.py:318: in chop_cells
+    spans, _ = split_graphemes(text, unicode_version)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+text = '\x1b\x1b\x1b\x1b', unicode_version = 'auto'
+
+    def split_graphemes(
+        text: str, unicode_version: str = "auto"
+    ) -&gt; "tuple[list[CellSpan], int]":
+        """Divide text into spans that define a single grapheme.
+    
+        Args:
+            text: String to split.
+            unicode_version: Unicode version, `"auto"` to auto detect, `"latest"` for the latest unicode version.
+    
+        Returns:
+            List of spans.
+        """
+    
+        cell_table = load_cell_table(unicode_version)
+        codepoint_count = len(text)
+        index = 0
+        last_measured_character: str | None = None
+    
+        total_width = 0
+        spans: list[tuple[int, int, int]] = []
+        SPECIAL = {"\u200d", "\ufe0f"}
+        while index &lt; codepoint_count:
+            if (character := text[index]) in SPECIAL:
+                if character == "\u200d":
+                    # zero width joiner
+                    index += 2
+                    if spans:
+                        start, _end, cell_length = spans[-1]
+                        spans[-1] = (start, index, cell_length)
+                elif last_measured_character:
+                    # variation selector 16
+                    index += 1
+                    if spans:
+                        start, _end, cell_length = spans[-1]
+                        if last_measured_character in cell_table.narrow_to_wide:
+                            last_measured_character = None
+                            cell_length += 1
+                            total_width += 1
+                        spans[-1] = (start, index, cell_length)
+                continue
+    
+&gt;           if character_width := get_character_cell_size(character, unicode_version):
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           Failed: Timeout (&gt;60.0s) from pytest-timeout.
+
+rich/cells.py:202: Failed</failure></testcase><testcase classname="test_cells" name="test_is_single_cell_widths" file="test_cells.py" line="151" time="0.001" /><testcase classname="test_cells" name="test_split_graphemes[-expected_spans0-0]" file="test_cells.py" line="169" time="0.001" /><testcase classname="test_cells" name="test_split_graphemes[a-expected_spans1-1]" file="test_cells.py" line="169" time="0.001" /><testcase classname="test_cells" name="test_split_graphemes[ab-expected_spans2-2]" file="test_cells.py" line="169" time="0.001" /><testcase classname="test_cells" name="test_split_graphemes[\U0001f4a9-expected_spans3-2]" file="test_cells.py" line="169" time="0.001" /><testcase classname="test_cells" name="test_split_graphemes[\u308f\u3055\u3073-expected_spans4-6]" file="test_cells.py" line="169" time="0.001" /><testcase classname="test_cells" name="test_split_graphemes[\U0001f469\u200d\U0001f527-expected_spans5-2]" file="test_cells.py" line="169" time="0.001" /><testcase classname="test_cells" name="test_split_graphemes[a\U0001f469\u200d\U0001f527-expected_spans6-3]" file="test_cells.py" line="169" time="0.001" /><testcase classname="test_cells" name="test_split_graphemes[a\U0001f469\u200d\U0001f527b-expected_spans7-4]" file="test_cells.py" line="169" time="0.001" /><testcase classname="test_cells" name="test_split_graphemes[\u2b07-expected_spans8-1]" file="test_cells.py" line="169" time="0.001" /><testcase classname="test_cells" name="test_split_graphemes[\u2b07\ufe0f-expected_spans9-2]" file="test_cells.py" line="169" time="0.001" /><testcase classname="test_cells" name="test_split_graphemes[\u267b-expected_spans10-1]" file="test_cells.py" line="169" time="0.001" /><testcase classname="test_cells" name="test_split_graphemes[\u267b\ufe0f-expected_spans11-2]" file="test_cells.py" line="169" time="0.001" /><testcase classname="test_cells" name="test_split_graphemes[\u267b\u267b\ufe0f-expected_spans12-3]" file="test_cells.py" line="169" time="0.001" /><testcase classname="test_cells" name="test_split_graphemes[\u200d-expected_spans17-0]" file="test_cells.py" line="169" time="0.002"><failure message="assert [] == [(0, 1, 0)]&#10;  &#10;  Right contains one more item: (0, 1, 0)&#10;  Use -v to get more diff">text = '\u200d', expected_spans = [(0, 1, 0)], expected_cell_length = 0
+
+    @pytest.mark.parametrize(
+        "text,expected_spans,expected_cell_length",
+        [
+            ("", [], 0),
+            ("a", [(0, 1, 1)], 1),
+            ("ab", [(0, 1, 1), (1, 2, 1)], 2),
+            ("💩", [(0, 1, 2)], 2),
+            ("わさび", [(0, 1, 2), (1, 2, 2), (2, 3, 2)], 6),
+            (
+                "👩\u200d🔧",
+                [(0, 3, 2)],
+                2,
+            ),  # 3 code points for female mechanic: female, joiner, spanner
+            ("a👩\u200d🔧", [(0, 1, 1), (1, 4, 2)], 3),
+            ("a👩\u200d🔧b", [(0, 1, 1), (1, 4, 2), (4, 5, 1)], 4),
+            ("⬇", [(0, 1, 1)], 1),
+            ("⬇️", [(0, 2, 2)], 2),  # Variation selector, makes it double width
+            ("♻", [(0, 1, 1)], 1),
+            ("♻️", [(0, 2, 2)], 2),
+            ("♻♻️", [(0, 1, 1), (1, 3, 2)], 3),
+            ("\x1b", [(0, 1, 0)], 0),  # One escape should have zero width
+            ("\x1b\x1b", [(0, 2, 0)], 0),  # Two escapes should have zero width
+            (
+                "\ufe0f",
+                [(0, 1, 0)],
+                0,
+            ),  # Variation selector 16, without anything to change should have zero width
+            (
+                "\ufe0f\ufe0f",
+                [(0, 2, 0)],
+                0,
+            ),  # 2 X variation selector 16, without anything to change should have zero width
+            (
+                "\u200d",
+                [(0, 1, 0)],
+                0,
+            ),  # A zero width joiner within noting prior should have zero width
+            (
+                "\u200d\u200d",
+                [(0, 2, 0)],
+                0,
+            ),  # Two ZWJs should have zero width
+        ],
+    )
+    def test_split_graphemes(
+        text: str, expected_spans: list[CellSpan], expected_cell_length: int
+    ):
+        spans, cell_length = split_graphemes(text)
+        print(spans)
+        assert cell_len(text) == expected_cell_length
+&gt;       assert spans == expected_spans
+E       assert [] == [(0, 1, 0)]
+E         
+E         Right contains one more item: (0, 1, 0)
+E         Use -v to get more diff
+
+tests/test_cells.py:220: AssertionError</failure></testcase><testcase classname="test_cells" name="test_split_graphemes[\u200d\u200d-expected_spans18-0]" file="test_cells.py" line="169" time="0.002"><failure message="assert [] == [(0, 2, 0)]&#10;  &#10;  Right contains one more item: (0, 2, 0)&#10;  Use -v to get more diff">text = '\u200d\u200d', expected_spans = [(0, 2, 0)], expected_cell_length = 0
+
+    @pytest.mark.parametrize(
+        "text,expected_spans,expected_cell_length",
+        [
+            ("", [], 0),
+            ("a", [(0, 1, 1)], 1),
+            ("ab", [(0, 1, 1), (1, 2, 1)], 2),
+            ("💩", [(0, 1, 2)], 2),
+            ("わさび", [(0, 1, 2), (1, 2, 2), (2, 3, 2)], 6),
+            (
+                "👩\u200d🔧",
+                [(0, 3, 2)],
+                2,
+            ),  # 3 code points for female mechanic: female, joiner, spanner
+            ("a👩\u200d🔧", [(0, 1, 1), (1, 4, 2)], 3),
+            ("a👩\u200d🔧b", [(0, 1, 1), (1, 4, 2), (4, 5, 1)], 4),
+            ("⬇", [(0, 1, 1)], 1),
+            ("⬇️", [(0, 2, 2)], 2),  # Variation selector, makes it double width
+            ("♻", [(0, 1, 1)], 1),
+            ("♻️", [(0, 2, 2)], 2),
+            ("♻♻️", [(0, 1, 1), (1, 3, 2)], 3),
+            ("\x1b", [(0, 1, 0)], 0),  # One escape should have zero width
+            ("\x1b\x1b", [(0, 2, 0)], 0),  # Two escapes should have zero width
+            (
+                "\ufe0f",
+                [(0, 1, 0)],
+                0,
+            ),  # Variation selector 16, without anything to change should have zero width
+            (
+                "\ufe0f\ufe0f",
+                [(0, 2, 0)],
+                0,
+            ),  # 2 X variation selector 16, without anything to change should have zero width
+            (
+                "\u200d",
+                [(0, 1, 0)],
+                0,
+            ),  # A zero width joiner within noting prior should have zero width
+            (
+                "\u200d\u200d",
+                [(0, 2, 0)],
+                0,
+            ),  # Two ZWJs should have zero width
+        ],
+    )
+    def test_split_graphemes(
+        text: str, expected_spans: list[CellSpan], expected_cell_length: int
+    ):
+        spans, cell_length = split_graphemes(text)
+        print(spans)
+        assert cell_len(text) == expected_cell_length
+&gt;       assert spans == expected_spans
+E       assert [] == [(0, 2, 0)]
+E         
+E         Right contains one more item: (0, 2, 0)
+E         Use -v to get more diff
+
+tests/test_cells.py:220: AssertionError</failure></testcase><testcase classname="test_cells" name="test_nerd_font" file="test_cells.py" line="223" time="0.001" /><testcase classname="test_cells" name="test_zwj" file="test_cells.py" line="229" time="0.001" /><testcase classname="test_cells" name="test_non_printable" file="test_cells.py" line="239" time="0.001" /></testsuite></testsuites>

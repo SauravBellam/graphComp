@@ -3,7 +3,7 @@
 Raw outputs of every Plan A step, copied from the two GCP VMs, plus the scripts that produced
 them. Nothing here has been interpreted or edited; result files are exactly as the scripts wrote them.
 
-**Status: Plan A complete.** All steps ran and are downloaded: A1, A2 (+ rerun of 4 tasks), A2
+**Status: Plan A complete; Oct 11 follow-ups in section 6.** All steps ran and are downloaded: A1, A2 (+ rerun of 4 tasks), A2
 analysis, A3 (vector statistics + encoder identification for all 3 candidate models), A4, A5 (modes
 a0/a/b/d) and A6. A5 mode (c) was not run: it requires an encoder identified by A3, and
 `identified_encoder` is `null` in both A3 summaries.
@@ -117,3 +117,39 @@ All in `scripts/planA/` unless noted. Every step reads the competition archive
 - **A5 mode (c) free-text retrieval:** not run, because no encoder was identified by A3.
 - Left on vm-a2: `~/cache/a2/<task>/` (63 GB of kept workspaces + venvs; venvs only work at that
   path on that VM), `~/a6cache/`, `~/results/a6_before_rerun/`, the A1 copy, the archive copy.
+
+---
+
+## 6. Oct 11 follow-up runs (vm-a2)
+
+Two analysis passes over the same archive and traces, after the code fixes in `ANALYSIS_2026-10-11.md`
+and `FIXES_2026-10-11.md` and the remaining gaps. Earlier outputs are untouched; each pass writes new
+folders. Only rich_4006 ran tests again. Use the **latest** folder of each step.
+
+| Folder (under `vm-a2/results/`) | Step | Produced by |
+|---|---|---|
+| `a1_v2/` | A1 with the provided graph's flattened ids for nested defs, class-dropped counts. `a1_async_audit.csv` is stored as `.csv.gz` in the GitHub copy (158 MB) | `ops/rerun_fixes.sh` |
+| `a7/` | A7 id reconciliation (new): provided nodes vs source defs | `ops/rerun_fixes.sh` |
+| `a2_v2/` | A2 analysis: nested mapping, entry-point reachability, fail-to-pass statuses | `ops/rerun_fixes.sh` |
+| `a5_v2/`, `a6_v2/` | A5 and A6 on `a1_v2` / `a2_v2` | `ops/rerun_fixes.sh` |
+| `a2_runs/rich_4006/` | rich_4006 rerun with per-test checkpoints and hung-test deselection (`--timeout 300 --test-timeout 60 --deselect-hung`); the previous attempt is in `a2_runs_killed2/` | `ops/run_gaps.sh` |
+| **`a2_v3/`** | A2 analysis, latest: adds `pre_skipped`, the diff-aware truly-added expected-test set (`strict_truly_added_tasks`), post-trace edges for the 11 tasks without a usable pre trace (`usable_plus_post_edge_tasks`, `post_edge_tasks_only`; gold-incident edges dropped), and the recovered rich_4006 | `ops/run_gaps.sh` |
+| **`a5_v3/`** | A5, latest: `overall_all_tasks` / `per_repo_all_tasks` (all tasks, no gold node = miss) next to the earlier denominator; mode **e_bm25_snapshot** (BM25 over the real snapshot source, scored against every gold symbol) | `ops/run_gaps.sh` |
+| **`a8/`** | A8 edge audit (new): `a8_edges.csv` (every unconfirmed, missed and captured edge, classified by how the callee appears in the caller's source, with callee-name multiplicity), `a8_sample.csv` (80 non-test edges for hand review, `human_label` / `notes` columns empty), `a8_summary.json` | `ops/run_gaps.sh` |
+| **`a6_v3/`** | A6, latest: contains-edge fix and new task-profile columns | `ops/run_gaps.sh` |
+| `*.log`, `scripts_sha256_v2.txt`, `scripts_sha256_v3.txt` | step logs and checksums of the code each pass used | both |
+
+Commands (vm-a2, from the scripts folder):
+`bash ops/rerun_fixes.sh ~/graphComp/archive ~/results ~/cache_v2 8`, then
+`bash ops/run_gaps.sh ~/graphComp/archive ~/results ~/cache_v2`.
+
+Run facts:
+- **rich_4006 recovered:** the pre-fix run hung on 4 test cases in `tests/test_cells.py` (escape-character
+  inputs) that ignore pytest-timeout. Each was deselected after the 300 s run limit and recorded as
+  failed in the trace (`hung_tests` in `status.json` and `trace_pre.json`); the 5th attempt ran clean.
+  rich_4006 is now usable. Run classes in `a2_v3`: clean 114, collection_error 9, no_tests 4,
+  import_error 2. Usable tasks: 91 of 129.
+- **Fail-to-pass:** strict (every expected test confirmed) 55 tasks under both the harness rule and the
+  truly-added rule; the truly-added rule keeps 379 of the expected tests; no `pre_skipped` cases occurred.
+- **A8 populations:** 40,624 unconfirmed, 18,232 missed and 11,200 captured distinct edges (graph, src, dst).
+- Code for both passes is in `scripts/` (final versions; tests: 14 pass on vm-a2, Python 3.13.5).

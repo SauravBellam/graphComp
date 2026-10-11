@@ -1,0 +1,140 @@
+[a6] fastapi_016ab760faba1813ba235d5582a014a58bd2f417: nodes=6318 edges={'contains': 5171, 'imports': 2210, 'inherits': 103, 'calls_static': 2255, 'tests': 1359, 'test_patch_nodes': 28, 'calls_dynamic': 395}
+[a6] fastapi_08924400c2c75533685148b029defcf6913f1def: nodes=6626 edges={'contains': 5376, 'imports': 2485, 'inherits': 129, 'calls_static': 2207, 'tests': 4136, 'calls_dynamic': 1164}
+[a6] fastapi_08b09e5236e315b6f10265ed229f130d4befb4ea: nodes=6123 edges={'contains': 4956, 'imports': 2877, 'inherits': 670, 'calls_static': 2298, 'test_patch_nodes': 7, 'tests': 91, 'calls_dynamic': 391}
+[a6] fastapi_0bdc3ca3732e3742e094bea2b320e9774659ac38: nodes=5354 edges={'contains': 4282, 'imports': 2503, 'inherits': 132, 'calls_static': 1812, 'test_patch_nodes': 1, 'tests': 29, 'calls_dynamic': 240}
+[a6] fastapi_0dd42b746e17d33a74ea267a62eace9ccdccf345: nodes=6657 edges={'contains': 5403, 'imports': 2497, 'inherits': 129, 'calls_static': 2225, 'test_patch_nodes': 1, 'tests': 79, 'calls_dynamic': 335}
+[a6] fastapi_16d75d90eb96976a57b94cc24e4018859cd54c4d: nodes=5341 edges={'contains': 4270, 'imports': 2500, 'inherits': 132, 'calls_static': 1791, 'tests': 63, 'calls_dynamic': 380}
+[a6] fastapi_1b3bea8b6be2220cc1544653ea785d2134fcb35b: nodes=6915 edges={'contains': 5648, 'imports': 2659, 'inherits': 666, 'calls_static': 2397, 'tests': 415, 'test_patch_nodes': 1, 'calls_dynamic': 434}
+[a6] fastapi_1e78a36b7310003f0ff634627d8a7bc53c6ccdee: nodes=6021 edges={'contains': 4940, 'imports': 2117, 'inherits': 104, 'calls_static': 2095, 'test_patch_nodes': 4, 'tests': 155, 'calls_dynamic': 354}
+[a6] fastapi_1fcec88ad2df4541b6a81c4786c4d039dc745e1e: nodes=6973 edges={'contains': 5737, 'imports': 3130, 'inherits': 765, 'calls_static': 2494, 'test_patch_nodes': 3, 'tests': 219, 'calls_dynamic': 375}
+[a6] fastapi_202b2d2f5f331db9102b5dbcef071a9e09bed10e: nodes=6401 edges={'contains': 5277, 'imports': 2226, 'inherits': 108, 'calls_static': 2449, 'test_patch_nodes': 4, 'tests': 2226, 'calls_dynamic': 583}
+[a6] fastapi_22b02e26f9e8c7e32bd8266e2b0ebe8bb3a0db2b: nodes=6261 edges={'contains': 5142, 'imports': 2203, 'inherits': 103, 'calls_static': 2193, 'tests': 155, 'test_patch_nodes': 2, 'calls_dynamic': 400}
+[a6] fastapi_27c0f7e75fc0ce26ca75295d455eb36f0ca033d3: nodes=5432 edges={'contains': 4351, 'imports': 2532, 'inherits': 132, 'calls_static': 1856, 'test_patch_nodes': 1, 'tests': 84, 'calls_dynamic': 350}
+[a6] fastapi_2b212ddd7604891d42e2ffbafe764c334230bdb7: nodes=6388 edges={'contains': 5320, 'imports': 2536, 'inherits': 662, 'calls_static': 2401, 'tests': 160, 'calls_dynamic': 358}
+[a6] fastapi_2cf04ee30db9df2db04a5b1e0d2c625dfbf1a211: nodes=5790 edges={'contains': 4655, 'imports': 2767, 'inherits': 660, 'calls_static': 2162, 'test_patch_nodes': 3, 'tests': 56, 'calls_dynamic': 367}
+[a6] fastapi_2f9c914d440e99fe8b62646b51e4d24c5bcd858b: nodes=6089 edges={'contains': 4995, 'imports': 2139, 'inherits': 104, 'calls_static': 2118, 'test_patch_nodes': 7, 'tests': 214, 'calls_dynamic': 329}
+[a6] fastapi_3b4b5ab8c819dce27fbaf0aa0a9c74b7f3255ec0: nodes=5936 edges={'contains': 4785, 'imports': 2828, 'inherits': 665, 'calls_static': 2242, 'test_patch_nodes': 2, 'tests': 71, 'calls_dynamic': 392}
+[a6] fastapi_3c54a8f07b70cdd40e3d81ea319e9fcccd2481d2: nodes=5959 edges={'contains': 4804, 'imports': 2838, 'inherits': 667, 'calls_static': 2242, 'tests': 199, 'test_patch_nodes': 4, 'calls_dynamic': 462}
+[a6] fastapi_3fe6522aaed4d36d6a38175a4a8137ee0fc62451: nodes=6981 edges={'contains': 5747, 'imports': 3134, 'inherits': 767, 'calls_static': 2498, 'tests': 8437, 'calls_dynamic': 1405}
+[a6] fastapi_425a4c5bb1d1a8e00007e82e5188fc4d30585767: nodes=5807 edges={'contains': 4659, 'imports': 2771, 'inherits': 660, 'calls_static': 2162, 'test_patch_nodes': 15, 'tests': 136, 'calls_dynamic': 278}
+[a6] fastapi_464c359bb03f7ba72330198cc9f44df36194837d: nodes=6647 edges={'contains': 5388, 'imports': 2490, 'inherits': 129, 'calls_static': 2211, 'test_patch_nodes': 7, 'tests': 330, 'calls_dynamic': 313}
+[a6] fastapi_48d58ae3b6ef4ded5a4794618c00345667256d98: nodes=6190 edges={'contains': 5057, 'imports': 2165, 'inherits': 104, 'calls_static': 2156, 'test_patch_nodes': 30, 'tests': 582, 'calls_dynamic': 339}
+[a6] fastapi_4976568fc7cb7501729d8f84d946cde1e91299cd: nodes=5973 edges={'contains': 4819, 'imports': 2849, 'inherits': 668, 'calls_static': 2250, 'test_patch_nodes': 1, 'tests': 14, 'calls_dynamic': 288}
+[a6] fastapi_4a98a66778987648d2195155c9cbe0824d67b02a: nodes=6306 edges={'contains': 5112, 'imports': 3005, 'inherits': 693, 'calls_static': 2398, 'tests': 106, 'calls_dynamic': 475}
+[a6] fastapi_5126e099bdda51f261fd5a101b5f914991d31897: nodes=5972 edges={'contains': 4819, 'imports': 2849, 'inherits': 668, 'calls_static': 2250, 'tests': 113, 'calls_dynamic': 396}
+[a6] fastapi_516169428d2fa189d34318ebc469a082c49c1189: nodes=6112 edges={'contains': 4952, 'imports': 2877, 'inherits': 670, 'calls_static': 2298, 'tests': 27, 'calls_dynamic': 412}
+[a6] fastapi_5265c4f5cb4d8fb4fb5015bccf1a6de8f3fc6044: nodes=5879 edges={'contains': 4736, 'imports': 2799, 'inherits': 662, 'calls_static': 2217, 'test_patch_nodes': 2, 'tests': 110, 'calls_dynamic': 369}
+[a6] fastapi_54f8aeeb9a15e4d5a12401ec5549840966df0087: nodes=6664 edges={'contains': 5406, 'imports': 2500, 'inherits': 129, 'calls_static': 2227, 'test_patch_nodes': 4, 'tests': 104, 'calls_dynamic': 403}
+[a6] fastapi_566e3157a5517784c741dbf36e39687af326fe90: nodes=5868 edges={'contains': 4727, 'imports': 2797, 'inherits': 662, 'calls_static': 2208, 'test_patch_nodes': 1, 'tests': 2, 'calls_dynamic': 238}
+[a6] fastapi_5c1f87c56387a96dbdddb2b1c4ec9ba48dcebc4e: nodes=5341 edges={'contains': 4270, 'imports': 2499, 'inherits': 132, 'calls_static': 1791, 'tests': 42, 'calls_dynamic': 380}
+[a6] fastapi_603df6e36f59cc4a3e189f506b8f36d1e816c3ac: nodes=6091 edges={'contains': 4929, 'imports': 2868, 'inherits': 669, 'calls_static': 2286, 'test_patch_nodes': 4, 'tests': 71, 'calls_dynamic': 386}
+[a6] fastapi_60699f306b67dc1f4918ebea17f04d7a48cda645: nodes=6298 edges={'contains': 5103, 'imports': 3002, 'inherits': 693, 'calls_static': 2392, 'test_patch_nodes': 2, 'tests': 129, 'calls_dynamic': 350}
+[a6] fastapi_63d7a2b9978258d13dfc22664e60fc2110d30e20: nodes=5906 edges={'contains': 4758, 'imports': 2817, 'inherits': 664, 'calls_static': 2230, 'test_patch_nodes': 2, 'tests': 86, 'calls_dynamic': 294}
+[a6] fastapi_6513d4daa16a536d17743de6a292f49bd06388a4: nodes=6386 edges={'contains': 5315, 'imports': 2531, 'inherits': 658, 'calls_static': 2401, 'tests': 3727, 'test_patch_nodes': 4, 'calls_dynamic': 1001}
+[a6] fastapi_6b53786f626db95a42fd0f66afd360bab161f4b1: nodes=6915 edges={'contains': 5649, 'imports': 2643, 'inherits': 662, 'calls_static': 2411, 'tests': 2538, 'calls_dynamic': 602}
+[a6] fastapi_6cf40df24d1d199fd25d034fc87fcae284fc23a2: nodes=5949 edges={'contains': 4794, 'imports': 2832, 'inherits': 666, 'calls_static': 2242, 'test_patch_nodes': 5, 'tests': 349, 'calls_dynamic': 564}
+[a6] fastapi_6e49dc029541aaa896fa63c47647ccd3f066df67: nodes=5757 edges={'contains': 4628, 'imports': 2712, 'inherits': 138, 'calls_static': 2155, 'tests': 566, 'calls_dynamic': 455}
+[a6] fastapi_6ee87478d821171139264cd9cd17cbd2232934ce: nodes=6249 edges={'contains': 5131, 'imports': 2200, 'inherits': 104, 'calls_static': 2179, 'test_patch_nodes': 1, 'tests': 4, 'calls_dynamic': 229}
+[a6] fastapi_7132a690461c2367f22556eb87c2b5eb7d9cfb45: nodes=5778 edges={'contains': 4646, 'imports': 2759, 'inherits': 657, 'calls_static': 2163, 'test_patch_nodes': 2, 'tests': 309, 'calls_dynamic': 549}
+[a6] fastapi_71a17b5932e38bcf798fcd05c5bb384e6d4db5bf: nodes=6290 edges={'contains': 5095, 'imports': 2999, 'inherits': 692, 'calls_static': 2381, 'test_patch_nodes': 3, 'tests': 124, 'calls_dynamic': 361}
+[a6] fastapi_740ec2787b25e59f7aa9e3df1db09d4489c22718: nodes=5941 edges={'contains': 4789, 'imports': 2831, 'inherits': 665, 'calls_static': 2242, 'tests': 185, 'test_patch_nodes': 2, 'calls_dynamic': 394}
+[a6] fastapi_811fa898752e7f5697733a2958ff79ad8dfb5276: nodes=6083 edges={'contains': 4925, 'imports': 2863, 'inherits': 669, 'calls_static': 2281, 'test_patch_nodes': 1, 'tests': 76, 'calls_dynamic': 346}
+[a6] fastapi_861b22c40897a03d2d7e5926923d962121ed5e2e: nodes=5384 edges={'contains': 4297, 'imports': 2511, 'inherits': 132, 'calls_static': 1814, 'test_patch_nodes': 13, 'tests': 490, 'calls_dynamic': 426}
+[a6] fastapi_8e50c55fd90c4433ddc9096ff439da9498a8314a: nodes=6673 edges={'contains': 5415, 'imports': 2506, 'inherits': 129, 'calls_static': 2229, 'tests': 351, 'test_patch_nodes': 3, 'calls_dynamic': 367}
+[a6] fastapi_930b27e5fa32ce150ddcea61f0c913435ae71c83: nodes=5987 edges={'contains': 4832, 'imports': 2855, 'inherits': 668, 'calls_static': 2255, 'test_patch_nodes': 1, 'tests': 80, 'calls_dynamic': 364}
+[a6] fastapi_94a1ee749e63591e6e275b726a66e07a25f6c407: nodes=6064 edges={'contains': 4962, 'imports': 2129, 'inherits': 104, 'calls_static': 2118, 'test_patch_nodes': 22, 'tests': 628, 'calls_dynamic': 365}
+[a6] fastapi_972a967d5d3fa24d450637c36c6b7ad1f1d8c1b6: nodes=5857 edges={'contains': 4714, 'imports': 2792, 'inherits': 661, 'calls_static': 2200, 'tests': 186, 'test_patch_nodes': 4, 'calls_dynamic': 359}
+[a6] fastapi_9a9c4ad5d06f5fe8ee6775a5aeaa2f83c854f263: nodes=6397 edges={'contains': 5274, 'imports': 2223, 'inherits': 108, 'calls_static': 2433, 'tests': 1954, 'test_patch_nodes': 3, 'calls_dynamic': 912}
+[a6] fastapi_a456e92a21d5b94a67d6d0fd070218df09444443: nodes=6626 edges={'contains': 5376, 'imports': 2485, 'inherits': 129, 'calls_static': 2207, 'tests': 33, 'calls_dynamic': 314}
+[a6] fastapi_a7f2dbe976bf72703376f0cd04487bfc4a849f83: nodes=5364 edges={'contains': 4289, 'imports': 2507, 'inherits': 132, 'calls_static': 1814, 'test_patch_nodes': 2, 'tests': 54, 'calls_dynamic': 312}
+[a6] fastapi_aee8e78078e8a7f2736d3cab7a1cb7197356951c: nodes=5994 edges={'contains': 4837, 'imports': 2858, 'inherits': 669, 'calls_static': 2259, 'test_patch_nodes': 1, 'tests': 19, 'calls_dynamic': 313}
+[a6] fastapi_bc06e4296d588f39f38c7ac2fc96d3913c565962: nodes=6032 edges={'contains': 4949, 'imports': 2121, 'inherits': 104, 'calls_static': 2100, 'test_patch_nodes': 4, 'tests': 221, 'calls_dynamic': 364}
+[a6] fastapi_c0836dc1b7f4ba91e9563c8c4ccd0ebe655bc914: nodes=6159 edges={'contains': 5056, 'imports': 2165, 'inherits': 104, 'calls_static': 2154, 'tests': 74, 'calls_dynamic': 341}
+[a6] fastapi_c57ac7bdf3613798c94caceff562a41fa16d4a2d: nodes=6024 edges={'contains': 4867, 'imports': 2861, 'inherits': 669, 'calls_static': 2263, 'tests': 15, 'calls_dynamic': 315}
+[a6] fastapi_c6487ed632056e450d844846a1b63be551a3cbc6: nodes=5899 edges={'contains': 4753, 'imports': 2813, 'inherits': 664, 'calls_static': 2230, 'test_patch_nodes': 1, 'tests': 13, 'calls_dynamic': 294}
+[a6] fastapi_cb83b83dcf78eab4ea17d504db5abcda705fbdc4: nodes=6257 edges={'contains': 5139, 'imports': 2203, 'inherits': 103, 'calls_static': 2187, 'tests': 211, 'test_patch_nodes': 1, 'calls_dynamic': 354}
+[a6] fastapi_cd31576d5704b6aef1bdadc43770238cd88aad2b: nodes=6676 edges={'contains': 5420, 'imports': 2495, 'inherits': 129, 'calls_static': 2231, 'tests': 432, 'test_patch_nodes': 1, 'calls_dynamic': 404}
+[a6] fastapi_cff2236dacb7aedcaf2d2de0873cfbc9bb2b897a: nodes=5986 edges={'contains': 4831, 'imports': 2852, 'inherits': 668, 'calls_static': 2251, 'tests': 144, 'test_patch_nodes': 1, 'calls_dynamic': 399}
+[a6] fastapi_d2c17b603d2f986d5f3800d3bf24acba8e1f485b: nodes=6006 edges={'contains': 4928, 'imports': 2114, 'inherits': 104, 'calls_static': 2090, 'tests': 2445, 'test_patch_nodes': 4, 'calls_dynamic': 589}
+[a6] fastapi_e2354a0a063f2fcb890ec568f1a98e136a39fd25: nodes=5877 edges={'contains': 4736, 'imports': 2799, 'inherits': 662, 'calls_static': 2217, 'tests': 1108, 'calls_dynamic': 724}
+[a6] fastapi_e94028ab60d18080810910352bc9129e8046c92d: nodes=6677 edges={'contains': 5421, 'imports': 2495, 'inherits': 129, 'calls_static': 2235, 'test_patch_nodes': 1, 'tests': 4, 'calls_dynamic': 217}
+[a6] fastapi_eacbce24c9d299c6a28110d9fc8ac50f53cddb08: nodes=6628 edges={'contains': 5376, 'imports': 2485, 'inherits': 129, 'calls_static': 2207, 'tests': 142, 'test_patch_nodes': 2, 'calls_dynamic': 382}
+[a6] fastapi_eaf611f9ee56de4f16c837d4f487a4b9fca507c4: nodes=5863 edges={'contains': 4722, 'imports': 2794, 'inherits': 661, 'calls_static': 2206, 'test_patch_nodes': 2, 'tests': 106, 'calls_dynamic': 363}
+[a6] fastapi_eb1d50479ba0ac873e4ffa08a824b1d822ca3a17: nodes=6099 edges={'contains': 4936, 'imports': 2873, 'inherits': 669, 'calls_static': 2286, 'tests': 148, 'test_patch_nodes': 4, 'calls_dynamic': 411}
+[a6] fastapi_ee22a4b8ca46dcce26c8c183afc4992a888d8be2: nodes=6278 edges={'contains': 5147, 'imports': 2203, 'inherits': 103, 'calls_static': 2195, 'test_patch_nodes': 14}
+[a6] fastapi_eead41bf4cf8587b4d86091dd3eabbb85796e717: nodes=5967 edges={'contains': 4809, 'imports': 2843, 'inherits': 667, 'calls_static': 2250, 'test_patch_nodes': 6, 'tests': 155, 'calls_dynamic': 389}
+[a6] fastapi_f1d750fddad90e2faad6c3cc5c85c7687b787e89: nodes=6465 edges={'contains': 5298, 'imports': 2231, 'inherits': 108, 'calls_static': 2485, 'test_patch_nodes': 47, 'tests': 1052, 'calls_dynamic': 505}
+[a6] fastapi_f2687dc1bb01f4cb62eee90e656b61c38c2aaf6a: nodes=6559 edges={'contains': 5321, 'imports': 2474, 'inherits': 129, 'calls_static': 2143, 'test_patch_nodes': 1, 'tests': 38, 'calls_dynamic': 364}
+[a6] httpx_4acf5c2c37714cc63b5cf71b3e284fca83c90311: nodes=885 edges={'contains': 840, 'imports': 118, 'inherits': 33, 'calls_static': 1136, 'tests': 339, 'calls_dynamic': 494}
+[a6] requests_0b401c76b6e80a4eecf3c690085b2553f6e261ca: nodes=910 edges={'contains': 774, 'imports': 259, 'inherits': 41, 'calls_static': 1491, 'tests': 12296, 'test_patch_nodes': 1, 'calls_dynamic': 2025}
+[a6] requests_0b4d494192de489701d3a2e32acef8fb5d3f042e: nodes=862 edges={'contains': 711, 'imports': 227, 'inherits': 35, 'calls_static': 1383}
+[a6] requests_0e322af87745eff34caffe4df68456ebc20d9068: nodes=884 edges={'contains': 730, 'imports': 232, 'inherits': 36, 'calls_static': 1436, 'tests': 11579, 'calls_dynamic': 976}
+[a6] requests_1b40fdd004bfc8ba5301bcf8a6908264e9b6b877: nodes=887 edges={'contains': 732, 'imports': 235, 'inherits': 36, 'calls_static': 1450, 'tests': 104, 'test_patch_nodes': 1, 'calls_dynamic': 167}
+[a6] requests_382fc2c0c6c0ef0874bc65bc1175f97c073e5086: nodes=865 edges={'contains': 714, 'imports': 227, 'inherits': 35, 'calls_static': 1387}
+[a6] requests_6360477c52303c9445b45fa8744b02d05a2f0905: nodes=888 edges={'contains': 733, 'imports': 234, 'inherits': 36, 'calls_static': 1451, 'test_patch_nodes': 1, 'tests': 33, 'calls_dynamic': 62}
+[a6] requests_661970d171d9c3e12e4c789c4768db647d8c4da0: nodes=918 edges={'contains': 778, 'imports': 259, 'inherits': 41, 'calls_static': 1495, 'tests': 12384, 'test_patch_nodes': 1, 'calls_dynamic': 2031}
+[a6] requests_6f205ff422bccd5e4c4fc0b64c5f3e7df5181db6: nodes=919 edges={'contains': 779, 'imports': 259, 'inherits': 41, 'calls_static': 1495, 'tests': 12470, 'test_patch_nodes': 1, 'calls_dynamic': 2037}
+[a6] requests_7407309c8a8a73aa2f4337184025d440bbedab7a: nodes=887 edges={'contains': 733, 'imports': 234, 'inherits': 36, 'calls_static': 1451, 'tests': 105, 'calls_dynamic': 168}
+[a6] requests_7a13c041dbef42f9f3feb14110f02626f6892e9a: nodes=863 edges={'contains': 712, 'imports': 227, 'inherits': 35, 'calls_static': 1384}
+[a6] requests_b684dcb9bbf3aa557d1238e72062c4a29737dd1c: nodes=909 edges={'contains': 773, 'imports': 259, 'inherits': 41, 'calls_static': 1489, 'tests': 107, 'test_patch_nodes': 1, 'calls_dynamic': 173}
+[a6] requests_cbce031327be4f1b4b5fd041ff4dcaa8efa2ce53: nodes=888 edges={'contains': 733, 'imports': 234, 'inherits': 36, 'calls_static': 1451, 'tests': 11826, 'test_patch_nodes': 1, 'calls_dynamic': 1978}
+[a6] rich_01b85ac116c4635b6ddb8b488be8254be6df2a84: nodes=2121 edges={'contains': 1954, 'imports': 1039, 'inherits': 76, 'calls_static': 4626, 'test_patch_nodes': 4, 'tests': 572, 'calls_dynamic': 1063}
+[a6] rich_05ff970926cbd0b5d0acb6fc18cdbd1fc971e582: nodes=2343 edges={'contains': 2035, 'imports': 1083, 'inherits': 76, 'calls_static': 4869, 'test_patch_nodes': 122, 'tests': 2441, 'calls_dynamic': 1569}
+[a6] rich_0ba607dc080c9f102b5ae5346bcdb70d6e9c969d: nodes=2243 edges={'contains': 1987, 'imports': 1045, 'inherits': 76, 'calls_static': 4719, 'test_patch_nodes': 93, 'tests': 4820, 'calls_dynamic': 1816}
+[a6] rich_0c8bb032ad3b54a32fdb8a43f5ab457c8cd6dcb1: nodes=2126 edges={'contains': 1955, 'imports': 1039, 'inherits': 76, 'calls_static': 4630, 'test_patch_nodes': 8, 'tests': 228, 'calls_dynamic': 582}
+[a6] rich_0f2f51b872d14588de3a65968f5cdde6fb5694a3: nodes=2170 edges={'contains': 1999, 'imports': 1046, 'inherits': 76, 'calls_static': 4764, 'test_patch_nodes': 8, 'tests': 24, 'calls_dynamic': 24}
+[a6] rich_19c67b9a3479841e9133bea94607c89ee931d3fc: nodes=2244 edges={'contains': 2050, 'imports': 1083, 'inherits': 76, 'calls_static': 4909, 'test_patch_nodes': 8, 'tests': 1172, 'calls_dynamic': 1073}
+[a6] rich_1ad6f73a4d1d3b40ac3f879feccfaad66412bd1d: nodes=2132 edges={'contains': 1962, 'imports': 1039, 'inherits': 76, 'calls_static': 4644, 'test_patch_nodes': 7, 'tests': 44, 'calls_dynamic': 164}
+[a6] rich_1d402e0c59f8765e420a5a4440eb2fca7465d1ae: nodes=2241 edges={'contains': 2041, 'imports': 1082, 'inherits': 76, 'calls_static': 4882, 'test_patch_nodes': 14, 'tests': 50, 'calls_dynamic': 50}
+[a6] rich_1fc7cb210ae52eb099df39818ddb9569e5b14c7b: nodes=2325 edges={'contains': 2044, 'imports': 1083, 'inherits': 76, 'calls_static': 4897, 'test_patch_nodes': 95, 'tests': 4808, 'calls_dynamic': 1770}
+[a6] rich_27701029082052c6541031b6f139097230253900: nodes=2244 edges={'contains': 2043, 'imports': 1082, 'inherits': 76, 'calls_static': 4886, 'test_patch_nodes': 15, 'tests': 53, 'calls_dynamic': 27}
+[a6] rich_2809954800af15b4027364cebf82390fe23dc194: nodes=2186 edges={'contains': 2007, 'imports': 1049, 'inherits': 76, 'calls_static': 4784, 'test_patch_nodes': 16, 'tests': 1773, 'calls_dynamic': 1170}
+[a6] rich_2b5d648b2c62960deb6439f4204ed8fa6eb3cf7b: nodes=2178 edges={'contains': 1999, 'imports': 1047, 'inherits': 76, 'calls_static': 4764, 'test_patch_nodes': 16, 'tests': 1747, 'calls_dynamic': 1166}
+[a6] rich_368e8ad77c95a6bef8f9d332039091d1417296bc: nodes=2137 edges={'contains': 1953, 'imports': 1038, 'inherits': 76, 'calls_static': 4620, 'test_patch_nodes': 21, 'tests': 306, 'calls_dynamic': 569}
+[a6] rich_36fe3f7ca9becca4777861d5e6e625f5a4a37545: nodes=2238 edges={'contains': 2040, 'imports': 1082, 'inherits': 76, 'calls_static': 4880, 'test_patch_nodes': 12, 'tests': 43, 'calls_dynamic': 48}
+[a6] rich_3b70db5a2997de191f7db3e422dbe4da35ca1c95: nodes=2197 edges={'contains': 2009, 'imports': 1049, 'inherits': 76, 'calls_static': 4790, 'test_patch_nodes': 25, 'tests': 1349, 'calls_dynamic': 872}
+[a6] rich_4101991898ee7a09fe1706daca24af5e1e054862: nodes=2185 edges={'contains': 1993, 'imports': 1044, 'inherits': 76, 'calls_static': 4735, 'test_patch_nodes': 29, 'tests': 307, 'calls_dynamic': 582}
+[a6] rich_49117ced6648a432d85951f72dce777038f6ce09: nodes=2265 edges={'contains': 2008, 'imports': 1049, 'inherits': 76, 'calls_static': 4788, 'test_patch_nodes': 94, 'tests': 4746, 'calls_dynamic': 1766}
+[a6] rich_4c5d305bb902ce97011666ada19e48d0b27b49e1: nodes=2149 edges={'contains': 1981, 'imports': 1046, 'inherits': 76, 'calls_static': 4703, 'test_patch_nodes': 4, 'tests': 295, 'calls_dynamic': 568}
+[a6] rich_4d6d631a3d2deddf8405522d4b8c976a6d35726c: nodes=2201 edges={'contains': 2015, 'imports': 1049, 'inherits': 76, 'calls_static': 4808, 'test_patch_nodes': 23, 'tests': 2462, 'calls_dynamic': 1060}
+[a6] rich_53757bc234cf18977cade41a5b64f3abaccb0b85: nodes=2282 edges={'contains': 2015, 'imports': 1049, 'inherits': 76, 'calls_static': 4808, 'test_patch_nodes': 104, 'tests': 2055, 'calls_dynamic': 783}
+[a6] rich_577def22dd83b999c5937cb2bf2ed49600943325: nodes=2147 edges={'contains': 1973, 'imports': 1040, 'inherits': 76, 'calls_static': 4681, 'test_patch_nodes': 11, 'tests': 802, 'calls_dynamic': 818}
+[a6] rich_58ac15120fe254886c10d6253667733c83604cb4: nodes=2236 edges={'contains': 2046, 'imports': 1083, 'inherits': 76, 'calls_static': 4901, 'test_patch_nodes': 4, 'tests': 178, 'calls_dynamic': 428}
+[a6] rich_5ba9cb56e68dcdf2db50c214d8f1412c8a50761b: nodes=2173 edges={'contains': 1998, 'imports': 1046, 'inherits': 76, 'calls_static': 4760, 'test_patch_nodes': 12, 'tests': 927, 'calls_dynamic': 843}
+[a6] rich_610fd75c433c3dfcd9c296e8b91363979127b9fa: nodes=2168 edges={'contains': 1978, 'imports': 1046, 'inherits': 76, 'calls_static': 4695, 'test_patch_nodes': 27, 'tests': 189, 'calls_dynamic': 306}
+[a6] rich_66074922edabeac684434b4d87ee994fb97b0627: nodes=2191 edges={'contains': 1999, 'imports': 1046, 'inherits': 76, 'calls_static': 4764, 'test_patch_nodes': 29, 'tests': 307, 'calls_dynamic': 600}
+[a6] rich_6764b24739b580c0c32ff5ef0b971ed4cfcf4f75: nodes=2224 edges={'contains': 2027, 'imports': 1080, 'inherits': 76, 'calls_static': 4848, 'test_patch_nodes': 11, 'tests': 1219, 'calls_dynamic': 802}
+[a6] rich_720800e6930d85ad027b1e9bd0cbb96b5e994ce3: nodes=2131 edges={'contains': 1962, 'imports': 1039, 'inherits': 76, 'calls_static': 4644, 'test_patch_nodes': 6, 'tests': 861, 'calls_dynamic': 1069}
+[a6] rich_7a168a27c5097805b3bafa495f35e3955004ff4a: nodes=2135 edges={'contains': 1965, 'imports': 1039, 'inherits': 76, 'calls_static': 4655, 'test_patch_nodes': 7, 'tests': 655, 'calls_dynamic': 548}
+[a6] rich_7d36119f8378b36129502c3281a7faffef837e02: nodes=2183 edges={'contains': 2013, 'imports': 1049, 'inherits': 76, 'calls_static': 4796, 'test_patch_nodes': 7, 'tests': 518, 'calls_dynamic': 662}
+[a6] rich_8a616de8e25db3c93abaaa220c493d80878de69d: nodes=2209 edges={'contains': 1955, 'imports': 1039, 'inherits': 76, 'calls_static': 4630, 'test_patch_nodes': 91, 'tests': 4658, 'calls_dynamic': 1806}
+[a6] rich_96dd4b60e3a7c647c43a85ad375afa690b3bb85b: nodes=2250 edges={'contains': 2029, 'imports': 1083, 'inherits': 76, 'calls_static': 4853, 'test_patch_nodes': 35, 'tests': 2528, 'calls_dynamic': 1544}
+[a6] rich_9cb198944f8184df92217efc8b20d3fffa4b4fa0: nodes=2236 edges={'contains': 2045, 'imports': 1083, 'inherits': 76, 'calls_static': 4899, 'test_patch_nodes': 5, 'tests': 329, 'calls_dynamic': 581}
+[a6] rich_9ec419154102acce7363e3958bec6c261864d7fb: nodes=2240 edges={'contains': 1990, 'imports': 1045, 'inherits': 76, 'calls_static': 4729, 'test_patch_nodes': 87, 'tests': 1995, 'calls_dynamic': 1350}
+[a6] rich_9f620dc50c0008c35e9f8493f198e6e593574a70: nodes=2219 edges={'contains': 1965, 'imports': 1039, 'inherits': 76, 'calls_static': 4655, 'test_patch_nodes': 91, 'tests': 4658, 'calls_dynamic': 1806}
+[a6] rich_aca9467ec6a482b3bed1ba7d2e3de72271c5f817: nodes=2196 edges={'contains': 1949, 'imports': 1038, 'inherits': 76, 'calls_static': 4610, 'test_patch_nodes': 84, 'tests': 1927, 'calls_dynamic': 1430}
+[a6] rich_ae15db600976a7999d21653002f338d0761b180c: nodes=2239 edges={'contains': 1983, 'imports': 1045, 'inherits': 76, 'calls_static': 4713, 'test_patch_nodes': 93, 'tests': 4739, 'calls_dynamic': 1807}
+[a6] rich_b6f2f7aa5b27f612f391cd28212aff51ad0d42d1: nodes=2202 edges={'contains': 1988, 'imports': 1045, 'inherits': 76, 'calls_static': 4725, 'test_patch_nodes': 51, 'tests': 2110, 'calls_dynamic': 930}
+[a6] rich_c478588f3c228a4e86741a057c42b452d7bc6bce: nodes=2156 edges={'contains': 1986, 'imports': 1045, 'inherits': 76, 'calls_static': 4715, 'test_patch_nodes': 7, 'tests': 1007, 'calls_dynamic': 1086}
+[a6] rich_c595fa95068dd2c5095d25446b2f0571bc0b3995: nodes=2233 edges={'contains': 2039, 'imports': 1083, 'inherits': 76, 'calls_static': 4882, 'test_patch_nodes': 8, 'tests': 1206, 'calls_dynamic': 1110}
+[a6] rich_d0de442c08df8793c5ff36d9ad322ca5c47fc38c: nodes=2170 edges={'contains': 1991, 'imports': 1045, 'inherits': 76, 'calls_static': 4731, 'test_patch_nodes': 16, 'tests': 1771, 'calls_dynamic': 1163}
+[a6] rich_e1e6d745f670ff3df6b8f47377c0a4006cb74066: nodes=2152 edges={'contains': 1982, 'imports': 1045, 'inherits': 76, 'calls_static': 4711, 'test_patch_nodes': 7, 'tests': 44, 'calls_dynamic': 164}
+[a6] rich_e2a982d5ea747f0deb7f78e8eaa5b4be7d9194cf: nodes=2236 edges={'contains': 1987, 'imports': 1045, 'inherits': 76, 'calls_static': 4719, 'test_patch_nodes': 86, 'tests': 1991, 'calls_dynamic': 1334}
+[a6] rich_e76f3c3ea78481342e21a7b3328075462ab69c2b: nodes=2220 edges={'contains': 1965, 'imports': 1039, 'inherits': 76, 'calls_static': 4655, 'test_patch_nodes': 92, 'tests': 1918, 'calls_dynamic': 1292}
+[a6] rich_edc6b0a39b6df1c0e26d409bb5c5eda7149b2de6: nodes=2257 edges={'contains': 2000, 'imports': 1047, 'inherits': 76, 'calls_static': 4766, 'test_patch_nodes': 94, 'tests': 4789, 'calls_dynamic': 1812}
+[a6] rich_fc41075a3206d2a5fd846c6f41c4d2becab814fa: nodes=2349 edges={'contains': 2044, 'imports': 1082, 'inherits': 76, 'calls_static': 4888, 'test_patch_nodes': 119, 'tests': 6100, 'calls_dynamic': 2162}
+[a6] rich_fde5d6eee3b0437eaecdcbf6f8b11aeab3a5d503: nodes=2170 edges={'contains': 1982, 'imports': 1046, 'inherits': 76, 'calls_static': 4707, 'test_patch_nodes': 24, 'tests': 1232, 'calls_dynamic': 870}
+[a6] rich_fe55a131c2780fa856464ad04d7d6dc8a1079b72: nodes=2230 edges={'contains': 2030, 'imports': 1083, 'inherits': 76, 'calls_static': 4857, 'test_patch_nodes': 14, 'tests': 1147, 'calls_dynamic': 940}
+{
+  "task_profile_cells": {
+    "d_undef|v_undef": 1,
+    "d_undef|v_high": 37,
+    "d_undef|v_low": 44,
+    "d0|v_high": 15,
+    "d2+|v_high": 16,
+    "d2+|v_low": 7,
+    "d0|v_low": 4,
+    "d1|v_high": 4,
+    "d1|v_low": 1
+  }
+}

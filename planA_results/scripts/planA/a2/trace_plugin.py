@@ -6,6 +6,10 @@ Loaded with ``-p trace_plugin`` (PYTHONPATH must include this directory). Config
                   anything under a venv/site-packages inside it is dropped)
   GC_TRACE_OUT    output JSON path
   GC_TRACE_PHASE  free text label (pre|post), stored in the output
+  GC_TRACE_CHECKPOINT  "1": also write the trace before every test (atomically), marked
+                  "partial": true with "running_test": <nodeid>. If the run is then killed (a test that
+                  hangs and ignores pytest-timeout), the file on disk holds every finished test and names
+                  the test that hung; the final dump at session end overwrites it with "partial": false.
 
 Records, per test nodeid:
   * executed function ids (module.qualname, module derived from the file path relative to root)
@@ -38,6 +42,7 @@ import time
 ROOT = os.path.abspath(os.environ.get("GC_TRACE_ROOT", os.getcwd()))
 OUT = os.environ.get("GC_TRACE_OUT", "trace.json")
 PHASE = os.environ.get("GC_TRACE_PHASE", "")
+CHECKPOINT = os.environ.get("GC_TRACE_CHECKPOINT", "") == "1"
 _ROOT_SLASH = ROOT.rstrip("/") + "/"
 _SKIP_PARTS = ("/site-packages/", "/.venv/", "/venv/", "/dist-packages/", "/node_modules/")
 
@@ -167,7 +172,7 @@ class Tracer:
             threading.setprofile(None)
             self.installed = False
 
-    def dump(self):
+    def dump(self, partial: bool = False, running_test: str | None = None):
         tests = sorted((set(self.per_test_exec) | set(self.outcomes)) - {"<no-test>", "<between-tests>"})
         # keep execution outside tests (collection/import time) under its own key
         for k in ("<no-test>", "<between-tests>"):
@@ -187,10 +192,13 @@ class Tracer:
             "per_test_exec": {t: sorted(s) for t, s in self.per_test_exec.items()},
             "edges_direct": enc(self.edges_direct),
             "edges_vialib": enc(self.edges_vialib),
+            "partial": partial, "running_test": running_test,
         }
         os.makedirs(os.path.dirname(os.path.abspath(OUT)) or ".", exist_ok=True)
-        with open(OUT, "w", encoding="utf-8") as f:
+        tmp = OUT + ".tmp"
+        with open(tmp, "w", encoding="utf-8") as f:
             json.dump(data, f)
+        os.replace(tmp, OUT)      # atomic: a kill mid-write never leaves a truncated trace
 
 
 TRACER = Tracer()
@@ -201,6 +209,13 @@ def pytest_sessionstart(session):
 
 
 def pytest_runtest_logstart(nodeid, location):
+    if CHECKPOINT and TRACER.installed:
+        was = TRACER.installed
+        TRACER.uninstall()            # do not trace the checkpoint's own json/file I/O
+        with TRACER.lock:
+            TRACER.dump(partial=True, running_test=nodeid)
+        if was:
+            TRACER.install()
     TRACER.current = nodeid
 
 
