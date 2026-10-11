@@ -1,0 +1,227 @@
+PASS  Abs graphs
+      paper: 127
+      files: 127   [a1_v2/a1_summary.json]
+PASS  Abs tasks
+      paper: 129
+      files: 129   [a1_v2/a1_summary.json]
+PASS  Abs async defs present / total
+      paper: 0 of 45,492
+      files: 0 of 45,492   [a1_v2/a1_summary.json]
+PASS  Abs gold symbols that are async (none a node, see 5.1)
+      paper: 81 of 711
+      files: 81 of 711   [a1_v2/a1_summary.json]
+PASS  Abs fastapi tasks with an async gold symbol
+      paper: 31%
+      files: 31%   [a1_v2/a1_tasks.csv]
+PASS  Abs absent-async bare-name query -> wrong node
+      paper: 65%
+      files: 65%   [a1_v2/a1_summary.json]
+PASS  Abs representable recall
+      paper: 37%
+      files: 37%   [a2_v3/a2_summary.json]
+PASS  Abs observed precision
+      paper: 21%
+      files: 21%   [a2_v3/a2_summary.json]
+PASS  Abs gold reachable from entry
+      paper: 69 of 72
+      files: 69 of 72   [a2_v3/a2_summary.json]
+PASS  S3 calls edges, all graphs
+      paper: 452,588
+      files: 452,588   [a1_v2/a1_summary.json]
+PASS  S3 edge types
+      paper: calls only
+      files: calls only   [a1_v2/a1_summary.json]
+PASS  S3 vector dimension
+      paper: 256
+      files: 256   [a3/a3_vectors_stats.csv]
+PASS  S4 usable tasks
+      paper: 91
+      files: 91   [a2_v3/a2_summary.json]
+PASS  S4 usable fastapi / rich / requests
+      paper: 45 / 39 / 7
+      files: 45 / 39 / 7   [a2_v3/a2_summary.json]
+INFO  5.1/Fig1 sync functions present
+      paper: 
+      files: 287,841 of 289,266 (99.5%)   [a1_v2/a1_summary.json]
+INFO  5.1/Fig1 classes present
+      paper: 
+      files: 62,552 of 63,831 (98.0%)   [a1_v2/a1_summary.json]
+INFO  5.1/Fig1 nested definitions present
+      paper: 
+      files: 14,483 of 18,178 (79.7%)   [a1_v2/a1_summary.json]
+INFO  5.1/Fig1 async functions present
+      paper: 
+      files: 0 of 45,492 (0.0%)   [a1_v2/a1_summary.json]
+PASS  5.1 non-test source: sync present
+      paper: 100%
+      files: 100%   [a1_v2/a1_summary.json]
+PASS  5.1 non-test source: async present
+      paper: 0 of 28,113
+      files: 0 of 28,113   [a1_v2/a1_summary.json]
+PASS  5.1 fastapi Config classes listed without model (class-dropped ids)
+      paper: 1,683
+      files: 1,683   [a7/a7_summary.json]
+PASS  5.1 requests: missing nested defs (methods of classes inside test functions)
+      paper: 340
+      files: 340   [a7/a7_summary.json]
+FAIL  5.1 fastapi+rich: missing nested defs that are NOT async ('every missing nested definition ... is itself async')
+      paper: 0
+      files: 47   [a7/a7_summary.json; rich's 47 = one test class, test_inspect.py ...<locals>.Something.Thing, absent in each of 47 graphs]
+PASS  5.1 async gold symbols counted present only through an id collision
+      paper: 1 (FastAPI.setup.<locals>.openapi)
+      files: 1 (FastAPI.setup.<locals>.openapi)   [a1_v2/a1_gold_symbols.jsonl]
+PASS  5.1 gold symbols that are nodes
+      paper: 470 of 711 (66.1%, CI 62.6 to 69.5)
+      files: 470 of 711 (66.1%, CI 62.6 to 69.5)   [a1_v2/a1_summary.json]
+PASS  5.1 tasks with an async gold symbol (fastapi)
+      paper: 22 (21)
+      files: 22 (21)   [a1_v2/a1_summary.json]
+PASS  5.1 usable tasks with an executed gold function that has no node
+      paper: 3
+      files: 3   [a2_v3/a2_summary.json]
+PASS  5.2/Fig2 absent async: wrong node, n
+      paper: 65.4% of 56,487
+      files: 65.4% of 56,487   [a1_v2/a1_summary.json]
+PASS  5.2 absent async: wrong node is a test
+      paper: 26,851
+      files: 26,851   [a1_v2/a1_summary.json]
+PASS  5.2 absent async: no match
+      paper: 34.6%
+      files: 34.6%   [a1_v2/a1_summary.json]
+PASS  5.2 present sync: wrong node
+      paper: 41.2%
+      files: 41.2%   [a1_v2/a1_summary.json]
+PASS  5.2 present sync wrong node: fastapi / httpx
+      paper: 46.6% / 62.0%
+      files: 46.6% / 62.0%   [a1_v2/a1_summary.json]
+PASS  5.2 present class: wrong node
+      paper: 47.9%
+      files: 47.9%   [a1_v2/a1_summary.json]
+PASS  5.2/Fig2 query populations (sync, class, async)
+      paper: 287,841 / 62,552 / 56,487
+      files: 287,841 / 62,552 / 56,487   [a1_v2/a1_summary.json]
+PASS  5.2 tasks whose gold query lands on the wrong node
+      paper: 21 of 129
+      files: 21 of 129   [a1_v2/a1_summary.json]
+PASS  Tab1 representable recall
+      paper: 37.1% (8,032 of 21,653), CI 34.8 to 40.2
+      files: 37.1% (8,032 of 21,653), CI 34.8 to 40.2   [a2_v3/a2_summary.json]
+PASS  Tab1 agent-facing recall
+      paper: 31.8% (8,032 of 25,267), CI 29.4 to 34.8
+      files: 31.8% (8,032 of 25,267), CI 29.4 to 34.8   [a2_v3/a2_summary.json]
+PASS  Tab1 gold-incident recall
+      paper: 56.3% (604 of 1,073), CI 39.3 to 68.4
+      files: 56.3% (604 of 1,073), CI 39.3 to 68.4   [a2_v3/a2_summary.json]
+PASS  Tab1 observed precision
+      paper: 21.4% (8,013 of 37,433), CI 20.0 to 22.8
+      files: 21.4% (8,013 of 37,433), CI 20.0 to 22.8   [a2_v3/a2_summary.json]
+PASS  5.3 miss shares: between nodes / sync / nested / async
+      paper: 79 / 11 / 6 / 4
+      files: 79 / 11 / 6 / 4   [a2_v3/a2_summary.json]
+PASS  5.3/Fig3 recall fastapi / rich / requests
+      paper: 65.6 / 30.5 / 34.7
+      files: 65.6 / 30.5 / 34.7   [a2_v3/a2_summary.json]
+PASS  5.3/Fig3 precision fastapi / requests
+      paper: 16.5 / 34.3
+      files: 16.5 / 34.3   [a2_v3/a2_summary.json]
+PASS  5.3 non-test nodes executed
+      paper: 16.7%
+      files: 16.7%   [a2_v3/a2_summary.json]
+PASS  5.4/Fig4 edge populations captured / unexercised / missed
+      paper: 7,640 / 35,017 / 12,231
+      files: 7,640 / 35,017 / 12,231   [a8/a8_summary.json (nontest_edges)]
+PASS  5.4 captured: explicit / bare / instantiation
+      paper: 88.6 / 55.3 / 19.0
+      files: 88.6 / 55.3 / 19.0   [a8/a8_summary.json]
+PASS  5.4 missed: obj / self / reference / dunder
+      paper: 23.4 / 15.9 / 28.3 / 17.3
+      files: 23.4 / 15.9 / 28.3 / 17.3   [a8/a8_summary.json]
+PASS  5.4 unexercised: no mention / string or comment only
+      paper: 56.1 / 26.7
+      files: 56.1 / 26.7   [a8/a8_summary.json]
+PASS  5.4/Fig5 unexercised: own class / subclass / base class
+      paper: 22.3 / 13.8 / 13.3
+      files: 22.3 / 13.8 / 13.3   [a8/a8_edges.csv + a6_v3/graphs_v2 (papers/make_figures.py p1_edge_structure)]
+PASS  5.4/Fig5 missed: same-class sibling methods
+      paper: 45.5
+      files: 45.5   [same]
+FAIL  5.4 calls edges per graph pointing to own member (all 127 graphs)
+      paper: 8 to 21%
+      files: 8 to 30%   [a1_v2/a1_graphs.csv; fastapi 7.9-9.1, rich 15.1-15.6, requests 20.6-20.9, httpx (1 graph) 29.8]
+PASS  5.5 usable tasks with an entry set
+      paper: 86 of 91
+      files: 86 of 91   [a2_v3/a2_summary.json]
+PASS  5.5 all executed gold reachable
+      paper: 69 of 72 (95.8%, CI 88.5 to 98.6)
+      files: 69 of 72 (95.8%, CI 88.5 to 98.6)   [a2_v3/a2_summary.json]
+PASS  5.5 reachable only against edge direction
+      paper: 0
+      files: 0   [a2_v3/a2_summary.json]
+PASS  5.5/Fig6 hops 0..7 / unreachable
+      paper: 32 9 13 9 2 2 1 1 / 3
+      files: 32 9 13 9 2 2 1 1 / 3   [a2_v3/a2_summary.json]
+PASS  5.5 gold is an entry / within three hops
+      paper: 32 / 63
+      files: 32 / 63   [a2_v3/a2_summary.json]
+PASS  5.6 best cosine EmbeddingGemma 300m (variant, prompt)
+      paper: 0.073 (name, document)
+      files: 0.073 (name, document)   [a3/a3_per_model.csv]
+PASS  5.6 best cosine EmbeddingGemma 2 / MiniLM
+      paper: 0.015 / 0.036
+      files: 0.015 / 0.036   [a3/, a3_gemma2/ a3_per_model.csv]
+FAIL  5.6 max pairwise rank correlation over all variants
+      paper: 0.16
+      files: 0.21   [a3 per_model.csv; per model: EmbeddingGemma 300m 0.17, EmbeddingGemma 2 0.14, MiniLM control 0.21]
+PASS  5.6 cos to mean vector range
+      paper: 0.87 to 0.95
+      files: 0.87 to 0.95   [a3/a3_vectors_stats.csv]
+PASS  5.6 PC1 share range
+      paper: 44% to 75%
+      files: 44% to 75%   [a3/a3_vectors_stats.csv]
+PASS  5.6 unit-normalised
+      paper: False
+      files: False   [a3/a3_vectors_stats.csv]
+PASS  5.6 top-1 neighbour cosine (mean)
+      paper: 0.999
+      files: 0.999   [vm-main a4/a4_knn.csv]
+PASS  Fig7a AUROC containment / calls / co-change / same module / name overlap
+      paper: 0.90 / 0.90 / 0.81 / 0.68 / 0.68
+      files: 0.90 / 0.90 / 0.81 / 0.68 / 0.68   [vm-main a4/a4_summary.json]
+PASS  Fig7b test share of 10-NN, min to max over repos
+      paper: 45% to 67%
+      files: 45% to 67%   [vm-main a4/a4_knn.csv]
+PASS  Fig7b call-neighbour share of 10-NN, min to max
+      paper: 2% to 6%
+      files: 2% to 6%   [vm-main a4/a4_knn.csv]
+INFO  Fig8 identifiers: node@10 / file@5 / empty
+      paper: 
+      files: 30 / 40 / 54   [a5_v3/a5_summary.json (overall_all_tasks)]
+INFO  Fig8 harness: node@10 / file@5 / empty
+      paper: 
+      files: 31 / 43 / 54   [a5_v3/a5_summary.json (overall_all_tasks)]
+INFO  Fig8 harness+1hop: node@10 / file@5 / empty
+      paper: 
+      files: 31 / 45 / 54   [a5_v3/a5_summary.json (overall_all_tasks)]
+INFO  Fig8 BM25 node text: node@10 / file@5 / empty
+      paper: 
+      files: 38 / 63 / 0   [a5_v3/a5_summary.json (overall_all_tasks)]
+INFO  Fig8 BM25 source: node@10 / file@5 / empty
+      paper: 
+      files: 53 / 85 / 0   [a5_v3/a5_summary.json (overall_all_tasks)]
+PASS  5.6 file@5 BM25-source-only / harness-only, McNemar p
+      paper: 47 / 5, p < 0.0001
+      files: 47 / 5, p < 0.0001   [a5_v3/a5_summary.json]
+PASS  5.6 cosine step / 1-hop step changes (file@5)
+      paper: 3 / 2
+      files: 3 / 2   [a5_v3/a5_summary.json]
+PASS  5.6 harness mode returns nothing
+      paper: 54 of 129
+      files: 54 of 129   [a5_v3/a5_summary.json]
+PASS  S7 collection errors / import errors / no-test tasks
+      paper: 9 / 2 / 4
+      files: 9 / 2 / 4   [a2_v3/a2_summary.json]
+PASS  S7 hand-review sample size
+      paper: 80
+      files: 80   [a8/a8_sample.csv]
+
+63 PASS, 3 FAIL, 9 INFO
