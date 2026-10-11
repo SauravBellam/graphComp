@@ -1,0 +1,539 @@
+
+$ /home/sauravbellam/cache/a2/fastapi_14099/venv/bin/python -s -m pytest tests/test_dependency_after_yield_raise.py tests/test_dependency_after_yield_streaming.py tests/test_dependency_after_yield_websockets.py tests/test_dependency_contextmanager.py tests/test_route_scope.py tests/test_tutorial/test_dependencies/test_tutorial008c.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/fastapi_14099/trace_pre.xml
+[exit 1]
+..FF..F..............F............F.................                     [100%]
+=================================== FAILURES ===================================
+_____________________________ test_broken_no_raise _____________________________
+
+    def test_broken_no_raise():
+        """
+        When a dependency with yield raises after the yield (not in an except), the
+        response is already "successfully" sent back to the client, but there's still
+        an error in the server afterwards, an exception is raised and captured or shown
+        in the server logs.
+        """
+        with TestClient(app, raise_server_exceptions=False) as client:
+            response = client.get("/broken")
+>           assert response.status_code == 200
+E           assert 500 == 200
+E            +  where 500 = <Response [500 Internal Server Error]>.status_code
+
+tests/test_dependency_after_yield_raise.py:61: AssertionError
+_________________________ test_broken_return_finishes __________________________
+
+    def test_broken_return_finishes():
+        client = TestClient(app, raise_server_exceptions=False)
+        response = client.get("/broken")
+>       assert response.status_code == 200
+E       assert 500 == 200
+E        +  where 500 = <Response [500 Internal Server Error]>.status_code
+
+tests/test_dependency_after_yield_raise.py:68: AssertionError
+_____________________________ test_stream_session ______________________________
+  + Exception Group Traceback (most recent call last):
+  |   File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/starlette/_utils.py", line 79, in collapse_excgroups
+  |     yield
+  |   File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/starlette/responses.py", line 271, in __call__
+  |     async with anyio.create_task_group() as task_group:
+  |                ~~~~~~~~~~~~~~~~~~~~~~~^^
+  |   File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/anyio/_backends/_asyncio.py", line 847, in __aexit__
+  |     raise BaseExceptionGroup(
+  |         "unhandled errors in a TaskGroup", self._exceptions
+  |     ) from None
+  | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+  +-+---------------- 1 ----------------
+    | Traceback (most recent call last):
+    |   File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/_pytest/runner.py", line 344, in from_call
+    |     result: TResult | None = func()
+    |                              ~~~~^^
+    |   File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/_pytest/runner.py", line 246, in <lambda>
+    |     lambda: runtest_hook(item=item, **kwds), when=when, reraise=reraise
+    |             ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+    |   File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/pluggy/_hooks.py", line 512, in __call__
+    |     return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+    |            ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/pluggy/_manager.py", line 120, in _hookexec
+    |     return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+    |            ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/pluggy/_callers.py", line 167, in _multicall
+    |     raise exception
+    |   File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/pluggy/_callers.py", line 139, in _multicall
+    |     teardown.throw(exception)
+    |     ~~~~~~~~~~~~~~^^^^^^^^^^^
+    |   File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/_pytest/logging.py", line 850, in pytest_runtest_call
+    |     yield
+    |   File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/pluggy/_callers.py", line 139, in _multicall
+    |     teardown.throw(exception)
+    |     ~~~~~~~~~~~~~~^^^^^^^^^^^
+    |   File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/_pytest/capture.py", line 900, in pytest_runtest_call
+    |     return (yield)
+    |             ^^^^^
+    |   File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/pluggy/_callers.py", line 139, in _multicall
+    |     teardown.throw(exception)
+    |     ~~~~~~~~~~~~~~^^^^^^^^^^^
+    |   File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/pluggy/_callers.py", line 53, in run_old_style_hookwrapper
+    |     return result.get_result()
+    |            ~~~~~~~~~~~~~~~~~^^
+    |   File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/pluggy/_result.py", line 103, in get_result
+    |     raise exc.with_traceback(tb)
+    |   File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/pluggy/_callers.py", line 38, in run_old_style_hookwrapper
+    |     res = yield
+    |           ^^^^^
+    |   File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/pluggy/_callers.py", line 139, in _multicall
+    |     teardown.throw(exception)
+    |     ~~~~~~~~~~~~~~^^^^^^^^^^^
+    |   File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/_pytest/skipping.py", line 263, in pytest_runtest_call
+    |     return (yield)
+    |             ^^^^^
+    |   File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/pluggy/_callers.py", line 121, in _multicall
+    |     res = hook_impl.function(*args)
+    |   File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/_pytest/runner.py", line 178, in pytest_runtest_call
+    |     item.runtest()
+    |     ~~~~~~~~~~~~^^
+    |   File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/_pytest/python.py", line 1671, in runtest
+    |     self.ihook.pytest_pyfunc_call(pyfuncitem=self)
+    |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+    |   File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/pluggy/_hooks.py", line 512, in __call__
+    |     return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+    |            ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/pluggy/_manager.py", line 120, in _hookexec
+    |     return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+    |            ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/pluggy/_callers.py", line 167, in _multicall
+    |     raise exception
+    |   File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/pluggy/_callers.py", line 139, in _multicall
+    |     teardown.throw(exception)
+    |     ~~~~~~~~~~~~~~^^^^^^^^^^^
+    |   File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/pluggy/_callers.py", line 53, in run_old_style_hookwrapper
+    |     return result.get_result()
+    |            ~~~~~~~~~~~~~~~~~^^
+    |   File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/pluggy/_result.py", line 103, in get_result
+    |     raise exc.with_traceback(tb)
+    |   File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/pluggy/_callers.py", line 38, in run_old_style_hookwrapper
+    |     res = yield
+    |           ^^^^^
+    |   File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/pluggy/_callers.py", line 121, in _multicall
+    |     res = hook_impl.function(*args)
+    |   File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/_pytest/python.py", line 157, in pytest_pyfunc_call
+    |     result = testfunction(**testargs)
+    |   File "/home/sauravbellam/cache/a2/fastapi_14099/workspace/tests/test_dependency_after_yield_streaming.py", line 99, in test_stream_session
+    |     response = client.get("/stream-session")
+    |   File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/starlette/testclient.py", line 479, in get
+    |     return super().get(
+    |            ~~~~~~~~~~~^
+    |         url,
+    |         ^^^^
+    |     ...<6 lines>...
+    |         extensions=extensions,
+    |         ^^^^^^^^^^^^^^^^^^^^^^
+    |     )
+    |     ^
+    |   File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/httpx/_client.py", line 1053, in get
+    |     return self.request(
+    |            ~~~~~~~~~~~~^
+    |         "GET",
+    |         ^^^^^^
+    |     ...<7 lines>...
+    |         extensions=extensions,
+    |         ^^^^^^^^^^^^^^^^^^^^^^
+    |     )
+    |     ^
+    |   File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/starlette/testclient.py", line 451, in request
+    |     return super().request(
+    |            ~~~~~~~~~~~~~~~^
+    |         method,
+    |         ^^^^^^^
+    |     ...<11 lines>...
+    |         extensions=extensions,
+    |         ^^^^^^^^^^^^^^^^^^^^^^
+    |     )
+    |     ^
+    |   File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/httpx/_client.py", line 825, in request
+    |     return self.send(request, auth=auth, follow_redirects=follow_redirects)
+    |            ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/httpx/_client.py", line 914, in send
+    |     response = self._send_handling_auth(
+    |         request,
+    |     ...<2 lines>...
+    |         history=[],
+    |     )
+    |   File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/httpx/_client.py", line 942, in _send_handling_auth
+    |     response = self._send_handling_redirects(
+    |         request,
+    |         follow_redirects=follow_redirects,
+    |         history=history,
+    |     )
+    |   File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/httpx/_client.py", line 979, in _send_handling_redirects
+    |     response = self._send_single_request(request)
+    |   File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/httpx/_client.py", line 1014, in _send_single_request
+    |     response = transport.handle_request(request)
+    |   File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/starlette/testclient.py", line 354, in handle_request
+    |     raise exc
+    |   File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/starlette/testclient.py", line 351, in handle_request
+    |     portal.call(self.app, scope, receive, send)
+    |     ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/anyio/from_thread.py", line 340, in call
+    |     return cast(T_Retval, self.start_task_soon(func, *args).result())
+    |                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+    |   File "/usr/lib/python3.13/concurrent/futures/_base.py", line 456, in result
+    |     return self.__get_result()
+    |            ~~~~~~~~~~~~~~~~~^^
+    |   File "/usr/lib/python3.13/concurrent/futures/_base.py", line 401, in __get_result
+    |     raise self._exception
+    |   File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/anyio/from_thread.py", line 265, in _call_func
+    |     retval = await retval_or_awaitable
+    |              ^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/home/sauravbellam/cache/a2/fastapi_14099/workspace/fastapi/applications.py", line 1082, in __call__
+    |     await super().__call__(scope, receive, send)
+    |   File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/starlette/applications.py", line 113, in __call__
+    |     await self.middleware_stack(scope, receive, send)
+    |   File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/starlette/middleware/errors.py", line 186, in __call__
+    |     raise exc
+    |   File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    |     await self.app(scope, receive, _send)
+    |   File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/starlette/middleware/exceptions.py", line 63, in __call__
+    |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+    |   File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    |     raise exc
+    |   File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    |     await app(scope, receive, sender)
+    |   File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/starlette/routing.py", line 716, in __call__
+    |     await self.middleware_stack(scope, receive, send)
+    |   File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/starlette/routing.py", line 736, in app
+    |     await route.handle(scope, receive, send)
+    |   File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/starlette/routing.py", line 290, in handle
+    |     await self.app(scope, receive, send)
+    |   File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/starlette/routing.py", line 78, in app
+    |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+    |   File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    |     raise exc
+    |   File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    |     await app(scope, receive, sender)
+    |   File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/starlette/routing.py", line 76, in app
+    |     await response(scope, receive, send)
+    |   File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/starlette/responses.py", line 270, in __call__
+    |     with collapse_excgroups():
+    |          ~~~~~~~~~~~~~~~~~~^^
+    |   File "/usr/lib/python3.13/contextlib.py", line 162, in __exit__
+    |     self.gen.throw(value)
+    |     ~~~~~~~~~~~~~~^^^^^^^
+    |   File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/starlette/_utils.py", line 85, in collapse_excgroups
+    |     raise exc
+    |   File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/anyio/_core/_tasks.py", line 327, in _run_coro
+    |     retval = await self._coro
+    |              ^^^^^^^^^^^^^^^^
+    |   File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/starlette/responses.py", line 274, in wrap
+    |     await func()
+    |   File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/starlette/responses.py", line 254, in stream_response
+    |     async for chunk in self.body_iterator:
+    |     ...<2 lines>...
+    |         await send({"type": "http.response.body", "body": chunk, "more_body": True})
+    |   File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/starlette/concurrency.py", line 61, in iterate_in_threadpool
+    |     yield await anyio.to_thread.run_sync(_next, as_iterator)
+    |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/anyio/to_thread.py", line 65, in run_sync
+    |     return await get_async_backend().run_sync_in_worker_thread(
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |         func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |     )
+    |     ^
+    |   File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/anyio/_backends/_asyncio.py", line 2706, in run_sync_in_worker_thread
+    |     return await future
+    |            ^^^^^^^^^^^^
+    |   File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/anyio/_backends/_asyncio.py", line 1100, in run
+    |     result = context.run(func, *args)
+    |   File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/starlette/concurrency.py", line 50, in _next
+    |     return next(iterator)
+    |   File "/home/sauravbellam/cache/a2/fastapi_14099/workspace/tests/test_dependency_after_yield_streaming.py", line 67, in iter_data
+    |     yield from session
+    |   File "/home/sauravbellam/cache/a2/fastapi_14099/workspace/tests/test_dependency_after_yield_streaming.py", line 21, in __iter__
+    |     raise ValueError("Session closed")
+    | ValueError: Session closed
+    +------------------------------------
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/sauravbellam/cache/a2/fastapi_14099/workspace/tests/test_dependency_after_yield_streaming.py", line 99, in test_stream_session
+    response = client.get("/stream-session")
+  File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/starlette/testclient.py", line 479, in get
+    return super().get(
+           ~~~~~~~~~~~^
+        url,
+        ^^^^
+    ...<6 lines>...
+        extensions=extensions,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/httpx/_client.py", line 1053, in get
+    return self.request(
+           ~~~~~~~~~~~~^
+        "GET",
+        ^^^^^^
+    ...<7 lines>...
+        extensions=extensions,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/starlette/testclient.py", line 451, in request
+    return super().request(
+           ~~~~~~~~~~~~~~~^
+        method,
+        ^^^^^^^
+    ...<11 lines>...
+        extensions=extensions,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/httpx/_client.py", line 825, in request
+    return self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/httpx/_client.py", line 914, in send
+    response = self._send_handling_auth(
+        request,
+    ...<2 lines>...
+        history=[],
+    )
+  File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/httpx/_client.py", line 942, in _send_handling_auth
+    response = self._send_handling_redirects(
+        request,
+        follow_redirects=follow_redirects,
+        history=history,
+    )
+  File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/httpx/_client.py", line 979, in _send_handling_redirects
+    response = self._send_single_request(request)
+  File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/httpx/_client.py", line 1014, in _send_single_request
+    response = transport.handle_request(request)
+  File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/starlette/testclient.py", line 354, in handle_request
+    raise exc
+  File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/starlette/testclient.py", line 351, in handle_request
+    portal.call(self.app, scope, receive, send)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/anyio/from_thread.py", line 340, in call
+    return cast(T_Retval, self.start_task_soon(func, *args).result())
+                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.13/concurrent/futures/_base.py", line 456, in result
+    return self.__get_result()
+           ~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.13/concurrent/futures/_base.py", line 401, in __get_result
+    raise self._exception
+  File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/anyio/from_thread.py", line 265, in _call_func
+    retval = await retval_or_awaitable
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sauravbellam/cache/a2/fastapi_14099/workspace/fastapi/applications.py", line 1082, in __call__
+    await super().__call__(scope, receive, send)
+  File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/starlette/applications.py", line 113, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/starlette/middleware/errors.py", line 186, in __call__
+    raise exc
+  File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/starlette/middleware/exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/starlette/routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/starlette/routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/starlette/routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/starlette/routing.py", line 78, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/starlette/routing.py", line 76, in app
+    await response(scope, receive, send)
+  File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/starlette/responses.py", line 270, in __call__
+    with collapse_excgroups():
+         ~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.13/contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/starlette/_utils.py", line 85, in collapse_excgroups
+    raise exc
+  File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/anyio/_core/_tasks.py", line 327, in _run_coro
+    retval = await self._coro
+             ^^^^^^^^^^^^^^^^
+  File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/starlette/responses.py", line 274, in wrap
+    await func()
+  File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/starlette/responses.py", line 254, in stream_response
+    async for chunk in self.body_iterator:
+    ...<2 lines>...
+        await send({"type": "http.response.body", "body": chunk, "more_body": True})
+  File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/starlette/concurrency.py", line 61, in iterate_in_threadpool
+    yield await anyio.to_thread.run_sync(_next, as_iterator)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/anyio/to_thread.py", line 65, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/anyio/_backends/_asyncio.py", line 2706, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/anyio/_backends/_asyncio.py", line 1100, in run
+    result = context.run(func, *args)
+  File "/home/sauravbellam/cache/a2/fastapi_14099/venv/lib/python3.13/site-packages/starlette/concurrency.py", line 50, in _next
+    return next(iterator)
+  File "/home/sauravbellam/cache/a2/fastapi_14099/workspace/tests/test_dependency_after_yield_streaming.py", line 67, in iter_data
+    yield from session
+  File "/home/sauravbellam/cache/a2/fastapi_14099/workspace/tests/test_dependency_after_yield_streaming.py", line 21, in __iter__
+    raise ValueError("Session closed")
+ValueError: Session closed
+
+During handling of the above exception, another exception occurred:
+
+    def test_stream_session():
+>       response = client.get("/stream-session")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_dependency_after_yield_streaming.py:99: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../venv/lib/python3.13/site-packages/starlette/testclient.py:479: in get
+    return super().get(
+../venv/lib/python3.13/site-packages/httpx/_client.py:1053: in get
+    return self.request(
+../venv/lib/python3.13/site-packages/starlette/testclient.py:451: in request
+    return super().request(
+../venv/lib/python3.13/site-packages/httpx/_client.py:825: in request
+    return self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../venv/lib/python3.13/site-packages/httpx/_client.py:914: in send
+    response = self._send_handling_auth(
+../venv/lib/python3.13/site-packages/httpx/_client.py:942: in _send_handling_auth
+    response = self._send_handling_redirects(
+../venv/lib/python3.13/site-packages/httpx/_client.py:979: in _send_handling_redirects
+    response = self._send_single_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../venv/lib/python3.13/site-packages/httpx/_client.py:1014: in _send_single_request
+    response = transport.handle_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../venv/lib/python3.13/site-packages/starlette/testclient.py:354: in handle_request
+    raise exc
+../venv/lib/python3.13/site-packages/starlette/testclient.py:351: in handle_request
+    portal.call(self.app, scope, receive, send)
+../venv/lib/python3.13/site-packages/anyio/from_thread.py:340: in call
+    return cast(T_Retval, self.start_task_soon(func, *args).result())
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.13/concurrent/futures/_base.py:456: in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.13/concurrent/futures/_base.py:401: in __get_result
+    raise self._exception
+../venv/lib/python3.13/site-packages/anyio/from_thread.py:265: in _call_func
+    retval = await retval_or_awaitable
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+fastapi/applications.py:1082: in __call__
+    await super().__call__(scope, receive, send)
+../venv/lib/python3.13/site-packages/starlette/applications.py:113: in __call__
+    await self.middleware_stack(scope, receive, send)
+../venv/lib/python3.13/site-packages/starlette/middleware/errors.py:186: in __call__
+    raise exc
+../venv/lib/python3.13/site-packages/starlette/middleware/errors.py:164: in __call__
+    await self.app(scope, receive, _send)
+../venv/lib/python3.13/site-packages/starlette/middleware/exceptions.py:63: in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+../venv/lib/python3.13/site-packages/starlette/_exception_handler.py:53: in wrapped_app
+    raise exc
+../venv/lib/python3.13/site-packages/starlette/_exception_handler.py:42: in wrapped_app
+    await app(scope, receive, sender)
+../venv/lib/python3.13/site-packages/starlette/routing.py:716: in __call__
+    await self.middleware_stack(scope, receive, send)
+../venv/lib/python3.13/site-packages/starlette/routing.py:736: in app
+    await route.handle(scope, receive, send)
+../venv/lib/python3.13/site-packages/starlette/routing.py:290: in handle
+    await self.app(scope, receive, send)
+../venv/lib/python3.13/site-packages/starlette/routing.py:78: in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+../venv/lib/python3.13/site-packages/starlette/_exception_handler.py:53: in wrapped_app
+    raise exc
+../venv/lib/python3.13/site-packages/starlette/_exception_handler.py:42: in wrapped_app
+    await app(scope, receive, sender)
+../venv/lib/python3.13/site-packages/starlette/routing.py:76: in app
+    await response(scope, receive, send)
+../venv/lib/python3.13/site-packages/starlette/responses.py:270: in __call__
+    with collapse_excgroups():
+         ^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.13/contextlib.py:162: in __exit__
+    self.gen.throw(value)
+../venv/lib/python3.13/site-packages/starlette/_utils.py:85: in collapse_excgroups
+    raise exc
+../venv/lib/python3.13/site-packages/starlette/responses.py:274: in wrap
+    await func()
+../venv/lib/python3.13/site-packages/starlette/responses.py:254: in stream_response
+    async for chunk in self.body_iterator:
+../venv/lib/python3.13/site-packages/starlette/concurrency.py:61: in iterate_in_threadpool
+    yield await anyio.to_thread.run_sync(_next, as_iterator)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../venv/lib/python3.13/site-packages/anyio/to_thread.py:65: in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+../venv/lib/python3.13/site-packages/anyio/_backends/_asyncio.py:2706: in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+../venv/lib/python3.13/site-packages/anyio/_backends/_asyncio.py:1100: in run
+    result = context.run(func, *args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+../venv/lib/python3.13/site-packages/starlette/concurrency.py:50: in _next
+    return next(iterator)
+           ^^^^^^^^^^^^^^
+tests/test_dependency_after_yield_streaming.py:67: in iter_data
+    yield from session
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <tests.test_dependency_after_yield_streaming.Session object at 0x7f896b541090>
+
+    def __iter__(self) -> Generator[str, None, None]:
+        for item in self.data:
+            if self.open:
+                yield item
+            else:
+>               raise ValueError("Session closed")
+E               ValueError: Session closed
+
+tests/test_dependency_after_yield_streaming.py:21: ValueError
+____________________________ test_background_tasks _____________________________
+
+    def test_background_tasks():
+        response = client.get("/context_b_bg")
+        data = response.json()
+        assert data["context_b"] == "started b"
+        assert data["context_a"] == "started a"
+        assert data["bg"] == "not set"
+        middleware_state = json.loads(response.headers["x-state"])
+>       assert middleware_state["context_b"] == "started b"
+E       AssertionError: assert 'finished b with a: started a' == 'started b'
+E         
+E         - started b
+E         + finished b with a: started a
+
+tests/test_dependency_contextmanager.py:289: AssertionError
+__________________________ test_sync_background_tasks __________________________
+
+    def test_sync_background_tasks():
+        response = client.get("/sync_context_b_bg")
+        data = response.json()
+        assert data["context_b"] == "started b"
+        assert data["context_a"] == "started a"
+        assert data["sync_bg"] == "not set"
+        assert state["context_b"] == "finished b with a: started a"
+        assert state["context_a"] == "finished a"
+>       assert state["sync_bg"] == "sync_bg set - b: started b - a: started a"
+E       AssertionError: assert 'sync_bg set ...a: finished a' == 'sync_bg set ... a: started a'
+E         
+E         - sync_bg set - b: started b - a: started a
+E         + sync_bg set - b: finished b with a: started a - a: finished a
+
+tests/test_dependency_contextmanager.py:400: AssertionError
+- generated xml file: /home/sauravbellam/results/a2_runs/fastapi_14099/trace_pre.xml -
+5 failed, 47 passed in 4.63s
+
+

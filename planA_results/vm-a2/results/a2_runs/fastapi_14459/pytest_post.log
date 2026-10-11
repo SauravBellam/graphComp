@@ -1,0 +1,8 @@
+
+$ /home/sauravbellam/cache/a2/fastapi_14459/venv/bin/python -s -m pytest tests/test_security_oauth2_authorization_code_bearer_scopes_openapi.py tests/test_security_oauth2_authorization_code_bearer_scopes_openapi_simple.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/fastapi_14459/trace_post.xml
+[exit 0]
+........                                                                 [100%]
+- generated xml file: /home/sauravbellam/results/a2_runs/fastapi_14459/trace_post.xml -
+8 passed in 2.28s
+
+

@@ -1,0 +1,13 @@
+[a2] 4 tasks backend=venv jobs=4 shard=None wheels=/home/sauravbellam/graphComp/archive/wheels
+[a2] 1/4 rich_4070: done=True pre_exit=1 post_exit=1 err=None 83.8s
+[a2] 2/4 rich_3772: done=True pre_exit=1 post_exit=0 err=None 86.5s
+[a2] 3/4 rich_3480: done=True pre_exit=1 post_exit=0 err=None 87.2s
+[a2] 4/4 rich_4006: done=True pre_exit=-9 post_exit=0 err=None 470.2s
+{
+  "n": 4,
+  "done": 4,
+  "with_pre_trace": 3,
+  "with_post_trace": 4,
+  "errors": {}
+}
+RERUN_EXIT 0

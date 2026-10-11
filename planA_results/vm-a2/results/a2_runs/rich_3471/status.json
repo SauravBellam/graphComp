@@ -1,0 +1,87 @@
+{
+  "instance_id": "rich_3471",
+  "repo": "Textualize/rich",
+  "backend": "venv",
+  "done": true,
+  "deps": {
+    "steps": [
+      {
+        "name": "pip_upgrade",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3471/venv/bin/python -m pip install -q --disable-pip-version-check 'pip>=24' 'setuptools' 'wheel' pytest pytest-timeout",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "editable_no_deps",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3471/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-build-isolation --no-deps -e .",
+        "exit": 2,
+        "stderr_tail": "python3.13/site-packages/pip/_internal/req/req_install.py\", line 258, in supports_pyproject_editable\n    return \"build_editable\" in self.pep517_backend._supported_features()\n                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"/home/sauravbellam/cache/a2/rich_3471/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 180, in _supported_features\n    return self._call_hook(\"_supported_features\", {})\n           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/sauravbellam/cache/a2/rich_3471/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 402, in _call_hook\n    raise BackendUnavailable(\n    ...<4 lines>...\n    )\npip._vendor.pyproject_hooks._impl.BackendUnavailable: Cannot import 'poetry.core.masonry.api'\n"
+      },
+      {
+        "name": "editable_no_deps_isolated",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3471/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-deps -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "runtime_deps",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3471/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "poetry_group_dev",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3471/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels pytest black mypy pytest-cov attrs pre-commit asv importlib-metadata",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "rich_tests",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3471/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels pytest-cov attrs ipywidgets",
+        "exit": 0,
+        "stderr_tail": ""
+      }
+    ],
+    "editable_ok": true,
+    "python": "3.13.5 (main, Aug 10 2026, 12:06:59) [GCC 14.2.0]"
+  },
+  "targets": [
+    "tests/test_text.py"
+  ],
+  "test_patch_strategy": "exact",
+  "test_patch_applied": true,
+  "pre": {
+    "exit": 1,
+    "seconds": 2.1,
+    "timeout": false,
+    "exit_meaning": "some_failed",
+    "run_class": "clean",
+    "counts": {
+      "failed": 1,
+      "passed": 107
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "             \"red\",\n                ),\n            ]\n        )\n        with console.capture() as capture:\n>           console.print(t, width=40)\n\ntests/test_text.py:999: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \nrich/console.py:1710: in print\n    extend(render(renderable, render_options))\nrich/console.py:1331: in render\n    for render_output in iter_render:\n                         ^^^^^^^^^^^\nrich/text.py:694: in __rich_console__\n    lines = self.wrap(\nrich/text.py:1234: in wrap\n    new_lines = line.divide(offsets)\n                ^^^^^^^^^^^^^^^^^^^^\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = <text 'long text that will be wrapped with a control code ' [Span(0, 52, 'red')]>\noffsets = [38]\n\n    def divide(self, offsets: Iterable[int]) -> Lines:\n        \"\"\"Divide text in to a number of lines at given offsets.\n    \n        Args:\n            offsets (Iterable[int]): Offsets used to divide text.\n    \n        Returns:\n            Lines: New RichText instances between offsets.\n        \"\"\"\n        _offsets = list(offsets)\n    \n        if not _offsets:\n            return Lines([self.copy()])\n    \n        text = self.plain\n        text_length = len(text)\n        divide_offsets = [0, *_offsets, text_length]\n        line_ranges = list(zip(divide_offsets, divide_offsets[1:]))\n    \n        style = self.style\n        justify = self.justify\n        overflow = self.overflow\n        _Text = Text\n        new_lines = Lines(\n            _Text(\n                text[start:end],\n                style=style,\n                justify=justify,\n                overflow=overflow,\n            )\n            for start, end in line_ranges\n        )\n        if not self._spans:\n            return new_lines\n    \n        _line_appends = [line._spans.append for line in new_lines._lines]\n        line_count = len(line_ranges)\n        _Span = Span\n    \n        for span_start, span_end, style in self._spans:\n            lower_bound = 0\n            upper_bound = line_count\n            start_line_no = (lower_bound + upper_bound) // 2\n    \n            while True:\n                line_start, line_end = line_ranges[start_line_no]\n                if span_start < line_start:\n                    upper_bound = start_line_no - 1\n                elif span_start > line_end:\n                    lower_bound = start_line_no + 1\n                else:\n                    break\n                start_line_no = (lower_bound + upper_bound) // 2\n    \n            if span_end < line_end:\n                end_line_no = start_line_no\n            else:\n                end_line_no = lower_bound = start_line_no\n                upper_bound = line_count\n    \n                while True:\n>                   line_start, line_end = line_ranges[end_line_no]\n                                           ^^^^^^^^^^^^^^^^^^^^^^^^\nE                   IndexError: list index out of range\n\nrich/text.py:1164: IndexError\n1 failed, 107 passed in 1.69s\n",
+    "stderr_tail": ""
+  },
+  "gold_patch_strategy": "exact",
+  "gold_patch_applied": true,
+  "post": {
+    "exit": 0,
+    "seconds": 1.6,
+    "timeout": false,
+    "exit_meaning": "all_passed",
+    "run_class": "clean",
+    "counts": {
+      "passed": 108
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "........................................................................ [ 66%]\n....................................                                     [100%]\n108 passed in 1.24s\n",
+    "stderr_tail": ""
+  },
+  "trace_pre_exists": true,
+  "trace_post_exists": true,
+  "seconds": 36.5
+}

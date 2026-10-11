@@ -1,0 +1,44 @@
+
+$ /home/sauravbellam/cache/a2/fastapi_14616/venv/bin/python -s -m pytest tests/test_json_type.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/fastapi_14616/trace_pre.xml
+[exit 1]
+FFF.                                                                     [100%]
+=================================== FAILURES ===================================
+_____________________________ test_form_json_list ______________________________
+
+    def test_form_json_list():
+        response = client.post(
+            "/form-json-list", data={"items": json.dumps(["abc", "def"])}
+        )
+>       assert response.status_code == 200, response.text
+E       AssertionError: {"detail":[{"type":"json_type","loc":["body","items"],"msg":"JSON input should be string, bytes or bytearray","input":["[\"abc\", \"def\"]"]}]}
+E       assert 422 == 200
+E        +  where 422 = <Response [422 Unprocessable Entity]>.status_code
+
+tests/test_json_type.py:38: AssertionError
+_____________________________ test_query_json_list _____________________________
+
+    def test_query_json_list():
+        response = client.get(
+            "/query-json-list", params={"items": json.dumps(["abc", "def"])}
+        )
+>       assert response.status_code == 200, response.text
+E       AssertionError: {"detail":[{"type":"json_type","loc":["query","items"],"msg":"JSON input should be string, bytes or bytearray","input":["[\"abc\", \"def\"]"]}]}
+E       assert 422 == 200
+E        +  where 422 = <Response [422 Unprocessable Entity]>.status_code
+
+tests/test_json_type.py:46: AssertionError
+____________________________ test_header_json_list _____________________________
+
+    def test_header_json_list():
+        response = client.get(
+            "/header-json-list", headers={"x-items": json.dumps(["abc", "def"])}
+        )
+>       assert response.status_code == 200, response.text
+E       AssertionError: {"detail":[{"type":"json_type","loc":["header","x-items"],"msg":"JSON input should be string, bytes or bytearray","input":["[\"abc\", \"def\"]"]}]}
+E       assert 422 == 200
+E        +  where 422 = <Response [422 Unprocessable Entity]>.status_code
+
+tests/test_json_type.py:54: AssertionError
+3 failed, 1 passed in 1.87s
+
+

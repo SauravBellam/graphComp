@@ -1,0 +1,88 @@
+{
+  "instance_id": "rich_3061",
+  "repo": "Textualize/rich",
+  "backend": "venv",
+  "done": true,
+  "deps": {
+    "steps": [
+      {
+        "name": "pip_upgrade",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3061/venv/bin/python -m pip install -q --disable-pip-version-check 'pip>=24' 'setuptools' 'wheel' pytest pytest-timeout",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "editable_no_deps",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3061/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-build-isolation --no-deps -e .",
+        "exit": 2,
+        "stderr_tail": "python3.13/site-packages/pip/_internal/req/req_install.py\", line 258, in supports_pyproject_editable\n    return \"build_editable\" in self.pep517_backend._supported_features()\n                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"/home/sauravbellam/cache/a2/rich_3061/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 180, in _supported_features\n    return self._call_hook(\"_supported_features\", {})\n           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/sauravbellam/cache/a2/rich_3061/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 402, in _call_hook\n    raise BackendUnavailable(\n    ...<4 lines>...\n    )\npip._vendor.pyproject_hooks._impl.BackendUnavailable: Cannot import 'poetry.core.masonry.api'\n"
+      },
+      {
+        "name": "editable_no_deps_isolated",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3061/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-deps -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "runtime_deps",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3061/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "poetry_group_dev",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3061/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels pytest black mypy pytest-cov attrs pre-commit asv",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "rich_tests",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3061/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels pytest-cov attrs ipywidgets",
+        "exit": 0,
+        "stderr_tail": ""
+      }
+    ],
+    "editable_ok": true,
+    "python": "3.13.5 (main, Aug 10 2026, 12:06:59) [GCC 14.2.0]"
+  },
+  "targets": [
+    "tests/test_panel.py",
+    "tests/test_text.py"
+  ],
+  "test_patch_strategy": "exact",
+  "test_patch_applied": true,
+  "pre": {
+    "exit": 1,
+    "seconds": 1.4,
+    "timeout": false,
+    "exit_meaning": "some_failed",
+    "run_class": "clean",
+    "counts": {
+      "failed": 12,
+      "passed": 100
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "         \"\\t[bold]bar\",\n                4,\n                \"    bar\",\n                [\n                    Span(4, 7, \"bold\"),\n                ],\n            ),\n            (\n                \"[red]foo\\tbar\\n[green]egg\\tbaz\",\n                8,\n                \"foo     bar\\negg     baz\",\n                [\n                    Span(0, 8, \"red\"),\n                    Span(8, 12, \"red\"),\n                    Span(12, 20, \"red\"),\n                    Span(12, 20, \"green\"),\n                    Span(20, 23, \"red\"),\n                    Span(20, 23, \"green\"),\n                ],\n            ),\n            (\n                \"[bold]X\\tY\",\n                8,\n                \"X       Y\",\n                [\n                    Span(0, 8, \"bold\"),\n                    Span(8, 9, \"bold\"),\n                ],\n            ),\n            (\n                \"[bold]\ud83d\udca9\\t\ud83d\udca9\",\n                8,\n                \"\ud83d\udca9      \ud83d\udca9\",\n                [\n                    Span(0, 7, \"bold\"),\n                    Span(7, 8, \"bold\"),\n                ],\n            ),\n            (\n                \"[bold]\ud83d\udca9\ud83d\udca9\ud83d\udca9\ud83d\udca9\\t\ud83d\udca9\",\n                8,\n                \"\ud83d\udca9\ud83d\udca9\ud83d\udca9\ud83d\udca9        \ud83d\udca9\",\n                [\n                    Span(0, 12, \"bold\"),\n                    Span(12, 13, \"bold\"),\n                ],\n            ),\n        ],\n    )\n    def test_tabs_to_spaces_spans(\n        markup: str, tab_size: int, expected_text: str, expected_spans: List[Span]\n    ):\n        \"\"\"Test spans are correct after expand_tabs\"\"\"\n        text = Text.from_markup(markup)\n        text.expand_tabs(tab_size)\n        print(text._spans)\n>       assert text.plain == expected_text\nE       AssertionError: assert '\ud83d\udca9\ud83d\udca9\ud83d\udca9\ud83d\udca9    \ud83d\udca9' == '\ud83d\udca9\ud83d\udca9\ud83d\udca9\ud83d\udca9        \ud83d\udca9'\nE         \nE         - \ud83d\udca9\ud83d\udca9\ud83d\udca9\ud83d\udca9        \ud83d\udca9\nE         ?         ----\nE         + \ud83d\udca9\ud83d\udca9\ud83d\udca9\ud83d\udca9    \ud83d\udca9\n\ntests/test_text.py:693: AssertionError\n----------------------------- Captured stdout call -----------------------------\n[Span(0, 5, ''), Span(0, 5, 'bold'), Span(5, 8, ''), Span(8, 9, ''), Span(8, 9, 'bold')]\n______________________________ test_extend_style _______________________________\n\n    def test_extend_style():\n        text = Text.from_markup(\"[red]foo[/red] [bold]bar\")\n>       text.extend_style(0)\n        ^^^^^^^^^^^^^^^^^\nE       AttributeError: 'Text' object has no attribute 'extend_style'\n\ntests/test_text.py:906: AttributeError\n=============================== warnings summary ===============================\n../venv/lib/python3.13/site-packages/_pytest/python.py:124\n  /home/sauravbellam/cache/a2/rich_3061/venv/lib/python3.13/site-packages/_pytest/python.py:124: PytestRemovedIn10Warning: Passing a non-Collection iterable to parametrize is deprecated.\n  Test: test_panel.py::test_render_panel, argvalues type: zip\n  Please convert to a list or tuple.\n  See https://docs.pytest.org/en/stable/deprecations.html#parametrize-iterators\n    metafunc.parametrize(*marker.args, **marker.kwargs, _param_mark=marker)\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n12 failed, 100 passed, 1 warning in 1.20s\n",
+    "stderr_tail": ""
+  },
+  "gold_patch_strategy": "exact",
+  "gold_patch_applied": true,
+  "post": {
+    "exit": 0,
+    "seconds": 1.0,
+    "timeout": false,
+    "exit_meaning": "all_passed",
+    "run_class": "clean",
+    "counts": {
+      "passed": 112
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "........................................................................ [ 64%]\n........................................                                 [100%]\n=============================== warnings summary ===============================\n../venv/lib/python3.13/site-packages/_pytest/python.py:124\n  /home/sauravbellam/cache/a2/rich_3061/venv/lib/python3.13/site-packages/_pytest/python.py:124: PytestRemovedIn10Warning: Passing a non-Collection iterable to parametrize is deprecated.\n  Test: test_panel.py::test_render_panel, argvalues type: zip\n  Please convert to a list or tuple.\n  See https://docs.pytest.org/en/stable/deprecations.html#parametrize-iterators\n    metafunc.parametrize(*marker.args, **marker.kwargs, _param_mark=marker)\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n112 passed, 1 warning in 0.78s\n",
+    "stderr_tail": ""
+  },
+  "trace_pre_exists": true,
+  "trace_post_exists": true,
+  "seconds": 28.1
+}

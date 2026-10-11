@@ -1,0 +1,360 @@
+
+$ /home/sauravbellam/cache/a2/rich_3278/venv/bin/python -s -m pytest tests/test_ansi.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/rich_3278/trace_pre.xml
+[exit 1]
+.......FFFFFFFFFFFFFFFF                                                  [100%]
+=================================== FAILURES ===================================
+____________________ test_strip_private_escape_sequences[0] ____________________
+
+code = '0'
+
+    @pytest.mark.parametrize("code", [*"0123456789:;<=>?"])
+    def test_strip_private_escape_sequences(code):
+        text = Text.from_ansi(f"\x1b{code}x")
+    
+        console = Console(force_terminal=True)
+    
+        with console.capture() as capture:
+            console.print(text)
+    
+        expected = "x\n"
+    
+>       assert capture.get() == expected
+E       AssertionError: assert '\x1b0x\n' == 'x\n'
+E         
+E         - x
+E         + 0x
+
+tests/test_ansi.py:84: AssertionError
+____________________ test_strip_private_escape_sequences[1] ____________________
+
+code = '1'
+
+    @pytest.mark.parametrize("code", [*"0123456789:;<=>?"])
+    def test_strip_private_escape_sequences(code):
+        text = Text.from_ansi(f"\x1b{code}x")
+    
+        console = Console(force_terminal=True)
+    
+        with console.capture() as capture:
+            console.print(text)
+    
+        expected = "x\n"
+    
+>       assert capture.get() == expected
+E       AssertionError: assert '\x1b1x\n' == 'x\n'
+E         
+E         - x
+E         + 1x
+
+tests/test_ansi.py:84: AssertionError
+____________________ test_strip_private_escape_sequences[2] ____________________
+
+code = '2'
+
+    @pytest.mark.parametrize("code", [*"0123456789:;<=>?"])
+    def test_strip_private_escape_sequences(code):
+        text = Text.from_ansi(f"\x1b{code}x")
+    
+        console = Console(force_terminal=True)
+    
+        with console.capture() as capture:
+            console.print(text)
+    
+        expected = "x\n"
+    
+>       assert capture.get() == expected
+E       AssertionError: assert '\x1b2x\n' == 'x\n'
+E         
+E         - x
+E         + 2x
+
+tests/test_ansi.py:84: AssertionError
+____________________ test_strip_private_escape_sequences[3] ____________________
+
+code = '3'
+
+    @pytest.mark.parametrize("code", [*"0123456789:;<=>?"])
+    def test_strip_private_escape_sequences(code):
+        text = Text.from_ansi(f"\x1b{code}x")
+    
+        console = Console(force_terminal=True)
+    
+        with console.capture() as capture:
+            console.print(text)
+    
+        expected = "x\n"
+    
+>       assert capture.get() == expected
+E       AssertionError: assert '\x1b3x\n' == 'x\n'
+E         
+E         - x
+E         + 3x
+
+tests/test_ansi.py:84: AssertionError
+____________________ test_strip_private_escape_sequences[4] ____________________
+
+code = '4'
+
+    @pytest.mark.parametrize("code", [*"0123456789:;<=>?"])
+    def test_strip_private_escape_sequences(code):
+        text = Text.from_ansi(f"\x1b{code}x")
+    
+        console = Console(force_terminal=True)
+    
+        with console.capture() as capture:
+            console.print(text)
+    
+        expected = "x\n"
+    
+>       assert capture.get() == expected
+E       AssertionError: assert '\x1b4x\n' == 'x\n'
+E         
+E         - x
+E         + 4x
+
+tests/test_ansi.py:84: AssertionError
+____________________ test_strip_private_escape_sequences[5] ____________________
+
+code = '5'
+
+    @pytest.mark.parametrize("code", [*"0123456789:;<=>?"])
+    def test_strip_private_escape_sequences(code):
+        text = Text.from_ansi(f"\x1b{code}x")
+    
+        console = Console(force_terminal=True)
+    
+        with console.capture() as capture:
+            console.print(text)
+    
+        expected = "x\n"
+    
+>       assert capture.get() == expected
+E       AssertionError: assert '\x1b5x\n' == 'x\n'
+E         
+E         - x
+E         + 5x
+
+tests/test_ansi.py:84: AssertionError
+____________________ test_strip_private_escape_sequences[6] ____________________
+
+code = '6'
+
+    @pytest.mark.parametrize("code", [*"0123456789:;<=>?"])
+    def test_strip_private_escape_sequences(code):
+        text = Text.from_ansi(f"\x1b{code}x")
+    
+        console = Console(force_terminal=True)
+    
+        with console.capture() as capture:
+            console.print(text)
+    
+        expected = "x\n"
+    
+>       assert capture.get() == expected
+E       AssertionError: assert '\x1b6x\n' == 'x\n'
+E         
+E         - x
+E         + 6x
+
+tests/test_ansi.py:84: AssertionError
+____________________ test_strip_private_escape_sequences[7] ____________________
+
+code = '7'
+
+    @pytest.mark.parametrize("code", [*"0123456789:;<=>?"])
+    def test_strip_private_escape_sequences(code):
+        text = Text.from_ansi(f"\x1b{code}x")
+    
+        console = Console(force_terminal=True)
+    
+        with console.capture() as capture:
+            console.print(text)
+    
+        expected = "x\n"
+    
+>       assert capture.get() == expected
+E       AssertionError: assert '\x1b7x\n' == 'x\n'
+E         
+E         - x
+E         + 7x
+
+tests/test_ansi.py:84: AssertionError
+____________________ test_strip_private_escape_sequences[8] ____________________
+
+code = '8'
+
+    @pytest.mark.parametrize("code", [*"0123456789:;<=>?"])
+    def test_strip_private_escape_sequences(code):
+        text = Text.from_ansi(f"\x1b{code}x")
+    
+        console = Console(force_terminal=True)
+    
+        with console.capture() as capture:
+            console.print(text)
+    
+        expected = "x\n"
+    
+>       assert capture.get() == expected
+E       AssertionError: assert '\x1b8x\n' == 'x\n'
+E         
+E         - x
+E         + 8x
+
+tests/test_ansi.py:84: AssertionError
+____________________ test_strip_private_escape_sequences[9] ____________________
+
+code = '9'
+
+    @pytest.mark.parametrize("code", [*"0123456789:;<=>?"])
+    def test_strip_private_escape_sequences(code):
+        text = Text.from_ansi(f"\x1b{code}x")
+    
+        console = Console(force_terminal=True)
+    
+        with console.capture() as capture:
+            console.print(text)
+    
+        expected = "x\n"
+    
+>       assert capture.get() == expected
+E       AssertionError: assert '\x1b9x\n' == 'x\n'
+E         
+E         - x
+E         + 9x
+
+tests/test_ansi.py:84: AssertionError
+____________________ test_strip_private_escape_sequences[:] ____________________
+
+code = ':'
+
+    @pytest.mark.parametrize("code", [*"0123456789:;<=>?"])
+    def test_strip_private_escape_sequences(code):
+        text = Text.from_ansi(f"\x1b{code}x")
+    
+        console = Console(force_terminal=True)
+    
+        with console.capture() as capture:
+            console.print(text)
+    
+        expected = "x\n"
+    
+>       assert capture.get() == expected
+E       AssertionError: assert '\x1b:x\n' == 'x\n'
+E         
+E         - x
+E         + :x
+
+tests/test_ansi.py:84: AssertionError
+____________________ test_strip_private_escape_sequences[;] ____________________
+
+code = ';'
+
+    @pytest.mark.parametrize("code", [*"0123456789:;<=>?"])
+    def test_strip_private_escape_sequences(code):
+        text = Text.from_ansi(f"\x1b{code}x")
+    
+        console = Console(force_terminal=True)
+    
+        with console.capture() as capture:
+            console.print(text)
+    
+        expected = "x\n"
+    
+>       assert capture.get() == expected
+E       AssertionError: assert '\x1b;x\n' == 'x\n'
+E         
+E         - x
+E         + ;x
+
+tests/test_ansi.py:84: AssertionError
+____________________ test_strip_private_escape_sequences[<] ____________________
+
+code = '<'
+
+    @pytest.mark.parametrize("code", [*"0123456789:;<=>?"])
+    def test_strip_private_escape_sequences(code):
+        text = Text.from_ansi(f"\x1b{code}x")
+    
+        console = Console(force_terminal=True)
+    
+        with console.capture() as capture:
+            console.print(text)
+    
+        expected = "x\n"
+    
+>       assert capture.get() == expected
+E       AssertionError: assert '\x1b<x\n' == 'x\n'
+E         
+E         - x
+E         + <x
+
+tests/test_ansi.py:84: AssertionError
+____________________ test_strip_private_escape_sequences[=] ____________________
+
+code = '='
+
+    @pytest.mark.parametrize("code", [*"0123456789:;<=>?"])
+    def test_strip_private_escape_sequences(code):
+        text = Text.from_ansi(f"\x1b{code}x")
+    
+        console = Console(force_terminal=True)
+    
+        with console.capture() as capture:
+            console.print(text)
+    
+        expected = "x\n"
+    
+>       assert capture.get() == expected
+E       AssertionError: assert '\x1b=x\n' == 'x\n'
+E         
+E         - x
+E         + =x
+
+tests/test_ansi.py:84: AssertionError
+____________________ test_strip_private_escape_sequences[>] ____________________
+
+code = '>'
+
+    @pytest.mark.parametrize("code", [*"0123456789:;<=>?"])
+    def test_strip_private_escape_sequences(code):
+        text = Text.from_ansi(f"\x1b{code}x")
+    
+        console = Console(force_terminal=True)
+    
+        with console.capture() as capture:
+            console.print(text)
+    
+        expected = "x\n"
+    
+>       assert capture.get() == expected
+E       AssertionError: assert '\x1b>x\n' == 'x\n'
+E         
+E         - x
+E         + >x
+
+tests/test_ansi.py:84: AssertionError
+____________________ test_strip_private_escape_sequences[?] ____________________
+
+code = '?'
+
+    @pytest.mark.parametrize("code", [*"0123456789:;<=>?"])
+    def test_strip_private_escape_sequences(code):
+        text = Text.from_ansi(f"\x1b{code}x")
+    
+        console = Console(force_terminal=True)
+    
+        with console.capture() as capture:
+            console.print(text)
+    
+        expected = "x\n"
+    
+>       assert capture.get() == expected
+E       AssertionError: assert '\x1b?x\n' == 'x\n'
+E         
+E         - x
+E         + ?x
+
+tests/test_ansi.py:84: AssertionError
+16 failed, 7 passed in 0.64s
+
+

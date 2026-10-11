@@ -1,0 +1,37 @@
+
+$ /home/sauravbellam/cache/a2/rich_3486/venv/bin/python -s -m pytest tests/test_traceback.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/rich_3486/trace_pre.xml
+[exit 1]
+...................sF                                                    [100%]
+=================================== FAILURES ===================================
+________________________ test_traceback_finely_grained _________________________
+
+    @pytest.mark.skipif(
+        sys.version_info.minor < 11, reason="Not applicable before Python 3.11"
+    )
+    def test_traceback_finely_grained() -> None:
+        """Check that last instruction is populated."""
+        try:
+>           1 / 0
+E           ZeroDivisionError: division by zero
+
+tests/test_traceback.py:351: ZeroDivisionError
+
+During handling of the above exception, another exception occurred:
+
+    @pytest.mark.skipif(
+        sys.version_info.minor < 11, reason="Not applicable before Python 3.11"
+    )
+    def test_traceback_finely_grained() -> None:
+        """Check that last instruction is populated."""
+        try:
+            1 / 0
+        except:
+            traceback = Traceback()
+>           last_instruction = traceback.trace.stacks[-1].frames[-1].last_instruction
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           AttributeError: 'Frame' object has no attribute 'last_instruction'
+
+tests/test_traceback.py:354: AttributeError
+1 failed, 19 passed, 1 skipped in 2.23s
+
+

@@ -1,0 +1,41 @@
+
+$ /home/sauravbellam/cache/a2/requests_7427/venv/bin/python -s -m pytest tests/test_utils.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/requests_7427/trace_pre.xml
+[exit 1]
+..s..................................................................... [ 31%]
+........................................................................ [ 62%]
+.................................................................F..ssss [ 94%]
+sssssss.....s                                                            [100%]
+=================================== FAILURES ===================================
+_ test_should_bypass_proxies_no_proxy_domain_boundary[http://prelocalhost/-False] _
+
+url = 'http://prelocalhost/', expected = False
+
+    @pytest.mark.parametrize(
+        "url, expected",
+        (
+            ("http://localhost/", True),
+            ("http://anotherdomain.com:8888/", True),
+            ("http://newdomain.com:1234/", True),
+            ("http://www.newdomain.com:1234/", True),
+            ("http://foo.d.o.t/", True),
+            ("http://d.o.t/", True),
+            ("http://prelocalhost/", False),
+            ("http://newdomain.com/", False),
+            ("http://newdomain.com:1235/", False),
+        ),
+    )
+    def test_should_bypass_proxies_no_proxy_domain_boundary(url, expected):
+        """Ensure no_proxy matching respects domain boundaries and does not
+        greedily match domains that merely endswith the no_proxy entry.
+        See CPython bpo-39057.
+        """
+        no_proxy = "localhost, anotherdomain.com, newdomain.com:1234, .d.o.t"
+>       assert should_bypass_proxies(url, no_proxy=no_proxy) == expected
+E       AssertionError: assert True == False
+E        +  where True = should_bypass_proxies('http://prelocalhost/', no_proxy='localhost, anotherdomain.com, newdomain.com:1234, .d.o.t')
+
+tests/test_utils.py:867: AssertionError
+1 failed, 215 passed, 13 skipped in 1.72s
+
+[2026-10-10 23:15:26,009] WARNING in core: flasgger is not installed; serving the static landing page at / and skipping the Swagger UI and /spec.json.
+

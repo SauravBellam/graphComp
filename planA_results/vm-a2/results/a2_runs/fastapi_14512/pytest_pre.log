@@ -1,0 +1,654 @@
+
+$ /home/sauravbellam/cache/a2/fastapi_14512/venv/bin/python -s -m pytest tests/test_union_body_discriminator_annotated.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/fastapi_14512/trace_pre.xml
+[exit 1]
+EEE                                                                      [100%]
+==================================== ERRORS ====================================
+__________ ERROR at setup of test_union_body_discriminator_assignment __________
+
+self = TypeAdapter(Annotated[Union[Annotated[client_fixture.<locals>.Cat, Tag], Annotated[client_fixture.<locals>.Dog, Tag]], Discriminator, Body(PydanticUndefined)])
+ns_resolver = <pydantic._internal._namespace_utils.NsResolver object at 0x7fe0cf6258d0>
+force = False, raise_errors = False
+
+    def _init_core_attrs(
+        self, ns_resolver: _namespace_utils.NsResolver, force: bool, raise_errors: bool = False
+    ) -> bool:
+        """Initialize the core schema, validator, and serializer for the type.
+    
+        Args:
+            ns_resolver: The namespace resolver to use when building the core schema for the adapted type.
+            force: Whether to force the construction of the core schema, validator, and serializer.
+                If `force` is set to `False` and `_defer_build` is `True`, the core schema, validator, and serializer will be set to mocks.
+            raise_errors: Whether to raise errors if initializing any of the core attrs fails.
+    
+        Returns:
+            `True` if the core schema, validator, and serializer were successfully initialized, otherwise `False`.
+    
+        Raises:
+            PydanticUndefinedAnnotation: If `PydanticUndefinedAnnotation` occurs in`__get_pydantic_core_schema__`
+                and `raise_errors=True`.
+        """
+        if not force and self._defer_build:
+            _mock_val_ser.set_type_adapter_mocks(self)
+            self.pydantic_complete = False
+            return False
+    
+        try:
+>           self.core_schema = _getattr_no_parents(self._type, '__pydantic_core_schema__')
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+../venv/lib/python3.13/site-packages/pydantic/type_adapter.py:251: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+obj = typing.Annotated[typing.Union[typing.Annotated[tests.test_union_body_discriminator_annotated.client_fixture.<locals>.C...x7fe0ce9474c0>, custom_error_type=None, custom_error_message=None, custom_error_context=None), Body(PydanticUndefined)]
+attribute = '__pydantic_core_schema__'
+
+    def _getattr_no_parents(obj: Any, attribute: str) -> Any:
+        """Returns the attribute value without attempting to look up attributes from parent types."""
+        if hasattr(obj, '__dict__'):
+            try:
+                return obj.__dict__[attribute]
+            except KeyError:
+                pass
+    
+        slots = getattr(obj, '__slots__', None)
+        if slots is not None and attribute in slots:
+            return getattr(obj, attribute)
+        else:
+>           raise AttributeError(attribute)
+E           AttributeError: __pydantic_core_schema__
+
+../venv/lib/python3.13/site-packages/pydantic/type_adapter.py:55: AttributeError
+
+During handling of the above exception, another exception occurred:
+
+    @pytest.fixture(name="client")
+    def client_fixture() -> TestClient:
+        from fastapi import Body
+        from pydantic import Discriminator, Tag
+    
+        class Cat(BaseModel):
+            pet_type: str = "cat"
+            meows: int
+    
+        class Dog(BaseModel):
+            pet_type: str = "dog"
+            barks: float
+    
+        def get_pet_type(v):
+            assert isinstance(v, dict)
+            return v.get("pet_type", "")
+    
+        Pet = Annotated[
+            Union[Annotated[Cat, Tag("cat")], Annotated[Dog, Tag("dog")]],
+            Discriminator(get_pet_type),
+        ]
+    
+        app = FastAPI()
+    
+        @app.post("/pet/assignment")
+        async def create_pet_assignment(pet: Pet = Body()):
+            return pet
+    
+>       @app.post("/pet/annotated")
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_union_body_discriminator_annotated.py:43: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+fastapi/routing.py:1128: in decorator
+    self.add_api_route(
+fastapi/routing.py:1067: in add_api_route
+    route = route_class(
+fastapi/routing.py:686: in __init__
+    self.dependant = get_dependant(
+fastapi/dependencies/utils.py:288: in get_dependant
+    param_details = analyze_param(
+fastapi/dependencies/utils.py:531: in analyze_param
+    field = create_model_field(
+fastapi/utils.py:124: in create_model_field
+    return v2.ModelField(**kwargs)  # type: ignore[return-value,arg-type]
+           ^^^^^^^^^^^^^^^^^^^^^^^
+<string>:7: in __init__
+    ???
+fastapi/_compat/v2.py:103: in __post_init__
+    self._type_adapter: TypeAdapter[Any] = TypeAdapter(
+../venv/lib/python3.13/site-packages/pydantic/type_adapter.py:208: in __init__
+    self._init_core_attrs(
+../venv/lib/python3.13/site-packages/pydantic/type_adapter.py:270: in _init_core_attrs
+    core_schema = schema_generator.generate_schema(self._type)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../venv/lib/python3.13/site-packages/pydantic/_internal/_generate_schema.py:794: in generate_schema
+    schema = self._generate_schema_inner(obj, origin)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../venv/lib/python3.13/site-packages/pydantic/_internal/_generate_schema.py:1076: in _generate_schema_inner
+    return self._annotated_schema(obj)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../venv/lib/python3.13/site-packages/pydantic/_internal/_generate_schema.py:2231: in _annotated_schema
+    schema = self._apply_annotations(source_type, annotations)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../venv/lib/python3.13/site-packages/pydantic/_internal/_generate_schema.py:2287: in _apply_annotations
+    schema = get_inner_schema(source_type)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../venv/lib/python3.13/site-packages/pydantic/_internal/_schema_generation_shared.py:84: in __call__
+    schema = self._handler(source_type)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../venv/lib/python3.13/site-packages/pydantic/_internal/_generate_schema.py:2425: in new_handler
+    schema = get_inner_schema(source)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+../venv/lib/python3.13/site-packages/pydantic/_internal/_schema_generation_shared.py:84: in __call__
+    schema = self._handler(source_type)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../venv/lib/python3.13/site-packages/pydantic/_internal/_generate_schema.py:2423: in new_handler
+    schema = annotation_get_schema(source, get_inner_schema)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../venv/lib/python3.13/site-packages/pydantic/types.py:3115: in __get_pydantic_core_schema__
+    return self._convert_schema(original_schema, handler)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = Discriminator(discriminator=<function client_fixture.<locals>.get_pet_type at 0x7fe0ce9474c0>, custom_error_type=None, custom_error_message=None, custom_error_context=None)
+original_schema = {'choices': [{'choices': {'cat': {'metadata': {'pydantic_internal_union_tag_key': 'cat'}, 'schema_ref': 'tests.test_un...minator': <function client_fixture.<locals>.get_pet_type at 0x7fe0ce9474c0>, 'type': 'tagged-union'}], 'type': 'union'}
+handler = <pydantic._internal._schema_generation_shared.CallbackGetCoreSchemaHandler object at 0x7fe0ce9288f0>
+definitions = None
+
+    def _convert_schema(
+        self,
+        original_schema: core_schema.CoreSchema,
+        handler: GetCoreSchemaHandler | None = None,
+        definitions: dict[str, core_schema.CoreSchema] | None = None,
+    ) -> core_schema.TaggedUnionSchema:
+        def _resolve_ref(schema: core_schema.CoreSchema) -> core_schema.CoreSchema | None:
+            # `handler` is set when this method is called while generating the schema for the field
+            # (e.g. via `Annotated[<type>, Discriminator(...)]`). `definitions` is set instead when
+            # this method is called from `apply_discriminator()` (deferred/callable discriminators).
+            if handler is not None:
+                try:
+                    return handler.resolve_ref_schema(schema)
+                except LookupError:  # pragma: no cover
+                    return None
+            elif definitions is not None:
+                schema_ref = cast(core_schema.DefinitionReferenceSchema, schema)['schema_ref']
+                return definitions.get(schema_ref)
+            return None
+    
+        if original_schema['type'] == 'definition-ref':
+            # Same logic as `_ApplyInferredDiscriminator._apply_to_root()`
+            def_schema = _resolve_ref(original_schema)
+            if def_schema is None:
+                from pydantic._internal._discriminated_union import MissingDefinitionForUnionRef
+    
+                raise MissingDefinitionForUnionRef(original_schema['schema_ref'])
+    
+            # If using a referenceable union as discriminated (e.g. `type Pet = Cat | Dog; field: Pet = Field(discriminator=...)`):
+            if def_schema['type'] == 'union':
+                original_schema = def_schema.copy()
+                original_schema.pop('ref')
+    
+        if original_schema['type'] != 'union':
+            # This likely indicates that the schema was a single-item union that was simplified.
+            # In this case, we do the same thing we do in
+            # `pydantic._internal._discriminated_union._ApplyInferredDiscriminator._apply_to_root`, namely,
+            # package the generated schema back into a single-item union.
+            original_schema = core_schema.union_schema([original_schema])
+    
+        tagged_union_choices = {}
+        for choice in original_schema['choices']:
+            tag = None
+            if isinstance(choice, tuple):
+                choice, tag = choice
+            metadata = cast('CoreMetadata | None', choice.get('metadata'))
+            if metadata is not None:
+                tag = metadata.get('pydantic_internal_union_tag_key') or tag
+            if tag is None:
+                if choice['type'] == 'definition-ref':
+                    # If choice was built from a PEP 695 type alias, try to resolve the def:
+                    resolved_choice = _resolve_ref(choice)
+                    if resolved_choice is not None:
+                        choice = resolved_choice
+                        metadata = cast('CoreMetadata | None', choice.get('metadata'))
+                        if metadata is not None:
+                            tag = metadata.get('pydantic_internal_union_tag_key')
+    
+                if tag is None:
+>                   raise PydanticUserError(
+                        f'`Tag` not provided for choice {choice} used with `Discriminator`',
+                        code='callable-discriminator-no-tag',
+                    )
+E                   pydantic.errors.PydanticUserError: `Tag` not provided for choice {'type': 'tagged-union', 'choices': {'cat': {'type': 'definition-ref', 'schema_ref': 'tests.test_union_body_discriminator_annotated.client_fixture.<locals>.Cat:399542816', 'metadata': {'pydantic_internal_union_tag_key': 'cat'}}, 'dog': {'type': 'definition-ref', 'schema_ref': 'tests.test_union_body_discriminator_annotated.client_fixture.<locals>.Dog:399543808', 'metadata': {'pydantic_internal_union_tag_key': 'dog'}}}, 'discriminator': <function client_fixture.<locals>.get_pet_type at 0x7fe0ce9474c0>} used with `Discriminator`
+E                   
+E                   For further information visit https://errors.pydantic.dev/2.14/u/callable-discriminator-no-tag
+
+../venv/lib/python3.13/site-packages/pydantic/types.py:3176: PydanticUserError
+__________ ERROR at setup of test_union_body_discriminator_annotated ___________
+
+self = TypeAdapter(Annotated[Union[Annotated[client_fixture.<locals>.Cat, Tag], Annotated[client_fixture.<locals>.Dog, Tag]], Discriminator, Body(PydanticUndefined)])
+ns_resolver = <pydantic._internal._namespace_utils.NsResolver object at 0x7fe0ce267cb0>
+force = False, raise_errors = False
+
+    def _init_core_attrs(
+        self, ns_resolver: _namespace_utils.NsResolver, force: bool, raise_errors: bool = False
+    ) -> bool:
+        """Initialize the core schema, validator, and serializer for the type.
+    
+        Args:
+            ns_resolver: The namespace resolver to use when building the core schema for the adapted type.
+            force: Whether to force the construction of the core schema, validator, and serializer.
+                If `force` is set to `False` and `_defer_build` is `True`, the core schema, validator, and serializer will be set to mocks.
+            raise_errors: Whether to raise errors if initializing any of the core attrs fails.
+    
+        Returns:
+            `True` if the core schema, validator, and serializer were successfully initialized, otherwise `False`.
+    
+        Raises:
+            PydanticUndefinedAnnotation: If `PydanticUndefinedAnnotation` occurs in`__get_pydantic_core_schema__`
+                and `raise_errors=True`.
+        """
+        if not force and self._defer_build:
+            _mock_val_ser.set_type_adapter_mocks(self)
+            self.pydantic_complete = False
+            return False
+    
+        try:
+>           self.core_schema = _getattr_no_parents(self._type, '__pydantic_core_schema__')
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+../venv/lib/python3.13/site-packages/pydantic/type_adapter.py:251: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+obj = typing.Annotated[typing.Union[typing.Annotated[tests.test_union_body_discriminator_annotated.client_fixture.<locals>.C...x7fe0ce9476a0>, custom_error_type=None, custom_error_message=None, custom_error_context=None), Body(PydanticUndefined)]
+attribute = '__pydantic_core_schema__'
+
+    def _getattr_no_parents(obj: Any, attribute: str) -> Any:
+        """Returns the attribute value without attempting to look up attributes from parent types."""
+        if hasattr(obj, '__dict__'):
+            try:
+                return obj.__dict__[attribute]
+            except KeyError:
+                pass
+    
+        slots = getattr(obj, '__slots__', None)
+        if slots is not None and attribute in slots:
+            return getattr(obj, attribute)
+        else:
+>           raise AttributeError(attribute)
+E           AttributeError: __pydantic_core_schema__
+
+../venv/lib/python3.13/site-packages/pydantic/type_adapter.py:55: AttributeError
+
+During handling of the above exception, another exception occurred:
+
+    @pytest.fixture(name="client")
+    def client_fixture() -> TestClient:
+        from fastapi import Body
+        from pydantic import Discriminator, Tag
+    
+        class Cat(BaseModel):
+            pet_type: str = "cat"
+            meows: int
+    
+        class Dog(BaseModel):
+            pet_type: str = "dog"
+            barks: float
+    
+        def get_pet_type(v):
+            assert isinstance(v, dict)
+            return v.get("pet_type", "")
+    
+        Pet = Annotated[
+            Union[Annotated[Cat, Tag("cat")], Annotated[Dog, Tag("dog")]],
+            Discriminator(get_pet_type),
+        ]
+    
+        app = FastAPI()
+    
+        @app.post("/pet/assignment")
+        async def create_pet_assignment(pet: Pet = Body()):
+            return pet
+    
+>       @app.post("/pet/annotated")
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_union_body_discriminator_annotated.py:43: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+fastapi/routing.py:1128: in decorator
+    self.add_api_route(
+fastapi/routing.py:1067: in add_api_route
+    route = route_class(
+fastapi/routing.py:686: in __init__
+    self.dependant = get_dependant(
+fastapi/dependencies/utils.py:288: in get_dependant
+    param_details = analyze_param(
+fastapi/dependencies/utils.py:531: in analyze_param
+    field = create_model_field(
+fastapi/utils.py:124: in create_model_field
+    return v2.ModelField(**kwargs)  # type: ignore[return-value,arg-type]
+           ^^^^^^^^^^^^^^^^^^^^^^^
+<string>:7: in __init__
+    ???
+fastapi/_compat/v2.py:103: in __post_init__
+    self._type_adapter: TypeAdapter[Any] = TypeAdapter(
+../venv/lib/python3.13/site-packages/pydantic/type_adapter.py:208: in __init__
+    self._init_core_attrs(
+../venv/lib/python3.13/site-packages/pydantic/type_adapter.py:270: in _init_core_attrs
+    core_schema = schema_generator.generate_schema(self._type)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../venv/lib/python3.13/site-packages/pydantic/_internal/_generate_schema.py:794: in generate_schema
+    schema = self._generate_schema_inner(obj, origin)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../venv/lib/python3.13/site-packages/pydantic/_internal/_generate_schema.py:1076: in _generate_schema_inner
+    return self._annotated_schema(obj)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../venv/lib/python3.13/site-packages/pydantic/_internal/_generate_schema.py:2231: in _annotated_schema
+    schema = self._apply_annotations(source_type, annotations)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../venv/lib/python3.13/site-packages/pydantic/_internal/_generate_schema.py:2287: in _apply_annotations
+    schema = get_inner_schema(source_type)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../venv/lib/python3.13/site-packages/pydantic/_internal/_schema_generation_shared.py:84: in __call__
+    schema = self._handler(source_type)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../venv/lib/python3.13/site-packages/pydantic/_internal/_generate_schema.py:2425: in new_handler
+    schema = get_inner_schema(source)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+../venv/lib/python3.13/site-packages/pydantic/_internal/_schema_generation_shared.py:84: in __call__
+    schema = self._handler(source_type)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../venv/lib/python3.13/site-packages/pydantic/_internal/_generate_schema.py:2423: in new_handler
+    schema = annotation_get_schema(source, get_inner_schema)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../venv/lib/python3.13/site-packages/pydantic/types.py:3115: in __get_pydantic_core_schema__
+    return self._convert_schema(original_schema, handler)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = Discriminator(discriminator=<function client_fixture.<locals>.get_pet_type at 0x7fe0ce9476a0>, custom_error_type=None, custom_error_message=None, custom_error_context=None)
+original_schema = {'choices': [{'choices': {'cat': {'metadata': {'pydantic_internal_union_tag_key': 'cat'}, 'schema_ref': 'tests.test_un...minator': <function client_fixture.<locals>.get_pet_type at 0x7fe0ce9476a0>, 'type': 'tagged-union'}], 'type': 'union'}
+handler = <pydantic._internal._schema_generation_shared.CallbackGetCoreSchemaHandler object at 0x7fe0ce26dd90>
+definitions = None
+
+    def _convert_schema(
+        self,
+        original_schema: core_schema.CoreSchema,
+        handler: GetCoreSchemaHandler | None = None,
+        definitions: dict[str, core_schema.CoreSchema] | None = None,
+    ) -> core_schema.TaggedUnionSchema:
+        def _resolve_ref(schema: core_schema.CoreSchema) -> core_schema.CoreSchema | None:
+            # `handler` is set when this method is called while generating the schema for the field
+            # (e.g. via `Annotated[<type>, Discriminator(...)]`). `definitions` is set instead when
+            # this method is called from `apply_discriminator()` (deferred/callable discriminators).
+            if handler is not None:
+                try:
+                    return handler.resolve_ref_schema(schema)
+                except LookupError:  # pragma: no cover
+                    return None
+            elif definitions is not None:
+                schema_ref = cast(core_schema.DefinitionReferenceSchema, schema)['schema_ref']
+                return definitions.get(schema_ref)
+            return None
+    
+        if original_schema['type'] == 'definition-ref':
+            # Same logic as `_ApplyInferredDiscriminator._apply_to_root()`
+            def_schema = _resolve_ref(original_schema)
+            if def_schema is None:
+                from pydantic._internal._discriminated_union import MissingDefinitionForUnionRef
+    
+                raise MissingDefinitionForUnionRef(original_schema['schema_ref'])
+    
+            # If using a referenceable union as discriminated (e.g. `type Pet = Cat | Dog; field: Pet = Field(discriminator=...)`):
+            if def_schema['type'] == 'union':
+                original_schema = def_schema.copy()
+                original_schema.pop('ref')
+    
+        if original_schema['type'] != 'union':
+            # This likely indicates that the schema was a single-item union that was simplified.
+            # In this case, we do the same thing we do in
+            # `pydantic._internal._discriminated_union._ApplyInferredDiscriminator._apply_to_root`, namely,
+            # package the generated schema back into a single-item union.
+            original_schema = core_schema.union_schema([original_schema])
+    
+        tagged_union_choices = {}
+        for choice in original_schema['choices']:
+            tag = None
+            if isinstance(choice, tuple):
+                choice, tag = choice
+            metadata = cast('CoreMetadata | None', choice.get('metadata'))
+            if metadata is not None:
+                tag = metadata.get('pydantic_internal_union_tag_key') or tag
+            if tag is None:
+                if choice['type'] == 'definition-ref':
+                    # If choice was built from a PEP 695 type alias, try to resolve the def:
+                    resolved_choice = _resolve_ref(choice)
+                    if resolved_choice is not None:
+                        choice = resolved_choice
+                        metadata = cast('CoreMetadata | None', choice.get('metadata'))
+                        if metadata is not None:
+                            tag = metadata.get('pydantic_internal_union_tag_key')
+    
+                if tag is None:
+>                   raise PydanticUserError(
+                        f'`Tag` not provided for choice {choice} used with `Discriminator`',
+                        code='callable-discriminator-no-tag',
+                    )
+E                   pydantic.errors.PydanticUserError: `Tag` not provided for choice {'type': 'tagged-union', 'choices': {'cat': {'type': 'definition-ref', 'schema_ref': 'tests.test_union_body_discriminator_annotated.client_fixture.<locals>.Cat:399582656', 'metadata': {'pydantic_internal_union_tag_key': 'cat'}}, 'dog': {'type': 'definition-ref', 'schema_ref': 'tests.test_union_body_discriminator_annotated.client_fixture.<locals>.Dog:399584992', 'metadata': {'pydantic_internal_union_tag_key': 'dog'}}}, 'discriminator': <function client_fixture.<locals>.get_pet_type at 0x7fe0ce9476a0>} used with `Discriminator`
+E                   
+E                   For further information visit https://errors.pydantic.dev/2.14/u/callable-discriminator-no-tag
+
+../venv/lib/python3.13/site-packages/pydantic/types.py:3176: PydanticUserError
+____________________ ERROR at setup of test_openapi_schema _____________________
+
+self = TypeAdapter(Annotated[Union[Annotated[client_fixture.<locals>.Cat, Tag], Annotated[client_fixture.<locals>.Dog, Tag]], Discriminator, Body(PydanticUndefined)])
+ns_resolver = <pydantic._internal._namespace_utils.NsResolver object at 0x7fe0ce106580>
+force = False, raise_errors = False
+
+    def _init_core_attrs(
+        self, ns_resolver: _namespace_utils.NsResolver, force: bool, raise_errors: bool = False
+    ) -> bool:
+        """Initialize the core schema, validator, and serializer for the type.
+    
+        Args:
+            ns_resolver: The namespace resolver to use when building the core schema for the adapted type.
+            force: Whether to force the construction of the core schema, validator, and serializer.
+                If `force` is set to `False` and `_defer_build` is `True`, the core schema, validator, and serializer will be set to mocks.
+            raise_errors: Whether to raise errors if initializing any of the core attrs fails.
+    
+        Returns:
+            `True` if the core schema, validator, and serializer were successfully initialized, otherwise `False`.
+    
+        Raises:
+            PydanticUndefinedAnnotation: If `PydanticUndefinedAnnotation` occurs in`__get_pydantic_core_schema__`
+                and `raise_errors=True`.
+        """
+        if not force and self._defer_build:
+            _mock_val_ser.set_type_adapter_mocks(self)
+            self.pydantic_complete = False
+            return False
+    
+        try:
+>           self.core_schema = _getattr_no_parents(self._type, '__pydantic_core_schema__')
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+../venv/lib/python3.13/site-packages/pydantic/type_adapter.py:251: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+obj = typing.Annotated[typing.Union[typing.Annotated[tests.test_union_body_discriminator_annotated.client_fixture.<locals>.C...x7fe0ce947ba0>, custom_error_type=None, custom_error_message=None, custom_error_context=None), Body(PydanticUndefined)]
+attribute = '__pydantic_core_schema__'
+
+    def _getattr_no_parents(obj: Any, attribute: str) -> Any:
+        """Returns the attribute value without attempting to look up attributes from parent types."""
+        if hasattr(obj, '__dict__'):
+            try:
+                return obj.__dict__[attribute]
+            except KeyError:
+                pass
+    
+        slots = getattr(obj, '__slots__', None)
+        if slots is not None and attribute in slots:
+            return getattr(obj, attribute)
+        else:
+>           raise AttributeError(attribute)
+E           AttributeError: __pydantic_core_schema__
+
+../venv/lib/python3.13/site-packages/pydantic/type_adapter.py:55: AttributeError
+
+During handling of the above exception, another exception occurred:
+
+    @pytest.fixture(name="client")
+    def client_fixture() -> TestClient:
+        from fastapi import Body
+        from pydantic import Discriminator, Tag
+    
+        class Cat(BaseModel):
+            pet_type: str = "cat"
+            meows: int
+    
+        class Dog(BaseModel):
+            pet_type: str = "dog"
+            barks: float
+    
+        def get_pet_type(v):
+            assert isinstance(v, dict)
+            return v.get("pet_type", "")
+    
+        Pet = Annotated[
+            Union[Annotated[Cat, Tag("cat")], Annotated[Dog, Tag("dog")]],
+            Discriminator(get_pet_type),
+        ]
+    
+        app = FastAPI()
+    
+        @app.post("/pet/assignment")
+        async def create_pet_assignment(pet: Pet = Body()):
+            return pet
+    
+>       @app.post("/pet/annotated")
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_union_body_discriminator_annotated.py:43: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+fastapi/routing.py:1128: in decorator
+    self.add_api_route(
+fastapi/routing.py:1067: in add_api_route
+    route = route_class(
+fastapi/routing.py:686: in __init__
+    self.dependant = get_dependant(
+fastapi/dependencies/utils.py:288: in get_dependant
+    param_details = analyze_param(
+fastapi/dependencies/utils.py:531: in analyze_param
+    field = create_model_field(
+fastapi/utils.py:124: in create_model_field
+    return v2.ModelField(**kwargs)  # type: ignore[return-value,arg-type]
+           ^^^^^^^^^^^^^^^^^^^^^^^
+<string>:7: in __init__
+    ???
+fastapi/_compat/v2.py:103: in __post_init__
+    self._type_adapter: TypeAdapter[Any] = TypeAdapter(
+../venv/lib/python3.13/site-packages/pydantic/type_adapter.py:208: in __init__
+    self._init_core_attrs(
+../venv/lib/python3.13/site-packages/pydantic/type_adapter.py:270: in _init_core_attrs
+    core_schema = schema_generator.generate_schema(self._type)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../venv/lib/python3.13/site-packages/pydantic/_internal/_generate_schema.py:794: in generate_schema
+    schema = self._generate_schema_inner(obj, origin)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../venv/lib/python3.13/site-packages/pydantic/_internal/_generate_schema.py:1076: in _generate_schema_inner
+    return self._annotated_schema(obj)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../venv/lib/python3.13/site-packages/pydantic/_internal/_generate_schema.py:2231: in _annotated_schema
+    schema = self._apply_annotations(source_type, annotations)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../venv/lib/python3.13/site-packages/pydantic/_internal/_generate_schema.py:2287: in _apply_annotations
+    schema = get_inner_schema(source_type)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../venv/lib/python3.13/site-packages/pydantic/_internal/_schema_generation_shared.py:84: in __call__
+    schema = self._handler(source_type)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../venv/lib/python3.13/site-packages/pydantic/_internal/_generate_schema.py:2425: in new_handler
+    schema = get_inner_schema(source)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+../venv/lib/python3.13/site-packages/pydantic/_internal/_schema_generation_shared.py:84: in __call__
+    schema = self._handler(source_type)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../venv/lib/python3.13/site-packages/pydantic/_internal/_generate_schema.py:2423: in new_handler
+    schema = annotation_get_schema(source, get_inner_schema)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../venv/lib/python3.13/site-packages/pydantic/types.py:3115: in __get_pydantic_core_schema__
+    return self._convert_schema(original_schema, handler)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = Discriminator(discriminator=<function client_fixture.<locals>.get_pet_type at 0x7fe0ce947ba0>, custom_error_type=None, custom_error_message=None, custom_error_context=None)
+original_schema = {'choices': [{'choices': {'cat': {'metadata': {'pydantic_internal_union_tag_key': 'cat'}, 'schema_ref': 'tests.test_un...minator': <function client_fixture.<locals>.get_pet_type at 0x7fe0ce947ba0>, 'type': 'tagged-union'}], 'type': 'union'}
+handler = <pydantic._internal._schema_generation_shared.CallbackGetCoreSchemaHandler object at 0x7fe0ce9b6450>
+definitions = None
+
+    def _convert_schema(
+        self,
+        original_schema: core_schema.CoreSchema,
+        handler: GetCoreSchemaHandler | None = None,
+        definitions: dict[str, core_schema.CoreSchema] | None = None,
+    ) -> core_schema.TaggedUnionSchema:
+        def _resolve_ref(schema: core_schema.CoreSchema) -> core_schema.CoreSchema | None:
+            # `handler` is set when this method is called while generating the schema for the field
+            # (e.g. via `Annotated[<type>, Discriminator(...)]`). `definitions` is set instead when
+            # this method is called from `apply_discriminator()` (deferred/callable discriminators).
+            if handler is not None:
+                try:
+                    return handler.resolve_ref_schema(schema)
+                except LookupError:  # pragma: no cover
+                    return None
+            elif definitions is not None:
+                schema_ref = cast(core_schema.DefinitionReferenceSchema, schema)['schema_ref']
+                return definitions.get(schema_ref)
+            return None
+    
+        if original_schema['type'] == 'definition-ref':
+            # Same logic as `_ApplyInferredDiscriminator._apply_to_root()`
+            def_schema = _resolve_ref(original_schema)
+            if def_schema is None:
+                from pydantic._internal._discriminated_union import MissingDefinitionForUnionRef
+    
+                raise MissingDefinitionForUnionRef(original_schema['schema_ref'])
+    
+            # If using a referenceable union as discriminated (e.g. `type Pet = Cat | Dog; field: Pet = Field(discriminator=...)`):
+            if def_schema['type'] == 'union':
+                original_schema = def_schema.copy()
+                original_schema.pop('ref')
+    
+        if original_schema['type'] != 'union':
+            # This likely indicates that the schema was a single-item union that was simplified.
+            # In this case, we do the same thing we do in
+            # `pydantic._internal._discriminated_union._ApplyInferredDiscriminator._apply_to_root`, namely,
+            # package the generated schema back into a single-item union.
+            original_schema = core_schema.union_schema([original_schema])
+    
+        tagged_union_choices = {}
+        for choice in original_schema['choices']:
+            tag = None
+            if isinstance(choice, tuple):
+                choice, tag = choice
+            metadata = cast('CoreMetadata | None', choice.get('metadata'))
+            if metadata is not None:
+                tag = metadata.get('pydantic_internal_union_tag_key') or tag
+            if tag is None:
+                if choice['type'] == 'definition-ref':
+                    # If choice was built from a PEP 695 type alias, try to resolve the def:
+                    resolved_choice = _resolve_ref(choice)
+                    if resolved_choice is not None:
+                        choice = resolved_choice
+                        metadata = cast('CoreMetadata | None', choice.get('metadata'))
+                        if metadata is not None:
+                            tag = metadata.get('pydantic_internal_union_tag_key')
+    
+                if tag is None:
+>                   raise PydanticUserError(
+                        f'`Tag` not provided for choice {choice} used with `Discriminator`',
+                        code='callable-discriminator-no-tag',
+                    )
+E                   pydantic.errors.PydanticUserError: `Tag` not provided for choice {'type': 'tagged-union', 'choices': {'cat': {'type': 'definition-ref', 'schema_ref': 'tests.test_union_body_discriminator_annotated.client_fixture.<locals>.Cat:400437888', 'metadata': {'pydantic_internal_union_tag_key': 'cat'}}, 'dog': {'type': 'definition-ref', 'schema_ref': 'tests.test_union_body_discriminator_annotated.client_fixture.<locals>.Dog:401401296', 'metadata': {'pydantic_internal_union_tag_key': 'dog'}}}, 'discriminator': <function client_fixture.<locals>.get_pet_type at 0x7fe0ce947ba0>} used with `Discriminator`
+E                   
+E                   For further information visit https://errors.pydantic.dev/2.14/u/callable-discriminator-no-tag
+
+../venv/lib/python3.13/site-packages/pydantic/types.py:3176: PydanticUserError
+- generated xml file: /home/sauravbellam/results/a2_runs/fastapi_14512/trace_pre.xml -
+3 errors in 6.22s
+
+

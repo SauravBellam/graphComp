@@ -1,0 +1,19 @@
+
+$ /home/sauravbellam/cache/a2/fastapi_14978/venv/bin/python -s -m pytest tests/test_strict_content_type_app_level.py tests/test_strict_content_type_nested.py tests/test_strict_content_type_router_level.py tests/test_tutorial/test_body/test_tutorial001.py tests/test_tutorial/test_strict_content_type/test_tutorial001.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/fastapi_14978/trace_pre.xml
+[exit 2]
+
+==================================== ERRORS ====================================
+__________ ERROR collecting tests/test_strict_content_type_nested.py ___________
+tests/test_strict_content_type_nested.py:8: in <module>
+    inner_strict = APIRouter(prefix="/strict", strict_content_type=True)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   TypeError: APIRouter.__init__() got an unexpected keyword argument 'strict_content_type'
+_______ ERROR collecting tests/test_strict_content_type_router_level.py ________
+tests/test_strict_content_type_router_level.py:6: in <module>
+    router_lax = APIRouter(prefix="/lax", strict_content_type=False)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   TypeError: APIRouter.__init__() got an unexpected keyword argument 'strict_content_type'
+!!!!!!!!!!!!!!!!!!! Interrupted: 2 errors during collection !!!!!!!!!!!!!!!!!!!!
+2 errors in 3.36s
+
+

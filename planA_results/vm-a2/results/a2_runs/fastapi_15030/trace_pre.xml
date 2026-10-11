@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="1" failures="0" skipped="0" tests="1" time="2.809" timestamp="2026-10-10T23:15:45.607413+00:00" hostname="vm-a2"><testcase classname="" name="tests.test_sse" time="0.000"><error message="collection failure">ImportError while importing test module '/home/sauravbellam/cache/a2/fastapi_15030/workspace/tests/test_sse.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/usr/lib/python3.13/importlib/__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_sse.py:8: in &lt;module&gt;
+    from fastapi.responses import EventSourceResponse
+E   ImportError: cannot import name 'EventSourceResponse' from 'fastapi.responses' (/home/sauravbellam/cache/a2/fastapi_15030/workspace/fastapi/responses.py)</error></testcase></testsuite></testsuites>

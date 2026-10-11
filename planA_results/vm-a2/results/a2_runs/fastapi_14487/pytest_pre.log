@@ -1,0 +1,19 @@
+
+$ /home/sauravbellam/cache/a2/fastapi_14487/venv/bin/python -s -m pytest tests/test_tutorial/test_handling_errors/test_tutorial004.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/fastapi_14487/trace_pre.xml
+[exit 1]
+F...                                                                     [100%]
+=================================== FAILURES ===================================
+__________________________ test_get_validation_error ___________________________
+
+    def test_get_validation_error():
+        response = client.get("/items/foo")
+        assert response.status_code == 400, response.text
+>       assert "Validation errors:" in response.text
+E       assert 'Validation errors:' in '1 validation error:\n  {\'type\': \'int_parsing\', \'loc\': (\'path\', \'item_id\'), \'msg\': \'Input should be a val...e/a2/fastapi_14487/workspace/docs_src/handling_errors/tutorial004.py", line 19, in read_item\n    GET /items/{item_id}'
+E        +  where '1 validation error:\n  {\'type\': \'int_parsing\', \'loc\': (\'path\', \'item_id\'), \'msg\': \'Input should be a val...e/a2/fastapi_14487/workspace/docs_src/handling_errors/tutorial004.py", line 19, in read_item\n    GET /items/{item_id}' = <Response [400 Bad Request]>.text
+
+tests/test_tutorial/test_handling_errors/test_tutorial004.py:11: AssertionError
+- generated xml file: /home/sauravbellam/results/a2_runs/fastapi_14487/trace_pre.xml -
+1 failed, 3 passed in 1.82s
+
+

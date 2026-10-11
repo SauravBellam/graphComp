@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="1" tests="22" time="2.207" timestamp="2026-10-10T23:23:47.844267+00:00" hostname="vm-a2"><testcase classname="test_traceback" name="test_handler" file="test_traceback.py" line="12" time="0.160" /><testcase classname="test_traceback" name="test_capture" file="test_traceback.py" line="62" time="0.001" /><testcase classname="test_traceback" name="test_no_exception" file="test_traceback.py" line="70" time="0.001" /><testcase classname="test_traceback" name="test_print_exception" file="test_traceback.py" line="92" time="0.037" /><testcase classname="test_traceback" name="test_print_exception_no_msg" file="test_traceback.py" line="102" time="0.029" /><testcase classname="test_traceback" name="test_print_exception_locals" file="test_traceback.py" line="113" time="0.059" /><testcase classname="test_traceback" name="test_syntax_error" file="test_traceback.py" line="126" time="0.055" /><testcase classname="test_traceback" name="test_nested_exception" file="test_traceback.py" line="137" time="0.115" /><testcase classname="test_traceback" name="test_caused_exception" file="test_traceback.py" line="164" time="0.131" /><testcase classname="test_traceback" name="test_filename_with_bracket" file="test_traceback.py" line="191" time="0.049" /><testcase classname="test_traceback" name="test_filename_not_a_file" file="test_traceback.py" line="201" time="0.056" /><testcase classname="test_traceback" name="test_traceback_console_theme_applies" file="test_traceback.py" line="211" time="0.112" /><testcase classname="test_traceback" name="test_broken_str" file="test_traceback.py" line="235" time="0.099" /><testcase classname="test_traceback" name="test_guess_lexer" file="test_traceback.py" line="250" time="0.002" /><testcase classname="test_traceback" name="test_guess_lexer_yaml_j2" file="test_traceback.py" line="257" time="0.710" /><testcase classname="test_traceback" name="test_recursive" file="test_traceback.py" line="267" time="0.165" /><testcase classname="test_traceback" name="test_suppress" file="test_traceback.py" line="285" time="0.001" /><testcase classname="test_traceback" name="test_rich_traceback_omit_optional_local_flag[True-3-expected_frame_names0]" file="test_traceback.py" line="295" time="0.001" /><testcase classname="test_traceback" name="test_rich_traceback_omit_optional_local_flag[False-4-expected_frame_names1]" file="test_traceback.py" line="295" time="0.001" /><testcase classname="test_traceback" name="test_traceback_finely_grained_missing" file="test_traceback.py" line="331" time="0.000"><skipped type="pytest.skip" message="Not applicable after Python 3.11">/home/sauravbellam/cache/a2/rich_3676/workspace/tests/test_traceback.py:332: Not applicable after Python 3.11</skipped></testcase><testcase classname="test_traceback" name="test_traceback_finely_grained" file="test_traceback.py" line="344" time="0.001" /><testcase classname="test_traceback" name="test_notes" file="test_traceback.py" line="362" time="0.001"><failure message="AttributeError: 'Stack' object has no attribute 'notes'">@pytest.mark.skipif(
+        sys.version_info.minor &lt; 11, reason="Not supported before Python 3.11"
+    )
+    def test_notes() -&gt; None:
+        """Check traceback captures __note__."""
+        try:
+&gt;           1 / 0
+E           ZeroDivisionError: division by zero
+E           Hello
+E           World
+
+tests/test_traceback.py:369: ZeroDivisionError
+
+During handling of the above exception, another exception occurred:
+
+    @pytest.mark.skipif(
+        sys.version_info.minor &lt; 11, reason="Not supported before Python 3.11"
+    )
+    def test_notes() -&gt; None:
+        """Check traceback captures __note__."""
+        try:
+            1 / 0
+        except Exception as error:
+            error.add_note("Hello")
+            error.add_note("World")
+            traceback = Traceback()
+    
+&gt;           assert traceback.trace.stacks[0].notes == ["Hello", "World"]
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           AttributeError: 'Stack' object has no attribute 'notes'
+
+tests/test_traceback.py:375: AttributeError</failure></testcase></testsuite></testsuites>

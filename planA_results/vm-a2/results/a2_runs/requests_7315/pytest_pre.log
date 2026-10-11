@@ -1,0 +1,24 @@
+
+$ /home/sauravbellam/cache/a2/requests_7315/venv/bin/python -s -m pytest tests/test_adapters.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/requests_7315/trace_pre.xml
+[exit 1]
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_______________ test_request_url_handles_leading_path_separators _______________
+
+    def test_request_url_handles_leading_path_separators():
+        """See also https://github.com/psf/requests/issues/6643."""
+        a = requests.adapters.HTTPAdapter()
+        p = requests.Request(method="GET", url="http://127.0.0.1:10000//v:h").prepare()
+>       assert "//v:h" == a.request_url(p, {})
+E       AssertionError: assert '//v:h' == '/v:h'
+E         
+E         - /v:h
+E         + //v:h
+E         ? +
+
+tests/test_adapters.py:8: AssertionError
+- generated xml file: /home/sauravbellam/results/a2_runs/requests_7315/trace_pre.xml -
+1 failed in 0.14s
+
+[2026-10-10 23:15:26,837] WARNING in core: flasgger is not installed; serving the static landing page at / and skipping the Swagger UI and /spec.json.
+

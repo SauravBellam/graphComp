@@ -1,0 +1,19 @@
+
+$ /home/sauravbellam/cache/a2/rich_3535/venv/bin/python -s -m pytest tests/test_cells.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/rich_3535/trace_pre.xml
+[exit 1]
+.......F                                                                 [100%]
+=================================== FAILURES ===================================
+__________________________ test_is_single_cell_widths __________________________
+
+    def test_is_single_cell_widths() -> None:
+        # Check _is_single_cell_widths reports correctly
+        for character in string.printable:
+            if ord(character) >= 32:
+>               assert _is_single_cell_widths(character)
+E               AssertionError: assert None
+E                +  where None = _is_single_cell_widths('p')
+
+tests/test_cells.py:70: AssertionError
+1 failed, 7 passed in 0.17s
+
+
