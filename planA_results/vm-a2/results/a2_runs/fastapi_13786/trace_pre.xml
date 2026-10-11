@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="24" skipped="0" tests="69" time="4.398" timestamp="2026-10-10T23:23:04.765470+00:00" hostname="vm-a2"><testcase classname="tests.test_security_api_key_cookie" name="test_security_api_key" time="0.193" /><testcase classname="tests.test_security_api_key_cookie" name="test_security_api_key_no_key" time="0.008"><failure message="AssertionError: {&quot;detail&quot;:&quot;Not authenticated&quot;}&#10;assert 403 == 401&#10; +  where 403 = &lt;Response [403 Forbidden]&gt;.status_code">def test_security_api_key_no_key():
+        client = TestClient(app)
+        response = client.get("/users/me")
+&gt;       assert response.status_code == 401, response.text
+E       AssertionError: {"detail":"Not authenticated"}
+E       assert 403 == 401
+E        +  where 403 = &lt;Response [403 Forbidden]&gt;.status_code
+
+tests/test_security_api_key_cookie.py:35: AssertionError</failure></testcase><testcase classname="tests.test_security_api_key_cookie" name="test_openapi_schema" time="0.010" /><testcase classname="tests.test_security_api_key_cookie_description" name="test_security_api_key" time="0.009" /><testcase classname="tests.test_security_api_key_cookie_description" name="test_security_api_key_no_key" time="0.006"><failure message="AssertionError: {&quot;detail&quot;:&quot;Not authenticated&quot;}&#10;assert 403 == 401&#10; +  where 403 = &lt;Response [403 Forbidden]&gt;.status_code">def test_security_api_key_no_key():
+        client = TestClient(app)
+        response = client.get("/users/me")
+&gt;       assert response.status_code == 401, response.text
+E       AssertionError: {"detail":"Not authenticated"}
+E       assert 403 == 401
+E        +  where 403 = &lt;Response [403 Forbidden]&gt;.status_code
+
+tests/test_security_api_key_cookie_description.py:35: AssertionError</failure></testcase><testcase classname="tests.test_security_api_key_cookie_description" name="test_openapi_schema" time="0.008" /><testcase classname="tests.test_security_api_key_header" name="test_security_api_key" time="0.010" /><testcase classname="tests.test_security_api_key_header" name="test_security_api_key_no_key" time="0.005"><failure message="AssertionError: {&quot;detail&quot;:&quot;Not authenticated&quot;}&#10;assert 403 == 401&#10; +  where 403 = &lt;Response [403 Forbidden]&gt;.status_code">def test_security_api_key_no_key():
+        response = client.get("/users/me")
+&gt;       assert response.status_code == 401, response.text
+E       AssertionError: {"detail":"Not authenticated"}
+E       assert 403 == 401
+E        +  where 403 = &lt;Response [403 Forbidden]&gt;.status_code
+
+tests/test_security_api_key_header.py:36: AssertionError</failure></testcase><testcase classname="tests.test_security_api_key_header" name="test_openapi_schema" time="0.007" /><testcase classname="tests.test_security_api_key_header_description" name="test_security_api_key" time="0.008" /><testcase classname="tests.test_security_api_key_header_description" name="test_security_api_key_no_key" time="0.005"><failure message="AssertionError: {&quot;detail&quot;:&quot;Not authenticated&quot;}&#10;assert 403 == 401&#10; +  where 403 = &lt;Response [403 Forbidden]&gt;.status_code">def test_security_api_key_no_key():
+        response = client.get("/users/me")
+&gt;       assert response.status_code == 401, response.text
+E       AssertionError: {"detail":"Not authenticated"}
+E       assert 403 == 401
+E        +  where 403 = &lt;Response [403 Forbidden]&gt;.status_code
+
+tests/test_security_api_key_header_description.py:36: AssertionError</failure></testcase><testcase classname="tests.test_security_api_key_header_description" name="test_openapi_schema" time="0.008" /><testcase classname="tests.test_security_api_key_query" name="test_security_api_key" time="0.008" /><testcase classname="tests.test_security_api_key_query" name="test_security_api_key_no_key" time="0.007"><failure message="AssertionError: {&quot;detail&quot;:&quot;Not authenticated&quot;}&#10;assert 403 == 401&#10; +  where 403 = &lt;Response [403 Forbidden]&gt;.status_code">def test_security_api_key_no_key():
+        response = client.get("/users/me")
+&gt;       assert response.status_code == 401, response.text
+E       AssertionError: {"detail":"Not authenticated"}
+E       assert 403 == 401
+E        +  where 403 = &lt;Response [403 Forbidden]&gt;.status_code
+
+tests/test_security_api_key_query.py:36: AssertionError</failure></testcase><testcase classname="tests.test_security_api_key_query" name="test_openapi_schema" time="0.009" /><testcase classname="tests.test_security_api_key_query_description" name="test_security_api_key" time="0.008" /><testcase classname="tests.test_security_api_key_query_description" name="test_security_api_key_no_key" time="0.006"><failure message="AssertionError: {&quot;detail&quot;:&quot;Not authenticated&quot;}&#10;assert 403 == 401&#10; +  where 403 = &lt;Response [403 Forbidden]&gt;.status_code">def test_security_api_key_no_key():
+        response = client.get("/users/me")
+&gt;       assert response.status_code == 401, response.text
+E       AssertionError: {"detail":"Not authenticated"}
+E       assert 403 == 401
+E        +  where 403 = &lt;Response [403 Forbidden]&gt;.status_code
+
+tests/test_security_api_key_query_description.py:36: AssertionError</failure></testcase><testcase classname="tests.test_security_api_key_query_description" name="test_openapi_schema" time="0.008" /><testcase classname="tests.test_security_http_base" name="test_security_http_base" time="0.005" /><testcase classname="tests.test_security_http_base" name="test_security_http_base_no_credentials" time="0.004"><failure message="AssertionError: {&quot;detail&quot;:&quot;Not authenticated&quot;}&#10;assert 403 == 401&#10; +  where 403 = &lt;Response [403 Forbidden]&gt;.status_code">def test_security_http_base_no_credentials():
+        response = client.get("/users/me")
+&gt;       assert response.status_code == 401, response.text
+E       AssertionError: {"detail":"Not authenticated"}
+E       assert 403 == 401
+E        +  where 403 = &lt;Response [403 Forbidden]&gt;.status_code
+
+tests/test_security_http_base.py:26: AssertionError</failure></testcase><testcase classname="tests.test_security_http_base" name="test_openapi_schema" time="0.006" /><testcase classname="tests.test_security_http_base_description" name="test_security_http_base" time="0.005" /><testcase classname="tests.test_security_http_base_description" name="test_security_http_base_no_credentials" time="0.004"><failure message="AssertionError: {&quot;detail&quot;:&quot;Not authenticated&quot;}&#10;assert 403 == 401&#10; +  where 403 = &lt;Response [403 Forbidden]&gt;.status_code">def test_security_http_base_no_credentials():
+        response = client.get("/users/me")
+&gt;       assert response.status_code == 401, response.text
+E       AssertionError: {"detail":"Not authenticated"}
+E       assert 403 == 401
+E        +  where 403 = &lt;Response [403 Forbidden]&gt;.status_code
+
+tests/test_security_http_base_description.py:26: AssertionError</failure></testcase><testcase classname="tests.test_security_http_base_description" name="test_openapi_schema" time="0.006" /><testcase classname="tests.test_security_http_basic_optional" name="test_security_http_basic" time="0.007" /><testcase classname="tests.test_security_http_basic_optional" name="test_security_http_basic_no_credentials" time="0.007" /><testcase classname="tests.test_security_http_basic_optional" name="test_security_http_basic_invalid_credentials" time="0.007"><failure message="AssertionError: assert {'detail': 'I... credentials'} == {'detail': 'N...uthenticated'}&#10;  &#10;  Differing items:&#10;  {'detail': 'Invalid authentication credentials'} != {'detail': 'Not authenticated'}&#10;  Use -v to get more diff">def test_security_http_basic_invalid_credentials():
+        response = client.get(
+            "/users/me", headers={"Authorization": "Basic notabase64token"}
+        )
+        assert response.status_code == 401, response.text
+        assert response.headers["WWW-Authenticate"] == "Basic"
+&gt;       assert response.json() == {"detail": "Not authenticated"}
+E       AssertionError: assert {'detail': 'I... credentials'} == {'detail': 'N...uthenticated'}
+E         
+E         Differing items:
+E         {'detail': 'Invalid authentication credentials'} != {'detail': 'Not authenticated'}
+E         Use -v to get more diff
+
+tests/test_security_http_basic_optional.py:41: AssertionError</failure></testcase><testcase classname="tests.test_security_http_basic_optional" name="test_security_http_basic_non_basic_credentials" time="0.007"><failure message="AssertionError: assert {'detail': 'I... credentials'} == {'detail': 'N...uthenticated'}&#10;  &#10;  Differing items:&#10;  {'detail': 'Invalid authentication credentials'} != {'detail': 'Not authenticated'}&#10;  Use -v to get more diff">def test_security_http_basic_non_basic_credentials():
+        payload = b64encode(b"johnsecret").decode("ascii")
+        auth_header = f"Basic {payload}"
+        response = client.get("/users/me", headers={"Authorization": auth_header})
+        assert response.status_code == 401, response.text
+        assert response.headers["WWW-Authenticate"] == "Basic"
+&gt;       assert response.json() == {"detail": "Not authenticated"}
+E       AssertionError: assert {'detail': 'I... credentials'} == {'detail': 'N...uthenticated'}
+E         
+E         Differing items:
+E         {'detail': 'Invalid authentication credentials'} != {'detail': 'Not authenticated'}
+E         Use -v to get more diff
+
+tests/test_security_http_basic_optional.py:50: AssertionError</failure></testcase><testcase classname="tests.test_security_http_basic_optional" name="test_openapi_schema" time="0.009" /><testcase classname="tests.test_security_http_basic_realm" name="test_security_http_basic" time="0.008" /><testcase classname="tests.test_security_http_basic_realm" name="test_security_http_basic_no_credentials" time="0.006" /><testcase classname="tests.test_security_http_basic_realm" name="test_security_http_basic_invalid_credentials" time="0.006"><failure message="AssertionError: assert {'detail': 'I... credentials'} == {'detail': 'N...uthenticated'}&#10;  &#10;  Differing items:&#10;  {'detail': 'Invalid authentication credentials'} != {'detail': 'Not authenticated'}&#10;  Use -v to get more diff">def test_security_http_basic_invalid_credentials():
+        response = client.get(
+            "/users/me", headers={"Authorization": "Basic notabase64token"}
+        )
+        assert response.status_code == 401, response.text
+        assert response.headers["WWW-Authenticate"] == 'Basic realm="simple"'
+&gt;       assert response.json() == {"detail": "Not authenticated"}
+E       AssertionError: assert {'detail': 'I... credentials'} == {'detail': 'N...uthenticated'}
+E         
+E         Differing items:
+E         {'detail': 'Invalid authentication credentials'} != {'detail': 'Not authenticated'}
+E         Use -v to get more diff
+
+tests/test_security_http_basic_realm.py:39: AssertionError</failure></testcase><testcase classname="tests.test_security_http_basic_realm" name="test_security_http_basic_non_basic_credentials" time="0.007"><failure message="AssertionError: assert {'detail': 'I... credentials'} == {'detail': 'N...uthenticated'}&#10;  &#10;  Differing items:&#10;  {'detail': 'Invalid authentication credentials'} != {'detail': 'Not authenticated'}&#10;  Use -v to get more diff">def test_security_http_basic_non_basic_credentials():
+        payload = b64encode(b"johnsecret").decode("ascii")
+        auth_header = f"Basic {payload}"
+        response = client.get("/users/me", headers={"Authorization": auth_header})
+        assert response.status_code == 401, response.text
+        assert response.headers["WWW-Authenticate"] == 'Basic realm="simple"'
+&gt;       assert response.json() == {"detail": "Not authenticated"}
+E       AssertionError: assert {'detail': 'I... credentials'} == {'detail': 'N...uthenticated'}
+E         
+E         Differing items:
+E         {'detail': 'Invalid authentication credentials'} != {'detail': 'Not authenticated'}
+E         Use -v to get more diff
+
+tests/test_security_http_basic_realm.py:48: AssertionError</failure></testcase><testcase classname="tests.test_security_http_basic_realm" name="test_openapi_schema" time="0.009" /><testcase classname="tests.test_security_http_basic_realm_description" name="test_security_http_basic" time="0.014" /><testcase classname="tests.test_security_http_basic_realm_description" name="test_security_http_basic_no_credentials" time="0.009" /><testcase classname="tests.test_security_http_basic_realm_description" name="test_security_http_basic_invalid_credentials" time="0.007"><failure message="AssertionError: assert {'detail': 'I... credentials'} == {'detail': 'N...uthenticated'}&#10;  &#10;  Differing items:&#10;  {'detail': 'Invalid authentication credentials'} != {'detail': 'Not authenticated'}&#10;  Use -v to get more diff">def test_security_http_basic_invalid_credentials():
+        response = client.get(
+            "/users/me", headers={"Authorization": "Basic notabase64token"}
+        )
+        assert response.status_code == 401, response.text
+        assert response.headers["WWW-Authenticate"] == 'Basic realm="simple"'
+&gt;       assert response.json() == {"detail": "Not authenticated"}
+E       AssertionError: assert {'detail': 'I... credentials'} == {'detail': 'N...uthenticated'}
+E         
+E         Differing items:
+E         {'detail': 'Invalid authentication credentials'} != {'detail': 'Not authenticated'}
+E         Use -v to get more diff
+
+tests/test_security_http_basic_realm_description.py:39: AssertionError</failure></testcase><testcase classname="tests.test_security_http_basic_realm_description" name="test_security_http_basic_non_basic_credentials" time="0.007"><failure message="AssertionError: assert {'detail': 'I... credentials'} == {'detail': 'N...uthenticated'}&#10;  &#10;  Differing items:&#10;  {'detail': 'Invalid authentication credentials'} != {'detail': 'Not authenticated'}&#10;  Use -v to get more diff">def test_security_http_basic_non_basic_credentials():
+        payload = b64encode(b"johnsecret").decode("ascii")
+        auth_header = f"Basic {payload}"
+        response = client.get("/users/me", headers={"Authorization": auth_header})
+        assert response.status_code == 401, response.text
+        assert response.headers["WWW-Authenticate"] == 'Basic realm="simple"'
+&gt;       assert response.json() == {"detail": "Not authenticated"}
+E       AssertionError: assert {'detail': 'I... credentials'} == {'detail': 'N...uthenticated'}
+E         
+E         Differing items:
+E         {'detail': 'Invalid authentication credentials'} != {'detail': 'Not authenticated'}
+E         Use -v to get more diff
+
+tests/test_security_http_basic_realm_description.py:48: AssertionError</failure></testcase><testcase classname="tests.test_security_http_basic_realm_description" name="test_openapi_schema" time="0.008" /><testcase classname="tests.test_security_http_bearer" name="test_security_http_bearer" time="0.006" /><testcase classname="tests.test_security_http_bearer" name="test_security_http_bearer_no_credentials" time="0.006"><failure message="AssertionError: {&quot;detail&quot;:&quot;Not authenticated&quot;}&#10;assert 403 == 401&#10; +  where 403 = &lt;Response [403 Forbidden]&gt;.status_code">def test_security_http_bearer_no_credentials():
+        response = client.get("/users/me")
+&gt;       assert response.status_code == 401, response.text
+E       AssertionError: {"detail":"Not authenticated"}
+E       assert 403 == 401
+E        +  where 403 = &lt;Response [403 Forbidden]&gt;.status_code
+
+tests/test_security_http_bearer.py:26: AssertionError</failure></testcase><testcase classname="tests.test_security_http_bearer" name="test_security_http_bearer_incorrect_scheme_credentials" time="0.006"><failure message="AssertionError: {&quot;detail&quot;:&quot;Invalid authentication credentials&quot;}&#10;assert 403 == 401&#10; +  where 403 = &lt;Response [403 Forbidden]&gt;.status_code">def test_security_http_bearer_incorrect_scheme_credentials():
+        response = client.get("/users/me", headers={"Authorization": "Basic notreally"})
+&gt;       assert response.status_code == 401, response.text
+E       AssertionError: {"detail":"Invalid authentication credentials"}
+E       assert 403 == 401
+E        +  where 403 = &lt;Response [403 Forbidden]&gt;.status_code
+
+tests/test_security_http_bearer.py:33: AssertionError</failure></testcase><testcase classname="tests.test_security_http_bearer" name="test_openapi_schema" time="0.009" /><testcase classname="tests.test_security_http_bearer_description" name="test_security_http_bearer" time="0.008" /><testcase classname="tests.test_security_http_bearer_description" name="test_security_http_bearer_no_credentials" time="0.006"><failure message="AssertionError: {&quot;detail&quot;:&quot;Not authenticated&quot;}&#10;assert 403 == 401&#10; +  where 403 = &lt;Response [403 Forbidden]&gt;.status_code">def test_security_http_bearer_no_credentials():
+        response = client.get("/users/me")
+&gt;       assert response.status_code == 401, response.text
+E       AssertionError: {"detail":"Not authenticated"}
+E       assert 403 == 401
+E        +  where 403 = &lt;Response [403 Forbidden]&gt;.status_code
+
+tests/test_security_http_bearer_description.py:26: AssertionError</failure></testcase><testcase classname="tests.test_security_http_bearer_description" name="test_security_http_bearer_incorrect_scheme_credentials" time="0.007"><failure message="AssertionError: {&quot;detail&quot;:&quot;Invalid authentication credentials&quot;}&#10;assert 403 == 401&#10; +  where 403 = &lt;Response [403 Forbidden]&gt;.status_code">def test_security_http_bearer_incorrect_scheme_credentials():
+        response = client.get("/users/me", headers={"Authorization": "Basic notreally"})
+&gt;       assert response.status_code == 401, response.text
+E       AssertionError: {"detail":"Invalid authentication credentials"}
+E       assert 403 == 401
+E        +  where 403 = &lt;Response [403 Forbidden]&gt;.status_code
+
+tests/test_security_http_bearer_description.py:33: AssertionError</failure></testcase><testcase classname="tests.test_security_http_bearer_description" name="test_openapi_schema" time="0.009" /><testcase classname="tests.test_security_http_digest" name="test_security_http_digest" time="0.008" /><testcase classname="tests.test_security_http_digest" name="test_security_http_digest_no_credentials" time="0.006"><failure message="AssertionError: {&quot;detail&quot;:&quot;Not authenticated&quot;}&#10;assert 403 == 401&#10; +  where 403 = &lt;Response [403 Forbidden]&gt;.status_code">def test_security_http_digest_no_credentials():
+        response = client.get("/users/me")
+&gt;       assert response.status_code == 401, response.text
+E       AssertionError: {"detail":"Not authenticated"}
+E       assert 403 == 401
+E        +  where 403 = &lt;Response [403 Forbidden]&gt;.status_code
+
+tests/test_security_http_digest.py:26: AssertionError</failure></testcase><testcase classname="tests.test_security_http_digest" name="test_security_http_digest_incorrect_scheme_credentials" time="0.006"><failure message="AssertionError: {&quot;detail&quot;:&quot;Invalid authentication credentials&quot;}&#10;assert 403 == 401&#10; +  where 403 = &lt;Response [403 Forbidden]&gt;.status_code">def test_security_http_digest_incorrect_scheme_credentials():
+        response = client.get(
+            "/users/me", headers={"Authorization": "Other invalidauthorization"}
+        )
+&gt;       assert response.status_code == 401, response.text
+E       AssertionError: {"detail":"Invalid authentication credentials"}
+E       assert 403 == 401
+E        +  where 403 = &lt;Response [403 Forbidden]&gt;.status_code
+
+tests/test_security_http_digest.py:35: AssertionError</failure></testcase><testcase classname="tests.test_security_http_digest" name="test_openapi_schema" time="0.008" /><testcase classname="tests.test_security_http_digest_description" name="test_security_http_digest" time="0.008" /><testcase classname="tests.test_security_http_digest_description" name="test_security_http_digest_no_credentials" time="0.006"><failure message="AssertionError: {&quot;detail&quot;:&quot;Not authenticated&quot;}&#10;assert 403 == 401&#10; +  where 403 = &lt;Response [403 Forbidden]&gt;.status_code">def test_security_http_digest_no_credentials():
+        response = client.get("/users/me")
+&gt;       assert response.status_code == 401, response.text
+E       AssertionError: {"detail":"Not authenticated"}
+E       assert 403 == 401
+E        +  where 403 = &lt;Response [403 Forbidden]&gt;.status_code
+
+tests/test_security_http_digest_description.py:26: AssertionError</failure></testcase><testcase classname="tests.test_security_http_digest_description" name="test_security_http_digest_incorrect_scheme_credentials" time="0.006"><failure message="AssertionError: {&quot;detail&quot;:&quot;Invalid authentication credentials&quot;}&#10;assert 403 == 401&#10; +  where 403 = &lt;Response [403 Forbidden]&gt;.status_code">def test_security_http_digest_incorrect_scheme_credentials():
+        response = client.get(
+            "/users/me", headers={"Authorization": "Other invalidauthorization"}
+        )
+&gt;       assert response.status_code == 401, response.text
+E       AssertionError: {"detail":"Invalid authentication credentials"}
+E       assert 403 == 401
+E        +  where 403 = &lt;Response [403 Forbidden]&gt;.status_code
+
+tests/test_security_http_digest_description.py:35: AssertionError</failure></testcase><testcase classname="tests.test_security_http_digest_description" name="test_openapi_schema" time="0.008" /><testcase classname="tests.test_security_oauth2" name="test_security_oauth2" time="0.008" /><testcase classname="tests.test_security_oauth2" name="test_security_oauth2_password_other_header" time="0.008" /><testcase classname="tests.test_security_oauth2" name="test_security_oauth2_password_bearer_no_header" time="0.006"><failure message="AssertionError: {&quot;detail&quot;:&quot;Not authenticated&quot;}&#10;assert 403 == 401&#10; +  where 403 = &lt;Response [403 Forbidden]&gt;.status_code">def test_security_oauth2_password_bearer_no_header():
+        response = client.get("/users/me")
+&gt;       assert response.status_code == 401, response.text
+E       AssertionError: {"detail":"Not authenticated"}
+E       assert 403 == 401
+E        +  where 403 = &lt;Response [403 Forbidden]&gt;.status_code
+
+tests/test_security_oauth2.py:59: AssertionError</failure></testcase><testcase classname="tests.test_security_oauth2" name="test_strict_login_no_data" time="0.009" /><testcase classname="tests.test_security_oauth2" name="test_strict_login_no_grant_type" time="0.008" /><testcase classname="tests.test_security_oauth2" name="test_strict_login_incorrect_grant_type[incorrect value]" time="0.008" /><testcase classname="tests.test_security_oauth2" name="test_strict_login_incorrect_grant_type[password with suffix]" time="0.009" /><testcase classname="tests.test_security_oauth2" name="test_strict_login_incorrect_grant_type[password with prefix]" time="0.008" /><testcase classname="tests.test_security_oauth2" name="test_strict_login_correct_grant_type" time="0.009" /><testcase classname="tests.test_security_oauth2" name="test_openapi_schema" time="0.019" /><testcase classname="tests.test_security_openid_connect" name="test_security_oauth2" time="0.006" /><testcase classname="tests.test_security_openid_connect" name="test_security_oauth2_password_other_header" time="0.008" /><testcase classname="tests.test_security_openid_connect" name="test_security_oauth2_password_bearer_no_header" time="0.006"><failure message="AssertionError: {&quot;detail&quot;:&quot;Not authenticated&quot;}&#10;assert 403 == 401&#10; +  where 403 = &lt;Response [403 Forbidden]&gt;.status_code">def test_security_oauth2_password_bearer_no_header():
+        response = client.get("/users/me")
+&gt;       assert response.status_code == 401, response.text
+E       AssertionError: {"detail":"Not authenticated"}
+E       assert 403 == 401
+E        +  where 403 = &lt;Response [403 Forbidden]&gt;.status_code
+
+tests/test_security_openid_connect.py:42: AssertionError</failure></testcase><testcase classname="tests.test_security_openid_connect" name="test_openapi_schema" time="0.009" /></testsuite></testsuites>

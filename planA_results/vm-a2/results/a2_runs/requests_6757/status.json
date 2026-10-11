@@ -1,0 +1,85 @@
+{
+  "instance_id": "requests_6757",
+  "repo": "psf/requests",
+  "backend": "venv",
+  "done": true,
+  "deps": {
+    "steps": [
+      {
+        "name": "pip_upgrade",
+        "cmd": "/home/sauravbellam/cache/a2/requests_6757/venv/bin/python -m pip install -q --disable-pip-version-check 'pip>=24' 'setuptools' 'wheel' pytest pytest-timeout",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "editable_no_deps",
+        "cmd": "/home/sauravbellam/cache/a2/requests_6757/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-build-isolation --no-deps -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "runtime_deps",
+        "cmd": "/home/sauravbellam/cache/a2/requests_6757/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "req_requirements-dev.txt",
+        "cmd": "/home/sauravbellam/cache/a2/requests_6757/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -r requirements-dev.txt",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "requests_httpbin",
+        "cmd": "/home/sauravbellam/cache/a2/requests_6757/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels pytest-httpbin httpbin trustme pysocks",
+        "exit": 0,
+        "stderr_tail": ""
+      }
+    ],
+    "editable_ok": true,
+    "python": "3.13.5 (main, Aug 10 2026, 12:06:59) [GCC 14.2.0]"
+  },
+  "targets": [
+    "tests/test_requests.py"
+  ],
+  "test_patch_strategy": "exact",
+  "test_patch_applied": true,
+  "pre": {
+    "exit": 2,
+    "seconds": 4.4,
+    "timeout": false,
+    "exit_meaning": "interrupted",
+    "run_class": "collection_error",
+    "counts": {
+      "error": 2
+    },
+    "missing_modules": [],
+    "collection_errors": [
+      "tests/test_requests.py"
+    ],
+    "stdout_tail": "\n==================================== ERRORS ====================================\n___________________ ERROR collecting tests/test_requests.py ____________________\nImportError while importing test module '/home/sauravbellam/cache/a2/requests_6757/workspace/tests/test_requests.py'.\nHint: make sure your test modules/packages have valid Python names.\nTraceback:\n/usr/lib/python3.13/importlib/__init__.py:88: in import_module\n    return _bootstrap._gcd_import(name[level:], package, level)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\ntests/test_requests.py:21: in <module>\n    from requests.compat import (\nE   ImportError: cannot import name 'is_urllib3_1' from 'requests.compat' (/home/sauravbellam/cache/a2/requests_6757/workspace/src/requests/compat.py)\n- generated xml file: /home/sauravbellam/results/a2_runs/requests_6757/trace_pre.xml -\n!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\n1 error in 3.12s\n",
+    "stderr_tail": "[2026-10-10 23:22:36,691] WARNING in core: flasgger is not installed; serving the static landing page at / and skipping the Swagger UI and /spec.json.\n"
+  },
+  "gold_patch_strategy": "exact",
+  "gold_patch_applied": true,
+  "post": {
+    "exit": 1,
+    "seconds": 47.8,
+    "timeout": false,
+    "exit_meaning": "some_failed",
+    "run_class": "clean",
+    "counts": {
+      "failed": 4,
+      "passed": 323,
+      "skipped": 1,
+      "xfailed": 1
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "except ValueError:\n                raise ValueError(\n                    f\"Invalid timeout {timeout}. Pass a (connect, read) timeout tuple, \"\n                    f\"or a single float to set both timeouts to the same value.\"\n                )\n        elif isinstance(timeout, TimeoutSauce):\n            pass\n        else:\n            timeout = TimeoutSauce(connect=timeout, read=timeout)\n    \n        try:\n            resp = conn.urlopen(\n                method=request.method,\n                url=url,\n                body=request.body,\n                headers=request.headers,\n                redirect=False,\n                assert_same_host=False,\n                preload_content=False,\n                decode_content=False,\n                retries=self.max_retries,\n                timeout=timeout,\n                chunked=chunked,\n            )\n    \n        except (ProtocolError, OSError) as err:\n            raise ConnectionError(err, request=request)\n    \n        except MaxRetryError as e:\n            if isinstance(e.reason, ConnectTimeoutError):\n                # TODO: Remove this in 3.0.0: see #2811\n                if not isinstance(e.reason, NewConnectionError):\n                    raise ConnectTimeout(e, request=request)\n    \n            if isinstance(e.reason, ResponseError):\n                raise RetryError(e, request=request)\n    \n            if isinstance(e.reason, _ProxyError):\n                raise ProxyError(e, request=request)\n    \n            if isinstance(e.reason, _SSLError):\n                # This branch is for urllib3 v1.22 and later.\n>               raise SSLError(e, request=request)\nE               requests.exceptions.SSLError: HTTPSConnectionPool(host='localhost', port=38177): Max retries exceeded with url: / (Caused by SSLError(SSLError(1, '[SSL: SSLV3_ALERT_CERTIFICATE_EXPIRED] ssl/tls alert certificate expired (_ssl.c:2650)')))\n\nsrc/requests/adapters.py:698: SSLError\n=============================== warnings summary ===============================\ntests/test_requests.py::TestPreparingURLs::test_different_connection_pool_for_tls_settings_verify_True\ntests/test_requests.py::TestPreparingURLs::test_different_connection_pool_for_tls_settings_verify_bundle_expired_cert\ntests/test_requests.py::TestPreparingURLs::test_different_connection_pool_for_tls_settings_verify_bundle_unexpired_cert\ntests/test_requests.py::TestPreparingURLs::test_different_connection_pool_for_mtls_settings\n  /home/sauravbellam/cache/a2/requests_6757/venv/lib/python3.13/site-packages/urllib3/connectionpool.py:1129: InsecureRequestWarning: Unverified HTTPS request is being made to host 'localhost'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings\n    warnings.warn(\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n- generated xml file: /home/sauravbellam/results/a2_runs/requests_6757/trace_post.xml -\n4 failed, 323 passed, 1 skipped, 1 xfailed, 4 warnings in 46.68s\n",
+    "stderr_tail": "[2026-10-10 23:22:41,077] WARNING in core: flasgger is not installed; serving the static landing page at / and skipping the Swagger UI and /spec.json.\n127.0.0.1 - - [10/Oct/2026 23:22:44] \"HEAD /get HTTP/1.1\" 200 0\n127.0.0.1 - - [10/Oct/2026 23:22:44] \"GET /cookies HTTP/1.1\" 200 44\n127.0.0.1 - - [10/Oct/2026 23:22:44] \"GET /get HTTP/1.1\" 200 272\n127.0.0.1 - - [10/Oct/2026 23:22:51] \"POST /post HTTP/1.1\" 200 111416\n127.0.0.1 - - [10/Oct/2026 23:22:52] \"GET /get HTTP/1.1\" 200 285\n"
+  },
+  "trace_pre_exists": true,
+  "trace_post_exists": true,
+  "seconds": 79.3
+}

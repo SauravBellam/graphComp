@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="1" tests="23" time="61.368" timestamp="2026-10-10T23:53:15.697380+00:00" hostname="vm-a2"><testcase classname="test_traceback" name="test_handler" file="test_traceback.py" line="12" time="0.102" /><testcase classname="test_traceback" name="test_capture" file="test_traceback.py" line="62" time="0.001" /><testcase classname="test_traceback" name="test_no_exception" file="test_traceback.py" line="70" time="0.001" /><testcase classname="test_traceback" name="test_print_exception" file="test_traceback.py" line="92" time="0.028" /><testcase classname="test_traceback" name="test_print_exception_no_msg" file="test_traceback.py" line="102" time="0.029" /><testcase classname="test_traceback" name="test_print_exception_locals" file="test_traceback.py" line="113" time="0.046" /><testcase classname="test_traceback" name="test_syntax_error" file="test_traceback.py" line="126" time="0.037" /><testcase classname="test_traceback" name="test_nested_exception" file="test_traceback.py" line="137" time="0.073" /><testcase classname="test_traceback" name="test_caused_exception" file="test_traceback.py" line="164" time="0.084" /><testcase classname="test_traceback" name="test_filename_with_bracket" file="test_traceback.py" line="191" time="0.048" /><testcase classname="test_traceback" name="test_filename_not_a_file" file="test_traceback.py" line="201" time="0.051" /><testcase classname="test_traceback" name="test_traceback_console_theme_applies" file="test_traceback.py" line="211" time="0.054" /><testcase classname="test_traceback" name="test_broken_str" file="test_traceback.py" line="235" time="0.056" /><testcase classname="test_traceback" name="test_guess_lexer" file="test_traceback.py" line="250" time="0.001" /><testcase classname="test_traceback" name="test_guess_lexer_yaml_j2" file="test_traceback.py" line="257" time="0.304" /><testcase classname="test_traceback" name="test_recursive" file="test_traceback.py" line="267" time="0.098" /><testcase classname="test_traceback" name="test_suppress" file="test_traceback.py" line="285" time="0.001" /><testcase classname="test_traceback" name="test_rich_traceback_omit_optional_local_flag[True-3-expected_frame_names0]" file="test_traceback.py" line="295" time="0.001" /><testcase classname="test_traceback" name="test_rich_traceback_omit_optional_local_flag[False-4-expected_frame_names1]" file="test_traceback.py" line="295" time="0.001" /><testcase classname="test_traceback" name="test_traceback_finely_grained_missing" file="test_traceback.py" line="331" time="0.000"><skipped type="pytest.skip" message="Not applicable after Python 3.11">/home/sauravbellam/cache/a2/rich_3772/workspace/tests/test_traceback.py:332: Not applicable after Python 3.11</skipped></testcase><testcase classname="test_traceback" name="test_traceback_finely_grained" file="test_traceback.py" line="344" time="0.000" /><testcase classname="test_traceback" name="test_notes" file="test_traceback.py" line="362" time="0.000" /><testcase classname="test_traceback" name="test_recursive_exception" file="test_traceback.py" line="377" time="60.000"><failure message="Failed: Timeout (&gt;60.0s) from pytest-timeout.">def bar() -&gt; None:
+        try:
+&gt;           foo()
+
+tests/test_traceback.py:394: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_traceback.py:390: in foo
+    raise e from e
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def foo() -&gt; None:
+        try:
+&gt;           raise RuntimeError("Hello")
+E           RuntimeError: Hello
+
+tests/test_traceback.py:388: RuntimeError
+
+During handling of the above exception, another exception occurred:
+
+    def test_recursive_exception() -&gt; None:
+        """Regression test for https://github.com/Textualize/rich/issues/3708
+    
+        Test this doesn't create an infinite loop.
+    
+        """
+        console = Console()
+    
+        def foo() -&gt; None:
+            try:
+                raise RuntimeError("Hello")
+            except Exception as e:
+                raise e from e
+    
+        def bar() -&gt; None:
+            try:
+                foo()
+            except Exception as e:
+                assert e is e.__cause__
+                console.print_exception(show_locals=True)
+    
+&gt;       bar()
+
+tests/test_traceback.py:399: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_traceback.py:397: in bar
+    console.print_exception(show_locals=True)
+rich/console.py:1875: in print_exception
+    traceback = Traceback(
+rich/traceback.py:307: in __init__
+    trace = self.extract(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+cls = &lt;class 'rich.traceback.Traceback'&gt;, exc_type = &lt;class 'RuntimeError'&gt;
+exc_value = RuntimeError('Hello')
+traceback = &lt;traceback object at 0x7f6095ca9f00&gt;, show_locals = True
+locals_max_length = 10, locals_max_string = 80, locals_hide_dunder = True
+locals_hide_sunder = False
+
+    @classmethod
+    def extract(
+        cls,
+        exc_type: Type[BaseException],
+        exc_value: BaseException,
+        traceback: Optional[TracebackType],
+        *,
+        show_locals: bool = False,
+        locals_max_length: int = LOCALS_MAX_LENGTH,
+        locals_max_string: int = LOCALS_MAX_STRING,
+        locals_hide_dunder: bool = True,
+        locals_hide_sunder: bool = False,
+    ) -&gt; Trace:
+        """Extract traceback information.
+    
+        Args:
+            exc_type (Type[BaseException]): Exception type.
+            exc_value (BaseException): Exception value.
+            traceback (TracebackType): Python Traceback object.
+            show_locals (bool, optional): Enable display of local variables. Defaults to False.
+            locals_max_length (int, optional): Maximum length of containers before abbreviating, or None for no abbreviation.
+                Defaults to 10.
+            locals_max_string (int, optional): Maximum length of string before truncating, or None to disable. Defaults to 80.
+            locals_hide_dunder (bool, optional): Hide locals prefixed with double underscore. Defaults to True.
+            locals_hide_sunder (bool, optional): Hide locals prefixed with single underscore. Defaults to False.
+    
+        Returns:
+            Trace: A Trace instance which you can use to construct a `Traceback`.
+        """
+    
+        stacks: List[Stack] = []
+        is_cause = False
+    
+        from rich import _IMPORT_CWD
+    
+        notes: List[str] = getattr(exc_value, "__notes__", None) or []
+    
+        def safe_str(_object: Any) -&gt; str:
+            """Don't allow exceptions from __str__ to propagate."""
+            try:
+                return str(_object)
+            except Exception:
+                return "&lt;exception str() failed&gt;"
+    
+        while True:
+            stack = Stack(
+                exc_type=safe_str(exc_type.__name__),
+                exc_value=safe_str(exc_value),
+                is_cause=is_cause,
+                notes=notes,
+            )
+    
+            if sys.version_info &gt;= (3, 11):
+                if isinstance(exc_value, (BaseExceptionGroup, ExceptionGroup)):
+                    stack.is_group = True
+                    for exception in exc_value.exceptions:
+                        stack.exceptions.append(
+                            Traceback.extract(
+                                type(exception),
+                                exception,
+                                exception.__traceback__,
+                                show_locals=show_locals,
+                                locals_max_length=locals_max_length,
+                                locals_hide_dunder=locals_hide_dunder,
+                                locals_hide_sunder=locals_hide_sunder,
+                            )
+                        )
+    
+            if isinstance(exc_value, SyntaxError):
+                stack.syntax_error = _SyntaxError(
+                    offset=exc_value.offset or 0,
+                    filename=exc_value.filename or "?",
+                    lineno=exc_value.lineno or 0,
+                    line=exc_value.text or "",
+                    msg=exc_value.msg,
+                    notes=notes,
+                )
+    
+            stacks.append(stack)
+            append = stack.frames.append
+    
+            def get_locals(
+                iter_locals: Iterable[Tuple[str, object]],
+            ) -&gt; Iterable[Tuple[str, object]]:
+                """Extract locals from an iterator of key pairs."""
+                if not (locals_hide_dunder or locals_hide_sunder):
+                    yield from iter_locals
+                    return
+                for key, value in iter_locals:
+                    if locals_hide_dunder and key.startswith("__"):
+                        continue
+                    if locals_hide_sunder and key.startswith("_"):
+                        continue
+                    yield key, value
+    
+            for frame_summary, line_no in walk_tb(traceback):
+                filename = frame_summary.f_code.co_filename
+    
+                last_instruction: Optional[Tuple[Tuple[int, int], Tuple[int, int]]]
+                last_instruction = None
+                if sys.version_info &gt;= (3, 11):
+                    instruction_index = frame_summary.f_lasti // 2
+&gt;                   instruction_position = next(
+                        islice(
+                            frame_summary.f_code.co_positions(),
+                            instruction_index,
+                            instruction_index + 1,
+                        )
+                    )
+E                   Failed: Timeout (&gt;60.0s) from pytest-timeout.
+
+rich/traceback.py:511: Failed</failure></testcase></testsuite></testsuites>

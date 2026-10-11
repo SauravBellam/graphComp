@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="9" time="4.023" timestamp="2026-10-10T23:15:43.962170+00:00" hostname="vm-a2"><testcase classname="tests.test_deprecated_responses" name="test_orjson_response_returns_correct_data" time="0.542" /><testcase classname="tests.test_deprecated_responses" name="test_orjson_response_emits_deprecation_warning" time="0.003"><failure message="Failed: DID NOT WARN. No warnings of type (&lt;class 'fastapi.exceptions.FastAPIDeprecationWarning'&gt;,) were emitted.&#10; Emitted warnings: [].">def test_orjson_response_emits_deprecation_warning():
+&gt;       with pytest.warns(FastAPIDeprecationWarning, match="ORJSONResponse is deprecated"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT WARN. No warnings of type (&lt;class 'fastapi.exceptions.FastAPIDeprecationWarning'&gt;,) were emitted.
+E        Emitted warnings: [].
+
+tests/test_deprecated_responses.py:42: Failed</failure></testcase><testcase classname="tests.test_deprecated_responses" name="test_ujson_response_returns_correct_data" time="0.012" /><testcase classname="tests.test_deprecated_responses" name="test_ujson_response_emits_deprecation_warning" time="0.002"><failure message="Failed: DID NOT WARN. No warnings of type (&lt;class 'fastapi.exceptions.FastAPIDeprecationWarning'&gt;,) were emitted.&#10; Emitted warnings: [].">def test_ujson_response_emits_deprecation_warning():
+&gt;       with pytest.warns(FastAPIDeprecationWarning, match="UJSONResponse is deprecated"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT WARN. No warnings of type (&lt;class 'fastapi.exceptions.FastAPIDeprecationWarning'&gt;,) were emitted.
+E        Emitted warnings: [].
+
+tests/test_deprecated_responses.py:72: Failed</failure></testcase><testcase classname="tests.test_orjson_response_class" name="test_orjson_non_str_keys" time="0.011" /><testcase classname="tests.test_tutorial.test_custom_response.test_tutorial001" name="test_get_custom_response[tutorial001_py310]" time="0.010" /><testcase classname="tests.test_tutorial.test_custom_response.test_tutorial001" name="test_openapi_schema[tutorial001_py310]" time="0.056" /><testcase classname="tests.test_tutorial.test_custom_response.test_tutorial001b" name="test_get_custom_response" time="0.012" /><testcase classname="tests.test_tutorial.test_custom_response.test_tutorial001b" name="test_openapi_schema" time="0.041" /></testsuite></testsuites>

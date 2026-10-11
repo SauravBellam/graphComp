@@ -1,0 +1,88 @@
+{
+  "instance_id": "rich_3469",
+  "repo": "Textualize/rich",
+  "backend": "venv",
+  "done": true,
+  "deps": {
+    "steps": [
+      {
+        "name": "pip_upgrade",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3469/venv/bin/python -m pip install -q --disable-pip-version-check 'pip>=24' 'setuptools' 'wheel' pytest pytest-timeout",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "editable_no_deps",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3469/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-build-isolation --no-deps -e .",
+        "exit": 2,
+        "stderr_tail": "python3.13/site-packages/pip/_internal/req/req_install.py\", line 258, in supports_pyproject_editable\n    return \"build_editable\" in self.pep517_backend._supported_features()\n                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"/home/sauravbellam/cache/a2/rich_3469/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 180, in _supported_features\n    return self._call_hook(\"_supported_features\", {})\n           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/sauravbellam/cache/a2/rich_3469/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 402, in _call_hook\n    raise BackendUnavailable(\n    ...<4 lines>...\n    )\npip._vendor.pyproject_hooks._impl.BackendUnavailable: Cannot import 'poetry.core.masonry.api'\n"
+      },
+      {
+        "name": "editable_no_deps_isolated",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3469/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-deps -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "runtime_deps",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3469/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "poetry_group_dev",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3469/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels pytest black mypy pytest-cov attrs pre-commit asv importlib-metadata",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "rich_tests",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3469/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels pytest-cov attrs ipywidgets",
+        "exit": 0,
+        "stderr_tail": ""
+      }
+    ],
+    "editable_ok": true,
+    "python": "3.13.5 (main, Aug 10 2026, 12:06:59) [GCC 14.2.0]"
+  },
+  "targets": [
+    "tests/test_markdown.py"
+  ],
+  "test_patch_strategy": "exact",
+  "test_patch_applied": true,
+  "pre": {
+    "exit": 1,
+    "seconds": 1.2,
+    "timeout": false,
+    "exit_meaning": "some_failed",
+    "run_class": "clean",
+    "counts": {
+      "failed": 2,
+      "passed": 5
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "\nE         Skipping 51 identical leading characters in diff, use -v to show\nE         - [0m\u001b[38;2;0;0;0;48;2;248;248;248m \u001b[0m\u001b[1;38;2;0;0;255;48;2;248;248;248mthis\u001b[0m code                                                                             \nE         ?           ^ ^ ^\nE         + [0m\u001b[38;2;187;187;187;48;2;248;248;248m \u001b[0m\u001b[1;38;2;0;0;255;48;2;248;248;248mthis\u001b[0m code                                                                             \nE         ?           ^^^ ^^^ ^^^\n\ntests/test_markdown.py:116: AssertionError\n----------------------------- Captured stdout call -----------------------------\n'inline \\x1b[1;38;2;170;34;255;48;2;248;248;248mimport\\x1b[0m\\x1b[38;2;187;187;187;48;2;248;248;248m \\x1b[0m\\x1b[1;38;2;0;0;255;48;2;248;248;248mthis\\x1b[0m code                                                                             \\n'\ninline \u001b[1;38;2;170;34;255;48;2;248;248;248mimport\u001b[0m\u001b[38;2;187;187;187;48;2;248;248;248m \u001b[0m\u001b[1;38;2;0;0;255;48;2;248;248;248mthis\u001b[0m code                                                                             \n\n'inline \\x1b[1;38;2;170;34;255;48;2;248;248;248mimport\\x1b[0m\\x1b[38;2;187;187;187;48;2;248;248;248m \\x1b[0m\\x1b[1;38;2;0;0;255;48;2;248;248;248mthis\\x1b[0m code                                                                             \\n'\n_________________________ test_table_with_empty_cells __________________________\n\n    def test_table_with_empty_cells() -> None:\n        \"\"\"Test a table with empty cells is rendered without extra newlines above.\n        Regression test for #3027 https://github.com/Textualize/rich/issues/3027\n        \"\"\"\n        complete_table = Markdown(\n            \"\"\"\\\n    | First Header  | Second Header |\n    | ------------- | ------------- |\n    | Content Cell  | Content Cell  |\n    | Content Cell  | Content Cell  |\n    \"\"\"\n        )\n        table_with_empty_cells = Markdown(\n            \"\"\"\\\n    | First Header  |               |\n    | ------------- | ------------- |\n    | Content Cell  | Content Cell  |\n    |               | Content Cell  |\n    \"\"\"\n        )\n        result = len(render(table_with_empty_cells).splitlines())\n        expected = len(render(complete_table).splitlines())\n>       assert result == expected\nE       assert 9 == 7\n\ntests/test_markdown.py:199: AssertionError\n----------------------------- Captured stdout call -----------------------------\n'\\n\\n\\n                               \\n \\x1b[1m \\x1b[0m\\x1b[1mFirst Header\\x1b[0m\\x1b[1m \\x1b[0m \\x1b[1m \\x1b[0m\\x1b[1m            \\x1b[0m\\x1b[1m \\x1b[0m \\n \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 \\n  Content Cell   Content Cell  \\n                 Content Cell  \\n                               \\n'\n'\\n                                \\n \\x1b[1m \\x1b[0m\\x1b[1mFirst Header\\x1b[0m\\x1b[1m \\x1b[0m \\x1b[1m \\x1b[0m\\x1b[1mSecond Header\\x1b[0m\\x1b[1m \\x1b[0m \\n \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 \\n  Content Cell   Content Cell   \\n  Content Cell   Content Cell   \\n                                \\n'\n2 failed, 5 passed in 0.84s\n",
+    "stderr_tail": ""
+  },
+  "gold_patch_strategy": "exact",
+  "gold_patch_applied": true,
+  "post": {
+    "exit": 1,
+    "seconds": 1.3,
+    "timeout": false,
+    "exit_meaning": "some_failed",
+    "run_class": "clean",
+    "counts": {
+      "failed": 1,
+      "passed": 6
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": ".F.....                                                                  [100%]\n=================================== FAILURES ===================================\n_______________________________ test_inline_code _______________________________\n\n    def test_inline_code():\n        markdown = Markdown(\n            \"inline `import this` code\",\n            inline_code_lexer=\"python\",\n            inline_code_theme=\"emacs\",\n        )\n        result = render(markdown)\n        expected = \"inline \\x1b[1;38;2;170;34;255;48;2;248;248;248mimport\\x1b[0m\\x1b[38;2;0;0;0;48;2;248;248;248m \\x1b[0m\\x1b[1;38;2;0;0;255;48;2;248;248;248mthis\\x1b[0m code                                                                             \\n\"\n        print(result)\n        print(repr(result))\n>       assert result == expected\nE       AssertionError: assert 'inline \\x1b[...           \\n' == 'inline \\x1b[...           \\n'\nE         \nE         Skipping 51 identical leading characters in diff, use -v to show\nE         - [0m\u001b[38;2;0;0;0;48;2;248;248;248m \u001b[0m\u001b[1;38;2;0;0;255;48;2;248;248;248mthis\u001b[0m code                                                                             \nE         ?           ^ ^ ^\nE         + [0m\u001b[38;2;187;187;187;48;2;248;248;248m \u001b[0m\u001b[1;38;2;0;0;255;48;2;248;248;248mthis\u001b[0m code                                                                             \nE         ?           ^^^ ^^^ ^^^\n\ntests/test_markdown.py:116: AssertionError\n----------------------------- Captured stdout call -----------------------------\n'inline \\x1b[1;38;2;170;34;255;48;2;248;248;248mimport\\x1b[0m\\x1b[38;2;187;187;187;48;2;248;248;248m \\x1b[0m\\x1b[1;38;2;0;0;255;48;2;248;248;248mthis\\x1b[0m code                                                                             \\n'\ninline \u001b[1;38;2;170;34;255;48;2;248;248;248mimport\u001b[0m\u001b[38;2;187;187;187;48;2;248;248;248m \u001b[0m\u001b[1;38;2;0;0;255;48;2;248;248;248mthis\u001b[0m code                                                                             \n\n'inline \\x1b[1;38;2;170;34;255;48;2;248;248;248mimport\\x1b[0m\\x1b[38;2;187;187;187;48;2;248;248;248m \\x1b[0m\\x1b[1;38;2;0;0;255;48;2;248;248;248mthis\\x1b[0m code                                                                             \\n'\n1 failed, 6 passed in 0.88s\n",
+    "stderr_tail": ""
+  },
+  "trace_pre_exists": true,
+  "trace_post_exists": true,
+  "seconds": 33.4
+}

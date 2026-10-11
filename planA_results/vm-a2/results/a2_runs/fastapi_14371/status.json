@@ -1,0 +1,133 @@
+{
+  "instance_id": "fastapi_14371",
+  "repo": "fastapi/fastapi",
+  "backend": "venv",
+  "done": true,
+  "deps": {
+    "steps": [
+      {
+        "name": "pip_upgrade",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14371/venv/bin/python -m pip install -q --disable-pip-version-check 'pip>=24' 'setuptools' 'wheel' pytest pytest-timeout",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "editable_no_deps",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14371/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-build-isolation --no-deps -e .",
+        "exit": 2,
+        "stderr_tail": "lib/python3.13/site-packages/pip/_internal/req/req_install.py\", line 258, in supports_pyproject_editable\n    return \"build_editable\" in self.pep517_backend._supported_features()\n                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"/home/sauravbellam/cache/a2/fastapi_14371/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 180, in _supported_features\n    return self._call_hook(\"_supported_features\", {})\n           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/sauravbellam/cache/a2/fastapi_14371/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 402, in _call_hook\n    raise BackendUnavailable(\n    ...<4 lines>...\n    )\npip._vendor.pyproject_hooks._impl.BackendUnavailable: Cannot import 'pdm.backend'\n"
+      },
+      {
+        "name": "editable_no_deps_isolated",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14371/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-deps -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "runtime_deps",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14371/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "extra_all",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14371/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e '.[all]'",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "extra_standard",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14371/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e '.[standard]'",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "req_requirements-tests.txt",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14371/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -r requirements-tests.txt",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "req_requirements-docs-tests.txt",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14371/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -r requirements-docs-tests.txt",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "req_requirements.txt",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14371/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -r requirements.txt",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "fastapi_tests",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14371/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels httpx 'python-multipart' email-validator pyyaml orjson ujson 'sqlmodel' 'dirty-equals' 'pytest-asyncio' 'flask' 'passlib[bcrypt]' 'pyjwt' 'inline-snapshot'",
+        "exit": 0,
+        "stderr_tail": ""
+      }
+    ],
+    "editable_ok": true,
+    "python": "3.13.5 (main, Aug 10 2026, 12:06:59) [GCC 14.2.0]"
+  },
+  "targets": [
+    "tests/test_request_params/test_body/test_list.py",
+    "tests/test_request_params/test_body/test_optional_list.py",
+    "tests/test_request_params/test_body/test_optional_str.py",
+    "tests/test_request_params/test_body/test_required_str.py",
+    "tests/test_request_params/test_cookie/test_optional_str.py",
+    "tests/test_request_params/test_cookie/test_required_str.py",
+    "tests/test_request_params/test_file/test_list.py",
+    "tests/test_request_params/test_file/test_optional.py",
+    "tests/test_request_params/test_file/test_optional_list.py",
+    "tests/test_request_params/test_file/test_required.py",
+    "tests/test_request_params/test_form/test_list.py",
+    "tests/test_request_params/test_form/test_optional_list.py",
+    "tests/test_request_params/test_form/test_optional_str.py",
+    "tests/test_request_params/test_form/test_required_str.py",
+    "tests/test_request_params/test_header/test_list.py",
+    "tests/test_request_params/test_header/test_optional_list.py",
+    "tests/test_request_params/test_header/test_optional_str.py",
+    "tests/test_request_params/test_header/test_required_str.py",
+    "tests/test_request_params/test_path/test_required_str.py",
+    "tests/test_request_params/test_query/test_list.py",
+    "tests/test_request_params/test_query/test_optional_list.py",
+    "tests/test_request_params/test_query/test_optional_str.py",
+    "tests/test_request_params/test_query/test_required_str.py"
+  ],
+  "test_patch_strategy": "exact",
+  "test_patch_applied": true,
+  "pre": {
+    "exit": 1,
+    "seconds": 24.9,
+    "timeout": false,
+    "exit_meaning": "some_failed",
+    "run_class": "clean",
+    "counts": {
+      "failed": 207,
+      "passed": 537
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "       [\n            \"/required-alias-and-validation-alias\",\n            \"/model-required-alias-and-validation-alias\",\n        ],\n    )\n    def test_required_alias_and_validation_alias_by_name(path: str):\n        client = TestClient(app)\n        response = client.get(f\"{path}?p=hello\")\n        assert response.status_code == 422\n    \n>       assert response.json() == {\n            \"detail\": [\n                {\n                    \"type\": \"missing\",\n                    \"loc\": [\n                        \"query\",\n                        \"p_val_alias\",\n                    ],\n                    \"msg\": \"Field required\",\n                    \"input\": IsOneOf(\n                        None,\n                        {\"p\": \"hello\"},\n                    ),\n                }\n            ]\n        }\nE       AssertionError: assert {'detail': [{...: 'missing'}]} == {'detail': [{...: 'missing'}]}\nE         \nE         Differing items:\nE         {'detail': [{'input': None, 'loc': ['query', 'p_alias'], 'msg': 'Field required', 'type': 'missing'}]} != {'detail': [{'input': IsOneOf(None, {'p': 'hello'}), 'loc': ['query', 'p_val_alias'], 'msg': 'Field required', 'type': 'missing'}]}\nE         Use -v to get more diff\n\ntests/test_request_params/test_query/test_required_str.py:395: AssertionError\n_ test_required_alias_and_validation_alias_by_alias[/required-alias-and-validation-alias] _\n\npath = '/required-alias-and-validation-alias'\n\n    @needs_pydanticv2\n    @pytest.mark.parametrize(\n        \"path\",\n        [\n            \"/required-alias-and-validation-alias\",\n            \"/model-required-alias-and-validation-alias\",\n        ],\n    )\n    def test_required_alias_and_validation_alias_by_alias(path: str):\n        client = TestClient(app)\n        response = client.get(f\"{path}?p_alias=hello\")\n>       assert response.status_code == 422\nE       assert 200 == 422\nE        +  where 200 = <Response [200 OK]>.status_code\n\ntests/test_request_params/test_query/test_required_str.py:424: AssertionError\n_ test_required_alias_and_validation_alias_by_validation_alias[/required-alias-and-validation-alias] _\n\npath = '/required-alias-and-validation-alias'\n\n    @needs_pydanticv2\n    @pytest.mark.parametrize(\n        \"path\",\n        [\n            \"/required-alias-and-validation-alias\",\n            \"/model-required-alias-and-validation-alias\",\n        ],\n    )\n    def test_required_alias_and_validation_alias_by_validation_alias(path: str):\n        client = TestClient(app)\n        response = client.get(f\"{path}?p_val_alias=hello\")\n>       assert response.status_code == 200, response.text\nE       AssertionError: {\"detail\":[{\"type\":\"missing\",\"loc\":[\"query\",\"p_alias\"],\"msg\":\"Field required\",\"input\":null}]}\nE       assert 422 == 200\nE        +  where 422 = <Response [422 Unprocessable Entity]>.status_code\n\ntests/test_request_params/test_query/test_required_str.py:452: AssertionError\n- generated xml file: /home/sauravbellam/results/a2_runs/fastapi_14371/trace_pre.xml -\n207 failed, 537 passed in 22.69s\n",
+    "stderr_tail": ""
+  },
+  "gold_patch_strategy": "exact",
+  "gold_patch_applied": true,
+  "post": {
+    "exit": 0,
+    "seconds": 12.8,
+    "timeout": false,
+    "exit_meaning": "all_passed",
+    "run_class": "clean",
+    "counts": {
+      "passed": 744
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "........................................................................ [  9%]\n........................................................................ [ 19%]\n........................................................................ [ 29%]\n........................................................................ [ 38%]\n........................................................................ [ 48%]\n........................................................................ [ 58%]\n........................................................................ [ 67%]\n........................................................................ [ 77%]\n........................................................................ [ 87%]\n........................................................................ [ 96%]\n........................                                                 [100%]\n- generated xml file: /home/sauravbellam/results/a2_runs/fastapi_14371/trace_post.xml -\n744 passed in 11.39s\n",
+    "stderr_tail": ""
+  },
+  "trace_pre_exists": true,
+  "trace_post_exists": true,
+  "seconds": 114.3
+}

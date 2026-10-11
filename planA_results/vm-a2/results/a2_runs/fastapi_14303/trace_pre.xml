@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="6" time="1.851" timestamp="2026-10-10T23:23:04.649332+00:00" hostname="vm-a2"><testcase classname="tests.test_forms_single_model" name="test_send_all_data" time="0.223" /><testcase classname="tests.test_forms_single_model" name="test_defaults" time="0.011" /><testcase classname="tests.test_forms_single_model" name="test_invalid_data" time="0.006" /><testcase classname="tests.test_forms_single_model" name="test_no_data" time="0.006" /><testcase classname="tests.test_forms_single_model" name="test_extra_param_single" time="0.006" /><testcase classname="tests.test_forms_single_model" name="test_extra_param_list" time="0.006"><failure message="AssertionError: assert {'extra_param...param': '123'} == {'extra_param...param': '123'}&#10;  &#10;  Omitting 1 identical items, use -vv to show&#10;  Differing items:&#10;  {'extra_params': '789'} != {'extra_params': ['456', '789']}&#10;  Use -v to get more diff">def test_extra_param_list():
+        response = client.post(
+            "/form-extra-allow/",
+            data={
+                "param": "123",
+                "extra_params": ["456", "789"],
+            },
+        )
+        assert response.status_code == 200, response.text
+&gt;       assert response.json() == {
+            "param": "123",
+            "extra_params": ["456", "789"],
+        }
+E       AssertionError: assert {'extra_param...param': '123'} == {'extra_param...param': '123'}
+E         
+E         Omitting 1 identical items, use -vv to show
+E         Differing items:
+E         {'extra_params': '789'} != {'extra_params': ['456', '789']}
+E         Use -v to get more diff
+
+tests/test_forms_single_model.py:177: AssertionError</failure></testcase></testsuite></testsuites>

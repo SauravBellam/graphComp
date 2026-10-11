@@ -1,0 +1,62 @@
+
+$ /home/sauravbellam/cache/a2/requests_7505/venv/bin/python -s -m pytest tests/test_requests.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/requests_7505/trace_pre.xml
+[exit 1]
+........................................................................ [ 21%]
+.................................................s.pytest-httpbin server hit an exception serving request: [SSL: TLSV1_ALERT_UNKNOWN_CA] tlsv1 alert unknown ca (_ssl.c:1029)
+attempting to ignore so the rest of the tests can run
+....F................ [ 42%]
+........................................................................ [ 63%]
+..........................x............................................. [ 84%]
+.....................................................                    [100%]
+=================================== FAILURES ===================================
+________________ TestRequests.test_post_getattr_proxy_read_only ________________
+
+self = <tests.test_requests.TestRequests object at 0x7fc83eb99400>
+httpbin = <function prepare_url.<locals>.inner at 0x7fc83ed39e40>
+
+    def test_post_getattr_proxy_read_only(self, httpbin):
+    
+        class ReadProxy:
+            def __init__(self):
+                self._file = io.BytesIO(b"streamed body")
+    
+            def __getattr__(self, name):
+                if name == "__iter__":
+                    raise AttributeError(name)
+                return getattr(self._file, name)
+    
+        r = requests.post(httpbin("post"), data=ReadProxy())
+        assert r.status_code == 200
+>       assert r.json()["data"] == "streamed body"
+E       AssertionError: assert '' == 'streamed body'
+E         
+E         - streamed body
+
+tests/test_requests.py:1114: AssertionError
+----------------------------- Captured stderr call -----------------------------
+127.0.0.1 - - [10/Oct/2026 23:15:34] "POST /post HTTP/1.1" 200 444
+=============================== warnings summary ===============================
+tests/test_requests.py::TestPreparingURLs::test_different_connection_pool_for_tls_settings_verify_True
+tests/test_requests.py::TestPreparingURLs::test_different_connection_pool_for_tls_settings_verify_bundle_expired_cert
+tests/test_requests.py::TestPreparingURLs::test_different_connection_pool_for_tls_settings_verify_bundle_unexpired_cert
+tests/test_requests.py::TestPreparingURLs::test_different_connection_pool_for_mtls_settings
+  /home/sauravbellam/cache/a2/requests_7505/venv/lib/python3.13/site-packages/urllib3/connectionpool.py:1129: InsecureRequestWarning: Unverified HTTPS request is being made to host 'localhost'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+1 failed, 338 passed, 1 skipped, 1 xfailed, 4 warnings in 49.41s
+
+[2026-10-10 23:15:25,891] WARNING in core: flasgger is not installed; serving the static landing page at / and skipping the Swagger UI and /spec.json.
+127.0.0.1 - - [10/Oct/2026 23:15:29] "GET /cookies HTTP/1.1" 200 40
+127.0.0.1 - - [10/Oct/2026 23:15:29] "GET /basic-auth/user/pass HTTP/1.1" 200 46
+127.0.0.1 - - [10/Oct/2026 23:15:33] "POST /post HTTP/1.1" 200 361
+127.0.0.1 - - [10/Oct/2026 23:15:33] "GET /get?f%C3%B8%C3%B8=f%C3%B8%C3%B8 HTTP/1.1" 200 340
+127.0.0.1 - - [10/Oct/2026 23:15:33] "GET /%C3%B8?foo=foo HTTP/1.1" 404 207
+127.0.0.1 - - [10/Oct/2026 23:15:33] "PUT /put HTTP/1.1" 200 412
+127.0.0.1 - - [10/Oct/2026 23:15:34] "GET / HTTP/1.1" 200 13760
+127.0.0.1 - - [10/Oct/2026 23:15:34] "GET /get?test=foo&test=baz HTTP/1.1" 200 338
+127.0.0.1 - - [10/Oct/2026 23:15:34] "POST /post HTTP/1.1" 200 115622
+127.0.0.1 - - [10/Oct/2026 23:15:34] "POST /post HTTP/1.1" 200 115622
+127.0.0.1 - - [10/Oct/2026 23:15:35] "POST /post HTTP/1.1" 200 115524
+127.0.0.1 - - [10/Oct/2026 23:15:35] "GET /get HTTP/1.1" 200 285
+

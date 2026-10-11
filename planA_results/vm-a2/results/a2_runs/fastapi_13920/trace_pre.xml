@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="2.405" timestamp="2026-10-10T23:16:43.780236+00:00" hostname="vm-a2"><testcase classname="tests.test_dependency_pep695" name="test_pep695_type_dependencies" time="0.393"><failure message="assert 422 == 200&#10; +  where 422 = &lt;Response [422 Unprocessable Entity]&gt;.status_code">def test_pep695_type_dependencies():
+        app = FastAPI()
+    
+        @app.get("/")
+        async def get_with_dep(value: DependedValue) -&gt; str:  # noqa
+            return f"value: {value}"
+    
+        client = TestClient(app)
+        response = client.get("/")
+&gt;       assert response.status_code == 200
+E       assert 422 == 200
+E        +  where 422 = &lt;Response [422 Unprocessable Entity]&gt;.status_code
+
+tests/test_dependency_pep695.py:26: AssertionError</failure></testcase></testsuite></testsuites>

@@ -1,0 +1,26 @@
+
+$ /home/sauravbellam/cache/a2/fastapi_5624/venv/bin/python -s -m pytest tests/test_security_scopes_dont_propagate.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/fastapi_5624/trace_pre.xml
+[exit 1]
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_____________________ test_security_scopes_dont_propagate ______________________
+
+    def test_security_scopes_dont_propagate():
+        response = client.get("/scopes")
+        assert response.status_code == 200
+>       assert response.json() == {
+            "dep1": ["scope3", "scope1"],
+            "dep2": ["scope3", "scope2"],
+        }
+E       AssertionError: assert {'dep1': ['sc...1', 'scope2']} == {'dep1': ['sc...3', 'scope2']}
+E         
+E         Differing items:
+E         {'dep1': ['scope3', 'scope1', 'scope2']} != {'dep1': ['scope3', 'scope1']}
+E         {'dep2': ['scope3', 'scope1', 'scope2']} != {'dep2': ['scope3', 'scope2']}
+E         Use -v to get more diff
+
+tests/test_security_scopes_dont_propagate.py:42: AssertionError
+- generated xml file: /home/sauravbellam/results/a2_runs/fastapi_5624/trace_pre.xml -
+1 failed in 2.04s
+
+

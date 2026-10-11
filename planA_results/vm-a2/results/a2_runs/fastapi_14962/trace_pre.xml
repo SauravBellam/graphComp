@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="2" failures="3" skipped="0" tests="8" time="2.805" timestamp="2026-10-10T23:15:44.076853+00:00" hostname="vm-a2"><testcase classname="tests.test_dump_json_fast_path" name="test_default_response_class_skips_json_dumps" time="0.195"><failure message="AssertionError: Expected 'dumps' to not have been called. Called 1 times.&#10;Calls: [call({'name': 'widget', 'price': 9.99}, ensure_ascii=False, allow_nan=False, indent=None, separators=(',', ':'))].">def test_default_response_class_skips_json_dumps():
+        """When no response_class is set, the fast path serializes directly to
+        JSON bytes via Pydantic's dump_json and never calls json.dumps."""
+        with patch(
+            "starlette.responses.json.dumps", wraps=__import__("json").dumps
+        ) as mock_dumps:
+            response = client.get("/default")
+        assert response.status_code == 200
+        assert response.json() == {"name": "widget", "price": 9.99}
+&gt;       mock_dumps.assert_not_called()
+
+tests/test_dump_json_fast_path.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;MagicMock name='dumps' id='140317295705264'&gt;
+
+    def assert_not_called(self):
+        """assert that the mock was never called.
+        """
+        if self.call_count != 0:
+            msg = ("Expected '%s' to not have been called. Called %s times.%s"
+                   % (self._mock_name or 'mock',
+                      self.call_count,
+                      self._calls_repr()))
+&gt;           raise AssertionError(msg)
+E           AssertionError: Expected 'dumps' to not have been called. Called 1 times.
+E           Calls: [call({'name': 'widget', 'price': 9.99}, ensure_ascii=False, allow_nan=False, indent=None, separators=(',', ':'))].
+
+/usr/lib/python3.13/unittest/mock.py:940: AssertionError</failure></testcase><testcase classname="tests.test_dump_json_fast_path" name="test_explicit_response_class_uses_json_dumps" time="0.012" /><testcase classname="tests.test_tutorial.test_custom_response.test_tutorial001" name="test_get_custom_response[tutorial001_py310]" time="0.018" /><testcase classname="tests.test_tutorial.test_custom_response.test_tutorial001" name="test_openapi_schema[tutorial001_py310]" time="0.071" /><testcase classname="tests.test_tutorial.test_custom_response.test_tutorial010" name="test_get_custom_response[tutorial010_py310]" time="0.025"><failure message="assert '[{&quot;item_id&quot;:&quot;Foo&quot;}]' == '&lt;h1&gt;Items&lt;/h...of items.&lt;/p&gt;'&#10;  &#10;  - &lt;h1&gt;Items&lt;/h1&gt;&lt;p&gt;This is a list of items.&lt;/p&gt;&#10;  + [{&quot;item_id&quot;:&quot;Foo&quot;}]">client = &lt;starlette.testclient.TestClient object at 0x7f9e29b78b00&gt;
+
+    def test_get_custom_response(client: TestClient):
+        response = client.get("/items/")
+        assert response.status_code == 200, response.text
+&gt;       assert response.text == snapshot("&lt;h1&gt;Items&lt;/h1&gt;&lt;p&gt;This is a list of items.&lt;/p&gt;")
+E       assert '[{"item_id":"Foo"}]' == '&lt;h1&gt;Items&lt;/h...of items.&lt;/p&gt;'
+E         
+E         - &lt;h1&gt;Items&lt;/h1&gt;&lt;p&gt;This is a list of items.&lt;/p&gt;
+E         + [{"item_id":"Foo"}]
+
+tests/test_tutorial/test_custom_response/test_tutorial010.py:23: AssertionError</failure></testcase><testcase classname="tests.test_tutorial.test_custom_response.test_tutorial010" name="test_get_custom_response[tutorial010_py310]" time="0.001"><error message="failed on teardown with &quot;Failed: some snapshots in this test have incorrect values.&#10;If you just created this value with --inline-snapshot=create, the value is now created and you can ignore this message.&quot;">some snapshots in this test have incorrect values.
+If you just created this value with --inline-snapshot=create, the value is now created and you can ignore this message.</error></testcase><testcase classname="tests.test_tutorial.test_custom_response.test_tutorial010" name="test_openapi_schema[tutorial010_py310]" time="0.049"><failure message="AssertionError: assert {'openapi': '...': {...}}}}}}} == {'openapi': '...tems__get'}}}}&#10;  &#10;  Omitting 2 identical items, use -vv to show&#10;  Differing items:&#10;  {'paths': {'/items/': {'get': {'summary': 'Read Items', 'operationId': 'read_items_items__get', 'responses': {'200': {'description': 'Successful Response', 'content': {...}}}}}}} != {'paths': {'/items/': {'get': {'responses': {'200': {'description': 'Successful Response', 'content': {...}}}, 'summary': 'Read Items', 'operationId': 'read_items_items__get'}}}}&#10;  Use -v to get more diff">client = &lt;starlette.testclient.TestClient object at 0x7f9e29b7a060&gt;
+
+    def test_openapi_schema(client: TestClient):
+        response = client.get("/openapi.json")
+        assert response.status_code == 200, response.text
+&gt;       assert response.json() == snapshot(
+            {
+                "openapi": "3.1.0",
+                "info": {"title": "FastAPI", "version": "0.1.0"},
+                "paths": {
+                    "/items/": {
+                        "get": {
+                            "responses": {
+                                "200": {
+                                    "description": "Successful Response",
+                                    "content": {
+                                        "text/html": {"schema": {"type": "string"}}
+                                    },
+                                }
+                            },
+                            "summary": "Read Items",
+                            "operationId": "read_items_items__get",
+                        }
+                    }
+                },
+            }
+        )
+E       AssertionError: assert {'openapi': '...': {...}}}}}}} == {'openapi': '...tems__get'}}}}
+E         
+E         Omitting 2 identical items, use -vv to show
+E         Differing items:
+E         {'paths': {'/items/': {'get': {'summary': 'Read Items', 'operationId': 'read_items_items__get', 'responses': {'200': {'description': 'Successful Response', 'content': {...}}}}}}} != {'paths': {'/items/': {'get': {'responses': {'200': {'description': 'Successful Response', 'content': {...}}}, 'summary': 'Read Items', 'operationId': 'read_items_items__get'}}}}
+E         Use -v to get more diff
+
+tests/test_tutorial/test_custom_response/test_tutorial010.py:29: AssertionError</failure></testcase><testcase classname="tests.test_tutorial.test_custom_response.test_tutorial010" name="test_openapi_schema[tutorial010_py310]" time="0.001"><error message="failed on teardown with &quot;Failed: some snapshots in this test have incorrect values.&#10;If you just created this value with --inline-snapshot=create, the value is now created and you can ignore this message.&quot;">some snapshots in this test have incorrect values.
+If you just created this value with --inline-snapshot=create, the value is now created and you can ignore this message.</error></testcase></testsuite></testsuites>

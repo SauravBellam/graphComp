@@ -1,0 +1,2 @@
+# Store result files byte-for-byte (no line-ending normalization): CSVs keep the CRLF the csv module wrote.
+* -text

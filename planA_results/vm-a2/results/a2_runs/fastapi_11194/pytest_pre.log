@@ -1,0 +1,51 @@
+
+$ /home/sauravbellam/cache/a2/fastapi_11194/venv/bin/python -s -m pytest tests/test_file_and_form_order_issue_9116.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/fastapi_11194/trace_pre.xml
+[exit 1]
+.F.F                                                                     [100%]
+=================================== FAILURES ===================================
+____________________ test_file_form_order[/file_after_form] ____________________
+
+endpoint_path = '/file_after_form'
+tmp_file_1 = PosixPath('/tmp/pytest-of-sauravbellam/pytest-11/test_file_form_order__file_aft0/example1.txt')
+
+    @pytest.mark.parametrize("endpoint_path", ("/file_before_form", "/file_after_form"))
+    def test_file_form_order(endpoint_path: str, tmp_file_1: Path):
+        response = client.post(
+            url=endpoint_path,
+            data={"city": "Thimphou"},
+            files={"file": (tmp_file_1.name, tmp_file_1.read_bytes())},
+        )
+>       assert response.status_code == 200, response.text
+E       AssertionError: {"detail":[{"type":"bytes_type","loc":["body","file"],"msg":"Input should be a valid bytes","input":{"filename":"example1.txt","file":{"_file":{},"_max_size":1048576,"_rolled":false,"_TemporaryFileArgs":{"mode":"w+b","buffering":-1,"suffix":null,"prefix":null,"encoding":null,"newline":null,"dir":null,"errors":null}},"size":3,"headers":{"content-disposition":"form-data; name=\"file\"; filename=\"example1.txt\"","content-type":"text/plain"},"_max_mem_size":1048576}}]}
+E       assert 422 == 200
+E        +  where 422 = <Response [422 Unprocessable Entity]>.status_code
+
+tests/test_file_and_form_order_issue_9116.py:73: AssertionError
+_______________ test_file_list_form_order[/file_list_after_form] _______________
+
+endpoint_path = '/file_list_after_form'
+tmp_file_1 = PosixPath('/tmp/pytest-of-sauravbellam/pytest-11/test_file_list_form_order__fil1/example1.txt')
+tmp_file_2 = PosixPath('/tmp/pytest-of-sauravbellam/pytest-11/test_file_list_form_order__fil1/example2.txt')
+
+    @pytest.mark.parametrize(
+        "endpoint_path", ("/file_list_before_form", "/file_list_after_form")
+    )
+    def test_file_list_form_order(endpoint_path: str, tmp_file_1: Path, tmp_file_2: Path):
+        response = client.post(
+            url=endpoint_path,
+            data={"city": "Thimphou"},
+            files=(
+                ("files", (tmp_file_1.name, tmp_file_1.read_bytes())),
+                ("files", (tmp_file_2.name, tmp_file_2.read_bytes())),
+            ),
+        )
+>       assert response.status_code == 200, response.text
+E       AssertionError: {"detail":[{"type":"bytes_type","loc":["body","files",0],"msg":"Input should be a valid bytes","input":{"filename":"example1.txt","file":{"_file":{},"_max_size":1048576,"_rolled":false,"_TemporaryFileArgs":{"mode":"w+b","buffering":-1,"suffix":null,"prefix":null,"encoding":null,"newline":null,"dir":null,"errors":null}},"size":3,"headers":{"content-disposition":"form-data; name=\"files\"; filename=\"example1.txt\"","content-type":"text/plain"},"_max_mem_size":1048576}},{"type":"bytes_type","loc":["body","files",1],"msg":"Input should be a valid bytes","input":{"filename":"example2.txt","file":{"_file":{},"_max_size":1048576,"_rolled":false,"_TemporaryFileArgs":{"mode":"w+b","buffering":-1,"suffix":null,"prefix":null,"encoding":null,"newline":null,"dir":null,"errors":null}},"size":3,"headers":{"content-disposition":"form-data; name=\"files\"; filename=\"example2.txt\"","content-type":"text/plain"},"_max_mem_size":1048576}}]}
+E       assert 422 == 200
+E        +  where 422 = <Response [422 Unprocessable Entity]>.status_code
+
+tests/test_file_and_form_order_issue_9116.py:89: AssertionError
+- generated xml file: /home/sauravbellam/results/a2_runs/fastapi_11194/trace_pre.xml -
+2 failed, 2 passed in 2.04s
+
+

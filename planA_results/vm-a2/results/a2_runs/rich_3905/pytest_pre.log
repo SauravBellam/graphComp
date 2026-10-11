@@ -1,0 +1,41 @@
+
+$ /home/sauravbellam/cache/a2/rich_3905/venv/bin/python -s -m pytest tests/test_progress.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/rich_3905/trace_pre.xml
+[exit 1]
+.................................F.....                                  [100%]
+=================================== FAILURES ===================================
+____________ test_no_output_if_progress_is_disabled_non_interactive ____________
+
+    def test_no_output_if_progress_is_disabled_non_interactive() -> None:
+        console = Console(
+            file=io.StringIO(),
+            force_interactive=False,
+            width=60,
+            color_system="truecolor",
+            legacy_windows=False,
+            _environ={},
+        )
+        progress = Progress(
+            console=console,
+            disable=True,
+        )
+        test = ["foo", "bar", "baz"]
+        expected_values = iter(test)
+        with progress:
+            for value in progress.track(test, description="test"):
+                assert value == next(expected_values)
+        result = console.file.getvalue()
+        print(repr(result))
+        expected = ""
+>       assert result == expected
+E       AssertionError: assert '\n' == ''
+E         
+E         Strings contain only whitespace, escaping them using repr()
+E         - ''
+E         + '\n'
+
+tests/test_progress.py:589: AssertionError
+----------------------------- Captured stdout call -----------------------------
+'\n'
+1 failed, 38 passed in 1.29s
+
+

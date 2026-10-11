@@ -1,0 +1,87 @@
+{
+  "instance_id": "rich_3521",
+  "repo": "Textualize/rich",
+  "backend": "venv",
+  "done": true,
+  "deps": {
+    "steps": [
+      {
+        "name": "pip_upgrade",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3521/venv/bin/python -m pip install -q --disable-pip-version-check 'pip>=24' 'setuptools' 'wheel' pytest pytest-timeout",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "editable_no_deps",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3521/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-build-isolation --no-deps -e .",
+        "exit": 2,
+        "stderr_tail": "python3.13/site-packages/pip/_internal/req/req_install.py\", line 258, in supports_pyproject_editable\n    return \"build_editable\" in self.pep517_backend._supported_features()\n                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"/home/sauravbellam/cache/a2/rich_3521/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 180, in _supported_features\n    return self._call_hook(\"_supported_features\", {})\n           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/sauravbellam/cache/a2/rich_3521/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 402, in _call_hook\n    raise BackendUnavailable(\n    ...<4 lines>...\n    )\npip._vendor.pyproject_hooks._impl.BackendUnavailable: Cannot import 'poetry.core.masonry.api'\n"
+      },
+      {
+        "name": "editable_no_deps_isolated",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3521/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-deps -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "runtime_deps",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3521/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "poetry_group_dev",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3521/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels pytest black mypy pytest-cov attrs pre-commit asv importlib-metadata",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "rich_tests",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3521/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels pytest-cov attrs ipywidgets",
+        "exit": 0,
+        "stderr_tail": ""
+      }
+    ],
+    "editable_ok": true,
+    "python": "3.13.5 (main, Aug 10 2026, 12:06:59) [GCC 14.2.0]"
+  },
+  "targets": [
+    "tests/test_segment.py"
+  ],
+  "test_patch_strategy": "exact",
+  "test_patch_applied": true,
+  "pre": {
+    "exit": 1,
+    "seconds": 1.3,
+    "timeout": false,
+    "exit_meaning": "some_failed",
+    "run_class": "clean",
+    "counts": {
+      "failed": 4,
+      "passed": 55
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "    )  # Sanity check there aren't any sneaky control codes\n>           assert cell_len(left.text) == position\nE           AssertionError: assert 21 == 19\nE            +  where 21 = cell_len('\u5357\u7121\u963f\u5f25JK\u3046\u3089\u3081\u3057\u3084 ')\nE            +    where '\u5357\u7121\u963f\u5f25JK\u3046\u3089\u3081\u3057\u3084 ' = Segment('\u5357\u7121\u963f\u5f25JK\u3046\u3089\u3081\u3057\u3084 ').text\n\ntests/test_segment.py:310: AssertionError\n_______________________ test_split_cells_mixed[segment4] _______________________\n\nsegment = Segment('\u30e1\u30eb\u30af (CV: \u6c34\u702c\u3044\u306e\u308a)     ')\n\n    @pytest.mark.parametrize(\n        \"segment\",\n        [\n            Segment(\"\u65e9\u4e59\u5973\u30ea\u30ea\u30a8\u30eb (CV: \u5fb3\u4e95\u9752\uff09\"),\n            Segment(\"\u30e1\u30a4\u30c9\u30fb\u30a4\u30f3\u30fb\u304d\u3085\u3093\u30af\u30c1\u30e5\u30a2\u30ea\u2606    \"),\n            Segment(\"TV\u30a2\u30cb\u30e1\u300c\u30e1\u30eb\u30af\u30b9\u30c8\u30fc\u30ea\u30a2 -\u7121\u6c17\u529b\u5c11\u5e74\u3068\u74f6\u306e\u4e2d\u306e\u5c11\u5973-\u300d \u4e3b\u984c\u6b4cCD\"),\n            Segment(\"\u5357\u7121\u963f\u5f25JK\u3046\u3089\u3081\u3057\u3084?\uff01     \"),\n            Segment(\"\u30e1\u30eb\u30af (CV: \u6c34\u702c\u3044\u306e\u308a)     \"),\n            Segment(\" \u30e1\u30eb\u30af (CV: \u6c34\u702c\u3044\u306e\u308a)     \"),\n            Segment(\"  \u30e1\u30eb\u30af (CV: \u6c34\u702c\u3044\u306e\u308a)     \"),\n            Segment(\"  \u30e1\u30eb\u30af (CV: \u6c34\u702c\u3044\u306e\u308a)      \"),\n        ],\n    )\n    def test_split_cells_mixed(segment: Segment) -> None:\n        \"\"\"Check that split cells splits on cell positions.\"\"\"\n        # Caused https://github.com/Textualize/textual/issues/4996 in Textual\n    \n        for position in range(0, segment.cell_length + 1):\n            left, right = Segment.split_cells(segment, position)\n            assert all(\n                cell_len(c) > 0 for c in segment.text\n            )  # Sanity check there aren't any sneaky control codes\n>           assert cell_len(left.text) == position\nE           AssertionError: assert 23 == 21\nE            +  where 23 = cell_len('\u30e1\u30eb\u30af (CV: \u6c34\u702c\u3044\u306e\u308a ')\nE            +    where '\u30e1\u30eb\u30af (CV: \u6c34\u702c\u3044\u306e\u308a ' = Segment('\u30e1\u30eb\u30af (CV: \u6c34\u702c\u3044\u306e\u308a ').text\n\ntests/test_segment.py:310: AssertionError\n_______________________ test_split_cells_mixed[segment7] _______________________\n\nsegment = Segment('  \u30e1\u30eb\u30af (CV: \u6c34\u702c\u3044\u306e\u308a)      ')\n\n    @pytest.mark.parametrize(\n        \"segment\",\n        [\n            Segment(\"\u65e9\u4e59\u5973\u30ea\u30ea\u30a8\u30eb (CV: \u5fb3\u4e95\u9752\uff09\"),\n            Segment(\"\u30e1\u30a4\u30c9\u30fb\u30a4\u30f3\u30fb\u304d\u3085\u3093\u30af\u30c1\u30e5\u30a2\u30ea\u2606    \"),\n            Segment(\"TV\u30a2\u30cb\u30e1\u300c\u30e1\u30eb\u30af\u30b9\u30c8\u30fc\u30ea\u30a2 -\u7121\u6c17\u529b\u5c11\u5e74\u3068\u74f6\u306e\u4e2d\u306e\u5c11\u5973-\u300d \u4e3b\u984c\u6b4cCD\"),\n            Segment(\"\u5357\u7121\u963f\u5f25JK\u3046\u3089\u3081\u3057\u3084?\uff01     \"),\n            Segment(\"\u30e1\u30eb\u30af (CV: \u6c34\u702c\u3044\u306e\u308a)     \"),\n            Segment(\" \u30e1\u30eb\u30af (CV: \u6c34\u702c\u3044\u306e\u308a)     \"),\n            Segment(\"  \u30e1\u30eb\u30af (CV: \u6c34\u702c\u3044\u306e\u308a)     \"),\n            Segment(\"  \u30e1\u30eb\u30af (CV: \u6c34\u702c\u3044\u306e\u308a)      \"),\n        ],\n    )\n    def test_split_cells_mixed(segment: Segment) -> None:\n        \"\"\"Check that split cells splits on cell positions.\"\"\"\n        # Caused https://github.com/Textualize/textual/issues/4996 in Textual\n    \n        for position in range(0, segment.cell_length + 1):\n            left, right = Segment.split_cells(segment, position)\n            assert all(\n                cell_len(c) > 0 for c in segment.text\n            )  # Sanity check there aren't any sneaky control codes\n>           assert cell_len(left.text) == position\nE           AssertionError: assert 25 == 23\nE            +  where 25 = cell_len('  \u30e1\u30eb\u30af (CV: \u6c34\u702c\u3044\u306e\u308a ')\nE            +    where '  \u30e1\u30eb\u30af (CV: \u6c34\u702c\u3044\u306e\u308a ' = Segment('  \u30e1\u30eb\u30af (CV: \u6c34\u702c\u3044\u306e\u308a ').text\n\ntests/test_segment.py:310: AssertionError\n4 failed, 55 passed in 0.84s\n",
+    "stderr_tail": ""
+  },
+  "gold_patch_strategy": "exact",
+  "gold_patch_applied": true,
+  "post": {
+    "exit": 0,
+    "seconds": 0.9,
+    "timeout": false,
+    "exit_meaning": "all_passed",
+    "run_class": "clean",
+    "counts": {
+      "passed": 59
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "...........................................................              [100%]\n59 passed in 0.62s\n",
+    "stderr_tail": ""
+  },
+  "trace_pre_exists": true,
+  "trace_post_exists": true,
+  "seconds": 33.3
+}

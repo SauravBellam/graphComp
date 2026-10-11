@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="8" time="0.403" timestamp="2026-10-10T23:21:11.688410+00:00" hostname="vm-a2"><testcase classname="test_prompt" name="test_prompt_str" file="test_prompt.py" line="6" time="0.011" /><testcase classname="test_prompt" name="test_prompt_str_case_insensitive" file="test_prompt.py" line="23" time="0.004" /><testcase classname="test_prompt" name="test_prompt_str_default" file="test_prompt.py" line="41" time="0.002" /><testcase classname="test_prompt" name="test_prompt_int" file="test_prompt.py" line="57" time="0.003" /><testcase classname="test_prompt" name="test_prompt_confirm_no" file="test_prompt.py" line="72" time="0.004" /><testcase classname="test_prompt" name="test_prompt_confirm_yes" file="test_prompt.py" line="87" time="0.005" /><testcase classname="test_prompt" name="test_prompt_confirm_default" file="test_prompt.py" line="102" time="0.005" /><testcase classname="test_prompt" name="test_prompt_confirm_markup" file="test_prompt.py" line="115" time="0.006"><failure message="AssertionError: assert 'continue [y/...e [y/n] (y): ' == 'continue [y/...e [y/n] (y): '&#10;  &#10;  - continue [y/n] (y): Please enter Y or N&#10;  + continue [y/n] (y): [prompt.invalid]Please enter Y or N&#10;  ?                     ++++++++++++++++&#10;  - continue [y/n] (y): Please enter Y or N&#10;  + continue [y/n] (y): [prompt.invalid]Please enter Y or N&#10;  ?                     ++++++++++++++++&#10;    continue [y/n] (y):">def test_prompt_confirm_markup():
+        INPUT = "foo\nNO\ny"
+        console = Console(file=io.StringIO(), markup=False)
+        answer = Confirm.ask(
+            "continue", console=console, stream=io.StringIO(INPUT), default=True
+        )
+        assert answer is True
+        expected = "continue [y/n] (y): Please enter Y or N\ncontinue [y/n] (y): Please enter Y or N\ncontinue [y/n] (y): "
+        output = console.file.getvalue()
+        print(repr(output))
+&gt;       assert output == expected
+E       AssertionError: assert 'continue [y/...e [y/n] (y): ' == 'continue [y/...e [y/n] (y): '
+E         
+E         - continue [y/n] (y): Please enter Y or N
+E         + continue [y/n] (y): [prompt.invalid]Please enter Y or N
+E         ?                     ++++++++++++++++
+E         - continue [y/n] (y): Please enter Y or N
+E         + continue [y/n] (y): [prompt.invalid]Please enter Y or N
+E         ?                     ++++++++++++++++
+E           continue [y/n] (y):
+
+tests/test_prompt.py:126: AssertionError</failure></testcase></testsuite></testsuites>

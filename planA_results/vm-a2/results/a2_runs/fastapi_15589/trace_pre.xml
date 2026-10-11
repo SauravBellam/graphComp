@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="7" time="2.608" timestamp="2026-10-10T23:15:45.588088+00:00" hostname="vm-a2"><testcase classname="tests.test_query_cookie_header_model_extra_params" name="test_query_pass_extra_list" time="0.358" /><testcase classname="tests.test_query_cookie_header_model_extra_params" name="test_query_pass_extra_single" time="0.012" /><testcase classname="tests.test_query_cookie_header_model_extra_params" name="test_header_pass_extra_list" time="0.011" /><testcase classname="tests.test_query_cookie_header_model_extra_params" name="test_header_pass_extra_single" time="0.010" /><testcase classname="tests.test_query_cookie_header_model_extra_params" name="test_header_model_prefers_hyphenated_header_with_convert_underscores" time="0.013"><failure message="AssertionError: assert {'x_user_id':...rscore-value'} == {'x_user_id':...enated-value'}&#10;  &#10;  Differing items:&#10;  {'x_user_id': 'underscore-value'} != {'x_user_id': 'hyphenated-value'}&#10;  Use -v to get more diff">def test_header_model_prefers_hyphenated_header_with_convert_underscores():
+        client = TestClient(app)
+    
+        resp = client.get(
+            "/header-requires-hyphen",
+            headers=[
+                ("x-user-id", "hyphenated-value"),
+                ("x_user_id", "underscore-value"),
+            ],
+        )
+    
+        assert resp.status_code == 200
+&gt;       assert resp.json() == {"x_user_id": "hyphenated-value"}
+E       AssertionError: assert {'x_user_id':...rscore-value'} == {'x_user_id':...enated-value'}
+E         
+E         Differing items:
+E         {'x_user_id': 'underscore-value'} != {'x_user_id': 'hyphenated-value'}
+E         Use -v to get more diff
+
+tests/test_query_cookie_header_model_extra_params.py:115: AssertionError</failure></testcase><testcase classname="tests.test_query_cookie_header_model_extra_params" name="test_header_model_rejects_underscore_header_with_convert_underscores" time="0.007"><failure message="assert 200 == 422&#10; +  where 200 = &lt;Response [200 OK]&gt;.status_code">def test_header_model_rejects_underscore_header_with_convert_underscores():
+        client = TestClient(app)
+    
+        resp = client.get(
+            "/header-requires-hyphen", headers={"x_user_id": "underscore-value"}
+        )
+    
+&gt;       assert resp.status_code == 422
+E       assert 200 == 422
+E        +  where 200 = &lt;Response [200 OK]&gt;.status_code
+
+tests/test_query_cookie_header_model_extra_params.py:125: AssertionError</failure></testcase><testcase classname="tests.test_query_cookie_header_model_extra_params" name="test_cookie_pass_extra_list" time="0.009" /></testsuite></testsuites>

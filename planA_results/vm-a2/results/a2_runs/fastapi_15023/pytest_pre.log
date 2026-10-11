@@ -1,0 +1,169 @@
+
+$ /home/sauravbellam/cache/a2/fastapi_15023/venv/bin/python -s -m pytest tests/test_tutorial/test_stream_data/test_tutorial002.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/fastapi_15023/trace_pre.xml
+[exit 1]
+..F..FE                                                                  [100%]
+
+═════════════════════════════════════════════════════════════════════════════════ inline-snapshot ══════════════════════════════════════════════════════════════════════════════════
+────────────────────────────────────────────────────────────────────────────────── Fix snapshots ───────────────────────────────────────────────────────────────────────────────────
+╭──────────────────────────────────────────────────────────── tests/test_tutorial/test_stream_data/test_tutorial002.py ────────────────────────────────────────────────────────────╮
+│ @@ -73,22 +73,7 @@                                                                                                                                                               │
+│                                                                                                                                                                                  │
+│                              }                                                                                                                                                   │
+│                          },                                                                                                                                                      │
+│                      }                                                                                                                                                           │
+│ -                },                                                                                                                                                              │
+│ -                "/image/stream-no-async-yield-from": {                                                                                                                          │
+│ -                    "get": {                                                                                                                                                    │
+│ -                        "summary": "Stream Image No Async Yield From",                                                                                                          │
+│ -                        "operationId": "stream_image_no_async_yield_from_image_stream_no_async_yield_from_get",                                                                 │
+│ -                        "responses": {                                                                                                                                          │
+│ -                            "200": {                                                                                                                                            │
+│ -                                "description": "Successful Response",                                                                                                           │
+│ -                                "content": {                                                                                                                                    │
+│ -                                    "image/png": {"schema": {"type": "string"}}                                                                                                 │
+│ -                                },                                                                                                                                              │
+│ -                            }                                                                                                                                                   │
+│ -                        },                                                                                                                                                      │
+│ -                    }                                                                                                                                                           │
+│ -                },                                                                                                                                                              │
+│ -                "/image/stream-no-annotation": {                                                                                                                                │
+│ +                }, "/image/stream-no-annotation": {                                                                                                                             │
+│                      "get": {                                                                                                                                                    │
+│                          "summary": "Stream Image No Annotation",                                                                                                                │
+│                          "operationId": "stream_image_no_annotation_image_stream_no_annotation_get",                                                                             │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+These changes are not applied.
+Use --inline-snapshot=fix to apply them, or use the interactive mode with --inline-snapshot=review
+
+───────────────────────────────────────────────────────────────────────────────────── Problems ─────────────────────────────────────────────────────────────────────────────────────
+inline-snapshot is not able to format your code.
+This issue can be solved by:
+ * installing inline-snapshot[black] which gives you the same formatting like in older versions
+ * adding a `format-command` to your pyproject.toml (see https://15r10nk.github.io/inline-snapshot/latest/configuration/#format-command for more information).
+
+
+
+==================================== ERRORS ====================================
+_________ ERROR at teardown of test_openapi_schema[tutorial002_py310] __________
+some snapshots in this test have incorrect values.
+If you just created this value with --inline-snapshot=create, the value is now created and you can ignore this message.
+=================================== FAILURES ===================================
+____ test_stream_image[tutorial002_py310-/image/stream-no-async-yield-from] ____
+
+mod = <module 'docs_src.stream_data.tutorial002_py310' from '/home/sauravbellam/cache/a2/fastapi_15023/workspace/docs_src/stream_data/tutorial002_py310.py'>
+client = <starlette.testclient.TestClient object at 0x7fa2ad1f9e50>
+path = '/image/stream-no-async-yield-from'
+
+    @pytest.mark.parametrize(
+        "path",
+        [
+            "/image/stream",
+            "/image/stream-no-async",
+            "/image/stream-no-async-yield-from",
+            "/image/stream-no-annotation",
+            "/image/stream-no-async-no-annotation",
+        ],
+    )
+    def test_stream_image(mod, client: TestClient, path: str):
+        response = client.get(path)
+>       assert response.status_code == 200
+E       assert 404 == 200
+E        +  where 404 = <Response [404 Not Found]>.status_code
+
+tests/test_tutorial/test_stream_data/test_tutorial002.py:36: AssertionError
+____________________ test_openapi_schema[tutorial002_py310] ____________________
+
+client = <starlette.testclient.TestClient object at 0x7fa2ade6d010>
+
+    def test_openapi_schema(client: TestClient):
+        response = client.get("/openapi.json")
+        assert response.status_code == 200, response.text
+>       assert response.json() == snapshot(
+            {
+                "openapi": "3.1.0",
+                "info": {"title": "FastAPI", "version": "0.1.0"},
+                "paths": {
+                    "/image/stream": {
+                        "get": {
+                            "summary": "Stream Image",
+                            "operationId": "stream_image_image_stream_get",
+                            "responses": {
+                                "200": {
+                                    "description": "Successful Response",
+                                    "content": {
+                                        "image/png": {"schema": {"type": "string"}}
+                                    },
+                                }
+                            },
+                        }
+                    },
+                    "/image/stream-no-async": {
+                        "get": {
+                            "summary": "Stream Image No Async",
+                            "operationId": "stream_image_no_async_image_stream_no_async_get",
+                            "responses": {
+                                "200": {
+                                    "description": "Successful Response",
+                                    "content": {
+                                        "image/png": {"schema": {"type": "string"}}
+                                    },
+                                }
+                            },
+                        }
+                    },
+                    "/image/stream-no-async-yield-from": {
+                        "get": {
+                            "summary": "Stream Image No Async Yield From",
+                            "operationId": "stream_image_no_async_yield_from_image_stream_no_async_yield_from_get",
+                            "responses": {
+                                "200": {
+                                    "description": "Successful Response",
+                                    "content": {
+                                        "image/png": {"schema": {"type": "string"}}
+                                    },
+                                }
+                            },
+                        }
+                    },
+                    "/image/stream-no-annotation": {
+                        "get": {
+                            "summary": "Stream Image No Annotation",
+                            "operationId": "stream_image_no_annotation_image_stream_no_annotation_get",
+                            "responses": {
+                                "200": {
+                                    "description": "Successful Response",
+                                    "content": {
+                                        "image/png": {"schema": {"type": "string"}}
+                                    },
+                                }
+                            },
+                        }
+                    },
+                    "/image/stream-no-async-no-annotation": {
+                        "get": {
+                            "summary": "Stream Image No Async No Annotation",
+                            "operationId": "stream_image_no_async_no_annotation_image_stream_no_async_no_annotation_get",
+                            "responses": {
+                                "200": {
+                                    "description": "Successful Response",
+                                    "content": {
+                                        "image/png": {"schema": {"type": "string"}}
+                                    },
+                                }
+                            },
+                        }
+                    },
+                },
+            }
+        )
+E       AssertionError: assert {'openapi': '...': {...}}}}}}} == {'openapi': '.....}}}}}, ...}}
+E         
+E         Omitting 2 identical items, use -vv to show
+E         Differing items:
+E         {'paths': {'/image/stream': {'get': {'summary': 'Stream Image', 'operationId': 'stream_image_image_stream_get', 'respo..._stream_no_async_no_annotation_get', 'responses': {'200': {'description': 'Successful Response', 'content': {...}}}}}}} != {'paths': {'/image/stream': {'get': {'summary': 'Stream Image', 'operationId': 'stream_image_image_stream_get', 'respo...mage_stream_no_annotation_get', 'responses': {'200': {'description': 'Successful Response', 'content': {...}}}}}, ...}}
+E         Use -v to get more diff
+
+tests/test_tutorial/test_stream_data/test_tutorial002.py:44: AssertionError
+2 failed, 4 passed, 1 error in 2.82s
+
+

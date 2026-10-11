@@ -1,0 +1,62 @@
+
+$ /home/sauravbellam/cache/a2/rich_3938/venv/bin/python -s -m pytest tests/test_segment.py tests/test_text.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/rich_3938/trace_pre.xml
+[exit 1]
+....FF.................................................................. [ 41%]
+........................................................................ [ 82%]
+.............................F                                           [100%]
+=================================== FAILURES ===================================
+_________________________ test_split_lines_terminator __________________________
+
+    def test_split_lines_terminator():
+        lines = [Segment("Hello\nWorld")]
+>       assert list(Segment.split_lines_terminator(lines)) == [
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            ([Segment("Hello")], True),
+            ([Segment("World")], False),
+        ]
+E       AttributeError: type object 'Segment' has no attribute 'split_lines_terminator'
+
+tests/test_segment.py:39: AttributeError
+___________________ test_split_lines_terminator_single_line ____________________
+
+    def test_split_lines_terminator_single_line():
+        lines = [Segment("Hello")]
+>       assert list(Segment.split_lines_terminator(lines)) == [
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            ([Segment("Hello")], False),
+        ]
+E       AttributeError: type object 'Segment' has no attribute 'split_lines_terminator'
+
+tests/test_segment.py:47: AttributeError
+____________________________ test_soft_wrap_styled _____________________________
+
+    def test_soft_wrap_styled() -> None:
+        """Regression test for https://github.com/Textualize/rich/issues/3838
+    
+        If soft_wrap is True and a style is set, we don't want to style the new lines.
+        """
+        console = Console(color_system="standard", width=80, force_terminal=True)
+        with console.capture() as capture:
+            console.print("soft wrap is on", style="blue on white", soft_wrap=True)
+            console.print("Next line")
+    
+        output = capture.get()
+        print(repr(output))
+        # Background is reset before \n
+        expected = "\x1b[34;47msoft wrap is on\x1b[0m\nNext line\n"
+>       assert output == expected
+E       AssertionError: assert '\x1b[34;47ms...0mNext line\n' == '\x1b[34;47ms...\nNext line\n'
+E         
+E         - [34;47msoft wrap is on[0m
+E         + [34;47msoft wrap is on[0m[34;47m
+E         ?                            ++++++++
+E         - Next line
+E         + [0mNext line
+E         ? ++++
+
+tests/test_text.py:1129: AssertionError
+----------------------------- Captured stdout call -----------------------------
+'\x1b[34;47msoft wrap is on\x1b[0m\x1b[34;47m\n\x1b[0mNext line\n'
+3 failed, 171 passed in 1.58s
+
+

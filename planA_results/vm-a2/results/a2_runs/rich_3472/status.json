@@ -1,0 +1,90 @@
+{
+  "instance_id": "rich_3472",
+  "repo": "Textualize/rich",
+  "backend": "venv",
+  "done": true,
+  "deps": {
+    "steps": [
+      {
+        "name": "pip_upgrade",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3472/venv/bin/python -m pip install -q --disable-pip-version-check 'pip>=24' 'setuptools' 'wheel' pytest pytest-timeout",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "editable_no_deps",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3472/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-build-isolation --no-deps -e .",
+        "exit": 2,
+        "stderr_tail": "python3.13/site-packages/pip/_internal/req/req_install.py\", line 258, in supports_pyproject_editable\n    return \"build_editable\" in self.pep517_backend._supported_features()\n                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"/home/sauravbellam/cache/a2/rich_3472/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 180, in _supported_features\n    return self._call_hook(\"_supported_features\", {})\n           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/sauravbellam/cache/a2/rich_3472/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 402, in _call_hook\n    raise BackendUnavailable(\n    ...<4 lines>...\n    )\npip._vendor.pyproject_hooks._impl.BackendUnavailable: Cannot import 'poetry.core.masonry.api'\n"
+      },
+      {
+        "name": "editable_no_deps_isolated",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3472/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-deps -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "runtime_deps",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3472/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "poetry_group_dev",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3472/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels pytest black mypy pytest-cov attrs pre-commit asv importlib-metadata",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "rich_tests",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3472/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels pytest-cov attrs ipywidgets",
+        "exit": 0,
+        "stderr_tail": ""
+      }
+    ],
+    "editable_ok": true,
+    "python": "3.13.5 (main, Aug 10 2026, 12:06:59) [GCC 14.2.0]"
+  },
+  "targets": [
+    "tests/test_pretty.py"
+  ],
+  "test_patch_strategy": "exact",
+  "test_patch_applied": true,
+  "pre": {
+    "exit": 1,
+    "seconds": 1.6,
+    "timeout": false,
+    "exit_meaning": "some_failed",
+    "run_class": "clean",
+    "counts": {
+      "failed": 2,
+      "passed": 49,
+      "skipped": 1
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "__}(...)\")\n                else:\n                    node = Node(\n                        open_brace=f\"{obj.__class__.__name__}(\",\n                        close_brace=\")\",\n                        children=children,\n                        last=root,\n                    )\n    \n                    def iter_attrs() -> (\n                        Iterable[Tuple[str, Any, Optional[Callable[[Any], str]]]]\n                    ):\n                        \"\"\"Iterate over attr fields and values.\"\"\"\n                        for attr in attr_fields:\n                            if attr.repr:\n                                try:\n                                    value = getattr(obj, attr.name)\n                                except Exception as error:\n                                    # Can happen, albeit rarely\n                                    yield (attr.name, error, None)\n                                else:\n                                    yield (\n                                        attr.name,\n                                        value,\n                                        attr.repr if callable(attr.repr) else None,\n                                    )\n    \n                    for last, (name, value, repr_callable) in loop_last(iter_attrs()):\n                        if repr_callable:\n                            child_node = Node(value_repr=str(repr_callable(value)))\n                        else:\n                            child_node = _traverse(value, depth=depth + 1)\n                        child_node.last = last\n                        child_node.key_repr = name\n                        child_node.key_separator = \"=\"\n                        append(child_node)\n            else:\n                node = Node(\n                    value_repr=f\"{obj.__class__.__name__}()\", children=[], last=root\n                )\n            pop_visited(obj_id)\n        elif (\n            is_dataclass(obj)\n            and not _safe_isinstance(obj, type)\n            and not fake_attributes\n            and _is_dataclass_repr(obj)\n        ):\n            push_visited(obj_id)\n            children = []\n            append = children.append\n            if reached_max_depth:\n                node = Node(value_repr=f\"{obj.__class__.__name__}(...)\")\n            else:\n                node = Node(\n                    open_brace=f\"{obj.__class__.__name__}(\",\n                    close_brace=\")\",\n                    children=children,\n                    last=root,\n                    empty=f\"{obj.__class__.__name__}()\",\n                )\n    \n                for last, field in loop_last(\n                    field for field in fields(obj) if field.repr\n                ):\n>                   child_node = _traverse(getattr(obj, field.name), depth=depth + 1)\n                                           ^^^^^^^^^^^^^^^^^^^^^^^^\nE                   AttributeError: 'BadDataclass' object has no attribute 'item'\n\nrich/pretty.py:786: AttributeError\n2 failed, 49 passed, 1 skipped in 1.15s\n",
+    "stderr_tail": ""
+  },
+  "gold_patch_strategy": "exact",
+  "gold_patch_applied": true,
+  "post": {
+    "exit": 1,
+    "seconds": 1.1,
+    "timeout": false,
+    "exit_meaning": "some_failed",
+    "run_class": "clean",
+    "counts": {
+      "failed": 1,
+      "passed": 50,
+      "skipped": 1
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "............................................sF......                     [100%]\n=================================== FAILURES ===================================\n____________________________ test_attrs_broken_310 _____________________________\n\n    @skip_py37\n    @skip_py38\n    @skip_py39\n    def test_attrs_broken_310() -> None:\n        @attr.define\n        class Foo:\n            bar: int\n    \n        foo = Foo(1)\n        del foo.bar\n        result = pretty_repr(foo)\n        print(repr(result))\n        expected = \"Foo(bar=AttributeError(\\\"'Foo' object has no attribute 'bar'\\\"))\"\n>       assert result == expected\nE       assert 'Foo(\\n    ba... \\'bar\\'\")\\n)' == 'Foo(bar=Attr...te \\'bar\\'\"))'\nE         \nE         - Foo(bar=AttributeError(\"'Foo' object has no attribute 'bar'\"))\nE         + Foo(\nE         +     bar=AttributeError(\"'tests.test_pretty.test_attrs_broken_310.<locals>.Foo' object has no attribute 'bar'\")\nE         + )\n\ntests/test_pretty.py:672: AssertionError\n----------------------------- Captured stdout call -----------------------------\n'Foo(\\n    bar=AttributeError(\"\\'tests.test_pretty.test_attrs_broken_310.<locals>.Foo\\' object has no attribute \\'bar\\'\")\\n)'\n1 failed, 50 passed, 1 skipped in 0.74s\n",
+    "stderr_tail": ""
+  },
+  "trace_pre_exists": true,
+  "trace_post_exists": true,
+  "seconds": 32.8
+}

@@ -1,0 +1,25 @@
+
+$ /home/sauravbellam/cache/a2/rich_3006/venv/bin/python -s -m pytest tests/test_repr.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/rich_3006/trace_pre.xml
+[exit 1]
+...F....                                                                 [100%]
+=================================== FAILURES ===================================
+_____________________________ test_rich_repr_auto ______________________________
+
+    def test_rich_repr_auto() -> None:
+        assert repr(Egg("hello", egg=2)) == "Egg('hello', egg=2)"
+        stupid_class = StupidClass(9)
+        not_stupid = NotStupid()
+>       assert (
+            repr(Bird("penguin", ["fish"], another=stupid_class, extinct=not_stupid))
+            == f"Bird('penguin', ['fish'], another={repr(stupid_class)}, extinct={repr(not_stupid)})"
+        )
+E       assert "Bird('pengui...fb82ca2ec10>)" == "Bird('pengui...fb82ca2ec10>)"
+E         
+E         - Bird('penguin', ['fish'], another=<tests.test_repr.StupidClass object at 0x7fb82ca2e210>, extinct=<tests.test_repr.NotStupid object at 0x7fb82ca2ec10>)
+E         ?                           --------
+E         + Bird('penguin', ['fish'], <tests.test_repr.StupidClass object at 0x7fb82ca2e210>, extinct=<tests.test_repr.NotStupid object at 0x7fb82ca2ec10>)
+
+tests/test_repr.py:129: AssertionError
+1 failed, 7 passed in 0.27s
+
+

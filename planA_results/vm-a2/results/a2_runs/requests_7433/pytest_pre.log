@@ -1,0 +1,118 @@
+
+$ /home/sauravbellam/cache/a2/requests_7433/venv/bin/python -s -m pytest tests/test_requests.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/requests_7433/trace_pre.xml
+[exit 1]
+........................................................................ [ 21%]
+.................................................s.pytest-httpbin server hit an exception serving request: [SSL: TLSV1_ALERT_UNKNOWN_CA] tlsv1 alert unknown ca (_ssl.c:1029)
+attempting to ignore so the rest of the tests can run
+..................... [ 42%]
+........................................................................ [ 63%]
+..............F.........x............................................... [ 84%]
+...................................................                      [100%]
+=================================== FAILURES ===================================
+___________ TestRequests.test_getattr_proxy_stream_follows_redirect ____________
+
+self = <tests.test_requests.TestRequests object at 0x7f11cc2d37a0>
+httpbin = <function prepare_url.<locals>.inner at 0x7f11cd24a340>
+
+    def test_getattr_proxy_stream_follows_redirect(self, httpbin):
+        """Ensure stream wrappers that don't implement __iter__ directly are still detected."""
+    
+        class AttrProxy:
+            def __init__(self):
+                self._file = io.BytesIO(b"data")
+    
+            def __getattr__(self, name):
+                return getattr(self._file, name)
+    
+>       r = requests.post(
+            httpbin("redirect-to?url=/post&status_code=307"), data=AttrProxy()
+        )
+
+tests/test_requests.py:2086: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/requests/api.py:134: in post
+    return request("post", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/requests/api.py:71: in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/requests/sessions.py:635: in request
+    prep = self.prepare_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+src/requests/sessions.py:541: in prepare_request
+    p.prepare(
+src/requests/models.py:442: in prepare
+    self.prepare_body(data, files, json)
+src/requests/models.py:638: in prepare_body
+    body = self._encode_params(raw_data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/requests/models.py:168: in _encode_params
+    for k, vs in to_key_val_list(data):
+                 ^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+value = <tests.test_requests.TestRequests.test_getattr_proxy_stream_follows_redirect.<locals>.AttrProxy object at 0x7f11cd2e06e0>
+
+    def to_key_val_list(
+        value: _t.SupportsItems[_KT, _VT] | Iterable[tuple[_KT, _VT]] | None,
+    ) -> list[tuple[_KT, _VT]] | None:
+        """Take an object and test to see if it can be represented as a
+        dictionary. If it can be, return a list of tuples, e.g.,
+    
+        ::
+    
+            >>> to_key_val_list([('key', 'val')])
+            [('key', 'val')]
+            >>> to_key_val_list({'key': 'val'})
+            [('key', 'val')]
+            >>> to_key_val_list('string')
+            Traceback (most recent call last):
+            ...
+            ValueError: cannot encode objects that are not 2-tuples
+    
+        :rtype: list
+        """
+        if value is None:
+            return None
+    
+        if isinstance(value, (str, bytes, bool, int)):
+            raise ValueError("cannot encode objects that are not 2-tuples")
+    
+        if isinstance(value, _SupportsItems):
+            return list(value.items())
+    
+>       return list(value)
+               ^^^^^^^^^^^
+E       TypeError: 'AttrProxy' object is not iterable
+
+src/requests/utils.py:404: TypeError
+=============================== warnings summary ===============================
+tests/test_requests.py::TestPreparingURLs::test_different_connection_pool_for_tls_settings_verify_True
+tests/test_requests.py::TestPreparingURLs::test_different_connection_pool_for_tls_settings_verify_bundle_expired_cert
+tests/test_requests.py::TestPreparingURLs::test_different_connection_pool_for_tls_settings_verify_bundle_unexpired_cert
+tests/test_requests.py::TestPreparingURLs::test_different_connection_pool_for_mtls_settings
+  /home/sauravbellam/cache/a2/requests_7433/venv/lib/python3.13/site-packages/urllib3/connectionpool.py:1129: InsecureRequestWarning: Unverified HTTPS request is being made to host 'localhost'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+1 failed, 336 passed, 1 skipped, 1 xfailed, 4 warnings in 49.57s
+
+[2026-10-10 23:15:26,041] WARNING in core: flasgger is not installed; serving the static landing page at / and skipping the Swagger UI and /spec.json.
+127.0.0.1 - - [10/Oct/2026 23:15:28] "HEAD /get HTTP/1.1" 200 0
+127.0.0.1 - - [10/Oct/2026 23:15:28] "HEAD /get HTTP/1.1" 200 0
+127.0.0.1 - - [10/Oct/2026 23:15:29] "GET /get HTTP/1.1" 200 272
+127.0.0.1 - - [10/Oct/2026 23:15:29] "GET /get HTTP/1.1" 200 272
+127.0.0.1 - - [10/Oct/2026 23:15:29] "GET /user-agent HTTP/1.1" 200 34
+127.0.0.1 - - [10/Oct/2026 23:15:29] "GET /cookies HTTP/1.1" 200 40
+127.0.0.1 - - [10/Oct/2026 23:15:29] "GET /basic-auth/user/pass HTTP/1.1" 200 46
+127.0.0.1 - - [10/Oct/2026 23:15:33] "GET /digest-auth/auth/user/pass/SHA-512 HTTP/1.1" 401 0
+127.0.0.1 - - [10/Oct/2026 23:15:33] "GET /get?f%C3%B8%C3%B8=f%C3%B8%C3%B8 HTTP/1.1" 200 340
+127.0.0.1 - - [10/Oct/2026 23:15:33] "PUT /put HTTP/1.1" 200 412
+127.0.0.1 - - [10/Oct/2026 23:15:34] "GET / HTTP/1.1" 200 13760
+127.0.0.1 - - [10/Oct/2026 23:15:34] "POST /post HTTP/1.1" 200 114657
+127.0.0.1 - - [10/Oct/2026 23:15:34] "GET /get HTTP/1.1" 200 208
+127.0.0.1 - - [10/Oct/2026 23:15:34] "GET /get HTTP/1.1" 200 285
+127.0.0.1 - - [10/Oct/2026 23:15:35] "GET /get HTTP/1.1" 200 272
+127.0.0.1 - - [10/Oct/2026 23:15:36] "GET /stream/4 HTTP/1.1" 200 1008
+127.0.0.1 - - [10/Oct/2026 23:16:07] "GET /redirect-to?url=http%3A%2F%2F%3A1 HTTP/1.1" 302 0
+

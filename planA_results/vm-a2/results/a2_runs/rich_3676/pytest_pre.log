@@ -1,0 +1,42 @@
+
+$ /home/sauravbellam/cache/a2/rich_3676/venv/bin/python -s -m pytest tests/test_traceback.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/rich_3676/trace_pre.xml
+[exit 1]
+...................s.F                                                   [100%]
+=================================== FAILURES ===================================
+__________________________________ test_notes __________________________________
+
+    @pytest.mark.skipif(
+        sys.version_info.minor < 11, reason="Not supported before Python 3.11"
+    )
+    def test_notes() -> None:
+        """Check traceback captures __note__."""
+        try:
+>           1 / 0
+E           ZeroDivisionError: division by zero
+E           Hello
+E           World
+
+tests/test_traceback.py:369: ZeroDivisionError
+
+During handling of the above exception, another exception occurred:
+
+    @pytest.mark.skipif(
+        sys.version_info.minor < 11, reason="Not supported before Python 3.11"
+    )
+    def test_notes() -> None:
+        """Check traceback captures __note__."""
+        try:
+            1 / 0
+        except Exception as error:
+            error.add_note("Hello")
+            error.add_note("World")
+            traceback = Traceback()
+    
+>           assert traceback.trace.stacks[0].notes == ["Hello", "World"]
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           AttributeError: 'Stack' object has no attribute 'notes'
+
+tests/test_traceback.py:375: AttributeError
+1 failed, 20 passed, 1 skipped in 2.21s
+
+

@@ -1,0 +1,94 @@
+{
+  "instance_id": "fastapi_14986",
+  "repo": "fastapi/fastapi",
+  "backend": "venv",
+  "done": true,
+  "deps": {
+    "steps": [
+      {
+        "name": "pip_upgrade",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14986/venv/bin/python -m pip install -q --disable-pip-version-check 'pip>=24' 'setuptools' 'wheel' pytest pytest-timeout",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "editable_no_deps",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14986/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-build-isolation --no-deps -e .",
+        "exit": 2,
+        "stderr_tail": "lib/python3.13/site-packages/pip/_internal/req/req_install.py\", line 258, in supports_pyproject_editable\n    return \"build_editable\" in self.pep517_backend._supported_features()\n                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"/home/sauravbellam/cache/a2/fastapi_14986/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 180, in _supported_features\n    return self._call_hook(\"_supported_features\", {})\n           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/sauravbellam/cache/a2/fastapi_14986/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 402, in _call_hook\n    raise BackendUnavailable(\n    ...<4 lines>...\n    )\npip._vendor.pyproject_hooks._impl.BackendUnavailable: Cannot import 'pdm.backend'\n"
+      },
+      {
+        "name": "editable_no_deps_isolated",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14986/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-deps -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "runtime_deps",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14986/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "extra_all",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14986/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e '.[all]'",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "extra_standard",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14986/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e '.[standard]'",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "fastapi_tests",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14986/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels httpx 'python-multipart' email-validator pyyaml orjson ujson 'sqlmodel' 'dirty-equals' 'pytest-asyncio' 'flask' 'passlib[bcrypt]' 'pyjwt' 'inline-snapshot'",
+        "exit": 0,
+        "stderr_tail": ""
+      }
+    ],
+    "editable_ok": true,
+    "python": "3.13.5 (main, Aug 10 2026, 12:06:59) [GCC 14.2.0]"
+  },
+  "targets": [
+    "tests/test_openapi_cache_root_path.py",
+    "tests/test_swagger_ui_escape.py"
+  ],
+  "test_patch_strategy": "exact",
+  "test_patch_applied": true,
+  "pre": {
+    "exit": 1,
+    "seconds": 3.9,
+    "timeout": false,
+    "exit_meaning": "some_failed",
+    "run_class": "clean",
+    "counts": {
+      "failed": 5,
+      "passed": 2
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "to clean request: {servers}\"\n            )\nE           AssertionError: root_path '/path-a' leaked into clean request: ['/path-a']\nE           assert '/path-a' not in ['/path-a']\n\ntests/test_openapi_cache_root_path.py:43: AssertionError\n_____________________ test_configured_servers_not_mutated ______________________\n\n    def test_configured_servers_not_mutated():\n        configured_servers = [{\"url\": \"https://prod.example.com\"}]\n        app = FastAPI(servers=configured_servers)\n    \n        @app.get(\"/\")\n        def read_root():  # pragma: no cover\n            return {\"ok\": True}\n    \n        # Request with a rogue root_path\n        attacker_client = TestClient(app, root_path=\"/evil\")\n        attacker_client.get(\"/openapi.json\")\n    \n        # The original servers list must be untouched\n>       assert configured_servers == [{\"url\": \"https://prod.example.com\"}]\nE       AssertionError: assert [{'url': '/ev...example.com'}] == [{'url': 'htt...example.com'}]\nE         \nE         At index 0 diff: {'url': '/evil'} != {'url': 'https://prod.example.com'}\nE         Left contains one more item: {'url': 'https://prod.example.com'}\nE         Use -v to get more diff\n\ntests/test_openapi_cache_root_path.py:75: AssertionError\n____________________ test_init_oauth_html_chars_are_escaped ____________________\n\n    def test_init_oauth_html_chars_are_escaped():\n        xss_payload = \"Evil</script><script>alert(1)</script>\"\n        html = get_swagger_ui_html(\n            openapi_url=\"/openapi.json\",\n            title=\"Test\",\n            init_oauth={\"appName\": xss_payload},\n        )\n        body = html.body.decode()\n    \n>       assert \"</script><script>\" not in body\nE       assert '</script><script>' not in '\\n    <!DOC.../html>\\n    '\nE         \nE         '</script><script>' is contained here:\nE           me\": \"Evil</script><script>alert(1)</script>\"})\nE         ?           +++++++++++++++++\nE                   \nE               </script>\nE               </body>\nE               </html>\n\ntests/test_swagger_ui_escape.py:13: AssertionError\n______________ test_swagger_ui_parameters_html_chars_are_escaped _______________\n\n    def test_swagger_ui_parameters_html_chars_are_escaped():\n        html = get_swagger_ui_html(\n            openapi_url=\"/openapi.json\",\n            title=\"Test\",\n            swagger_ui_parameters={\"customKey\": \"<img src=x onerror=alert(1)>\"},\n        )\n        body = html.body.decode()\n>       assert \"<img src=x onerror=alert(1)>\" not in body\nE       assert '<img src=x ...or=alert(1)>' not in '\\n    <!DOC.../html>\\n    '\nE         \nE         '<img src=x onerror=alert(1)>' is contained here:\nE           tomKey\": \"<img src=x onerror=alert(1)>\",\nE           \nE               presets: [\nE                   SwaggerUIBundle.presets.apis,\nE                   SwaggerUIBundle.SwaggerUIStandalonePreset...\nE         \nE         ...Full output truncated (6 lines hidden), use '-vv' to show\n\ntests/test_swagger_ui_escape.py:24: AssertionError\n5 failed, 2 passed in 2.66s\n",
+    "stderr_tail": ""
+  },
+  "gold_patch_strategy": "exact",
+  "gold_patch_applied": true,
+  "post": {
+    "exit": 0,
+    "seconds": 3.2,
+    "timeout": false,
+    "exit_meaning": "all_passed",
+    "run_class": "clean",
+    "counts": {
+      "passed": 7
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": ".......                                                                  [100%]\n7 passed in 2.16s\n",
+    "stderr_tail": ""
+  },
+  "trace_pre_exists": true,
+  "trace_post_exists": true,
+  "seconds": 54.7
+}

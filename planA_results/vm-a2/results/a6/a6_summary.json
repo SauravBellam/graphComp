@@ -1,0 +1,2488 @@
+{
+  "graphs": {
+    "fastapi_016ab760faba1813ba235d5582a014a58bd2f417": {
+      "n_nodes": 6143,
+      "node_kinds": {
+        "module": 1119,
+        "class": 641,
+        "async_function": 830,
+        "function": 3501,
+        "provided_only": 52
+      },
+      "edge_types": {
+        "contains": 4972,
+        "imports": 2210,
+        "inherits": 98,
+        "calls_static": 2255,
+        "tests": 1338,
+        "calls_dynamic": 391
+      },
+      "async_defs": 830,
+      "nodes_not_in_provided": 1949
+    },
+    "fastapi_08924400c2c75533685148b029defcf6913f1def": {
+      "n_nodes": 6495,
+      "node_kinds": {
+        "module": 1250,
+        "class": 776,
+        "async_function": 998,
+        "function": 3425,
+        "provided_only": 46
+      },
+      "edge_types": {
+        "contains": 5199,
+        "imports": 2485,
+        "inherits": 124,
+        "calls_static": 2207,
+        "tests": 4106,
+        "calls_dynamic": 1066
+      },
+      "async_defs": 998,
+      "nodes_not_in_provided": 2252
+    },
+    "fastapi_08b09e5236e315b6f10265ed229f130d4befb4ea": {
+      "n_nodes": 5998,
+      "node_kinds": {
+        "module": 1176,
+        "class": 868,
+        "async_function": 1062,
+        "function": 2853,
+        "provided_only": 39
+      },
+      "edge_types": {
+        "contains": 4799,
+        "imports": 2877,
+        "inherits": 643,
+        "calls_static": 2298,
+        "tests": 91,
+        "calls_dynamic": 385
+      },
+      "async_defs": 1062,
+      "nodes_not_in_provided": 2271
+    },
+    "fastapi_0bdc3ca3732e3742e094bea2b320e9774659ac38": {
+      "n_nodes": 5263,
+      "node_kinds": {
+        "module": 1104,
+        "class": 765,
+        "async_function": 963,
+        "function": 2396,
+        "provided_only": 35
+      },
+      "edge_types": {
+        "contains": 4157,
+        "imports": 2503,
+        "inherits": 127,
+        "calls_static": 1812,
+        "tests": 28,
+        "calls_dynamic": 235
+      },
+      "async_defs": 963,
+      "nodes_not_in_provided": 2098
+    },
+    "fastapi_0dd42b746e17d33a74ea267a62eace9ccdccf345": {
+      "n_nodes": 6515,
+      "node_kinds": {
+        "module": 1253,
+        "class": 779,
+        "async_function": 1000,
+        "function": 3437,
+        "provided_only": 46
+      },
+      "edge_types": {
+        "contains": 5216,
+        "imports": 2497,
+        "inherits": 124,
+        "calls_static": 2225,
+        "tests": 78,
+        "calls_dynamic": 330
+      },
+      "async_defs": 1000,
+      "nodes_not_in_provided": 2257
+    },
+    "fastapi_16d75d90eb96976a57b94cc24e4018859cd54c4d": {
+      "n_nodes": 5251,
+      "node_kinds": {
+        "module": 1104,
+        "class": 762,
+        "async_function": 963,
+        "function": 2390,
+        "provided_only": 32
+      },
+      "edge_types": {
+        "contains": 4148,
+        "imports": 2500,
+        "inherits": 127,
+        "calls_static": 1791,
+        "tests": 63,
+        "calls_dynamic": 376
+      },
+      "async_defs": 963,
+      "nodes_not_in_provided": 2098
+    },
+    "fastapi_1b3bea8b6be2220cc1544653ea785d2134fcb35b": {
+      "n_nodes": 6777,
+      "node_kinds": {
+        "module": 1266,
+        "class": 826,
+        "async_function": 1002,
+        "function": 3635,
+        "provided_only": 48
+      },
+      "edge_types": {
+        "contains": 5463,
+        "imports": 2659,
+        "inherits": 630,
+        "calls_static": 2397,
+        "tests": 409,
+        "calls_dynamic": 405
+      },
+      "async_defs": 1002,
+      "nodes_not_in_provided": 2274
+    },
+    "fastapi_1e78a36b7310003f0ff634627d8a7bc53c6ccdee": {
+      "n_nodes": 5879,
+      "node_kinds": {
+        "module": 1077,
+        "class": 622,
+        "async_function": 788,
+        "function": 3345,
+        "provided_only": 47
+      },
+      "edge_types": {
+        "contains": 4755,
+        "imports": 2117,
+        "inherits": 99,
+        "calls_static": 2095,
+        "tests": 153,
+        "calls_dynamic": 348
+      },
+      "async_defs": 788,
+      "nodes_not_in_provided": 1865
+    },
+    "fastapi_1fcec88ad2df4541b6a81c4786c4d039dc745e1e": {
+      "n_nodes": 6839,
+      "node_kinds": {
+        "module": 1249,
+        "class": 980,
+        "async_function": 1188,
+        "function": 3379,
+        "provided_only": 43
+      },
+      "edge_types": {
+        "contains": 5563,
+        "imports": 3130,
+        "inherits": 737,
+        "calls_static": 2494,
+        "tests": 216,
+        "calls_dynamic": 373
+      },
+      "async_defs": 1188,
+      "nodes_not_in_provided": 2470
+    },
+    "fastapi_202b2d2f5f331db9102b5dbcef071a9e09bed10e": {
+      "n_nodes": 6229,
+      "node_kinds": {
+        "module": 1120,
+        "class": 646,
+        "async_function": 838,
+        "function": 3564,
+        "provided_only": 61
+      },
+      "edge_types": {
+        "contains": 5048,
+        "imports": 2226,
+        "inherits": 98,
+        "calls_static": 2449,
+        "tests": 2199,
+        "calls_dynamic": 544
+      },
+      "async_defs": 838,
+      "nodes_not_in_provided": 1958
+    },
+    "fastapi_22b02e26f9e8c7e32bd8266e2b0ebe8bb3a0db2b": {
+      "n_nodes": 6112,
+      "node_kinds": {
+        "module": 1117,
+        "class": 640,
+        "async_function": 829,
+        "function": 3474,
+        "provided_only": 52
+      },
+      "edge_types": {
+        "contains": 4943,
+        "imports": 2203,
+        "inherits": 98,
+        "calls_static": 2193,
+        "tests": 155,
+        "calls_dynamic": 396
+      },
+      "async_defs": 829,
+      "nodes_not_in_provided": 1946
+    },
+    "fastapi_27c0f7e75fc0ce26ca75295d455eb36f0ca033d3": {
+      "n_nodes": 5340,
+      "node_kinds": {
+        "module": 1113,
+        "class": 772,
+        "async_function": 968,
+        "function": 2451,
+        "provided_only": 36
+      },
+      "edge_types": {
+        "contains": 4224,
+        "imports": 2532,
+        "inherits": 127,
+        "calls_static": 1856,
+        "tests": 83,
+        "calls_dynamic": 345
+      },
+      "async_defs": 968,
+      "nodes_not_in_provided": 2112
+    },
+    "fastapi_2b212ddd7604891d42e2ffbafe764c334230bdb7": {
+      "n_nodes": 6239,
+      "node_kinds": {
+        "module": 1084,
+        "class": 821,
+        "async_function": 976,
+        "function": 3301,
+        "provided_only": 57
+      },
+      "edge_types": {
+        "contains": 5114,
+        "imports": 2536,
+        "inherits": 626,
+        "calls_static": 2401,
+        "tests": 156,
+        "calls_dynamic": 340
+      },
+      "async_defs": 976,
+      "nodes_not_in_provided": 2066
+    },
+    "fastapi_2cf04ee30db9df2db04a5b1e0d2c625dfbf1a211": {
+      "n_nodes": 5692,
+      "node_kinds": {
+        "module": 1148,
+        "class": 835,
+        "async_function": 976,
+        "function": 2696,
+        "provided_only": 37
+      },
+      "edge_types": {
+        "contains": 4523,
+        "imports": 2767,
+        "inherits": 635,
+        "calls_static": 2162,
+        "tests": 56,
+        "calls_dynamic": 365
+      },
+      "async_defs": 976,
+      "nodes_not_in_provided": 2155
+    },
+    "fastapi_2f9c914d440e99fe8b62646b51e4d24c5bcd858b": {
+      "n_nodes": 5944,
+      "node_kinds": {
+        "module": 1087,
+        "class": 626,
+        "async_function": 798,
+        "function": 3385,
+        "provided_only": 48
+      },
+      "edge_types": {
+        "contains": 4809,
+        "imports": 2139,
+        "inherits": 99,
+        "calls_static": 2118,
+        "tests": 210,
+        "calls_dynamic": 312
+      },
+      "async_defs": 798,
+      "nodes_not_in_provided": 1885
+    },
+    "fastapi_3b4b5ab8c819dce27fbaf0aa0a9c74b7f3255ec0": {
+      "n_nodes": 5821,
+      "node_kinds": {
+        "module": 1165,
+        "class": 843,
+        "async_function": 987,
+        "function": 2788,
+        "provided_only": 38
+      },
+      "edge_types": {
+        "contains": 4634,
+        "imports": 2828,
+        "inherits": 638,
+        "calls_static": 2242,
+        "tests": 71,
+        "calls_dynamic": 390
+      },
+      "async_defs": 987,
+      "nodes_not_in_provided": 2183
+    },
+    "fastapi_3c54a8f07b70cdd40e3d81ea319e9fcccd2481d2": {
+      "n_nodes": 5842,
+      "node_kinds": {
+        "module": 1167,
+        "class": 847,
+        "async_function": 992,
+        "function": 2798,
+        "provided_only": 38
+      },
+      "edge_types": {
+        "contains": 4653,
+        "imports": 2838,
+        "inherits": 640,
+        "calls_static": 2242,
+        "tests": 197,
+        "calls_dynamic": 444
+      },
+      "async_defs": 992,
+      "nodes_not_in_provided": 2192
+    },
+    "fastapi_3fe6522aaed4d36d6a38175a4a8137ee0fc62451": {
+      "n_nodes": 6845,
+      "node_kinds": {
+        "module": 1250,
+        "class": 980,
+        "async_function": 1188,
+        "function": 3384,
+        "provided_only": 43
+      },
+      "edge_types": {
+        "contains": 5568,
+        "imports": 3134,
+        "inherits": 737,
+        "calls_static": 2498,
+        "tests": 8437,
+        "calls_dynamic": 1357
+      },
+      "async_defs": 1188,
+      "nodes_not_in_provided": 2471
+    },
+    "fastapi_425a4c5bb1d1a8e00007e82e5188fc4d30585767": {
+      "n_nodes": 5697,
+      "node_kinds": {
+        "module": 1149,
+        "class": 835,
+        "async_function": 977,
+        "function": 2699,
+        "provided_only": 37
+      },
+      "edge_types": {
+        "contains": 4527,
+        "imports": 2771,
+        "inherits": 635,
+        "calls_static": 2162,
+        "tests": 133,
+        "calls_dynamic": 276
+      },
+      "async_defs": 977,
+      "nodes_not_in_provided": 2157
+    },
+    "fastapi_464c359bb03f7ba72330198cc9f44df36194837d": {
+      "n_nodes": 6507,
+      "node_kinds": {
+        "module": 1252,
+        "class": 779,
+        "async_function": 1000,
+        "function": 3430,
+        "provided_only": 46
+      },
+      "edge_types": {
+        "contains": 5209,
+        "imports": 2490,
+        "inherits": 124,
+        "calls_static": 2211,
+        "tests": 323,
+        "calls_dynamic": 284
+      },
+      "async_defs": 1000,
+      "nodes_not_in_provided": 2256
+    },
+    "fastapi_48d58ae3b6ef4ded5a4794618c00345667256d98": {
+      "n_nodes": 6017,
+      "node_kinds": {
+        "module": 1103,
+        "class": 630,
+        "async_function": 813,
+        "function": 3421,
+        "provided_only": 50
+      },
+      "edge_types": {
+        "contains": 4864,
+        "imports": 2165,
+        "inherits": 99,
+        "calls_static": 2156,
+        "tests": 577,
+        "calls_dynamic": 338
+      },
+      "async_defs": 813,
+      "nodes_not_in_provided": 1916
+    },
+    "fastapi_4976568fc7cb7501729d8f84d946cde1e91299cd": {
+      "n_nodes": 5859,
+      "node_kinds": {
+        "module": 1169,
+        "class": 848,
+        "async_function": 996,
+        "function": 2808,
+        "provided_only": 38
+      },
+      "edge_types": {
+        "contains": 4668,
+        "imports": 2849,
+        "inherits": 641,
+        "calls_static": 2250,
+        "tests": 14,
+        "calls_dynamic": 286
+      },
+      "async_defs": 996,
+      "nodes_not_in_provided": 2198
+    },
+    "fastapi_4a98a66778987648d2195155c9cbe0824d67b02a": {
+      "n_nodes": 6175,
+      "node_kinds": {
+        "module": 1210,
+        "class": 908,
+        "async_function": 1098,
+        "function": 2916,
+        "provided_only": 43
+      },
+      "edge_types": {
+        "contains": 4938,
+        "imports": 3005,
+        "inherits": 665,
+        "calls_static": 2398,
+        "tests": 106,
+        "calls_dynamic": 469
+      },
+      "async_defs": 1098,
+      "nodes_not_in_provided": 2341
+    },
+    "fastapi_5126e099bdda51f261fd5a101b5f914991d31897": {
+      "n_nodes": 5859,
+      "node_kinds": {
+        "module": 1169,
+        "class": 848,
+        "async_function": 996,
+        "function": 2808,
+        "provided_only": 38
+      },
+      "edge_types": {
+        "contains": 4668,
+        "imports": 2849,
+        "inherits": 641,
+        "calls_static": 2250,
+        "tests": 111,
+        "calls_dynamic": 390
+      },
+      "async_defs": 996,
+      "nodes_not_in_provided": 2198
+    },
+    "fastapi_516169428d2fa189d34318ebc469a082c49c1189": {
+      "n_nodes": 5994,
+      "node_kinds": {
+        "module": 1176,
+        "class": 868,
+        "async_function": 1058,
+        "function": 2853,
+        "provided_only": 39
+      },
+      "edge_types": {
+        "contains": 4795,
+        "imports": 2877,
+        "inherits": 643,
+        "calls_static": 2298,
+        "tests": 27,
+        "calls_dynamic": 408
+      },
+      "async_defs": 1058,
+      "nodes_not_in_provided": 2267
+    },
+    "fastapi_5265c4f5cb4d8fb4fb5015bccf1a6de8f3fc6044": {
+      "n_nodes": 5776,
+      "node_kinds": {
+        "module": 1157,
+        "class": 841,
+        "async_function": 984,
+        "function": 2756,
+        "provided_only": 38
+      },
+      "edge_types": {
+        "contains": 4597,
+        "imports": 2799,
+        "inherits": 636,
+        "calls_static": 2217,
+        "tests": 108,
+        "calls_dynamic": 367
+      },
+      "async_defs": 984,
+      "nodes_not_in_provided": 2172
+    },
+    "fastapi_54f8aeeb9a15e4d5a12401ec5549840966df0087": {
+      "n_nodes": 6518,
+      "node_kinds": {
+        "module": 1254,
+        "class": 779,
+        "async_function": 1001,
+        "function": 3438,
+        "provided_only": 46
+      },
+      "edge_types": {
+        "contains": 5218,
+        "imports": 2500,
+        "inherits": 124,
+        "calls_static": 2227,
+        "tests": 104,
+        "calls_dynamic": 401
+      },
+      "async_defs": 1001,
+      "nodes_not_in_provided": 2259
+    },
+    "fastapi_566e3157a5517784c741dbf36e39687af326fe90": {
+      "n_nodes": 5766,
+      "node_kinds": {
+        "module": 1156,
+        "class": 840,
+        "async_function": 984,
+        "function": 2748,
+        "provided_only": 38
+      },
+      "edge_types": {
+        "contains": 4588,
+        "imports": 2797,
+        "inherits": 636,
+        "calls_static": 2208,
+        "tests": 2,
+        "calls_dynamic": 236
+      },
+      "async_defs": 984,
+      "nodes_not_in_provided": 2171
+    },
+    "fastapi_5c1f87c56387a96dbdddb2b1c4ec9ba48dcebc4e": {
+      "n_nodes": 5251,
+      "node_kinds": {
+        "module": 1104,
+        "class": 762,
+        "async_function": 963,
+        "function": 2390,
+        "provided_only": 32
+      },
+      "edge_types": {
+        "contains": 4148,
+        "imports": 2499,
+        "inherits": 127,
+        "calls_static": 1791,
+        "tests": 42,
+        "calls_dynamic": 372
+      },
+      "async_defs": 963,
+      "nodes_not_in_provided": 2098
+    },
+    "fastapi_603df6e36f59cc4a3e189f506b8f36d1e816c3ac": {
+      "n_nodes": 5970,
+      "node_kinds": {
+        "module": 1174,
+        "class": 868,
+        "async_function": 1050,
+        "function": 2839,
+        "provided_only": 39
+      },
+      "edge_types": {
+        "contains": 4773,
+        "imports": 2868,
+        "inherits": 642,
+        "calls_static": 2286,
+        "tests": 71,
+        "calls_dynamic": 384
+      },
+      "async_defs": 1050,
+      "nodes_not_in_provided": 2257
+    },
+    "fastapi_60699f306b67dc1f4918ebea17f04d7a48cda645": {
+      "n_nodes": 6166,
+      "node_kinds": {
+        "module": 1209,
+        "class": 907,
+        "async_function": 1095,
+        "function": 2912,
+        "provided_only": 43
+      },
+      "edge_types": {
+        "contains": 4930,
+        "imports": 3002,
+        "inherits": 665,
+        "calls_static": 2392,
+        "tests": 127,
+        "calls_dynamic": 348
+      },
+      "async_defs": 1095,
+      "nodes_not_in_provided": 2337
+    },
+    "fastapi_63d7a2b9978258d13dfc22664e60fc2110d30e20": {
+      "n_nodes": 5803,
+      "node_kinds": {
+        "module": 1162,
+        "class": 843,
+        "async_function": 987,
+        "function": 2773,
+        "provided_only": 38
+      },
+      "edge_types": {
+        "contains": 4619,
+        "imports": 2817,
+        "inherits": 638,
+        "calls_static": 2230,
+        "tests": 84,
+        "calls_dynamic": 292
+      },
+      "async_defs": 987,
+      "nodes_not_in_provided": 2180
+    },
+    "fastapi_6513d4daa16a536d17743de6a292f49bd06388a4": {
+      "n_nodes": 6236,
+      "node_kinds": {
+        "module": 1083,
+        "class": 821,
+        "async_function": 976,
+        "function": 3301,
+        "provided_only": 55
+      },
+      "edge_types": {
+        "contains": 5114,
+        "imports": 2531,
+        "inherits": 626,
+        "calls_static": 2401,
+        "tests": 3710,
+        "calls_dynamic": 911
+      },
+      "async_defs": 976,
+      "nodes_not_in_provided": 2065
+    },
+    "fastapi_6b53786f626db95a42fd0f66afd360bab161f4b1": {
+      "n_nodes": 6763,
+      "node_kinds": {
+        "module": 1266,
+        "class": 821,
+        "async_function": 992,
+        "function": 3627,
+        "provided_only": 57
+      },
+      "edge_types": {
+        "contains": 5440,
+        "imports": 2643,
+        "inherits": 626,
+        "calls_static": 2411,
+        "tests": 2518,
+        "calls_dynamic": 573
+      },
+      "async_defs": 992,
+      "nodes_not_in_provided": 2264
+    },
+    "fastapi_6cf40df24d1d199fd25d034fc87fcae284fc23a2": {
+      "n_nodes": 5831,
+      "node_kinds": {
+        "module": 1166,
+        "class": 845,
+        "async_function": 989,
+        "function": 2793,
+        "provided_only": 38
+      },
+      "edge_types": {
+        "contains": 4643,
+        "imports": 2832,
+        "inherits": 639,
+        "calls_static": 2242,
+        "tests": 348,
+        "calls_dynamic": 550
+      },
+      "async_defs": 989,
+      "nodes_not_in_provided": 2187
+    },
+    "fastapi_6e49dc029541aaa896fa63c47647ccd3f066df67": {
+      "n_nodes": 5661,
+      "node_kinds": {
+        "module": 1145,
+        "class": 814,
+        "async_function": 975,
+        "function": 2691,
+        "provided_only": 36
+      },
+      "edge_types": {
+        "contains": 4496,
+        "imports": 2712,
+        "inherits": 133,
+        "calls_static": 2155,
+        "tests": 563,
+        "calls_dynamic": 441
+      },
+      "async_defs": 975,
+      "nodes_not_in_provided": 2151
+    },
+    "fastapi_6ee87478d821171139264cd9cd17cbd2232934ce": {
+      "n_nodes": 6101,
+      "node_kinds": {
+        "module": 1117,
+        "class": 637,
+        "async_function": 829,
+        "function": 3466,
+        "provided_only": 52
+      },
+      "edge_types": {
+        "contains": 4932,
+        "imports": 2200,
+        "inherits": 99,
+        "calls_static": 2179,
+        "tests": 4,
+        "calls_dynamic": 228
+      },
+      "async_defs": 829,
+      "nodes_not_in_provided": 1946
+    },
+    "fastapi_7132a690461c2367f22556eb87c2b5eb7d9cfb45": {
+      "n_nodes": 5681,
+      "node_kinds": {
+        "module": 1146,
+        "class": 831,
+        "async_function": 975,
+        "function": 2692,
+        "provided_only": 37
+      },
+      "edge_types": {
+        "contains": 4514,
+        "imports": 2759,
+        "inherits": 632,
+        "calls_static": 2163,
+        "tests": 309,
+        "calls_dynamic": 544
+      },
+      "async_defs": 975,
+      "nodes_not_in_provided": 2152
+    },
+    "fastapi_71a17b5932e38bcf798fcd05c5bb384e6d4db5bf": {
+      "n_nodes": 6157,
+      "node_kinds": {
+        "module": 1208,
+        "class": 907,
+        "async_function": 1095,
+        "function": 2908,
+        "provided_only": 39
+      },
+      "edge_types": {
+        "contains": 4926,
+        "imports": 2999,
+        "inherits": 665,
+        "calls_static": 2381,
+        "tests": 122,
+        "calls_dynamic": 359
+      },
+      "async_defs": 1095,
+      "nodes_not_in_provided": 2336
+    },
+    "fastapi_740ec2787b25e59f7aa9e3df1db09d4489c22718": {
+      "n_nodes": 5826,
+      "node_kinds": {
+        "module": 1166,
+        "class": 843,
+        "async_function": 989,
+        "function": 2790,
+        "provided_only": 38
+      },
+      "edge_types": {
+        "contains": 4638,
+        "imports": 2831,
+        "inherits": 638,
+        "calls_static": 2242,
+        "tests": 185,
+        "calls_dynamic": 390
+      },
+      "async_defs": 989,
+      "nodes_not_in_provided": 2186
+    },
+    "fastapi_811fa898752e7f5697733a2958ff79ad8dfb5276": {
+      "n_nodes": 5965,
+      "node_kinds": {
+        "module": 1173,
+        "class": 867,
+        "async_function": 1050,
+        "function": 2837,
+        "provided_only": 38
+      },
+      "edge_types": {
+        "contains": 4770,
+        "imports": 2863,
+        "inherits": 642,
+        "calls_static": 2281,
+        "tests": 75,
+        "calls_dynamic": 341
+      },
+      "async_defs": 1050,
+      "nodes_not_in_provided": 2256
+    },
+    "fastapi_861b22c40897a03d2d7e5926923d962121ed5e2e": {
+      "n_nodes": 5280,
+      "node_kinds": {
+        "module": 1107,
+        "class": 766,
+        "async_function": 965,
+        "function": 2407,
+        "provided_only": 35
+      },
+      "edge_types": {
+        "contains": 4171,
+        "imports": 2511,
+        "inherits": 127,
+        "calls_static": 1814,
+        "tests": 489,
+        "calls_dynamic": 408
+      },
+      "async_defs": 965,
+      "nodes_not_in_provided": 2103
+    },
+    "fastapi_8e50c55fd90c4433ddc9096ff439da9498a8314a": {
+      "n_nodes": 6528,
+      "node_kinds": {
+        "module": 1255,
+        "class": 779,
+        "async_function": 1001,
+        "function": 3447,
+        "provided_only": 46
+      },
+      "edge_types": {
+        "contains": 5227,
+        "imports": 2506,
+        "inherits": 124,
+        "calls_static": 2229,
+        "tests": 345,
+        "calls_dynamic": 350
+      },
+      "async_defs": 1001,
+      "nodes_not_in_provided": 2260
+    },
+    "fastapi_930b27e5fa32ce150ddcea61f0c913435ae71c83": {
+      "n_nodes": 5872,
+      "node_kinds": {
+        "module": 1170,
+        "class": 848,
+        "async_function": 1002,
+        "function": 2814,
+        "provided_only": 38
+      },
+      "edge_types": {
+        "contains": 4680,
+        "imports": 2855,
+        "inherits": 641,
+        "calls_static": 2255,
+        "tests": 79,
+        "calls_dynamic": 359
+      },
+      "async_defs": 1002,
+      "nodes_not_in_provided": 2205
+    },
+    "fastapi_94a1ee749e63591e6e275b726a66e07a25f6c407": {
+      "n_nodes": 5904,
+      "node_kinds": {
+        "module": 1080,
+        "class": 625,
+        "async_function": 788,
+        "function": 3363,
+        "provided_only": 48
+      },
+      "edge_types": {
+        "contains": 4776,
+        "imports": 2129,
+        "inherits": 99,
+        "calls_static": 2118,
+        "tests": 626,
+        "calls_dynamic": 362
+      },
+      "async_defs": 788,
+      "nodes_not_in_provided": 1868
+    },
+    "fastapi_972a967d5d3fa24d450637c36c6b7ad1f1d8c1b6": {
+      "n_nodes": 5756,
+      "node_kinds": {
+        "module": 1155,
+        "class": 840,
+        "async_function": 984,
+        "function": 2739,
+        "provided_only": 38
+      },
+      "edge_types": {
+        "contains": 4579,
+        "imports": 2792,
+        "inherits": 636,
+        "calls_static": 2200,
+        "tests": 183,
+        "calls_dynamic": 345
+      },
+      "async_defs": 984,
+      "nodes_not_in_provided": 2170
+    },
+    "fastapi_9a9c4ad5d06f5fe8ee6775a5aeaa2f83c854f263": {
+      "n_nodes": 6226,
+      "node_kinds": {
+        "module": 1120,
+        "class": 646,
+        "async_function": 838,
+        "function": 3561,
+        "provided_only": 61
+      },
+      "edge_types": {
+        "contains": 5045,
+        "imports": 2223,
+        "inherits": 98,
+        "calls_static": 2433,
+        "tests": 1931,
+        "calls_dynamic": 822
+      },
+      "async_defs": 838,
+      "nodes_not_in_provided": 1958
+    },
+    "fastapi_a456e92a21d5b94a67d6d0fd070218df09444443": {
+      "n_nodes": 6495,
+      "node_kinds": {
+        "module": 1250,
+        "class": 776,
+        "async_function": 998,
+        "function": 3425,
+        "provided_only": 46
+      },
+      "edge_types": {
+        "contains": 5199,
+        "imports": 2485,
+        "inherits": 124,
+        "calls_static": 2207,
+        "tests": 33,
+        "calls_dynamic": 312
+      },
+      "async_defs": 998,
+      "nodes_not_in_provided": 2252
+    },
+    "fastapi_a7f2dbe976bf72703376f0cd04487bfc4a849f83": {
+      "n_nodes": 5271,
+      "node_kinds": {
+        "module": 1106,
+        "class": 766,
+        "async_function": 965,
+        "function": 2399,
+        "provided_only": 35
+      },
+      "edge_types": {
+        "contains": 4163,
+        "imports": 2507,
+        "inherits": 127,
+        "calls_static": 1814,
+        "tests": 54,
+        "calls_dynamic": 310
+      },
+      "async_defs": 965,
+      "nodes_not_in_provided": 2102
+    },
+    "fastapi_aee8e78078e8a7f2736d3cab7a1cb7197356951c": {
+      "n_nodes": 5878,
+      "node_kinds": {
+        "module": 1172,
+        "class": 849,
+        "async_function": 1002,
+        "function": 2817,
+        "provided_only": 38
+      },
+      "edge_types": {
+        "contains": 4684,
+        "imports": 2858,
+        "inherits": 642,
+        "calls_static": 2259,
+        "tests": 19,
+        "calls_dynamic": 311
+      },
+      "async_defs": 1002,
+      "nodes_not_in_provided": 2207
+    },
+    "fastapi_bc06e4296d588f39f38c7ac2fc96d3913c565962": {
+      "n_nodes": 5890,
+      "node_kinds": {
+        "module": 1079,
+        "class": 623,
+        "async_function": 788,
+        "function": 3353,
+        "provided_only": 47
+      },
+      "edge_types": {
+        "contains": 4764,
+        "imports": 2121,
+        "inherits": 99,
+        "calls_static": 2100,
+        "tests": 218,
+        "calls_dynamic": 356
+      },
+      "async_defs": 788,
+      "nodes_not_in_provided": 1867
+    },
+    "fastapi_c0836dc1b7f4ba91e9563c8c4ccd0ebe655bc914": {
+      "n_nodes": 6016,
+      "node_kinds": {
+        "module": 1103,
+        "class": 630,
+        "async_function": 813,
+        "function": 3420,
+        "provided_only": 50
+      },
+      "edge_types": {
+        "contains": 4863,
+        "imports": 2165,
+        "inherits": 99,
+        "calls_static": 2154,
+        "tests": 73,
+        "calls_dynamic": 337
+      },
+      "async_defs": 813,
+      "nodes_not_in_provided": 1916
+    },
+    "fastapi_c57ac7bdf3613798c94caceff562a41fa16d4a2d": {
+      "n_nodes": 5909,
+      "node_kinds": {
+        "module": 1173,
+        "class": 854,
+        "async_function": 1020,
+        "function": 2824,
+        "provided_only": 38
+      },
+      "edge_types": {
+        "contains": 4714,
+        "imports": 2861,
+        "inherits": 642,
+        "calls_static": 2263,
+        "tests": 15,
+        "calls_dynamic": 305
+      },
+      "async_defs": 1020,
+      "nodes_not_in_provided": 2226
+    },
+    "fastapi_c6487ed632056e450d844846a1b63be551a3cbc6": {
+      "n_nodes": 5797,
+      "node_kinds": {
+        "module": 1161,
+        "class": 843,
+        "async_function": 984,
+        "function": 2771,
+        "provided_only": 38
+      },
+      "edge_types": {
+        "contains": 4614,
+        "imports": 2813,
+        "inherits": 638,
+        "calls_static": 2230,
+        "tests": 13,
+        "calls_dynamic": 292
+      },
+      "async_defs": 984,
+      "nodes_not_in_provided": 2176
+    },
+    "fastapi_cb83b83dcf78eab4ea17d504db5abcda705fbdc4": {
+      "n_nodes": 6109,
+      "node_kinds": {
+        "module": 1117,
+        "class": 640,
+        "async_function": 829,
+        "function": 3471,
+        "provided_only": 52
+      },
+      "edge_types": {
+        "contains": 4940,
+        "imports": 2203,
+        "inherits": 98,
+        "calls_static": 2187,
+        "tests": 186,
+        "calls_dynamic": 338
+      },
+      "async_defs": 829,
+      "nodes_not_in_provided": 1946
+    },
+    "fastapi_cd31576d5704b6aef1bdadc43770238cd88aad2b": {
+      "n_nodes": 6533,
+      "node_kinds": {
+        "module": 1255,
+        "class": 779,
+        "async_function": 1007,
+        "function": 3445,
+        "provided_only": 47
+      },
+      "edge_types": {
+        "contains": 5231,
+        "imports": 2495,
+        "inherits": 124,
+        "calls_static": 2231,
+        "tests": 424,
+        "calls_dynamic": 368
+      },
+      "async_defs": 1007,
+      "nodes_not_in_provided": 2266
+    },
+    "fastapi_cff2236dacb7aedcaf2d2de0873cfbc9bb2b897a": {
+      "n_nodes": 5871,
+      "node_kinds": {
+        "module": 1170,
+        "class": 848,
+        "async_function": 1002,
+        "function": 2813,
+        "provided_only": 38
+      },
+      "edge_types": {
+        "contains": 4679,
+        "imports": 2852,
+        "inherits": 641,
+        "calls_static": 2251,
+        "tests": 142,
+        "calls_dynamic": 382
+      },
+      "async_defs": 1002,
+      "nodes_not_in_provided": 2205
+    },
+    "fastapi_d2c17b603d2f986d5f3800d3bf24acba8e1f485b": {
+      "n_nodes": 5864,
+      "node_kinds": {
+        "module": 1074,
+        "class": 618,
+        "async_function": 788,
+        "function": 3337,
+        "provided_only": 47
+      },
+      "edge_types": {
+        "contains": 4743,
+        "imports": 2114,
+        "inherits": 99,
+        "calls_static": 2090,
+        "tests": 2438,
+        "calls_dynamic": 579
+      },
+      "async_defs": 788,
+      "nodes_not_in_provided": 1862
+    },
+    "fastapi_e2354a0a063f2fcb890ec568f1a98e136a39fd25": {
+      "n_nodes": 5776,
+      "node_kinds": {
+        "module": 1157,
+        "class": 841,
+        "async_function": 984,
+        "function": 2756,
+        "provided_only": 38
+      },
+      "edge_types": {
+        "contains": 4597,
+        "imports": 2799,
+        "inherits": 636,
+        "calls_static": 2217,
+        "tests": 1108,
+        "calls_dynamic": 688
+      },
+      "async_defs": 984,
+      "nodes_not_in_provided": 2172
+    },
+    "fastapi_e94028ab60d18080810910352bc9129e8046c92d": {
+      "n_nodes": 6534,
+      "node_kinds": {
+        "module": 1255,
+        "class": 779,
+        "async_function": 1007,
+        "function": 3446,
+        "provided_only": 47
+      },
+      "edge_types": {
+        "contains": 5232,
+        "imports": 2495,
+        "inherits": 124,
+        "calls_static": 2235,
+        "tests": 4,
+        "calls_dynamic": 215
+      },
+      "async_defs": 1007,
+      "nodes_not_in_provided": 2266
+    },
+    "fastapi_eacbce24c9d299c6a28110d9fc8ac50f53cddb08": {
+      "n_nodes": 6495,
+      "node_kinds": {
+        "module": 1250,
+        "class": 776,
+        "async_function": 998,
+        "function": 3425,
+        "provided_only": 46
+      },
+      "edge_types": {
+        "contains": 5199,
+        "imports": 2485,
+        "inherits": 124,
+        "calls_static": 2207,
+        "tests": 142,
+        "calls_dynamic": 376
+      },
+      "async_defs": 998,
+      "nodes_not_in_provided": 2252
+    },
+    "fastapi_eaf611f9ee56de4f16c837d4f487a4b9fca507c4": {
+      "n_nodes": 5762,
+      "node_kinds": {
+        "module": 1155,
+        "class": 840,
+        "async_function": 984,
+        "function": 2745,
+        "provided_only": 38
+      },
+      "edge_types": {
+        "contains": 4585,
+        "imports": 2794,
+        "inherits": 636,
+        "calls_static": 2206,
+        "tests": 104,
+        "calls_dynamic": 361
+      },
+      "async_defs": 984,
+      "nodes_not_in_provided": 2170
+    },
+    "fastapi_eb1d50479ba0ac873e4ffa08a824b1d822ca3a17": {
+      "n_nodes": 5978,
+      "node_kinds": {
+        "module": 1175,
+        "class": 868,
+        "async_function": 1053,
+        "function": 2843,
+        "provided_only": 39
+      },
+      "edge_types": {
+        "contains": 4780,
+        "imports": 2873,
+        "inherits": 642,
+        "calls_static": 2286,
+        "tests": 148,
+        "calls_dynamic": 407
+      },
+      "async_defs": 1053,
+      "nodes_not_in_provided": 2261
+    },
+    "fastapi_ee22a4b8ca46dcce26c8c183afc4992a888d8be2": {
+      "n_nodes": 6117,
+      "node_kinds": {
+        "module": 1117,
+        "class": 641,
+        "async_function": 830,
+        "function": 3477,
+        "provided_only": 52
+      },
+      "edge_types": {
+        "contains": 4948,
+        "imports": 2203,
+        "inherits": 98,
+        "calls_static": 2195
+      },
+      "async_defs": 830,
+      "nodes_not_in_provided": 1947
+    },
+    "fastapi_eead41bf4cf8587b4d86091dd3eabbb85796e717": {
+      "n_nodes": 5848,
+      "node_kinds": {
+        "module": 1168,
+        "class": 847,
+        "async_function": 993,
+        "function": 2802,
+        "provided_only": 38
+      },
+      "edge_types": {
+        "contains": 4658,
+        "imports": 2843,
+        "inherits": 640,
+        "calls_static": 2250,
+        "tests": 155,
+        "calls_dynamic": 387
+      },
+      "async_defs": 993,
+      "nodes_not_in_provided": 2194
+    },
+    "fastapi_f1d750fddad90e2faad6c3cc5c85c7687b787e89": {
+      "n_nodes": 6244,
+      "node_kinds": {
+        "module": 1120,
+        "class": 647,
+        "async_function": 838,
+        "function": 3578,
+        "provided_only": 61
+      },
+      "edge_types": {
+        "contains": 5063,
+        "imports": 2231,
+        "inherits": 98,
+        "calls_static": 2485,
+        "tests": 1044,
+        "calls_dynamic": 415
+      },
+      "async_defs": 838,
+      "nodes_not_in_provided": 1958
+    },
+    "fastapi_f2687dc1bb01f4cb62eee90e656b61c38c2aaf6a": {
+      "n_nodes": 6427,
+      "node_kinds": {
+        "module": 1237,
+        "class": 770,
+        "async_function": 998,
+        "function": 3376,
+        "provided_only": 46
+      },
+      "edge_types": {
+        "contains": 5144,
+        "imports": 2474,
+        "inherits": 124,
+        "calls_static": 2143,
+        "tests": 38,
+        "calls_dynamic": 362
+      },
+      "async_defs": 998,
+      "nodes_not_in_provided": 2239
+    },
+    "httpx_4acf5c2c37714cc63b5cf71b3e284fca83c90311": {
+      "n_nodes": 883,
+      "node_kinds": {
+        "module": 45,
+        "class": 78,
+        "function": 661,
+        "async_function": 98,
+        "provided_only": 1
+      },
+      "edge_types": {
+        "contains": 837,
+        "imports": 118,
+        "inherits": 33,
+        "calls_static": 1136,
+        "tests": 339,
+        "calls_dynamic": 494
+      },
+      "async_defs": 98,
+      "nodes_not_in_provided": 143
+    },
+    "requests_0b401c76b6e80a4eecf3c690085b2553f6e261ca": {
+      "n_nodes": 868,
+      "node_kinds": {
+        "module": 37,
+        "class": 78,
+        "function": 614,
+        "provided_only": 139
+      },
+      "edge_types": {
+        "contains": 712,
+        "imports": 259,
+        "inherits": 39,
+        "calls_static": 1491,
+        "tests": 12148,
+        "calls_dynamic": 1720
+      },
+      "async_defs": 0,
+      "nodes_not_in_provided": 156
+    },
+    "requests_0b4d494192de489701d3a2e32acef8fb5d3f042e": {
+      "n_nodes": 821,
+      "node_kinds": {
+        "module": 35,
+        "class": 69,
+        "function": 582,
+        "provided_only": 135
+      },
+      "edge_types": {
+        "contains": 651,
+        "imports": 227,
+        "inherits": 33,
+        "calls_static": 1383
+      },
+      "async_defs": 0,
+      "nodes_not_in_provided": 152
+    },
+    "requests_0e322af87745eff34caffe4df68456ebc20d9068": {
+      "n_nodes": 843,
+      "node_kinds": {
+        "module": 36,
+        "class": 70,
+        "function": 599,
+        "provided_only": 138
+      },
+      "edge_types": {
+        "contains": 669,
+        "imports": 232,
+        "inherits": 34,
+        "calls_static": 1436,
+        "tests": 11440,
+        "calls_dynamic": 831
+      },
+      "async_defs": 0,
+      "nodes_not_in_provided": 155
+    },
+    "requests_1b40fdd004bfc8ba5301bcf8a6908264e9b6b877": {
+      "n_nodes": 845,
+      "node_kinds": {
+        "module": 36,
+        "class": 70,
+        "function": 601,
+        "provided_only": 138
+      },
+      "edge_types": {
+        "contains": 671,
+        "imports": 235,
+        "inherits": 34,
+        "calls_static": 1450,
+        "tests": 100,
+        "calls_dynamic": 164
+      },
+      "async_defs": 0,
+      "nodes_not_in_provided": 155
+    },
+    "requests_382fc2c0c6c0ef0874bc65bc1175f97c073e5086": {
+      "n_nodes": 824,
+      "node_kinds": {
+        "module": 35,
+        "class": 69,
+        "function": 585,
+        "provided_only": 135
+      },
+      "edge_types": {
+        "contains": 654,
+        "imports": 227,
+        "inherits": 33,
+        "calls_static": 1387
+      },
+      "async_defs": 0,
+      "nodes_not_in_provided": 152
+    },
+    "requests_6360477c52303c9445b45fa8744b02d05a2f0905": {
+      "n_nodes": 846,
+      "node_kinds": {
+        "module": 36,
+        "class": 70,
+        "function": 602,
+        "provided_only": 138
+      },
+      "edge_types": {
+        "contains": 672,
+        "imports": 234,
+        "inherits": 34,
+        "calls_static": 1451,
+        "tests": 33,
+        "calls_dynamic": 58
+      },
+      "async_defs": 0,
+      "nodes_not_in_provided": 155
+    },
+    "requests_661970d171d9c3e12e4c789c4768db647d8c4da0": {
+      "n_nodes": 873,
+      "node_kinds": {
+        "module": 37,
+        "class": 78,
+        "function": 615,
+        "provided_only": 143
+      },
+      "edge_types": {
+        "contains": 713,
+        "imports": 259,
+        "inherits": 39,
+        "calls_static": 1495,
+        "tests": 12235,
+        "calls_dynamic": 1724
+      },
+      "async_defs": 0,
+      "nodes_not_in_provided": 157
+    },
+    "requests_6f205ff422bccd5e4c4fc0b64c5f3e7df5181db6": {
+      "n_nodes": 874,
+      "node_kinds": {
+        "module": 37,
+        "class": 78,
+        "function": 616,
+        "provided_only": 143
+      },
+      "edge_types": {
+        "contains": 714,
+        "imports": 259,
+        "inherits": 39,
+        "calls_static": 1495,
+        "tests": 12320,
+        "calls_dynamic": 1728
+      },
+      "async_defs": 0,
+      "nodes_not_in_provided": 158
+    },
+    "requests_7407309c8a8a73aa2f4337184025d440bbedab7a": {
+      "n_nodes": 846,
+      "node_kinds": {
+        "module": 36,
+        "class": 70,
+        "function": 602,
+        "provided_only": 138
+      },
+      "edge_types": {
+        "contains": 672,
+        "imports": 234,
+        "inherits": 34,
+        "calls_static": 1451,
+        "tests": 101,
+        "calls_dynamic": 166
+      },
+      "async_defs": 0,
+      "nodes_not_in_provided": 155
+    },
+    "requests_7a13c041dbef42f9f3feb14110f02626f6892e9a": {
+      "n_nodes": 822,
+      "node_kinds": {
+        "module": 35,
+        "class": 69,
+        "function": 583,
+        "provided_only": 135
+      },
+      "edge_types": {
+        "contains": 652,
+        "imports": 227,
+        "inherits": 33,
+        "calls_static": 1384
+      },
+      "async_defs": 0,
+      "nodes_not_in_provided": 152
+    },
+    "requests_b684dcb9bbf3aa557d1238e72062c4a29737dd1c": {
+      "n_nodes": 867,
+      "node_kinds": {
+        "module": 37,
+        "class": 78,
+        "function": 613,
+        "provided_only": 139
+      },
+      "edge_types": {
+        "contains": 711,
+        "imports": 259,
+        "inherits": 39,
+        "calls_static": 1489,
+        "tests": 103,
+        "calls_dynamic": 170
+      },
+      "async_defs": 0,
+      "nodes_not_in_provided": 156
+    },
+    "requests_cbce031327be4f1b4b5fd041ff4dcaa8efa2ce53": {
+      "n_nodes": 846,
+      "node_kinds": {
+        "module": 36,
+        "class": 70,
+        "function": 602,
+        "provided_only": 138
+      },
+      "edge_types": {
+        "contains": 672,
+        "imports": 234,
+        "inherits": 34,
+        "calls_static": 1451,
+        "tests": 11685,
+        "calls_dynamic": 1684
+      },
+      "async_defs": 0,
+      "nodes_not_in_provided": 155
+    },
+    "rich_01b85ac116c4635b6ddb8b488be8254be6df2a84": {
+      "n_nodes": 2098,
+      "node_kinds": {
+        "module": 190,
+        "class": 213,
+        "function": 1588,
+        "provided_only": 107
+      },
+      "edge_types": {
+        "contains": 1828,
+        "imports": 1039,
+        "inherits": 74,
+        "calls_static": 4626,
+        "tests": 558,
+        "calls_dynamic": 1031
+      },
+      "async_defs": 0,
+      "nodes_not_in_provided": 190
+    },
+    "rich_05ff970926cbd0b5d0acb6fc18cdbd1fc971e582": {
+      "n_nodes": 2201,
+      "node_kinds": {
+        "module": 213,
+        "class": 218,
+        "function": 1656,
+        "provided_only": 114
+      },
+      "edge_types": {
+        "contains": 1901,
+        "imports": 1083,
+        "inherits": 74,
+        "calls_static": 4869,
+        "tests": 2400,
+        "calls_dynamic": 1521
+      },
+      "async_defs": 0,
+      "nodes_not_in_provided": 213
+    },
+    "rich_0ba607dc080c9f102b5ae5346bcdb70d6e9c969d": {
+      "n_nodes": 2131,
+      "node_kinds": {
+        "module": 190,
+        "class": 216,
+        "function": 1618,
+        "provided_only": 107
+      },
+      "edge_types": {
+        "contains": 1861,
+        "imports": 1045,
+        "inherits": 74,
+        "calls_static": 4719,
+        "tests": 4707,
+        "calls_dynamic": 1710
+      },
+      "async_defs": 0,
+      "nodes_not_in_provided": 190
+    },
+    "rich_0c8bb032ad3b54a32fdb8a43f5ab457c8cd6dcb1": {
+      "n_nodes": 2099,
+      "node_kinds": {
+        "module": 190,
+        "class": 213,
+        "function": 1589,
+        "provided_only": 107
+      },
+      "edge_types": {
+        "contains": 1829,
+        "imports": 1039,
+        "inherits": 74,
+        "calls_static": 4630,
+        "tests": 207,
+        "calls_dynamic": 520
+      },
+      "async_defs": 0,
+      "nodes_not_in_provided": 190
+    },
+    "rich_0f2f51b872d14588de3a65968f5cdde6fb5694a3": {
+      "n_nodes": 2143,
+      "node_kinds": {
+        "module": 190,
+        "class": 216,
+        "function": 1629,
+        "provided_only": 108
+      },
+      "edge_types": {
+        "contains": 1872,
+        "imports": 1046,
+        "inherits": 74,
+        "calls_static": 4764,
+        "tests": 24,
+        "calls_dynamic": 24
+      },
+      "async_defs": 0,
+      "nodes_not_in_provided": 190
+    },
+    "rich_19c67b9a3479841e9133bea94607c89ee931d3fc": {
+      "n_nodes": 2216,
+      "node_kinds": {
+        "module": 213,
+        "class": 219,
+        "function": 1667,
+        "provided_only": 117
+      },
+      "edge_types": {
+        "contains": 1913,
+        "imports": 1083,
+        "inherits": 74,
+        "calls_static": 4909,
+        "tests": 1136,
+        "calls_dynamic": 1041
+      },
+      "async_defs": 0,
+      "nodes_not_in_provided": 213
+    },
+    "rich_1ad6f73a4d1d3b40ac3f879feccfaad66412bd1d": {
+      "n_nodes": 2106,
+      "node_kinds": {
+        "module": 190,
+        "class": 216,
+        "function": 1593,
+        "provided_only": 107
+      },
+      "edge_types": {
+        "contains": 1836,
+        "imports": 1039,
+        "inherits": 74,
+        "calls_static": 4644,
+        "tests": 44,
+        "calls_dynamic": 160
+      },
+      "async_defs": 0,
+      "nodes_not_in_provided": 190
+    },
+    "rich_1d402e0c59f8765e420a5a4440eb2fca7465d1ae": {
+      "n_nodes": 2207,
+      "node_kinds": {
+        "module": 213,
+        "class": 219,
+        "function": 1661,
+        "provided_only": 114
+      },
+      "edge_types": {
+        "contains": 1907,
+        "imports": 1082,
+        "inherits": 74,
+        "calls_static": 4882,
+        "tests": 50,
+        "calls_dynamic": 50
+      },
+      "async_defs": 0,
+      "nodes_not_in_provided": 213
+    },
+    "rich_1fc7cb210ae52eb099df39818ddb9569e5b14c7b": {
+      "n_nodes": 2210,
+      "node_kinds": {
+        "module": 213,
+        "class": 219,
+        "function": 1663,
+        "provided_only": 115
+      },
+      "edge_types": {
+        "contains": 1909,
+        "imports": 1083,
+        "inherits": 74,
+        "calls_static": 4897,
+        "tests": 4694,
+        "calls_dynamic": 1656
+      },
+      "async_defs": 0,
+      "nodes_not_in_provided": 213
+    },
+    "rich_27701029082052c6541031b6f139097230253900": {
+      "n_nodes": 2209,
+      "node_kinds": {
+        "module": 213,
+        "class": 219,
+        "function": 1663,
+        "provided_only": 114
+      },
+      "edge_types": {
+        "contains": 1909,
+        "imports": 1082,
+        "inherits": 74,
+        "calls_static": 4886,
+        "tests": 53,
+        "calls_dynamic": 27
+      },
+      "async_defs": 0,
+      "nodes_not_in_provided": 213
+    },
+    "rich_2809954800af15b4027364cebf82390fe23dc194": {
+      "n_nodes": 2151,
+      "node_kinds": {
+        "module": 190,
+        "class": 216,
+        "function": 1631,
+        "provided_only": 114
+      },
+      "edge_types": {
+        "contains": 1874,
+        "imports": 1049,
+        "inherits": 74,
+        "calls_static": 4784,
+        "tests": 1688,
+        "calls_dynamic": 1058
+      },
+      "async_defs": 0,
+      "nodes_not_in_provided": 190
+    },
+    "rich_2b5d648b2c62960deb6439f4204ed8fa6eb3cf7b": {
+      "n_nodes": 2143,
+      "node_kinds": {
+        "module": 190,
+        "class": 216,
+        "function": 1629,
+        "provided_only": 108
+      },
+      "edge_types": {
+        "contains": 1872,
+        "imports": 1047,
+        "inherits": 74,
+        "calls_static": 4764,
+        "tests": 1662,
+        "calls_dynamic": 1072
+      },
+      "async_defs": 0,
+      "nodes_not_in_provided": 190
+    },
+    "rich_368e8ad77c95a6bef8f9d332039091d1417296bc": {
+      "n_nodes": 2097,
+      "node_kinds": {
+        "module": 190,
+        "class": 213,
+        "function": 1587,
+        "provided_only": 107
+      },
+      "edge_types": {
+        "contains": 1827,
+        "imports": 1038,
+        "inherits": 74,
+        "calls_static": 4620,
+        "tests": 290,
+        "calls_dynamic": 541
+      },
+      "async_defs": 0,
+      "nodes_not_in_provided": 190
+    },
+    "rich_36fe3f7ca9becca4777861d5e6e625f5a4a37545": {
+      "n_nodes": 2206,
+      "node_kinds": {
+        "module": 213,
+        "class": 219,
+        "function": 1660,
+        "provided_only": 114
+      },
+      "edge_types": {
+        "contains": 1906,
+        "imports": 1082,
+        "inherits": 74,
+        "calls_static": 4880,
+        "tests": 43,
+        "calls_dynamic": 48
+      },
+      "async_defs": 0,
+      "nodes_not_in_provided": 213
+    },
+    "rich_3b70db5a2997de191f7db3e422dbe4da35ca1c95": {
+      "n_nodes": 2153,
+      "node_kinds": {
+        "module": 190,
+        "class": 216,
+        "function": 1633,
+        "provided_only": 114
+      },
+      "edge_types": {
+        "contains": 1876,
+        "imports": 1049,
+        "inherits": 74,
+        "calls_static": 4790,
+        "tests": 1303,
+        "calls_dynamic": 846
+      },
+      "async_defs": 0,
+      "nodes_not_in_provided": 190
+    },
+    "rich_4101991898ee7a09fe1706daca24af5e1e054862": {
+      "n_nodes": 2137,
+      "node_kinds": {
+        "module": 190,
+        "class": 216,
+        "function": 1623,
+        "provided_only": 108
+      },
+      "edge_types": {
+        "contains": 1866,
+        "imports": 1044,
+        "inherits": 74,
+        "calls_static": 4735,
+        "tests": 299,
+        "calls_dynamic": 550
+      },
+      "async_defs": 0,
+      "nodes_not_in_provided": 190
+    },
+    "rich_49117ced6648a432d85951f72dce777038f6ce09": {
+      "n_nodes": 2152,
+      "node_kinds": {
+        "module": 190,
+        "class": 216,
+        "function": 1632,
+        "provided_only": 114
+      },
+      "edge_types": {
+        "contains": 1875,
+        "imports": 1049,
+        "inherits": 74,
+        "calls_static": 4788,
+        "tests": 4633,
+        "calls_dynamic": 1652
+      },
+      "async_defs": 0,
+      "nodes_not_in_provided": 190
+    },
+    "rich_4c5d305bb902ce97011666ada19e48d0b27b49e1": {
+      "n_nodes": 2126,
+      "node_kinds": {
+        "module": 191,
+        "class": 216,
+        "function": 1612,
+        "provided_only": 107
+      },
+      "edge_types": {
+        "contains": 1855,
+        "imports": 1046,
+        "inherits": 74,
+        "calls_static": 4703,
+        "tests": 286,
+        "calls_dynamic": 542
+      },
+      "async_defs": 0,
+      "nodes_not_in_provided": 191
+    },
+    "rich_4d6d631a3d2deddf8405522d4b8c976a6d35726c": {
+      "n_nodes": 2159,
+      "node_kinds": {
+        "module": 190,
+        "class": 217,
+        "function": 1638,
+        "provided_only": 114
+      },
+      "edge_types": {
+        "contains": 1882,
+        "imports": 1049,
+        "inherits": 74,
+        "calls_static": 4808,
+        "tests": 2360,
+        "calls_dynamic": 976
+      },
+      "async_defs": 0,
+      "nodes_not_in_provided": 190
+    },
+    "rich_53757bc234cf18977cade41a5b64f3abaccb0b85": {
+      "n_nodes": 2159,
+      "node_kinds": {
+        "module": 190,
+        "class": 217,
+        "function": 1638,
+        "provided_only": 114
+      },
+      "edge_types": {
+        "contains": 1882,
+        "imports": 1049,
+        "inherits": 74,
+        "calls_static": 4808,
+        "tests": 2026,
+        "calls_dynamic": 759
+      },
+      "async_defs": 0,
+      "nodes_not_in_provided": 190
+    },
+    "rich_577def22dd83b999c5937cb2bf2ed49600943325": {
+      "n_nodes": 2117,
+      "node_kinds": {
+        "module": 190,
+        "class": 216,
+        "function": 1604,
+        "provided_only": 107
+      },
+      "edge_types": {
+        "contains": 1847,
+        "imports": 1040,
+        "inherits": 74,
+        "calls_static": 4681,
+        "tests": 772,
+        "calls_dynamic": 764
+      },
+      "async_defs": 0,
+      "nodes_not_in_provided": 190
+    },
+    "rich_58ac15120fe254886c10d6253667733c83604cb4": {
+      "n_nodes": 2212,
+      "node_kinds": {
+        "module": 213,
+        "class": 219,
+        "function": 1665,
+        "provided_only": 115
+      },
+      "edge_types": {
+        "contains": 1911,
+        "imports": 1083,
+        "inherits": 74,
+        "calls_static": 4901,
+        "tests": 176,
+        "calls_dynamic": 410
+      },
+      "async_defs": 0,
+      "nodes_not_in_provided": 213
+    },
+    "rich_5ba9cb56e68dcdf2db50c214d8f1412c8a50761b": {
+      "n_nodes": 2142,
+      "node_kinds": {
+        "module": 190,
+        "class": 216,
+        "function": 1628,
+        "provided_only": 108
+      },
+      "edge_types": {
+        "contains": 1871,
+        "imports": 1046,
+        "inherits": 74,
+        "calls_static": 4760,
+        "tests": 892,
+        "calls_dynamic": 789
+      },
+      "async_defs": 0,
+      "nodes_not_in_provided": 190
+    },
+    "rich_610fd75c433c3dfcd9c296e8b91363979127b9fa": {
+      "n_nodes": 2122,
+      "node_kinds": {
+        "module": 190,
+        "class": 216,
+        "function": 1609,
+        "provided_only": 107
+      },
+      "edge_types": {
+        "contains": 1852,
+        "imports": 1046,
+        "inherits": 74,
+        "calls_static": 4695,
+        "tests": 164,
+        "calls_dynamic": 288
+      },
+      "async_defs": 0,
+      "nodes_not_in_provided": 190
+    },
+    "rich_66074922edabeac684434b4d87ee994fb97b0627": {
+      "n_nodes": 2143,
+      "node_kinds": {
+        "module": 190,
+        "class": 216,
+        "function": 1629,
+        "provided_only": 108
+      },
+      "edge_types": {
+        "contains": 1872,
+        "imports": 1046,
+        "inherits": 74,
+        "calls_static": 4764,
+        "tests": 299,
+        "calls_dynamic": 568
+      },
+      "async_defs": 0,
+      "nodes_not_in_provided": 190
+    },
+    "rich_6764b24739b580c0c32ff5ef0b971ed4cfcf4f75": {
+      "n_nodes": 2194,
+      "node_kinds": {
+        "module": 213,
+        "class": 218,
+        "function": 1649,
+        "provided_only": 114
+      },
+      "edge_types": {
+        "contains": 1894,
+        "imports": 1080,
+        "inherits": 74,
+        "calls_static": 4848,
+        "tests": 1200,
+        "calls_dynamic": 778
+      },
+      "async_defs": 0,
+      "nodes_not_in_provided": 213
+    },
+    "rich_720800e6930d85ad027b1e9bd0cbb96b5e994ce3": {
+      "n_nodes": 2106,
+      "node_kinds": {
+        "module": 190,
+        "class": 216,
+        "function": 1593,
+        "provided_only": 107
+      },
+      "edge_types": {
+        "contains": 1836,
+        "imports": 1039,
+        "inherits": 74,
+        "calls_static": 4644,
+        "tests": 837,
+        "calls_dynamic": 1037
+      },
+      "async_defs": 0,
+      "nodes_not_in_provided": 190
+    },
+    "rich_7a168a27c5097805b3bafa495f35e3955004ff4a": {
+      "n_nodes": 2109,
+      "node_kinds": {
+        "module": 190,
+        "class": 216,
+        "function": 1596,
+        "provided_only": 107
+      },
+      "edge_types": {
+        "contains": 1839,
+        "imports": 1039,
+        "inherits": 74,
+        "calls_static": 4655,
+        "tests": 641,
+        "calls_dynamic": 524
+      },
+      "async_defs": 0,
+      "nodes_not_in_provided": 190
+    },
+    "rich_7d36119f8378b36129502c3281a7faffef837e02": {
+      "n_nodes": 2157,
+      "node_kinds": {
+        "module": 190,
+        "class": 217,
+        "function": 1636,
+        "provided_only": 114
+      },
+      "edge_types": {
+        "contains": 1880,
+        "imports": 1049,
+        "inherits": 74,
+        "calls_static": 4796,
+        "tests": 502,
+        "calls_dynamic": 620
+      },
+      "async_defs": 0,
+      "nodes_not_in_provided": 190
+    },
+    "rich_8a616de8e25db3c93abaaa220c493d80878de69d": {
+      "n_nodes": 2099,
+      "node_kinds": {
+        "module": 190,
+        "class": 213,
+        "function": 1589,
+        "provided_only": 107
+      },
+      "edge_types": {
+        "contains": 1829,
+        "imports": 1039,
+        "inherits": 74,
+        "calls_static": 4630,
+        "tests": 4549,
+        "calls_dynamic": 1700
+      },
+      "async_defs": 0,
+      "nodes_not_in_provided": 190
+    },
+    "rich_96dd4b60e3a7c647c43a85ad375afa690b3bb85b": {
+      "n_nodes": 2196,
+      "node_kinds": {
+        "module": 213,
+        "class": 218,
+        "function": 1651,
+        "provided_only": 114
+      },
+      "edge_types": {
+        "contains": 1896,
+        "imports": 1083,
+        "inherits": 74,
+        "calls_static": 4853,
+        "tests": 2471,
+        "calls_dynamic": 1492
+      },
+      "async_defs": 0,
+      "nodes_not_in_provided": 213
+    },
+    "rich_9cb198944f8184df92217efc8b20d3fffa4b4fa0": {
+      "n_nodes": 2211,
+      "node_kinds": {
+        "module": 213,
+        "class": 219,
+        "function": 1664,
+        "provided_only": 115
+      },
+      "edge_types": {
+        "contains": 1910,
+        "imports": 1083,
+        "inherits": 74,
+        "calls_static": 4899,
+        "tests": 318,
+        "calls_dynamic": 547
+      },
+      "async_defs": 0,
+      "nodes_not_in_provided": 213
+    },
+    "rich_9ec419154102acce7363e3958bec6c261864d7fb": {
+      "n_nodes": 2134,
+      "node_kinds": {
+        "module": 190,
+        "class": 216,
+        "function": 1620,
+        "provided_only": 108
+      },
+      "edge_types": {
+        "contains": 1863,
+        "imports": 1045,
+        "inherits": 74,
+        "calls_static": 4729,
+        "tests": 1966,
+        "calls_dynamic": 1310
+      },
+      "async_defs": 0,
+      "nodes_not_in_provided": 190
+    },
+    "rich_9f620dc50c0008c35e9f8493f198e6e593574a70": {
+      "n_nodes": 2109,
+      "node_kinds": {
+        "module": 190,
+        "class": 216,
+        "function": 1596,
+        "provided_only": 107
+      },
+      "edge_types": {
+        "contains": 1839,
+        "imports": 1039,
+        "inherits": 74,
+        "calls_static": 4655,
+        "tests": 4549,
+        "calls_dynamic": 1700
+      },
+      "async_defs": 0,
+      "nodes_not_in_provided": 190
+    },
+    "rich_aca9467ec6a482b3bed1ba7d2e3de72271c5f817": {
+      "n_nodes": 2093,
+      "node_kinds": {
+        "module": 190,
+        "class": 213,
+        "function": 1583,
+        "provided_only": 107
+      },
+      "edge_types": {
+        "contains": 1823,
+        "imports": 1038,
+        "inherits": 74,
+        "calls_static": 4610,
+        "tests": 1895,
+        "calls_dynamic": 1372
+      },
+      "async_defs": 0,
+      "nodes_not_in_provided": 190
+    },
+    "rich_ae15db600976a7999d21653002f338d0761b180c": {
+      "n_nodes": 2127,
+      "node_kinds": {
+        "module": 190,
+        "class": 216,
+        "function": 1614,
+        "provided_only": 107
+      },
+      "edge_types": {
+        "contains": 1857,
+        "imports": 1045,
+        "inherits": 74,
+        "calls_static": 4713,
+        "tests": 4628,
+        "calls_dynamic": 1701
+      },
+      "async_defs": 0,
+      "nodes_not_in_provided": 190
+    },
+    "rich_b6f2f7aa5b27f612f391cd28212aff51ad0d42d1": {
+      "n_nodes": 2132,
+      "node_kinds": {
+        "module": 190,
+        "class": 216,
+        "function": 1619,
+        "provided_only": 107
+      },
+      "edge_types": {
+        "contains": 1862,
+        "imports": 1045,
+        "inherits": 74,
+        "calls_static": 4725,
+        "tests": 1984,
+        "calls_dynamic": 782
+      },
+      "async_defs": 0,
+      "nodes_not_in_provided": 190
+    },
+    "rich_c478588f3c228a4e86741a057c42b452d7bc6bce": {
+      "n_nodes": 2130,
+      "node_kinds": {
+        "module": 190,
+        "class": 216,
+        "function": 1617,
+        "provided_only": 107
+      },
+      "edge_types": {
+        "contains": 1860,
+        "imports": 1045,
+        "inherits": 74,
+        "calls_static": 4715,
+        "tests": 979,
+        "calls_dynamic": 1054
+      },
+      "async_defs": 0,
+      "nodes_not_in_provided": 190
+    },
+    "rich_c595fa95068dd2c5095d25446b2f0571bc0b3995": {
+      "n_nodes": 2205,
+      "node_kinds": {
+        "module": 213,
+        "class": 218,
+        "function": 1660,
+        "provided_only": 114
+      },
+      "edge_types": {
+        "contains": 1905,
+        "imports": 1083,
+        "inherits": 74,
+        "calls_static": 4882,
+        "tests": 1173,
+        "calls_dynamic": 1078
+      },
+      "async_defs": 0,
+      "nodes_not_in_provided": 213
+    },
+    "rich_d0de442c08df8793c5ff36d9ad322ca5c47fc38c": {
+      "n_nodes": 2135,
+      "node_kinds": {
+        "module": 190,
+        "class": 216,
+        "function": 1621,
+        "provided_only": 108
+      },
+      "edge_types": {
+        "contains": 1864,
+        "imports": 1045,
+        "inherits": 74,
+        "calls_static": 4731,
+        "tests": 1686,
+        "calls_dynamic": 1069
+      },
+      "async_defs": 0,
+      "nodes_not_in_provided": 190
+    },
+    "rich_e1e6d745f670ff3df6b8f47377c0a4006cb74066": {
+      "n_nodes": 2126,
+      "node_kinds": {
+        "module": 190,
+        "class": 216,
+        "function": 1613,
+        "provided_only": 107
+      },
+      "edge_types": {
+        "contains": 1856,
+        "imports": 1045,
+        "inherits": 74,
+        "calls_static": 4711,
+        "tests": 44,
+        "calls_dynamic": 160
+      },
+      "async_defs": 0,
+      "nodes_not_in_provided": 190
+    },
+    "rich_e2a982d5ea747f0deb7f78e8eaa5b4be7d9194cf": {
+      "n_nodes": 2131,
+      "node_kinds": {
+        "module": 190,
+        "class": 216,
+        "function": 1618,
+        "provided_only": 107
+      },
+      "edge_types": {
+        "contains": 1861,
+        "imports": 1045,
+        "inherits": 74,
+        "calls_static": 4719,
+        "tests": 1962,
+        "calls_dynamic": 1294
+      },
+      "async_defs": 0,
+      "nodes_not_in_provided": 190
+    },
+    "rich_e76f3c3ea78481342e21a7b3328075462ab69c2b": {
+      "n_nodes": 2109,
+      "node_kinds": {
+        "module": 190,
+        "class": 216,
+        "function": 1596,
+        "provided_only": 107
+      },
+      "edge_types": {
+        "contains": 1839,
+        "imports": 1039,
+        "inherits": 74,
+        "calls_static": 4655,
+        "tests": 1891,
+        "calls_dynamic": 1252
+      },
+      "async_defs": 0,
+      "nodes_not_in_provided": 190
+    },
+    "rich_edc6b0a39b6df1c0e26d409bb5c5eda7149b2de6": {
+      "n_nodes": 2144,
+      "node_kinds": {
+        "module": 190,
+        "class": 216,
+        "function": 1630,
+        "provided_only": 108
+      },
+      "edge_types": {
+        "contains": 1873,
+        "imports": 1047,
+        "inherits": 74,
+        "calls_static": 4766,
+        "tests": 4676,
+        "calls_dynamic": 1706
+      },
+      "async_defs": 0,
+      "nodes_not_in_provided": 190
+    },
+    "rich_fc41075a3206d2a5fd846c6f41c4d2becab814fa": {
+      "n_nodes": 2210,
+      "node_kinds": {
+        "module": 213,
+        "class": 219,
+        "function": 1664,
+        "provided_only": 114
+      },
+      "edge_types": {
+        "contains": 1910,
+        "imports": 1082,
+        "inherits": 74,
+        "calls_static": 4888,
+        "tests": 5941,
+        "calls_dynamic": 2044
+      },
+      "async_defs": 0,
+      "nodes_not_in_provided": 213
+    },
+    "rich_fde5d6eee3b0437eaecdcbf6f8b11aeab3a5d503": {
+      "n_nodes": 2127,
+      "node_kinds": {
+        "module": 191,
+        "class": 216,
+        "function": 1613,
+        "provided_only": 107
+      },
+      "edge_types": {
+        "contains": 1856,
+        "imports": 1046,
+        "inherits": 74,
+        "calls_static": 4707,
+        "tests": 1189,
+        "calls_dynamic": 844
+      },
+      "async_defs": 0,
+      "nodes_not_in_provided": 191
+    },
+    "rich_fe55a131c2780fa856464ad04d7d6dc8a1079b72": {
+      "n_nodes": 2197,
+      "node_kinds": {
+        "module": 213,
+        "class": 218,
+        "function": 1652,
+        "provided_only": 114
+      },
+      "edge_types": {
+        "contains": 1897,
+        "imports": 1083,
+        "inherits": 74,
+        "calls_static": 4857,
+        "tests": 1103,
+        "calls_dynamic": 886
+      },
+      "async_defs": 0,
+      "nodes_not_in_provided": 213
+    }
+  },
+  "task_profile_cells": {
+    "d_undef|v_undef": 1,
+    "d_undef|v_high": 37,
+    "d_undef|v_low": 44,
+    "d0|v_high": 15,
+    "d2+|v_high": 16,
+    "d2+|v_low": 7,
+    "d0|v_low": 4,
+    "d1|v_high": 4,
+    "d1|v_low": 1
+  }
+}

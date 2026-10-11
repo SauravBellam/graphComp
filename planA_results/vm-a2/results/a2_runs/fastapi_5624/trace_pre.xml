@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="1.948" timestamp="2026-10-10T23:20:15.583652+00:00" hostname="vm-a2"><testcase classname="tests.test_security_scopes_dont_propagate" name="test_security_scopes_dont_propagate" time="0.244"><failure message="AssertionError: assert {'dep1': ['sc...1', 'scope2']} == {'dep1': ['sc...3', 'scope2']}&#10;  &#10;  Differing items:&#10;  {'dep1': ['scope3', 'scope1', 'scope2']} != {'dep1': ['scope3', 'scope1']}&#10;  {'dep2': ['scope3', 'scope1', 'scope2']} != {'dep2': ['scope3', 'scope2']}&#10;  Use -v to get more diff">def test_security_scopes_dont_propagate():
+        response = client.get("/scopes")
+        assert response.status_code == 200
+&gt;       assert response.json() == {
+            "dep1": ["scope3", "scope1"],
+            "dep2": ["scope3", "scope2"],
+        }
+E       AssertionError: assert {'dep1': ['sc...1', 'scope2']} == {'dep1': ['sc...3', 'scope2']}
+E         
+E         Differing items:
+E         {'dep1': ['scope3', 'scope1', 'scope2']} != {'dep1': ['scope3', 'scope1']}
+E         {'dep2': ['scope3', 'scope1', 'scope2']} != {'dep2': ['scope3', 'scope2']}
+E         Use -v to get more diff
+
+tests/test_security_scopes_dont_propagate.py:42: AssertionError</failure></testcase></testsuite></testsuites>

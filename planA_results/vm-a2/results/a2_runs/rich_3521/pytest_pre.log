@@ -1,0 +1,136 @@
+
+$ /home/sauravbellam/cache/a2/rich_3521/venv/bin/python -s -m pytest tests/test_segment.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/rich_3521/trace_pre.xml
+[exit 1]
+..............................................F.FF..F......              [100%]
+=================================== FAILURES ===================================
+_______________________ test_split_cells_mixed[segment1] _______________________
+
+segment = Segment('メイド・イン・きゅんクチュアリ☆    ')
+
+    @pytest.mark.parametrize(
+        "segment",
+        [
+            Segment("早乙女リリエル (CV: 徳井青）"),
+            Segment("メイド・イン・きゅんクチュアリ☆    "),
+            Segment("TVアニメ「メルクストーリア -無気力少年と瓶の中の少女-」 主題歌CD"),
+            Segment("南無阿弥JKうらめしや?！     "),
+            Segment("メルク (CV: 水瀬いのり)     "),
+            Segment(" メルク (CV: 水瀬いのり)     "),
+            Segment("  メルク (CV: 水瀬いのり)     "),
+            Segment("  メルク (CV: 水瀬いのり)      "),
+        ],
+    )
+    def test_split_cells_mixed(segment: Segment) -> None:
+        """Check that split cells splits on cell positions."""
+        # Caused https://github.com/Textualize/textual/issues/4996 in Textual
+    
+        for position in range(0, segment.cell_length + 1):
+            left, right = Segment.split_cells(segment, position)
+            assert all(
+                cell_len(c) > 0 for c in segment.text
+            )  # Sanity check there aren't any sneaky control codes
+>           assert cell_len(left.text) == position
+E           AssertionError: assert 23 == 21
+E            +  where 23 = cell_len('メイド・イン・きゅんク ')
+E            +    where 'メイド・イン・きゅんク ' = Segment('メイド・イン・きゅんク ').text
+
+tests/test_segment.py:310: AssertionError
+_______________________ test_split_cells_mixed[segment3] _______________________
+
+segment = Segment('南無阿弥JKうらめしや?！     ')
+
+    @pytest.mark.parametrize(
+        "segment",
+        [
+            Segment("早乙女リリエル (CV: 徳井青）"),
+            Segment("メイド・イン・きゅんクチュアリ☆    "),
+            Segment("TVアニメ「メルクストーリア -無気力少年と瓶の中の少女-」 主題歌CD"),
+            Segment("南無阿弥JKうらめしや?！     "),
+            Segment("メルク (CV: 水瀬いのり)     "),
+            Segment(" メルク (CV: 水瀬いのり)     "),
+            Segment("  メルク (CV: 水瀬いのり)     "),
+            Segment("  メルク (CV: 水瀬いのり)      "),
+        ],
+    )
+    def test_split_cells_mixed(segment: Segment) -> None:
+        """Check that split cells splits on cell positions."""
+        # Caused https://github.com/Textualize/textual/issues/4996 in Textual
+    
+        for position in range(0, segment.cell_length + 1):
+            left, right = Segment.split_cells(segment, position)
+            assert all(
+                cell_len(c) > 0 for c in segment.text
+            )  # Sanity check there aren't any sneaky control codes
+>           assert cell_len(left.text) == position
+E           AssertionError: assert 21 == 19
+E            +  where 21 = cell_len('南無阿弥JKうらめしや ')
+E            +    where '南無阿弥JKうらめしや ' = Segment('南無阿弥JKうらめしや ').text
+
+tests/test_segment.py:310: AssertionError
+_______________________ test_split_cells_mixed[segment4] _______________________
+
+segment = Segment('メルク (CV: 水瀬いのり)     ')
+
+    @pytest.mark.parametrize(
+        "segment",
+        [
+            Segment("早乙女リリエル (CV: 徳井青）"),
+            Segment("メイド・イン・きゅんクチュアリ☆    "),
+            Segment("TVアニメ「メルクストーリア -無気力少年と瓶の中の少女-」 主題歌CD"),
+            Segment("南無阿弥JKうらめしや?！     "),
+            Segment("メルク (CV: 水瀬いのり)     "),
+            Segment(" メルク (CV: 水瀬いのり)     "),
+            Segment("  メルク (CV: 水瀬いのり)     "),
+            Segment("  メルク (CV: 水瀬いのり)      "),
+        ],
+    )
+    def test_split_cells_mixed(segment: Segment) -> None:
+        """Check that split cells splits on cell positions."""
+        # Caused https://github.com/Textualize/textual/issues/4996 in Textual
+    
+        for position in range(0, segment.cell_length + 1):
+            left, right = Segment.split_cells(segment, position)
+            assert all(
+                cell_len(c) > 0 for c in segment.text
+            )  # Sanity check there aren't any sneaky control codes
+>           assert cell_len(left.text) == position
+E           AssertionError: assert 23 == 21
+E            +  where 23 = cell_len('メルク (CV: 水瀬いのり ')
+E            +    where 'メルク (CV: 水瀬いのり ' = Segment('メルク (CV: 水瀬いのり ').text
+
+tests/test_segment.py:310: AssertionError
+_______________________ test_split_cells_mixed[segment7] _______________________
+
+segment = Segment('  メルク (CV: 水瀬いのり)      ')
+
+    @pytest.mark.parametrize(
+        "segment",
+        [
+            Segment("早乙女リリエル (CV: 徳井青）"),
+            Segment("メイド・イン・きゅんクチュアリ☆    "),
+            Segment("TVアニメ「メルクストーリア -無気力少年と瓶の中の少女-」 主題歌CD"),
+            Segment("南無阿弥JKうらめしや?！     "),
+            Segment("メルク (CV: 水瀬いのり)     "),
+            Segment(" メルク (CV: 水瀬いのり)     "),
+            Segment("  メルク (CV: 水瀬いのり)     "),
+            Segment("  メルク (CV: 水瀬いのり)      "),
+        ],
+    )
+    def test_split_cells_mixed(segment: Segment) -> None:
+        """Check that split cells splits on cell positions."""
+        # Caused https://github.com/Textualize/textual/issues/4996 in Textual
+    
+        for position in range(0, segment.cell_length + 1):
+            left, right = Segment.split_cells(segment, position)
+            assert all(
+                cell_len(c) > 0 for c in segment.text
+            )  # Sanity check there aren't any sneaky control codes
+>           assert cell_len(left.text) == position
+E           AssertionError: assert 25 == 23
+E            +  where 25 = cell_len('  メルク (CV: 水瀬いのり ')
+E            +    where '  メルク (CV: 水瀬いのり ' = Segment('  メルク (CV: 水瀬いのり ').text
+
+tests/test_segment.py:310: AssertionError
+4 failed, 55 passed in 0.84s
+
+

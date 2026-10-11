@@ -1,0 +1,20 @@
+
+$ /home/sauravbellam/cache/a2/fastapi_14262/venv/bin/python -s -m pytest tests/test_dependency_yield_scope.py tests/test_dependency_yield_scope_websockets.py tests/test_tutorial/test_dependencies/test_tutorial008e.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/fastapi_14262/trace_pre.xml
+[exit 2]
+
+==================================== ERRORS ====================================
+____________ ERROR collecting tests/test_dependency_yield_scope.py _____________
+tests/test_dependency_yield_scope.py:23: in <module>
+    SessionFuncDep = Annotated[Session, Depends(dep_session, scope="function")]
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   TypeError: Depends() got an unexpected keyword argument 'scope'
+_______ ERROR collecting tests/test_dependency_yield_scope_websockets.py _______
+tests/test_dependency_yield_scope_websockets.py:26: in <module>
+    SessionFuncDep = Annotated[Session, Depends(dep_session, scope="function")]
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   TypeError: Depends() got an unexpected keyword argument 'scope'
+- generated xml file: /home/sauravbellam/results/a2_runs/fastapi_14262/trace_pre.xml -
+!!!!!!!!!!!!!!!!!!! Interrupted: 2 errors during collection !!!!!!!!!!!!!!!!!!!!
+2 errors in 2.10s
+
+
