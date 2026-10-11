@@ -4,41 +4,42 @@
   "backend": "venv",
   "done": true,
   "test_timeout": 60,
+  "deselect_hung": true,
   "deps": {
     "steps": [
       {
         "name": "pip_upgrade",
-        "cmd": "/home/sauravbellam/cache/a2/rich_4006/venv/bin/python -m pip install -q --disable-pip-version-check 'pip>=24' 'setuptools' 'wheel' pytest pytest-timeout",
+        "cmd": "/home/sauravbellam/results/../cache/a2/rich_4006/venv/bin/python -m pip install -q --disable-pip-version-check 'pip>=24' 'setuptools' 'wheel' pytest pytest-timeout",
         "exit": 0,
         "stderr_tail": ""
       },
       {
         "name": "editable_no_deps",
-        "cmd": "/home/sauravbellam/cache/a2/rich_4006/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-build-isolation --no-deps -e .",
+        "cmd": "/home/sauravbellam/results/../cache/a2/rich_4006/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-build-isolation --no-deps -e .",
         "exit": 2,
         "stderr_tail": "python3.13/site-packages/pip/_internal/req/req_install.py\", line 258, in supports_pyproject_editable\n    return \"build_editable\" in self.pep517_backend._supported_features()\n                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"/home/sauravbellam/cache/a2/rich_4006/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 180, in _supported_features\n    return self._call_hook(\"_supported_features\", {})\n           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/sauravbellam/cache/a2/rich_4006/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 402, in _call_hook\n    raise BackendUnavailable(\n    ...<4 lines>...\n    )\npip._vendor.pyproject_hooks._impl.BackendUnavailable: Cannot import 'poetry.core.masonry.api'\n"
       },
       {
         "name": "editable_no_deps_isolated",
-        "cmd": "/home/sauravbellam/cache/a2/rich_4006/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-deps -e .",
+        "cmd": "/home/sauravbellam/results/../cache/a2/rich_4006/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-deps -e .",
         "exit": 0,
         "stderr_tail": ""
       },
       {
         "name": "runtime_deps",
-        "cmd": "/home/sauravbellam/cache/a2/rich_4006/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e .",
+        "cmd": "/home/sauravbellam/results/../cache/a2/rich_4006/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e .",
         "exit": 0,
         "stderr_tail": ""
       },
       {
         "name": "poetry_group_dev",
-        "cmd": "/home/sauravbellam/cache/a2/rich_4006/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels pytest black mypy pytest-cov attrs pre-commit typing-extensions",
+        "cmd": "/home/sauravbellam/results/../cache/a2/rich_4006/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels pytest black mypy pytest-cov attrs pre-commit typing-extensions",
         "exit": 0,
         "stderr_tail": ""
       },
       {
         "name": "rich_tests",
-        "cmd": "/home/sauravbellam/cache/a2/rich_4006/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels pytest-cov attrs ipywidgets",
+        "cmd": "/home/sauravbellam/results/../cache/a2/rich_4006/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels pytest-cov attrs ipywidgets",
         "exit": 0,
         "stderr_tail": ""
       }
@@ -52,16 +53,64 @@
   "test_patch_strategy": "exact",
   "test_patch_applied": true,
   "pre": {
-    "exit": -9,
-    "seconds": 451.0,
+    "exit": 1,
+    "seconds": 240.6,
     "timeout": false,
-    "exit_meaning": "exit_-9",
-    "run_class": "killed",
-    "counts": {},
+    "stdout_tail": " # Two ZWJs should have zero width\n        ],\n    )\n    def test_split_graphemes(\n        text: str, expected_spans: list[CellSpan], expected_cell_length: int\n    ):\n        spans, cell_length = split_graphemes(text)\n        print(spans)\n        assert cell_len(text) == expected_cell_length\n>       assert spans == expected_spans\nE       assert [] == [(0, 1, 0)]\nE         \nE         Right contains one more item: (0, 1, 0)\nE         Use -v to get more diff\n\ntests/test_cells.py:220: AssertionError\n----------------------------- Captured stdout call -----------------------------\n[]\n____________ test_split_graphemes[\\u200d\\u200d-expected_spans18-0] _____________\n\ntext = '\\u200d\\u200d', expected_spans = [(0, 2, 0)], expected_cell_length = 0\n\n    @pytest.mark.parametrize(\n        \"text,expected_spans,expected_cell_length\",\n        [\n            (\"\", [], 0),\n            (\"a\", [(0, 1, 1)], 1),\n            (\"ab\", [(0, 1, 1), (1, 2, 1)], 2),\n            (\"\ud83d\udca9\", [(0, 1, 2)], 2),\n            (\"\u308f\u3055\u3073\", [(0, 1, 2), (1, 2, 2), (2, 3, 2)], 6),\n            (\n                \"\ud83d\udc69\\u200d\ud83d\udd27\",\n                [(0, 3, 2)],\n                2,\n            ),  # 3 code points for female mechanic: female, joiner, spanner\n            (\"a\ud83d\udc69\\u200d\ud83d\udd27\", [(0, 1, 1), (1, 4, 2)], 3),\n            (\"a\ud83d\udc69\\u200d\ud83d\udd27b\", [(0, 1, 1), (1, 4, 2), (4, 5, 1)], 4),\n            (\"\u2b07\", [(0, 1, 1)], 1),\n            (\"\u2b07\ufe0f\", [(0, 2, 2)], 2),  # Variation selector, makes it double width\n            (\"\u267b\", [(0, 1, 1)], 1),\n            (\"\u267b\ufe0f\", [(0, 2, 2)], 2),\n            (\"\u267b\u267b\ufe0f\", [(0, 1, 1), (1, 3, 2)], 3),\n            (\"\\x1b\", [(0, 1, 0)], 0),  # One escape should have zero width\n            (\"\\x1b\\x1b\", [(0, 2, 0)], 0),  # Two escapes should have zero width\n            (\n                \"\\ufe0f\",\n                [(0, 1, 0)],\n                0,\n            ),  # Variation selector 16, without anything to change should have zero width\n            (\n                \"\\ufe0f\\ufe0f\",\n                [(0, 2, 0)],\n                0,\n            ),  # 2 X variation selector 16, without anything to change should have zero width\n            (\n                \"\\u200d\",\n                [(0, 1, 0)],\n                0,\n            ),  # A zero width joiner within noting prior should have zero width\n            (\n                \"\\u200d\\u200d\",\n                [(0, 2, 0)],\n                0,\n            ),  # Two ZWJs should have zero width\n        ],\n    )\n    def test_split_graphemes(\n        text: str, expected_spans: list[CellSpan], expected_cell_length: int\n    ):\n        spans, cell_length = split_graphemes(text)\n        print(spans)\n        assert cell_len(text) == expected_cell_length\n>       assert spans == expected_spans\nE       assert [] == [(0, 2, 0)]\nE         \nE         Right contains one more item: (0, 2, 0)\nE         Use -v to get more diff\n\ntests/test_cells.py:220: AssertionError\n----------------------------- Captured stdout call -----------------------------\n[]\n6 failed, 57 passed, 4 deselected in 240.41s (0:04:00)\n",
+    "stderr_tail": "",
+    "exit_meaning": "some_failed",
+    "run_class": "clean",
+    "counts": {
+      "failed": 6,
+      "passed": 57,
+      "deselected": 4
+    },
     "missing_modules": [],
     "collection_errors": [],
-    "stdout_tail": "........................................FFFF..............FFF",
-    "stderr_tail": ""
+    "deselected": [
+      "test_cells.py::test_split_graphemes[\\x1b-expected_spans13-0]",
+      "test_cells.py::test_split_graphemes[\\x1b\\x1b-expected_spans14-0]",
+      "test_cells.py::test_split_graphemes[\\ufe0f-expected_spans15-0]",
+      "test_cells.py::test_split_graphemes[\\ufe0f\\ufe0f-expected_spans16-0]"
+    ],
+    "hung_tests": [
+      "test_cells.py::test_split_graphemes[\\x1b-expected_spans13-0]",
+      "test_cells.py::test_split_graphemes[\\x1b\\x1b-expected_spans14-0]",
+      "test_cells.py::test_split_graphemes[\\ufe0f-expected_spans15-0]",
+      "test_cells.py::test_split_graphemes[\\ufe0f\\ufe0f-expected_spans16-0]"
+    ],
+    "attempts": [
+      {
+        "exit": null,
+        "timeout": true,
+        "run_class": "timeout",
+        "seconds": 300.1
+      },
+      {
+        "exit": null,
+        "timeout": true,
+        "run_class": "timeout",
+        "seconds": 300.1
+      },
+      {
+        "exit": null,
+        "timeout": true,
+        "run_class": "timeout",
+        "seconds": 300.1
+      },
+      {
+        "exit": null,
+        "timeout": true,
+        "run_class": "timeout",
+        "seconds": 300.0
+      },
+      {
+        "exit": 1,
+        "timeout": false,
+        "run_class": "clean",
+        "seconds": 240.6
+      }
+    ]
   },
   "gold_patch_strategy": "exact",
   "gold_patch_applied": true,
@@ -69,6 +118,8 @@
     "exit": 0,
     "seconds": 0.5,
     "timeout": false,
+    "stdout_tail": "...................................................................      [100%]\n67 passed in 0.29s\n",
+    "stderr_tail": "",
     "exit_meaning": "all_passed",
     "run_class": "clean",
     "counts": {
@@ -76,10 +127,16 @@
     },
     "missing_modules": [],
     "collection_errors": [],
-    "stdout_tail": "...................................................................      [100%]\n67 passed in 0.26s\n",
-    "stderr_tail": ""
+    "attempts": [
+      {
+        "exit": 0,
+        "timeout": false,
+        "run_class": "clean",
+        "seconds": 0.5
+      }
+    ]
   },
-  "trace_pre_exists": false,
+  "trace_pre_exists": true,
   "trace_post_exists": true,
-  "seconds": 470.2
+  "seconds": 1457.3
 }

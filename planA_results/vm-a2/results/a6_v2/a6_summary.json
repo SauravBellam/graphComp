@@ -1,0 +1,3015 @@
+{
+  "graphs": {
+    "fastapi_016ab760faba1813ba235d5582a014a58bd2f417": {
+      "n_nodes": 6318,
+      "node_kinds": {
+        "module": 1119,
+        "class": 682,
+        "async_function": 885,
+        "function": 3604,
+        "test_function": 28
+      },
+      "edge_types": {
+        "contains": 5171,
+        "imports": 2210,
+        "inherits": 103,
+        "calls_static": 2255,
+        "tests": 1359,
+        "test_patch_nodes": 28,
+        "calls_dynamic": 395
+      },
+      "async_defs": 885,
+      "nested_defs": 199,
+      "nested_defs_in_provided": 145,
+      "id_collisions": 111,
+      "nodes_not_in_provided": 2031
+    },
+    "fastapi_08924400c2c75533685148b029defcf6913f1def": {
+      "n_nodes": 6626,
+      "node_kinds": {
+        "module": 1250,
+        "class": 817,
+        "async_function": 1046,
+        "function": 3513
+      },
+      "edge_types": {
+        "contains": 5376,
+        "imports": 2485,
+        "inherits": 129,
+        "calls_static": 2207,
+        "tests": 4136,
+        "calls_dynamic": 1164
+      },
+      "async_defs": 1046,
+      "nested_defs": 177,
+      "nested_defs_in_provided": 129,
+      "id_collisions": 87,
+      "nodes_not_in_provided": 2300
+    },
+    "fastapi_08b09e5236e315b6f10265ed229f130d4befb4ea": {
+      "n_nodes": 6123,
+      "node_kinds": {
+        "module": 1176,
+        "class": 908,
+        "async_function": 1098,
+        "function": 2934,
+        "test_function": 7
+      },
+      "edge_types": {
+        "contains": 4956,
+        "imports": 2877,
+        "inherits": 670,
+        "calls_static": 2298,
+        "test_patch_nodes": 7,
+        "tests": 91,
+        "calls_dynamic": 391
+      },
+      "async_defs": 1098,
+      "nested_defs": 157,
+      "nested_defs_in_provided": 113,
+      "id_collisions": 95,
+      "nodes_not_in_provided": 2322
+    },
+    "fastapi_0bdc3ca3732e3742e094bea2b320e9774659ac38": {
+      "n_nodes": 5354,
+      "node_kinds": {
+        "module": 1104,
+        "class": 798,
+        "async_function": 994,
+        "function": 2457,
+        "test_function": 1
+      },
+      "edge_types": {
+        "contains": 4282,
+        "imports": 2503,
+        "inherits": 132,
+        "calls_static": 1812,
+        "test_patch_nodes": 1,
+        "tests": 29,
+        "calls_dynamic": 240
+      },
+      "async_defs": 994,
+      "nested_defs": 125,
+      "nested_defs_in_provided": 86,
+      "id_collisions": 82,
+      "nodes_not_in_provided": 2138
+    },
+    "fastapi_0dd42b746e17d33a74ea267a62eace9ccdccf345": {
+      "n_nodes": 6657,
+      "node_kinds": {
+        "module": 1253,
+        "class": 820,
+        "async_function": 1050,
+        "function": 3533,
+        "test_function": 1
+      },
+      "edge_types": {
+        "contains": 5403,
+        "imports": 2497,
+        "inherits": 129,
+        "calls_static": 2225,
+        "test_patch_nodes": 1,
+        "tests": 79,
+        "calls_dynamic": 335
+      },
+      "async_defs": 1050,
+      "nested_defs": 187,
+      "nested_defs_in_provided": 137,
+      "id_collisions": 94,
+      "nodes_not_in_provided": 2308
+    },
+    "fastapi_16d75d90eb96976a57b94cc24e4018859cd54c4d": {
+      "n_nodes": 5341,
+      "node_kinds": {
+        "module": 1104,
+        "class": 793,
+        "async_function": 994,
+        "function": 2450
+      },
+      "edge_types": {
+        "contains": 4270,
+        "imports": 2500,
+        "inherits": 132,
+        "calls_static": 1791,
+        "tests": 63,
+        "calls_dynamic": 380
+      },
+      "async_defs": 994,
+      "nested_defs": 122,
+      "nested_defs_in_provided": 83,
+      "id_collisions": 80,
+      "nodes_not_in_provided": 2137
+    },
+    "fastapi_1b3bea8b6be2220cc1544653ea785d2134fcb35b": {
+      "n_nodes": 6915,
+      "node_kinds": {
+        "module": 1266,
+        "class": 874,
+        "async_function": 1050,
+        "function": 3724,
+        "test_function": 1
+      },
+      "edge_types": {
+        "contains": 5648,
+        "imports": 2659,
+        "inherits": 666,
+        "calls_static": 2397,
+        "tests": 415,
+        "test_patch_nodes": 1,
+        "calls_dynamic": 434
+      },
+      "async_defs": 1050,
+      "nested_defs": 185,
+      "nested_defs_in_provided": 131,
+      "id_collisions": 101,
+      "nodes_not_in_provided": 2329
+    },
+    "fastapi_1e78a36b7310003f0ff634627d8a7bc53c6ccdee": {
+      "n_nodes": 6021,
+      "node_kinds": {
+        "module": 1077,
+        "class": 663,
+        "async_function": 835,
+        "function": 3442,
+        "test_function": 4
+      },
+      "edge_types": {
+        "contains": 4940,
+        "imports": 2117,
+        "inherits": 104,
+        "calls_static": 2095,
+        "test_patch_nodes": 4,
+        "tests": 155,
+        "calls_dynamic": 354
+      },
+      "async_defs": 835,
+      "nested_defs": 185,
+      "nested_defs_in_provided": 139,
+      "id_collisions": 107,
+      "nodes_not_in_provided": 1915
+    },
+    "fastapi_1fcec88ad2df4541b6a81c4786c4d039dc745e1e": {
+      "n_nodes": 6973,
+      "node_kinds": {
+        "module": 1249,
+        "class": 1022,
+        "async_function": 1237,
+        "function": 3462,
+        "test_function": 3
+      },
+      "edge_types": {
+        "contains": 5737,
+        "imports": 3130,
+        "inherits": 765,
+        "calls_static": 2494,
+        "test_patch_nodes": 3,
+        "tests": 219,
+        "calls_dynamic": 375
+      },
+      "async_defs": 1237,
+      "nested_defs": 174,
+      "nested_defs_in_provided": 117,
+      "id_collisions": 98,
+      "nodes_not_in_provided": 2530
+    },
+    "fastapi_202b2d2f5f331db9102b5dbcef071a9e09bed10e": {
+      "n_nodes": 6401,
+      "node_kinds": {
+        "module": 1120,
+        "class": 692,
+        "async_function": 898,
+        "function": 3687,
+        "test_function": 4
+      },
+      "edge_types": {
+        "contains": 5277,
+        "imports": 2226,
+        "inherits": 108,
+        "calls_static": 2449,
+        "test_patch_nodes": 4,
+        "tests": 2226,
+        "calls_dynamic": 583
+      },
+      "async_defs": 898,
+      "nested_defs": 229,
+      "nested_defs_in_provided": 170,
+      "id_collisions": 139,
+      "nodes_not_in_provided": 2021
+    },
+    "fastapi_22b02e26f9e8c7e32bd8266e2b0ebe8bb3a0db2b": {
+      "n_nodes": 6261,
+      "node_kinds": {
+        "module": 1117,
+        "class": 681,
+        "async_function": 884,
+        "function": 3577,
+        "test_function": 2
+      },
+      "edge_types": {
+        "contains": 5142,
+        "imports": 2203,
+        "inherits": 103,
+        "calls_static": 2193,
+        "tests": 155,
+        "test_patch_nodes": 2,
+        "calls_dynamic": 400
+      },
+      "async_defs": 884,
+      "nested_defs": 199,
+      "nested_defs_in_provided": 145,
+      "id_collisions": 111,
+      "nodes_not_in_provided": 2002
+    },
+    "fastapi_27c0f7e75fc0ce26ca75295d455eb36f0ca033d3": {
+      "n_nodes": 5432,
+      "node_kinds": {
+        "module": 1113,
+        "class": 805,
+        "async_function": 999,
+        "function": 2514,
+        "test_function": 1
+      },
+      "edge_types": {
+        "contains": 4351,
+        "imports": 2532,
+        "inherits": 132,
+        "calls_static": 1856,
+        "test_patch_nodes": 1,
+        "tests": 84,
+        "calls_dynamic": 350
+      },
+      "async_defs": 999,
+      "nested_defs": 127,
+      "nested_defs_in_provided": 88,
+      "id_collisions": 88,
+      "nodes_not_in_provided": 2152
+    },
+    "fastapi_2b212ddd7604891d42e2ffbafe764c334230bdb7": {
+      "n_nodes": 6388,
+      "node_kinds": {
+        "module": 1084,
+        "class": 873,
+        "async_function": 1033,
+        "function": 3398
+      },
+      "edge_types": {
+        "contains": 5320,
+        "imports": 2536,
+        "inherits": 662,
+        "calls_static": 2401,
+        "tests": 160,
+        "calls_dynamic": 358
+      },
+      "async_defs": 1033,
+      "nested_defs": 206,
+      "nested_defs_in_provided": 143,
+      "id_collisions": 101,
+      "nodes_not_in_provided": 2129
+    },
+    "fastapi_2cf04ee30db9df2db04a5b1e0d2c625dfbf1a211": {
+      "n_nodes": 5790,
+      "node_kinds": {
+        "module": 1148,
+        "class": 871,
+        "async_function": 1007,
+        "function": 2761,
+        "test_function": 3
+      },
+      "edge_types": {
+        "contains": 4655,
+        "imports": 2767,
+        "inherits": 660,
+        "calls_static": 2162,
+        "test_patch_nodes": 3,
+        "tests": 56,
+        "calls_dynamic": 367
+      },
+      "async_defs": 1007,
+      "nested_defs": 132,
+      "nested_defs_in_provided": 93,
+      "id_collisions": 89,
+      "nodes_not_in_provided": 2197
+    },
+    "fastapi_2f9c914d440e99fe8b62646b51e4d24c5bcd858b": {
+      "n_nodes": 6089,
+      "node_kinds": {
+        "module": 1087,
+        "class": 667,
+        "async_function": 845,
+        "function": 3483,
+        "test_function": 7
+      },
+      "edge_types": {
+        "contains": 4995,
+        "imports": 2139,
+        "inherits": 104,
+        "calls_static": 2118,
+        "test_patch_nodes": 7,
+        "tests": 214,
+        "calls_dynamic": 329
+      },
+      "async_defs": 845,
+      "nested_defs": 186,
+      "nested_defs_in_provided": 140,
+      "id_collisions": 108,
+      "nodes_not_in_provided": 1938
+    },
+    "fastapi_3b4b5ab8c819dce27fbaf0aa0a9c74b7f3255ec0": {
+      "n_nodes": 5936,
+      "node_kinds": {
+        "module": 1165,
+        "class": 883,
+        "async_function": 1021,
+        "function": 2865,
+        "test_function": 2
+      },
+      "edge_types": {
+        "contains": 4785,
+        "imports": 2828,
+        "inherits": 665,
+        "calls_static": 2242,
+        "test_patch_nodes": 2,
+        "tests": 71,
+        "calls_dynamic": 392
+      },
+      "async_defs": 1021,
+      "nested_defs": 151,
+      "nested_defs_in_provided": 109,
+      "id_collisions": 94,
+      "nodes_not_in_provided": 2227
+    },
+    "fastapi_3c54a8f07b70cdd40e3d81ea319e9fcccd2481d2": {
+      "n_nodes": 5959,
+      "node_kinds": {
+        "module": 1167,
+        "class": 887,
+        "async_function": 1026,
+        "function": 2875,
+        "test_function": 4
+      },
+      "edge_types": {
+        "contains": 4804,
+        "imports": 2838,
+        "inherits": 667,
+        "calls_static": 2242,
+        "tests": 199,
+        "test_patch_nodes": 4,
+        "calls_dynamic": 462
+      },
+      "async_defs": 1026,
+      "nested_defs": 151,
+      "nested_defs_in_provided": 109,
+      "id_collisions": 94,
+      "nodes_not_in_provided": 2238
+    },
+    "fastapi_3fe6522aaed4d36d6a38175a4a8137ee0fc62451": {
+      "n_nodes": 6981,
+      "node_kinds": {
+        "module": 1250,
+        "class": 1024,
+        "async_function": 1239,
+        "function": 3468
+      },
+      "edge_types": {
+        "contains": 5747,
+        "imports": 3134,
+        "inherits": 767,
+        "calls_static": 2498,
+        "tests": 8437,
+        "calls_dynamic": 1405
+      },
+      "async_defs": 1239,
+      "nested_defs": 179,
+      "nested_defs_in_provided": 120,
+      "id_collisions": 98,
+      "nodes_not_in_provided": 2530
+    },
+    "fastapi_425a4c5bb1d1a8e00007e82e5188fc4d30585767": {
+      "n_nodes": 5807,
+      "node_kinds": {
+        "module": 1149,
+        "class": 871,
+        "async_function": 1008,
+        "function": 2764,
+        "test_function": 15
+      },
+      "edge_types": {
+        "contains": 4659,
+        "imports": 2771,
+        "inherits": 660,
+        "calls_static": 2162,
+        "test_patch_nodes": 15,
+        "tests": 136,
+        "calls_dynamic": 278
+      },
+      "async_defs": 1008,
+      "nested_defs": 132,
+      "nested_defs_in_provided": 93,
+      "id_collisions": 89,
+      "nodes_not_in_provided": 2211
+    },
+    "fastapi_464c359bb03f7ba72330198cc9f44df36194837d": {
+      "n_nodes": 6647,
+      "node_kinds": {
+        "module": 1252,
+        "class": 820,
+        "async_function": 1050,
+        "function": 3518,
+        "test_function": 7
+      },
+      "edge_types": {
+        "contains": 5388,
+        "imports": 2490,
+        "inherits": 129,
+        "calls_static": 2211,
+        "test_patch_nodes": 7,
+        "tests": 330,
+        "calls_dynamic": 313
+      },
+      "async_defs": 1050,
+      "nested_defs": 179,
+      "nested_defs_in_provided": 129,
+      "id_collisions": 87,
+      "nodes_not_in_provided": 2313
+    },
+    "fastapi_48d58ae3b6ef4ded5a4794618c00345667256d98": {
+      "n_nodes": 6190,
+      "node_kinds": {
+        "module": 1103,
+        "class": 671,
+        "async_function": 864,
+        "function": 3522,
+        "test_function": 30
+      },
+      "edge_types": {
+        "contains": 5057,
+        "imports": 2165,
+        "inherits": 104,
+        "calls_static": 2156,
+        "test_patch_nodes": 30,
+        "tests": 582,
+        "calls_dynamic": 339
+      },
+      "async_defs": 864,
+      "nested_defs": 193,
+      "nested_defs_in_provided": 143,
+      "id_collisions": 111,
+      "nodes_not_in_provided": 1996
+    },
+    "fastapi_4976568fc7cb7501729d8f84d946cde1e91299cd": {
+      "n_nodes": 5973,
+      "node_kinds": {
+        "module": 1169,
+        "class": 888,
+        "async_function": 1030,
+        "function": 2885,
+        "test_function": 1
+      },
+      "edge_types": {
+        "contains": 4819,
+        "imports": 2849,
+        "inherits": 668,
+        "calls_static": 2250,
+        "test_patch_nodes": 1,
+        "tests": 14,
+        "calls_dynamic": 288
+      },
+      "async_defs": 1030,
+      "nested_defs": 151,
+      "nested_defs_in_provided": 109,
+      "id_collisions": 94,
+      "nodes_not_in_provided": 2241
+    },
+    "fastapi_4a98a66778987648d2195155c9cbe0824d67b02a": {
+      "n_nodes": 6306,
+      "node_kinds": {
+        "module": 1210,
+        "class": 950,
+        "async_function": 1147,
+        "function": 2999
+      },
+      "edge_types": {
+        "contains": 5112,
+        "imports": 3005,
+        "inherits": 693,
+        "calls_static": 2398,
+        "tests": 106,
+        "calls_dynamic": 475
+      },
+      "async_defs": 1147,
+      "nested_defs": 174,
+      "nested_defs_in_provided": 117,
+      "id_collisions": 98,
+      "nodes_not_in_provided": 2398
+    },
+    "fastapi_5126e099bdda51f261fd5a101b5f914991d31897": {
+      "n_nodes": 5972,
+      "node_kinds": {
+        "module": 1169,
+        "class": 888,
+        "async_function": 1030,
+        "function": 2885
+      },
+      "edge_types": {
+        "contains": 4819,
+        "imports": 2849,
+        "inherits": 668,
+        "calls_static": 2250,
+        "tests": 113,
+        "calls_dynamic": 396
+      },
+      "async_defs": 1030,
+      "nested_defs": 151,
+      "nested_defs_in_provided": 109,
+      "id_collisions": 94,
+      "nodes_not_in_provided": 2240
+    },
+    "fastapi_516169428d2fa189d34318ebc469a082c49c1189": {
+      "n_nodes": 6112,
+      "node_kinds": {
+        "module": 1176,
+        "class": 908,
+        "async_function": 1094,
+        "function": 2934
+      },
+      "edge_types": {
+        "contains": 4952,
+        "imports": 2877,
+        "inherits": 670,
+        "calls_static": 2298,
+        "tests": 27,
+        "calls_dynamic": 412
+      },
+      "async_defs": 1094,
+      "nested_defs": 157,
+      "nested_defs_in_provided": 113,
+      "id_collisions": 95,
+      "nodes_not_in_provided": 2311
+    },
+    "fastapi_5265c4f5cb4d8fb4fb5015bccf1a6de8f3fc6044": {
+      "n_nodes": 5879,
+      "node_kinds": {
+        "module": 1157,
+        "class": 878,
+        "async_function": 1017,
+        "function": 2825,
+        "test_function": 2
+      },
+      "edge_types": {
+        "contains": 4736,
+        "imports": 2799,
+        "inherits": 662,
+        "calls_static": 2217,
+        "test_patch_nodes": 2,
+        "tests": 110,
+        "calls_dynamic": 369
+      },
+      "async_defs": 1017,
+      "nested_defs": 139,
+      "nested_defs_in_provided": 98,
+      "id_collisions": 94,
+      "nodes_not_in_provided": 2215
+    },
+    "fastapi_54f8aeeb9a15e4d5a12401ec5549840966df0087": {
+      "n_nodes": 6664,
+      "node_kinds": {
+        "module": 1254,
+        "class": 820,
+        "async_function": 1052,
+        "function": 3534,
+        "test_function": 4
+      },
+      "edge_types": {
+        "contains": 5406,
+        "imports": 2500,
+        "inherits": 129,
+        "calls_static": 2227,
+        "test_patch_nodes": 4,
+        "tests": 104,
+        "calls_dynamic": 403
+      },
+      "async_defs": 1052,
+      "nested_defs": 188,
+      "nested_defs_in_provided": 137,
+      "id_collisions": 94,
+      "nodes_not_in_provided": 2314
+    },
+    "fastapi_566e3157a5517784c741dbf36e39687af326fe90": {
+      "n_nodes": 5868,
+      "node_kinds": {
+        "module": 1156,
+        "class": 877,
+        "async_function": 1017,
+        "function": 2817,
+        "test_function": 1
+      },
+      "edge_types": {
+        "contains": 4727,
+        "imports": 2797,
+        "inherits": 662,
+        "calls_static": 2208,
+        "test_patch_nodes": 1,
+        "tests": 2,
+        "calls_dynamic": 238
+      },
+      "async_defs": 1017,
+      "nested_defs": 139,
+      "nested_defs_in_provided": 98,
+      "id_collisions": 94,
+      "nodes_not_in_provided": 2213
+    },
+    "fastapi_5c1f87c56387a96dbdddb2b1c4ec9ba48dcebc4e": {
+      "n_nodes": 5341,
+      "node_kinds": {
+        "module": 1104,
+        "class": 793,
+        "async_function": 994,
+        "function": 2450
+      },
+      "edge_types": {
+        "contains": 4270,
+        "imports": 2499,
+        "inherits": 132,
+        "calls_static": 1791,
+        "tests": 42,
+        "calls_dynamic": 380
+      },
+      "async_defs": 994,
+      "nested_defs": 122,
+      "nested_defs_in_provided": 83,
+      "id_collisions": 80,
+      "nodes_not_in_provided": 2137
+    },
+    "fastapi_603df6e36f59cc4a3e189f506b8f36d1e816c3ac": {
+      "n_nodes": 6091,
+      "node_kinds": {
+        "module": 1174,
+        "class": 908,
+        "async_function": 1086,
+        "function": 2919,
+        "test_function": 4
+      },
+      "edge_types": {
+        "contains": 4929,
+        "imports": 2868,
+        "inherits": 669,
+        "calls_static": 2286,
+        "test_patch_nodes": 4,
+        "tests": 71,
+        "calls_dynamic": 386
+      },
+      "async_defs": 1086,
+      "nested_defs": 156,
+      "nested_defs_in_provided": 112,
+      "id_collisions": 95,
+      "nodes_not_in_provided": 2305
+    },
+    "fastapi_60699f306b67dc1f4918ebea17f04d7a48cda645": {
+      "n_nodes": 6298,
+      "node_kinds": {
+        "module": 1209,
+        "class": 949,
+        "async_function": 1143,
+        "function": 2995,
+        "test_function": 2
+      },
+      "edge_types": {
+        "contains": 5103,
+        "imports": 3002,
+        "inherits": 693,
+        "calls_static": 2392,
+        "test_patch_nodes": 2,
+        "tests": 129,
+        "calls_dynamic": 350
+      },
+      "async_defs": 1143,
+      "nested_defs": 173,
+      "nested_defs_in_provided": 117,
+      "id_collisions": 98,
+      "nodes_not_in_provided": 2395
+    },
+    "fastapi_63d7a2b9978258d13dfc22664e60fc2110d30e20": {
+      "n_nodes": 5906,
+      "node_kinds": {
+        "module": 1162,
+        "class": 880,
+        "async_function": 1020,
+        "function": 2842,
+        "test_function": 2
+      },
+      "edge_types": {
+        "contains": 4758,
+        "imports": 2817,
+        "inherits": 664,
+        "calls_static": 2230,
+        "test_patch_nodes": 2,
+        "tests": 86,
+        "calls_dynamic": 294
+      },
+      "async_defs": 1020,
+      "nested_defs": 139,
+      "nested_defs_in_provided": 98,
+      "id_collisions": 94,
+      "nodes_not_in_provided": 2223
+    },
+    "fastapi_6513d4daa16a536d17743de6a292f49bd06388a4": {
+      "n_nodes": 6386,
+      "node_kinds": {
+        "module": 1083,
+        "class": 869,
+        "async_function": 1033,
+        "function": 3397,
+        "test_function": 4
+      },
+      "edge_types": {
+        "contains": 5315,
+        "imports": 2531,
+        "inherits": 658,
+        "calls_static": 2401,
+        "tests": 3727,
+        "test_patch_nodes": 4,
+        "calls_dynamic": 1001
+      },
+      "async_defs": 1033,
+      "nested_defs": 201,
+      "nested_defs_in_provided": 138,
+      "id_collisions": 97,
+      "nodes_not_in_provided": 2132
+    },
+    "fastapi_6b53786f626db95a42fd0f66afd360bab161f4b1": {
+      "n_nodes": 6915,
+      "node_kinds": {
+        "module": 1266,
+        "class": 873,
+        "async_function": 1050,
+        "function": 3726
+      },
+      "edge_types": {
+        "contains": 5649,
+        "imports": 2643,
+        "inherits": 662,
+        "calls_static": 2411,
+        "tests": 2538,
+        "calls_dynamic": 602
+      },
+      "async_defs": 1050,
+      "nested_defs": 209,
+      "nested_defs_in_provided": 145,
+      "id_collisions": 101,
+      "nodes_not_in_provided": 2328
+    },
+    "fastapi_6cf40df24d1d199fd25d034fc87fcae284fc23a2": {
+      "n_nodes": 5949,
+      "node_kinds": {
+        "module": 1166,
+        "class": 885,
+        "async_function": 1023,
+        "function": 2870,
+        "test_function": 5
+      },
+      "edge_types": {
+        "contains": 4794,
+        "imports": 2832,
+        "inherits": 666,
+        "calls_static": 2242,
+        "test_patch_nodes": 5,
+        "tests": 349,
+        "calls_dynamic": 564
+      },
+      "async_defs": 1023,
+      "nested_defs": 151,
+      "nested_defs_in_provided": 109,
+      "id_collisions": 94,
+      "nodes_not_in_provided": 2234
+    },
+    "fastapi_6e49dc029541aaa896fa63c47647ccd3f066df67": {
+      "n_nodes": 5757,
+      "node_kinds": {
+        "module": 1145,
+        "class": 850,
+        "async_function": 1006,
+        "function": 2756
+      },
+      "edge_types": {
+        "contains": 4628,
+        "imports": 2712,
+        "inherits": 138,
+        "calls_static": 2155,
+        "tests": 566,
+        "calls_dynamic": 455
+      },
+      "async_defs": 1006,
+      "nested_defs": 132,
+      "nested_defs_in_provided": 93,
+      "id_collisions": 89,
+      "nodes_not_in_provided": 2190
+    },
+    "fastapi_6ee87478d821171139264cd9cd17cbd2232934ce": {
+      "n_nodes": 6249,
+      "node_kinds": {
+        "module": 1117,
+        "class": 678,
+        "async_function": 884,
+        "function": 3569,
+        "test_function": 1
+      },
+      "edge_types": {
+        "contains": 5131,
+        "imports": 2200,
+        "inherits": 104,
+        "calls_static": 2179,
+        "test_patch_nodes": 1,
+        "tests": 4,
+        "calls_dynamic": 229
+      },
+      "async_defs": 884,
+      "nested_defs": 199,
+      "nested_defs_in_provided": 145,
+      "id_collisions": 111,
+      "nodes_not_in_provided": 2001
+    },
+    "fastapi_7132a690461c2367f22556eb87c2b5eb7d9cfb45": {
+      "n_nodes": 5778,
+      "node_kinds": {
+        "module": 1146,
+        "class": 867,
+        "async_function": 1006,
+        "function": 2757,
+        "test_function": 2
+      },
+      "edge_types": {
+        "contains": 4646,
+        "imports": 2759,
+        "inherits": 657,
+        "calls_static": 2163,
+        "test_patch_nodes": 2,
+        "tests": 309,
+        "calls_dynamic": 549
+      },
+      "async_defs": 1006,
+      "nested_defs": 132,
+      "nested_defs_in_provided": 93,
+      "id_collisions": 89,
+      "nodes_not_in_provided": 2193
+    },
+    "fastapi_71a17b5932e38bcf798fcd05c5bb384e6d4db5bf": {
+      "n_nodes": 6290,
+      "node_kinds": {
+        "module": 1208,
+        "class": 947,
+        "async_function": 1143,
+        "function": 2989,
+        "test_function": 3
+      },
+      "edge_types": {
+        "contains": 5095,
+        "imports": 2999,
+        "inherits": 692,
+        "calls_static": 2381,
+        "test_patch_nodes": 3,
+        "tests": 124,
+        "calls_dynamic": 361
+      },
+      "async_defs": 1143,
+      "nested_defs": 169,
+      "nested_defs_in_provided": 113,
+      "id_collisions": 95,
+      "nodes_not_in_provided": 2395
+    },
+    "fastapi_740ec2787b25e59f7aa9e3df1db09d4489c22718": {
+      "n_nodes": 5941,
+      "node_kinds": {
+        "module": 1166,
+        "class": 883,
+        "async_function": 1023,
+        "function": 2867,
+        "test_function": 2
+      },
+      "edge_types": {
+        "contains": 4789,
+        "imports": 2831,
+        "inherits": 665,
+        "calls_static": 2242,
+        "tests": 185,
+        "test_patch_nodes": 2,
+        "calls_dynamic": 394
+      },
+      "async_defs": 1023,
+      "nested_defs": 151,
+      "nested_defs_in_provided": 109,
+      "id_collisions": 94,
+      "nodes_not_in_provided": 2230
+    },
+    "fastapi_811fa898752e7f5697733a2958ff79ad8dfb5276": {
+      "n_nodes": 6083,
+      "node_kinds": {
+        "module": 1173,
+        "class": 907,
+        "async_function": 1086,
+        "function": 2916,
+        "test_function": 1
+      },
+      "edge_types": {
+        "contains": 4925,
+        "imports": 2863,
+        "inherits": 669,
+        "calls_static": 2281,
+        "test_patch_nodes": 1,
+        "tests": 76,
+        "calls_dynamic": 346
+      },
+      "async_defs": 1086,
+      "nested_defs": 155,
+      "nested_defs_in_provided": 111,
+      "id_collisions": 95,
+      "nodes_not_in_provided": 2301
+    },
+    "fastapi_861b22c40897a03d2d7e5926923d962121ed5e2e": {
+      "n_nodes": 5384,
+      "node_kinds": {
+        "module": 1107,
+        "class": 799,
+        "async_function": 996,
+        "function": 2469,
+        "test_function": 13
+      },
+      "edge_types": {
+        "contains": 4297,
+        "imports": 2511,
+        "inherits": 132,
+        "calls_static": 1814,
+        "test_patch_nodes": 13,
+        "tests": 490,
+        "calls_dynamic": 426
+      },
+      "async_defs": 996,
+      "nested_defs": 126,
+      "nested_defs_in_provided": 87,
+      "id_collisions": 82,
+      "nodes_not_in_provided": 2155
+    },
+    "fastapi_8e50c55fd90c4433ddc9096ff439da9498a8314a": {
+      "n_nodes": 6673,
+      "node_kinds": {
+        "module": 1255,
+        "class": 820,
+        "async_function": 1052,
+        "function": 3543,
+        "test_function": 3
+      },
+      "edge_types": {
+        "contains": 5415,
+        "imports": 2506,
+        "inherits": 129,
+        "calls_static": 2229,
+        "tests": 351,
+        "test_patch_nodes": 3,
+        "calls_dynamic": 367
+      },
+      "async_defs": 1052,
+      "nested_defs": 188,
+      "nested_defs_in_provided": 137,
+      "id_collisions": 94,
+      "nodes_not_in_provided": 2314
+    },
+    "fastapi_930b27e5fa32ce150ddcea61f0c913435ae71c83": {
+      "n_nodes": 5987,
+      "node_kinds": {
+        "module": 1170,
+        "class": 888,
+        "async_function": 1036,
+        "function": 2892,
+        "test_function": 1
+      },
+      "edge_types": {
+        "contains": 4832,
+        "imports": 2855,
+        "inherits": 668,
+        "calls_static": 2255,
+        "test_patch_nodes": 1,
+        "tests": 80,
+        "calls_dynamic": 364
+      },
+      "async_defs": 1036,
+      "nested_defs": 152,
+      "nested_defs_in_provided": 110,
+      "id_collisions": 94,
+      "nodes_not_in_provided": 2248
+    },
+    "fastapi_94a1ee749e63591e6e275b726a66e07a25f6c407": {
+      "n_nodes": 6064,
+      "node_kinds": {
+        "module": 1080,
+        "class": 666,
+        "async_function": 835,
+        "function": 3461,
+        "test_function": 22
+      },
+      "edge_types": {
+        "contains": 4962,
+        "imports": 2129,
+        "inherits": 104,
+        "calls_static": 2118,
+        "test_patch_nodes": 22,
+        "tests": 628,
+        "calls_dynamic": 365
+      },
+      "async_defs": 835,
+      "nested_defs": 186,
+      "nested_defs_in_provided": 140,
+      "id_collisions": 108,
+      "nodes_not_in_provided": 1936
+    },
+    "fastapi_972a967d5d3fa24d450637c36c6b7ad1f1d8c1b6": {
+      "n_nodes": 5857,
+      "node_kinds": {
+        "module": 1155,
+        "class": 876,
+        "async_function": 1016,
+        "function": 2806,
+        "test_function": 4
+      },
+      "edge_types": {
+        "contains": 4714,
+        "imports": 2792,
+        "inherits": 661,
+        "calls_static": 2200,
+        "tests": 186,
+        "test_patch_nodes": 4,
+        "calls_dynamic": 359
+      },
+      "async_defs": 1016,
+      "nested_defs": 135,
+      "nested_defs_in_provided": 95,
+      "id_collisions": 94,
+      "nodes_not_in_provided": 2214
+    },
+    "fastapi_9a9c4ad5d06f5fe8ee6775a5aeaa2f83c854f263": {
+      "n_nodes": 6397,
+      "node_kinds": {
+        "module": 1120,
+        "class": 692,
+        "async_function": 898,
+        "function": 3684,
+        "test_function": 3
+      },
+      "edge_types": {
+        "contains": 5274,
+        "imports": 2223,
+        "inherits": 108,
+        "calls_static": 2433,
+        "tests": 1954,
+        "test_patch_nodes": 3,
+        "calls_dynamic": 912
+      },
+      "async_defs": 898,
+      "nested_defs": 229,
+      "nested_defs_in_provided": 170,
+      "id_collisions": 136,
+      "nodes_not_in_provided": 2020
+    },
+    "fastapi_a456e92a21d5b94a67d6d0fd070218df09444443": {
+      "n_nodes": 6626,
+      "node_kinds": {
+        "module": 1250,
+        "class": 817,
+        "async_function": 1046,
+        "function": 3513
+      },
+      "edge_types": {
+        "contains": 5376,
+        "imports": 2485,
+        "inherits": 129,
+        "calls_static": 2207,
+        "tests": 33,
+        "calls_dynamic": 314
+      },
+      "async_defs": 1046,
+      "nested_defs": 177,
+      "nested_defs_in_provided": 129,
+      "id_collisions": 87,
+      "nodes_not_in_provided": 2300
+    },
+    "fastapi_a7f2dbe976bf72703376f0cd04487bfc4a849f83": {
+      "n_nodes": 5364,
+      "node_kinds": {
+        "module": 1106,
+        "class": 799,
+        "async_function": 996,
+        "function": 2461,
+        "test_function": 2
+      },
+      "edge_types": {
+        "contains": 4289,
+        "imports": 2507,
+        "inherits": 132,
+        "calls_static": 1814,
+        "test_patch_nodes": 2,
+        "tests": 54,
+        "calls_dynamic": 312
+      },
+      "async_defs": 996,
+      "nested_defs": 126,
+      "nested_defs_in_provided": 87,
+      "id_collisions": 82,
+      "nodes_not_in_provided": 2143
+    },
+    "fastapi_aee8e78078e8a7f2736d3cab7a1cb7197356951c": {
+      "n_nodes": 5994,
+      "node_kinds": {
+        "module": 1172,
+        "class": 889,
+        "async_function": 1036,
+        "function": 2896,
+        "test_function": 1
+      },
+      "edge_types": {
+        "contains": 4837,
+        "imports": 2858,
+        "inherits": 669,
+        "calls_static": 2259,
+        "test_patch_nodes": 1,
+        "tests": 19,
+        "calls_dynamic": 313
+      },
+      "async_defs": 1036,
+      "nested_defs": 153,
+      "nested_defs_in_provided": 111,
+      "id_collisions": 94,
+      "nodes_not_in_provided": 2250
+    },
+    "fastapi_bc06e4296d588f39f38c7ac2fc96d3913c565962": {
+      "n_nodes": 6032,
+      "node_kinds": {
+        "module": 1079,
+        "class": 664,
+        "async_function": 835,
+        "function": 3450,
+        "test_function": 4
+      },
+      "edge_types": {
+        "contains": 4949,
+        "imports": 2121,
+        "inherits": 104,
+        "calls_static": 2100,
+        "test_patch_nodes": 4,
+        "tests": 221,
+        "calls_dynamic": 364
+      },
+      "async_defs": 835,
+      "nested_defs": 185,
+      "nested_defs_in_provided": 139,
+      "id_collisions": 107,
+      "nodes_not_in_provided": 1917
+    },
+    "fastapi_c0836dc1b7f4ba91e9563c8c4ccd0ebe655bc914": {
+      "n_nodes": 6159,
+      "node_kinds": {
+        "module": 1103,
+        "class": 671,
+        "async_function": 864,
+        "function": 3521
+      },
+      "edge_types": {
+        "contains": 5056,
+        "imports": 2165,
+        "inherits": 104,
+        "calls_static": 2154,
+        "tests": 74,
+        "calls_dynamic": 341
+      },
+      "async_defs": 864,
+      "nested_defs": 193,
+      "nested_defs_in_provided": 143,
+      "id_collisions": 111,
+      "nodes_not_in_provided": 1966
+    },
+    "fastapi_c57ac7bdf3613798c94caceff562a41fa16d4a2d": {
+      "n_nodes": 6024,
+      "node_kinds": {
+        "module": 1173,
+        "class": 894,
+        "async_function": 1054,
+        "function": 2903
+      },
+      "edge_types": {
+        "contains": 4867,
+        "imports": 2861,
+        "inherits": 669,
+        "calls_static": 2263,
+        "tests": 15,
+        "calls_dynamic": 315
+      },
+      "async_defs": 1054,
+      "nested_defs": 153,
+      "nested_defs_in_provided": 111,
+      "id_collisions": 94,
+      "nodes_not_in_provided": 2268
+    },
+    "fastapi_c6487ed632056e450d844846a1b63be551a3cbc6": {
+      "n_nodes": 5899,
+      "node_kinds": {
+        "module": 1161,
+        "class": 880,
+        "async_function": 1017,
+        "function": 2840,
+        "test_function": 1
+      },
+      "edge_types": {
+        "contains": 4753,
+        "imports": 2813,
+        "inherits": 664,
+        "calls_static": 2230,
+        "test_patch_nodes": 1,
+        "tests": 13,
+        "calls_dynamic": 294
+      },
+      "async_defs": 1017,
+      "nested_defs": 139,
+      "nested_defs_in_provided": 98,
+      "id_collisions": 94,
+      "nodes_not_in_provided": 2218
+    },
+    "fastapi_cb83b83dcf78eab4ea17d504db5abcda705fbdc4": {
+      "n_nodes": 6257,
+      "node_kinds": {
+        "module": 1117,
+        "class": 681,
+        "async_function": 884,
+        "function": 3574,
+        "test_function": 1
+      },
+      "edge_types": {
+        "contains": 5139,
+        "imports": 2203,
+        "inherits": 103,
+        "calls_static": 2187,
+        "tests": 211,
+        "test_patch_nodes": 1,
+        "calls_dynamic": 354
+      },
+      "async_defs": 884,
+      "nested_defs": 199,
+      "nested_defs_in_provided": 145,
+      "id_collisions": 111,
+      "nodes_not_in_provided": 2001
+    },
+    "fastapi_cd31576d5704b6aef1bdadc43770238cd88aad2b": {
+      "n_nodes": 6676,
+      "node_kinds": {
+        "module": 1255,
+        "class": 820,
+        "async_function": 1058,
+        "function": 3542,
+        "test_function": 1
+      },
+      "edge_types": {
+        "contains": 5420,
+        "imports": 2495,
+        "inherits": 129,
+        "calls_static": 2231,
+        "tests": 432,
+        "test_patch_nodes": 1,
+        "calls_dynamic": 404
+      },
+      "async_defs": 1058,
+      "nested_defs": 189,
+      "nested_defs_in_provided": 139,
+      "id_collisions": 100,
+      "nodes_not_in_provided": 2317
+    },
+    "fastapi_cff2236dacb7aedcaf2d2de0873cfbc9bb2b897a": {
+      "n_nodes": 5986,
+      "node_kinds": {
+        "module": 1170,
+        "class": 888,
+        "async_function": 1036,
+        "function": 2891,
+        "test_function": 1
+      },
+      "edge_types": {
+        "contains": 4831,
+        "imports": 2852,
+        "inherits": 668,
+        "calls_static": 2251,
+        "tests": 144,
+        "test_patch_nodes": 1,
+        "calls_dynamic": 399
+      },
+      "async_defs": 1036,
+      "nested_defs": 152,
+      "nested_defs_in_provided": 110,
+      "id_collisions": 94,
+      "nodes_not_in_provided": 2248
+    },
+    "fastapi_d2c17b603d2f986d5f3800d3bf24acba8e1f485b": {
+      "n_nodes": 6006,
+      "node_kinds": {
+        "module": 1074,
+        "class": 659,
+        "async_function": 835,
+        "function": 3434,
+        "test_function": 4
+      },
+      "edge_types": {
+        "contains": 4928,
+        "imports": 2114,
+        "inherits": 104,
+        "calls_static": 2090,
+        "tests": 2445,
+        "test_patch_nodes": 4,
+        "calls_dynamic": 589
+      },
+      "async_defs": 835,
+      "nested_defs": 185,
+      "nested_defs_in_provided": 139,
+      "id_collisions": 107,
+      "nodes_not_in_provided": 1912
+    },
+    "fastapi_e2354a0a063f2fcb890ec568f1a98e136a39fd25": {
+      "n_nodes": 5877,
+      "node_kinds": {
+        "module": 1157,
+        "class": 878,
+        "async_function": 1017,
+        "function": 2825
+      },
+      "edge_types": {
+        "contains": 4736,
+        "imports": 2799,
+        "inherits": 662,
+        "calls_static": 2217,
+        "tests": 1108,
+        "calls_dynamic": 724
+      },
+      "async_defs": 1017,
+      "nested_defs": 139,
+      "nested_defs_in_provided": 98,
+      "id_collisions": 94,
+      "nodes_not_in_provided": 2213
+    },
+    "fastapi_e94028ab60d18080810910352bc9129e8046c92d": {
+      "n_nodes": 6677,
+      "node_kinds": {
+        "module": 1255,
+        "class": 820,
+        "async_function": 1058,
+        "function": 3543,
+        "test_function": 1
+      },
+      "edge_types": {
+        "contains": 5421,
+        "imports": 2495,
+        "inherits": 129,
+        "calls_static": 2235,
+        "test_patch_nodes": 1,
+        "tests": 4,
+        "calls_dynamic": 217
+      },
+      "async_defs": 1058,
+      "nested_defs": 189,
+      "nested_defs_in_provided": 139,
+      "id_collisions": 107,
+      "nodes_not_in_provided": 2317
+    },
+    "fastapi_eacbce24c9d299c6a28110d9fc8ac50f53cddb08": {
+      "n_nodes": 6628,
+      "node_kinds": {
+        "module": 1250,
+        "class": 817,
+        "async_function": 1046,
+        "function": 3513,
+        "test_function": 2
+      },
+      "edge_types": {
+        "contains": 5376,
+        "imports": 2485,
+        "inherits": 129,
+        "calls_static": 2207,
+        "tests": 142,
+        "test_patch_nodes": 2,
+        "calls_dynamic": 382
+      },
+      "async_defs": 1046,
+      "nested_defs": 177,
+      "nested_defs_in_provided": 129,
+      "id_collisions": 87,
+      "nodes_not_in_provided": 2302
+    },
+    "fastapi_eaf611f9ee56de4f16c837d4f487a4b9fca507c4": {
+      "n_nodes": 5863,
+      "node_kinds": {
+        "module": 1155,
+        "class": 876,
+        "async_function": 1016,
+        "function": 2814,
+        "test_function": 2
+      },
+      "edge_types": {
+        "contains": 4722,
+        "imports": 2794,
+        "inherits": 661,
+        "calls_static": 2206,
+        "test_patch_nodes": 2,
+        "tests": 106,
+        "calls_dynamic": 363
+      },
+      "async_defs": 1016,
+      "nested_defs": 137,
+      "nested_defs_in_provided": 97,
+      "id_collisions": 94,
+      "nodes_not_in_provided": 2212
+    },
+    "fastapi_eb1d50479ba0ac873e4ffa08a824b1d822ca3a17": {
+      "n_nodes": 6099,
+      "node_kinds": {
+        "module": 1175,
+        "class": 908,
+        "async_function": 1089,
+        "function": 2923,
+        "test_function": 4
+      },
+      "edge_types": {
+        "contains": 4936,
+        "imports": 2873,
+        "inherits": 669,
+        "calls_static": 2286,
+        "tests": 148,
+        "test_patch_nodes": 4,
+        "calls_dynamic": 411
+      },
+      "async_defs": 1089,
+      "nested_defs": 156,
+      "nested_defs_in_provided": 112,
+      "id_collisions": 95,
+      "nodes_not_in_provided": 2309
+    },
+    "fastapi_ee22a4b8ca46dcce26c8c183afc4992a888d8be2": {
+      "n_nodes": 6278,
+      "node_kinds": {
+        "module": 1117,
+        "class": 682,
+        "async_function": 885,
+        "function": 3580,
+        "test_function": 14
+      },
+      "edge_types": {
+        "contains": 5147,
+        "imports": 2203,
+        "inherits": 103,
+        "calls_static": 2195,
+        "test_patch_nodes": 14
+      },
+      "async_defs": 885,
+      "nested_defs": 199,
+      "nested_defs_in_provided": 145,
+      "id_collisions": 111,
+      "nodes_not_in_provided": 2015
+    },
+    "fastapi_eead41bf4cf8587b4d86091dd3eabbb85796e717": {
+      "n_nodes": 5967,
+      "node_kinds": {
+        "module": 1168,
+        "class": 887,
+        "async_function": 1027,
+        "function": 2879,
+        "test_function": 6
+      },
+      "edge_types": {
+        "contains": 4809,
+        "imports": 2843,
+        "inherits": 667,
+        "calls_static": 2250,
+        "test_patch_nodes": 6,
+        "tests": 155,
+        "calls_dynamic": 389
+      },
+      "async_defs": 1027,
+      "nested_defs": 151,
+      "nested_defs_in_provided": 109,
+      "id_collisions": 94,
+      "nodes_not_in_provided": 2242
+    },
+    "fastapi_f1d750fddad90e2faad6c3cc5c85c7687b787e89": {
+      "n_nodes": 6465,
+      "node_kinds": {
+        "module": 1120,
+        "class": 694,
+        "async_function": 898,
+        "function": 3706,
+        "test_function": 47
+      },
+      "edge_types": {
+        "contains": 5298,
+        "imports": 2231,
+        "inherits": 108,
+        "calls_static": 2485,
+        "test_patch_nodes": 47,
+        "tests": 1052,
+        "calls_dynamic": 505
+      },
+      "async_defs": 898,
+      "nested_defs": 235,
+      "nested_defs_in_provided": 176,
+      "id_collisions": 140,
+      "nodes_not_in_provided": 2064
+    },
+    "fastapi_f2687dc1bb01f4cb62eee90e656b61c38c2aaf6a": {
+      "n_nodes": 6559,
+      "node_kinds": {
+        "module": 1237,
+        "class": 811,
+        "async_function": 1046,
+        "function": 3464,
+        "test_function": 1
+      },
+      "edge_types": {
+        "contains": 5321,
+        "imports": 2474,
+        "inherits": 129,
+        "calls_static": 2143,
+        "test_patch_nodes": 1,
+        "tests": 38,
+        "calls_dynamic": 364
+      },
+      "async_defs": 1046,
+      "nested_defs": 177,
+      "nested_defs_in_provided": 129,
+      "id_collisions": 87,
+      "nodes_not_in_provided": 2288
+    },
+    "httpx_4acf5c2c37714cc63b5cf71b3e284fca83c90311": {
+      "n_nodes": 885,
+      "node_kinds": {
+        "module": 45,
+        "class": 78,
+        "function": 662,
+        "async_function": 100
+      },
+      "edge_types": {
+        "contains": 840,
+        "imports": 118,
+        "inherits": 33,
+        "calls_static": 1136,
+        "tests": 339,
+        "calls_dynamic": 494
+      },
+      "async_defs": 100,
+      "nested_defs": 3,
+      "nested_defs_in_provided": 1,
+      "id_collisions": 0,
+      "nodes_not_in_provided": 145
+    },
+    "requests_0b401c76b6e80a4eecf3c690085b2553f6e261ca": {
+      "n_nodes": 910,
+      "node_kinds": {
+        "module": 37,
+        "class": 90,
+        "function": 664,
+        "provided_only": 118,
+        "test_function": 1
+      },
+      "edge_types": {
+        "contains": 774,
+        "imports": 259,
+        "inherits": 41,
+        "calls_static": 1491,
+        "tests": 12296,
+        "test_patch_nodes": 1,
+        "calls_dynamic": 2025
+      },
+      "async_defs": 0,
+      "nested_defs": 62,
+      "nested_defs_in_provided": 24,
+      "id_collisions": 23,
+      "nodes_not_in_provided": 195
+    },
+    "requests_0b4d494192de489701d3a2e32acef8fb5d3f042e": {
+      "n_nodes": 862,
+      "node_kinds": {
+        "module": 35,
+        "class": 81,
+        "function": 630,
+        "provided_only": 116
+      },
+      "edge_types": {
+        "contains": 711,
+        "imports": 227,
+        "inherits": 35,
+        "calls_static": 1383
+      },
+      "async_defs": 0,
+      "nested_defs": 60,
+      "nested_defs_in_provided": 22,
+      "id_collisions": 16,
+      "nodes_not_in_provided": 190
+    },
+    "requests_0e322af87745eff34caffe4df68456ebc20d9068": {
+      "n_nodes": 884,
+      "node_kinds": {
+        "module": 36,
+        "class": 82,
+        "function": 648,
+        "provided_only": 118
+      },
+      "edge_types": {
+        "contains": 730,
+        "imports": 232,
+        "inherits": 36,
+        "calls_static": 1436,
+        "tests": 11579,
+        "calls_dynamic": 976
+      },
+      "async_defs": 0,
+      "nested_defs": 61,
+      "nested_defs_in_provided": 23,
+      "id_collisions": 23,
+      "nodes_not_in_provided": 193
+    },
+    "requests_1b40fdd004bfc8ba5301bcf8a6908264e9b6b877": {
+      "n_nodes": 887,
+      "node_kinds": {
+        "module": 36,
+        "class": 82,
+        "function": 650,
+        "provided_only": 118,
+        "test_function": 1
+      },
+      "edge_types": {
+        "contains": 732,
+        "imports": 235,
+        "inherits": 36,
+        "calls_static": 1450,
+        "tests": 104,
+        "test_patch_nodes": 1,
+        "calls_dynamic": 167
+      },
+      "async_defs": 0,
+      "nested_defs": 61,
+      "nested_defs_in_provided": 23,
+      "id_collisions": 23,
+      "nodes_not_in_provided": 194
+    },
+    "requests_382fc2c0c6c0ef0874bc65bc1175f97c073e5086": {
+      "n_nodes": 865,
+      "node_kinds": {
+        "module": 35,
+        "class": 81,
+        "function": 633,
+        "provided_only": 116
+      },
+      "edge_types": {
+        "contains": 714,
+        "imports": 227,
+        "inherits": 35,
+        "calls_static": 1387
+      },
+      "async_defs": 0,
+      "nested_defs": 60,
+      "nested_defs_in_provided": 22,
+      "id_collisions": 16,
+      "nodes_not_in_provided": 190
+    },
+    "requests_6360477c52303c9445b45fa8744b02d05a2f0905": {
+      "n_nodes": 888,
+      "node_kinds": {
+        "module": 36,
+        "class": 82,
+        "function": 651,
+        "provided_only": 118,
+        "test_function": 1
+      },
+      "edge_types": {
+        "contains": 733,
+        "imports": 234,
+        "inherits": 36,
+        "calls_static": 1451,
+        "test_patch_nodes": 1,
+        "tests": 33,
+        "calls_dynamic": 62
+      },
+      "async_defs": 0,
+      "nested_defs": 61,
+      "nested_defs_in_provided": 23,
+      "id_collisions": 23,
+      "nodes_not_in_provided": 194
+    },
+    "requests_661970d171d9c3e12e4c789c4768db647d8c4da0": {
+      "n_nodes": 918,
+      "node_kinds": {
+        "module": 37,
+        "class": 91,
+        "function": 667,
+        "provided_only": 122,
+        "test_function": 1
+      },
+      "edge_types": {
+        "contains": 778,
+        "imports": 259,
+        "inherits": 41,
+        "calls_static": 1495,
+        "tests": 12384,
+        "test_patch_nodes": 1,
+        "calls_dynamic": 2031
+      },
+      "async_defs": 0,
+      "nested_defs": 65,
+      "nested_defs_in_provided": 24,
+      "id_collisions": 23,
+      "nodes_not_in_provided": 199
+    },
+    "requests_6f205ff422bccd5e4c4fc0b64c5f3e7df5181db6": {
+      "n_nodes": 919,
+      "node_kinds": {
+        "module": 37,
+        "class": 91,
+        "function": 668,
+        "provided_only": 122,
+        "test_function": 1
+      },
+      "edge_types": {
+        "contains": 779,
+        "imports": 259,
+        "inherits": 41,
+        "calls_static": 1495,
+        "tests": 12470,
+        "test_patch_nodes": 1,
+        "calls_dynamic": 2037
+      },
+      "async_defs": 0,
+      "nested_defs": 65,
+      "nested_defs_in_provided": 24,
+      "id_collisions": 23,
+      "nodes_not_in_provided": 200
+    },
+    "requests_7407309c8a8a73aa2f4337184025d440bbedab7a": {
+      "n_nodes": 887,
+      "node_kinds": {
+        "module": 36,
+        "class": 82,
+        "function": 651,
+        "provided_only": 118
+      },
+      "edge_types": {
+        "contains": 733,
+        "imports": 234,
+        "inherits": 36,
+        "calls_static": 1451,
+        "tests": 105,
+        "calls_dynamic": 168
+      },
+      "async_defs": 0,
+      "nested_defs": 61,
+      "nested_defs_in_provided": 23,
+      "id_collisions": 23,
+      "nodes_not_in_provided": 193
+    },
+    "requests_7a13c041dbef42f9f3feb14110f02626f6892e9a": {
+      "n_nodes": 863,
+      "node_kinds": {
+        "module": 35,
+        "class": 81,
+        "function": 631,
+        "provided_only": 116
+      },
+      "edge_types": {
+        "contains": 712,
+        "imports": 227,
+        "inherits": 35,
+        "calls_static": 1384
+      },
+      "async_defs": 0,
+      "nested_defs": 60,
+      "nested_defs_in_provided": 22,
+      "id_collisions": 16,
+      "nodes_not_in_provided": 190
+    },
+    "requests_b684dcb9bbf3aa557d1238e72062c4a29737dd1c": {
+      "n_nodes": 909,
+      "node_kinds": {
+        "module": 37,
+        "class": 90,
+        "function": 663,
+        "provided_only": 118,
+        "test_function": 1
+      },
+      "edge_types": {
+        "contains": 773,
+        "imports": 259,
+        "inherits": 41,
+        "calls_static": 1489,
+        "tests": 107,
+        "test_patch_nodes": 1,
+        "calls_dynamic": 173
+      },
+      "async_defs": 0,
+      "nested_defs": 62,
+      "nested_defs_in_provided": 24,
+      "id_collisions": 23,
+      "nodes_not_in_provided": 195
+    },
+    "requests_cbce031327be4f1b4b5fd041ff4dcaa8efa2ce53": {
+      "n_nodes": 888,
+      "node_kinds": {
+        "module": 36,
+        "class": 82,
+        "function": 651,
+        "provided_only": 118,
+        "test_function": 1
+      },
+      "edge_types": {
+        "contains": 733,
+        "imports": 234,
+        "inherits": 36,
+        "calls_static": 1451,
+        "tests": 11826,
+        "test_patch_nodes": 1,
+        "calls_dynamic": 1978
+      },
+      "async_defs": 0,
+      "nested_defs": 61,
+      "nested_defs_in_provided": 23,
+      "id_collisions": 23,
+      "nodes_not_in_provided": 194
+    },
+    "rich_01b85ac116c4635b6ddb8b488be8254be6df2a84": {
+      "n_nodes": 2121,
+      "node_kinds": {
+        "module": 190,
+        "class": 238,
+        "function": 1688,
+        "async_function": 1,
+        "test_function": 4
+      },
+      "edge_types": {
+        "contains": 1954,
+        "imports": 1039,
+        "inherits": 76,
+        "calls_static": 4626,
+        "test_patch_nodes": 4,
+        "tests": 572,
+        "calls_dynamic": 1063
+      },
+      "async_defs": 1,
+      "nested_defs": 126,
+      "nested_defs_in_provided": 124,
+      "id_collisions": 43,
+      "nodes_not_in_provided": 196
+    },
+    "rich_05ff970926cbd0b5d0acb6fc18cdbd1fc971e582": {
+      "n_nodes": 2343,
+      "node_kinds": {
+        "module": 213,
+        "class": 247,
+        "function": 1760,
+        "async_function": 1,
+        "test_function": 122
+      },
+      "edge_types": {
+        "contains": 2035,
+        "imports": 1083,
+        "inherits": 76,
+        "calls_static": 4869,
+        "test_patch_nodes": 122,
+        "tests": 2441,
+        "calls_dynamic": 1569
+      },
+      "async_defs": 1,
+      "nested_defs": 134,
+      "nested_defs_in_provided": 132,
+      "id_collisions": 45,
+      "nodes_not_in_provided": 337
+    },
+    "rich_0ba607dc080c9f102b5ae5346bcdb70d6e9c969d": {
+      "n_nodes": 2243,
+      "node_kinds": {
+        "module": 190,
+        "class": 241,
+        "function": 1718,
+        "async_function": 1,
+        "test_function": 93
+      },
+      "edge_types": {
+        "contains": 1987,
+        "imports": 1045,
+        "inherits": 76,
+        "calls_static": 4719,
+        "test_patch_nodes": 93,
+        "tests": 4820,
+        "calls_dynamic": 1816
+      },
+      "async_defs": 1,
+      "nested_defs": 126,
+      "nested_defs_in_provided": 124,
+      "id_collisions": 43,
+      "nodes_not_in_provided": 285
+    },
+    "rich_0c8bb032ad3b54a32fdb8a43f5ab457c8cd6dcb1": {
+      "n_nodes": 2126,
+      "node_kinds": {
+        "module": 190,
+        "class": 238,
+        "function": 1689,
+        "async_function": 1,
+        "test_function": 8
+      },
+      "edge_types": {
+        "contains": 1955,
+        "imports": 1039,
+        "inherits": 76,
+        "calls_static": 4630,
+        "test_patch_nodes": 8,
+        "tests": 228,
+        "calls_dynamic": 582
+      },
+      "async_defs": 1,
+      "nested_defs": 126,
+      "nested_defs_in_provided": 124,
+      "id_collisions": 43,
+      "nodes_not_in_provided": 200
+    },
+    "rich_0f2f51b872d14588de3a65968f5cdde6fb5694a3": {
+      "n_nodes": 2170,
+      "node_kinds": {
+        "module": 190,
+        "class": 242,
+        "function": 1729,
+        "async_function": 1,
+        "test_function": 8
+      },
+      "edge_types": {
+        "contains": 1999,
+        "imports": 1046,
+        "inherits": 76,
+        "calls_static": 4764,
+        "test_patch_nodes": 8,
+        "tests": 24,
+        "calls_dynamic": 24
+      },
+      "async_defs": 1,
+      "nested_defs": 127,
+      "nested_defs_in_provided": 125,
+      "id_collisions": 43,
+      "nodes_not_in_provided": 200
+    },
+    "rich_19c67b9a3479841e9133bea94607c89ee931d3fc": {
+      "n_nodes": 2244,
+      "node_kinds": {
+        "module": 213,
+        "class": 249,
+        "function": 1773,
+        "async_function": 1,
+        "test_function": 8
+      },
+      "edge_types": {
+        "contains": 2050,
+        "imports": 1083,
+        "inherits": 76,
+        "calls_static": 4909,
+        "test_patch_nodes": 8,
+        "tests": 1172,
+        "calls_dynamic": 1073
+      },
+      "async_defs": 1,
+      "nested_defs": 137,
+      "nested_defs_in_provided": 135,
+      "id_collisions": 45,
+      "nodes_not_in_provided": 223
+    },
+    "rich_1ad6f73a4d1d3b40ac3f879feccfaad66412bd1d": {
+      "n_nodes": 2132,
+      "node_kinds": {
+        "module": 190,
+        "class": 241,
+        "function": 1693,
+        "async_function": 1,
+        "test_function": 7
+      },
+      "edge_types": {
+        "contains": 1962,
+        "imports": 1039,
+        "inherits": 76,
+        "calls_static": 4644,
+        "test_patch_nodes": 7,
+        "tests": 44,
+        "calls_dynamic": 164
+      },
+      "async_defs": 1,
+      "nested_defs": 126,
+      "nested_defs_in_provided": 124,
+      "id_collisions": 43,
+      "nodes_not_in_provided": 199
+    },
+    "rich_1d402e0c59f8765e420a5a4440eb2fca7465d1ae": {
+      "n_nodes": 2241,
+      "node_kinds": {
+        "module": 213,
+        "class": 248,
+        "function": 1765,
+        "async_function": 1,
+        "test_function": 14
+      },
+      "edge_types": {
+        "contains": 2041,
+        "imports": 1082,
+        "inherits": 76,
+        "calls_static": 4882,
+        "test_patch_nodes": 14,
+        "tests": 50,
+        "calls_dynamic": 50
+      },
+      "async_defs": 1,
+      "nested_defs": 134,
+      "nested_defs_in_provided": 132,
+      "id_collisions": 45,
+      "nodes_not_in_provided": 229
+    },
+    "rich_1fc7cb210ae52eb099df39818ddb9569e5b14c7b": {
+      "n_nodes": 2325,
+      "node_kinds": {
+        "module": 213,
+        "class": 248,
+        "function": 1768,
+        "async_function": 1,
+        "test_function": 95
+      },
+      "edge_types": {
+        "contains": 2044,
+        "imports": 1083,
+        "inherits": 76,
+        "calls_static": 4897,
+        "test_patch_nodes": 95,
+        "tests": 4808,
+        "calls_dynamic": 1770
+      },
+      "async_defs": 1,
+      "nested_defs": 135,
+      "nested_defs_in_provided": 133,
+      "id_collisions": 45,
+      "nodes_not_in_provided": 310
+    },
+    "rich_27701029082052c6541031b6f139097230253900": {
+      "n_nodes": 2244,
+      "node_kinds": {
+        "module": 213,
+        "class": 248,
+        "function": 1767,
+        "async_function": 1,
+        "test_function": 15
+      },
+      "edge_types": {
+        "contains": 2043,
+        "imports": 1082,
+        "inherits": 76,
+        "calls_static": 4886,
+        "test_patch_nodes": 15,
+        "tests": 53,
+        "calls_dynamic": 27
+      },
+      "async_defs": 1,
+      "nested_defs": 134,
+      "nested_defs_in_provided": 132,
+      "id_collisions": 45,
+      "nodes_not_in_provided": 230
+    },
+    "rich_2809954800af15b4027364cebf82390fe23dc194": {
+      "n_nodes": 2186,
+      "node_kinds": {
+        "module": 190,
+        "class": 244,
+        "function": 1735,
+        "async_function": 1,
+        "test_function": 16
+      },
+      "edge_types": {
+        "contains": 2007,
+        "imports": 1049,
+        "inherits": 76,
+        "calls_static": 4784,
+        "test_patch_nodes": 16,
+        "tests": 1773,
+        "calls_dynamic": 1170
+      },
+      "async_defs": 1,
+      "nested_defs": 133,
+      "nested_defs_in_provided": 131,
+      "id_collisions": 43,
+      "nodes_not_in_provided": 208
+    },
+    "rich_2b5d648b2c62960deb6439f4204ed8fa6eb3cf7b": {
+      "n_nodes": 2178,
+      "node_kinds": {
+        "module": 190,
+        "class": 242,
+        "function": 1729,
+        "async_function": 1,
+        "test_function": 16
+      },
+      "edge_types": {
+        "contains": 1999,
+        "imports": 1047,
+        "inherits": 76,
+        "calls_static": 4764,
+        "test_patch_nodes": 16,
+        "tests": 1747,
+        "calls_dynamic": 1166
+      },
+      "async_defs": 1,
+      "nested_defs": 127,
+      "nested_defs_in_provided": 125,
+      "id_collisions": 43,
+      "nodes_not_in_provided": 208
+    },
+    "rich_368e8ad77c95a6bef8f9d332039091d1417296bc": {
+      "n_nodes": 2137,
+      "node_kinds": {
+        "module": 190,
+        "class": 238,
+        "function": 1687,
+        "async_function": 1,
+        "test_function": 21
+      },
+      "edge_types": {
+        "contains": 1953,
+        "imports": 1038,
+        "inherits": 76,
+        "calls_static": 4620,
+        "test_patch_nodes": 21,
+        "tests": 306,
+        "calls_dynamic": 569
+      },
+      "async_defs": 1,
+      "nested_defs": 126,
+      "nested_defs_in_provided": 124,
+      "id_collisions": 43,
+      "nodes_not_in_provided": 213
+    },
+    "rich_36fe3f7ca9becca4777861d5e6e625f5a4a37545": {
+      "n_nodes": 2238,
+      "node_kinds": {
+        "module": 213,
+        "class": 248,
+        "function": 1764,
+        "async_function": 1,
+        "test_function": 12
+      },
+      "edge_types": {
+        "contains": 2040,
+        "imports": 1082,
+        "inherits": 76,
+        "calls_static": 4880,
+        "test_patch_nodes": 12,
+        "tests": 43,
+        "calls_dynamic": 48
+      },
+      "async_defs": 1,
+      "nested_defs": 134,
+      "nested_defs_in_provided": 132,
+      "id_collisions": 45,
+      "nodes_not_in_provided": 227
+    },
+    "rich_3b70db5a2997de191f7db3e422dbe4da35ca1c95": {
+      "n_nodes": 2197,
+      "node_kinds": {
+        "module": 190,
+        "class": 244,
+        "function": 1737,
+        "async_function": 1,
+        "test_function": 25
+      },
+      "edge_types": {
+        "contains": 2009,
+        "imports": 1049,
+        "inherits": 76,
+        "calls_static": 4790,
+        "test_patch_nodes": 25,
+        "tests": 1349,
+        "calls_dynamic": 872
+      },
+      "async_defs": 1,
+      "nested_defs": 133,
+      "nested_defs_in_provided": 131,
+      "id_collisions": 45,
+      "nodes_not_in_provided": 217
+    },
+    "rich_4101991898ee7a09fe1706daca24af5e1e054862": {
+      "n_nodes": 2185,
+      "node_kinds": {
+        "module": 190,
+        "class": 242,
+        "function": 1723,
+        "async_function": 1,
+        "test_function": 29
+      },
+      "edge_types": {
+        "contains": 1993,
+        "imports": 1044,
+        "inherits": 76,
+        "calls_static": 4735,
+        "test_patch_nodes": 29,
+        "tests": 307,
+        "calls_dynamic": 582
+      },
+      "async_defs": 1,
+      "nested_defs": 127,
+      "nested_defs_in_provided": 125,
+      "id_collisions": 43,
+      "nodes_not_in_provided": 221
+    },
+    "rich_49117ced6648a432d85951f72dce777038f6ce09": {
+      "n_nodes": 2265,
+      "node_kinds": {
+        "module": 190,
+        "class": 244,
+        "function": 1736,
+        "async_function": 1,
+        "test_function": 94
+      },
+      "edge_types": {
+        "contains": 2008,
+        "imports": 1049,
+        "inherits": 76,
+        "calls_static": 4788,
+        "test_patch_nodes": 94,
+        "tests": 4746,
+        "calls_dynamic": 1766
+      },
+      "async_defs": 1,
+      "nested_defs": 133,
+      "nested_defs_in_provided": 131,
+      "id_collisions": 45,
+      "nodes_not_in_provided": 286
+    },
+    "rich_4c5d305bb902ce97011666ada19e48d0b27b49e1": {
+      "n_nodes": 2149,
+      "node_kinds": {
+        "module": 191,
+        "class": 241,
+        "function": 1712,
+        "async_function": 1,
+        "test_function": 4
+      },
+      "edge_types": {
+        "contains": 1981,
+        "imports": 1046,
+        "inherits": 76,
+        "calls_static": 4703,
+        "test_patch_nodes": 4,
+        "tests": 295,
+        "calls_dynamic": 568
+      },
+      "async_defs": 1,
+      "nested_defs": 126,
+      "nested_defs_in_provided": 124,
+      "id_collisions": 43,
+      "nodes_not_in_provided": 197
+    },
+    "rich_4d6d631a3d2deddf8405522d4b8c976a6d35726c": {
+      "n_nodes": 2201,
+      "node_kinds": {
+        "module": 190,
+        "class": 245,
+        "function": 1742,
+        "async_function": 1,
+        "test_function": 23
+      },
+      "edge_types": {
+        "contains": 2015,
+        "imports": 1049,
+        "inherits": 76,
+        "calls_static": 4808,
+        "test_patch_nodes": 23,
+        "tests": 2462,
+        "calls_dynamic": 1060
+      },
+      "async_defs": 1,
+      "nested_defs": 133,
+      "nested_defs_in_provided": 131,
+      "id_collisions": 45,
+      "nodes_not_in_provided": 215
+    },
+    "rich_53757bc234cf18977cade41a5b64f3abaccb0b85": {
+      "n_nodes": 2282,
+      "node_kinds": {
+        "module": 190,
+        "class": 245,
+        "function": 1742,
+        "async_function": 1,
+        "test_function": 104
+      },
+      "edge_types": {
+        "contains": 2015,
+        "imports": 1049,
+        "inherits": 76,
+        "calls_static": 4808,
+        "test_patch_nodes": 104,
+        "tests": 2055,
+        "calls_dynamic": 783
+      },
+      "async_defs": 1,
+      "nested_defs": 133,
+      "nested_defs_in_provided": 131,
+      "id_collisions": 45,
+      "nodes_not_in_provided": 296
+    },
+    "rich_577def22dd83b999c5937cb2bf2ed49600943325": {
+      "n_nodes": 2147,
+      "node_kinds": {
+        "module": 190,
+        "class": 241,
+        "function": 1704,
+        "async_function": 1,
+        "test_function": 11
+      },
+      "edge_types": {
+        "contains": 1973,
+        "imports": 1040,
+        "inherits": 76,
+        "calls_static": 4681,
+        "test_patch_nodes": 11,
+        "tests": 802,
+        "calls_dynamic": 818
+      },
+      "async_defs": 1,
+      "nested_defs": 126,
+      "nested_defs_in_provided": 124,
+      "id_collisions": 43,
+      "nodes_not_in_provided": 203
+    },
+    "rich_58ac15120fe254886c10d6253667733c83604cb4": {
+      "n_nodes": 2236,
+      "node_kinds": {
+        "module": 213,
+        "class": 248,
+        "function": 1770,
+        "async_function": 1,
+        "test_function": 4
+      },
+      "edge_types": {
+        "contains": 2046,
+        "imports": 1083,
+        "inherits": 76,
+        "calls_static": 4901,
+        "test_patch_nodes": 4,
+        "tests": 178,
+        "calls_dynamic": 428
+      },
+      "async_defs": 1,
+      "nested_defs": 135,
+      "nested_defs_in_provided": 133,
+      "id_collisions": 45,
+      "nodes_not_in_provided": 219
+    },
+    "rich_5ba9cb56e68dcdf2db50c214d8f1412c8a50761b": {
+      "n_nodes": 2173,
+      "node_kinds": {
+        "module": 190,
+        "class": 242,
+        "function": 1728,
+        "async_function": 1,
+        "test_function": 12
+      },
+      "edge_types": {
+        "contains": 1998,
+        "imports": 1046,
+        "inherits": 76,
+        "calls_static": 4760,
+        "test_patch_nodes": 12,
+        "tests": 927,
+        "calls_dynamic": 843
+      },
+      "async_defs": 1,
+      "nested_defs": 127,
+      "nested_defs_in_provided": 125,
+      "id_collisions": 43,
+      "nodes_not_in_provided": 204
+    },
+    "rich_610fd75c433c3dfcd9c296e8b91363979127b9fa": {
+      "n_nodes": 2168,
+      "node_kinds": {
+        "module": 190,
+        "class": 241,
+        "function": 1709,
+        "async_function": 1,
+        "test_function": 27
+      },
+      "edge_types": {
+        "contains": 1978,
+        "imports": 1046,
+        "inherits": 76,
+        "calls_static": 4695,
+        "test_patch_nodes": 27,
+        "tests": 189,
+        "calls_dynamic": 306
+      },
+      "async_defs": 1,
+      "nested_defs": 126,
+      "nested_defs_in_provided": 124,
+      "id_collisions": 43,
+      "nodes_not_in_provided": 219
+    },
+    "rich_66074922edabeac684434b4d87ee994fb97b0627": {
+      "n_nodes": 2191,
+      "node_kinds": {
+        "module": 190,
+        "class": 242,
+        "function": 1729,
+        "async_function": 1,
+        "test_function": 29
+      },
+      "edge_types": {
+        "contains": 1999,
+        "imports": 1046,
+        "inherits": 76,
+        "calls_static": 4764,
+        "test_patch_nodes": 29,
+        "tests": 307,
+        "calls_dynamic": 600
+      },
+      "async_defs": 1,
+      "nested_defs": 127,
+      "nested_defs_in_provided": 125,
+      "id_collisions": 43,
+      "nodes_not_in_provided": 221
+    },
+    "rich_6764b24739b580c0c32ff5ef0b971ed4cfcf4f75": {
+      "n_nodes": 2224,
+      "node_kinds": {
+        "module": 213,
+        "class": 246,
+        "function": 1753,
+        "async_function": 1,
+        "test_function": 11
+      },
+      "edge_types": {
+        "contains": 2027,
+        "imports": 1080,
+        "inherits": 76,
+        "calls_static": 4848,
+        "test_patch_nodes": 11,
+        "tests": 1219,
+        "calls_dynamic": 802
+      },
+      "async_defs": 1,
+      "nested_defs": 133,
+      "nested_defs_in_provided": 131,
+      "id_collisions": 45,
+      "nodes_not_in_provided": 226
+    },
+    "rich_720800e6930d85ad027b1e9bd0cbb96b5e994ce3": {
+      "n_nodes": 2131,
+      "node_kinds": {
+        "module": 190,
+        "class": 241,
+        "function": 1693,
+        "async_function": 1,
+        "test_function": 6
+      },
+      "edge_types": {
+        "contains": 1962,
+        "imports": 1039,
+        "inherits": 76,
+        "calls_static": 4644,
+        "test_patch_nodes": 6,
+        "tests": 861,
+        "calls_dynamic": 1069
+      },
+      "async_defs": 1,
+      "nested_defs": 126,
+      "nested_defs_in_provided": 124,
+      "id_collisions": 43,
+      "nodes_not_in_provided": 198
+    },
+    "rich_7a168a27c5097805b3bafa495f35e3955004ff4a": {
+      "n_nodes": 2135,
+      "node_kinds": {
+        "module": 190,
+        "class": 241,
+        "function": 1696,
+        "async_function": 1,
+        "test_function": 7
+      },
+      "edge_types": {
+        "contains": 1965,
+        "imports": 1039,
+        "inherits": 76,
+        "calls_static": 4655,
+        "test_patch_nodes": 7,
+        "tests": 655,
+        "calls_dynamic": 548
+      },
+      "async_defs": 1,
+      "nested_defs": 126,
+      "nested_defs_in_provided": 124,
+      "id_collisions": 43,
+      "nodes_not_in_provided": 199
+    },
+    "rich_7d36119f8378b36129502c3281a7faffef837e02": {
+      "n_nodes": 2183,
+      "node_kinds": {
+        "module": 190,
+        "class": 245,
+        "function": 1740,
+        "async_function": 1,
+        "test_function": 7
+      },
+      "edge_types": {
+        "contains": 2013,
+        "imports": 1049,
+        "inherits": 76,
+        "calls_static": 4796,
+        "test_patch_nodes": 7,
+        "tests": 518,
+        "calls_dynamic": 662
+      },
+      "async_defs": 1,
+      "nested_defs": 133,
+      "nested_defs_in_provided": 131,
+      "id_collisions": 45,
+      "nodes_not_in_provided": 199
+    },
+    "rich_8a616de8e25db3c93abaaa220c493d80878de69d": {
+      "n_nodes": 2209,
+      "node_kinds": {
+        "module": 190,
+        "class": 238,
+        "function": 1689,
+        "async_function": 1,
+        "test_function": 91
+      },
+      "edge_types": {
+        "contains": 1955,
+        "imports": 1039,
+        "inherits": 76,
+        "calls_static": 4630,
+        "test_patch_nodes": 91,
+        "tests": 4658,
+        "calls_dynamic": 1806
+      },
+      "async_defs": 1,
+      "nested_defs": 126,
+      "nested_defs_in_provided": 124,
+      "id_collisions": 43,
+      "nodes_not_in_provided": 283
+    },
+    "rich_96dd4b60e3a7c647c43a85ad375afa690b3bb85b": {
+      "n_nodes": 2250,
+      "node_kinds": {
+        "module": 213,
+        "class": 246,
+        "function": 1755,
+        "async_function": 1,
+        "test_function": 35
+      },
+      "edge_types": {
+        "contains": 2029,
+        "imports": 1083,
+        "inherits": 76,
+        "calls_static": 4853,
+        "test_patch_nodes": 35,
+        "tests": 2528,
+        "calls_dynamic": 1544
+      },
+      "async_defs": 1,
+      "nested_defs": 133,
+      "nested_defs_in_provided": 131,
+      "id_collisions": 45,
+      "nodes_not_in_provided": 250
+    },
+    "rich_9cb198944f8184df92217efc8b20d3fffa4b4fa0": {
+      "n_nodes": 2236,
+      "node_kinds": {
+        "module": 213,
+        "class": 248,
+        "function": 1769,
+        "async_function": 1,
+        "test_function": 5
+      },
+      "edge_types": {
+        "contains": 2045,
+        "imports": 1083,
+        "inherits": 76,
+        "calls_static": 4899,
+        "test_patch_nodes": 5,
+        "tests": 329,
+        "calls_dynamic": 581
+      },
+      "async_defs": 1,
+      "nested_defs": 135,
+      "nested_defs_in_provided": 133,
+      "id_collisions": 45,
+      "nodes_not_in_provided": 220
+    },
+    "rich_9ec419154102acce7363e3958bec6c261864d7fb": {
+      "n_nodes": 2240,
+      "node_kinds": {
+        "module": 190,
+        "class": 242,
+        "function": 1720,
+        "async_function": 1,
+        "test_function": 87
+      },
+      "edge_types": {
+        "contains": 1990,
+        "imports": 1045,
+        "inherits": 76,
+        "calls_static": 4729,
+        "test_patch_nodes": 87,
+        "tests": 1995,
+        "calls_dynamic": 1350
+      },
+      "async_defs": 1,
+      "nested_defs": 127,
+      "nested_defs_in_provided": 125,
+      "id_collisions": 43,
+      "nodes_not_in_provided": 279
+    },
+    "rich_9f620dc50c0008c35e9f8493f198e6e593574a70": {
+      "n_nodes": 2219,
+      "node_kinds": {
+        "module": 190,
+        "class": 241,
+        "function": 1696,
+        "async_function": 1,
+        "test_function": 91
+      },
+      "edge_types": {
+        "contains": 1965,
+        "imports": 1039,
+        "inherits": 76,
+        "calls_static": 4655,
+        "test_patch_nodes": 91,
+        "tests": 4658,
+        "calls_dynamic": 1806
+      },
+      "async_defs": 1,
+      "nested_defs": 126,
+      "nested_defs_in_provided": 124,
+      "id_collisions": 43,
+      "nodes_not_in_provided": 283
+    },
+    "rich_aca9467ec6a482b3bed1ba7d2e3de72271c5f817": {
+      "n_nodes": 2196,
+      "node_kinds": {
+        "module": 190,
+        "class": 238,
+        "function": 1683,
+        "async_function": 1,
+        "test_function": 84
+      },
+      "edge_types": {
+        "contains": 1949,
+        "imports": 1038,
+        "inherits": 76,
+        "calls_static": 4610,
+        "test_patch_nodes": 84,
+        "tests": 1927,
+        "calls_dynamic": 1430
+      },
+      "async_defs": 1,
+      "nested_defs": 126,
+      "nested_defs_in_provided": 124,
+      "id_collisions": 43,
+      "nodes_not_in_provided": 276
+    },
+    "rich_ae15db600976a7999d21653002f338d0761b180c": {
+      "n_nodes": 2239,
+      "node_kinds": {
+        "module": 190,
+        "class": 241,
+        "function": 1714,
+        "async_function": 1,
+        "test_function": 93
+      },
+      "edge_types": {
+        "contains": 1983,
+        "imports": 1045,
+        "inherits": 76,
+        "calls_static": 4713,
+        "test_patch_nodes": 93,
+        "tests": 4739,
+        "calls_dynamic": 1807
+      },
+      "async_defs": 1,
+      "nested_defs": 126,
+      "nested_defs_in_provided": 124,
+      "id_collisions": 43,
+      "nodes_not_in_provided": 285
+    },
+    "rich_b6f2f7aa5b27f612f391cd28212aff51ad0d42d1": {
+      "n_nodes": 2202,
+      "node_kinds": {
+        "module": 190,
+        "class": 241,
+        "function": 1719,
+        "async_function": 1,
+        "test_function": 51
+      },
+      "edge_types": {
+        "contains": 1988,
+        "imports": 1045,
+        "inherits": 76,
+        "calls_static": 4725,
+        "test_patch_nodes": 51,
+        "tests": 2110,
+        "calls_dynamic": 930
+      },
+      "async_defs": 1,
+      "nested_defs": 126,
+      "nested_defs_in_provided": 124,
+      "id_collisions": 43,
+      "nodes_not_in_provided": 243
+    },
+    "rich_c478588f3c228a4e86741a057c42b452d7bc6bce": {
+      "n_nodes": 2156,
+      "node_kinds": {
+        "module": 190,
+        "class": 241,
+        "function": 1717,
+        "async_function": 1,
+        "test_function": 7
+      },
+      "edge_types": {
+        "contains": 1986,
+        "imports": 1045,
+        "inherits": 76,
+        "calls_static": 4715,
+        "test_patch_nodes": 7,
+        "tests": 1007,
+        "calls_dynamic": 1086
+      },
+      "async_defs": 1,
+      "nested_defs": 126,
+      "nested_defs_in_provided": 124,
+      "id_collisions": 43,
+      "nodes_not_in_provided": 199
+    },
+    "rich_c595fa95068dd2c5095d25446b2f0571bc0b3995": {
+      "n_nodes": 2233,
+      "node_kinds": {
+        "module": 213,
+        "class": 247,
+        "function": 1764,
+        "async_function": 1,
+        "test_function": 8
+      },
+      "edge_types": {
+        "contains": 2039,
+        "imports": 1083,
+        "inherits": 76,
+        "calls_static": 4882,
+        "test_patch_nodes": 8,
+        "tests": 1206,
+        "calls_dynamic": 1110
+      },
+      "async_defs": 1,
+      "nested_defs": 134,
+      "nested_defs_in_provided": 132,
+      "id_collisions": 45,
+      "nodes_not_in_provided": 223
+    },
+    "rich_d0de442c08df8793c5ff36d9ad322ca5c47fc38c": {
+      "n_nodes": 2170,
+      "node_kinds": {
+        "module": 190,
+        "class": 242,
+        "function": 1721,
+        "async_function": 1,
+        "test_function": 16
+      },
+      "edge_types": {
+        "contains": 1991,
+        "imports": 1045,
+        "inherits": 76,
+        "calls_static": 4731,
+        "test_patch_nodes": 16,
+        "tests": 1771,
+        "calls_dynamic": 1163
+      },
+      "async_defs": 1,
+      "nested_defs": 127,
+      "nested_defs_in_provided": 125,
+      "id_collisions": 43,
+      "nodes_not_in_provided": 208
+    },
+    "rich_e1e6d745f670ff3df6b8f47377c0a4006cb74066": {
+      "n_nodes": 2152,
+      "node_kinds": {
+        "module": 190,
+        "class": 241,
+        "function": 1713,
+        "async_function": 1,
+        "test_function": 7
+      },
+      "edge_types": {
+        "contains": 1982,
+        "imports": 1045,
+        "inherits": 76,
+        "calls_static": 4711,
+        "test_patch_nodes": 7,
+        "tests": 44,
+        "calls_dynamic": 164
+      },
+      "async_defs": 1,
+      "nested_defs": 126,
+      "nested_defs_in_provided": 124,
+      "id_collisions": 43,
+      "nodes_not_in_provided": 199
+    },
+    "rich_e2a982d5ea747f0deb7f78e8eaa5b4be7d9194cf": {
+      "n_nodes": 2236,
+      "node_kinds": {
+        "module": 190,
+        "class": 241,
+        "function": 1718,
+        "async_function": 1,
+        "test_function": 86
+      },
+      "edge_types": {
+        "contains": 1987,
+        "imports": 1045,
+        "inherits": 76,
+        "calls_static": 4719,
+        "test_patch_nodes": 86,
+        "tests": 1991,
+        "calls_dynamic": 1334
+      },
+      "async_defs": 1,
+      "nested_defs": 126,
+      "nested_defs_in_provided": 124,
+      "id_collisions": 43,
+      "nodes_not_in_provided": 278
+    },
+    "rich_e76f3c3ea78481342e21a7b3328075462ab69c2b": {
+      "n_nodes": 2220,
+      "node_kinds": {
+        "module": 190,
+        "class": 241,
+        "function": 1696,
+        "async_function": 1,
+        "test_function": 92
+      },
+      "edge_types": {
+        "contains": 1965,
+        "imports": 1039,
+        "inherits": 76,
+        "calls_static": 4655,
+        "test_patch_nodes": 92,
+        "tests": 1918,
+        "calls_dynamic": 1292
+      },
+      "async_defs": 1,
+      "nested_defs": 126,
+      "nested_defs_in_provided": 124,
+      "id_collisions": 43,
+      "nodes_not_in_provided": 284
+    },
+    "rich_edc6b0a39b6df1c0e26d409bb5c5eda7149b2de6": {
+      "n_nodes": 2257,
+      "node_kinds": {
+        "module": 190,
+        "class": 242,
+        "function": 1730,
+        "async_function": 1,
+        "test_function": 94
+      },
+      "edge_types": {
+        "contains": 2000,
+        "imports": 1047,
+        "inherits": 76,
+        "calls_static": 4766,
+        "test_patch_nodes": 94,
+        "tests": 4789,
+        "calls_dynamic": 1812
+      },
+      "async_defs": 1,
+      "nested_defs": 127,
+      "nested_defs_in_provided": 125,
+      "id_collisions": 43,
+      "nodes_not_in_provided": 286
+    },
+    "rich_fc41075a3206d2a5fd846c6f41c4d2becab814fa": {
+      "n_nodes": 2349,
+      "node_kinds": {
+        "module": 213,
+        "class": 248,
+        "function": 1768,
+        "async_function": 1,
+        "test_function": 119
+      },
+      "edge_types": {
+        "contains": 2044,
+        "imports": 1082,
+        "inherits": 76,
+        "calls_static": 4888,
+        "test_patch_nodes": 119,
+        "tests": 6100,
+        "calls_dynamic": 2162
+      },
+      "async_defs": 1,
+      "nested_defs": 134,
+      "nested_defs_in_provided": 132,
+      "id_collisions": 45,
+      "nodes_not_in_provided": 334
+    },
+    "rich_fde5d6eee3b0437eaecdcbf6f8b11aeab3a5d503": {
+      "n_nodes": 2170,
+      "node_kinds": {
+        "module": 191,
+        "class": 241,
+        "function": 1713,
+        "async_function": 1,
+        "test_function": 24
+      },
+      "edge_types": {
+        "contains": 1982,
+        "imports": 1046,
+        "inherits": 76,
+        "calls_static": 4707,
+        "test_patch_nodes": 24,
+        "tests": 1232,
+        "calls_dynamic": 870
+      },
+      "async_defs": 1,
+      "nested_defs": 126,
+      "nested_defs_in_provided": 124,
+      "id_collisions": 43,
+      "nodes_not_in_provided": 217
+    },
+    "rich_fe55a131c2780fa856464ad04d7d6dc8a1079b72": {
+      "n_nodes": 2230,
+      "node_kinds": {
+        "module": 213,
+        "class": 246,
+        "function": 1756,
+        "async_function": 1,
+        "test_function": 14
+      },
+      "edge_types": {
+        "contains": 2030,
+        "imports": 1083,
+        "inherits": 76,
+        "calls_static": 4857,
+        "test_patch_nodes": 14,
+        "tests": 1147,
+        "calls_dynamic": 940
+      },
+      "async_defs": 1,
+      "nested_defs": 133,
+      "nested_defs_in_provided": 131,
+      "id_collisions": 45,
+      "nodes_not_in_provided": 229
+    }
+  },
+  "task_profile_cells": {
+    "d_undef|v_undef": 1,
+    "d_undef|v_high": 37,
+    "d_undef|v_low": 44,
+    "d0|v_high": 15,
+    "d2+|v_high": 16,
+    "d2+|v_low": 7,
+    "d0|v_low": 4,
+    "d1|v_high": 4,
+    "d1|v_low": 1
+  }
+}
