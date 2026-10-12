@@ -1,0 +1,1949 @@
+{
+  "all_edges": {
+    "unconfirmed": {
+      "unique_edges": {
+        "n": 40624,
+        "how": {
+          "no_reference": {
+            "count": 24581,
+            "share": 0.6051
+          },
+          "text_only": {
+            "count": 9381,
+            "share": 0.2309
+          },
+          "instantiation": {
+            "count": 3195,
+            "share": 0.0786
+          },
+          "call_direct": {
+            "count": 978,
+            "share": 0.0241
+          },
+          "call_in_nested_scope": {
+            "count": 832,
+            "share": 0.0205
+          },
+          "implicit_dunder": {
+            "count": 780,
+            "share": 0.0192
+          },
+          "referenced": {
+            "count": 633,
+            "share": 0.0156
+          },
+          "call_attr_other": {
+            "count": 244,
+            "share": 0.006
+          }
+        }
+      },
+      "task_weighted": {
+        "n": 40828,
+        "how": {
+          "no_reference": {
+            "count": 24689,
+            "share": 0.6047
+          },
+          "text_only": {
+            "count": 9435,
+            "share": 0.2311
+          },
+          "instantiation": {
+            "count": 3218,
+            "share": 0.0788
+          },
+          "call_direct": {
+            "count": 978,
+            "share": 0.024
+          },
+          "call_in_nested_scope": {
+            "count": 837,
+            "share": 0.0205
+          },
+          "implicit_dunder": {
+            "count": 782,
+            "share": 0.0192
+          },
+          "referenced": {
+            "count": 644,
+            "share": 0.0158
+          },
+          "call_attr_other": {
+            "count": 245,
+            "share": 0.006
+          }
+        }
+      },
+      "explicit_callsite_share": {
+        "k": 4417,
+        "n": 40624,
+        "p": 0.1087,
+        "lo": 0.1057,
+        "hi": 0.1118
+      },
+      "callee_name_shared_share": {
+        "k": 8258,
+        "n": 40624,
+        "p": 0.2033,
+        "lo": 0.1994,
+        "hi": 0.2072
+      },
+      "median_n_same_name": 1
+    },
+    "missed": {
+      "unique_edges": {
+        "n": 18232,
+        "how": {
+          "call_attr_other": {
+            "count": 5734,
+            "share": 0.3145
+          },
+          "referenced": {
+            "count": 4374,
+            "share": 0.2399
+          },
+          "implicit_dunder": {
+            "count": 3406,
+            "share": 0.1868
+          },
+          "call_self": {
+            "count": 1992,
+            "share": 0.1093
+          },
+          "call_direct": {
+            "count": 1380,
+            "share": 0.0757
+          },
+          "no_reference": {
+            "count": 1002,
+            "share": 0.055
+          },
+          "text_only": {
+            "count": 196,
+            "share": 0.0108
+          },
+          "instantiation": {
+            "count": 75,
+            "share": 0.0041
+          },
+          "call_in_nested_scope": {
+            "count": 44,
+            "share": 0.0024
+          },
+          "call_super": {
+            "count": 23,
+            "share": 0.0013
+          },
+          "caller_not_found": {
+            "count": 6,
+            "share": 0.0003
+          }
+        }
+      },
+      "task_weighted": {
+        "n": 18324,
+        "how": {
+          "call_attr_other": {
+            "count": 5744,
+            "share": 0.3135
+          },
+          "referenced": {
+            "count": 4408,
+            "share": 0.2406
+          },
+          "implicit_dunder": {
+            "count": 3424,
+            "share": 0.1869
+          },
+          "call_self": {
+            "count": 2010,
+            "share": 0.1097
+          },
+          "call_direct": {
+            "count": 1391,
+            "share": 0.0759
+          },
+          "no_reference": {
+            "count": 1002,
+            "share": 0.0547
+          },
+          "text_only": {
+            "count": 196,
+            "share": 0.0107
+          },
+          "instantiation": {
+            "count": 76,
+            "share": 0.0041
+          },
+          "call_in_nested_scope": {
+            "count": 44,
+            "share": 0.0024
+          },
+          "call_super": {
+            "count": 23,
+            "share": 0.0013
+          },
+          "caller_not_found": {
+            "count": 6,
+            "share": 0.0003
+          }
+        }
+      },
+      "explicit_callsite_share": {
+        "k": 9204,
+        "n": 18232,
+        "p": 0.5048,
+        "lo": 0.4976,
+        "hi": 0.5121
+      },
+      "callee_name_shared_share": {
+        "k": 8069,
+        "n": 18232,
+        "p": 0.4426,
+        "lo": 0.4354,
+        "hi": 0.4498
+      },
+      "median_n_same_name": 1,
+      "channel": {
+        "vialib": 831,
+        "direct": 17401
+      },
+      "direct_channel_how": {
+        "n": 17401,
+        "how": {
+          "call_attr_other": {
+            "count": 5721,
+            "share": 0.3288
+          },
+          "referenced": {
+            "count": 4012,
+            "share": 0.2306
+          },
+          "implicit_dunder": {
+            "count": 3044,
+            "share": 0.1749
+          },
+          "call_self": {
+            "count": 1989,
+            "share": 0.1143
+          },
+          "call_direct": {
+            "count": 1379,
+            "share": 0.0792
+          },
+          "no_reference": {
+            "count": 913,
+            "share": 0.0525
+          },
+          "text_only": {
+            "count": 195,
+            "share": 0.0112
+          },
+          "instantiation": {
+            "count": 75,
+            "share": 0.0043
+          },
+          "call_in_nested_scope": {
+            "count": 44,
+            "share": 0.0025
+          },
+          "call_super": {
+            "count": 23,
+            "share": 0.0013
+          },
+          "caller_not_found": {
+            "count": 6,
+            "share": 0.0003
+          }
+        }
+      }
+    },
+    "captured": {
+      "unique_edges": {
+        "n": 11200,
+        "how": {
+          "call_direct": {
+            "count": 4811,
+            "share": 0.4296
+          },
+          "instantiation": {
+            "count": 4078,
+            "share": 0.3641
+          },
+          "call_attr_other": {
+            "count": 1421,
+            "share": 0.1269
+          },
+          "text_only": {
+            "count": 347,
+            "share": 0.031
+          },
+          "call_in_nested_scope": {
+            "count": 336,
+            "share": 0.03
+          },
+          "no_reference": {
+            "count": 145,
+            "share": 0.0129
+          },
+          "implicit_dunder": {
+            "count": 39,
+            "share": 0.0035
+          },
+          "referenced": {
+            "count": 21,
+            "share": 0.0019
+          },
+          "caller_not_found": {
+            "count": 2,
+            "share": 0.0002
+          }
+        }
+      },
+      "task_weighted": {
+        "n": 11233,
+        "how": {
+          "call_direct": {
+            "count": 4826,
+            "share": 0.4296
+          },
+          "instantiation": {
+            "count": 4089,
+            "share": 0.364
+          },
+          "call_attr_other": {
+            "count": 1425,
+            "share": 0.1269
+          },
+          "text_only": {
+            "count": 348,
+            "share": 0.031
+          },
+          "call_in_nested_scope": {
+            "count": 336,
+            "share": 0.0299
+          },
+          "no_reference": {
+            "count": 147,
+            "share": 0.0131
+          },
+          "implicit_dunder": {
+            "count": 39,
+            "share": 0.0035
+          },
+          "referenced": {
+            "count": 21,
+            "share": 0.0019
+          },
+          "caller_not_found": {
+            "count": 2,
+            "share": 0.0002
+          }
+        }
+      },
+      "explicit_callsite_share": {
+        "k": 10310,
+        "n": 11200,
+        "p": 0.9205,
+        "lo": 0.9154,
+        "hi": 0.9254
+      },
+      "callee_name_shared_share": {
+        "k": 1559,
+        "n": 11200,
+        "p": 0.1392,
+        "lo": 0.1329,
+        "hi": 0.1457
+      },
+      "median_n_same_name": 1,
+      "channel": {
+        "direct": 11156,
+        "vialib": 44
+      },
+      "direct_channel_how": {
+        "n": 11156,
+        "how": {
+          "call_direct": {
+            "count": 4767,
+            "share": 0.4273
+          },
+          "instantiation": {
+            "count": 4078,
+            "share": 0.3655
+          },
+          "call_attr_other": {
+            "count": 1421,
+            "share": 0.1274
+          },
+          "text_only": {
+            "count": 347,
+            "share": 0.0311
+          },
+          "call_in_nested_scope": {
+            "count": 336,
+            "share": 0.0301
+          },
+          "no_reference": {
+            "count": 145,
+            "share": 0.013
+          },
+          "implicit_dunder": {
+            "count": 39,
+            "share": 0.0035
+          },
+          "referenced": {
+            "count": 21,
+            "share": 0.0019
+          },
+          "caller_not_found": {
+            "count": 2,
+            "share": 0.0002
+          }
+        }
+      }
+    }
+  },
+  "nontest_edges": {
+    "unconfirmed": {
+      "unique_edges": {
+        "n": 35017,
+        "how": {
+          "no_reference": {
+            "count": 19648,
+            "share": 0.5611
+          },
+          "text_only": {
+            "count": 9336,
+            "share": 0.2666
+          },
+          "instantiation": {
+            "count": 2658,
+            "share": 0.0759
+          },
+          "call_direct": {
+            "count": 949,
+            "share": 0.0271
+          },
+          "call_in_nested_scope": {
+            "count": 793,
+            "share": 0.0226
+          },
+          "implicit_dunder": {
+            "count": 772,
+            "share": 0.022
+          },
+          "referenced": {
+            "count": 623,
+            "share": 0.0178
+          },
+          "call_attr_other": {
+            "count": 238,
+            "share": 0.0068
+          }
+        }
+      },
+      "task_weighted": {
+        "n": 35221,
+        "how": {
+          "no_reference": {
+            "count": 19756,
+            "share": 0.5609
+          },
+          "text_only": {
+            "count": 9390,
+            "share": 0.2666
+          },
+          "instantiation": {
+            "count": 2681,
+            "share": 0.0761
+          },
+          "call_direct": {
+            "count": 949,
+            "share": 0.0269
+          },
+          "call_in_nested_scope": {
+            "count": 798,
+            "share": 0.0227
+          },
+          "implicit_dunder": {
+            "count": 774,
+            "share": 0.022
+          },
+          "referenced": {
+            "count": 634,
+            "share": 0.018
+          },
+          "call_attr_other": {
+            "count": 239,
+            "share": 0.0068
+          }
+        }
+      },
+      "explicit_callsite_share": {
+        "k": 3845,
+        "n": 35017,
+        "p": 0.1098,
+        "lo": 0.1066,
+        "hi": 0.1131
+      },
+      "callee_name_shared_share": {
+        "k": 7400,
+        "n": 35017,
+        "p": 0.2113,
+        "lo": 0.2071,
+        "hi": 0.2156
+      },
+      "median_n_same_name": 1
+    },
+    "missed": {
+      "unique_edges": {
+        "n": 12231,
+        "how": {
+          "referenced": {
+            "count": 3457,
+            "share": 0.2826
+          },
+          "call_attr_other": {
+            "count": 2865,
+            "share": 0.2342
+          },
+          "implicit_dunder": {
+            "count": 2111,
+            "share": 0.1726
+          },
+          "call_self": {
+            "count": 1945,
+            "share": 0.159
+          },
+          "call_direct": {
+            "count": 1218,
+            "share": 0.0996
+          },
+          "no_reference": {
+            "count": 381,
+            "share": 0.0312
+          },
+          "text_only": {
+            "count": 160,
+            "share": 0.0131
+          },
+          "instantiation": {
+            "count": 65,
+            "share": 0.0053
+          },
+          "call_super": {
+            "count": 17,
+            "share": 0.0014
+          },
+          "call_in_nested_scope": {
+            "count": 12,
+            "share": 0.001
+          }
+        }
+      },
+      "task_weighted": {
+        "n": 12323,
+        "how": {
+          "referenced": {
+            "count": 3491,
+            "share": 0.2833
+          },
+          "call_attr_other": {
+            "count": 2875,
+            "share": 0.2333
+          },
+          "implicit_dunder": {
+            "count": 2129,
+            "share": 0.1728
+          },
+          "call_self": {
+            "count": 1963,
+            "share": 0.1593
+          },
+          "call_direct": {
+            "count": 1229,
+            "share": 0.0997
+          },
+          "no_reference": {
+            "count": 381,
+            "share": 0.0309
+          },
+          "text_only": {
+            "count": 160,
+            "share": 0.013
+          },
+          "instantiation": {
+            "count": 66,
+            "share": 0.0054
+          },
+          "call_super": {
+            "count": 17,
+            "share": 0.0014
+          },
+          "call_in_nested_scope": {
+            "count": 12,
+            "share": 0.001
+          }
+        }
+      },
+      "explicit_callsite_share": {
+        "k": 6110,
+        "n": 12231,
+        "p": 0.4996,
+        "lo": 0.4907,
+        "hi": 0.5084
+      },
+      "callee_name_shared_share": {
+        "k": 4855,
+        "n": 12231,
+        "p": 0.3969,
+        "lo": 0.3883,
+        "hi": 0.4056
+      },
+      "median_n_same_name": 1,
+      "channel": {
+        "vialib": 688,
+        "direct": 11543
+      },
+      "direct_channel_how": {
+        "n": 11543,
+        "how": {
+          "referenced": {
+            "count": 3096,
+            "share": 0.2682
+          },
+          "call_attr_other": {
+            "count": 2863,
+            "share": 0.248
+          },
+          "call_self": {
+            "count": 1942,
+            "share": 0.1682
+          },
+          "implicit_dunder": {
+            "count": 1855,
+            "share": 0.1607
+          },
+          "call_direct": {
+            "count": 1217,
+            "share": 0.1054
+          },
+          "no_reference": {
+            "count": 316,
+            "share": 0.0274
+          },
+          "text_only": {
+            "count": 160,
+            "share": 0.0139
+          },
+          "instantiation": {
+            "count": 65,
+            "share": 0.0056
+          },
+          "call_super": {
+            "count": 17,
+            "share": 0.0015
+          },
+          "call_in_nested_scope": {
+            "count": 12,
+            "share": 0.001
+          }
+        }
+      }
+    },
+    "captured": {
+      "unique_edges": {
+        "n": 7640,
+        "how": {
+          "call_direct": {
+            "count": 4228,
+            "share": 0.5534
+          },
+          "instantiation": {
+            "count": 1453,
+            "share": 0.1902
+          },
+          "call_attr_other": {
+            "count": 1089,
+            "share": 0.1425
+          },
+          "text_only": {
+            "count": 342,
+            "share": 0.0448
+          },
+          "call_in_nested_scope": {
+            "count": 326,
+            "share": 0.0427
+          },
+          "no_reference": {
+            "count": 142,
+            "share": 0.0186
+          },
+          "implicit_dunder": {
+            "count": 39,
+            "share": 0.0051
+          },
+          "referenced": {
+            "count": 21,
+            "share": 0.0027
+          }
+        }
+      },
+      "task_weighted": {
+        "n": 7673,
+        "how": {
+          "call_direct": {
+            "count": 4243,
+            "share": 0.553
+          },
+          "instantiation": {
+            "count": 1464,
+            "share": 0.1908
+          },
+          "call_attr_other": {
+            "count": 1093,
+            "share": 0.1424
+          },
+          "text_only": {
+            "count": 343,
+            "share": 0.0447
+          },
+          "call_in_nested_scope": {
+            "count": 326,
+            "share": 0.0425
+          },
+          "no_reference": {
+            "count": 144,
+            "share": 0.0188
+          },
+          "implicit_dunder": {
+            "count": 39,
+            "share": 0.0051
+          },
+          "referenced": {
+            "count": 21,
+            "share": 0.0027
+          }
+        }
+      },
+      "explicit_callsite_share": {
+        "k": 6770,
+        "n": 7640,
+        "p": 0.8861,
+        "lo": 0.8788,
+        "hi": 0.8931
+      },
+      "callee_name_shared_share": {
+        "k": 1163,
+        "n": 7640,
+        "p": 0.1522,
+        "lo": 0.1443,
+        "hi": 0.1605
+      },
+      "median_n_same_name": 1,
+      "channel": {
+        "direct": 7632,
+        "vialib": 8
+      },
+      "direct_channel_how": {
+        "n": 7632,
+        "how": {
+          "call_direct": {
+            "count": 4220,
+            "share": 0.5529
+          },
+          "instantiation": {
+            "count": 1453,
+            "share": 0.1904
+          },
+          "call_attr_other": {
+            "count": 1089,
+            "share": 0.1427
+          },
+          "text_only": {
+            "count": 342,
+            "share": 0.0448
+          },
+          "call_in_nested_scope": {
+            "count": 326,
+            "share": 0.0427
+          },
+          "no_reference": {
+            "count": 142,
+            "share": 0.0186
+          },
+          "implicit_dunder": {
+            "count": 39,
+            "share": 0.0051
+          },
+          "referenced": {
+            "count": 21,
+            "share": 0.0028
+          }
+        }
+      }
+    }
+  },
+  "per_repo_nontest": {
+    "Textualize/rich": {
+      "unconfirmed": {
+        "unique_edges": {
+          "n": 15636,
+          "how": {
+            "no_reference": {
+              "count": 8466,
+              "share": 0.5414
+            },
+            "text_only": {
+              "count": 3402,
+              "share": 0.2176
+            },
+            "instantiation": {
+              "count": 1793,
+              "share": 0.1147
+            },
+            "implicit_dunder": {
+              "count": 746,
+              "share": 0.0477
+            },
+            "referenced": {
+              "count": 573,
+              "share": 0.0366
+            },
+            "call_attr_other": {
+              "count": 231,
+              "share": 0.0148
+            },
+            "call_in_nested_scope": {
+              "count": 214,
+              "share": 0.0137
+            },
+            "call_direct": {
+              "count": 211,
+              "share": 0.0135
+            }
+          }
+        },
+        "task_weighted": {
+          "n": 15840,
+          "how": {
+            "no_reference": {
+              "count": 8574,
+              "share": 0.5413
+            },
+            "text_only": {
+              "count": 3456,
+              "share": 0.2182
+            },
+            "instantiation": {
+              "count": 1816,
+              "share": 0.1146
+            },
+            "implicit_dunder": {
+              "count": 748,
+              "share": 0.0472
+            },
+            "referenced": {
+              "count": 584,
+              "share": 0.0369
+            },
+            "call_attr_other": {
+              "count": 232,
+              "share": 0.0146
+            },
+            "call_in_nested_scope": {
+              "count": 219,
+              "share": 0.0138
+            },
+            "call_direct": {
+              "count": 211,
+              "share": 0.0133
+            }
+          }
+        },
+        "explicit_callsite_share": {
+          "k": 2235,
+          "n": 15636,
+          "p": 0.1429,
+          "lo": 0.1375,
+          "hi": 0.1485
+        },
+        "callee_name_shared_share": {
+          "k": 2381,
+          "n": 15636,
+          "p": 0.1523,
+          "lo": 0.1467,
+          "hi": 0.158
+        },
+        "median_n_same_name": 1
+      },
+      "missed": {
+        "unique_edges": {
+          "n": 9547,
+          "how": {
+            "referenced": {
+              "count": 2710,
+              "share": 0.2839
+            },
+            "call_attr_other": {
+              "count": 2595,
+              "share": 0.2718
+            },
+            "implicit_dunder": {
+              "count": 1698,
+              "share": 0.1779
+            },
+            "call_self": {
+              "count": 1518,
+              "share": 0.159
+            },
+            "call_direct": {
+              "count": 754,
+              "share": 0.079
+            },
+            "no_reference": {
+              "count": 156,
+              "share": 0.0163
+            },
+            "instantiation": {
+              "count": 58,
+              "share": 0.0061
+            },
+            "text_only": {
+              "count": 31,
+              "share": 0.0032
+            },
+            "call_super": {
+              "count": 15,
+              "share": 0.0016
+            },
+            "call_in_nested_scope": {
+              "count": 12,
+              "share": 0.0013
+            }
+          }
+        },
+        "task_weighted": {
+          "n": 9639,
+          "how": {
+            "referenced": {
+              "count": 2744,
+              "share": 0.2847
+            },
+            "call_attr_other": {
+              "count": 2605,
+              "share": 0.2703
+            },
+            "implicit_dunder": {
+              "count": 1716,
+              "share": 0.178
+            },
+            "call_self": {
+              "count": 1536,
+              "share": 0.1594
+            },
+            "call_direct": {
+              "count": 765,
+              "share": 0.0794
+            },
+            "no_reference": {
+              "count": 156,
+              "share": 0.0162
+            },
+            "instantiation": {
+              "count": 59,
+              "share": 0.0061
+            },
+            "text_only": {
+              "count": 31,
+              "share": 0.0032
+            },
+            "call_super": {
+              "count": 15,
+              "share": 0.0016
+            },
+            "call_in_nested_scope": {
+              "count": 12,
+              "share": 0.0012
+            }
+          }
+        },
+        "explicit_callsite_share": {
+          "k": 4940,
+          "n": 9547,
+          "p": 0.5174,
+          "lo": 0.5074,
+          "hi": 0.5275
+        },
+        "callee_name_shared_share": {
+          "k": 3838,
+          "n": 9547,
+          "p": 0.402,
+          "lo": 0.3922,
+          "hi": 0.4119
+        },
+        "median_n_same_name": 1,
+        "channel": {
+          "direct": 9546,
+          "vialib": 1
+        },
+        "direct_channel_how": {
+          "n": 9546,
+          "how": {
+            "referenced": {
+              "count": 2710,
+              "share": 0.2839
+            },
+            "call_attr_other": {
+              "count": 2595,
+              "share": 0.2718
+            },
+            "implicit_dunder": {
+              "count": 1698,
+              "share": 0.1779
+            },
+            "call_self": {
+              "count": 1518,
+              "share": 0.159
+            },
+            "call_direct": {
+              "count": 754,
+              "share": 0.079
+            },
+            "no_reference": {
+              "count": 155,
+              "share": 0.0162
+            },
+            "instantiation": {
+              "count": 58,
+              "share": 0.0061
+            },
+            "text_only": {
+              "count": 31,
+              "share": 0.0032
+            },
+            "call_super": {
+              "count": 15,
+              "share": 0.0016
+            },
+            "call_in_nested_scope": {
+              "count": 12,
+              "share": 0.0013
+            }
+          }
+        }
+      },
+      "captured": {
+        "unique_edges": {
+          "n": 3377,
+          "how": {
+            "call_direct": {
+              "count": 1145,
+              "share": 0.3391
+            },
+            "instantiation": {
+              "count": 1074,
+              "share": 0.318
+            },
+            "call_attr_other": {
+              "count": 806,
+              "share": 0.2387
+            },
+            "text_only": {
+              "count": 162,
+              "share": 0.048
+            },
+            "no_reference": {
+              "count": 135,
+              "share": 0.04
+            },
+            "implicit_dunder": {
+              "count": 39,
+              "share": 0.0115
+            },
+            "referenced": {
+              "count": 16,
+              "share": 0.0047
+            }
+          }
+        },
+        "task_weighted": {
+          "n": 3410,
+          "how": {
+            "call_direct": {
+              "count": 1160,
+              "share": 0.3402
+            },
+            "instantiation": {
+              "count": 1085,
+              "share": 0.3182
+            },
+            "call_attr_other": {
+              "count": 810,
+              "share": 0.2375
+            },
+            "text_only": {
+              "count": 163,
+              "share": 0.0478
+            },
+            "no_reference": {
+              "count": 137,
+              "share": 0.0402
+            },
+            "implicit_dunder": {
+              "count": 39,
+              "share": 0.0114
+            },
+            "referenced": {
+              "count": 16,
+              "share": 0.0047
+            }
+          }
+        },
+        "explicit_callsite_share": {
+          "k": 3025,
+          "n": 3377,
+          "p": 0.8958,
+          "lo": 0.885,
+          "hi": 0.9056
+        },
+        "callee_name_shared_share": {
+          "k": 595,
+          "n": 3377,
+          "p": 0.1762,
+          "lo": 0.1637,
+          "hi": 0.1894
+        },
+        "median_n_same_name": 1,
+        "channel": {
+          "direct": 3377
+        },
+        "direct_channel_how": {
+          "n": 3377,
+          "how": {
+            "call_direct": {
+              "count": 1145,
+              "share": 0.3391
+            },
+            "instantiation": {
+              "count": 1074,
+              "share": 0.318
+            },
+            "call_attr_other": {
+              "count": 806,
+              "share": 0.2387
+            },
+            "text_only": {
+              "count": 162,
+              "share": 0.048
+            },
+            "no_reference": {
+              "count": 135,
+              "share": 0.04
+            },
+            "implicit_dunder": {
+              "count": 39,
+              "share": 0.0115
+            },
+            "referenced": {
+              "count": 16,
+              "share": 0.0047
+            }
+          }
+        }
+      }
+    },
+    "encode/httpx": {
+      "unconfirmed": {
+        "unique_edges": {
+          "n": 100,
+          "how": {
+            "no_reference": {
+              "count": 56,
+              "share": 0.56
+            },
+            "instantiation": {
+              "count": 25,
+              "share": 0.25
+            },
+            "text_only": {
+              "count": 18,
+              "share": 0.18
+            },
+            "call_in_nested_scope": {
+              "count": 1,
+              "share": 0.01
+            }
+          }
+        },
+        "task_weighted": {
+          "n": 100,
+          "how": {
+            "no_reference": {
+              "count": 56,
+              "share": 0.56
+            },
+            "instantiation": {
+              "count": 25,
+              "share": 0.25
+            },
+            "text_only": {
+              "count": 18,
+              "share": 0.18
+            },
+            "call_in_nested_scope": {
+              "count": 1,
+              "share": 0.01
+            }
+          }
+        },
+        "explicit_callsite_share": {
+          "k": 25,
+          "n": 100,
+          "p": 0.25,
+          "lo": 0.1755,
+          "hi": 0.343
+        },
+        "callee_name_shared_share": {
+          "k": 91,
+          "n": 100,
+          "p": 0.91,
+          "lo": 0.8377,
+          "hi": 0.9519
+        },
+        "median_n_same_name": 2
+      },
+      "missed": {
+        "unique_edges": {
+          "n": 19,
+          "how": {
+            "call_attr_other": {
+              "count": 10,
+              "share": 0.5263
+            },
+            "call_direct": {
+              "count": 4,
+              "share": 0.2105
+            },
+            "call_self": {
+              "count": 4,
+              "share": 0.2105
+            },
+            "instantiation": {
+              "count": 1,
+              "share": 0.0526
+            }
+          }
+        },
+        "task_weighted": {
+          "n": 19,
+          "how": {
+            "call_attr_other": {
+              "count": 10,
+              "share": 0.5263
+            },
+            "call_direct": {
+              "count": 4,
+              "share": 0.2105
+            },
+            "call_self": {
+              "count": 4,
+              "share": 0.2105
+            },
+            "instantiation": {
+              "count": 1,
+              "share": 0.0526
+            }
+          }
+        },
+        "explicit_callsite_share": {
+          "k": 19,
+          "n": 19,
+          "p": 1.0,
+          "lo": 0.8318,
+          "hi": 1.0
+        },
+        "callee_name_shared_share": {
+          "k": 13,
+          "n": 19,
+          "p": 0.6842,
+          "lo": 0.4601,
+          "hi": 0.8464
+        },
+        "median_n_same_name": 2,
+        "channel": {
+          "direct": 19
+        },
+        "direct_channel_how": {
+          "n": 19,
+          "how": {
+            "call_attr_other": {
+              "count": 10,
+              "share": 0.5263
+            },
+            "call_direct": {
+              "count": 4,
+              "share": 0.2105
+            },
+            "call_self": {
+              "count": 4,
+              "share": 0.2105
+            },
+            "instantiation": {
+              "count": 1,
+              "share": 0.0526
+            }
+          }
+        }
+      }
+    },
+    "fastapi/fastapi": {
+      "unconfirmed": {
+        "unique_edges": {
+          "n": 18306,
+          "how": {
+            "no_reference": {
+              "count": 10315,
+              "share": 0.5635
+            },
+            "text_only": {
+              "count": 5786,
+              "share": 0.3161
+            },
+            "instantiation": {
+              "count": 840,
+              "share": 0.0459
+            },
+            "call_direct": {
+              "count": 727,
+              "share": 0.0397
+            },
+            "call_in_nested_scope": {
+              "count": 573,
+              "share": 0.0313
+            },
+            "referenced": {
+              "count": 42,
+              "share": 0.0023
+            },
+            "implicit_dunder": {
+              "count": 21,
+              "share": 0.0011
+            },
+            "call_attr_other": {
+              "count": 2,
+              "share": 0.0001
+            }
+          }
+        },
+        "task_weighted": {
+          "n": 18306,
+          "how": {
+            "no_reference": {
+              "count": 10315,
+              "share": 0.5635
+            },
+            "text_only": {
+              "count": 5786,
+              "share": 0.3161
+            },
+            "instantiation": {
+              "count": 840,
+              "share": 0.0459
+            },
+            "call_direct": {
+              "count": 727,
+              "share": 0.0397
+            },
+            "call_in_nested_scope": {
+              "count": 573,
+              "share": 0.0313
+            },
+            "referenced": {
+              "count": 42,
+              "share": 0.0023
+            },
+            "implicit_dunder": {
+              "count": 21,
+              "share": 0.0011
+            },
+            "call_attr_other": {
+              "count": 2,
+              "share": 0.0001
+            }
+          }
+        },
+        "explicit_callsite_share": {
+          "k": 1569,
+          "n": 18306,
+          "p": 0.0857,
+          "lo": 0.0817,
+          "hi": 0.0899
+        },
+        "callee_name_shared_share": {
+          "k": 4818,
+          "n": 18306,
+          "p": 0.2632,
+          "lo": 0.2569,
+          "hi": 0.2696
+        },
+        "median_n_same_name": 1
+      },
+      "missed": {
+        "unique_edges": {
+          "n": 1805,
+          "how": {
+            "referenced": {
+              "count": 676,
+              "share": 0.3745
+            },
+            "call_direct": {
+              "count": 435,
+              "share": 0.241
+            },
+            "implicit_dunder": {
+              "count": 192,
+              "share": 0.1064
+            },
+            "call_attr_other": {
+              "count": 167,
+              "share": 0.0925
+            },
+            "call_self": {
+              "count": 131,
+              "share": 0.0726
+            },
+            "text_only": {
+              "count": 126,
+              "share": 0.0698
+            },
+            "no_reference": {
+              "count": 76,
+              "share": 0.0421
+            },
+            "call_super": {
+              "count": 2,
+              "share": 0.0011
+            }
+          }
+        },
+        "task_weighted": {
+          "n": 1805,
+          "how": {
+            "referenced": {
+              "count": 676,
+              "share": 0.3745
+            },
+            "call_direct": {
+              "count": 435,
+              "share": 0.241
+            },
+            "implicit_dunder": {
+              "count": 192,
+              "share": 0.1064
+            },
+            "call_attr_other": {
+              "count": 167,
+              "share": 0.0925
+            },
+            "call_self": {
+              "count": 131,
+              "share": 0.0726
+            },
+            "text_only": {
+              "count": 126,
+              "share": 0.0698
+            },
+            "no_reference": {
+              "count": 76,
+              "share": 0.0421
+            },
+            "call_super": {
+              "count": 2,
+              "share": 0.0011
+            }
+          }
+        },
+        "explicit_callsite_share": {
+          "k": 735,
+          "n": 1805,
+          "p": 0.4072,
+          "lo": 0.3848,
+          "hi": 0.43
+        },
+        "callee_name_shared_share": {
+          "k": 671,
+          "n": 1805,
+          "p": 0.3717,
+          "lo": 0.3497,
+          "hi": 0.3943
+        },
+        "median_n_same_name": 1,
+        "channel": {
+          "vialib": 516,
+          "direct": 1289
+        },
+        "direct_channel_how": {
+          "n": 1289,
+          "how": {
+            "call_direct": {
+              "count": 435,
+              "share": 0.3375
+            },
+            "referenced": {
+              "count": 315,
+              "share": 0.2444
+            },
+            "call_attr_other": {
+              "count": 165,
+              "share": 0.128
+            },
+            "call_self": {
+              "count": 128,
+              "share": 0.0993
+            },
+            "text_only": {
+              "count": 126,
+              "share": 0.0978
+            },
+            "no_reference": {
+              "count": 67,
+              "share": 0.052
+            },
+            "implicit_dunder": {
+              "count": 51,
+              "share": 0.0396
+            },
+            "call_super": {
+              "count": 2,
+              "share": 0.0016
+            }
+          }
+        }
+      },
+      "captured": {
+        "unique_edges": {
+          "n": 3729,
+          "how": {
+            "call_direct": {
+              "count": 2681,
+              "share": 0.719
+            },
+            "call_in_nested_scope": {
+              "count": 326,
+              "share": 0.0874
+            },
+            "instantiation": {
+              "count": 292,
+              "share": 0.0783
+            },
+            "call_attr_other": {
+              "count": 283,
+              "share": 0.0759
+            },
+            "text_only": {
+              "count": 147,
+              "share": 0.0394
+            }
+          }
+        },
+        "task_weighted": {
+          "n": 3729,
+          "how": {
+            "call_direct": {
+              "count": 2681,
+              "share": 0.719
+            },
+            "call_in_nested_scope": {
+              "count": 326,
+              "share": 0.0874
+            },
+            "instantiation": {
+              "count": 292,
+              "share": 0.0783
+            },
+            "call_attr_other": {
+              "count": 283,
+              "share": 0.0759
+            },
+            "text_only": {
+              "count": 147,
+              "share": 0.0394
+            }
+          }
+        },
+        "explicit_callsite_share": {
+          "k": 3256,
+          "n": 3729,
+          "p": 0.8732,
+          "lo": 0.8621,
+          "hi": 0.8835
+        },
+        "callee_name_shared_share": {
+          "k": 548,
+          "n": 3729,
+          "p": 0.147,
+          "lo": 0.136,
+          "hi": 0.1587
+        },
+        "median_n_same_name": 1,
+        "channel": {
+          "direct": 3729
+        },
+        "direct_channel_how": {
+          "n": 3729,
+          "how": {
+            "call_direct": {
+              "count": 2681,
+              "share": 0.719
+            },
+            "call_in_nested_scope": {
+              "count": 326,
+              "share": 0.0874
+            },
+            "instantiation": {
+              "count": 292,
+              "share": 0.0783
+            },
+            "call_attr_other": {
+              "count": 283,
+              "share": 0.0759
+            },
+            "text_only": {
+              "count": 147,
+              "share": 0.0394
+            }
+          }
+        }
+      }
+    },
+    "psf/requests": {
+      "unconfirmed": {
+        "unique_edges": {
+          "n": 975,
+          "how": {
+            "no_reference": {
+              "count": 811,
+              "share": 0.8318
+            },
+            "text_only": {
+              "count": 130,
+              "share": 0.1333
+            },
+            "call_direct": {
+              "count": 11,
+              "share": 0.0113
+            },
+            "referenced": {
+              "count": 8,
+              "share": 0.0082
+            },
+            "implicit_dunder": {
+              "count": 5,
+              "share": 0.0051
+            },
+            "call_attr_other": {
+              "count": 5,
+              "share": 0.0051
+            },
+            "call_in_nested_scope": {
+              "count": 5,
+              "share": 0.0051
+            }
+          }
+        },
+        "task_weighted": {
+          "n": 975,
+          "how": {
+            "no_reference": {
+              "count": 811,
+              "share": 0.8318
+            },
+            "text_only": {
+              "count": 130,
+              "share": 0.1333
+            },
+            "call_direct": {
+              "count": 11,
+              "share": 0.0113
+            },
+            "referenced": {
+              "count": 8,
+              "share": 0.0082
+            },
+            "implicit_dunder": {
+              "count": 5,
+              "share": 0.0051
+            },
+            "call_attr_other": {
+              "count": 5,
+              "share": 0.0051
+            },
+            "call_in_nested_scope": {
+              "count": 5,
+              "share": 0.0051
+            }
+          }
+        },
+        "explicit_callsite_share": {
+          "k": 16,
+          "n": 975,
+          "p": 0.0164,
+          "lo": 0.0101,
+          "hi": 0.0265
+        },
+        "callee_name_shared_share": {
+          "k": 110,
+          "n": 975,
+          "p": 0.1128,
+          "lo": 0.0945,
+          "hi": 0.1342
+        },
+        "median_n_same_name": 1
+      },
+      "missed": {
+        "unique_edges": {
+          "n": 860,
+          "how": {
+            "call_self": {
+              "count": 292,
+              "share": 0.3395
+            },
+            "implicit_dunder": {
+              "count": 221,
+              "share": 0.257
+            },
+            "no_reference": {
+              "count": 149,
+              "share": 0.1733
+            },
+            "call_attr_other": {
+              "count": 93,
+              "share": 0.1081
+            },
+            "referenced": {
+              "count": 71,
+              "share": 0.0826
+            },
+            "call_direct": {
+              "count": 25,
+              "share": 0.0291
+            },
+            "instantiation": {
+              "count": 6,
+              "share": 0.007
+            },
+            "text_only": {
+              "count": 3,
+              "share": 0.0035
+            }
+          }
+        },
+        "task_weighted": {
+          "n": 860,
+          "how": {
+            "call_self": {
+              "count": 292,
+              "share": 0.3395
+            },
+            "implicit_dunder": {
+              "count": 221,
+              "share": 0.257
+            },
+            "no_reference": {
+              "count": 149,
+              "share": 0.1733
+            },
+            "call_attr_other": {
+              "count": 93,
+              "share": 0.1081
+            },
+            "referenced": {
+              "count": 71,
+              "share": 0.0826
+            },
+            "call_direct": {
+              "count": 25,
+              "share": 0.0291
+            },
+            "instantiation": {
+              "count": 6,
+              "share": 0.007
+            },
+            "text_only": {
+              "count": 3,
+              "share": 0.0035
+            }
+          }
+        },
+        "explicit_callsite_share": {
+          "k": 416,
+          "n": 860,
+          "p": 0.4837,
+          "lo": 0.4505,
+          "hi": 0.5171
+        },
+        "callee_name_shared_share": {
+          "k": 333,
+          "n": 860,
+          "p": 0.3872,
+          "lo": 0.3552,
+          "hi": 0.4202
+        },
+        "median_n_same_name": 1,
+        "channel": {
+          "direct": 689,
+          "vialib": 171
+        },
+        "direct_channel_how": {
+          "n": 689,
+          "how": {
+            "call_self": {
+              "count": 292,
+              "share": 0.4238
+            },
+            "implicit_dunder": {
+              "count": 106,
+              "share": 0.1538
+            },
+            "no_reference": {
+              "count": 94,
+              "share": 0.1364
+            },
+            "call_attr_other": {
+              "count": 93,
+              "share": 0.135
+            },
+            "referenced": {
+              "count": 71,
+              "share": 0.103
+            },
+            "call_direct": {
+              "count": 24,
+              "share": 0.0348
+            },
+            "instantiation": {
+              "count": 6,
+              "share": 0.0087
+            },
+            "text_only": {
+              "count": 3,
+              "share": 0.0044
+            }
+          }
+        }
+      },
+      "captured": {
+        "unique_edges": {
+          "n": 534,
+          "how": {
+            "call_direct": {
+              "count": 402,
+              "share": 0.7528
+            },
+            "instantiation": {
+              "count": 87,
+              "share": 0.1629
+            },
+            "text_only": {
+              "count": 33,
+              "share": 0.0618
+            },
+            "no_reference": {
+              "count": 7,
+              "share": 0.0131
+            },
+            "referenced": {
+              "count": 5,
+              "share": 0.0094
+            }
+          }
+        },
+        "task_weighted": {
+          "n": 534,
+          "how": {
+            "call_direct": {
+              "count": 402,
+              "share": 0.7528
+            },
+            "instantiation": {
+              "count": 87,
+              "share": 0.1629
+            },
+            "text_only": {
+              "count": 33,
+              "share": 0.0618
+            },
+            "no_reference": {
+              "count": 7,
+              "share": 0.0131
+            },
+            "referenced": {
+              "count": 5,
+              "share": 0.0094
+            }
+          }
+        },
+        "explicit_callsite_share": {
+          "k": 489,
+          "n": 534,
+          "p": 0.9157,
+          "lo": 0.8891,
+          "hi": 0.9364
+        },
+        "callee_name_shared_share": {
+          "k": 20,
+          "n": 534,
+          "p": 0.0375,
+          "lo": 0.0244,
+          "hi": 0.0571
+        },
+        "median_n_same_name": 1,
+        "channel": {
+          "direct": 526,
+          "vialib": 8
+        },
+        "direct_channel_how": {
+          "n": 526,
+          "how": {
+            "call_direct": {
+              "count": 394,
+              "share": 0.749
+            },
+            "instantiation": {
+              "count": 87,
+              "share": 0.1654
+            },
+            "text_only": {
+              "count": 33,
+              "share": 0.0627
+            },
+            "no_reference": {
+              "count": 7,
+              "share": 0.0133
+            },
+            "referenced": {
+              "count": 5,
+              "share": 0.0095
+            }
+          }
+        }
+      }
+    }
+  },
+  "how_definitions": {
+    "call_direct": "callee() by bare name",
+    "call_self": "self.callee() / cls.callee()",
+    "call_super": "super().callee()",
+    "call_attr_other": "obj.callee() on any other object",
+    "instantiation": "Callee() where the callee is a class (or a collapsed __init__)",
+    "call_in_nested_scope": "explicit call, but inside a def/class nested in the caller",
+    "referenced": "name used without a call (callback, decorator, passed, assigned)",
+    "implicit_dunder": "callee is a dunder method and nothing in the caller names it",
+    "text_only": "name appears only in a string or comment of the caller",
+    "no_reference": "the caller's own code does not mention the callee at all",
+    "caller_not_found": "caller node id not located in the snapshot"
+  },
+  "notes": "Unconfirmed edges with an explicit callsite are plausible calls that the tests did not run (or a name match to a same-named method of another class). no_reference / text_only unconfirmed edges are spurious. Compare callee_name_shared_share across populations: a name-matching generator inflates it for unconfirmed edges relative to captured ones."
+}

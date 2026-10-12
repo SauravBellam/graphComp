@@ -1,0 +1,968 @@
+$ /usr/bin/python3 /home/sauravbellam/graphComp/governDynamics-upbeat-gauss-uswau0/planA/a1_census.py --data /home/sauravbellam/graphComp/archive --out /home/sauravbellam/results/a1 --cache /home/sauravbellam/cache --shard 6/8
+
+[a1] 16 tasks (shard=6/8)
+[a1] 1/16 fastapi_14964: graph=y snap=y gold=2 present=2 d=0 v_file=1
+[a1] 2/16 requests_7315: graph=y snap=y gold=1 present=1 d=0 v_file=3
+[a1] 3/16 rich_4075: graph=y snap=y gold=2 present=2 d=None v_file=15
+[a1] 4/16 fastapi_14492: graph=y snap=y gold=0 present=0 d=None v_file=None
+[a1] 5/16 fastapi_14512: graph=y snap=y gold=2 present=1 d=4 v_file=20
+[a1] 6/16 fastapi_14448: graph=y snap=y gold=8 present=5 d=7 v_file=12
+[a1] 7/16 fastapi_14360: graph=y snap=y gold=1 present=1 d=4 v_file=4
+[a1] 8/16 fastapi_14186: graph=y snap=y gold=30 present=30 d=None v_file=3
+[a1] 9/16 rich_3942: graph=y snap=y gold=5 present=4 d=None v_file=1
+[a1] 10/16 fastapi_14791: graph=y snap=y gold=0 present=0 d=None v_file=7
+[a1] 11/16 fastapi_14297: graph=y snap=y gold=1 present=1 d=None v_file=1
+[a1] 12/16 requests_6629: graph=y snap=y gold=2 present=1 d=0 v_file=7
+[a1] 13/16 rich_3782: graph=y snap=y gold=9 present=6 d=None v_file=9
+[a1] 14/16 rich_3506: graph=y snap=y gold=1 present=1 d=0 v_file=4
+[a1] 15/16 rich_3278: graph=y snap=y gold=0 present=0 d=None v_file=23
+[a1] 16/16 rich_3064: graph=y snap=y gold=1 present=1 d=None v_file=4
+{
+  "n_tasks": 16,
+  "per_repo": {
+    "fastapi/fastapi": 8,
+    "psf/requests": 2,
+    "Textualize/rich": 6
+  },
+  "n_graphs": 16,
+  "tasks_graph_missing": 0,
+  "tasks_snapshot_missing": 0,
+  "gold_symbols": 65,
+  "gold_symbols_present": 56,
+  "gold_async": 1,
+  "gold_async_present": 0,
+  "gold_nested": 0,
+  "tasks_module_level_only": 3,
+  "tasks_multi_file": 3,
+  "tasks_d_defined": 7,
+  "tasks_v_defined": 15,
+  "tasks_v_snap_defined": 16,
+  "v_snap_file_rank_src_le5": 10,
+  "tasks_zero_identifiers": 1,
+  "d_any_undirected_hist": {
+    "0": 4,
+    "None": 9,
+    "4": 2,
+    "7": 1
+  },
+  "d_strict_undirected_hist": {
+    "0": 4,
+    "None": 10,
+    "4": 2
+  },
+  "v_file_rank_le5": 8,
+  "identifier_tier_hist": {
+    "suffix": 15,
+    "substring": 23,
+    "none": 66,
+    "ci": 1,
+    "exact": 2
+  },
+  "identifier_resolved_to_test_node": 12,
+  "identifier_resolved_to_gold": 11,
+  "edge_types_union": {
+    "calls": 57308
+  },
+  "omission_direct_files": {
+    "function": {
+      "total": 35823,
+      "present": 35587,
+      "present_rate": {
+        "k": 35587,
+        "n": 35823,
+        "p": 0.9934,
+        "lo": 0.9925,
+        "hi": 0.9942
+      }
+    },
+    "async_function": {
+      "total": 5573,
+      "present": 0,
+      "present_rate": {
+        "k": 0,
+        "n": 5573,
+        "p": 0.0,
+        "lo": 0.0,
+        "hi": 0.0007
+      }
+    },
+    "class": {
+      "total": 7954,
+      "present": 7783,
+      "present_rate": {
+        "k": 7783,
+        "n": 7954,
+        "p": 0.9785,
+        "lo": 0.9751,
+        "hi": 0.9815
+      }
+    },
+    "nested": {
+      "total": 3255,
+      "present": 0,
+      "present_rate": {
+        "k": 0,
+        "n": 3255,
+        "p": 0.0,
+        "lo": 0.0,
+        "hi": 0.0012
+      }
+    }
+  },
+  "omission_direct_source_files": {
+    "function": {
+      "total": 11543,
+      "present": 11543,
+      "present_rate": {
+        "k": 11543,
+        "n": 11543,
+        "p": 1.0,
+        "lo": 0.9997,
+        "hi": 1.0
+      }
+    },
+    "async_function": {
+      "total": 3510,
+      "present": 0,
+      "present_rate": {
+        "k": 0,
+        "n": 3510,
+        "p": 0.0,
+        "lo": 0.0,
+        "hi": 0.0011
+      }
+    },
+    "class": {
+      "total": 6056,
+      "present": 5913,
+      "present_rate": {
+        "k": 5913,
+        "n": 6056,
+        "p": 0.9764,
+        "lo": 0.9723,
+        "hi": 0.9799
+      }
+    },
+    "nested": {
+      "total": 580,
+      "present": 0,
+      "present_rate": {
+        "k": 0,
+        "n": 580,
+        "p": 0.0,
+        "lo": 0.0,
+        "hi": 0.0066
+      }
+    }
+  },
+  "omission_direct_test_files": {
+    "function": {
+      "total": 24280,
+      "present": 24044,
+      "present_rate": {
+        "k": 24044,
+        "n": 24280,
+        "p": 0.9903,
+        "lo": 0.989,
+        "hi": 0.9914
+      }
+    },
+    "async_function": {
+      "total": 2063,
+      "present": 0,
+      "present_rate": {
+        "k": 0,
+        "n": 2063,
+        "p": 0.0,
+        "lo": 0.0,
+        "hi": 0.0019
+      }
+    },
+    "class": {
+      "total": 1898,
+      "present": 1870,
+      "present_rate": {
+        "k": 1870,
+        "n": 1898,
+        "p": 0.9852,
+        "lo": 0.9788,
+        "hi": 0.9898
+      }
+    },
+    "nested": {
+      "total": 2675,
+      "present": 0,
+      "present_rate": {
+        "k": 0,
+        "n": 2675,
+        "p": 0.0,
+        "lo": 0.0,
+        "hi": 0.0014
+      }
+    }
+  },
+  "omission_inferred_module_files": {
+    "function": {
+      "total": 0,
+      "present": 0,
+      "present_rate": {
+        "k": 0,
+        "n": 0,
+        "p": null,
+        "lo": null,
+        "hi": null
+      }
+    },
+    "async_function": {
+      "total": 1352,
+      "present": 0,
+      "present_rate": {
+        "k": 0,
+        "n": 1352,
+        "p": 0.0,
+        "lo": 0.0,
+        "hi": 0.0028
+      }
+    },
+    "class": {
+      "total": 0,
+      "present": 0,
+      "present_rate": {
+        "k": 0,
+        "n": 0,
+        "p": null,
+        "lo": null,
+        "hi": null
+      }
+    },
+    "nested": {
+      "total": 0,
+      "present": 0,
+      "present_rate": {
+        "k": 0,
+        "n": 0,
+        "p": null,
+        "lo": null,
+        "hi": null
+      }
+    }
+  },
+  "misresolution": {
+    "function|present|q_name": {
+      "n": 35587,
+      "outcomes": {
+        "wrong_node": 14595,
+        "self": 20992
+      },
+      "wrong_node_rate": {
+        "k": 14595,
+        "n": 35587,
+        "p": 0.4101,
+        "lo": 0.405,
+        "hi": 0.4152
+      },
+      "wrong_node_tiers": {
+        "suffix": 14595
+      },
+      "wrong_node_is_test": 8938,
+      "wrong_node_same_name": 14595
+    },
+    "function|present|q_qual": {
+      "n": 7182,
+      "outcomes": {
+        "self": 6824,
+        "wrong_node": 358
+      },
+      "wrong_node_rate": {
+        "k": 358,
+        "n": 7182,
+        "p": 0.0498,
+        "lo": 0.045,
+        "hi": 0.0551
+      },
+      "wrong_node_tiers": {
+        "suffix": 358
+      },
+      "wrong_node_is_test": 79,
+      "wrong_node_same_name": 358
+    },
+    "function|absent|q_name": {
+      "n": 236,
+      "outcomes": {
+        "wrong_node": 236
+      },
+      "wrong_node_rate": {
+        "k": 236,
+        "n": 236,
+        "p": 1.0,
+        "lo": 0.984,
+        "hi": 1.0
+      },
+      "wrong_node_tiers": {
+        "suffix": 236
+      },
+      "wrong_node_is_test": 236,
+      "wrong_node_same_name": 236
+    },
+    "function|absent|q_qual": {
+      "n": 236,
+      "outcomes": {
+        "no_match": 234,
+        "wrong_node": 2
+      },
+      "wrong_node_rate": {
+        "k": 2,
+        "n": 236,
+        "p": 0.0085,
+        "lo": 0.0023,
+        "hi": 0.0304
+      },
+      "wrong_node_tiers": {
+        "substring": 2
+      },
+      "wrong_node_is_test": 2,
+      "wrong_node_same_name": 0
+    },
+    "async_function|absent|q_name": {
+      "n": 6925,
+      "outcomes": {
+        "wrong_node": 4580,
+        "no_match": 2345
+      },
+      "wrong_node_rate": {
+        "k": 4580,
+        "n": 6925,
+        "p": 0.6614,
+        "lo": 0.6501,
+        "hi": 0.6724
+      },
+      "wrong_node_tiers": {
+        "suffix": 3613,
+        "ci": 189,
+        "substring": 778
+      },
+      "wrong_node_is_test": 3378,
+      "wrong_node_same_name": 3613
+    },
+    "async_function|absent|q_qual": {
+      "n": 293,
+      "outcomes": {
+        "no_match": 293
+      },
+      "wrong_node_rate": {
+        "k": 0,
+        "n": 293,
+        "p": 0.0,
+        "lo": 0.0,
+        "hi": 0.0129
+      },
+      "wrong_node_tiers": {},
+      "wrong_node_is_test": 0,
+      "wrong_node_same_name": 0
+    },
+    "class|present|q_name": {
+      "n": 7783,
+      "outcomes": {
+        "wrong_node": 3778,
+        "self": 4005
+      },
+      "wrong_node_rate": {
+        "k": 3778,
+        "n": 7783,
+        "p": 0.4854,
+        "lo": 0.4743,
+        "hi": 0.4965
+      },
+      "wrong_node_tiers": {
+        "suffix": 3778
+      },
+      "wrong_node_is_test": 807,
+      "wrong_node_same_name": 3778
+    },
+    "class|absent|q_name": {
+      "n": 171,
+      "outcomes": {
+        "wrong_node": 171
+      },
+      "wrong_node_rate": {
+        "k": 171,
+        "n": 171,
+        "p": 1.0,
+        "lo": 0.978,
+        "hi": 1.0
+      },
+      "wrong_node_tiers": {
+        "suffix": 171
+      },
+      "wrong_node_is_test": 0,
+      "wrong_node_same_name": 171
+    },
+    "class|absent|q_qual": {
+      "n": 171,
+      "outcomes": {
+        "no_match": 167,
+        "wrong_node": 4
+      },
+      "wrong_node_rate": {
+        "k": 4,
+        "n": 171,
+        "p": 0.0234,
+        "lo": 0.0091,
+        "hi": 0.0586
+      },
+      "wrong_node_tiers": {
+        "substring": 4
+      },
+      "wrong_node_is_test": 4,
+      "wrong_node_same_name": 4
+    }
+  },
+  "omission_per_repo": {
+    "fastapi/fastapi": {
+      "function": {
+        "total": 24697,
+        "present": 24697,
+        "present_rate": {
+          "k": 24697,
+          "n": 24697,
+          "p": 1.0,
+          "lo": 0.9998,
+          "hi": 1.0
+        }
+      },
+      "async_function": {
+        "total": 5573,
+        "present": 0,
+        "present_rate": {
+          "k": 0,
+          "n": 5573,
+          "p": 0.0,
+          "lo": 0.0,
+          "hi": 0.0007
+        }
+      },
+      "class": {
+        "total": 6517,
+        "present": 6346,
+        "present_rate": {
+          "k": 6346,
+          "n": 6517,
+          "p": 0.9738,
+          "lo": 0.9696,
+          "hi": 0.9774
+        }
+      },
+      "nested": {
+        "total": 2050,
+        "present": 0,
+        "present_rate": {
+          "k": 0,
+          "n": 2050,
+          "p": 0.0,
+          "lo": 0.0,
+          "hi": 0.0019
+        }
+      }
+    },
+    "psf/requests": {
+      "function": {
+        "total": 1185,
+        "present": 949,
+        "present_rate": {
+          "k": 949,
+          "n": 1185,
+          "p": 0.8008,
+          "lo": 0.7771,
+          "hi": 0.8226
+        }
+      },
+      "async_function": {
+        "total": 0,
+        "present": 0,
+        "present_rate": {
+          "k": 0,
+          "n": 0,
+          "p": null,
+          "lo": null,
+          "hi": null
+        }
+      },
+      "class": {
+        "total": 139,
+        "present": 139,
+        "present_rate": {
+          "k": 139,
+          "n": 139,
+          "p": 1.0,
+          "lo": 0.9731,
+          "hi": 1.0
+        }
+      },
+      "nested": {
+        "total": 160,
+        "present": 0,
+        "present_rate": {
+          "k": 0,
+          "n": 160,
+          "p": 0.0,
+          "lo": 0.0,
+          "hi": 0.0234
+        }
+      }
+    },
+    "Textualize/rich": {
+      "function": {
+        "total": 9941,
+        "present": 9941,
+        "present_rate": {
+          "k": 9941,
+          "n": 9941,
+          "p": 1.0,
+          "lo": 0.9996,
+          "hi": 1.0
+        }
+      },
+      "async_function": {
+        "total": 0,
+        "present": 0,
+        "present_rate": {
+          "k": 0,
+          "n": 0,
+          "p": null,
+          "lo": null,
+          "hi": null
+        }
+      },
+      "class": {
+        "total": 1298,
+        "present": 1298,
+        "present_rate": {
+          "k": 1298,
+          "n": 1298,
+          "p": 1.0,
+          "lo": 0.997,
+          "hi": 1.0
+        }
+      },
+      "nested": {
+        "total": 1045,
+        "present": 0,
+        "present_rate": {
+          "k": 0,
+          "n": 1045,
+          "p": 0.0,
+          "lo": 0.0,
+          "hi": 0.0037
+        }
+      }
+    }
+  },
+  "misresolution_per_repo": {
+    "fastapi/fastapi": {
+      "function|present|q_name": {
+        "n": 24697,
+        "outcomes": {
+          "wrong_node": 11614,
+          "self": 13083
+        },
+        "wrong_node_rate": {
+          "k": 11614,
+          "n": 24697,
+          "p": 0.4703,
+          "lo": 0.464,
+          "hi": 0.4765
+        },
+        "wrong_node_tiers": {
+          "suffix": 11614
+        },
+        "wrong_node_is_test": 8469,
+        "wrong_node_same_name": 11614
+      },
+      "function|present|q_qual": {
+        "n": 1612,
+        "outcomes": {
+          "self": 1285,
+          "wrong_node": 327
+        },
+        "wrong_node_rate": {
+          "k": 327,
+          "n": 1612,
+          "p": 0.2029,
+          "lo": 0.1839,
+          "hi": 0.2232
+        },
+        "wrong_node_tiers": {
+          "suffix": 327
+        },
+        "wrong_node_is_test": 65,
+        "wrong_node_same_name": 327
+      },
+      "async_function|absent|q_name": {
+        "n": 6925,
+        "outcomes": {
+          "wrong_node": 4580,
+          "no_match": 2345
+        },
+        "wrong_node_rate": {
+          "k": 4580,
+          "n": 6925,
+          "p": 0.6614,
+          "lo": 0.6501,
+          "hi": 0.6724
+        },
+        "wrong_node_tiers": {
+          "suffix": 3613,
+          "ci": 189,
+          "substring": 778
+        },
+        "wrong_node_is_test": 3378,
+        "wrong_node_same_name": 3613
+      },
+      "async_function|absent|q_qual": {
+        "n": 293,
+        "outcomes": {
+          "no_match": 293
+        },
+        "wrong_node_rate": {
+          "k": 0,
+          "n": 293,
+          "p": 0.0,
+          "lo": 0.0,
+          "hi": 0.0129
+        },
+        "wrong_node_tiers": {},
+        "wrong_node_is_test": 0,
+        "wrong_node_same_name": 0
+      },
+      "class|present|q_name": {
+        "n": 6346,
+        "outcomes": {
+          "wrong_node": 3717,
+          "self": 2629
+        },
+        "wrong_node_rate": {
+          "k": 3717,
+          "n": 6346,
+          "p": 0.5857,
+          "lo": 0.5736,
+          "hi": 0.5978
+        },
+        "wrong_node_tiers": {
+          "suffix": 3717
+        },
+        "wrong_node_is_test": 805,
+        "wrong_node_same_name": 3717
+      },
+      "class|absent|q_name": {
+        "n": 171,
+        "outcomes": {
+          "wrong_node": 171
+        },
+        "wrong_node_rate": {
+          "k": 171,
+          "n": 171,
+          "p": 1.0,
+          "lo": 0.978,
+          "hi": 1.0
+        },
+        "wrong_node_tiers": {
+          "suffix": 171
+        },
+        "wrong_node_is_test": 0,
+        "wrong_node_same_name": 171
+      },
+      "class|absent|q_qual": {
+        "n": 171,
+        "outcomes": {
+          "no_match": 167,
+          "wrong_node": 4
+        },
+        "wrong_node_rate": {
+          "k": 4,
+          "n": 171,
+          "p": 0.0234,
+          "lo": 0.0091,
+          "hi": 0.0586
+        },
+        "wrong_node_tiers": {
+          "substring": 4
+        },
+        "wrong_node_is_test": 4,
+        "wrong_node_same_name": 4
+      }
+    },
+    "psf/requests": {
+      "function|present|q_name": {
+        "n": 949,
+        "outcomes": {
+          "self": 783,
+          "wrong_node": 166
+        },
+        "wrong_node_rate": {
+          "k": 166,
+          "n": 949,
+          "p": 0.1749,
+          "lo": 0.1521,
+          "hi": 0.2004
+        },
+        "wrong_node_tiers": {
+          "suffix": 166
+        },
+        "wrong_node_is_test": 47,
+        "wrong_node_same_name": 166
+      },
+      "function|present|q_qual": {
+        "n": 678,
+        "outcomes": {
+          "self": 670,
+          "wrong_node": 8
+        },
+        "wrong_node_rate": {
+          "k": 8,
+          "n": 678,
+          "p": 0.0118,
+          "lo": 0.006,
+          "hi": 0.0231
+        },
+        "wrong_node_tiers": {
+          "suffix": 8
+        },
+        "wrong_node_is_test": 8,
+        "wrong_node_same_name": 8
+      },
+      "function|absent|q_name": {
+        "n": 236,
+        "outcomes": {
+          "wrong_node": 236
+        },
+        "wrong_node_rate": {
+          "k": 236,
+          "n": 236,
+          "p": 1.0,
+          "lo": 0.984,
+          "hi": 1.0
+        },
+        "wrong_node_tiers": {
+          "suffix": 236
+        },
+        "wrong_node_is_test": 236,
+        "wrong_node_same_name": 236
+      },
+      "function|absent|q_qual": {
+        "n": 236,
+        "outcomes": {
+          "no_match": 234,
+          "wrong_node": 2
+        },
+        "wrong_node_rate": {
+          "k": 2,
+          "n": 236,
+          "p": 0.0085,
+          "lo": 0.0023,
+          "hi": 0.0304
+        },
+        "wrong_node_tiers": {
+          "substring": 2
+        },
+        "wrong_node_is_test": 2,
+        "wrong_node_same_name": 0
+      },
+      "class|present|q_name": {
+        "n": 139,
+        "outcomes": {
+          "self": 137,
+          "wrong_node": 2
+        },
+        "wrong_node_rate": {
+          "k": 2,
+          "n": 139,
+          "p": 0.0144,
+          "lo": 0.004,
+          "hi": 0.0509
+        },
+        "wrong_node_tiers": {
+          "suffix": 2
+        },
+        "wrong_node_is_test": 2,
+        "wrong_node_same_name": 2
+      }
+    },
+    "Textualize/rich": {
+      "function|present|q_name": {
+        "n": 9941,
+        "outcomes": {
+          "self": 7126,
+          "wrong_node": 2815
+        },
+        "wrong_node_rate": {
+          "k": 2815,
+          "n": 9941,
+          "p": 0.2832,
+          "lo": 0.2744,
+          "hi": 0.2921
+        },
+        "wrong_node_tiers": {
+          "suffix": 2815
+        },
+        "wrong_node_is_test": 422,
+        "wrong_node_same_name": 2815
+      },
+      "function|present|q_qual": {
+        "n": 4892,
+        "outcomes": {
+          "self": 4869,
+          "wrong_node": 23
+        },
+        "wrong_node_rate": {
+          "k": 23,
+          "n": 4892,
+          "p": 0.0047,
+          "lo": 0.0031,
+          "hi": 0.007
+        },
+        "wrong_node_tiers": {
+          "suffix": 23
+        },
+        "wrong_node_is_test": 6,
+        "wrong_node_same_name": 23
+      },
+      "class|present|q_name": {
+        "n": 1298,
+        "outcomes": {
+          "self": 1239,
+          "wrong_node": 59
+        },
+        "wrong_node_rate": {
+          "k": 59,
+          "n": 1298,
+          "p": 0.0455,
+          "lo": 0.0354,
+          "hi": 0.0582
+        },
+        "wrong_node_tiers": {
+          "suffix": 59
+        },
+        "wrong_node_is_test": 0,
+        "wrong_node_same_name": 59
+      }
+    }
+  },
+  "task_rates": {
+    "d_defined": {
+      "k": 7,
+      "n": 16,
+      "p": 0.4375,
+      "lo": 0.231,
+      "hi": 0.6682
+    },
+    "v_high": {
+      "k": 8,
+      "n": 16,
+      "p": 0.5,
+      "lo": 0.28,
+      "hi": 0.72
+    },
+    "has_gold_async": {
+      "k": 1,
+      "n": 16,
+      "p": 0.0625,
+      "lo": 0.0111,
+      "hi": 0.2833
+    },
+    "gold_query_wrong_node": {
+      "k": 2,
+      "n": 16,
+      "p": 0.125,
+      "lo": 0.035,
+      "hi": 0.3602
+    }
+  },
+  "gold_symbol_present_rate": {
+    "k": 56,
+    "n": 65,
+    "p": 0.8615,
+    "lo": 0.7573,
+    "hi": 0.9254
+  },
+  "gold_async_present_rate": {
+    "k": 0,
+    "n": 1,
+    "p": 0.0,
+    "lo": 0.0,
+    "hi": 0.7935
+  },
+  "task_rates_per_repo": {
+    "fastapi/fastapi": {
+      "n": 8,
+      "has_gold_async": {
+        "k": 1,
+        "n": 8,
+        "p": 0.125,
+        "lo": 0.0224,
+        "hi": 0.4709
+      },
+      "gold_query_wrong_node": {
+        "k": 2,
+        "n": 8,
+        "p": 0.25,
+        "lo": 0.0715,
+        "hi": 0.5907
+      },
+      "d_defined": {
+        "k": 4,
+        "n": 8,
+        "p": 0.5,
+        "lo": 0.2152,
+        "hi": 0.7848
+      }
+    },
+    "psf/requests": {
+      "n": 2,
+      "has_gold_async": {
+        "k": 0,
+        "n": 2,
+        "p": 0.0,
+        "lo": 0.0,
+        "hi": 0.6576
+      },
+      "gold_query_wrong_node": {
+        "k": 0,
+        "n": 2,
+        "p": 0.0,
+        "lo": 0.0,
+        "hi": 0.6576
+      },
+      "d_defined": {
+        "k": 2,
+        "n": 2,
+        "p": 1.0,
+        "lo": 0.3424,
+        "hi": 1.0
+      }
+    },
+    "Textualize/rich": {
+      "n": 6,
+      "has_gold_async": {
+        "k": 0,
+        "n": 6,
+        "p": 0.0,
+        "lo": 0.0,
+        "hi": 0.3903
+      },
+      "gold_query_wrong_node": {
+        "k": 0,
+        "n": 6,
+        "p": 0.0,
+        "lo": 0.0,
+        "hi": 0.3903
+      },
+      "d_defined": {
+        "k": 1,
+        "n": 6,
+        "p": 0.1667,
+        "lo": 0.0301,
+        "hi": 0.5635
+      }
+    }
+  }
+}

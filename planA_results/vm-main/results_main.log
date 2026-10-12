@@ -1,0 +1,124 @@
+START Sat Oct 10 23:10:19 UTC 2026
+[run_all] a1_shard7: exit=0 (113.0s) log=/home/sauravbellam/results/logs/a1_shard7.log
+[run_all] a1_shard6: exit=0 (114.1s) log=/home/sauravbellam/results/logs/a1_shard6.log
+[run_all] a1_shard5: exit=0 (116.1s) log=/home/sauravbellam/results/logs/a1_shard5.log
+[run_all] a1_shard4: exit=0 (116.4s) log=/home/sauravbellam/results/logs/a1_shard4.log
+[run_all] a1_shard0: exit=0 (125.8s) log=/home/sauravbellam/results/logs/a1_shard0.log
+[run_all] a1_shard1: exit=0 (126.5s) log=/home/sauravbellam/results/logs/a1_shard1.log
+[run_all] a1_shard2: exit=0 (128.9s) log=/home/sauravbellam/results/logs/a1_shard2.log
+[run_all] a1_shard3: exit=0 (134.9s) log=/home/sauravbellam/results/logs/a1_shard3.log
+[run_all] a1_merge: exit=0 (21.5s) log=/home/sauravbellam/results/logs/a1_merge.log
+[run_all] a5: exit=0 (102.4s) log=/home/sauravbellam/results/logs/a5.log
+[run_all] a4: exit=0 (146.4s) log=/home/sauravbellam/results/logs/a4.log
+{
+  "data": "/home/sauravbellam/graphComp/archive",
+  "out": "/home/sauravbellam/results",
+  "stages": [
+    "a1",
+    "a4",
+    "a5"
+  ],
+  "steps": [
+    {
+      "name": "a1_shard0",
+      "exit": 0,
+      "seconds": 125.8,
+      "log": "/home/sauravbellam/results/logs/a1_shard0.log"
+    },
+    {
+      "name": "a1_shard1",
+      "exit": 0,
+      "seconds": 126.5,
+      "log": "/home/sauravbellam/results/logs/a1_shard1.log"
+    },
+    {
+      "name": "a1_shard2",
+      "exit": 0,
+      "seconds": 128.9,
+      "log": "/home/sauravbellam/results/logs/a1_shard2.log"
+    },
+    {
+      "name": "a1_shard3",
+      "exit": 0,
+      "seconds": 134.9,
+      "log": "/home/sauravbellam/results/logs/a1_shard3.log"
+    },
+    {
+      "name": "a1_shard4",
+      "exit": 0,
+      "seconds": 116.4,
+      "log": "/home/sauravbellam/results/logs/a1_shard4.log"
+    },
+    {
+      "name": "a1_shard5",
+      "exit": 0,
+      "seconds": 116.1,
+      "log": "/home/sauravbellam/results/logs/a1_shard5.log"
+    },
+    {
+      "name": "a1_shard6",
+      "exit": 0,
+      "seconds": 114.1,
+      "log": "/home/sauravbellam/results/logs/a1_shard6.log"
+    },
+    {
+      "name": "a1_shard7",
+      "exit": 0,
+      "seconds": 113.0,
+      "log": "/home/sauravbellam/results/logs/a1_shard7.log"
+    },
+    {
+      "name": "a1_merge",
+      "exit": 0,
+      "seconds": 21.5,
+      "log": "/home/sauravbellam/results/logs/a1_merge.log"
+    },
+    {
+      "name": "a4",
+      "exit": 0,
+      "seconds": 146.4,
+      "log": "/home/sauravbellam/results/logs/a4.log"
+    },
+    {
+      "name": "a5",
+      "exit": 0,
+      "seconds": 102.4,
+      "log": "/home/sauravbellam/results/logs/a5.log"
+    }
+  ],
+  "manifest": {
+    "python": "3.13.5 (main, Aug 10 2026, 12:06:59) [GCC 14.2.0]",
+    "platform": "Linux-6.12.111+deb13-cloud-amd64-x86_64-with-glibc2.41",
+    "tasks_jsonl_sha256": "e4b3fd60f69dbc2b9213e54eeb9636db78aefe92c1d06269d73d9f5f8f3c8ad6",
+    "graphs_files": 127,
+    "graphs_nonempty": 127,
+    "graphs_bytes": 422050109,
+    "embeddings_files": 127,
+    "embeddings_nonempty": 127,
+    "embeddings_bytes": 467546088,
+    "snapshots_files": 130,
+    "snapshots_nonempty": 130,
+    "snapshots_bytes": 21519552603,
+    "wheels_files": 124,
+    "wheels_nonempty": 124,
+    "wheels_bytes": 27810465,
+    "graphs_name_size_digest": "cfe4805bad241dd7e28f2cd84d13e1823c1f6ffb76b674b3796f89f7fb44d1bc",
+    "code_commit": "",
+    "code_dirty": false,
+    "numpy": "2.2.4",
+    "scipy": "1.15.3"
+  },
+  "all_ok": true
+}
+RUN_ALL_EXIT 0 Sat Oct 10 23:15:22 UTC 2026
+[a3] fastapi_ee22a4b8ca46dcce26c8c183afc4992a888d8be2: dim=256 unit_norm=False pc1=0.4437052011489868 cos_to_mean=0.8701869249343872
+[a3] requests_6f205ff422bccd5e4c4fc0b64c5f3e7df5181db6: dim=256 unit_norm=False pc1=0.4986895024776459 cos_to_mean=0.9291486144065857
+[a3] rich_fc41075a3206d2a5fd846c6f41c4d2becab814fa: dim=256 unit_norm=False pc1=0.6750233173370361 cos_to_mean=0.9480270743370056
+[a3] httpx_4acf5c2c37714cc63b5cf71b3e284fca83c90311: dim=256 unit_norm=False pc1=0.7484788298606873 cos_to_mean=0.9329036474227905
+[a3] fastapi_cb83b83dcf78eab4ea17d504db5abcda705fbdc4: dim=256 unit_norm=False pc1=0.44436129927635193 cos_to_mean=0.8702178001403809
+[a3] fastapi_22b02e26f9e8c7e32bd8266e2b0ebe8bb3a0db2b: dim=256 unit_norm=False pc1=0.44388672709465027 cos_to_mean=0.870159387588501
+[a3] fastapi_48d58ae3b6ef4ded5a4794618c00345667256d98: dim=256 unit_norm=False pc1=0.44994503259658813 cos_to_mean=0.8709185719490051
+[a3] fastapi_1e78a36b7310003f0ff634627d8a7bc53c6ccdee: dim=256 unit_norm=False pc1=0.44906896352767944 cos_to_mean=0.8710289597511292
+[a3] fastapi_6ee87478d821171139264cd9cd17cbd2232934ce: dim=256 unit_norm=False pc1=0.44568169116973877 cos_to_mean=0.8700282573699951
+[a3] fastapi_bc06e4296d588f39f38c7ac2fc96d3913c565962: dim=256 unit_norm=False pc1=0.44860726594924927 cos_to_mean=0.8711493015289307
+A3_STATS_EXIT 0 Sat Oct 10 23:15:29 UTC 2026

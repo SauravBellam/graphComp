@@ -1,0 +1,88 @@
+{
+  "instance_id": "rich_4079",
+  "repo": "Textualize/rich",
+  "backend": "venv",
+  "done": true,
+  "deps": {
+    "steps": [
+      {
+        "name": "pip_upgrade",
+        "cmd": "/home/sauravbellam/cache/a2/rich_4079/venv/bin/python -m pip install -q --disable-pip-version-check 'pip>=24' 'setuptools' 'wheel' pytest pytest-timeout",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "editable_no_deps",
+        "cmd": "/home/sauravbellam/cache/a2/rich_4079/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-build-isolation --no-deps -e .",
+        "exit": 2,
+        "stderr_tail": "python3.13/site-packages/pip/_internal/req/req_install.py\", line 258, in supports_pyproject_editable\n    return \"build_editable\" in self.pep517_backend._supported_features()\n                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"/home/sauravbellam/cache/a2/rich_4079/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 180, in _supported_features\n    return self._call_hook(\"_supported_features\", {})\n           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/sauravbellam/cache/a2/rich_4079/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 402, in _call_hook\n    raise BackendUnavailable(\n    ...<4 lines>...\n    )\npip._vendor.pyproject_hooks._impl.BackendUnavailable: Cannot import 'poetry.core.masonry.api'\n"
+      },
+      {
+        "name": "editable_no_deps_isolated",
+        "cmd": "/home/sauravbellam/cache/a2/rich_4079/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-deps -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "runtime_deps",
+        "cmd": "/home/sauravbellam/cache/a2/rich_4079/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "poetry_group_dev",
+        "cmd": "/home/sauravbellam/cache/a2/rich_4079/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels pytest black mypy pytest-cov attrs pre-commit typing-extensions",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "rich_tests",
+        "cmd": "/home/sauravbellam/cache/a2/rich_4079/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels pytest-cov attrs ipywidgets",
+        "exit": 0,
+        "stderr_tail": ""
+      }
+    ],
+    "editable_ok": true,
+    "python": "3.13.5 (main, Aug 10 2026, 12:06:59) [GCC 14.2.0]"
+  },
+  "targets": [
+    "tests/test_markdown.py"
+  ],
+  "test_patch_strategy": "exact",
+  "test_patch_applied": true,
+  "pre": {
+    "exit": 1,
+    "seconds": 1.5,
+    "timeout": false,
+    "exit_meaning": "some_failed",
+    "run_class": "clean",
+    "counts": {
+      "failed": 1,
+      "passed": 7
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": ".......F                                                                 [100%]\n=================================== FAILURES ===================================\n_______________________ test_inline_code_in_table_cells ________________________\n\n    def test_inline_code_in_table_cells() -> None:\n        \"\"\"Test inline code in table cells.\n    \n        Regression test for https://github.com/Textualize/rich/issues/4038\n    \n        \"\"\"\n        markdown = Markdown(\n            \"| Col |\\n|---|\\n| `print('hello');` |\\n\",\n            inline_code_theme=\"monokai\",\n            inline_code_lexer=\"python\",\n        )\n        result = render(markdown)\n        expected = \"\\n\\x1b[36m                 \\x1b[0m\\n\\x1b[36m \\x1b[0m\\x1b[36mCol\\x1b[0m\\x1b[1m            \\x1b[0m\\x1b[36m \\x1b[0m\\n\\x1b[36m \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 \\x1b[0m\\n\\x1b[36m \\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34mprint\\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m(\\x1b[0m\\x1b[38;2;230;219;116;48;2;39;40;34m'\\x1b[0m\\x1b[38;2;230;219;116;48;2;39;40;34mhello\\x1b[0m\\x1b[38;2;230;219;116;48;2;39;40;34m'\\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m)\\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m;\\x1b[0m\\x1b[36m \\x1b[0m\\n\\x1b[36m                 \\x1b[0m\\n\"\n>       assert result == expected\nE       AssertionError: assert '\\n\\x1b[36m  ...    \\x1b[0m\\n' == '\\n\\x1b[36m  ...    \\x1b[0m\\n'\nE         \nE         Skipping 110 identical leading characters in diff, use -v to show\nE         - 36m \u001b[0m\u001b[38;2;248;248;242;48;2;39;40;34mprint\u001b[0m\u001b[38;2;248;248;242;48;2;39;40;34m(\u001b[0m\u001b[38;2;230;219;116;48;2;39;40;34m'\u001b[0m\u001b[38;2;230;219;116;48;2;39;40;34mhello\u001b[0m\u001b[38;2;230;219;116;48;2;39;40;34m'\u001b[0m\u001b[38;2;248;248;242;48;2;39;40;34m)\u001b[0m\u001b[38;2;248;248;242;48;2;39;40;34m;\u001b[0m\u001b[36m \u001b[0m\nE         + 36m \u001b[0m\u001b[1;36;40mprint\u001b[0m\u001b[1;36;40m(\u001b[0m\u001b[1;36;40m'\u001b[0m\u001b[1;36;40mhello\u001b[0m\u001b[1;36;40m'\u001b[0m\u001b[1;36;40m)\u001b[0m\u001b[1;36;40m;\u001b[0m\u001b[36m \u001b[0m\nE           \u001b[36m                 \u001b[0m\n\ntests/test_markdown.py:215: AssertionError\n----------------------------- Captured stdout call -----------------------------\n\"\\n\\x1b[36m                 \\x1b[0m\\n\\x1b[36m \\x1b[0m\\x1b[36mCol\\x1b[0m\\x1b[1m            \\x1b[0m\\x1b[36m \\x1b[0m\\n\\x1b[36m \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 \\x1b[0m\\n\\x1b[36m \\x1b[0m\\x1b[1;36;40mprint\\x1b[0m\\x1b[1;36;40m(\\x1b[0m\\x1b[1;36;40m'\\x1b[0m\\x1b[1;36;40mhello\\x1b[0m\\x1b[1;36;40m'\\x1b[0m\\x1b[1;36;40m)\\x1b[0m\\x1b[1;36;40m;\\x1b[0m\\x1b[36m \\x1b[0m\\n\\x1b[36m                 \\x1b[0m\\n\"\n1 failed, 7 passed in 0.89s\n",
+    "stderr_tail": ""
+  },
+  "gold_patch_strategy": "exact",
+  "gold_patch_applied": true,
+  "post": {
+    "exit": 1,
+    "seconds": 1.5,
+    "timeout": false,
+    "exit_meaning": "some_failed",
+    "run_class": "clean",
+    "counts": {
+      "failed": 1,
+      "passed": 7
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": ".......F                                                                 [100%]\n=================================== FAILURES ===================================\n_______________________ test_inline_code_in_table_cells ________________________\n\n    def test_inline_code_in_table_cells() -> None:\n        \"\"\"Test inline code in table cells.\n    \n        Regression test for https://github.com/Textualize/rich/issues/4038\n    \n        \"\"\"\n        markdown = Markdown(\n            \"| Col |\\n|---|\\n| `print('hello');` |\\n\",\n            inline_code_theme=\"monokai\",\n            inline_code_lexer=\"python\",\n        )\n        result = render(markdown)\n        expected = \"\\n\\x1b[36m                 \\x1b[0m\\n\\x1b[36m \\x1b[0m\\x1b[36mCol\\x1b[0m\\x1b[1m            \\x1b[0m\\x1b[36m \\x1b[0m\\n\\x1b[36m \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 \\x1b[0m\\n\\x1b[36m \\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34mprint\\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m(\\x1b[0m\\x1b[38;2;230;219;116;48;2;39;40;34m'\\x1b[0m\\x1b[38;2;230;219;116;48;2;39;40;34mhello\\x1b[0m\\x1b[38;2;230;219;116;48;2;39;40;34m'\\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m)\\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m;\\x1b[0m\\x1b[36m \\x1b[0m\\n\\x1b[36m                 \\x1b[0m\\n\"\n>       assert result == expected\nE       AssertionError: assert '\\n\\x1b[36m  ...    \\x1b[0m\\n' == '\\n\\x1b[36m  ...    \\x1b[0m\\n'\nE         \nE         Skipping 115 identical leading characters in diff, use -v to show\nE         - [0m\u001b[38;2;248;248;242;48;2;39;40;34mprint\u001b[0m\u001b[38;2;248;248;242;48;2;39;40;34m(\u001b[0m\u001b[38;2;230;219;116;48;2;39;40;34m'\u001b[0m\u001b[38;2;230;219;116;48;2;39;40;34mhello\u001b[0m\u001b[38;2;230;219;116;48;2;39;40;34m'\u001b[0m\u001b[38;2;248;248;242;48;2;39;40;34m)\u001b[0m\u001b[38;2;248;248;242;48;2;39;40;34m;\u001b[0m\u001b[36m \u001b[0m\nE         ?           ^^^^^^^^^^^\nE         + [0m\u001b[38;2;166;226;46;48;2;39;40;34mprint\u001b[0m\u001b[38;2;248;248;242;48;2;39;40;34m(\u001b[0m\u001b[38;2;230;219;116;48;2;39;40;34m'\u001b[0m\u001b[38;2;230;219;116;48;2;39;40;34mhello\u001b[0m\u001b[38;2;230;219;116;48;2;39;40;34m'\u001b...\nE         \nE         ...Full output truncated (3 lines hidden), use '-vv' to show\n\ntests/test_markdown.py:215: AssertionError\n----------------------------- Captured stdout call -----------------------------\n\"\\n\\x1b[36m                 \\x1b[0m\\n\\x1b[36m \\x1b[0m\\x1b[36mCol\\x1b[0m\\x1b[1m            \\x1b[0m\\x1b[36m \\x1b[0m\\n\\x1b[36m \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 \\x1b[0m\\n\\x1b[36m \\x1b[0m\\x1b[38;2;166;226;46;48;2;39;40;34mprint\\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m(\\x1b[0m\\x1b[38;2;230;219;116;48;2;39;40;34m'\\x1b[0m\\x1b[38;2;230;219;116;48;2;39;40;34mhello\\x1b[0m\\x1b[38;2;230;219;116;48;2;39;40;34m'\\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m)\\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m;\\x1b[0m\\x1b[36m \\x1b[0m\\n\\x1b[36m                 \\x1b[0m\\n\"\n1 failed, 7 passed in 1.01s\n",
+    "stderr_tail": ""
+  },
+  "trace_pre_exists": true,
+  "trace_post_exists": true,
+  "seconds": 42.3
+}

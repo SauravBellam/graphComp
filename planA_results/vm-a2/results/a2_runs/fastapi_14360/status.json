@@ -1,0 +1,110 @@
+{
+  "instance_id": "fastapi_14360",
+  "repo": "fastapi/fastapi",
+  "backend": "venv",
+  "done": true,
+  "deps": {
+    "steps": [
+      {
+        "name": "pip_upgrade",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14360/venv/bin/python -m pip install -q --disable-pip-version-check 'pip>=24' 'setuptools' 'wheel' pytest pytest-timeout",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "editable_no_deps",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14360/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-build-isolation --no-deps -e .",
+        "exit": 2,
+        "stderr_tail": "lib/python3.13/site-packages/pip/_internal/req/req_install.py\", line 258, in supports_pyproject_editable\n    return \"build_editable\" in self.pep517_backend._supported_features()\n                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"/home/sauravbellam/cache/a2/fastapi_14360/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 180, in _supported_features\n    return self._call_hook(\"_supported_features\", {})\n           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/sauravbellam/cache/a2/fastapi_14360/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 402, in _call_hook\n    raise BackendUnavailable(\n    ...<4 lines>...\n    )\npip._vendor.pyproject_hooks._impl.BackendUnavailable: Cannot import 'pdm.backend'\n"
+      },
+      {
+        "name": "editable_no_deps_isolated",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14360/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-deps -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "runtime_deps",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14360/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "extra_all",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14360/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e '.[all]'",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "extra_standard",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14360/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e '.[standard]'",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "req_requirements-tests.txt",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14360/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -r requirements-tests.txt",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "req_requirements-docs-tests.txt",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14360/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -r requirements-docs-tests.txt",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "req_requirements.txt",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14360/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -r requirements.txt",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "fastapi_tests",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14360/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels httpx 'python-multipart' email-validator pyyaml orjson ujson 'sqlmodel' 'dirty-equals' 'pytest-asyncio' 'flask' 'passlib[bcrypt]' 'pyjwt' 'inline-snapshot'",
+        "exit": 0,
+        "stderr_tail": ""
+      }
+    ],
+    "editable_ok": true,
+    "python": "3.13.5 (main, Aug 10 2026, 12:06:59) [GCC 14.2.0]"
+  },
+  "targets": [
+    "tests/test_request_param_model_by_alias.py"
+  ],
+  "test_patch_strategy": "exact",
+  "test_patch_applied": true,
+  "pre": {
+    "exit": 1,
+    "seconds": 3.4,
+    "timeout": false,
+    "exit_meaning": "some_failed",
+    "run_class": "clean",
+    "counts": {
+      "failed": 6
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "stclient\"}}]}\nE       assert 422 == 200\nE        +  where 422 = <Response [422 Unprocessable Entity]>.status_code\n\ntests/test_request_param_model_by_alias.py:39: AssertionError\n_________________________ test_cookie_model_with_alias _________________________\n\n    def test_cookie_model_with_alias():\n        client = TestClient(app)\n        client.cookies.set(\"param_alias\", \"value\")\n        response = client.get(\"/cookie\")\n>       assert response.status_code == 200, response.text\nE       AssertionError: {\"detail\":[{\"type\":\"missing\",\"loc\":[\"cookie\",\"param_alias\"],\"msg\":\"Field required\",\"input\":{\"param\":\"value\"}}]}\nE       assert 422 == 200\nE        +  where 422 = <Response [422 Unprocessable Entity]>.status_code\n\ntests/test_request_param_model_by_alias.py:47: AssertionError\n_____________________ test_query_model_with_alias_by_name ______________________\n\n    def test_query_model_with_alias_by_name():\n        client = TestClient(app)\n        response = client.get(\"/query\", params={\"param\": \"value\"})\n        assert response.status_code == 422, response.text\n        details = response.json()\n        if PYDANTIC_V2:\n>           assert details[\"detail\"][0][\"input\"] == {\"param\": \"value\"}\nE           AssertionError: assert {} == {'param': 'value'}\nE             \nE             Right contains 1 more item:\nE             {'param': 'value'}\nE             Use -v to get more diff\n\ntests/test_request_param_model_by_alias.py:57: AssertionError\n_____________________ test_header_model_with_alias_by_name _____________________\n\n    def test_header_model_with_alias_by_name():\n        client = TestClient(app)\n        response = client.get(\"/header\", headers={\"param\": \"value\"})\n        assert response.status_code == 422, response.text\n        details = response.json()\n        if PYDANTIC_V2:\n>           assert details[\"detail\"][0][\"input\"] == IsPartialDict({\"param\": \"value\"})\nE           AssertionError: assert {'accept': '*/*', 'accept-encoding': 'gzip, deflate', 'connection': 'keep-alive', 'host': 'testserver', ...} == IsPartialDict(param='value')\nE            +  where IsPartialDict(param='value') = IsPartialDict({'param': 'value'})\n\ntests/test_request_param_model_by_alias.py:66: AssertionError\n_____________________ test_cookie_model_with_alias_by_name _____________________\n\n    def test_cookie_model_with_alias_by_name():\n        client = TestClient(app)\n        client.cookies.set(\"param\", \"value\")\n        response = client.get(\"/cookie\")\n        assert response.status_code == 422, response.text\n        details = response.json()\n        if PYDANTIC_V2:\n>           assert details[\"detail\"][0][\"input\"] == {\"param\": \"value\"}\nE           AssertionError: assert {} == {'param': 'value'}\nE             \nE             Right contains 1 more item:\nE             {'param': 'value'}\nE             Use -v to get more diff\n\ntests/test_request_param_model_by_alias.py:76: AssertionError\n- generated xml file: /home/sauravbellam/results/a2_runs/fastapi_14360/trace_pre.xml -\n6 failed in 2.09s\n",
+    "stderr_tail": ""
+  },
+  "gold_patch_strategy": "exact",
+  "gold_patch_applied": true,
+  "post": {
+    "exit": 0,
+    "seconds": 2.6,
+    "timeout": false,
+    "exit_meaning": "all_passed",
+    "run_class": "clean",
+    "counts": {
+      "passed": 6
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "......                                                                   [100%]\n- generated xml file: /home/sauravbellam/results/a2_runs/fastapi_14360/trace_post.xml -\n6 passed in 1.58s\n",
+    "stderr_tail": ""
+  },
+  "trace_pre_exists": true,
+  "trace_post_exists": true,
+  "seconds": 88.0
+}

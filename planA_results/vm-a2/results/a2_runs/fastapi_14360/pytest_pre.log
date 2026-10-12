@@ -1,0 +1,89 @@
+
+$ /home/sauravbellam/cache/a2/fastapi_14360/venv/bin/python -s -m pytest tests/test_request_param_model_by_alias.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/fastapi_14360/trace_pre.xml
+[exit 1]
+FFFFFF                                                                   [100%]
+=================================== FAILURES ===================================
+_________________________ test_query_model_with_alias __________________________
+
+    def test_query_model_with_alias():
+        client = TestClient(app)
+        response = client.get("/query", params={"param_alias": "value"})
+>       assert response.status_code == 200, response.text
+E       AssertionError: {"detail":[{"type":"missing","loc":["query","param_alias"],"msg":"Field required","input":{"param":"value"}}]}
+E       assert 422 == 200
+E        +  where 422 = <Response [422 Unprocessable Entity]>.status_code
+
+tests/test_request_param_model_by_alias.py:32: AssertionError
+_________________________ test_header_model_with_alias _________________________
+
+    def test_header_model_with_alias():
+        client = TestClient(app)
+        response = client.get("/header", headers={"param_alias": "value"})
+>       assert response.status_code == 200, response.text
+E       AssertionError: {"detail":[{"type":"missing","loc":["header","param_alias"],"msg":"Field required","input":{"param":"value","host":"testserver","accept":"*/*","accept-encoding":"gzip, deflate","connection":"keep-alive","user-agent":"testclient"}}]}
+E       assert 422 == 200
+E        +  where 422 = <Response [422 Unprocessable Entity]>.status_code
+
+tests/test_request_param_model_by_alias.py:39: AssertionError
+_________________________ test_cookie_model_with_alias _________________________
+
+    def test_cookie_model_with_alias():
+        client = TestClient(app)
+        client.cookies.set("param_alias", "value")
+        response = client.get("/cookie")
+>       assert response.status_code == 200, response.text
+E       AssertionError: {"detail":[{"type":"missing","loc":["cookie","param_alias"],"msg":"Field required","input":{"param":"value"}}]}
+E       assert 422 == 200
+E        +  where 422 = <Response [422 Unprocessable Entity]>.status_code
+
+tests/test_request_param_model_by_alias.py:47: AssertionError
+_____________________ test_query_model_with_alias_by_name ______________________
+
+    def test_query_model_with_alias_by_name():
+        client = TestClient(app)
+        response = client.get("/query", params={"param": "value"})
+        assert response.status_code == 422, response.text
+        details = response.json()
+        if PYDANTIC_V2:
+>           assert details["detail"][0]["input"] == {"param": "value"}
+E           AssertionError: assert {} == {'param': 'value'}
+E             
+E             Right contains 1 more item:
+E             {'param': 'value'}
+E             Use -v to get more diff
+
+tests/test_request_param_model_by_alias.py:57: AssertionError
+_____________________ test_header_model_with_alias_by_name _____________________
+
+    def test_header_model_with_alias_by_name():
+        client = TestClient(app)
+        response = client.get("/header", headers={"param": "value"})
+        assert response.status_code == 422, response.text
+        details = response.json()
+        if PYDANTIC_V2:
+>           assert details["detail"][0]["input"] == IsPartialDict({"param": "value"})
+E           AssertionError: assert {'accept': '*/*', 'accept-encoding': 'gzip, deflate', 'connection': 'keep-alive', 'host': 'testserver', ...} == IsPartialDict(param='value')
+E            +  where IsPartialDict(param='value') = IsPartialDict({'param': 'value'})
+
+tests/test_request_param_model_by_alias.py:66: AssertionError
+_____________________ test_cookie_model_with_alias_by_name _____________________
+
+    def test_cookie_model_with_alias_by_name():
+        client = TestClient(app)
+        client.cookies.set("param", "value")
+        response = client.get("/cookie")
+        assert response.status_code == 422, response.text
+        details = response.json()
+        if PYDANTIC_V2:
+>           assert details["detail"][0]["input"] == {"param": "value"}
+E           AssertionError: assert {} == {'param': 'value'}
+E             
+E             Right contains 1 more item:
+E             {'param': 'value'}
+E             Use -v to get more diff
+
+tests/test_request_param_model_by_alias.py:76: AssertionError
+- generated xml file: /home/sauravbellam/results/a2_runs/fastapi_14360/trace_pre.xml -
+6 failed in 2.09s
+
+

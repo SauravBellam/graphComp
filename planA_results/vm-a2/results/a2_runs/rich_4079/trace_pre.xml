@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="8" time="0.899" timestamp="2026-10-10T23:16:29.688825+00:00" hostname="vm-a2"><testcase classname="test_markdown" name="test_markdown_render" file="test_markdown.py" line="98" time="0.232" /><testcase classname="test_markdown" name="test_inline_code" file="test_markdown.py" line="105" time="0.008" /><testcase classname="test_markdown" name="test_markdown_table" file="test_markdown.py" line="118" time="0.039" /><testcase classname="test_markdown" name="test_inline_styles_in_table" file="test_markdown.py" line="135" time="0.028" /><testcase classname="test_markdown" name="test_inline_styles_with_justification" file="test_markdown.py" line="150" time="0.022" /><testcase classname="test_markdown" name="test_partial_table" file="test_markdown.py" line="168" time="0.008" /><testcase classname="test_markdown" name="test_table_with_empty_cells" file="test_markdown.py" line="176" time="0.025" /><testcase classname="test_markdown" name="test_inline_code_in_table_cells" file="test_markdown.py" line="201" time="0.011"><failure message="AssertionError: assert '\n\x1b[36m  ...    \x1b[0m\n' == '\n\x1b[36m  ...    \x1b[0m\n'&#10;  &#10;  Skipping 110 identical leading characters in diff, use -v to show&#10;  - 36m #x1B[0m#x1B[38;2;248;248;242;48;2;39;40;34mprint#x1B[0m#x1B[38;2;248;248;242;48;2;39;40;34m(#x1B[0m#x1B[38;2;230;219;116;48;2;39;40;34m'#x1B[0m#x1B[38;2;230;219;116;48;2;39;40;34mhello#x1B[0m#x1B[38;2;230;219;116;48;2;39;40;34m'#x1B[0m#x1B[38;2;248;248;242;48;2;39;40;34m)#x1B[0m#x1B[38;2;248;248;242;48;2;39;40;34m;#x1B[0m#x1B[36m #x1B[0m&#10;  + 36m #x1B[0m#x1B[1;36;40mprint#x1B[0m#x1B[1;36;40m(#x1B[0m#x1B[1;36;40m'#x1B[0m#x1B[1;36;40mhello#x1B[0m#x1B[1;36;40m'#x1B[0m#x1B[1;36;40m)#x1B[0m#x1B[1;36;40m;#x1B[0m#x1B[36m #x1B[0m&#10;    #x1B[36m                 #x1B[0m">def test_inline_code_in_table_cells() -&gt; None:
+        """Test inline code in table cells.
+    
+        Regression test for https://github.com/Textualize/rich/issues/4038
+    
+        """
+        markdown = Markdown(
+            "| Col |\n|---|\n| `print('hello');` |\n",
+            inline_code_theme="monokai",
+            inline_code_lexer="python",
+        )
+        result = render(markdown)
+        expected = "\n\x1b[36m                 \x1b[0m\n\x1b[36m \x1b[0m\x1b[36mCol\x1b[0m\x1b[1m            \x1b[0m\x1b[36m \x1b[0m\n\x1b[36m ─────────────── \x1b[0m\n\x1b[36m \x1b[0m\x1b[38;2;248;248;242;48;2;39;40;34mprint\x1b[0m\x1b[38;2;248;248;242;48;2;39;40;34m(\x1b[0m\x1b[38;2;230;219;116;48;2;39;40;34m'\x1b[0m\x1b[38;2;230;219;116;48;2;39;40;34mhello\x1b[0m\x1b[38;2;230;219;116;48;2;39;40;34m'\x1b[0m\x1b[38;2;248;248;242;48;2;39;40;34m)\x1b[0m\x1b[38;2;248;248;242;48;2;39;40;34m;\x1b[0m\x1b[36m \x1b[0m\n\x1b[36m                 \x1b[0m\n"
+&gt;       assert result == expected
+E       AssertionError: assert '\n\x1b[36m  ...    \x1b[0m\n' == '\n\x1b[36m  ...    \x1b[0m\n'
+E         
+E         Skipping 110 identical leading characters in diff, use -v to show
+E         - 36m #x1B[0m#x1B[38;2;248;248;242;48;2;39;40;34mprint#x1B[0m#x1B[38;2;248;248;242;48;2;39;40;34m(#x1B[0m#x1B[38;2;230;219;116;48;2;39;40;34m'#x1B[0m#x1B[38;2;230;219;116;48;2;39;40;34mhello#x1B[0m#x1B[38;2;230;219;116;48;2;39;40;34m'#x1B[0m#x1B[38;2;248;248;242;48;2;39;40;34m)#x1B[0m#x1B[38;2;248;248;242;48;2;39;40;34m;#x1B[0m#x1B[36m #x1B[0m
+E         + 36m #x1B[0m#x1B[1;36;40mprint#x1B[0m#x1B[1;36;40m(#x1B[0m#x1B[1;36;40m'#x1B[0m#x1B[1;36;40mhello#x1B[0m#x1B[1;36;40m'#x1B[0m#x1B[1;36;40m)#x1B[0m#x1B[1;36;40m;#x1B[0m#x1B[36m #x1B[0m
+E           #x1B[36m                 #x1B[0m
+
+tests/test_markdown.py:215: AssertionError</failure></testcase></testsuite></testsuites>

@@ -1,0 +1,88 @@
+{
+  "instance_id": "rich_4076",
+  "repo": "Textualize/rich",
+  "backend": "venv",
+  "done": true,
+  "deps": {
+    "steps": [
+      {
+        "name": "pip_upgrade",
+        "cmd": "/home/sauravbellam/cache/a2/rich_4076/venv/bin/python -m pip install -q --disable-pip-version-check 'pip>=24' 'setuptools' 'wheel' pytest pytest-timeout",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "editable_no_deps",
+        "cmd": "/home/sauravbellam/cache/a2/rich_4076/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-build-isolation --no-deps -e .",
+        "exit": 2,
+        "stderr_tail": "python3.13/site-packages/pip/_internal/req/req_install.py\", line 258, in supports_pyproject_editable\n    return \"build_editable\" in self.pep517_backend._supported_features()\n                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"/home/sauravbellam/cache/a2/rich_4076/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 180, in _supported_features\n    return self._call_hook(\"_supported_features\", {})\n           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/sauravbellam/cache/a2/rich_4076/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 402, in _call_hook\n    raise BackendUnavailable(\n    ...<4 lines>...\n    )\npip._vendor.pyproject_hooks._impl.BackendUnavailable: Cannot import 'poetry.core.masonry.api'\n"
+      },
+      {
+        "name": "editable_no_deps_isolated",
+        "cmd": "/home/sauravbellam/cache/a2/rich_4076/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-deps -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "runtime_deps",
+        "cmd": "/home/sauravbellam/cache/a2/rich_4076/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "poetry_group_dev",
+        "cmd": "/home/sauravbellam/cache/a2/rich_4076/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels pytest black mypy pytest-cov attrs pre-commit typing-extensions",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "rich_tests",
+        "cmd": "/home/sauravbellam/cache/a2/rich_4076/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels pytest-cov attrs ipywidgets",
+        "exit": 0,
+        "stderr_tail": ""
+      }
+    ],
+    "editable_ok": true,
+    "python": "3.13.5 (main, Aug 10 2026, 12:06:59) [GCC 14.2.0]"
+  },
+  "targets": [
+    "tests/test_ansi.py"
+  ],
+  "test_patch_strategy": "exact",
+  "test_patch_applied": true,
+  "pre": {
+    "exit": 1,
+    "seconds": 1.4,
+    "timeout": false,
+    "exit_meaning": "some_failed",
+    "run_class": "clean",
+    "counts": {
+      "error": 24,
+      "failed": 4,
+      "passed": 20
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "able\\x1b[0m]\\n    3 | int \\x1b[1;35ma\\x1b[0m=1;\\n      |     \\x1b[1;35m^\\x1b[0m\\n\\n\"\n>       assert result == expected\nE       AssertionError: assert '\\x1b[1mC:\\\\U...35m^\\x1b[0m\\n' == '\\x1b[1mC:\\\\U...m^\\x1b[0m\\n\\n'\nE         \nE         Skipping 264 identical leading characters in diff, use -v to show\nE           1;35m^\u001b[0m\nE         -\n\ntests/test_ansi.py:51: AssertionError\n----------------------------- Captured stdout call -----------------------------\n\"\\x1b[1mC:\\\\Users\\\\stefa\\\\AppData\\\\Local\\\\Temp\\\\tmp3ydingba:\\x1b[0m In function '\\x1b[1mmain\\x1b[0m':\\n\\x1b[1mC:\\\\Users\\\\stefa\\\\AppData\\\\Local\\\\Temp\\\\tmp3ydingba:3:5:\\x1b[0m \\x1b[1;35mwarning: \\x1b[0munused variable '\\x1b[1ma\\x1b[0m' \\n[\\x1b[1;35m-Wunused-variable\\x1b[0m]\\n    3 | int \\x1b[1;35ma\\x1b[0m=1;\\n      |     \\x1b[1;35m^\\x1b[0m\\n\"\n\u001b[1mC:\\Users\\stefa\\AppData\\Local\\Temp\\tmp3ydingba:\u001b[0m In function '\u001b[1mmain\u001b[0m':\n\u001b[1mC:\\Users\\stefa\\AppData\\Local\\Temp\\tmp3ydingba:3:5:\u001b[0m \u001b[1;35mwarning: \u001b[0munused variable '\u001b[1ma\u001b[0m' \n[\u001b[1;35m-Wunused-variable\u001b[0m]\n    3 | int \u001b[1;35ma\u001b[0m=1;\n      |     \u001b[1;35m^\u001b[0m\n\n_ test_decode_issue_2688[\\x1b[31mFound 4 errors in 2 files (checked 18 source files)\\x1b(B\\x1b[m\\n-Found 4 errors in 2 files (checked 18 source files)\\n] _\n\nansi_bytes = b'\\x1b[31mFound 4 errors in 2 files (checked 18 source files)\\x1b(B\\x1b[m\\n'\nexpected_text = 'Found 4 errors in 2 files (checked 18 source files)\\n'\n\n    @pytest.mark.parametrize(\n        \"ansi_bytes, expected_text\",\n        [\n            # https://github.com/Textualize/rich/issues/2688\n            (\n                b\"\\x1b[31mFound 4 errors in 2 files (checked 18 source files)\\x1b(B\\x1b[m\\n\",\n                \"Found 4 errors in 2 files (checked 18 source files)\\n\",\n            ),\n            # https://mail.python.org/pipermail/python-list/2007-December/424756.html\n            (b\"Hallo\", \"Hallo\"),\n            (b\"\\x1b(BHallo\", \"Hallo\"),\n            (b\"\\x1b(JHallo\", \"Hallo\"),\n            (b\"\\x1b(BHal\\x1b(Jlo\", \"Hallo\"),\n        ],\n    )\n    def test_decode_issue_2688(ansi_bytes, expected_text):\n        text = Text.from_ansi(ansi_bytes.decode())\n    \n>       assert str(text) == expected_text\nE       AssertionError: assert 'Found 4 erro...source files)' == 'Found 4 erro...urce files)\\n'\nE         \nE         Skipping 40 identical leading characters in diff, use -v to show\nE         - urce files)\nE         ?            -\nE         + urce files)\n\ntests/test_ansi.py:72: AssertionError\n_____________________________ test_decode_newlines _____________________________\n\n    def test_decode_newlines():\n        \"\"\"Test newlines are preserved.\n        Regression test for https://github.com/Textualize/rich/issues/3577\n        \"\"\"\n        assert Text.from_ansi(\"\").plain == \"\"\n>       assert Text.from_ansi(\"\\n\").plain == \"\\n\"\nE       AssertionError: assert '' == '\\n'\nE         \nE         Strings contain only whitespace, escaping them using repr()\nE         - '\\n'\nE         + ''\n\ntests/test_ansi.py:94: AssertionError\n4 failed, 20 passed in 0.65s\n",
+    "stderr_tail": ""
+  },
+  "gold_patch_strategy": "exact",
+  "gold_patch_applied": true,
+  "post": {
+    "exit": 0,
+    "seconds": 1.1,
+    "timeout": false,
+    "exit_meaning": "all_passed",
+    "run_class": "clean",
+    "counts": {
+      "passed": 24
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "........................                                                 [100%]\n24 passed in 0.61s\n",
+    "stderr_tail": ""
+  },
+  "trace_pre_exists": true,
+  "trace_post_exists": true,
+  "seconds": 42.0
+}

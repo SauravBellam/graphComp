@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="7" time="0.843" timestamp="2026-10-10T23:24:16.093456+00:00" hostname="vm-a2"><testcase classname="test_markdown" name="test_markdown_render" file="test_markdown.py" line="98" time="0.231" /><testcase classname="test_markdown" name="test_inline_code" file="test_markdown.py" line="105" time="0.011"><failure message="AssertionError: assert 'inline \x1b[...           \n' == 'inline \x1b[...           \n'&#10;  &#10;  Skipping 51 identical leading characters in diff, use -v to show&#10;  - [0m#x1B[38;2;0;0;0;48;2;248;248;248m #x1B[0m#x1B[1;38;2;0;0;255;48;2;248;248;248mthis#x1B[0m code                                                                             &#10;  ?           ^ ^ ^&#10;  + [0m#x1B[38;2;187;187;187;48;2;248;248;248m #x1B[0m#x1B[1;38;2;0;0;255;48;2;248;248;248mthis#x1B[0m code                                                                             &#10;  ?           ^^^ ^^^ ^^^">def test_inline_code():
+        markdown = Markdown(
+            "inline `import this` code",
+            inline_code_lexer="python",
+            inline_code_theme="emacs",
+        )
+        result = render(markdown)
+        expected = "inline \x1b[1;38;2;170;34;255;48;2;248;248;248mimport\x1b[0m\x1b[38;2;0;0;0;48;2;248;248;248m \x1b[0m\x1b[1;38;2;0;0;255;48;2;248;248;248mthis\x1b[0m code                                                                             \n"
+        print(result)
+        print(repr(result))
+&gt;       assert result == expected
+E       AssertionError: assert 'inline \x1b[...           \n' == 'inline \x1b[...           \n'
+E         
+E         Skipping 51 identical leading characters in diff, use -v to show
+E         - [0m#x1B[38;2;0;0;0;48;2;248;248;248m #x1B[0m#x1B[1;38;2;0;0;255;48;2;248;248;248mthis#x1B[0m code                                                                             
+E         ?           ^ ^ ^
+E         + [0m#x1B[38;2;187;187;187;48;2;248;248;248m #x1B[0m#x1B[1;38;2;0;0;255;48;2;248;248;248mthis#x1B[0m code                                                                             
+E         ?           ^^^ ^^^ ^^^
+
+tests/test_markdown.py:116: AssertionError</failure></testcase><testcase classname="test_markdown" name="test_markdown_table" file="test_markdown.py" line="118" time="0.045" /><testcase classname="test_markdown" name="test_inline_styles_in_table" file="test_markdown.py" line="135" time="0.030" /><testcase classname="test_markdown" name="test_inline_styles_with_justification" file="test_markdown.py" line="150" time="0.025" /><testcase classname="test_markdown" name="test_partial_table" file="test_markdown.py" line="168" time="0.007" /><testcase classname="test_markdown" name="test_table_with_empty_cells" file="test_markdown.py" line="176" time="0.025"><failure message="assert 9 == 7">def test_table_with_empty_cells() -&gt; None:
+        """Test a table with empty cells is rendered without extra newlines above.
+        Regression test for #3027 https://github.com/Textualize/rich/issues/3027
+        """
+        complete_table = Markdown(
+            """\
+    | First Header  | Second Header |
+    | ------------- | ------------- |
+    | Content Cell  | Content Cell  |
+    | Content Cell  | Content Cell  |
+    """
+        )
+        table_with_empty_cells = Markdown(
+            """\
+    | First Header  |               |
+    | ------------- | ------------- |
+    | Content Cell  | Content Cell  |
+    |               | Content Cell  |
+    """
+        )
+        result = len(render(table_with_empty_cells).splitlines())
+        expected = len(render(complete_table).splitlines())
+&gt;       assert result == expected
+E       assert 9 == 7
+
+tests/test_markdown.py:199: AssertionError</failure></testcase></testsuite></testsuites>

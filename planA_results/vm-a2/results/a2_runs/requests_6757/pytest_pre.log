@@ -1,0 +1,21 @@
+
+$ /home/sauravbellam/cache/a2/requests_6757/venv/bin/python -s -m pytest tests/test_requests.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/requests_6757/trace_pre.xml
+[exit 2]
+
+==================================== ERRORS ====================================
+___________________ ERROR collecting tests/test_requests.py ____________________
+ImportError while importing test module '/home/sauravbellam/cache/a2/requests_6757/workspace/tests/test_requests.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/usr/lib/python3.13/importlib/__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_requests.py:21: in <module>
+    from requests.compat import (
+E   ImportError: cannot import name 'is_urllib3_1' from 'requests.compat' (/home/sauravbellam/cache/a2/requests_6757/workspace/src/requests/compat.py)
+- generated xml file: /home/sauravbellam/results/a2_runs/requests_6757/trace_pre.xml -
+!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
+1 error in 3.12s
+
+[2026-10-10 23:22:36,691] WARNING in core: flasgger is not installed; serving the static landing page at / and skipping the Swagger UI and /spec.json.
+

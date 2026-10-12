@@ -1,0 +1,36 @@
+
+$ /home/sauravbellam/cache/a2/requests_7505/venv/bin/python -s -m pytest tests/test_requests.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/requests_7505/trace_post.xml
+[exit 0]
+........................................................................ [ 21%]
+.................................................s.pytest-httpbin server hit an exception serving request: [SSL: TLSV1_ALERT_UNKNOWN_CA] tlsv1 alert unknown ca (_ssl.c:1029)
+attempting to ignore so the rest of the tests can run
+..................... [ 42%]
+........................................................................ [ 63%]
+..........................x............................................. [ 84%]
+.....................................................                    [100%]
+=============================== warnings summary ===============================
+tests/test_requests.py::TestPreparingURLs::test_different_connection_pool_for_tls_settings_verify_True
+tests/test_requests.py::TestPreparingURLs::test_different_connection_pool_for_tls_settings_verify_bundle_expired_cert
+tests/test_requests.py::TestPreparingURLs::test_different_connection_pool_for_tls_settings_verify_bundle_unexpired_cert
+tests/test_requests.py::TestPreparingURLs::test_different_connection_pool_for_mtls_settings
+  /home/sauravbellam/cache/a2/requests_7505/venv/lib/python3.13/site-packages/urllib3/connectionpool.py:1129: InsecureRequestWarning: Unverified HTTPS request is being made to host 'localhost'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+339 passed, 1 skipped, 1 xfailed, 4 warnings in 47.14s
+
+[2026-10-10 23:16:16,359] WARNING in core: flasgger is not installed; serving the static landing page at / and skipping the Swagger UI and /spec.json.
+127.0.0.1 - - [10/Oct/2026 23:16:18] "GET /get HTTP/1.1" 200 208
+127.0.0.1 - - [10/Oct/2026 23:16:18] "POST /post HTTP/1.1" 200 363
+127.0.0.1 - - [10/Oct/2026 23:16:19] "HEAD /get HTTP/1.1" 200 0
+127.0.0.1 - - [10/Oct/2026 23:16:19] "HEAD /get HTTP/1.1" 200 0
+127.0.0.1 - - [10/Oct/2026 23:16:19] "GET /get HTTP/1.1" 200 272
+127.0.0.1 - - [10/Oct/2026 23:16:19] "GET /cookies HTTP/1.1" 200 40
+127.0.0.1 - - [10/Oct/2026 23:16:19] "GET /cookies HTTP/1.1" 200 40
+127.0.0.1 - - [10/Oct/2026 23:16:19] "HEAD /get HTTP/1.1" 200 0
+127.0.0.1 - - [10/Oct/2026 23:16:22] "GET /digest-auth/auth/user/pass/SHA-512 HTTP/1.1" 401 0
+127.0.0.1 - - [10/Oct/2026 23:16:22] "POST /post HTTP/1.1" 200 416
+127.0.0.1 - - [10/Oct/2026 23:16:22] "GET /gzip HTTP/1.1" 200 197
+127.0.0.1 - - [10/Oct/2026 23:16:23] "POST /post HTTP/1.1" 200 115612
+127.0.0.1 - - [10/Oct/2026 23:16:24] "POST /post HTTP/1.1" 200 430
+

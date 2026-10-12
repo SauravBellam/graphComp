@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="1.922" timestamp="2026-10-10T23:18:37.289661+00:00" hostname="vm-a2"><testcase classname="tests.test_stringified_annotations_simple" name="test_stringified_annotations" time="0.257"><failure message="assert 422 == 200&#10; +  where 422 = &lt;Response [422 Unprocessable Entity]&gt;.status_code">@needs_py310
+    def test_stringified_annotations():
+        app = FastAPI()
+    
+        client = TestClient(app)
+    
+        @app.get("/test/")
+        def call(test: Annotated[str, Depends(Dep())]):
+            return {"test": test}
+    
+        response = client.get("/test")
+&gt;       assert response.status_code == 200
+E       assert 422 == 200
+E        +  where 422 = &lt;Response [422 Unprocessable Entity]&gt;.status_code
+
+tests/test_stringified_annotations_simple.py:26: AssertionError</failure></testcase></testsuite></testsuites>

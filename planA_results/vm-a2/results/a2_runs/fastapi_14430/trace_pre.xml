@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="3" tests="13" time="1.675" timestamp="2026-10-10T23:20:00.234583+00:00" hostname="vm-a2"><testcase classname="tests.test_compat" name="test_model_field_default_required" time="0.003" /><testcase classname="tests.test_compat" name="test_v1_plain_validator_function" time="0.000"><skipped type="pytest.skip" message="requires python3.13-">/home/sauravbellam/cache/a2/fastapi_14430/workspace/tests/test_compat.py:30: requires python3.13-</skipped></testcase><testcase classname="tests.test_compat" name="test_is_model_field" time="0.001" /><testcase classname="tests.test_compat" name="test_get_model_config" time="0.001" /><testcase classname="tests.test_compat" name="test_complex" time="0.184" /><testcase classname="tests.test_compat" name="test_propagates_pydantic2_model_config" time="0.022" /><testcase classname="tests.test_compat" name="test_is_bytes_sequence_annotation_union" time="0.002" /><testcase classname="tests.test_compat" name="test_is_uploadfile_sequence_annotation" time="0.001" /><testcase classname="tests.test_compat" name="test_serialize_sequence_value_with_optional_list" time="0.002" /><testcase classname="tests.test_compat" name="test_serialize_sequence_value_with_optional_list_pipe_union" time="0.002"><failure message="AssertionError">@needs_pydanticv2
+    @needs_py310
+    def test_serialize_sequence_value_with_optional_list_pipe_union():
+        """Test that serialize_sequence_value handles optional lists correctly (with new syntax)."""
+        from fastapi._compat import v2
+    
+        field_info = FieldInfo(annotation=list[str] | None)
+        field = v2.ModelField(name="items", field_info=field_info)
+&gt;       result = v2.serialize_sequence_value(field=field, value=["a", "b", "c"])
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_compat.py:159: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def serialize_sequence_value(*, field: ModelField, value: Any) -&gt; Sequence[Any]:
+        origin_type = get_origin(field.field_info.annotation) or field.field_info.annotation
+        if origin_type is Union:  # Handle optional sequences
+            union_args = get_args(field.field_info.annotation)
+            for union_arg in union_args:
+                if union_arg is type(None):
+                    continue
+                origin_type = get_origin(union_arg) or union_arg
+                break
+&gt;       assert issubclass(origin_type, shared.sequence_types)  # type: ignore[arg-type]
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError
+
+fastapi/_compat/v2.py:391: AssertionError</failure></testcase><testcase classname="tests.test_compat" name="test_serialize_sequence_value_with_none_first_in_union" time="0.003" /><testcase classname="tests.test_compat" name="test_is_pv1_scalar_field" time="0.001"><skipped type="pytest.skip" message="requires python3.13-">/home/sauravbellam/cache/a2/fastapi_14430/workspace/tests/test_compat.py:176: requires python3.13-</skipped></testcase><testcase classname="tests.test_compat" name="test_get_model_fields_cached" time="0.001"><skipped type="pytest.skip" message="requires python3.13-">/home/sauravbellam/cache/a2/fastapi_14430/workspace/tests/test_compat.py:188: requires python3.13-</skipped></testcase></testsuite></testsuites>

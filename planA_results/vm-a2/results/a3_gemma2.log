@@ -1,0 +1,132 @@
+[a3] fastapi_ee22a4b8ca46dcce26c8c183afc4992a888d8be2: dim=256 unit_norm=False pc1=0.4437052011489868 cos_to_mean=0.8701868057250977
+[a3] requests_6f205ff422bccd5e4c4fc0b64c5f3e7df5181db6: dim=256 unit_norm=False pc1=0.4986895024776459 cos_to_mean=0.9291485548019409
+[a3] rich_fc41075a3206d2a5fd846c6f41c4d2becab814fa: dim=256 unit_norm=False pc1=0.6750233173370361 cos_to_mean=0.9480270743370056
+[a3] httpx_4acf5c2c37714cc63b5cf71b3e284fca83c90311: dim=256 unit_norm=False pc1=0.7484788298606873 cos_to_mean=0.9329036474227905
+[a3] fastapi_cb83b83dcf78eab4ea17d504db5abcda705fbdc4: dim=256 unit_norm=False pc1=0.44436129927635193 cos_to_mean=0.8702179193496704
+[a3] fastapi_22b02e26f9e8c7e32bd8266e2b0ebe8bb3a0db2b: dim=256 unit_norm=False pc1=0.44388672709465027 cos_to_mean=0.870159387588501
+[a3] fastapi_48d58ae3b6ef4ded5a4794618c00345667256d98: dim=256 unit_norm=False pc1=0.44994503259658813 cos_to_mean=0.8709185719490051
+[a3] fastapi_1e78a36b7310003f0ff634627d8a7bc53c6ccdee: dim=256 unit_norm=False pc1=0.44906896352767944 cos_to_mean=0.8710289597511292
+[a3] fastapi_6ee87478d821171139264cd9cd17cbd2232934ce: dim=256 unit_norm=False pc1=0.44568169116973877 cos_to_mean=0.8700282573699951
+[a3] fastapi_bc06e4296d588f39f38c7ac2fc96d3913c565962: dim=256 unit_norm=False pc1=0.44860726594924927 cos_to_mean=0.8711493015289307
+Loading weights:   0%|          | 0/1376 [00:00<?, ?it/s]Loading weights:  47%|████▋     | 651/1376 [00:00<00:00, 6479.36it/s]Loading weights:  94%|█████████▍| 1299/1376 [00:00<00:00, 6019.01it/s]Loading weights: 100%|██████████| 1376/1376 [00:00<00:00, 6074.64it/s]
+[a3] google/embeddinggemma-2 fastapi_ee22a4b8ca46dcce26c8c183afc4992a888d8be2 text/none: cos_mean=0.0127 >=.99=0.00 spearman=0.012
+[a3] google/embeddinggemma-2 fastapi_ee22a4b8ca46dcce26c8c183afc4992a888d8be2 text/document: cos_mean=-0.0006 >=.99=0.00 spearman=0.015
+[a3] google/embeddinggemma-2 fastapi_ee22a4b8ca46dcce26c8c183afc4992a888d8be2 text/code_retrieval_query: cos_mean=-0.0029 >=.99=0.00 spearman=0.041
+[a3] google/embeddinggemma-2 fastapi_ee22a4b8ca46dcce26c8c183afc4992a888d8be2 text/search_result: cos_mean=0.0021 >=.99=0.00 spearman=0.029
+[a3] google/embeddinggemma-2 fastapi_ee22a4b8ca46dcce26c8c183afc4992a888d8be2 name/none: cos_mean=-0.0055 >=.99=0.00 spearman=0.027
+[a3] google/embeddinggemma-2 fastapi_ee22a4b8ca46dcce26c8c183afc4992a888d8be2 name/document: cos_mean=-0.0131 >=.99=0.00 spearman=0.059
+[a3] google/embeddinggemma-2 fastapi_ee22a4b8ca46dcce26c8c183afc4992a888d8be2 id/none: cos_mean=-0.0055 >=.99=0.00 spearman=0.027
+[a3] google/embeddinggemma-2 fastapi_ee22a4b8ca46dcce26c8c183afc4992a888d8be2 id/document: cos_mean=-0.0131 >=.99=0.00 spearman=0.059
+[a3] google/embeddinggemma-2 fastapi_ee22a4b8ca46dcce26c8c183afc4992a888d8be2 name_text/none: cos_mean=0.0057 >=.99=0.00 spearman=0.054
+[a3] google/embeddinggemma-2 fastapi_ee22a4b8ca46dcce26c8c183afc4992a888d8be2 name_text/document: cos_mean=-0.0051 >=.99=0.00 spearman=0.050
+[a3] google/embeddinggemma-2 requests_6f205ff422bccd5e4c4fc0b64c5f3e7df5181db6 text/none: cos_mean=0.0068 >=.99=0.00 spearman=0.024
+[a3] google/embeddinggemma-2 requests_6f205ff422bccd5e4c4fc0b64c5f3e7df5181db6 text/document: cos_mean=-0.0123 >=.99=0.00 spearman=0.011
+[a3] google/embeddinggemma-2 requests_6f205ff422bccd5e4c4fc0b64c5f3e7df5181db6 text/code_retrieval_query: cos_mean=-0.0150 >=.99=0.00 spearman=0.008
+[a3] google/embeddinggemma-2 requests_6f205ff422bccd5e4c4fc0b64c5f3e7df5181db6 text/search_result: cos_mean=-0.0129 >=.99=0.00 spearman=0.012
+[a3] google/embeddinggemma-2 requests_6f205ff422bccd5e4c4fc0b64c5f3e7df5181db6 name/none: cos_mean=-0.0008 >=.99=0.00 spearman=0.048
+[a3] google/embeddinggemma-2 requests_6f205ff422bccd5e4c4fc0b64c5f3e7df5181db6 name/document: cos_mean=-0.0235 >=.99=0.00 spearman=0.062
+[a3] google/embeddinggemma-2 requests_6f205ff422bccd5e4c4fc0b64c5f3e7df5181db6 id/none: cos_mean=-0.0008 >=.99=0.00 spearman=0.048
+[a3] google/embeddinggemma-2 requests_6f205ff422bccd5e4c4fc0b64c5f3e7df5181db6 id/document: cos_mean=-0.0235 >=.99=0.00 spearman=0.062
+[a3] google/embeddinggemma-2 requests_6f205ff422bccd5e4c4fc0b64c5f3e7df5181db6 name_text/none: cos_mean=0.0091 >=.99=0.00 spearman=-0.010
+[a3] google/embeddinggemma-2 requests_6f205ff422bccd5e4c4fc0b64c5f3e7df5181db6 name_text/document: cos_mean=-0.0103 >=.99=0.00 spearman=0.004
+[a3] google/embeddinggemma-2 rich_fc41075a3206d2a5fd846c6f41c4d2becab814fa text/none: cos_mean=0.0154 >=.99=0.00 spearman=0.088
+[a3] google/embeddinggemma-2 rich_fc41075a3206d2a5fd846c6f41c4d2becab814fa text/document: cos_mean=-0.0022 >=.99=0.00 spearman=0.093
+[a3] google/embeddinggemma-2 rich_fc41075a3206d2a5fd846c6f41c4d2becab814fa text/code_retrieval_query: cos_mean=-0.0040 >=.99=0.00 spearman=0.090
+[a3] google/embeddinggemma-2 rich_fc41075a3206d2a5fd846c6f41c4d2becab814fa text/search_result: cos_mean=-0.0025 >=.99=0.00 spearman=0.091
+[a3] google/embeddinggemma-2 rich_fc41075a3206d2a5fd846c6f41c4d2becab814fa name/none: cos_mean=0.0025 >=.99=0.00 spearman=0.125
+[a3] google/embeddinggemma-2 rich_fc41075a3206d2a5fd846c6f41c4d2becab814fa name/document: cos_mean=-0.0269 >=.99=0.00 spearman=0.118
+[a3] google/embeddinggemma-2 rich_fc41075a3206d2a5fd846c6f41c4d2becab814fa id/none: cos_mean=0.0025 >=.99=0.00 spearman=0.125
+[a3] google/embeddinggemma-2 rich_fc41075a3206d2a5fd846c6f41c4d2becab814fa id/document: cos_mean=-0.0269 >=.99=0.00 spearman=0.118
+[a3] google/embeddinggemma-2 rich_fc41075a3206d2a5fd846c6f41c4d2becab814fa name_text/none: cos_mean=0.0129 >=.99=0.00 spearman=0.098
+[a3] google/embeddinggemma-2 rich_fc41075a3206d2a5fd846c6f41c4d2becab814fa name_text/document: cos_mean=-0.0102 >=.99=0.00 spearman=0.102
+[a3] google/embeddinggemma-2 httpx_4acf5c2c37714cc63b5cf71b3e284fca83c90311 text/none: cos_mean=0.0123 >=.99=0.00 spearman=0.103
+[a3] google/embeddinggemma-2 httpx_4acf5c2c37714cc63b5cf71b3e284fca83c90311 text/document: cos_mean=-0.0078 >=.99=0.00 spearman=0.101
+[a3] google/embeddinggemma-2 httpx_4acf5c2c37714cc63b5cf71b3e284fca83c90311 text/code_retrieval_query: cos_mean=-0.0117 >=.99=0.00 spearman=0.106
+[a3] google/embeddinggemma-2 httpx_4acf5c2c37714cc63b5cf71b3e284fca83c90311 text/search_result: cos_mean=-0.0076 >=.99=0.00 spearman=0.120
+[a3] google/embeddinggemma-2 httpx_4acf5c2c37714cc63b5cf71b3e284fca83c90311 name/none: cos_mean=-0.0004 >=.99=0.00 spearman=0.130
+[a3] google/embeddinggemma-2 httpx_4acf5c2c37714cc63b5cf71b3e284fca83c90311 name/document: cos_mean=-0.0304 >=.99=0.00 spearman=0.138
+[a3] google/embeddinggemma-2 httpx_4acf5c2c37714cc63b5cf71b3e284fca83c90311 id/none: cos_mean=-0.0004 >=.99=0.00 spearman=0.130
+[a3] google/embeddinggemma-2 httpx_4acf5c2c37714cc63b5cf71b3e284fca83c90311 id/document: cos_mean=-0.0304 >=.99=0.00 spearman=0.138
+[a3] google/embeddinggemma-2 httpx_4acf5c2c37714cc63b5cf71b3e284fca83c90311 name_text/none: cos_mean=-0.0001 >=.99=0.00 spearman=0.121
+[a3] google/embeddinggemma-2 httpx_4acf5c2c37714cc63b5cf71b3e284fca83c90311 name_text/document: cos_mean=-0.0205 >=.99=0.00 spearman=0.144
+[a3] google/embeddinggemma-2 fastapi_cb83b83dcf78eab4ea17d504db5abcda705fbdc4 text/none: cos_mean=0.0092 >=.99=0.00 spearman=-0.003
+[a3] google/embeddinggemma-2 fastapi_cb83b83dcf78eab4ea17d504db5abcda705fbdc4 text/document: cos_mean=-0.0019 >=.99=0.00 spearman=0.007
+[a3] google/embeddinggemma-2 fastapi_cb83b83dcf78eab4ea17d504db5abcda705fbdc4 text/code_retrieval_query: cos_mean=-0.0048 >=.99=0.00 spearman=0.016
+[a3] google/embeddinggemma-2 fastapi_cb83b83dcf78eab4ea17d504db5abcda705fbdc4 text/search_result: cos_mean=-0.0014 >=.99=0.00 spearman=0.004
+[a3] google/embeddinggemma-2 fastapi_cb83b83dcf78eab4ea17d504db5abcda705fbdc4 name/none: cos_mean=-0.0069 >=.99=0.00 spearman=0.033
+[a3] google/embeddinggemma-2 fastapi_cb83b83dcf78eab4ea17d504db5abcda705fbdc4 name/document: cos_mean=-0.0127 >=.99=0.00 spearman=0.047
+[a3] google/embeddinggemma-2 fastapi_cb83b83dcf78eab4ea17d504db5abcda705fbdc4 id/none: cos_mean=-0.0069 >=.99=0.00 spearman=0.033
+[a3] google/embeddinggemma-2 fastapi_cb83b83dcf78eab4ea17d504db5abcda705fbdc4 id/document: cos_mean=-0.0127 >=.99=0.00 spearman=0.047
+[a3] google/embeddinggemma-2 fastapi_cb83b83dcf78eab4ea17d504db5abcda705fbdc4 name_text/none: cos_mean=0.0001 >=.99=0.00 spearman=0.025
+[a3] google/embeddinggemma-2 fastapi_cb83b83dcf78eab4ea17d504db5abcda705fbdc4 name_text/document: cos_mean=-0.0097 >=.99=0.00 spearman=0.042
+[a3] google/embeddinggemma-2 fastapi_22b02e26f9e8c7e32bd8266e2b0ebe8bb3a0db2b text/none: cos_mean=0.0114 >=.99=0.00 spearman=-0.027
+[a3] google/embeddinggemma-2 fastapi_22b02e26f9e8c7e32bd8266e2b0ebe8bb3a0db2b text/document: cos_mean=0.0002 >=.99=0.00 spearman=-0.036
+[a3] google/embeddinggemma-2 fastapi_22b02e26f9e8c7e32bd8266e2b0ebe8bb3a0db2b text/code_retrieval_query: cos_mean=-0.0031 >=.99=0.00 spearman=-0.006
+[a3] google/embeddinggemma-2 fastapi_22b02e26f9e8c7e32bd8266e2b0ebe8bb3a0db2b text/search_result: cos_mean=0.0019 >=.99=0.00 spearman=-0.022
+[a3] google/embeddinggemma-2 fastapi_22b02e26f9e8c7e32bd8266e2b0ebe8bb3a0db2b name/none: cos_mean=-0.0079 >=.99=0.00 spearman=0.008
+[a3] google/embeddinggemma-2 fastapi_22b02e26f9e8c7e32bd8266e2b0ebe8bb3a0db2b name/document: cos_mean=-0.0146 >=.99=0.00 spearman=0.015
+[a3] google/embeddinggemma-2 fastapi_22b02e26f9e8c7e32bd8266e2b0ebe8bb3a0db2b id/none: cos_mean=-0.0079 >=.99=0.00 spearman=0.008
+[a3] google/embeddinggemma-2 fastapi_22b02e26f9e8c7e32bd8266e2b0ebe8bb3a0db2b id/document: cos_mean=-0.0146 >=.99=0.00 spearman=0.015
+[a3] google/embeddinggemma-2 fastapi_22b02e26f9e8c7e32bd8266e2b0ebe8bb3a0db2b name_text/none: cos_mean=0.0036 >=.99=0.00 spearman=-0.006
+[a3] google/embeddinggemma-2 fastapi_22b02e26f9e8c7e32bd8266e2b0ebe8bb3a0db2b name_text/document: cos_mean=-0.0062 >=.99=0.00 spearman=-0.009
+[a3] google/embeddinggemma-2 fastapi_48d58ae3b6ef4ded5a4794618c00345667256d98 text/none: cos_mean=0.0084 >=.99=0.00 spearman=-0.046
+[a3] google/embeddinggemma-2 fastapi_48d58ae3b6ef4ded5a4794618c00345667256d98 text/document: cos_mean=-0.0035 >=.99=0.00 spearman=-0.044
+[a3] google/embeddinggemma-2 fastapi_48d58ae3b6ef4ded5a4794618c00345667256d98 text/code_retrieval_query: cos_mean=-0.0058 >=.99=0.00 spearman=-0.032
+[a3] google/embeddinggemma-2 fastapi_48d58ae3b6ef4ded5a4794618c00345667256d98 text/search_result: cos_mean=-0.0019 >=.99=0.00 spearman=-0.042
+[a3] google/embeddinggemma-2 fastapi_48d58ae3b6ef4ded5a4794618c00345667256d98 name/none: cos_mean=-0.0081 >=.99=0.00 spearman=0.006
+[a3] google/embeddinggemma-2 fastapi_48d58ae3b6ef4ded5a4794618c00345667256d98 name/document: cos_mean=-0.0141 >=.99=0.00 spearman=0.019
+[a3] google/embeddinggemma-2 fastapi_48d58ae3b6ef4ded5a4794618c00345667256d98 id/none: cos_mean=-0.0081 >=.99=0.00 spearman=0.006
+[a3] google/embeddinggemma-2 fastapi_48d58ae3b6ef4ded5a4794618c00345667256d98 id/document: cos_mean=-0.0141 >=.99=0.00 spearman=0.019
+[a3] google/embeddinggemma-2 fastapi_48d58ae3b6ef4ded5a4794618c00345667256d98 name_text/none: cos_mean=0.0008 >=.99=0.00 spearman=-0.015
+[a3] google/embeddinggemma-2 fastapi_48d58ae3b6ef4ded5a4794618c00345667256d98 name_text/document: cos_mean=-0.0091 >=.99=0.00 spearman=0.000
+[a3] google/embeddinggemma-2 fastapi_1e78a36b7310003f0ff634627d8a7bc53c6ccdee text/none: cos_mean=0.0127 >=.99=0.00 spearman=0.030
+[a3] google/embeddinggemma-2 fastapi_1e78a36b7310003f0ff634627d8a7bc53c6ccdee text/document: cos_mean=0.0005 >=.99=0.00 spearman=0.030
+[a3] google/embeddinggemma-2 fastapi_1e78a36b7310003f0ff634627d8a7bc53c6ccdee text/code_retrieval_query: cos_mean=-0.0023 >=.99=0.00 spearman=0.042
+[a3] google/embeddinggemma-2 fastapi_1e78a36b7310003f0ff634627d8a7bc53c6ccdee text/search_result: cos_mean=0.0017 >=.99=0.00 spearman=0.038
+[a3] google/embeddinggemma-2 fastapi_1e78a36b7310003f0ff634627d8a7bc53c6ccdee name/none: cos_mean=-0.0039 >=.99=0.00 spearman=0.066
+[a3] google/embeddinggemma-2 fastapi_1e78a36b7310003f0ff634627d8a7bc53c6ccdee name/document: cos_mean=-0.0103 >=.99=0.00 spearman=0.074
+[a3] google/embeddinggemma-2 fastapi_1e78a36b7310003f0ff634627d8a7bc53c6ccdee id/none: cos_mean=-0.0039 >=.99=0.00 spearman=0.066
+[a3] google/embeddinggemma-2 fastapi_1e78a36b7310003f0ff634627d8a7bc53c6ccdee id/document: cos_mean=-0.0103 >=.99=0.00 spearman=0.074
+[a3] google/embeddinggemma-2 fastapi_1e78a36b7310003f0ff634627d8a7bc53c6ccdee name_text/none: cos_mean=0.0044 >=.99=0.00 spearman=0.064
+[a3] google/embeddinggemma-2 fastapi_1e78a36b7310003f0ff634627d8a7bc53c6ccdee name_text/document: cos_mean=-0.0052 >=.99=0.00 spearman=0.069
+[a3] google/embeddinggemma-2 fastapi_6ee87478d821171139264cd9cd17cbd2232934ce text/none: cos_mean=0.0078 >=.99=0.00 spearman=-0.001
+[a3] google/embeddinggemma-2 fastapi_6ee87478d821171139264cd9cd17cbd2232934ce text/document: cos_mean=-0.0045 >=.99=0.00 spearman=0.005
+[a3] google/embeddinggemma-2 fastapi_6ee87478d821171139264cd9cd17cbd2232934ce text/code_retrieval_query: cos_mean=-0.0074 >=.99=0.00 spearman=0.023
+[a3] google/embeddinggemma-2 fastapi_6ee87478d821171139264cd9cd17cbd2232934ce text/search_result: cos_mean=-0.0034 >=.99=0.00 spearman=0.011
+[a3] google/embeddinggemma-2 fastapi_6ee87478d821171139264cd9cd17cbd2232934ce name/none: cos_mean=-0.0084 >=.99=0.00 spearman=0.010
+[a3] google/embeddinggemma-2 fastapi_6ee87478d821171139264cd9cd17cbd2232934ce name/document: cos_mean=-0.0155 >=.99=0.00 spearman=0.037
+[a3] google/embeddinggemma-2 fastapi_6ee87478d821171139264cd9cd17cbd2232934ce id/none: cos_mean=-0.0084 >=.99=0.00 spearman=0.010
+[a3] google/embeddinggemma-2 fastapi_6ee87478d821171139264cd9cd17cbd2232934ce id/document: cos_mean=-0.0155 >=.99=0.00 spearman=0.037
+[a3] google/embeddinggemma-2 fastapi_6ee87478d821171139264cd9cd17cbd2232934ce name_text/none: cos_mean=0.0013 >=.99=0.00 spearman=0.022
+[a3] google/embeddinggemma-2 fastapi_6ee87478d821171139264cd9cd17cbd2232934ce name_text/document: cos_mean=-0.0095 >=.99=0.00 spearman=0.039
+[a3] google/embeddinggemma-2 fastapi_bc06e4296d588f39f38c7ac2fc96d3913c565962 text/none: cos_mean=0.0080 >=.99=0.00 spearman=-0.017
+[a3] google/embeddinggemma-2 fastapi_bc06e4296d588f39f38c7ac2fc96d3913c565962 text/document: cos_mean=-0.0041 >=.99=0.00 spearman=-0.022
+[a3] google/embeddinggemma-2 fastapi_bc06e4296d588f39f38c7ac2fc96d3913c565962 text/code_retrieval_query: cos_mean=-0.0066 >=.99=0.00 spearman=-0.010
+[a3] google/embeddinggemma-2 fastapi_bc06e4296d588f39f38c7ac2fc96d3913c565962 text/search_result: cos_mean=-0.0042 >=.99=0.00 spearman=-0.033
+[a3] google/embeddinggemma-2 fastapi_bc06e4296d588f39f38c7ac2fc96d3913c565962 name/none: cos_mean=-0.0059 >=.99=0.00 spearman=0.016
+[a3] google/embeddinggemma-2 fastapi_bc06e4296d588f39f38c7ac2fc96d3913c565962 name/document: cos_mean=-0.0141 >=.99=0.00 spearman=0.013
+[a3] google/embeddinggemma-2 fastapi_bc06e4296d588f39f38c7ac2fc96d3913c565962 id/none: cos_mean=-0.0059 >=.99=0.00 spearman=0.016
+[a3] google/embeddinggemma-2 fastapi_bc06e4296d588f39f38c7ac2fc96d3913c565962 id/document: cos_mean=-0.0141 >=.99=0.00 spearman=0.013
+[a3] google/embeddinggemma-2 fastapi_bc06e4296d588f39f38c7ac2fc96d3913c565962 name_text/none: cos_mean=-0.0002 >=.99=0.00 spearman=-0.002
+[a3] google/embeddinggemma-2 fastapi_bc06e4296d588f39f38c7ac2fc96d3913c565962 name_text/document: cos_mean=-0.0113 >=.99=0.00 spearman=-0.001
+{
+  "models": {
+    "google/embeddinggemma-2": {
+      "best": {
+        "model": "google/embeddinggemma-2",
+        "graph_key": "rich_fc41075a3206d2a5fd846c6f41c4d2becab814fa",
+        "variant": "text",
+        "prompt": "none",
+        "n": 200,
+        "cos_mean": 0.015382936224341393,
+        "cos_median": 0.017036866396665573,
+        "share_ge_0.99": 0.0,
+        "share_ge_0.95": 0.0,
+        "spearman_pairwise": 0.0876622900048706,
+        "model_dim": 256
+      },
+      "identified": false
+    }
+  },
+  "identified_encoder": null
+}

@@ -1,0 +1,66 @@
+[a7] 1/16 fastapi_16d75d90eb96976a57b94cc24e4018859cd54c4d: provided={'matched_def': 3121, 'matched_nested_flat': 83, 'class_dropped_method': 34} absent_defs=880
+[a7] 2/16 fastapi_2cf04ee30db9df2db04a5b1e0d2c625dfbf1a211: provided={'matched_def': 3500, 'matched_nested_flat': 93, 'class_dropped_method': 34} absent_defs=897
+[a7] 3/16 fastapi_4976568fc7cb7501729d8f84d946cde1e91299cd: provided={'matched_def': 3623, 'class_dropped_method': 36, 'matched_nested_flat': 109} absent_defs=920
+[a7] 4/16 fastapi_603df6e36f59cc4a3e189f506b8f36d1e816c3ac: provided={'matched_def': 3674, 'matched_nested_flat': 112, 'class_dropped_method': 36} absent_defs=976
+[a7] 5/16 fastapi_7132a690461c2367f22556eb87c2b5eb7d9cfb45: provided={'matched_def': 3492, 'class_dropped_method': 34, 'matched_nested_flat': 93} absent_defs=896
+[a7] 6/16 fastapi_972a967d5d3fa24d450637c36c6b7ad1f1d8c1b6: provided={'matched_def': 3548, 'class_dropped_method': 34, 'matched_nested_flat': 95} absent_defs=906
+[a7] 7/16 fastapi_c6487ed632056e450d844846a1b63be551a3cbc6: provided={'matched_def': 3583, 'class_dropped_method': 34, 'matched_nested_flat': 98} absent_defs=907
+[a7] 8/16 fastapi_eaf611f9ee56de4f16c837d4f487a4b9fca507c4: provided={'matched_def': 3554, 'matched_nested_flat': 97, 'class_dropped_method': 34} absent_defs=906
+[a7] 9/16 requests_0b4d494192de489701d3a2e32acef8fb5d3f042e: provided={'matched_def': 534, 'matched_nested_flat': 22, 'class_dropped_method': 133, 'unmatched': 22} absent_defs=28
+[a7] 10/16 requests_7a13c041dbef42f9f3feb14110f02626f6892e9a: provided={'matched_def': 535, 'matched_nested_flat': 22, 'class_dropped_method': 133, 'unmatched': 22} absent_defs=28
+[a7] 11/16 rich_19c67b9a3479841e9133bea94607c89ee931d3fc: provided={'matched_def': 1886, 'matched_nested_flat': 135} absent_defs=2
+[a7] 12/16 rich_36fe3f7ca9becca4777861d5e6e625f5a4a37545: provided={'matched_def': 1879, 'matched_nested_flat': 132} absent_defs=2
+[a7] 13/16 rich_58ac15120fe254886c10d6253667733c83604cb4: provided={'matched_def': 1884, 'matched_nested_flat': 133} absent_defs=2
+[a7] 14/16 rich_8a616de8e25db3c93abaaa220c493d80878de69d: provided={'matched_def': 1802, 'matched_nested_flat': 124} absent_defs=2
+[a7] 15/16 rich_c478588f3c228a4e86741a057c42b452d7bc6bce: provided={'matched_def': 1833, 'matched_nested_flat': 124} absent_defs=2
+[a7] 16/16 rich_fde5d6eee3b0437eaecdcbf6f8b11aeab3a5d503: provided={'matched_def': 1829, 'matched_nested_flat': 124} absent_defs=2
+{
+  "fastapi/fastapi": {
+    "n_graphs": 8,
+    "provided": {
+      "matched_def": 28095,
+      "matched_nested_flat": 780,
+      "class_dropped_method": 276
+    },
+    "defs": {
+      "async_function|absent_async": 6832,
+      "class|present": 6415,
+      "class|present_class_dropped": 252,
+      "function|present": 21697,
+      "nested|absent_async": 456,
+      "nested|present_class_dropped": 80,
+      "nested|present_nested_flat": 1297
+    }
+  },
+  "psf/requests": {
+    "n_graphs": 2,
+    "provided": {
+      "matched_def": 1069,
+      "matched_nested_flat": 44,
+      "class_dropped_method": 266,
+      "unmatched": 44
+    },
+    "defs": {
+      "class|present": 138,
+      "function|present": 931,
+      "function|present_class_dropped": 234,
+      "nested|absent_nested": 56,
+      "nested|present_class_dropped": 40,
+      "nested|present_nested_flat": 56
+    }
+  },
+  "Textualize/rich": {
+    "n_graphs": 6,
+    "provided": {
+      "matched_def": 11113,
+      "matched_nested_flat": 772
+    },
+    "defs": {
+      "class|present": 1302,
+      "function|present": 9973,
+      "nested|absent_async": 6,
+      "nested|absent_nested": 6,
+      "nested|present_nested_flat": 1036
+    }
+  }
+}

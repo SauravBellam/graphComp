@@ -1,0 +1,34 @@
+
+$ /home/sauravbellam/cache/a2/rich_3472/venv/bin/python -s -m pytest tests/test_pretty.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/rich_3472/trace_post.xml
+[exit 1]
+............................................sF......                     [100%]
+=================================== FAILURES ===================================
+____________________________ test_attrs_broken_310 _____________________________
+
+    @skip_py37
+    @skip_py38
+    @skip_py39
+    def test_attrs_broken_310() -> None:
+        @attr.define
+        class Foo:
+            bar: int
+    
+        foo = Foo(1)
+        del foo.bar
+        result = pretty_repr(foo)
+        print(repr(result))
+        expected = "Foo(bar=AttributeError(\"'Foo' object has no attribute 'bar'\"))"
+>       assert result == expected
+E       assert 'Foo(\n    ba... \'bar\'")\n)' == 'Foo(bar=Attr...te \'bar\'"))'
+E         
+E         - Foo(bar=AttributeError("'Foo' object has no attribute 'bar'"))
+E         + Foo(
+E         +     bar=AttributeError("'tests.test_pretty.test_attrs_broken_310.<locals>.Foo' object has no attribute 'bar'")
+E         + )
+
+tests/test_pretty.py:672: AssertionError
+----------------------------- Captured stdout call -----------------------------
+'Foo(\n    bar=AttributeError("\'tests.test_pretty.test_attrs_broken_310.<locals>.Foo\' object has no attribute \'bar\'")\n)'
+1 failed, 50 passed, 1 skipped in 0.74s
+
+

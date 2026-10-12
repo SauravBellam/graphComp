@@ -1,0 +1,35 @@
+
+$ /home/sauravbellam/cache/a2/fastapi_14786/venv/bin/python -s -m pytest tests/test_security_http_base.py tests/test_security_oauth2_authorization_code_bearer.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/fastapi_14786/trace_pre.xml
+[exit 1]
+.F.....F.                                                                [100%]
+=================================== FAILURES ===================================
+___________________ test_security_http_base_with_whitespaces ___________________
+
+    def test_security_http_base_with_whitespaces():
+        response = client.get("/users/me", headers={"Authorization": "Other  foobar "})
+        assert response.status_code == 200, response.text
+>       assert response.json() == {"scheme": "Other", "credentials": "foobar"}
+E       AssertionError: assert {'scheme': 'O...': ' foobar '} == {'scheme': 'O...ls': 'foobar'}
+E         
+E         Omitting 1 identical items, use -vv to show
+E         Differing items:
+E         {'credentials': ' foobar '} != {'credentials': 'foobar'}
+E         Use -v to get more diff
+
+tests/test_security_http_base.py:27: AssertionError
+_________________________ test_token_with_whitespaces __________________________
+
+    def test_token_with_whitespaces():
+        response = client.get("/items", headers={"Authorization": "Bearer  testtoken "})
+        assert response.status_code == 200, response.text
+>       assert response.json() == {"token": "testtoken"}
+E       AssertionError: assert {'token': ' testtoken '} == {'token': 'testtoken'}
+E         
+E         Differing items:
+E         {'token': ' testtoken '} != {'token': 'testtoken'}
+E         Use -v to get more diff
+
+tests/test_security_oauth2_authorization_code_bearer.py:43: AssertionError
+2 failed, 7 passed in 2.98s
+
+

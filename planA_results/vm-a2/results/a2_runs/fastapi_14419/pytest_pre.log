@@ -1,0 +1,39 @@
+
+$ /home/sauravbellam/cache/a2/fastapi_14419/venv/bin/python -s -m pytest tests/test_security_scopes.py tests/test_security_scopes_sub_dependency.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/fastapi_14419/trace_pre.xml
+[exit 1]
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+_________________ test_security_scopes_dependency_called_once __________________
+
+client = <starlette.testclient.TestClient object at 0x7faa74078050>
+call_counter = {'count': 2}
+
+    def test_security_scopes_dependency_called_once(
+        client: TestClient, call_counter: Dict[str, int]
+    ):
+        response = client.get("/")
+    
+        assert response.status_code == 200
+>       assert call_counter["count"] == 1
+E       assert 2 == 1
+
+tests/test_security_scopes.py:46: AssertionError
+_________________ test_security_scopes_sub_dependency_caching __________________
+
+client = <starlette.testclient.TestClient object at 0x7faa74017110>
+call_counts = {'get_current_user': 2, 'get_db_session': 2, 'get_user_items': 1, 'get_user_me': 2}
+
+    def test_security_scopes_sub_dependency_caching(
+        client: TestClient, call_counts: Dict[str, int]
+    ):
+        response = client.get("/")
+    
+        assert response.status_code == 200
+>       assert call_counts["get_db_session"] == 1
+E       assert 2 == 1
+
+tests/test_security_scopes_sub_dependency.py:83: AssertionError
+- generated xml file: /home/sauravbellam/results/a2_runs/fastapi_14419/trace_pre.xml -
+2 failed in 2.11s
+
+

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="2" failures="0" skipped="0" tests="2" time="1.985" timestamp="2026-10-10T23:21:15.317227+00:00" hostname="vm-a2"><testcase classname="" name="tests.test_dependency_yield_scope" time="0.000"><error message="collection failure">tests/test_dependency_yield_scope.py:23: in &lt;module&gt;
+    SessionFuncDep = Annotated[Session, Depends(dep_session, scope="function")]
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   TypeError: Depends() got an unexpected keyword argument 'scope'</error></testcase><testcase classname="" name="tests.test_dependency_yield_scope_websockets" time="0.000"><error message="collection failure">tests/test_dependency_yield_scope_websockets.py:26: in &lt;module&gt;
+    SessionFuncDep = Annotated[Session, Depends(dep_session, scope="function")]
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   TypeError: Depends() got an unexpected keyword argument 'scope'</error></testcase></testsuite></testsuites>

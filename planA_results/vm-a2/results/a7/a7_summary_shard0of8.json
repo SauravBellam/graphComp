@@ -1,0 +1,353 @@
+{
+  "per_repo": {
+    "fastapi/fastapi": {
+      "n_graphs": 9,
+      "provided": {
+        "matched_def": 33933,
+        "matched_nested_flat": 1039,
+        "class_dropped_method": 260
+      },
+      "defs": {
+        "async_function|absent_async": 7922,
+        "class|present": 7250,
+        "function|present": 26700,
+        "nested|absent_async": 582,
+        "nested|present_nested_flat": 1668,
+        "class|present_class_dropped": 235,
+        "nested|present_class_dropped": 76
+      }
+    },
+    "psf/requests": {
+      "n_graphs": 1,
+      "provided": {
+        "matched_def": 537,
+        "matched_nested_flat": 22,
+        "class_dropped_method": 133,
+        "unmatched": 22
+      },
+      "defs": {
+        "class|present": 69,
+        "function|present": 468,
+        "function|present_class_dropped": 117,
+        "nested|absent_nested": 28,
+        "nested|present_class_dropped": 20,
+        "nested|present_nested_flat": 28
+      }
+    },
+    "Textualize/rich": {
+      "n_graphs": 6,
+      "provided": {
+        "matched_def": 11041,
+        "matched_nested_flat": 762
+      },
+      "defs": {
+        "class|present": 1296,
+        "function|present": 9907,
+        "nested|absent_async": 6,
+        "nested|absent_nested": 6,
+        "nested|present_nested_flat": 1024
+      }
+    }
+  },
+  "graphs": [
+    {
+      "graph_key": "fastapi_016ab760faba1813ba235d5582a014a58bd2f417",
+      "n_provided": 4287,
+      "provided": {
+        "matched_def": 4142,
+        "matched_nested_flat": 145
+      },
+      "defs": {
+        "async_function|absent_async": 734,
+        "class|present": 641,
+        "function|present": 3501,
+        "nested|absent_async": 75,
+        "nested|present_nested_flat": 235
+      },
+      "files_checked": 1023,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "fastapi_1fcec88ad2df4541b6a81c4786c4d039dc745e1e",
+      "n_provided": 4479,
+      "provided": {
+        "matched_def": 4326,
+        "class_dropped_method": 36,
+        "matched_nested_flat": 117
+      },
+      "defs": {
+        "async_function|absent_async": 1053,
+        "class|present": 947,
+        "class|present_class_dropped": 33,
+        "function|present": 3379,
+        "nested|absent_async": 74,
+        "nested|present_class_dropped": 10,
+        "nested|present_nested_flat": 188
+      },
+      "files_checked": 1161,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "fastapi_3c54a8f07b70cdd40e3d81ea319e9fcccd2481d2",
+      "n_provided": 3757,
+      "provided": {
+        "matched_def": 3612,
+        "class_dropped_method": 36,
+        "matched_nested_flat": 109
+      },
+      "defs": {
+        "async_function|absent_async": 857,
+        "class|present": 814,
+        "class|present_class_dropped": 33,
+        "function|present": 2798,
+        "nested|absent_async": 59,
+        "nested|present_class_dropped": 10,
+        "nested|present_nested_flat": 176
+      },
+      "files_checked": 1079,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "fastapi_516169428d2fa189d34318ebc469a082c49c1189",
+      "n_provided": 3837,
+      "provided": {
+        "matched_def": 3688,
+        "class_dropped_method": 36,
+        "matched_nested_flat": 113
+      },
+      "defs": {
+        "async_function|absent_async": 923,
+        "class|present": 835,
+        "class|present_class_dropped": 33,
+        "function|present": 2853,
+        "nested|absent_async": 61,
+        "nested|present_class_dropped": 10,
+        "nested|present_nested_flat": 181
+      },
+      "files_checked": 1088,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "fastapi_6513d4daa16a536d17743de6a292f49bd06388a4",
+      "n_provided": 4264,
+      "provided": {
+        "matched_def": 4116,
+        "matched_nested_flat": 138,
+        "class_dropped_method": 10
+      },
+      "defs": {
+        "async_function|absent_async": 885,
+        "class|present": 815,
+        "class|present_class_dropped": 6,
+        "function|present": 3301,
+        "nested|absent_async": 82,
+        "nested|present_class_dropped": 6,
+        "nested|present_nested_flat": 210
+      },
+      "files_checked": 1025,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "fastapi_811fa898752e7f5697733a2958ff79ad8dfb5276",
+      "n_provided": 3818,
+      "provided": {
+        "matched_def": 3671,
+        "matched_nested_flat": 111,
+        "class_dropped_method": 36
+      },
+      "defs": {
+        "async_function|absent_async": 915,
+        "class|present": 834,
+        "class|present_class_dropped": 33,
+        "function|present": 2837,
+        "nested|absent_async": 61,
+        "nested|present_class_dropped": 10,
+        "nested|present_nested_flat": 179
+      },
+      "files_checked": 1085,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "fastapi_a7f2dbe976bf72703376f0cd04487bfc4a849f83",
+      "n_provided": 3255,
+      "provided": {
+        "matched_def": 3134,
+        "matched_nested_flat": 87,
+        "class_dropped_method": 34
+      },
+      "defs": {
+        "async_function|absent_async": 830,
+        "class|present": 735,
+        "class|present_class_dropped": 31,
+        "function|present": 2416,
+        "nested|absent_async": 52,
+        "nested|present_class_dropped": 10,
+        "nested|present_nested_flat": 146
+      },
+      "files_checked": 1014,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "fastapi_cff2236dacb7aedcaf2d2de0873cfbc9bb2b897a",
+      "n_provided": 3774,
+      "provided": {
+        "matched_def": 3628,
+        "class_dropped_method": 36,
+        "matched_nested_flat": 110
+      },
+      "defs": {
+        "async_function|absent_async": 867,
+        "class|present": 815,
+        "class|present_class_dropped": 33,
+        "function|present": 2813,
+        "nested|absent_async": 59,
+        "nested|present_class_dropped": 10,
+        "nested|present_nested_flat": 177
+      },
+      "files_checked": 1082,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "fastapi_eead41bf4cf8587b4d86091dd3eabbb85796e717",
+      "n_provided": 3761,
+      "provided": {
+        "matched_def": 3616,
+        "matched_nested_flat": 109,
+        "class_dropped_method": 36
+      },
+      "defs": {
+        "async_function|absent_async": 858,
+        "class|present": 814,
+        "class|present_class_dropped": 33,
+        "function|present": 2802,
+        "nested|absent_async": 59,
+        "nested|present_class_dropped": 10,
+        "nested|present_nested_flat": 176
+      },
+      "files_checked": 1080,
+      "repo": "fastapi/fastapi"
+    },
+    {
+      "graph_key": "requests_382fc2c0c6c0ef0874bc65bc1175f97c073e5086",
+      "n_provided": 714,
+      "provided": {
+        "matched_def": 537,
+        "matched_nested_flat": 22,
+        "class_dropped_method": 133,
+        "unmatched": 22
+      },
+      "defs": {
+        "class|present": 69,
+        "function|present": 468,
+        "function|present_class_dropped": 117,
+        "nested|absent_nested": 28,
+        "nested|present_class_dropped": 20,
+        "nested|present_nested_flat": 28
+      },
+      "files_checked": 35,
+      "repo": "psf/requests"
+    },
+    {
+      "graph_key": "rich_01b85ac116c4635b6ddb8b488be8254be6df2a84",
+      "n_provided": 1925,
+      "provided": {
+        "matched_def": 1801,
+        "matched_nested_flat": 124
+      },
+      "defs": {
+        "class|present": 213,
+        "function|present": 1615,
+        "nested|absent_async": 1,
+        "nested|absent_nested": 1,
+        "nested|present_nested_flat": 167
+      },
+      "files_checked": 188,
+      "repo": "Textualize/rich"
+    },
+    {
+      "graph_key": "rich_1fc7cb210ae52eb099df39818ddb9569e5b14c7b",
+      "n_provided": 2015,
+      "provided": {
+        "matched_def": 1882,
+        "matched_nested_flat": 133
+      },
+      "defs": {
+        "class|present": 219,
+        "function|present": 1690,
+        "nested|absent_async": 1,
+        "nested|absent_nested": 1,
+        "nested|present_nested_flat": 178
+      },
+      "files_checked": 206,
+      "repo": "Textualize/rich"
+    },
+    {
+      "graph_key": "rich_49117ced6648a432d85951f72dce777038f6ce09",
+      "n_provided": 1979,
+      "provided": {
+        "matched_def": 1848,
+        "matched_nested_flat": 131
+      },
+      "defs": {
+        "class|present": 216,
+        "function|present": 1659,
+        "nested|absent_async": 1,
+        "nested|absent_nested": 1,
+        "nested|present_nested_flat": 176
+      },
+      "files_checked": 188,
+      "repo": "Textualize/rich"
+    },
+    {
+      "graph_key": "rich_66074922edabeac684434b4d87ee994fb97b0627",
+      "n_provided": 1970,
+      "provided": {
+        "matched_def": 1845,
+        "matched_nested_flat": 125
+      },
+      "defs": {
+        "class|present": 216,
+        "function|present": 1656,
+        "nested|absent_async": 1,
+        "nested|absent_nested": 1,
+        "nested|present_nested_flat": 168
+      },
+      "files_checked": 188,
+      "repo": "Textualize/rich"
+    },
+    {
+      "graph_key": "rich_9ec419154102acce7363e3958bec6c261864d7fb",
+      "n_provided": 1961,
+      "provided": {
+        "matched_def": 1836,
+        "matched_nested_flat": 125
+      },
+      "defs": {
+        "class|present": 216,
+        "function|present": 1647,
+        "nested|absent_async": 1,
+        "nested|absent_nested": 1,
+        "nested|present_nested_flat": 168
+      },
+      "files_checked": 188,
+      "repo": "Textualize/rich"
+    },
+    {
+      "graph_key": "rich_e1e6d745f670ff3df6b8f47377c0a4006cb74066",
+      "n_provided": 1953,
+      "provided": {
+        "matched_def": 1829,
+        "matched_nested_flat": 124
+      },
+      "defs": {
+        "class|present": 216,
+        "function|present": 1640,
+        "nested|absent_async": 1,
+        "nested|absent_nested": 1,
+        "nested|present_nested_flat": 167
+      },
+      "files_checked": 188,
+      "repo": "Textualize/rich"
+    }
+  ]
+}

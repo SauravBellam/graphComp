@@ -1,0 +1,93 @@
+{
+  "instance_id": "fastapi_14873",
+  "repo": "fastapi/fastapi",
+  "backend": "venv",
+  "done": true,
+  "deps": {
+    "steps": [
+      {
+        "name": "pip_upgrade",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14873/venv/bin/python -m pip install -q --disable-pip-version-check 'pip>=24' 'setuptools' 'wheel' pytest pytest-timeout",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "editable_no_deps",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14873/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-build-isolation --no-deps -e .",
+        "exit": 2,
+        "stderr_tail": "lib/python3.13/site-packages/pip/_internal/req/req_install.py\", line 258, in supports_pyproject_editable\n    return \"build_editable\" in self.pep517_backend._supported_features()\n                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"/home/sauravbellam/cache/a2/fastapi_14873/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 180, in _supported_features\n    return self._call_hook(\"_supported_features\", {})\n           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/sauravbellam/cache/a2/fastapi_14873/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 402, in _call_hook\n    raise BackendUnavailable(\n    ...<4 lines>...\n    )\npip._vendor.pyproject_hooks._impl.BackendUnavailable: Cannot import 'pdm.backend'\n"
+      },
+      {
+        "name": "editable_no_deps_isolated",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14873/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-deps -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "runtime_deps",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14873/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "extra_all",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14873/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e '.[all]'",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "extra_standard",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14873/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e '.[standard]'",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "fastapi_tests",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14873/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels httpx 'python-multipart' email-validator pyyaml orjson ujson 'sqlmodel' 'dirty-equals' 'pytest-asyncio' 'flask' 'passlib[bcrypt]' 'pyjwt' 'inline-snapshot'",
+        "exit": 0,
+        "stderr_tail": ""
+      }
+    ],
+    "editable_ok": true,
+    "python": "3.13.5 (main, Aug 10 2026, 12:06:59) [GCC 14.2.0]"
+  },
+  "targets": [
+    "tests/test_router_events.py"
+  ],
+  "test_patch_strategy": "exact",
+  "test_patch_applied": true,
+  "pre": {
+    "exit": 1,
+    "seconds": 5.0,
+    "timeout": false,
+    "exit_meaning": "some_failed",
+    "run_class": "clean",
+    "counts": {
+      "failed": 1,
+      "passed": 9
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": ".........F                                                               [100%]\n=================================== FAILURES ===================================\n_________________ test_startup_shutdown_handlers_as_parameters _________________\n\nstate = State(app_startup=False, app_shutdown=False, router_startup=False, router_shutdown=False, sub_router_startup=False, sub_router_shutdown=False)\n\n    def test_startup_shutdown_handlers_as_parameters(state: State) -> None:\n        \"\"\"Test that startup/shutdown handlers passed as parameters to FastAPI are called correctly.\"\"\"\n    \n        def app_startup() -> None:\n            state.app_startup = True\n    \n        def app_shutdown() -> None:\n            state.app_shutdown = True\n    \n        app = FastAPI(on_startup=[app_startup], on_shutdown=[app_shutdown])\n    \n        @app.get(\"/\")\n        def main() -> dict[str, str]:\n            return {\"message\": \"Hello World\"}\n    \n        def router_startup() -> None:\n            state.router_startup = True\n    \n        def router_shutdown() -> None:\n            state.router_shutdown = True\n    \n        router = APIRouter(on_startup=[router_startup], on_shutdown=[router_shutdown])\n    \n        def sub_router_startup() -> None:\n            state.sub_router_startup = True\n    \n        def sub_router_shutdown() -> None:\n            state.sub_router_shutdown = True\n    \n        sub_router = APIRouter(\n            on_startup=[sub_router_startup], on_shutdown=[sub_router_shutdown]\n        )\n    \n        router.include_router(sub_router)\n        app.include_router(router)\n    \n        assert state.app_startup is False\n        assert state.router_startup is False\n        assert state.sub_router_startup is False\n        assert state.app_shutdown is False\n        assert state.router_shutdown is False\n        assert state.sub_router_shutdown is False\n        with TestClient(app) as client:\n>           assert state.app_startup is True\nE           assert False is True\nE            +  where False = State(app_startup=False, app_shutdown=False, router_startup=False, router_shutdown=False, sub_router_startup=False, sub_router_shutdown=False).app_startup\n\ntests/test_router_events.py:365: AssertionError\n1 failed, 9 passed in 3.74s\n",
+    "stderr_tail": ""
+  },
+  "gold_patch_strategy": "exact",
+  "gold_patch_applied": true,
+  "post": {
+    "exit": 0,
+    "seconds": 4.2,
+    "timeout": false,
+    "exit_meaning": "all_passed",
+    "run_class": "clean",
+    "counts": {
+      "passed": 10
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "..........                                                               [100%]\n10 passed in 2.89s\n",
+    "stderr_tail": ""
+  },
+  "trace_pre_exists": true,
+  "trace_post_exists": true,
+  "seconds": 57.6
+}

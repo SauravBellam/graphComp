@@ -1,0 +1,66 @@
+{
+  "steps": [
+    {
+      "name": "pip_upgrade",
+      "cmd": "/home/sauravbellam/cache/a2/fastapi_14301/venv/bin/python -m pip install -q --disable-pip-version-check 'pip>=24' 'setuptools' 'wheel' pytest pytest-timeout",
+      "exit": 0,
+      "stderr_tail": ""
+    },
+    {
+      "name": "editable_no_deps",
+      "cmd": "/home/sauravbellam/cache/a2/fastapi_14301/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-build-isolation --no-deps -e .",
+      "exit": 2,
+      "stderr_tail": "lib/python3.13/site-packages/pip/_internal/req/req_install.py\", line 258, in supports_pyproject_editable\n    return \"build_editable\" in self.pep517_backend._supported_features()\n                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"/home/sauravbellam/cache/a2/fastapi_14301/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 180, in _supported_features\n    return self._call_hook(\"_supported_features\", {})\n           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/sauravbellam/cache/a2/fastapi_14301/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 402, in _call_hook\n    raise BackendUnavailable(\n    ...<4 lines>...\n    )\npip._vendor.pyproject_hooks._impl.BackendUnavailable: Cannot import 'pdm.backend'\n"
+    },
+    {
+      "name": "editable_no_deps_isolated",
+      "cmd": "/home/sauravbellam/cache/a2/fastapi_14301/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-deps -e .",
+      "exit": 0,
+      "stderr_tail": ""
+    },
+    {
+      "name": "runtime_deps",
+      "cmd": "/home/sauravbellam/cache/a2/fastapi_14301/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e .",
+      "exit": 0,
+      "stderr_tail": ""
+    },
+    {
+      "name": "extra_all",
+      "cmd": "/home/sauravbellam/cache/a2/fastapi_14301/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e '.[all]'",
+      "exit": 0,
+      "stderr_tail": ""
+    },
+    {
+      "name": "extra_standard",
+      "cmd": "/home/sauravbellam/cache/a2/fastapi_14301/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e '.[standard]'",
+      "exit": 0,
+      "stderr_tail": ""
+    },
+    {
+      "name": "req_requirements-tests.txt",
+      "cmd": "/home/sauravbellam/cache/a2/fastapi_14301/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -r requirements-tests.txt",
+      "exit": 0,
+      "stderr_tail": ""
+    },
+    {
+      "name": "req_requirements-docs-tests.txt",
+      "cmd": "/home/sauravbellam/cache/a2/fastapi_14301/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -r requirements-docs-tests.txt",
+      "exit": 0,
+      "stderr_tail": ""
+    },
+    {
+      "name": "req_requirements.txt",
+      "cmd": "/home/sauravbellam/cache/a2/fastapi_14301/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -r requirements.txt",
+      "exit": 0,
+      "stderr_tail": ""
+    },
+    {
+      "name": "fastapi_tests",
+      "cmd": "/home/sauravbellam/cache/a2/fastapi_14301/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels httpx 'python-multipart' email-validator pyyaml orjson ujson 'sqlmodel' 'dirty-equals' 'pytest-asyncio' 'flask' 'passlib[bcrypt]' 'pyjwt' 'inline-snapshot'",
+      "exit": 0,
+      "stderr_tail": ""
+    }
+  ],
+  "editable_ok": true,
+  "python": "3.13.5 (main, Aug 10 2026, 12:06:59) [GCC 14.2.0]"
+}

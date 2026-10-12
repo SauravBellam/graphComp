@@ -1,0 +1,8 @@
+
+$ /home/sauravbellam/cache/a2/rich_3043/venv/bin/python -s -m pytest tests/test_console.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/rich_3043/trace_post.xml
+[exit 0]
+........................................................................ [ 75%]
+........................                                                 [100%]
+96 passed in 0.68s
+
+
