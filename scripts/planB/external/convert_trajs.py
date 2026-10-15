@@ -38,6 +38,7 @@ from collections import Counter, defaultdict
 from concurrent.futures import ProcessPoolExecutor, as_completed
 from pathlib import Path
 
+VERSION = "2"                                               # outputs of another version are discarded on start
 MAX_LINES, MAX_CHARS, MAX_OUT = 150, 10000, 5000           # harness: max_file_lines, max_file_chars, max_stdout_chars
 SOURCES = {
     "coderforge": ("togethercomputer/CoderForge-Preview", "trajectories/filtered_reward1-*.parquet", "openhands", None),
@@ -52,6 +53,7 @@ R2E_REPOS = {"aiohttp": "aio-libs/aiohttp", "pandas": "pandas-dev/pandas", "nump
 COMP_REPOS = {"psf/requests": "requests", "tiangolo/fastapi": "fastapi", "fastapi/fastapi": "fastapi", "Textualize/rich": "rich",
               "encode/httpx": "httpx"}
 TEST_PATH = re.compile(r"(^|/)(tests?|testing)/|(^|/)test_[^/]*$|_tests?\.py$|(^|/)conftest\.py$")
+os.environ["GIT_TERMINAL_PROMPT"] = "0"                     # deleted / private repos fail instead of asking for a login
 GIT = ["git", "-c", "user.name=x", "-c", "user.email=x@x", "-c", "advice.detachedHead=false"]
 
 # The deployed prompt (swegemma build_agent_prompt with the deploy config, sandbox testing on; no graph section because
@@ -608,7 +610,7 @@ class Replay:
             for n, t in src.items():
                 if n == len(lines) + 1 and not t.strip():      # OpenHands shows the empty line after a final newline
                     continue
-                if n > len(lines) or lines[n - 1].rstrip("\r").rstrip() != t.rstrip("\r").rstrip():
+                if n > len(lines) or lines[n - 1].lstrip("\ufeff").rstrip() != t.lstrip("\ufeff").rstrip():   # the source viewer drops a BOM
                     raise Reject("stale file: source view differs from the replayed checkout")
             vr = a.get("view_range")
             if isinstance(vr, str):
@@ -747,10 +749,10 @@ def process_task(task, eps, cache, system_prompt):
             except Exception as e:
                 rejects.append((ep["src"], ep["traj_id"], f"replay error {type(e).__name__}: {str(e)[:160]}"))
     finally:
-        with Repo(cache, task["base"]["url"]) as repo:
-            sh(GIT + ["-C", str(repo.dir), "worktree", "remove", "--force", str(ws)], check=False)
-            sh(GIT + ["-C", str(repo.dir), "worktree", "prune"], check=False)
         shutil.rmtree(ws, ignore_errors=True)
+        d = Repo(cache, task["base"]["url"]).dir
+        if d.exists():                              # never clone here: a failed clone already rejected the task
+            sh(GIT + ["-C", str(d), "worktree", "prune"], check=False)
     return rows, rejects
 
 
@@ -822,6 +824,13 @@ def main():
     cache = Path(a.cache or out.parent / "git_cache")
     cache.mkdir(parents=True, exist_ok=True)
     system_prompt = Path(a.system_prompt).read_text()
+    vf = out / "VERSION"
+    if not vf.exists() or vf.read_text().strip() != VERSION:
+        for d in ("train", "rejects"):
+            shutil.rmtree(out / d, ignore_errors=True)
+        (out / "tasks.jsonl").unlink(missing_ok=True)
+        out.mkdir(parents=True, exist_ok=True)
+        vf.write_text(VERSION)
     comp = set()
     for l in open(a.comp_tasks):
         if l.strip():
@@ -847,9 +856,12 @@ def main():
             def flush():                            # convert the buffered tasks; rows go straight to the shard
                 nonlocal n_kept
                 with ProcessPoolExecutor(a.workers) as ex:
-                    futs = [ex.submit(process_task, tasks[k], v, str(cache), system_prompt) for k, v in groups.items()]
+                    futs = {ex.submit(process_task, tasks[k], v, str(cache), system_prompt): v for k, v in groups.items()}
                     for fu in as_completed(futs):
-                        rr, jj = fu.result()
+                        try:
+                            rr, jj = fu.result()
+                        except Exception as e:      # a crashed worker rejects its task, never the whole job
+                            rr, jj = [], [(ep["src"], ep["traj_id"], f"worker error {type(e).__name__}: {str(e)[:160]}") for ep in futs[fu]]
                         for r in rr:
                             fo.write(json.dumps(r) + "\n")
                         n_kept += len(rr)
