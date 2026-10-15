@@ -87,16 +87,17 @@ def next_rate(res, min_gap):
 
 
 def report(out, res):
-    base = res.get(0)
-    lines = ["| probe | forced rate | arm | measured graph-call share | resolved | vs B2: only this / only B2 | McNemar p | wall | why probed |",
+    ref = min(res)                       # comparisons against the lowest probed rate (B2 when 0% is probed)
+    base = res[ref]
+    lines = [f"| probe | forced rate | arm | measured graph-call share | resolved | vs {ref}%: only this / only {ref}% | McNemar p | wall | why probed |",
              "|---|---|---|---|---|---|---|---|---|"]
     for r in sorted(res):
         x = res[r]
-        if base and r != 0:
+        if r != ref:
             b, c = len(set(x["solved"]) - set(base["solved"])), len(set(base["solved"]) - set(x["solved"]))
             cmp_ = f"{b} / {c} | {mcnemar(b, c):.3f}"
         else:
-            cmp_ = "(baseline) | "
+            cmp_ = "(reference) | "
         lines.append(f"| {x.get('probe', '')} | {r}% | {x['arm']} | {x['graph_share']:.1%} | {x['resolved']}/{x['scored']} | {cmp_} "
                      f"| {x.get('wall_seconds', 0) / 3600:.1f} h | {x.get('why', '')} |")
     best = max(res, key=lambda r: (res[r]["resolved"], -r))
@@ -157,9 +158,12 @@ def main():
     ap.add_argument("--out", required=True)
     ap.add_argument("--max-probes", type=int, default=7)
     ap.add_argument("--min-gap", type=int, default=12, help="stop when the gap next to the best rate is at most this (points)")
+    ap.add_argument("--start", default="0,100", help="first rates to probe; e.g. 7,100 = forced at the model's natural graph-call "
+                    "share instead of an unforced B2 run (Oct 15: the optimum is searched among forced conditions only)")
     a = ap.parse_args(argv[:argv.index("--")] if "--" in argv else argv)
     out = Path(a.out).expanduser()
-    res, todo, why = {}, [0, 100], {0: "start: 0% (B2)", 100: "start: 100% (FC)"}
+    todo = [int(x) for x in a.start.split(",")]
+    res, why = {}, {r: f"start: {r}%" + (" (B2)" if r == 0 else " (FC)" if r == 100 else " (natural graph-call share)") for r in todo}
     old = json.load(open(out / "fc_search.json")) if (out / "fc_search.json").exists() else {}
     while todo and len(res) < a.max_probes:
         r = todo.pop(0)
