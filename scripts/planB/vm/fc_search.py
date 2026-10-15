@@ -11,14 +11,21 @@ every probe is paired with B2 on the same tasks.
 
 Next rate: the midpoint of the widest gap next to the current best (ties -> the lower rate), until that gap is at most
 --min-gap points or --max-probes probes have run. Resumable: a rate with merged results is read, not re-run.
-After every probe: fc_search.json and fc_search.md in --out (resolved, measured graph-call share, exact McNemar vs B2).
+After every probe, in --out (everything a write-up needs):
+  fc_search.md        table: rate, arm, measured graph-call share, resolved, McNemar vs B2, wall time, why the rate was probed
+  fc_search.json      the same per probe, plus solved task lists, timestamps, tool-call totals, serving settings
+  fc_search_tasks.csv one row per (probe, task): valid, resolved, tool calls, graph calls, LLM calls, seconds, error
+  fc_search_prompts/  the exact system prompt each probe ran with
 """
 import argparse
 import csv
 import json
 import math
+import shutil
 import subprocess
 import sys
+import time
+from datetime import datetime, timezone
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
@@ -42,14 +49,19 @@ def read(out, r, valid):
         return None
     rows = [json.loads(l) for l in open(m / "task_results.jsonl") if l.strip()]
     solved = sorted(x["instance_id"] for x in rows if x.get("resolved") and x["instance_id"] in valid)
-    calls = graph = 0
-    for t in (m / "traces").glob("trace_*.json"):
-        for s in json.load(open(t)).get("steps", []):
-            for tc in s.get("tool_calls") or []:
-                calls += 1
-                graph += tc.get("function_name") in GRAPH
+    tasks = []
+    for x in rows:
+        t = m / "traces" / f"trace_{x['instance_id']}.json"
+        names = [tc.get("function_name") for s in (json.load(open(t)).get("steps", []) if t.exists() else [])
+                 for tc in s.get("tool_calls") or []]
+        tasks.append({"rate": r, "arm": name, "instance_id": x["instance_id"], "valid": x["instance_id"] in valid,
+                      "resolved": bool(x.get("resolved")), "tool_calls": len(names), "graph_calls": sum(n in GRAPH for n in names),
+                      "llm_calls": x.get("total_llm_calls"), "seconds": x.get("duration_seconds"),
+                      "error": (x.get("error") or "")[:120]})
+    calls, graph = sum(t["tool_calls"] for t in tasks), sum(t["graph_calls"] for t in tasks)
     return {"rate": r, "arm": name, "resolved": len(solved), "scored": len([x for x in rows if x["instance_id"] in valid]),
-            "graph_share": graph / calls if calls else 0.0, "tool_calls": calls, "solved": solved}
+            "graph_share": graph / calls if calls else 0.0, "tool_calls": calls, "graph_calls": graph, "solved": solved,
+            "tasks": tasks}
 
 
 def next_rate(res, min_gap):
@@ -64,8 +76,8 @@ def next_rate(res, min_gap):
 
 def report(out, res):
     base = res.get(0)
-    lines = ["| forced rate | arm | measured graph-call share | resolved | vs B2: only this / only B2 | McNemar p |",
-             "|---|---|---|---|---|---|"]
+    lines = ["| probe | forced rate | arm | measured graph-call share | resolved | vs B2: only this / only B2 | McNemar p | wall | why probed |",
+             "|---|---|---|---|---|---|---|---|---|"]
     for r in sorted(res):
         x = res[r]
         if base and r != 0:
@@ -73,11 +85,18 @@ def report(out, res):
             cmp_ = f"{b} / {c} | {mcnemar(b, c):.3f}"
         else:
             cmp_ = "(baseline) | "
-        lines.append(f"| {r}% | {x['arm']} | {x['graph_share']:.1%} | {x['resolved']}/{x['scored']} | {cmp_} |")
+        lines.append(f"| {x.get('probe', '')} | {r}% | {x['arm']} | {x['graph_share']:.1%} | {x['resolved']}/{x['scored']} | {cmp_} "
+                     f"| {x.get('wall_seconds', 0) / 3600:.1f} h | {x.get('why', '')} |")
     best = max(res, key=lambda r: (res[r]["resolved"], -r))
     lines += ["", f"Best so far: {best}% ({res[best]['resolved']}/{res[best]['scored']})."]
     (out / "fc_search.md").write_text("\n".join(lines) + "\n")
-    (out / "fc_search.json").write_text(json.dumps(res, indent=1))
+    (out / "fc_search.json").write_text(json.dumps({r: {k: v for k, v in x.items() if k != "tasks"} for r, x in res.items()},
+                                                  indent=1))
+    with open(out / "fc_search_tasks.csv", "w", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=list(next(iter(res.values()))["tasks"][0]))
+        w.writeheader()
+        for r in sorted(res):
+            w.writerows(res[r]["tasks"])
     print("\n".join(lines), flush=True)
 
 
@@ -103,22 +122,40 @@ def main():
     ap.add_argument("--min-gap", type=int, default=12, help="stop when the gap next to the best rate is at most this (points)")
     a = ap.parse_args(argv[:argv.index("--")] if "--" in argv else argv)
     out = Path(a.out).expanduser()
-    res, todo = {}, [0, 100]
+    res, todo, why = {}, [0, 100], {0: "start: 0% (B2)", 100: "start: 100% (FC)"}
+    old = json.load(open(out / "fc_search.json")) if (out / "fc_search.json").exists() else {}
     while todo and len(res) < a.max_probes:
         r = todo.pop(0)
+        t0, started = time.time(), datetime.now(timezone.utc).isoformat(timespec="seconds")
         if read(out, r, set()) is None:
-            print(f"=== probe {len(res) + 1}: forced rate {r}% (arm {arm(r)})", flush=True)
+            print(f"=== probe {len(res) + 1}: forced rate {r}% (arm {arm(r)}): {why[r]}", flush=True)
             subprocess.run([sys.executable, str(HERE / "dev_runs.py"), "--out", str(out), "--arms", arm(r)] + passthru,
                            check=True)
+            prov = {"started": started, "finished": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+                    "wall_seconds": round(time.time() - t0)}
+        else:
+            prov = {k: old.get(str(r), {}).get(k) for k in ("started", "finished", "wall_seconds")}
+        sp = out / "submissions" / f"{arm(r)}_s1" / "prompts" / "system.md"
+        if sp.exists():
+            (out / "fc_search_prompts").mkdir(exist_ok=True)
+            shutil.copy(sp, out / "fc_search_prompts" / f"{arm(r)}.md")
         prof = out / "validity" / "slices" / "profile.csv"
         valid = {x["instance_id"] for x in csv.DictReader(open(prof)) if x.get("sub_valid") == "True"}
         res[r] = read(out, r, valid)
         if res[r] is None:
             sys.exit(f"no merged results for {arm(r)} after its run")
+        st = out / "settings.json"
+        res[r].update(prov, probe=len(res), why=why[r], dev_runs_args=passthru,
+                      settings=json.load(open(st)) if st.exists() else None)
+        if not prov.get("wall_seconds"):
+            res[r]["wall_seconds"] = 0
         report(out, res)
         if not todo:
             n = next_rate(res, a.min_gap)
             todo = [] if n is None or n in res else [n]
+            if todo:
+                best = max(res, key=lambda q: (res[q]["resolved"], -q))
+                why[n] = f"midpoint of the widest gap next to the best rate so far ({best}%, {res[best]['resolved']} resolved)"
     print(f"search done after {len(res)} probes", flush=True)
 
 
