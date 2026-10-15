@@ -67,10 +67,10 @@ class Collector(ast.NodeVisitor):
         # requests.auth.HTTPDigestAuth.md5_utf8 (function in a method), tests.test_requests.BadFileObj (class in a method)
         if is_class:      # a class: owned by the enclosing class only if no function lies between them
             owner = self.stack[-1][0] if self.stack and self.stack[-1][1] == "class" else None
-        elif isinstance(getattr(n, "_parent", None), (ast.FunctionDef, ast.AsyncFunctionDef)):
-            owner = None      # a function directly in a function body sits at module level (tests.test_requests.hook)
-        else:             # otherwise the nearest enclosing class, through any blocks (HTTPDigestAuth.md5_utf8 inside an `if`)
+        else:             # a function: the nearest enclosing class, through any functions (FastAPI.decorator, Align.generate_segments)
             owner = next((q for q, k in reversed(self.stack) if k == "class"), None)
+        # known gap: in requests' tests/test_requests.py the competition graph puts some TestRequests methods and their
+        # nested helpers at module level (a parser quirk on that file, not a naming rule); ~80% node match there
         q = (f"{owner}.{n.name}" if owner else ".".join(p for p in (self.mod, n.name) if p))
         if add:
             self.defs.setdefault(q, (n, owner))
@@ -197,7 +197,7 @@ def selftest():
     (d / "docs_src/ex/tut.py").write_text("from pkg import solve\ndef main():\n    solve()\n")
     g = build(d)
     ids = {n["id"] for n in g["nodes"]}
-    assert {"pkg.core.A", "pkg.core.A.__init__", "pkg.core.A.go", "pkg.core.A.inner", "pkg.core.hook", "pkg.core.helper", "ex.tut.main"} <= ids, ids
+    assert {"pkg.core.A", "pkg.core.A.__init__", "pkg.core.A.go", "pkg.core.A.inner", "pkg.core.A.hook", "pkg.core.helper", "ex.tut.main"} <= ids, ids
     e = {(x["source"], x["target"]) for x in g["edges"]}
     for a, b in [("pkg.core.A.__init__", "pkg.core.A.go"), ("pkg.core.A.inner", "pkg.core.helper"), ("pkg.core.solve", "pkg.core.A"),
                  ("ex.tut.main", "pkg.core.solve"), ("pkg.core.A", "pkg.core.A.go"), ("pkg.core.Base", "pkg.core.A")]:

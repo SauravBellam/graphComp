@@ -15,28 +15,48 @@ done
 log "installed this commit's scripts into $G"
 nvidia-smi --query-gpu=name,memory.used --format=csv,noheader
 
-# ------------------------------------------------------------------ JOB (Oct 15): E4B deploy rehearsal -> action agreement -> merged adapter
-HUB=~/.cache/huggingface/hub
-E4B=$(ls -d $HUB/models--google--gemma-4-E4B-it-qat-q4_0-unquantized/snapshots/*/ | head -1)
-E2B=$(ls -d $HUB/models--google--gemma-4-E2B-it-qat-q4_0-unquantized/snapshots/*/ | head -1)
-AD=~/gc/lora/rft_e4b_v1
-R=~/gc/vm_job_e4b_20261015; mkdir -p $R
+# ------------------------------------------------------------------ JOB (Oct 15): external task import (CPU only; the GPU may be serving)
+export CUDA_VISIBLE_DEVICES=""
+C=~/gc/data/comp
+X=~/gc/external; O=$X/graphcomp-external; mkdir -p $X
+E=$G/scripts/planB/external
+export HF_HUB_OFFLINE=0
 
-log "STEP 1/3: deployed-budget rehearsal, E4B w4a16, dev 24, arms B2 + DEP"
-$PY $G/scripts/planB/vm/dev_runs.py --model e4b --arms B2,DEP --no-lean --out ~/gc/runs_dev_e4b_deploy
-log "STEP 1/3 done"; grep -E "^\| (B2|DEP) " ~/gc/runs_dev_e4b_deploy/summary_dev.md
+log "STEP 1/5: graph builder vs the competition graphs, and the embedding smoothing depth (Spearman vs competition vectors)"
+$PY -I $E/code_graph.py --selftest
+$PY -W ignore $E/validate_graph.py $C 1 --embed Qwen/Qwen3-Embedding-0.6B --hops 0,1,2,3 | tee $X/validate_embed.txt
+HOPS=$($PY - $X/validate_embed.txt <<'PYEOF'
+import re, sys, statistics
+s = {}
+for l in open(sys.argv[1]):
+    for h, v in re.findall(r"hops (\d+): spearman (-?[\d.]+)", l):
+        s.setdefault(int(h), []).append(float(v))
+best = max(s, key=lambda h: statistics.mean(s[h]))
+print(best)
+print({h: round(statistics.mean(v), 3) for h, v in sorted(s.items())}, file=sys.stderr)
+PYEOF
+)
+log "STEP 1/5 done: smoothing hops = $HOPS"
 
-log "STEP 2/3: next-action agreement with 31B on the adapter's 39 val turns (E2B, E4B, E4B + rft_e4b_v1)"
-$PY $G/scripts/planB/lora/action_agreement.py --data $G/planB_results/lora_data/rft_31b_B2s1/train.jsonl \
-  --val-from $AD/train_meta.json --out $R/action_agreement.json \
-  --model e4b=$E4B --model e4b_rft=$E4B+$AD/adapter --model e2b=$E2B
-log "STEP 2/3 done"
+log "STEP 2/5: import (read our repos' rows, drop competition PRs and duplicates, snapshots, graphs, embeddings)"
+$PY -W ignore $E/import_external.py --out $O --comp-tasks $C/tasks.jsonl --hops $HOPS
+ln -sfn $C/wheels $O/wheels
+N=$(wc -l < $O/tasks.jsonl); log "STEP 2/5 done: $N tasks built"
 
-log "STEP 3/3: unquantized E4B base vs merged rft_e4b_v1, bf16, dev 24, B2"
-$PY $G/scripts/planB/vm/merge_lora.py --base $E4B --out ~/gc/data/model_e4b_unq
-$PY $G/scripts/planB/vm/dev_runs.py --model e4b --arms B2 --no-lean --model-dir ~/gc/data/model_e4b_unq --out ~/gc/runs_dev_e4b_unq
-$PY $G/scripts/planB/vm/merge_lora.py --base $E4B --adapter $AD/adapter --out ~/gc/data/model_e4b_merged_rft
-$PY $G/scripts/planB/vm/dev_runs.py --model e4b --arms B2 --no-lean --model-dir ~/gc/data/model_e4b_merged_rft --out ~/gc/runs_dev_e4b_merged_rft
-rm -rf ~/gc/data/model_e4b_merged_rft      # 15 GB; re-create with merge_lora.py
-for d in unq merged_rft; do grep -E "^\| B2 " ~/gc/runs_dev_e4b_$d/summary_dev.md | sed "s/^/$d: /"; done
-log "STEP 3/3 done; ALL DONE"
+log "STEP 3/5: gold-patch pass (src/ shim + pytest-httpbin on PYTHONPATH)"
+export SWE_EXTRA_PYTHONPATH=~/gc/testdeps_httpbin
+IDS=$($PY -c "import json,sys; print(' '.join(json.loads(l)['instance_id'] for l in open(sys.argv[1]) if l.strip()))" $O/tasks.jsonl)
+RA="$PY $G/scripts/planB/run_arm.py --tasks $O/tasks.jsonl --snapshots $O/snapshots --submission $C/sample_submission --sandbox subprocess --timeout-seconds 300 --concurrency 4"
+rm -rf $X/gold $X/empty
+$RA --mode gold --results $X/gold --task-ids $IDS
+GOLD_OK=$($PY -c "import json,sys; print(' '.join(r['instance_id'] for r in map(json.loads, open(sys.argv[1])) if r.get('resolved')))" $X/gold/task_results.jsonl)
+log "STEP 3/5 done: gold resolves $(echo $GOLD_OK | wc -w)/$N"
+
+log "STEP 4/5: empty-patch pass on the gold-resolving tasks"
+if [ -n "$GOLD_OK" ]; then $RA --mode empty --results $X/empty --task-ids $GOLD_OK; fi
+$PY $E/import_external.py --out $O --comp-tasks $C/tasks.jsonl --record-validity $X/gold $X/empty
+
+log "STEP 5/5: package the Kaggle dataset (wheels link excluded)"
+tar czf $X/graphcomp-external.tgz -C $X --exclude=graphcomp-external/wheels graphcomp-external
+ls -la $X/graphcomp-external.tgz; du -sh $O/snapshots $O/graphs $O/embeddings
+log "ALL DONE"
