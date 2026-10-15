@@ -3,6 +3,7 @@
 
     python build_rft_data.py --runs RUN_DIR [RUN_DIR ...] --profile PROFILE.csv --out OUT_DIR
                              [--max-per-task 2] [--require-graph-call] [--max-est-tokens 16000] [--max-repeat-calls N] [--dedupe-routes 0.8]
+                             [--accurate-tools TASKS.jsonl] [--order time] [--exclude IDS.txt]
 
 RUN_DIR = a merged run folder (task_results.jsonl + traces/). PROFILE = the validity profile of the environment the runs
 came from (sub_valid). A trajectory is kept only if: resolved; sub_valid; NOT in the official dev or holdout slice
@@ -38,6 +39,23 @@ def longest_repeat(msgs):
         run = run + 1 if i and c == calls[i - 1] else 1
         best = max(best, run)
     return best
+
+
+def tool_accuracy(trace, patch):
+    """Accurate tool use, judged against the gold patch with tool_trace.py (TQS arXiv 2610.13152, TRACEPROBE 2607.06184):
+    every source edit lands on a gold file or function, and a reproduction or test runs after the last source edit.
+    Returns (ok, signals)."""
+    sys.path.insert(0, str(HERE.parent))
+    import tool_trace
+    rows, summ = tool_trace.trace_run(trace, tool_trace.gold_of(patch))
+    edits = [r for r in rows if r["purpose"] == "edit-src"]
+    last = max((r["i"] for r in edits), default=None)
+    verified = last is not None and any(r["purpose"] in ("reproduce", "test") and r["i"] > last for r in rows)
+    sig = {"edit_src_calls": len(edits), "edits_on_gold": sum(r["on_gold"] for r in edits), "verified_after_last_edit": verified,
+           "edit_then_reread": sum(1 for a, b in zip(rows, rows[1:]) if a["purpose"] == "edit-src" and b["purpose"] == "read-src"),
+           "first_gold_call": summ["first_gold_call"]}
+    ok = bool(edits) and sig["edits_on_gold"] == len(edits) and verified
+    return ok, sig
 
 
 def route(msgs):
@@ -121,12 +139,19 @@ def main():
                     help="per task, drop a trajectory whose route similarity (difflib ratio over (tool, target) calls) to a "
                          "kept one is >= T (1.0 = exact copies only). On 54 same-task pairs from the Kaggle runs (Oct 15) "
                          "the median similarity was 0.45 and one pair reached 0.80")
+    ap.add_argument("--accurate-tools", metavar="TASKS_JSONL",
+                    help="keep only trajectories with accurate tool use (see tool_accuracy); TASKS_JSONL supplies the gold patches")
+    ap.add_argument("--order", choices=["tool_calls", "time"], default="tool_calls",
+                    help="which trajectories of a task are kept first: fewest tool calls, or least wall time (duration_seconds)")
+    ap.add_argument("--exclude", metavar="IDS_TXT", help="never train on these instance ids (one per line), e.g. extra holdout tasks")
     ap.add_argument("--max-est-tokens", type=int, default=16384, help="drop trajectories whose longest context is above this (16384 = the effective input budget at max_output_tokens 16384)")
     a = ap.parse_args()
 
     dev = {l.strip() for l in open(SLICES / "dev_slice.txt") if l.strip()}
     hold = {l.strip() for l in open(SLICES / "holdout_slice.txt") if l.strip()}
     prof = {r["instance_id"]: r for r in csv.DictReader(open(a.profile))}
+    never = {l.strip() for l in open(a.exclude) if l.strip()} if a.exclude else set()
+    gold = {t["instance_id"]: t.get("patch", "") for t in map(json.loads, open(a.accurate_tools))} if a.accurate_tools else {}
     cands, excluded = {}, []
     for rd in map(Path, a.runs):
         for r in read_jsonl(rd / "task_results.jsonl"):
@@ -134,6 +159,8 @@ def main():
             why = None
             if iid in dev or iid in hold:
                 why = "in an official slice (dev/holdout): never trained on"
+            elif iid in never:
+                why = "in --exclude: never trained on"
             elif not r.get("resolved"):
                 why = "not resolved"
             elif prof.get(iid, {}).get("sub_valid") != "True":
@@ -162,14 +189,22 @@ def main():
             if a.require_graph_call and n_graph == 0:
                 excluded.append((str(rd), iid, "no graph call (--require-graph-call)"))
                 continue
+            sig = {}
+            if a.accurate_tools:
+                ok, sig = tool_accuracy(trace, gold.get(iid, ""))
+                if not ok:
+                    excluded.append((str(rd), iid, f"inaccurate tool use: {sig}"))
+                    continue
             n_turns = sum(1 for m in msgs if m["role"] == "assistant")
             cands.setdefault(iid, []).append({"instance_id": iid, "repo": iid.split("_")[0], "source": str(rd),
                                               "n_turns": n_turns, "est_tokens": est, "n_graph_calls": n_graph,
-                                              "tool_calls": int(r.get("tool_calls") or 0), "messages": msgs})
+                                              "tool_calls": int(r.get("tool_calls") or 0),
+                                              "seconds": float(r.get("duration_seconds") or 0), "tool_accuracy": sig,
+                                              "messages": msgs})
     rows = []
     for iid, lst in sorted(cands.items()):
-        lst.sort(key=lambda x: (x["tool_calls"], x["source"]))
-        if a.dedupe_routes is not None:      # fewest tool calls first, so the shortest of near-copies is kept
+        lst.sort(key=lambda x: ((x["seconds"], x["tool_calls"]) if a.order == "time" else (x["tool_calls"], x["seconds"]), x["source"]))
+        if a.dedupe_routes is not None:      # in --order, so the fastest / shortest of near-copies is kept
             kept = []
             for x in lst:
                 sim = max((route_similarity(x["messages"], k["messages"]) for k in kept), default=0.0)
@@ -181,14 +216,14 @@ def main():
         for x in lst[a.max_per_task:]:
             excluded.append((x["source"], iid, f"over --max-per-task {a.max_per_task}"))
         rows += lst[:a.max_per_task]
-    leak = sorted({x["instance_id"] for x in rows} & (dev | hold))
+    leak = sorted({x["instance_id"] for x in rows} & (dev | hold | never))
     if leak:
         sys.exit(f"REFUSING to write: dev/holdout tasks in the training set: {leak}")
     out = Path(a.out)
     out.mkdir(parents=True, exist_ok=True)
     with open(out / "train.jsonl", "w") as f:
         for x in rows:
-            x = {k: v for k, v in x.items() if k != "tool_calls"}
+            x = {k: v for k, v in x.items() if k not in ("tool_calls",)}
             f.write(json.dumps(x, ensure_ascii=False) + "\n")
     with open(out / "excluded.csv", "w", newline="") as f:
         w = csv.writer(f)
@@ -203,6 +238,7 @@ def main():
            "excluded_reasons": dict(reasons.most_common()), "runs": a.runs, "profile": a.profile,
            "rules": {"max_per_task": a.max_per_task, "require_graph_call": a.require_graph_call, "max_est_tokens": a.max_est_tokens,
                      "max_repeat_calls": a.max_repeat_calls, "dedupe_routes": a.dedupe_routes,
+                     "accurate_tools": bool(a.accurate_tools), "order": a.order, "exclude": sorted(never),
                      "never": "official dev and holdout slices"},
            "train_sha256": hashlib.sha256((out / "train.jsonl").read_bytes()).hexdigest()[:16]}
     (out / "manifest.json").write_text(json.dumps(man, indent=1))
