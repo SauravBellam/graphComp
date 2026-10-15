@@ -15,16 +15,12 @@ done
 log "installed this commit's scripts into $G"
 nvidia-smi --query-gpu=name,memory.used --format=csv,noheader
 
-# ------------------------------------------------------------------ JOB (Oct 15): E2B, search for the best forced graph-call rate on the 115 fastapi + rich tasks
-M=~/gc/data/model_e2b
-R=~/gc/runs_fcsearch_e2b; mkdir -p $R
+# ------------------------------------------------------------------ JOB (Oct 15): E4B, max_output_tokens 8192, search for the best forced graph-call rate on the 115 fastapi + rich tasks
+M=~/gc/data/model_e4b
+R=~/gc/runs_fcsearch_e4b_o8k; mkdir -p $R
 
-log "STEP 1/2: E2B w4a16 (gemma-4-e2b-it-qat-w4a16-ct) from Hugging Face, once (8.3 GB; smallest Gemma 4)"
-if [ ! -f $M/config.json ]; then
-  HF_HUB_OFFLINE=0 $PY -c "import sys; from huggingface_hub import snapshot_download; snapshot_download('google/gemma-4-E2B-it-qat-w4a16-ct', local_dir=sys.argv[1])" $M
-  echo "model gemma-4-e2b-it-qat-w4a16-ct from Hugging Face google/gemma-4-E2B-it-qat-w4a16-ct $(date -u +%FT%TZ)" > ~/gc/logs/model_source_e2b.txt
-fi
-du -sh $M; df -h ~ | tail -1
+log "STEP 1/2: E4B w4a16 already on the VM (~/gc/data/model_e4b)"
+test -f $M/config.json
 log "STEP 1/2 done"
 
 log "STEP 2/2: forced-rate search (0% = B2 and 100% = FC first, then midpoints toward the best; one fresh vLLM server per probe)"
@@ -32,7 +28,7 @@ $PY -c "import json,sys; print('\\n'.join(t for t in (json.loads(l)['instance_id
 test "$(wc -l < $R.slice.txt)" -eq 115
 $PY -I $G/scripts/planB/vm/fc_search.py --selftest
 $PY -I $G/scripts/planB/tool_usage.py --selftest
-$PY $G/scripts/planB/vm/fc_search.py --out $R --max-probes 7 --min-gap 12 -- --model e2b --no-lean --auto-concurrency --dev-slice $R.slice.txt
+$PY $G/scripts/planB/vm/fc_search.py --out $R --max-probes 7 --min-gap 12 -- --model e4b --max-out 8192 --no-lean --auto-concurrency --dev-slice $R.slice.txt
 cat $R/fc_search.md
 tar czf $R.fc_search.tgz -C $(dirname $R) $(basename $R)/fc_search.md $(basename $R)/fc_search.json $(basename $R)/fc_search_tasks.csv $(basename $R)/fc_search_by_category.csv $(basename $R)/fc_search_tools.md $(basename $R)/fc_search_prompts $(basename $R)/settings.json $(basename $R)/summary_dev.md
 ls -la $R.fc_search.tgz
