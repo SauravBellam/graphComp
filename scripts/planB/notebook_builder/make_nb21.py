@@ -5,7 +5,8 @@ agent, holdout comparison, submission choice and zip. Removed: teacher generatio
 students. Step 5 now reads the attached SFT mix; step 6 trains only the 31B, with the training window stepped down on OOM.
     python3 scripts/planB/notebook_builder/make_nb21.py
 """
-import json
+import json, sys
+SMOKE = "--smoke" in sys.argv     # 21s: the ~3 GPU-hours left before the quota reset, to measure the 31B training path
 from pathlib import Path
 R = Path("/Users/sauravbellam/Desktop/Projects/graphComp")
 U = R / "planB_results/kaggle_upload"
@@ -74,10 +75,12 @@ c = src(3).replace("NB19", "NB21")
 c = sub1(c, "SEEDS = [11, 12, 13]          # teacher replicates; with notebook 01's seed 1 that is 4 attempts per task\nSEED = SEEDS[0]",
          "SEEDS = []                    # no teacher runs in this notebook\nSEED = 1")
 c = sub1(c, "DATAGEN_END_H = 4.6           # no new teacher chunk after this\n", "")
+if SMOKE:   # whole session within ~3 GPU-hours: training stops at 1 h; the point is the measurements, not the adapter
+    c = sub1(c, "SESSION_BUDGET_H = 11.3", "SESSION_BUDGET_H = 2.8 ")
 c = sub1(c, "TRAIN31_MAX_H, TRAIN_STUDENT_MAX_H, EVAL_ARM_H = 2.6, 0.8, 0.9",
-         "TRAIN31_MAX_H, TRAIN_STUDENT_MAX_H, EVAL_ARM_H = 10.0, 0, 0.5   # EVAL_ARM_H = the adapter check (31B load + 1 request)\n"
+         f"TRAIN31_MAX_H, TRAIN_STUDENT_MAX_H, EVAL_ARM_H = {1.0 if SMOKE else 10.0}, 0, 0.5   # EVAL_ARM_H = the adapter check (31B load + 1 request)\n"
          "TRAIN_MAX_LENS = [32768, 24576, 18432]   # training window (tokens); the next one only after an out-of-memory failure\n"
-         "MAX_TRAIN_TRAJ = 4000         # more than one session trains; picked own-data first, then one per task, then seconds\n"
+         f"MAX_TRAIN_TRAJ = {60 if SMOKE else 4000}         # picked own-data first, then one per task, then seconds\n"
          "VAL_FRAC = 0.02               # of tasks, for the validation loss (2% of thousands is enough and keeps eval short)")
 i0 = c.index("STUDENTS = {'STUDENT_12B'")
 i1 = c.index("EVAL_STUDENTS = False")
@@ -196,6 +199,13 @@ for cell in cells:
         cell["source"] = "".join(cell["source"]).replace("NB19_STATE", "NB21_STATE").splitlines(keepends=True)
         cell["outputs"], cell["execution_count"] = [], None
 nb["cells"] = cells
-out = U / "notebooks/21_sft_mix_lora31_submission.ipynb"
+if SMOKE:
+    nb["cells"][0] = md("# 21s — SMOKE TEST of notebook 21 (≈ 3 GPU-hours): measure the 31B training path\n\n"
+                        "Same notebook as 21 with `SESSION_BUDGET_H = 2.8`, training ≤ 1 h on ≤ 60 trajectories (attach "
+                        "`graphcomp-sft-mix-smoke`). What it measures: the largest training window that fits (32k → 24k → 18k "
+                        "on out-of-memory), the 31B load time, training throughput (`train_log.jsonl`: tokens, steps, seconds), "
+                        "whether the adapter is saved and whether vLLM applies it. Its LoRA is a by-product, not the final "
+                        "submission.\n\n" + "".join(nb["cells"][0]["source"]))
+out = U / ("notebooks/21s_SMOKE_sft_mix_lora31.ipynb" if SMOKE else "notebooks/21_sft_mix_lora31_submission.ipynb")
 json.dump(nb, open(out, "w"), indent=1)
 print(f"wrote {out} ({len(cells)} cells)")
