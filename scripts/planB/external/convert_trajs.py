@@ -38,7 +38,7 @@ from collections import Counter, defaultdict
 from concurrent.futures import ProcessPoolExecutor, as_completed
 from pathlib import Path
 
-VERSION = "3"                                               # outputs of another version are discarded on start
+VERSION = "4"                                               # outputs of another version are discarded on start
 MAX_LINES, MAX_CHARS, MAX_OUT = 150, 10000, 5000           # harness: max_file_lines, max_file_chars, max_stdout_chars
 SOURCES = {
     "coderforge": ("togethercomputer/CoderForge-Preview", "trajectories/filtered_reward1-*.parquet", "openhands", None),
@@ -624,24 +624,28 @@ class Replay:
                 out = sh(["bash", "-c", c], cwd=self.ws, check=False).stdout[:MAX_OUT]
                 self.call(th, "run_command", {"command": c}, ok(stdout=out, stderr="", exit_code=0))
                 return
+            vr = a.get("view_range")
+            if isinstance(vr, str):
+                vr = json.loads(vr)
+            full = (not vr or (int(vr[0]) <= 1 and vr[1] in (-1, None))) and "<response clipped>" not in src_obs
             if not p.is_file():
-                if not src_failed:
+                if src_failed:
+                    self.call(th, "read_file", {"filepath": rel}, err("FileReadError", f"File '{rel}' not found in workspace."))
+                    return
+                if not full:
                     raise Reject("viewed file missing in the checkout")
-                self.call(th, "read_file", {"filepath": rel}, err("FileReadError", f"File '{rel}' not found in workspace."))
-                return
+                self.resync(p, rel, src_obs)                     # made by a shell command (cat > f, cp, ...): rebuild from the view
+                self.labels["files_rebuilt_from_view"] += 1
             if src_failed:                  # e.g. a view_range past the end: the harness's read_file would clamp it
                 self.labels["dropped_failed_noop_calls"] += 1
                 return
             lines = p.read_text(encoding="utf-8", errors="replace").splitlines()
-            src = numbered(src_obs)
-            for n, t in src.items():
-                if n == len(lines) + 1 and not t.strip():      # OpenHands shows the empty line after a final newline
-                    continue
-                if n > len(lines) or lines[n - 1].lstrip("\ufeff").rstrip() != t.lstrip("\ufeff").rstrip():   # the source viewer drops a BOM
+            if not self.matches(lines, numbered(src_obs)):
+                if not full:
                     raise Reject("stale file: source view differs from the replayed checkout")
-            vr = a.get("view_range")
-            if isinstance(vr, str):
-                vr = json.loads(vr)
+                self.resync(p, rel, src_obs)                     # changed by a shell command (sed -i, ...): take the source's state
+                self.labels["files_resynced_from_view"] += 1
+                lines = p.read_text(encoding="utf-8", errors="replace").splitlines()
             s, e = (vr[0], (len(lines) if vr[1] in (-1, None) else vr[1])) if vr else (1, len(lines))
             s, e = max(1, int(s)), min(len(lines), int(e))
             if not lines or s > e:
@@ -705,6 +709,26 @@ class Replay:
             self.call(th, "write_file", {"filepath": rel, "content": self.fix(prev)}, ok(filepath=rel, size=len(self.fix(prev))))
             return
         raise Reject(f"unknown editor command {cmd}")
+
+    @staticmethod
+    def matches(lines, src):
+        for n, t in src.items():
+            if n == len(lines) + 1 and not t.strip():          # OpenHands shows the empty line after a final newline
+                continue
+            if n > len(lines) or lines[n - 1].lstrip("\ufeff").rstrip() != t.lstrip("\ufeff").rstrip():   # viewer drops a BOM
+                return False
+        return True
+
+    def resync(self, p, rel, src_obs):
+        """Write the file exactly as a full, unclipped source view shows it (the viewer splits on newlines, so a final
+        empty line means a trailing newline)."""
+        src = numbered(src_obs)
+        if not src or sorted(src) != list(range(1, max(src) + 1)):
+            raise Reject("viewed file missing in the checkout")
+        p.parent.mkdir(parents=True, exist_ok=True)
+        old = p.read_text(errors="replace") if p.exists() else None
+        self.hist[rel].append(old)
+        p.write_text("\n".join(src[n] for n in range(1, max(src) + 1)))
 
     @staticmethod
     def insert_anchor(content, line, new_str):
