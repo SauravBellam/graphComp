@@ -62,8 +62,19 @@ ARMS = {
     # Oct 14: B2 with the adapter given by --adapter NAME=DIR (agent.yaml "adapter: NAME"); pairs with B2 in the same folder,
     # where the adapter is mounted but unused, so the two arms differ only in whether the agent routes to it.
     "LORA": dict(tools="B2", addendum="", max_out=16384, think=4096, adapter=True, what="B2 + the trained adapter (--adapter)"),
+    # Oct 15: the agent as nb19 deploys it (budget addendum, 8192 output, 5-min caps); pairs with B2 in the same folder
+    "DEP": dict(tools="B2", addendum=None, max_out=8192, think=4096, what="deployed agent: budget addendum + 5-min caps",
+                budget=dict(max_tool_calls=30, max_time_minutes=5, max_turns=80, timeout_seconds=240)),
 }
 ADAPTER = None      # (name, Path) from --adapter
+
+
+def _nb19_addendum():
+    src = (SCRIPTS / "notebook_builder" / "make_nb19.py").read_text()
+    return re.search(r'^ADDENDUM = """(.*?)"""', src, re.S | re.M).group(1)
+
+
+ARMS["DEP"]["addendum"] = _nb19_addendum()
 BASE_TOOLS = ["run_command", "read_file", "edit_file", "write_file", "get_status", "submit_patch"]
 GRAPH_TOOLS = ["get_code_neighbors", "search_similar_code", "get_code_subgraph"]
 BUDGET = dict(max_tool_calls=50, max_time_minutes=30, max_turns=100, timeout_seconds=300)
@@ -159,8 +170,8 @@ def environment(a):
         env = dict(l.split("=", 1) for l in pe.read_text().splitlines() if "=" in l)
     tasks = Path(env.get("TASKS") or next(iter(sorted((gc / "data").rglob("tasks.jsonl"))), ""))
     mdir = gc / "data" / ("model" if MODEL_VARIANT == "31b" else f"model_{MODEL_VARIANT}")   # setup_vm.sh MODEL_VARIANT=...
-    model = Path((env.get("MODEL") if MODEL_VARIANT == "31b" else None)
-                 or next(iter(sorted(p.parent for p in mdir.rglob("config.json"))), ""))
+    model = Path(a.model_dir or (env.get("MODEL") if MODEL_VARIANT == "31b" else None)
+                 or next(iter(sorted(p.parent for p in mdir.rglob("config.json"))), "")).expanduser()
     if not tasks.is_file():
         raise SystemExit(f"tasks.jsonl not found under {gc}/data (run setup_vm.sh first)")
     comp = tasks.parent
@@ -233,17 +244,17 @@ def write_submission(dest, arm, seed, sample):
         f"temperature: 0.2\ntop_p: 0.95\nmax_output_tokens: {cfg['max_out']}\nseed: {seed}\n"
         f"thinking_config:\n  thinking_budget: {cfg['think']}\n  include_thoughts: true\n")
     (dest / "eval_config.yaml").write_text(
-        "evaluation:\n" + "".join(f"  {k}: {v}\n" for k, v in BUDGET.items()))
+        "evaluation:\n" + "".join(f"  {k}: {v}\n" for k, v in cfg.get("budget", BUDGET).items()))
     return dest
 
 
-def run_arm_cmd(mode, tasks, snaps, sub, results, ids, conc, model=None):
+def run_arm_cmd(mode, tasks, snaps, sub, results, ids, conc, model=None, budget=BUDGET):
     cmd = (f"{shlex.quote(sys.executable)} {shlex.quote(str(SCRIPTS / 'run_arm.py'))} --mode {mode} "
            f"--tasks {tasks} --snapshots {snaps} --submission {sub} --results {results} --sandbox subprocess "
-           f"--task-ids {' '.join(ids)} --timeout-seconds {BUDGET['timeout_seconds']} --concurrency {conc}")
+           f"--task-ids {' '.join(ids)} --timeout-seconds {budget['timeout_seconds']} --concurrency {conc}")
     if mode == "agent":
-        cmd += (f" --max-tool-calls {BUDGET['max_tool_calls']} --max-time-minutes {BUDGET['max_time_minutes']} "
-                f"--max-turns {BUDGET['max_turns']} --compaction-interval {COMPACTION_INTERVAL} --model-path {model} --model-alias {MODEL_SLUG}")
+        cmd += (f" --max-tool-calls {budget['max_tool_calls']} --max-time-minutes {budget['max_time_minutes']} "
+                f"--max-turns {budget['max_turns']} --compaction-interval {COMPACTION_INTERVAL} --model-path {model} --model-alias {MODEL_SLUG}")
     return cmd
 
 
@@ -446,7 +457,7 @@ def run_arm_on_dev(arm, seed, dev, a, tasks, snaps, sample, model, server, conc,
         plog(f"--- {name} chunk {k}: {chunk}")
         t0 = time.time()
         with Progress(part / "task_results.jsonl", len(chunk), f"{name} chunk {k}", every=120):
-            sh(run_arm_cmd("agent", tasks, snaps, sub, part, chunk, conc, model), log=root / f"{part.name}.log")
+            sh(run_arm_cmd("agent", tasks, snaps, sub, part, chunk, conc, model, cfg.get("budget", BUDGET)), log=root / f"{part.name}.log")
         secs.append(time.time() - t0)
         if server.srv and Path(server.srv.log_path).exists():
             shutil.copy(server.srv.log_path, part / "vllm_server.log")
@@ -564,6 +575,7 @@ def main():
     ap.add_argument("--concurrency", type=int, help="override the KV-derived concurrency (only on the first run)")
     ap.add_argument("--no-loras", action="store_true", help="do not mount the sample LoRAs (frees memory; recorded)")
     ap.add_argument("--no-lean", action="store_true", help="serve without the lean settings (text only, max 4 sequences)")
+    ap.add_argument("--model-dir", help="serve this checkpoint instead of ~/gc/data/model_<variant> (e.g. a merged adapter); use its own --out")
     a = ap.parse_args()
     MODEL_VARIANT, MODEL_SLUG = a.model, MODEL_SPECS[a.model]
     global ADAPTER
@@ -599,6 +611,8 @@ def main():
            "sha256": __import__("hashlib").sha256(b"".join(f.read_bytes() for f in sorted(ADAPTER[1].glob("*")) if f.is_file())).hexdigest()[:16]}
     if settings and settings.get("adapter") != _ad:
         raise SystemExit(f"{OUT} was run with adapter {settings.get('adapter')}, not {_ad}: use another --out")
+    if settings and settings.get("model_dir") != a.model_dir:
+        raise SystemExit(f"{OUT} was run with --model-dir {settings.get('model_dir')}, not {a.model_dir}: use another --out")
     if settings.get("model", "gemma-4-31b-it-qat-w4a16-ct") != MODEL_SLUG and settings:
         raise SystemExit(f"{OUT} was run with {settings.get('model')}, not {MODEL_SLUG}: use another --out")
     plog(f"=== Plan B dev-slice runs on a single L4 | out {OUT} | arms {arms} | seed {a.seed} | settings {settings or '(first run)'}")
@@ -628,6 +642,7 @@ def main():
                 settings["lean"] = not a.no_lean
                 settings["model"] = MODEL_SLUG
                 settings["adapter"] = _ad
+                settings["model_dir"] = a.model_dir
                 settings["concurrency"] = a.concurrency or (min(concurrency_from(info), LEAN_MAX_SEQS) if not a.no_lean else concurrency_from(info))
                 settings["first_run"] = now()
                 sfile.write_text(json.dumps(settings, indent=1))
