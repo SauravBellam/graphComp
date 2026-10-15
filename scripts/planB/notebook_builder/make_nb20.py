@@ -38,7 +38,9 @@ NEW_TASKS = ["httpx_3672", "requests_6644", "requests_7205", "requests_7309", "r
 HEADER = """# 20 — iterative rejection-sampling campaign (~45 GPU-hours, several sessions) → best LoRA → budget-safe submission
 
 **What it does, every session (resumable; attach the previous version's output):**
-1. **Sample** with the current best adapter (round 1 = notebook 19's `LORA31`; base model if it did not beat `BASE31`).
+0. **Train first** (first session; notebook 19's `LORA31` never trained): round 1 = a 31B LoRA on the verified, accurate
+   trajectories already collected (notebook 01 B2 s1 + notebook 19's teacher passes), scored on the holdout before sampling.
+1. **Sample** with the current best adapter (base model if no round beat `BASE31`).
    Tasks come in *passes*: never-solved tasks first (fewest attempts first), then solved ones from lowest solve rate and
    slowest solve upward ("hard problems that took a while"). Every pass attempts every task once, then a new pass starts.
 2. **Per-task time cap** is recomputed before every chunk from the sampling time left and the tasks left in the pass, so
@@ -64,6 +66,14 @@ re-checked on this image (gold passes, empty fails) before they join the pool.
 (SWE-Gym, arXiv 2412.21139); single-attempt online updates destabilize, so rounds retrain from the base on verified data
 (ASCENT 2610.05303; ReSAIL 2609.39306 on collapse across cycles); process quality of successful coding trajectories
 matters for SFT (TQS 2610.13152); function-level selection separates success from failure (TRACEPROBE 2607.06184).
+
+**Training data and repeats:** several *different* verified trajectories per task are kept (up to `MAX_PER_TASK_TRAIN`), but
+exact route copies are dropped (`--dedupe-routes 1.0`, fastest kept) and epochs stay at ≤2: drilling the same solution
+repeatedly makes models fragile while a new solution per visit does not (arXiv 2609.33559); at this data scale keep all
+verified data rather than a tiny filtered subset (2607.17205); loss on assistant turns with the full context (SWE-Prime
+2608.27449); LoRA rather than full fine-tuning (2609.17848). **Compaction:** `run_arm.py` now logs every ADK compaction
+summary (`compactions.jsonl`) and `train_lora.py` rebuilds the post-compaction prompts from it; notebook 19's runs predate
+this, so their turns after the first compaction (445 of them) are still left out.
 """
 
 CONFIG = r'''# STEP 0 - NB20 campaign config
@@ -268,12 +278,21 @@ if "rounds" not in STATE:
                        "per_task": h19["LORA31"].get("per_task", {})})
     best = max(rounds, key=lambda r: (r["resolved"] if r["resolved"] is not None else -1, -r["round"]))
     save_state(rounds=rounds, best_round=best["round"], training_stopped=False, pass_todo=[], attempt_seq=0, passes=0)
-ROUND_BY_N = {r["round"]: r for r in STATE["rounds"]}
-BEST = ROUND_BY_N[STATE["best_round"]]
-plog("rounds so far: " + ", ".join(f"r{r['round']} {r['resolved']}/{len(HO)}" for r in STATE["rounds"]) + f" | best r{BEST['round']}")
-TRAINING = (not STATE["training_stopped"]) and (len(STATE["rounds"]) - 2) < MAX_ROUNDS
-SAMPLE_END_H = ROUND_SAMPLE_H if TRAINING else SESSION_BUDGET_H - 0.6      # session hours at which sampling stops
-SAMPLE_ROUND = len(STATE["rounds"])            # the round these attempts feed (data for the next adapter)
+NEED_H = TRAIN31_MAX_H + EVAL_ARM_H + 0.4      # one round: train (incl. the ~35 min 31B load) + holdout + margin
+def refresh_rounds():
+    global ROUND_BY_N, BEST, TRAINING, SAMPLE_ROUND
+    ROUND_BY_N = {r["round"]: r for r in STATE["rounds"]}
+    BEST = ROUND_BY_N[STATE["best_round"]]
+    TRAINING = (not STATE["training_stopped"]) and sum("n_train" in r for r in STATE["rounds"]) < MAX_ROUNDS
+    SAMPLE_ROUND = len(STATE["rounds"])            # the round these attempts feed (data for the next adapter)
+    plog("rounds so far: " + ", ".join(f"r{r['round']} {r['resolved']}/{len(HO)}" for r in STATE["rounds"]) + f" | best r{BEST['round']}")
+refresh_rounds()
+'''
+
+SAMPLER_LOOP = r'''# STEP 5 - sampling loop
+_el = (time.time() - _T0) / 3600
+SAMPLE_END_H = (min(_el + ROUND_SAMPLE_H, SESSION_BUDGET_H - NEED_H) if TRAINING
+                else SESSION_BUDGET_H - 0.6)   # session hours at which sampling stops (a round still fits after it)
 chunk_secs, stop_reason = [], "sampling window over"
 try:
     sub = None
@@ -343,7 +362,7 @@ def defs_from_29():
         out.append(s[i:j])
     return "\n".join(out)
 
-ROUND = r'''# STEP 5 - round: build data -> train from the base 31B -> score on the holdout -> keep or stop
+ROUND_DEFS = r'''# STEP 4b - rounds: build data -> train a LoRA from the base 31B -> score on the holdout -> keep or stop
 _models = [dp for dp, dns, fns in walk(INPUT, maxdepth=9) if "config.json" in fns]
 BASE31_TRAIN = next((dp for dp in _models if "31b" in str(dp).lower() and "unquantized" in str(dp).lower() and "assistant" not in str(dp).lower()), None)
 TRAIN_LIB = Path("/tmp/trainlib")
@@ -383,21 +402,21 @@ def eval_holdout(name, adapter_dir):
     k = sum(per.values()); lo, hi = sc.wilson(k, len(HO))
     plog(f"HOLDOUT {name}: {k}/{len(HO)} [{lo:.1%}, {hi:.1%}]")
     return {"resolved": k, "per_task": per}
-need_h = TRAIN31_MAX_H + EVAL_ARM_H + 0.4
-if not TRAINING:
+def run_round():
+  n = SAMPLE_ROUND
+  if not TRAINING:
     plog("training rounds stopped earlier (or MAX_ROUNDS reached): this session only samples")
-elif left_h() < need_h or campaign_left_h() < need_h:
-    plog(f"round skipped: {left_h():.1f} h left in the session, {campaign_left_h():.1f} h in the campaign (need {need_h:.1f})")
-elif BASE31_TRAIN is None:
+  elif left_h() < NEED_H or campaign_left_h() < NEED_H:
+    plog(f"round skipped: {left_h():.1f} h left in the session, {campaign_left_h():.1f} h in the campaign (need {NEED_H:.1f})")
+  elif BASE31_TRAIN is None:
     plog("!!! 31B unquantized training checkpoint not attached: no round")
-else:
-    n = SAMPLE_ROUND
+  else:
     RD = OUT / f"rounds/r{n}"
     runs = ([B2S1] if B2S1 else []) + NB19_PARTS + sorted(p for p in PARTS.glob("p*") if (p / "task_results.jsonl").exists())
     _runs_file = RD / "runs.txt"; RD.mkdir(parents=True, exist_ok=True); _runs_file.write_text("\n".join(map(str, runs)) + "\n")
     sh(f"cd {GC} && {sys.executable} lora/build_rft_data.py --runs {' '.join(map(str, runs))} --profile {OUT / 'profile_nb20.csv'} "
        f"--out {RD / 'data'} --max-per-task {MAX_PER_TASK_TRAIN} --accurate-tools {GC / 'all_tasks.jsonl'} --order time "
-       f"--exclude {GC / 'never_train.txt'}", log=RD / "build_rft_data.log")
+       f"--exclude {GC / 'never_train.txt'} --dedupe-routes 1.0", log=RD / "build_rft_data.log")
     TRAIN_DATA = RD / "data/train.jsonl"
     n_traj = len(read_jsonl(TRAIN_DATA))
     plog(f"round {n}: {n_traj} training trajectories from {len(runs)} run folders")
@@ -415,15 +434,30 @@ else:
         if res is not None:
             rounds = STATE["rounds"] + [{"round": n, "adapter": str(RD / "lora/adapter"), "n_train": n_traj, **res}]
             better = res["resolved"] > (BEST["resolved"] or -1)
-            new_rounds = len(rounds) - 2
+            new_rounds = sum("n_train" in r for r in rounds)
             stop = (not better) and new_rounds >= MIN_NEW_ROUNDS
             save_state(rounds=rounds, best_round=n if better else BEST["round"], training_stopped=stop)
             plog(f"round {n}: {res['resolved']} vs best r{BEST['round']} {BEST['resolved']} -> "
                  f"{'NEW BEST' if better else 'not better'}{'; training stops, sampling continues' if stop else ''}")
-    mark_campaign()
+  mark_campaign()
+  refresh_rounds()
+
+
+# Train first: with no trained adapter yet (notebook 19's LORA31 never trained), round 1 trains on the verified trajectories
+# already collected (notebook 01 B2 s1 + notebook 19 teacher passes) before any sampling, so this session samples with it.
+if TRAINING and not any("n_train" in r for r in STATE["rounds"]) and not ROUND_BY_N[STATE["best_round"]]["adapter"]:
+    plog("train first: no trained adapter yet -> round 1 on the trajectories collected so far")
+    run_round()
 '''
 
-FINAL = r'''# STEP 6 - submission from the best round (deployment budget) and the summary
+ROUND = r'''# STEP 6 - round on everything sampled so far (retrained from the base 31B)
+if any(f"_r{SAMPLE_ROUND}_seed" in p.name for p in PARTS.glob("p*") if p.is_dir()):
+    run_round()
+else:
+    plog(f"no new attempts for round {SAMPLE_ROUND}: no round this session")
+'''
+
+FINAL = r'''# STEP 7 - submission from the best round (deployment budget) and the summary
 ROUND_BY_N = {r["round"]: r for r in STATE["rounds"]}
 BEST = ROUND_BY_N[STATE["best_round"]]
 FINAL = Path("/kaggle/working/submission")
@@ -453,7 +487,7 @@ lines += ["", f"**SUBMISSION: round {BEST['round']}**" + (" (base model, no adap
 print("\n".join(lines))
 '''
 
-ZIP = r"""# STEP 7 - zip the run folder (Output tab): every attempt, every round's data and adapter, the state for the next session
+ZIP = r"""# STEP 8 - zip the run folder (Output tab): every attempt, every round's data and adapter, the state for the next session
 stop_servers()
 mark_campaign()
 zp = Path("/kaggle/working/graphcomp_nb20.zip")
@@ -471,7 +505,7 @@ for rel, dest in (("lora/build_rft_data.py", "lora/build_rft_data.py"), ("lora/t
                   ("tool_trace.py", "tool_trace.py")):
     scripts.append(code(f"%%writefile /kaggle/working/gc/{dest}\n" + (HERE / rel).read_text()))
 cells = ([md(HEADER), C[2], code(cfg), code(CONFIG), C[4], C[5], code(RESUME)] + C[7:13] + [code(run_arm)] + C[14:21]
-         + scripts + [code(TESTDEPS), code(POOL), C[25], code(SAMPLER_HEAD + defs_from_29() + "\n" + SAMPLER), code(ROUND), code(FINAL), code(ZIP)])
+         + scripts + [code(TESTDEPS), code(POOL), C[25], code(SAMPLER_HEAD + defs_from_29() + "\n" + SAMPLER), code(ROUND_DEFS), code(SAMPLER_LOOP), code(ROUND), code(FINAL), code(ZIP)])
 for c_ in cells:
     if c_["cell_type"] == "code":
         c_["outputs"], c_["execution_count"] = [], None

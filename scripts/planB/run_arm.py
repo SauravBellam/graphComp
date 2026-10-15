@@ -74,6 +74,38 @@ def src_layout_shim():
     SubprocessManager.exec = exec_
 
 
+def log_compactions(path):
+    """Append every ADK context compaction (the summary that replaces older events) to `path`. The ATIF trace does not store
+    it, so without this train_lora.py cannot rebuild the prompts after a compaction (nb19: 445 of ~1,080 turns lost).
+    ADK 1.36: compaction._summarize_events_with_trace is looked up at call time, so patching the module attribute works;
+    contents._process_compaction_events then puts the summary in as a model turn at end_timestamp, replacing every event
+    with start_timestamp <= ts <= end_timestamp."""
+    try:
+        from google.adk.apps import compaction as C
+    except ImportError:
+        print("[compactions] google.adk.apps.compaction not found: summaries not logged", flush=True)
+        return
+    orig = C._summarize_events_with_trace
+
+    async def wrapped(*, session, config, events_to_compact, trigger):
+        ev = await orig(session=session, config=config, events_to_compact=events_to_compact, trigger=trigger)
+        try:
+            cc = ev and ev.actions.compaction
+            if cc and cc.compacted_content is not None:
+                ids = [fc.id for e in events_to_compact for fc in (e.get_function_calls() or []) if fc.id]
+                rec = {"session_id": session.id, "trigger": trigger, "created": time.time(),
+                       "start": cc.start_timestamp, "end": cc.end_timestamp,
+                       "event_ts": [e.timestamp for e in events_to_compact], "call_ids": ids,
+                       "summary": "".join(p.text or "" for p in (cc.compacted_content.parts or []))}
+                with open(path, "a") as f:
+                    f.write(json.dumps(rec) + "\n")
+        except Exception as e:      # logging must never break a run
+            print(f"[compactions] not logged: {type(e).__name__}: {e}", flush=True)
+        return ev
+
+    C._summarize_events_with_trace = wrapped
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--mode", choices=["agent", "empty", "gold"], required=True)
@@ -116,6 +148,8 @@ def main():
 
     results = Path(a.results)
     results.mkdir(parents=True, exist_ok=True)
+    if comp_cfg is not None:
+        log_compactions(results / "compactions.jsonl")
     # As the sample notebook: explicit limits, generation constraints, adapters, graph/embedding/wheel dirs.
     from swegemma.config import build_submission_limits
     limits, gen_constraints = build_submission_limits()

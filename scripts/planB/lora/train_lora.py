@@ -121,18 +121,39 @@ def turn_errored(msgs, i):
                 and ERR_RE.search(str(nxt.get("content", ""))))
 
 
-def turn_samples(tok, traj, tools, stats):
-    """[(prompt_text, target_text, turn_index, masked)] per assistant turn, up to the first context compaction.
+def compacted_context(msgs, i, comps):
+    """The conversation the model was sent at assistant turn i, as ADK 1.36 builds it (contents._process_compaction_events):
+    every compaction made before the turn, minus those subsumed by a wider one, replaces the events in [start, end] with its
+    summary as a model turn placed at `end`. The system prompt is not an event and always stays."""
+    t = msgs[i].get("_ts")
+    live = [c for c in comps if t is not None and c["created"] <= t]
+    live = [c for c in live if not any(o is not c and o["start"] <= c["start"] and o["end"] >= c["end"]
+                                       and (o["start"] < c["start"] or o["end"] > c["end"]) for o in live)]
+    if not live:
+        return msgs[:i]
+    head = [m for m in msgs[:i] if m["role"] == "system"]
+    rest = [(m["_ts"], k, m) for k, m in enumerate(msgs[:i]) if m["role"] != "system"
+            and not any(c["start"] <= m["_ts"] <= c["end"] for c in live)]
+    rest += [(c["end"], i + j, {"role": "assistant", "content": c["summary"]}) for j, c in enumerate(live)]
+    return head + [m for _, _, m in sorted(rest, key=lambda x: (x[0], x[1]))]
 
-    The trace records each LLM call's real prompt size. Our rendering matches it to a constant offset until the harness
-    compacts the context (ADK EventsCompactionConfig: older events replaced by a summary that the trace does not store);
-    from then on the prompt cannot be reconstructed, so later turns are not used."""
+
+def turn_samples(tok, traj, tools, stats):
+    """[(prompt_text, target_text, turn_index, masked)] per assistant turn.
+
+    The trace records each LLM call's real prompt size. Our rendering matches it to a constant offset; when the harness
+    compacts the context (ADK EventsCompactionConfig: older events replaced by a summary), the prompt is rebuilt from the
+    summaries run_arm.py logs (traj["compactions"], attached by build_rft_data.py). Without them (runs before Oct 15), or if
+    the rebuilt prompt still drifts from the recorded size, the turn and every later one are not used."""
     msgs, out = traj["messages"], []
+    comps = traj.get("compactions") or []
+    stats["compactions_applied"] += len(comps)
     offset = None
     for i, m in enumerate(msgs):
         if m["role"] != "assistant":
             continue
-        prompt = render(tok, msgs[:i], tools, True)
+        ctx = compacted_context(msgs, i, comps) if comps else msgs[:i]
+        prompt = render(tok, ctx, tools, True)
         rec = m.get("_prompt_tokens")
         if rec:
             d = len(tok(prompt, add_special_tokens=False)["input_ids"]) - rec
@@ -141,7 +162,7 @@ def turn_samples(tok, traj, tools, stats):
                 stats["after_compaction"] += sum(1 for x in msgs[i:] if x["role"] == "assistant")
                 stats["compacted_trajectories"] += 1
                 break
-        full = render(tok, msgs[:i + 1], tools, False, target_idx=i)
+        full = render(tok, ctx + [m], tools, False, target_idx=len(ctx))
         if rec:                                  # fidelity: our prompt vs what the model was actually sent at this turn
             stats["prompt_tok_pairs"].append((len(tok(prompt, add_special_tokens=False)["input_ids"]), rec))
         if not full.startswith(prompt):
@@ -210,7 +231,7 @@ def window_samples(tok, traj, tools, stats, max_target, max_len):
             stats["target_too_long"] += 1
             flush(cur); cur, tgt = [], 0
             continue
-        if cur and tgt + n > max_target:
+        if cur and (tgt + n > max_target or not t[0].startswith(cur[-1][0] + cur[-1][1])):   # budget, or a compaction
             flush(cur); cur, tgt = [], 0
         cur.append(t); tgt += n
     flush(cur)
@@ -268,7 +289,7 @@ def main():
     n_val = max(1, round(len(tasks) * a.val_frac)) if len(tasks) > 3 else 0
     val_tasks = set(tasks[:n_val])
     stats = {"prefix_mismatch": 0, "mismatch_examples": [], "too_long": 0, "prompt_tok_pairs": [], "after_compaction": 0,
-             "compacted_trajectories": 0, "masked_turns": 0, "windows": 0, "window_fallback": 0, "target_too_long": 0}
+             "compacted_trajectories": 0, "compactions_applied": 0, "masked_turns": 0, "windows": 0, "window_fallback": 0, "target_too_long": 0}
     splits = {"train": [], "val": []}
     for t in trajs:
         for s in window_samples(tok, t, tools, stats, a.max_target, a.max_len):
@@ -281,7 +302,8 @@ def main():
            **{k: stats[k] for k in ("prefix_mismatch", "too_long", "target_too_long", "masked_turns", "windows", "window_fallback")},
            "base": a.base, "past_reasoning": a.past_reasoning, "system_prompt_replaced": bool(SYSTEM_PROMPT),
            "deploy_budget": DEPLOY_BUDGET,
-           "turns_dropped_after_compaction": stats["after_compaction"], "trajectories_compacted": stats["compacted_trajectories"]}
+           "turns_dropped_after_compaction": stats["after_compaction"], "trajectories_compacted": stats["compacted_trajectories"],
+           "compaction_summaries_applied": stats["compactions_applied"]}
     pairs = stats["prompt_tok_pairs"]
     if pairs:   # rendered prompt tokens vs the trace's recorded prompt_tokens (same turn)
         d = sorted(r - o for o, r in pairs)
