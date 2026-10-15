@@ -1,4 +1,4 @@
-"""Build notebook 21: 31B LoRA on the SFT mix (build_sft_mix.py) -> BASE31 vs LORA31 holdout -> budget-safe submission.
+"""Build notebook 21: 31B LoRA (the student) on the SFT mix (build_sft_mix.py) -> adapter check -> submission.
 
 Derived from the built notebook 19 (run make_nb19.py first), with notebook 20's script versions (its 31B training fixes): same setup, resume, validity, holdout set, vLLM helpers, deployed
 agent, holdout comparison, submission choice and zip. Removed: teacher generation (step 4), merging teacher runs (step 5) and the
@@ -31,26 +31,26 @@ def md(s):
 
 assert first(26).startswith("# STEP 4 - teacher runs") and first(27).startswith("# STEP 5 - merge") and first(28).startswith("# STEP 6")
 
-HEADER = """# 21 — 31B LoRA on the SFT mix → holdout comparison (BASE31 vs LORA31) → budget-safe submission
+HEADER = """# 21 — 31B LoRA (the student) on the SFT mix → adapter check → submission
 
-Offline (Internet off), GPU L4 × 4. Built by `scripts/planB/notebook_builder/make_nb21.py` from notebook 19.
+Offline (Internet off), GPU L4 × 4. Built by `scripts/planB/notebook_builder/make_nb21.py` from notebook 19 (setup, resume,
+deployed agent, submission writer) with notebook 20's scripts (its 31B training fixes).
 
 **What it does, in order (each stage is skipped if an attached earlier version of this notebook already finished it):**
 1. **Training data** = the attached `graphcomp-sft-mix` dataset (`build_sft_mix.py`): our verified 31B RFT trajectories plus
-   public test-verified Qwen3-Coder-480B trajectories (CoderForge-Preview, nebius SWE-rebench-OpenHands) replayed into this
-   harness's tools (`convert_trajs.py`), exact and near-duplicate trajectories removed. Dev and holdout tasks may be trained on
-   (`TRAIN_ON_HOLDOUT`, user, Oct 15); holdout tasks that were trained on are listed in the summary, because on those the
-   BASE31 vs LORA31 comparison favours the LoRA. From `train_fit.jsonl` (whole trajectory ≤ 32k tokens, the served context) the notebook takes our own trajectories
-   first, then one trajectory per new task, then second ones, up to `MAX_TRAIN_TRAJ` (more than one session can train).
-2. **31B LoRA** (`train_lora.py`, QLoRA, 4-bit model split over the 4 GPUs, time budget). The training window starts at 32,768
-   tokens and steps down (24,576, then 18,432) only if a run fails out of memory.
-3. **Holdout comparison**, same deployed agent: `BASE31` (no adapter) and `LORA31`, notebook 19's holdout (official 24 + one task
-   per missing category; one requests and one httpx task as a budget check only).
-4. **Submission** = the arm with more scored holdout tasks resolved (ties → BASE31), deployment budget (≈ 5 min / 30 tool calls
-   per task: 120 tasks fit in 12 h).
+   public test-verified Qwen3-Coder-480B trajectories replayed into this harness's tools (`convert_trajs.py`), exact and
+   near-duplicate trajectories removed. Every competition task may be trained on, dev and holdout included (user, Oct 15).
+   From `train_fit.jsonl` (whole trajectory ≤ 32k tokens, the served context) the notebook takes our own trajectories first,
+   then one trajectory per new task, then second ones, up to `MAX_TRAIN_TRAJ`.
+2. **31B LoRA** = the student (`train_lora.py`, QLoRA, 4-bit model split over the 4 GPUs, time budget). The training window
+   starts at 32,768 tokens and steps down (24,576, then 18,432) only if a run fails out of memory.
+3. **Adapter check**: the trained adapter is served by vLLM exactly as the scorer serves it, and one greedy request must differ
+   from the base model's (a no-op adapter stops the notebook instead of being submitted).
+4. **Submission** = the LoRA, deployment budget (≈ 5 min / 30 tool calls per task: 120 tasks fit in 12 h). No base-model arm and
+   no holdout comparison (user, Oct 15): every task is training data.
 
-**Time:** setup ≈ 0.5 h · training ≤ `TRAIN31_MAX_H` (whatever is left after the holdout + 0.4 h reserve) · holdout
-≈ 0.9 h (both 31B arms, one server). A stage that would not fit stops cleanly; attach this output to the next version to resume.
+**Time:** setup ≈ 0.5 h · training ≤ `TRAIN31_MAX_H` (all but the adapter check + 0.4 h reserve) · adapter check ≈ 0.5 h.
+A stage that would not fit stops cleanly; attach this output to the next version to resume.
 
 **Inputs:** as notebook 19 (competition data, wheelhouse, `gemma-4-31b-it-qat-w4a16-ct` + `gemma-4-31b-it-qat-q4_0-unquantized`,
 notebook 01's output, `graphcomp-planb`, `graphcomp-train-wheels`) **plus `graphcomp-sft-mix`**; for a resumed run, this
@@ -75,11 +75,10 @@ c = sub1(c, "SEEDS = [11, 12, 13]          # teacher replicates; with notebook 0
          "SEEDS = []                    # no teacher runs in this notebook\nSEED = 1")
 c = sub1(c, "DATAGEN_END_H = 4.6           # no new teacher chunk after this\n", "")
 c = sub1(c, "TRAIN31_MAX_H, TRAIN_STUDENT_MAX_H, EVAL_ARM_H = 2.6, 0.8, 0.9",
-         "TRAIN31_MAX_H, TRAIN_STUDENT_MAX_H, EVAL_ARM_H = 9.0, 0, 0.9   # training gets what the holdout arms leave\n"
+         "TRAIN31_MAX_H, TRAIN_STUDENT_MAX_H, EVAL_ARM_H = 10.0, 0, 0.5   # EVAL_ARM_H = the adapter check (31B load + 1 request)\n"
          "TRAIN_MAX_LENS = [32768, 24576, 18432]   # training window (tokens); the next one only after an out-of-memory failure\n"
          "MAX_TRAIN_TRAJ = 4000         # more than one session trains; picked own-data first, then one per task, then seconds\n"
-         "VAL_FRAC = 0.02               # of tasks, for the validation loss (2% of thousands is enough and keeps eval short)\n"
-         "TRAIN_ON_HOLDOUT = True       # user, Oct 15: holdout tasks may be trained on; the summary lists them (comparison bias)")
+         "VAL_FRAC = 0.02               # of tasks, for the validation loss (2% of thousands is enough and keeps eval short)")
 i0 = c.index("STUDENTS = {'STUDENT_12B'")
 i1 = c.index("EVAL_STUDENTS = False")
 c = c[:i0] + "STUDENTS = {}                 # no students in this notebook\n" + c[i1:]
@@ -87,7 +86,7 @@ assert "NB21" in c and "STUDENTS = {}" in c and "TRAIN_MAX_LENS" in c
 
 RESUME = src(6).replace("NB19", "NB21")
 
-DATA = r'''# STEP 5 - training data: the attached SFT mix, minus the holdout; own trajectories first, then one per task, ...
+DATA = r'''# STEP 5 - training data: the attached SFT mix (every task allowed); own trajectories first, then one per task, ...
 import random
 MIX = next((Path(dp) for dp, dns, fns in walk(INPUT, maxdepth=7) if "train_fit.jsonl" in fns and "manifest.json" in fns), None)
 plog(f"SFT mix: {MIX or 'NOT FOUND: attach the graphcomp-sft-mix dataset'}")
@@ -95,9 +94,8 @@ if MIX:
     plog("mix manifest: " + json.dumps({k: v for k, v in json.loads((MIX / 'manifest.json').read_text()).items() if k != 'inputs'})[:1500])
 DEPLOY_PROMPT = GC / "deploy_system.md"
 DEPLOY_PROMPT.write_text((Path(SAMPLE_SUB) / "prompts/system.md").read_text() + PROMPT_ADDENDUM)
-_never = set() if TRAIN_ON_HOLDOUT else set(HO_RUN) | set(OFFICIAL_HOLDOUT)   # dev-slice tasks are always allowed (user, Oct 15)
 _rows = [json.loads(l) for l in open(MIX / "train_fit.jsonl")] if MIX else []
-_rows = [r for r in _rows if r["instance_id"].split("@")[0] not in _never and r.get("est_tokens", 0) <= max(TRAIN_MAX_LENS)]
+_rows = [r for r in _rows if r.get("est_tokens", 0) <= max(TRAIN_MAX_LENS)]
 random.Random(0).shuffle(_rows)
 _own = [r for r in _rows if r.get("mix_source") == "rft"]
 _by_task = {}
@@ -114,10 +112,6 @@ with open(TRAIN_DATA, "w") as f:
     for r in _pick:
         f.write(json.dumps(r) + "\n")
 n_traj = len(_pick)
-assert not ({r["instance_id"].split("@")[0] for r in _pick} & _never), "holdout task in the training data"
-TRAINED_HOLDOUT = sorted({r["instance_id"].split("@")[0] for r in _pick} & set(HO_RUN))
-if TRAINED_HOLDOUT:
-    plog(f"NOTE: {len(TRAINED_HOLDOUT)} holdout tasks are in the training data (LORA31 has seen them): {TRAINED_HOLDOUT}")
 plog(f"training data: {n_traj} trajectories ({len(_own)} own, {n_traj - len(_own)} external over "
      f"{len({r['instance_id'].split('@')[0] for r in _pick})} tasks, {_round} round(s)) of {len(_rows)} eligible -> {TRAIN_DATA}")
 del _rows, _by_task
@@ -149,10 +143,43 @@ save_state(lora31_window=L if OK31 else None)
 ''')
 assert "TRAIN_MAX_LENS" in T
 
-PICK = src(30).replace("Notebook 19", "Notebook 21")
-PICK = sub1(PICK, "f\"- Teacher runs complete: {STATE.get('teacher_complete')}; training trajectories: {n_traj}\",",
-            "f\"- Training trajectories: {n_traj} (SFT mix {MIX}); 31B training window {STATE.get('lora31_window')}\",\n"
-            "         f\"- Holdout tasks trained on (comparison favours LORA31 there): {TRAINED_HOLDOUT or 'none'}\",")
+# ------------------------------------------------------------------ steps 7-8: adapter check, then the submission (no BASE31, no holdout)
+_ev = src(29)
+DEFS = "\n".join(_ev[_ev.index(a):_ev.index(b)] for a, b in (("def make_sub", "ARMS = {"), ("def adapter_changes_output", "def arm_done")))
+CHECK = r'''# STEP 7 - adapter check: serve the LoRA as the scorer does; it must change a greedy answer (a no-op adapter is not submitted)
+''' + DEFS + r'''
+if not OK31:
+    raise SystemExit("STOP: no trained adapter (see provenance/train_lora31_len*.log); attach this output and run again")
+if STATE.get("adapter_applies") is None:
+    _chk = make_sub(OUT / "submissions/check_LORA31", MODEL_SLUG, ADAPTER31)
+    stop_servers(); start_server(MODEL_DIR, TP, _chk)
+    try:
+        save_state(adapter_applies=bool(adapter_changes_output(8000)))
+    finally:
+        stop_servers()
+if not STATE["adapter_applies"]:
+    raise SystemExit("STOP: vLLM serves the adapter as a no-op (identical output to the base model); not submitting it")
+'''
+FINAL = r'''# STEP 8 - write the submission (the LoRA, deployment budget) and the summary
+FINAL = Path("/kaggle/working/submission")
+shutil.rmtree(FINAL, ignore_errors=True)
+shutil.copytree(make_sub(OUT / "submissions/final_LORA31", MODEL_SLUG, ADAPTER31, budget=DEPLOY_BUDGET), FINAL)
+_zip = Path(shutil.make_archive("/kaggle/working/submission", "zip", FINAL))   # agent.yaml at the zip root
+_size = sum(f.stat().st_size for f in FINAL.rglob("*") if f.is_file())
+assert _size < 3 * 2**30, f"submission is {_size / 2**30:.2f} GiB (limit 3 GiB)"
+worst_h = (N_TASKS_ASSUMED * (DEPLOY_BUDGET["max_time_minutes"] + SETUP_MIN) + SERVE_START_MIN) / 60
+lines = [f"# Notebook 21 summary ({now()})", "",
+         f"- Training trajectories: {n_traj} (SFT mix {MIX}); 31B training window {STATE.get('lora31_window')}",
+         f"- Train log (last): {json.dumps(read_jsonl(OUT31 / 'train_log.jsonl')[-1:])[:400]}",
+         f"- Adapter changes the served output: {STATE.get('adapter_applies')}",
+         "", "**SUBMISSION: LORA31** (no base-model arm, no holdout comparison: every task was training data)",
+         f"- deployment budget {DEPLOY_BUDGET}; worst case if all {N_TASKS_ASSUMED} tasks hit the cap: {worst_h:.1f} h of 12",
+         f"- {FINAL} ({_size / 1e6:.1f} MB) and {_zip}"]
+(OUT / "SUMMARY.md").write_text("\n".join(lines) + "\n")
+save_state(submission="LORA31")
+print("\n".join(lines))
+print((FINAL / "agent.yaml").read_text()); print((FINAL / "eval_config.yaml").read_text())
+'''
 
 # scripts: this branch's copies, which carry notebook 20's 31B fixes (train_lora.py: logits_to_keep as a list so accelerate does
 # not move it to GPU 0 (the nb19 31B crash), checkpoint integrity preflight, compaction-aware prompts; run_arm.py: src/ shim)
@@ -163,12 +190,12 @@ run_arm = code("%%writefile /kaggle/working/gc/run_arm.py\n" + (SCRIPTS / "run_a
 lora = [code(f"%%writefile /kaggle/working/gc/{rel}\n" + (SCRIPTS / rel).read_text())
         for rel in ("lora/build_rft_data.py", "lora/train_lora.py", "tool_trace.py")]
 cells = ([md(HEADER), md(src(1) + DATA_NOTES), C[2], code(c)] + C[4:6] + [code(RESUME)] + C[7:13] + [run_arm] + C[14:22] + lora
-         + C[24:26] + [code(DATA), code(T), C[29], code(PICK), C[31]])
+         + [C[25], code(DATA), code(T), code(CHECK), code(FINAL), C[31]])
 for cell in cells:
     if cell["cell_type"] == "code":
         cell["source"] = "".join(cell["source"]).replace("NB19_STATE", "NB21_STATE").splitlines(keepends=True)
         cell["outputs"], cell["execution_count"] = [], None
 nb["cells"] = cells
-out = U / "notebooks/21_sft_mix_lora31_holdout_submission.ipynb"
+out = U / "notebooks/21_sft_mix_lora31_submission.ipynb"
 json.dump(nb, open(out, "w"), indent=1)
 print(f"wrote {out} ({len(cells)} cells)")
