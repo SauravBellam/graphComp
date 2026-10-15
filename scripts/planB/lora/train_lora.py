@@ -29,7 +29,7 @@ Practices built in (sources in the notebook that runs this, section "Training ch
 Several GPUs: torchrun -> data-parallel (ranks load one after another; LoRA gradients averaged before each step); rank 0 logs
 and saves. More ranks than GPUs (smoke test only) share GPUs over gloo.
 """
-import argparse, json, math, os, random, re, sys, time
+import argparse, json, math, os, random, re, struct, sys, time
 WORLD, RANK, LOCAL = (int(os.environ.get(k, d)) for k, d in (("WORLD_SIZE", "1"), ("RANK", "0"), ("LOCAL_RANK", "0")))
 from pathlib import Path
 
@@ -85,6 +85,33 @@ def render(tok, msgs, tools, gen, target_idx=None):
 
 COMPACTION_TOL = 96   # tokens; set by --fidelity-tol
 ERR_RE = re.compile(r'"status"\s*:\s*"error"')
+
+
+def broken_safetensors(d):
+    """Files whose safetensors header does not cover the file exactly. Kaggle's gemma-4-12b-it-qat-q4_0-unquantized v2 failed
+    here on Oct 15 ("incomplete metadata, file not fully covered"); the Hugging Face copy is intact. [] = all good."""
+    bad = []
+    for f in sorted(Path(d).glob("*.safetensors")) if Path(d).is_dir() else []:
+        try:
+            with open(f, "rb") as fh:
+                n = struct.unpack("<Q", fh.read(8))[0]
+                hdr = json.loads(fh.read(n))
+            end = max(v["data_offsets"][1] for k, v in hdr.items() if k != "__metadata__")
+            if f.stat().st_size != 8 + n + end:
+                bad.append(f"{f.name}: file {f.stat().st_size} bytes, header covers {8 + n + end}")
+        except Exception as e:
+            bad.append(f"{f.name}: unreadable header ({type(e).__name__}: {e})")
+    return bad
+
+
+def pick_base(spec):
+    """--base may list several candidates (comma-separated, e.g. every attached version); the first intact one is used."""
+    for c in [x.strip() for x in spec.split(",") if x.strip()]:
+        bad = broken_safetensors(c)
+        if not bad:
+            return c
+        print(f"[base] skipping {c}: broken checkpoint: {bad[:3]}", flush=True)
+    sys.exit(f"no intact base checkpoint among {spec!r}: attach another version or the Hugging Face copy")
 
 
 def turn_errored(msgs, i):
@@ -193,7 +220,8 @@ def window_samples(tok, traj, tools, stats, max_target, max_len):
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--data", required=True)
-    ap.add_argument("--base", required=True, help="HF id or local dir of the unquantized QAT checkpoint")
+    ap.add_argument("--base", required=True, help="HF id or local dir of the unquantized QAT checkpoint; several, comma-separated, "
+                    "= use the first whose safetensors are intact (broken_safetensors)")
     ap.add_argument("--out", required=True)
     ap.add_argument("--check", action="store_true", help="render and count only (CPU)")
     ap.add_argument("--rank", type=int, default=32)
@@ -228,6 +256,8 @@ def main():
     SYSTEM_PROMPT = Path(a.system_prompt).read_text() if a.system_prompt else None
     DEPLOY_BUDGET = json.loads(a.deploy_budget) if a.deploy_budget else None
     from transformers import AutoTokenizer
+    a.base = pick_base(a.base)
+    print(f"[base] {a.base}", flush=True)
     tok = AutoTokenizer.from_pretrained(a.base)
     tools = harness_tool_schemas(B2_TOOLS)
     if RANK == 0:
