@@ -258,7 +258,7 @@ def build_repo(short, comp_rows, a, out, rows_out, meta_out, rng):
     subprocess.run([sys.executable, "-m", "coverage", "json", f"--rcfile={rc}", "--show-contexts", "-o", str(work / "cov.json")],
                    cwd=base, env=env_for(base, a), check=True, capture_output=True)
     baseline = parse_junit(bj)
-    n_coll = len(re.findall(r"^ERROR collecting", r.stdout, re.M))
+    n_coll = len(re.findall(r"ERROR collecting", r.stdout))
     log(f"{short}: {n_coll} test files failed to collect (missing optional deps); their tests are never used")
     bad_files = {k[0] for k, (st, _) in baseline.items() if st in ("fail", "error")}
     eligible = {k for k, (st, _) in baseline.items() if st == "pass" and k[0] not in bad_files}
