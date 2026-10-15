@@ -38,7 +38,7 @@ from collections import Counter, defaultdict
 from concurrent.futures import ProcessPoolExecutor, as_completed
 from pathlib import Path
 
-VERSION = "2"                                               # outputs of another version are discarded on start
+VERSION = "3"                                               # outputs of another version are discarded on start
 MAX_LINES, MAX_CHARS, MAX_OUT = 150, 10000, 5000           # harness: max_file_lines, max_file_chars, max_stdout_chars
 SOURCES = {
     "coderforge": ("togethercomputer/CoderForge-Preview", "trajectories/filtered_reward1-*.parquet", "openhands", None),
@@ -249,6 +249,7 @@ class Resolver:
         if short and (short, re.search(r"(\d+)$", k).group(1)) in self.comp:
             raise Reject("competition pull request")
         return {"instance_id": k, "repo": r["repo"], "problem": r["problem_statement"], "hints": r.get("hints_text") or "",
+                "test_files": sorted(set(re.findall(r"(?m)^diff --git a/(\S+) b/", r.get("test_patch") or ""))),
                 # SWE-rebench containers carry the PR's test patch (the source views show the new tests)
                 "base": {"kind": "commit", "url": f"https://github.com/{r['repo']}.git", "commit": r["base_commit"], "test_patch": r.get("test_patch") or ""}}
 
@@ -463,6 +464,11 @@ def merge_soft_timeouts(steps):
     return out
 
 
+GIT_CMD = re.compile(r"\bgit\b[^|;&]*")
+GIT_OTHER_REFS = re.compile(r"--all\b|--branches|--remotes|--tags\b|\borigin/|FETCH_HEAD|\breflog\b|\bfsck\b|--glob")
+MAX_EDITOR_ERRORS = 2                                     # SWE-HERO prunes trajectories with >= 3 str_replace_editor errors
+
+
 class Replay:
     def __init__(self, ep, task, ws, tree):
         self.ep, self.task, self.ws, self.tree = ep, task, Path(ws), tree
@@ -526,6 +532,7 @@ class Replay:
                 cmd = str(a.get("command") or "")
                 if not cmd.strip() or cmd.strip() in ("C-c", "C-d", "C-z"):
                     raise Reject("interactive input to a running command")
+                self.git_hack(cmd)
                 self.labels["soft_timeouts_merged"] += bool(st.get("merged_soft_timeout"))
                 if st.get("timeout"):
                     obs = err("TimeoutExceeded", "Command timed out after 300 seconds")
@@ -554,9 +561,26 @@ class Replay:
         if not final.strip():
             final = next((m["reasoning_content"] for m in reversed(self.msgs) if m["role"] == "assistant" and m["reasoning_content"].strip()), "")
             self.labels["final_from_reasoning"] = 1
-        # the last submit_patch's reasoning is the final answer's reasoning, as in build_rft_data's traces
         self.msgs.append({"role": "assistant", "content": self.fix(final)})
+        changed = norm_diff(self.final_diff)               # modified pre-existing files of the submitted patch
+        tests = set(self.task.get("test_files") or [])
+        if any(f in tests or TEST_PATH.search(f) for f in changed):
+            raise Reject("modifies test files (shortcut)")   # SWE-Lego / SWE-HERO: cheating-by-tests filter
+        new = re.findall(r"(?m)^diff --git a/(\S+) b/\S+\nnew file mode", self.final_diff)
+        if not [f for f in changed if not TEST_PATH.search(f)] and not [f for f in new if "/" in f and not TEST_PATH.search(f)]:
+            raise Reject("no source change")               # SWE-HERO: null code changes (root-level new files = scratch)
         return self.msgs
+
+    def git_hack(self, cmd):
+        """SWE-Lego / SWE-HERO 'git hacking': reading commits after the base (the fix) or other refs. Past history is
+        legitimate (the competition snapshots ship .git), so a commit named in a git command must be an ancestor of HEAD."""
+        for g in GIT_CMD.findall(cmd):
+            if GIT_OTHER_REFS.search(g):
+                raise Reject("git hacking: other refs / all branches")
+            for sha in re.findall(r"\b[0-9a-f]{7,40}\b", g):
+                if sh(GIT + ["rev-parse", "--verify", "-q", f"{sha}^{{commit}}"], cwd=self.ws, check=False).returncode == 0 and \
+                        sh(GIT + ["merge-base", "--is-ancestor", sha, "HEAD"], cwd=self.ws, check=False).returncode != 0:
+                    raise Reject("git hacking: commit after the base")
 
     def submit(self, thought):
         sh(GIT + ["add", "-N", "."], cwd=self.ws, check=False)
@@ -586,6 +610,9 @@ class Replay:
             return
         p = self.file(rel)
         head = re.sub(r"^OBSERVATION:\s*", "", src_obs.lstrip())[:400]
+        self.labels["editor_errors"] += not re.search(r"^Here's the|^File created successfully|has been edited|undone successfully", head)
+        if self.labels["editor_errors"] > MAX_EDITOR_ERRORS:
+            raise Reject("3 or more editor errors")
         src_failed = not re.search({"view": r"^Here's the (result of running `cat -n`|files and directories)",
                                     "create": r"^File created successfully", "undo_edit": r"undone successfully|^Last edit to .* undone",
                                     }.get(cmd, r"has been edited|^The file .* has been edited"), head)
