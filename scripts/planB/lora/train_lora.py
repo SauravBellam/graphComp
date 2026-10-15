@@ -263,6 +263,16 @@ def main():
     ap.add_argument("--time-budget-h", type=float, default=0, help="0 = no limit")
     ap.add_argument("--no-eval-start", action="store_true", help="skip the val loss before training (saves one val pass)")
     ap.add_argument("--no-error-mask", action="store_true")
+    ap.add_argument("--init-adapter", help="resume: continue training this LoRA (a previous session's adapter dir)")
+    ap.add_argument("--stop-at", type=float, default=0, help="unix time: stop at a step boundary before it, save, exit 0")
+    ap.add_argument("--save-every-min", type=float, default=30, help="checkpoint the adapter (atomically) this often")
+    ap.add_argument("--keep-order", action="store_true", help="train in the data file's order (its priority), shuffled only "
+                    "within blocks of --order-block windows, so a run cut short has trained the file's head")
+    ap.add_argument("--order-block", type=int, default=32)
+    ap.add_argument("--tail-n", type=int, default=0, help="the file's last N trajectories are always trained, LAST: before the "
+                    "deadline the run jumps to them in time (user: the model should see our competition data last)")
+    ap.add_argument("--lr-floor", type=float, default=0.0, help="the LR decays to this fraction of the peak, not to 0 (so the "
+                    "tail trained at the end still moves the model)")
     ap.add_argument("--system-prompt", help="file: replaces the recorded system prompt (train = deploy)")
     ap.add_argument("--deploy-budget", help='JSON, e.g. {"time_minutes": 5, "tool_calls": 30, "turns": 80, "timeout_seconds": 240}')
     ap.add_argument("--served-model", default="google/gemma-4-E4B-it-qat-w4a16-ct", help="written into adapter_config.json")
@@ -284,16 +294,22 @@ def main():
     if RANK == 0:
         (out / "tools_rendered.json").write_text(json.dumps(tools, indent=1))
     trajs = [json.loads(l) for l in open(a.data) if l.strip()]
-    tasks = sorted({t["instance_id"] for t in trajs})
+    tail_tasks = {t["instance_id"] for t in trajs[len(trajs) - a.tail_n:]} if a.tail_n else set()
+    tasks = sorted({t["instance_id"] for t in trajs} - tail_tasks)   # the --tail-n trajectories are never held out
     random.Random(a.seed).shuffle(tasks)
     n_val = max(1, round(len(tasks) * a.val_frac)) if len(tasks) > 3 else 0
     val_tasks = set(tasks[:n_val])
     stats = {"prefix_mismatch": 0, "mismatch_examples": [], "too_long": 0, "prompt_tok_pairs": [], "after_compaction": 0,
              "compacted_trajectories": 0, "compactions_applied": 0, "masked_turns": 0, "windows": 0, "window_fallback": 0, "target_too_long": 0}
     splits = {"train": [], "val": []}
-    for t in trajs:
+    owner = []                          # trajectory key of each train sample (resume bookkeeping)
+    tkey = lambda t, k: t.get("source_traj_id") or f"{t['instance_id']}#{k}"
+    for k, t in enumerate(trajs):
         for s in window_samples(tok, t, tools, stats, a.max_target, a.max_len):
-            splits["val" if t["instance_id"] in val_tasks else "train"].append(s)
+            sp = "val" if t["instance_id"] in val_tasks else "train"
+            splits[sp].append(s)
+            if sp == "train":
+                owner.append(tkey(t, k))
     rep = {"trajectories": len(trajs), "tasks": len(tasks), "val_tasks": sorted(val_tasks),
            "samples": {k: len(v) for k, v in splits.items()},
            "target_tokens": {k: sum(len(p) for _, p in v) for k, v in splits.items()},
@@ -371,7 +387,13 @@ def main():
         print(f"k_eq_v layers without a k_proj LoRA: {keq}", flush=True)
     lcfg = LoraConfig(r=a.rank, lora_alpha=a.alpha, lora_dropout=a.dropout, bias="none", task_type="CAUSAL_LM",
                       target_modules=target)
-    model = get_peft_model(model, lcfg, autocast_adapter_dtype=False)
+    if a.init_adapter:                  # resume: the previous session's LoRA, trainable
+        from peft import PeftModel
+        model = PeftModel.from_pretrained(model, a.init_adapter, is_trainable=True, autocast_adapter_dtype=False)
+        if RANK == 0:
+            print(f"resumed from adapter {a.init_adapter}", flush=True)
+    else:
+        model = get_peft_model(model, lcfg, autocast_adapter_dtype=False)
     if RANK == 0:
         model.print_trainable_parameters()
     params = [p for p in model.parameters() if p.requires_grad]
@@ -380,7 +402,7 @@ def main():
     accum = max(1, round(a.grad_accum / WORLD))     # per rank; effective batch = accum x WORLD
     plan = {"total": math.ceil(int(len(train) * a.epochs) // WORLD / accum)}
     sched = torch.optim.lr_scheduler.LambdaLR(
-        opt, lambda s: min(1.0, (s + 1) / max(1, plan["total"] // 10)) * max(0.0, 1 - s / max(1, plan["total"])))
+        opt, lambda s: min(1.0, (s + 1) / max(1, plan["total"] // 10)) * max(a.lr_floor, 1 - s / max(1, plan["total"])))
 
     def loss_of(ids, pos):
         # logits only at the positions that predict a target token (logits_to_keep as an index tensor); CE in float32 chunks
@@ -413,23 +435,70 @@ def main():
     order = []
     while len(order) < len(train) * a.epochs:
         o = list(range(len(train)))
-        rng.shuffle(o)
+        if a.keep_order:                # the file's priority order, shuffled only inside small blocks
+            o = [x for b in range(0, len(o), a.order_block) for x in rng.sample(o[b:b + a.order_block], len(o[b:b + a.order_block]))]
+        else:
+            rng.shuffle(o)
         order += o
     order = order[:int(len(train) * a.epochs)]
+    tail_keys = set()
+    if a.tail_n:                        # the last N trajectories of the file: always trained, at the very end
+        keys_in_order = list(dict.fromkeys(owner))
+        tail_keys = set(keys_in_order[-a.tail_n:])
+        tail = [j for j in order if owner[j] in tail_keys]
+        order = [j for j in order if owner[j] not in tail_keys] + tail
     order = order[RANK::WORLD][:len(order) // WORLD]     # same shuffled order on every rank; equal shard lengths
+    tail_start = len(order) - sum(1 for j in order if owner[j] in tail_keys)
     model.train()
     if not a.no_eval_start:
         v0 = evaluate()
         if RANK == 0:
             print(f"val loss before training: {v0}", flush=True)
         log.write(json.dumps({"step": 0, "val_loss": v0}) + "\n")
+    import signal
+    stop = {"why": None}
+    def _on_signal(sig, frm):
+        stop["why"] = f"signal {sig}"
+    for sg in (signal.SIGTERM, signal.SIGINT):
+        signal.signal(sg, _on_signal)
+    done_i, seq_tok, last_save = 0, 0, time.time()
+
+    def save(dest_name="adapter"):
+        """Atomic: write to a temp dir, then rename over the old one, with the trajectories trained so far."""
+        if RANK != 0:
+            return
+        tmp, dst = out / (dest_name + ".tmp"), out / dest_name
+        import shutil
+        shutil.rmtree(tmp, ignore_errors=True)
+        model.save_pretrained(tmp)
+        cp = tmp / "adapter_config.json"
+        c_ = json.loads(cp.read_text()); c_["base_model_name_or_path"] = a.served_model; cp.write_text(json.dumps(c_, indent=2))
+        seen = {}
+        for j_ in order[:done_i]:
+            seen[owner[j_]] = seen.get(owner[j_], 0) + 1
+        need = {}
+        for o_ in owner:
+            need[o_] = need.get(o_, 0) + 1
+        (tmp / "trained_ids.json").write_text(json.dumps(sorted(k for k, n in seen.items() if n >= need[k])))
+        shutil.rmtree(dst, ignore_errors=True)
+        tmp.rename(dst)
+
     run, i = 0.0, 0
     while i < len(order):
+        if tail_keys and a.stop_at and i < tail_start and i % accum == 0 and i >= accum:
+            per_sample = (time.time() - t0) / i
+            if time.time() + 1.3 * per_sample * (len(order) - tail_start + accum) > a.stop_at:
+                if RANK == 0:
+                    print(f"deadline: skipping {tail_start - i} main samples to train the {len(order) - tail_start} tail samples",
+                          flush=True)
+                order = order[:i] + order[tail_start:]
+                tail_start = i
         j = order[i]
         i += 1
         loss = loss_of(*train[j]) / accum
         loss.backward()
         run += loss.item()
+        seq_tok += len(train[j][0])
         if i % accum == 0 or i == len(order):
             if WORLD > 1:                    # average LoRA gradients over ranks (equal shard lengths: every rank steps together)
                 for p in params:
@@ -440,6 +509,7 @@ def main():
             torch.nn.utils.clip_grad_norm_(params, 1.0)
             opt.step(); sched.step(); opt.zero_grad(set_to_none=True)
             step += 1
+            done_i = i
             if a.time_budget_h and step == 2:   # fit the run into the budget; same decision on every rank
                 per_step = (time.time() - t0) / step
                 fit = torch.tensor([int(a.time_budget_h * 3600 * 0.9 / per_step)], device=dev)
@@ -447,12 +517,18 @@ def main():
                     dist.broadcast(fit, 0)
                 if fit.item() < plan["total"]:
                     plan["total"] = max(step + 1, fit.item())
-                    order = order[:plan["total"] * accum]
+                    if tail_keys:               # keep the tail: cut the main part instead
+                        keep = max(i, plan["total"] * accum - (len(order) - tail_start))
+                        order = order[:min(tail_start, keep)] + order[tail_start:]
+                        tail_start = min(tail_start, keep)
+                    else:
+                        order = order[:plan["total"] * accum]
                     if RANK == 0:
                         print(f"time budget {a.time_budget_h} h at {per_step:.0f} s/step: {plan['total']} steps "
                               f"({plan['total'] * accum * WORLD / len(train):.2f} epochs)", flush=True)
             rec = {"step": step, "of": plan["total"], "train_loss": round(run, 4), "lr": sched.get_last_lr()[0],
-                   "elapsed_s": round(time.time() - t0),
+                   "elapsed_s": round(time.time() - t0), "seq_tokens": seq_tok,
+                   "tok_per_s": round(seq_tok / max(1e-9, time.time() - t0), 1),
                    "gpu_mem_gb": [round(torch.cuda.max_memory_allocated(g) / 1e9, 1) for g in range(ngpu)]}
             if i >= len(order):
                 rec["val_loss"] = evaluate()
@@ -460,18 +536,25 @@ def main():
                 print(json.dumps(rec), flush=True)
             log.write(json.dumps(rec) + "\n"); log.flush()
             run = 0.0
+            per = (time.time() - t0) / step
+            if a.stop_at and time.time() + 1.5 * per > a.stop_at:      # the next step would end past the deadline
+                stop["why"] = stop["why"] or "deadline"
+            if stop["why"]:
+                if RANK == 0:
+                    print(f"stopping early ({stop['why']}) after step {step}: saving", flush=True)
+                break
+            if a.save_every_min and time.time() - last_save > a.save_every_min * 60:
+                save(); last_save = time.time()
     if WORLD > 1:
         dist.barrier()
         if RANK != 0:
             dist.destroy_process_group()
             return
     ad = out / "adapter"
-    model.save_pretrained(ad)
-    cfg_p = ad / "adapter_config.json"
-    cfg = json.loads(cfg_p.read_text())
-    cfg["base_model_name_or_path"] = a.served_model      # as the sample submission's adapters (served on w4a16)
-    cfg_p.write_text(json.dumps(cfg, indent=2))
+    save()                                               # base_model_name_or_path = the served model, + trained_ids.json
     (out / "train_meta.json").write_text(json.dumps({**rep, "args": vars(a), "steps": step, "k_eq_v_layers": keq,
+                                                      "stopped": stop["why"], "seq_tokens": seq_tok,
+                                                      "tok_per_s": round(seq_tok / max(1e-9, time.time() - t0), 1),
                                                       "seconds": round(time.time() - t0)}, indent=1))
     print(f"adapter saved: {ad}")
     if WORLD > 1:

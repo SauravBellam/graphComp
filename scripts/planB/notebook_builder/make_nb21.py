@@ -37,21 +37,21 @@ HEADER = """# 21 — 31B LoRA (the student) on the SFT mix → adapter check →
 Offline (Internet off), GPU L4 × 4. Built by `scripts/planB/notebook_builder/make_nb21.py` from notebook 19 (setup, resume,
 deployed agent, submission writer) with notebook 20's scripts (its 31B training fixes).
 
-**What it does, in order (each stage is skipped if an attached earlier version of this notebook already finished it):**
-1. **Training data** = the attached `graphcomp-sft-mix` dataset (`build_sft_mix.py`): our verified 31B RFT trajectories plus
-   public test-verified Qwen3-Coder-480B trajectories replayed into this harness's tools (`convert_trajs.py`), exact and
-   near-duplicate trajectories removed. Every competition task may be trained on, dev and holdout included (user, Oct 15).
-   From `train_fit.jsonl` (whole trajectory ≤ 32k tokens, the served context) the notebook takes our own trajectories first,
-   then one trajectory per new task, then second ones, up to `MAX_TRAIN_TRAJ`.
-2. **31B LoRA** = the student (`train_lora.py`, QLoRA, 4-bit model split over the 4 GPUs, time budget). The training window
-   starts at 32,768 tokens and steps down (24,576, then 18,432) only if a run fails out of memory.
-3. **Adapter check**: the trained adapter is served by vLLM exactly as the scorer serves it, and one greedy request must differ
-   from the base model's (a no-op adapter stops the notebook instead of being submitted).
-4. **Submission** = the LoRA, deployment budget (≈ 5 min / 30 tool calls per task: 120 tasks fit in 12 h). No base-model arm and
-   no holdout comparison (user, Oct 15): every task is training data.
-
-**Time:** setup ≈ 0.5 h · training ≤ `TRAIN31_MAX_H` (all but the adapter check + 0.4 h reserve) · adapter check ≈ 0.5 h.
-A stage that would not fit stops cleanly; attach this output to the next version to resume.
+**Resumable, one 11 h 30 min session at a time** (attach the previous version's output to continue; each session ends with a
+submittable `submission.zip`):
+1. **This session's slice** of the attached `graphcomp-sft-mix` (`train_fit.jsonl`: test-verified trajectories ≤ 32k tokens,
+   duplicates removed): trajectories not trained in an earlier session, **new problems first** (the shortest trajectory of
+   each never-trained problem), **shortest first**, sized to the tokens the measured training speed fits before the deadline
+   (× 1.5; the trainer stops on time anyway). **Competition trajectories go last, every session** (our own on the 129 tasks +
+   external ones on the four competition repos): the model sees them last.
+2. **31B LoRA** (`train_lora.py`, QLoRA, 4-bit model split over the 4 GPUs): **continues the previous session's adapter**;
+   1 pass in that order (shuffled only within blocks of 32 windows); LR decays to 30% of the peak, not 0, so the competition
+   tail still moves the model; stops at a step boundary before the training deadline (session start + 11.5 h − 0.85 h), and
+   checkpoints the adapter every 30 min (atomically), so even a killed run leaves an adapter. The training window starts at
+   32,768 tokens and steps down on out-of-memory; a resume that fails to load falls back to a fresh LoRA once.
+3. **Adapter check**: vLLM serves the adapter as the scorer does; a no-op adapter is reported (the output stays submittable).
+4. **Submission** = the LoRA with the deployment budget (≈ 5 min / 30 tool calls per task: 120 tasks fit in 12 h), plus the
+   state for the next session (trained trajectory ids, problems, measured tokens/s).
 
 **Inputs:** as notebook 19 (competition data, wheelhouse, `gemma-4-31b-it-qat-w4a16-ct` + `gemma-4-31b-it-qat-q4_0-unquantized`,
 notebook 01's output, `graphcomp-planb`, `graphcomp-train-wheels`) **plus `graphcomp-sft-mix`**; for a resumed run, this
@@ -75,12 +75,16 @@ c = src(3).replace("NB19", "NB21")
 c = sub1(c, "SEEDS = [11, 12, 13]          # teacher replicates; with notebook 01's seed 1 that is 4 attempts per task\nSEED = SEEDS[0]",
          "SEEDS = []                    # no teacher runs in this notebook\nSEED = 1")
 c = sub1(c, "DATAGEN_END_H = 4.6           # no new teacher chunk after this\n", "")
-if SMOKE:   # setup ~0.4 h + 31B load ~0.6 h + one step + zip: no validity pass, no adapter check
-    c = sub1(c, "SESSION_BUDGET_H = 11.3", "SESSION_BUDGET_H = 1.6 ")
+# every session lasts at most SESSION_BUDGET_H (user: 11 h 30 min) and always ends with a submittable output
+c = sub1(c, "SESSION_BUDGET_H = 11.3", "SESSION_BUDGET_H = 1.6 " if SMOKE else "SESSION_BUDGET_H = 11.5")
 c = sub1(c, "TRAIN31_MAX_H, TRAIN_STUDENT_MAX_H, EVAL_ARM_H = 2.6, 0.8, 0.9",
          f"TRAIN31_MAX_H, TRAIN_STUDENT_MAX_H, EVAL_ARM_H = {0.6 if SMOKE else 10.0}, 0, {0.1 if SMOKE else 0.5}   # EVAL_ARM_H = the adapter check (31B load + 1 request)\n"
          "TRAIN_MAX_LENS = [32768, 24576, 18432]   # training window (tokens); the next one only after an out-of-memory failure\n"
-         f"MAX_TRAIN_TRAJ = {1 if SMOKE else 4000}         # picked own-data first, then one per task, then seconds\n"
+         f"MAX_TRAIN_TRAJ = {1 if SMOKE else 100000}         # cap per session (the token budget below is the real limit)\n"
+         f"POST_TRAIN_H = {0.3 if SMOKE else 0.85}             # after training: adapter check (31B load + 1 request), submission, zip, margin\n"
+         "LOAD_H = 0.6                  # 31B load inside the trainer before the first step (notebook 20: ~35 min)\n"
+         "TOK_PER_S_GUESS = 150         # training tokens / s until a session has measured it (train_meta.json)\n"
+         "DATA_OVERSHOOT = 1.5          # select this many times the tokens expected to fit (the trainer stops at the deadline)\n"
          f"SMOKE = {SMOKE}                  # True: the single shortest trajectory, 1 epoch, 1 window per step, no adapter check\n"
          "VAL_FRAC = 0.02               # of tasks, for the validation loss (2% of thousands is enough and keeps eval short)")
 i0 = c.index("STUDENTS = {'STUDENT_12B'")
@@ -90,37 +94,68 @@ assert "NB21" in c and "STUDENTS = {}" in c and "TRAIN_MAX_LENS" in c
 
 RESUME = src(6).replace("NB19", "NB21")
 
-DATA = r'''# STEP 5 - training data: the attached SFT mix (every task allowed); own trajectories first, then one per task, ...
-import random
+DATA = r'''# STEP 5 - training data for THIS session: untrained trajectories, own first, then new problems shortest-first, ...
+import random, hashlib
 MIX = next((Path(dp) for dp, dns, fns in walk(INPUT, maxdepth=7) if "train_fit.jsonl" in fns and "manifest.json" in fns), None)
 plog(f"SFT mix: {MIX or 'NOT FOUND: attach the graphcomp-sft-mix dataset'}")
 if MIX:
     plog("mix manifest: " + json.dumps({k: v for k, v in json.loads((MIX / 'manifest.json').read_text()).items() if k != 'inputs'})[:1500])
 DEPLOY_PROMPT = GC / "deploy_system.md"
 DEPLOY_PROMPT.write_text((Path(SAMPLE_SUB) / "prompts/system.md").read_text() + PROMPT_ADDENDUM)
+task_of = lambda r: r["instance_id"].split("@")[0]
+def traj_key(r):   # stable across sessions (train_lora.py records the same key in trained_ids.json)
+    if not r.get("source_traj_id"):
+        calls = [json.dumps(tc["function"], sort_keys=True) for m in r["messages"] for tc in (m.get("tool_calls") or [])]
+        r["source_traj_id"] = "own:" + task_of(r) + ":" + hashlib.sha1("\\n".join(calls).encode()).hexdigest()[:12]
+    return r["source_traj_id"]
+TRAINED = set(STATE.get("trained_ids", []))
+TRAINED_TASKS = set(STATE.get("trained_tasks", []))
 _rows = [json.loads(l) for l in open(MIX / "train_fit.jsonl")] if MIX else []
 _rows = [r for r in _rows if r.get("est_tokens", 0) <= max(TRAIN_MAX_LENS)]
-random.Random(0).shuffle(_rows)
-if SMOKE:
-    _rows = sorted(_rows, key=lambda r: r.get("est_tokens", 0))[:1]
-_own = [r for r in _rows if r.get("mix_source") == "rft"]
-_by_task = {}
 for r in _rows:
-    if r.get("mix_source") != "rft":
-        _by_task.setdefault(r["instance_id"].split("@")[0], []).append(r)
-_pick, _round = list(_own), 0
-while len(_pick) < MAX_TRAIN_TRAJ and any(len(v) > _round for v in _by_task.values()):
-    _pick += [v[_round] for v in _by_task.values() if len(v) > _round][: MAX_TRAIN_TRAJ - len(_pick)]
-    _round += 1
-TRAIN_DATA = OUT / "sft" / "train.jsonl"
+    traj_key(r)                         # every row gets its stable key (also the competition tail)
+# COMPETITION trajectories (our own on the 129 tasks + external ones on the four competition repos) are trained LAST in every
+# session (user, Oct 15: "save our competition dataset for the end, we want it to see that last"), every session again
+COMP_REPOS = {"fastapi/fastapi", "tiangolo/fastapi", "textualize/rich", "psf/requests", "encode/httpx",
+              "fastapi", "rich", "requests", "httpx"}
+is_comp = lambda r: r.get("mix_source") == "rft" or str(r.get("repo", "")).lower() in COMP_REPOS
+_comp = sorted([r for r in _rows if is_comp(r)], key=lambda r: r.get("est_tokens", 0))
+_rows = [r for r in _rows if not is_comp(r) and traj_key(r) not in TRAINED]
+# the rest: NEW problems (never trained) first, the shortest trajectory of each, shortest first; then everything else shortest
+_rows.sort(key=lambda r: r.get("est_tokens", 0))
+_first, _seen = [], set(TRAINED_TASKS)
+for r in _rows:
+    if task_of(r) not in _seen:
+        _first.append(r); _seen.add(task_of(r))
+_firstset = {id(r) for r in _first}
+_queue = _first + [r for r in _rows if id(r) not in _firstset]
+# size this session's slice: tokens the trainer can process before the deadline, times DATA_OVERSHOOT
+TRAIN_DEADLINE = _T0 + (SESSION_BUDGET_H - POST_TRAIN_H) * 3600
+_tps = STATE.get("tok_per_s") or TOK_PER_S_GUESS
+_train_s = max(0.0, TRAIN_DEADLINE - time.time() - LOAD_H * 3600)
+_comp_tok = sum(r.get("est_tokens", 0) for r in _comp)
+_budget_tok = max(0.0, _tps * _train_s * DATA_OVERSHOOT - _comp_tok)
+_pick, _tok = [], 0
+for r in _queue:
+    if len(_pick) >= MAX_TRAIN_TRAJ or (_pick and _tok + r.get("est_tokens", 0) > _budget_tok):
+        break
+    _pick.append(r); _tok += r.get("est_tokens", 0)
+TAIL_N = len(_comp)
+_pick = _pick + _comp                 # the trainer always trains these, at the end (--tail-n)
+if SMOKE:
+    _pick, TAIL_N = (_comp or _queue)[:1], 0
+TRAIN_DATA = OUT / "sft" / f"train_session{STATE.get('sessions', 1)}.jsonl"
 TRAIN_DATA.parent.mkdir(parents=True, exist_ok=True)
 with open(TRAIN_DATA, "w") as f:
     for r in _pick:
         f.write(json.dumps(r) + "\n")
 n_traj = len(_pick)
-plog(f"training data: {n_traj} trajectories ({len(_own)} own, {n_traj - len(_own)} external over "
-     f"{len({r['instance_id'].split('@')[0] for r in _pick})} tasks, {_round} round(s)) of {len(_rows)} eligible -> {TRAIN_DATA}")
-del _rows, _by_task
+_new = len({task_of(r) for r in _pick} - TRAINED_TASKS)
+plog(f"session {STATE.get('sessions')}: {len(TRAINED)} trajectories / {len(TRAINED_TASKS)} problems trained before; "
+     f"this slice {n_traj} trajectories (~{(_tok + _comp_tok) / 1e6:.1f}M tokens; {_new} new problems; the last {TAIL_N} = "
+     f"competition trajectories, trained last) for "
+     f"{_train_s / 3600:.1f} h at {_tps:.0f} tok/s x {DATA_OVERSHOOT}; {len(_queue)} untrained left -> {TRAIN_DATA}")
+del _rows, _queue, _first
 '''
 
 # ------------------------------------------------------------------ step 6: only the 31B, training window stepped down on OOM
@@ -128,25 +163,54 @@ T = src(28)
 T = sub1(T, "# STEP 6 - train the LoRAs: 31B split over all 4 GPUs, then the two students side by side (E4B on GPUs 0-1, 12B on 2-3)",
          "# STEP 6 - train the 31B LoRA (4-bit model split over all 4 GPUs); training window stepped down on out-of-memory")
 old31 = T[T.index("if not OK31 and BASE31_TRAIN is not None"):T.index("# --- students in parallel")]
-T = T.replace(old31, '''for L in ([18432] if SMOKE else TRAIN_MAX_LENS):
-    if OK31 or BASE31_TRAIN is None:
+T = T.replace(old31, '''# resume: the previous session's adapter (copied in by the resume step) is the starting point; it stays the submission
+# if this session trains nothing. The trainer stops at TRAIN_DEADLINE at a step boundary and always saves (also every 30
+# min, atomically), so a session always leaves an adapter.
+PREV = OUT / "lora31_prev"
+if ADAPTER31.exists() and STATE.get("adapter_session") != STATE.get("sessions"):
+    shutil.rmtree(PREV, ignore_errors=True); shutil.move(str(OUT31), str(PREV))
+INIT = PREV / "adapter" if (PREV / "adapter" / "adapter_config.json").exists() else None
+OK31, L = False, None
+for L in ([18432] if SMOKE else TRAIN_MAX_LENS):
+    if BASE31_TRAIN is None or not n_traj:
         break
-    b = _budget(TRAIN31_MAX_H, f"lora31 (window {L})")
-    if not b:
-        break
-    shutil.rmtree(OUT31, ignore_errors=True); t0 = time.time()
-    _log = OUT / f"provenance/train_lora31_len{L}.log"
-    rc = sh(f"cd {GC}/lora && timeout -k 60 {int((b + 0.4) * 3600)} {sys.executable} train_lora.py --data {TRAIN_DATA} "
-            f"--base {BASE31_TRAIN} --out {OUT31} --device-map auto --max-len {L} --max-target 8000 --val-frac {VAL_FRAC} "
-            f"--no-eval-start --served-model google/{MODEL_SLUG} {DEPLOY_ARGS} --time-budget-h {b:.2f}"
-            + (" --epochs 1 --grad-accum 1" if SMOKE else ""), log=_log, env=TRAIN_ENV)
-    kill_gpu_procs()
-    OK31 = _report(f"lora31 (window {L})", OUT31, rc, t0)
-    _tail = _log.read_text(errors="replace")[-30000:] if _log.exists() else ""
+    left_s = TRAIN_DEADLINE - time.time()
+    if left_s < (LOAD_H + 0.25) * 3600:
+        plog(f"lora31: {left_s / 3600:.2f} h to the training deadline: not enough for the load + training"); break
+    for init in ([INIT, None] if INIT else [None]):   # a resume that fails to load falls back to a fresh LoRA once
+        shutil.rmtree(OUT31, ignore_errors=True); t0 = time.time()
+        _log = OUT / f"provenance/train_lora31_s{STATE.get('sessions')}_len{L}{'_resume' if init else ''}.log"
+        b = max(0.25, (TRAIN_DEADLINE - time.time()) / 3600 - LOAD_H)
+        rc = sh(f"cd {GC}/lora && timeout -k 60 {int(TRAIN_DEADLINE - time.time() + 900)} {sys.executable} train_lora.py "
+                f"--data {TRAIN_DATA} --base {BASE31_TRAIN} --out {OUT31} --device-map auto --max-len {L} --max-target 8000 "
+                f"--val-frac {VAL_FRAC} --no-eval-start --served-model google/{MODEL_SLUG} {DEPLOY_ARGS} --time-budget-h {b:.2f} "
+                f"--epochs 1 --keep-order --stop-at {TRAIN_DEADLINE:.0f} --save-every-min 30 --seed {STATE.get('sessions', 1)}"
+                + (f" --tail-n {TAIL_N} --lr-floor 0.3" if TAIL_N else "")
+                + (f" --init-adapter {init}" if init else "") + (" --grad-accum 1" if SMOKE else ""), log=_log, env=TRAIN_ENV)
+        kill_gpu_procs()
+        OK31 = _report(f"lora31 (window {L}{', resumed' if init else ''})", OUT31, rc, t0)
+        _tail = _log.read_text(errors="replace")[-30000:] if _log.exists() else ""
+        if OK31 or not init or re.search(r"out of memory|OutOfMemoryError", _tail, re.I):
+            break
+        plog("!!! lora31: resuming from the previous adapter failed; training a fresh LoRA instead (see " + str(_log) + ")")
     if OK31 or not re.search(r"out of memory|OutOfMemoryError", _tail, re.I):
         break
     plog(f"lora31: out of memory with a {L}-token window; trying the next one")
-save_state(lora31_window=L if OK31 else None)
+if OK31:
+    _ids = json.loads((ADAPTER31 / "trained_ids.json").read_text()) if (ADAPTER31 / "trained_ids.json").exists() else []
+    _meta = json.loads((OUT31 / "train_meta.json").read_text()) if (OUT31 / "train_meta.json").exists() else {}
+    _byid = {}
+    for l_ in open(TRAIN_DATA):
+        r_ = json.loads(l_); _byid[r_["source_traj_id"]] = task_of(r_)
+    save_state(trained_ids=sorted(TRAINED | set(_ids)), trained_tasks=sorted(TRAINED_TASKS | {_byid[i] for i in _ids if i in _byid}),
+               tok_per_s=_meta.get("tok_per_s") or STATE.get("tok_per_s"), lora31_window=L, adapter_session=STATE.get("sessions"),
+               adapter_applies=None, session_log=STATE.get("session_log", []) + [{"session": STATE.get("sessions"), "trained": len(_ids),
+               "stopped": _meta.get("stopped"), "tok_per_s": _meta.get("tok_per_s"), "steps": _meta.get("steps"), "resumed": bool(INIT)}])
+    plog(f"lora31: this session trained {len(_ids)} trajectories at {_meta.get('tok_per_s')} tok/s (stopped: {_meta.get('stopped')}); "
+         f"total {len(STATE['trained_ids'])} trajectories over {len(STATE['trained_tasks'])} problems")
+elif INIT:                          # nothing new this session: the previous adapter remains the submission
+    shutil.rmtree(OUT31, ignore_errors=True); shutil.copytree(PREV, OUT31); OK31 = True
+    plog("lora31: no new training this session; the previous session's adapter is kept as the submission")
 ''')
 assert "TRAIN_MAX_LENS" in T
 
@@ -166,8 +230,9 @@ elif STATE.get("adapter_applies") is None:
         save_state(adapter_applies=bool(adapter_changes_output(8000)))
     finally:
         stop_servers()
-if not STATE["adapter_applies"]:
-    raise SystemExit("STOP: vLLM serves the adapter as a no-op (identical output to the base model); not submitting it")
+if STATE["adapter_applies"] is False:
+    plog("!!! WARNING: vLLM serves the adapter as a no-op (identical greedy output to the base model); the submission is still "
+         "written (it behaves like the base model), check the adapter before relying on it")
 '''
 FINAL = r'''# STEP 8 - write the submission (the LoRA, deployment budget) and the summary
 FINAL = Path("/kaggle/working/submission")
@@ -181,6 +246,8 @@ lines = [f"# Notebook 21 summary ({now()})", "",
          f"- Training trajectories: {n_traj} (SFT mix {MIX}); 31B training window {STATE.get('lora31_window')}",
          f"- Train log (last): {json.dumps(read_jsonl(OUT31 / 'train_log.jsonl')[-1:])[:400]}",
          f"- Adapter changes the served output: {STATE.get('adapter_applies')}",
+         f"- Sessions: {STATE.get('session_log')}; trained so far {len(STATE.get('trained_ids', []))} trajectories over "
+         f"{len(STATE.get('trained_tasks', []))} problems; attach this output to the next version to continue",
          "", "**SUBMISSION: LORA31** (no base-model arm, no holdout comparison: every task was training data)",
          f"- deployment budget {DEPLOY_BUDGET}; worst case if all {N_TASKS_ASSUMED} tasks hit the cap: {worst_h:.1f} h of 12",
          f"- {FINAL} ({_size / 1e6:.1f} MB) and {_zip}"]
