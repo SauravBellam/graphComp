@@ -15,7 +15,7 @@ done
 log "installed this commit's scripts into $G"
 nvidia-smi --query-gpu=name,memory.used --format=csv,noheader
 
-# ------------------------------------------------------------------ JOB (Oct 15): E4B, max_output_tokens 8192, search for the best forced graph-call rate on the 64 fastapi + rich tasks in neither slice
+# ------------------------------------------------------------------ JOB (Oct 15): E4B, max_output_tokens 8192: B2, then forced at B2's graph-call share, on the 64 fastapi + rich tasks in neither slice
 M=~/gc/data/model_e4b
 R=~/gc/runs_fcsearch_e4b_o8k_rest; mkdir -p $R
 
@@ -23,7 +23,7 @@ log "STEP 1/2: E4B w4a16 already on the VM (~/gc/data/model_e4b)"
 test -f $M/config.json
 log "STEP 1/2 done"
 
-log "STEP 2/2: forced-rate search among forced conditions only (7% = E4B's natural graph-call share, and 100%, then midpoints)"
+log "STEP 2/2: B2 first, then forced at B2's measured graph-call share; a bust if that does not beat B2, else search upward"
 # never dev, holdout or the 3 extra holdout tasks: 64 fastapi + rich tasks remain
 $PY - ~/gc/data/comp/tasks.jsonl $G/scripts/planB/official_slices > $R.slice.txt <<'PYEOF'
 import json, sys
@@ -38,8 +38,9 @@ PYEOF
 test "$(wc -l < $R.slice.txt)" -eq 64
 $PY -I $G/scripts/planB/vm/fc_search.py --selftest
 $PY -I $G/scripts/planB/tool_usage.py --selftest
-$PY $G/scripts/planB/vm/fc_search.py --out $R --start 7,100 --max-probes 7 --min-gap 12 -- --model e4b --max-out 8192 --no-lean --auto-concurrency --dev-slice $R.slice.txt
-cat $R/fc_search.md
-tar czf $R.fc_search.tgz -C $(dirname $R) $(basename $R)/fc_search.md $(basename $R)/fc_search.json $(basename $R)/fc_search_tasks.csv $(basename $R)/fc_search_by_category.csv $(basename $R)/fc_search_tools.md $(basename $R)/fc_search_prompts $(basename $R)/settings.json $(basename $R)/summary_dev.md
+$PY -I $G/scripts/planB/tool_trace.py --selftest
+$PY $G/scripts/planB/vm/fc_search.py --out $R --plan b2-then-avg --tasks ~/gc/data/comp/tasks.jsonl --max-probes 7 --min-gap 12 -- --model e4b --max-out 8192 --no-lean --auto-concurrency --dev-slice $R.slice.txt
+cat $R/fc_search.md; cat $R/fc_search_verdict.txt 2>/dev/null || true
+tar czf $R.fc_search.tgz -C $(dirname $R) $(basename $R)/fc_search.md $(basename $R)/fc_search.json $(basename $R)/fc_search_tasks.csv $(basename $R)/fc_search_by_category.csv $(basename $R)/fc_search_tools.md $(basename $R)/fc_search_prompts $(basename $R)/fc_search_trace $(ls $R/fc_search_verdict.txt >/dev/null 2>&1 && echo $(basename $R)/fc_search_verdict.txt) $(basename $R)/settings.json $(basename $R)/summary_dev.md
 ls -la $R.fc_search.tgz
 log "STEP 2/2 done; ALL DONE"
