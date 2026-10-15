@@ -58,19 +58,6 @@ from gen_all import FORCED, QUALIFIED                      # noqa: E402  (identi
 ARMS = {
     "B2": dict(tools="B2", addendum="", max_out=16384, think=4096, what="baseline: all nine tools, sample prompt"),
     "FC": dict(tools="B2", addendum=FORCED, max_out=16384, think=4096, what="forced graph call every turn"),
-    # Oct 15: partial forcing (prompt only, like FC; the realized graph-call share is measured in the summary)
-    "FC80": dict(tools="B2", addendum="""
-
-## Graph tools (required on most turns)
-On four of every five turns, before any other tool call, call one of `get_code_neighbors`, `search_similar_code` or
-`get_code_subgraph`. Skip the graph call only on every fifth turn (turns 5, 10, 15, ...).
-""", max_out=16384, think=4096, what="forced graph call on 4 of 5 turns"),
-    "FC50": dict(tools="B2", addendum="""
-
-## Graph tools (required on every second turn)
-On every second turn (turns 1, 3, 5, ...), before any other tool call, call one of `get_code_neighbors`,
-`search_similar_code` or `get_code_subgraph`. On the other turns, use them only when they help.
-""", max_out=16384, think=4096, what="forced graph call on every second turn"),
     "QN": dict(tools="B2", addendum=QUALIFIED, max_out=16384, think=4096, what="qualified names in graph-tool arguments"),
     "T0": dict(tools="B2", addendum="", max_out=16384, think=0, what="thinking budget 0"),
     "O8K": dict(tools="B2", addendum="", max_out=8192, think=4096, what="max_output_tokens 8192"),
@@ -82,6 +69,24 @@ On every second turn (turns 1, 3, 5, ...), before any other tool call, call one 
                 budget=dict(max_tool_calls=30, max_time_minutes=5, max_turns=80, timeout_seconds=240)),
 }
 ADAPTER = None      # (name, Path) from --adapter
+
+
+def fc_rate_arm(name):
+    """Arm FCnnn = graph call forced on nnn% of tool calls (FC100 = FC's text, FC000 = B2). The forced call numbers follow an
+    even schedule (call k is forced when ceil(k*r) > ceil((k-1)*r): call 1 always, then evenly), listed in the prompt; get_status (free) reports
+    tool_calls_used so the agent can count. Prompt only, like FC: the realized share is measured, not assumed."""
+    r = int(name[2:]) / 100
+    if r >= 1:
+        add = FORCED
+    elif r <= 0:
+        add = ""
+    else:
+        ks = [k for k in range(1, BUDGET["max_tool_calls"] + 1) if math.ceil(k * r) > math.ceil((k - 1) * r)]
+        add = (f"\n\n## Graph tools (required on some tool calls)\nThese tool calls must be a graph-tool call "
+               f"(`get_code_neighbors`, `search_similar_code` or `get_code_subgraph`): numbers {', '.join(map(str, ks))}. "
+               "Count your tool calls (`get_status` is free and reports `tool_calls_used`). On all other tool calls, use the graph "
+               "tools only when they help.\n")
+    ARMS[name] = dict(tools="B2", addendum=add, max_out=16384, think=4096, what=f"graph call forced on {int(r * 100)}% of tool calls")
 
 
 def _nb19_addendum():
@@ -686,6 +691,9 @@ def main():
     for d in ("provenance", "runs", "submissions", "scorecard"):
         (OUT / d).mkdir(exist_ok=True)
     arms = [x.strip() for x in a.arms.split(",") if x.strip()]
+    for _n in arms + [d.name.rsplit("_s", 1)[0] for d in (OUT / "runs").iterdir()]:   # rate arms: requested and already run
+        if re.fullmatch(r"FC\d{3}", _n):
+            fc_rate_arm(_n)
     bad = [x for x in arms if x not in ARMS]
     if bad:
         raise SystemExit(f"unknown arms {bad}; choose from {list(ARMS)}")

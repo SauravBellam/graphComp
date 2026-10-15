@@ -15,21 +15,22 @@ done
 log "installed this commit's scripts into $G"
 nvidia-smi --query-gpu=name,memory.used --format=csv,noheader
 
-# ------------------------------------------------------------------ JOB (Oct 15): E2B, B2 vs FC / FC80 / FC50 (forced graph calls) on the 115 fastapi + rich tasks
-M=~/gc/data/model_e2b
-R=~/gc/runs_fr115_e2b; mkdir -p $R
+# ------------------------------------------------------------------ JOB (Oct 15): 12B, search for the best forced graph-call rate on the 115 fastapi + rich tasks
+M=~/gc/data/model_12b
+R=~/gc/runs_fcsearch_12b; mkdir -p $R
 
-log "STEP 1/2: E2B w4a16 (gemma-4-e2b-it-qat-w4a16-ct) from Hugging Face, once (8.3 GB)"
-if [ ! -f $M/model.safetensors ]; then
-  HF_HUB_OFFLINE=0 $PY -c "import sys; from huggingface_hub import snapshot_download; snapshot_download('google/gemma-4-E2B-it-qat-w4a16-ct', local_dir=sys.argv[1])" $M
-  echo "model gemma-4-e2b-it-qat-w4a16-ct from Hugging Face google/gemma-4-E2B-it-qat-w4a16-ct $(date -u +%FT%TZ)" > ~/gc/logs/model_source_e2b.txt
+log "STEP 1/2: 12B w4a16 (gemma-4-12b-it-qat-w4a16-ct) from Hugging Face, once (10.3 GB)"
+if [ ! -f $M/config.json ]; then
+  HF_HUB_OFFLINE=0 $PY -c "import sys; from huggingface_hub import snapshot_download; snapshot_download('google/gemma-4-12B-it-qat-w4a16-ct', local_dir=sys.argv[1])" $M
+  echo "model gemma-4-12b-it-qat-w4a16-ct from Hugging Face google/gemma-4-12B-it-qat-w4a16-ct $(date -u +%FT%TZ)" > ~/gc/logs/model_source_12b.txt
 fi
-ls -la $M; df -h ~ | tail -1
+du -sh $M; df -h ~ | tail -1
 log "STEP 1/2 done"
 
-log "STEP 2/2: B2, FC, FC80, FC50 on the 115 fastapi + rich tasks (requests/httpx tests import the installed copy: never scorable here)"
+log "STEP 2/2: forced-rate search (0% = B2 and 100% = FC first, then midpoints toward the best; one fresh vLLM server per probe)"
 $PY -c "import json,sys; print('\\n'.join(t for t in (json.loads(l)['instance_id'] for l in open(sys.argv[1]) if l.strip()) if t.split('_')[0] in ('fastapi', 'rich')))" ~/gc/data/comp/tasks.jsonl > $R.slice.txt
 test "$(wc -l < $R.slice.txt)" -eq 115
-$PY $G/scripts/planB/vm/dev_runs.py --model e2b --arms B2,FC,FC80,FC50 --no-lean --auto-concurrency --dev-slice $R.slice.txt --out $R
-grep -E "^\| (B2|FC|FC80|FC50) " $R/summary_dev.md
+$PY -I $G/scripts/planB/vm/fc_search.py --selftest
+$PY $G/scripts/planB/vm/fc_search.py --out $R --max-probes 7 --min-gap 12 -- --model 12b --no-lean --auto-concurrency --dev-slice $R.slice.txt
+cat $R/fc_search.md
 log "STEP 2/2 done; ALL DONE"
