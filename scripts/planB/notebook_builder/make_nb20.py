@@ -76,8 +76,10 @@ MAX_PER_TASK_TRAIN = 3         # verified, accurate trajectories per task in a r
 SEED_BASE = 2000               # sampling seeds: SEED_BASE + attempt number (every attempt a different seed)
 HOLDOUT_BUDGET = dict(max_tool_calls=30, max_time_minutes=8, max_turns=80, timeout_seconds=240)   # = notebook 19's holdout
 NEW_TASKS = ''' + repr(NEW_TASKS) + r'''
-FORCE_RATE = None              # % of tool calls forced to be graph calls during TEACHER SAMPLING only (set from the VM
-                               # forced-rate search); training and holdout prompts never carry it, so students learn it implicitly
+FORCE_RATES = [0, 7, 25, 50, 100]   # candidate % of tool calls forced to be graph calls, TEACHER SAMPLING only: a tuned
+                                     # hyperparameter. Pass 1 is unforced (0); later chunks draw a rate by Thompson sampling
+                                     # on each rate's resolve rate so far. Training / holdout prompts never carry the forcing
+                                     # text, so students learn the resulting behaviour implicitly. Add the VM search's best rate here.
 RETRY_NOTES = True             # failed-before tasks get a description of earlier failed attempts (not the verbatim calls)
 RETRY_NOTE_SHARE = 2           # notes on every 2nd chunk only, so their effect is measured (attempts.jsonl "noted")
 BUDGET = dict(BUDGET, max_tool_calls=30)
@@ -286,9 +288,21 @@ def forced_text(rate):
             f"`search_similar_code` or `get_code_subgraph`): numbers {', '.join(map(str, ks))}. Count your tool calls (`get_status` "
             "is free and reports `tool_calls_used`). On all other tool calls, use the graph tools only when they help.\n")
 _BASE_ADDENDUM = PROMPT_ADDENDUM
-if FORCE_RATE:
-    PROMPT_ADDENDUM = _BASE_ADDENDUM + forced_text(FORCE_RATE)
-    plog(f"teacher sampling forces graph calls on {FORCE_RATE}% of tool calls (sampling prompts only)")
+import random
+def pick_rate(seq):
+    """Pass 1: 0 (unforced teacher). Later: Thompson sampling, Beta(resolved + 1, failed + 1) per candidate rate over this
+    notebook's attempts (infra errors excluded). Caveat: chunks within a pass go from never-solved to easier tasks, so the
+    per-rate counts carry some task-difficulty drift; randomised draws spread it across rates."""
+    if STATE["passes"] <= 1:
+        return 0
+    att = [a for a in read_jsonl(ATTEMPTS) if not a.get("infra_error")]
+    rnd = random.Random(SEED_BASE + seq)
+    draw = {}
+    for r in FORCE_RATES:
+        g = [a for a in att if (a.get("force_rate") or 0) == r]
+        k = sum(a["resolved"] for a in g)
+        draw[r] = rnd.betavariate(k + 1, len(g) - k + 1)
+    return max(draw, key=draw.get)
 chunk_secs, stop_reason = [], "sampling window over"
 try:
     sub = None
@@ -302,6 +316,8 @@ try:
             save_state(pass_todo=pass_order(POOL), passes=STATE["passes"] + 1)
             plog(f"pass {STATE['passes']}: {len(STATE['pass_todo'])} tasks, never-solved first: {STATE['pass_todo'][:6]} ...")
         cap = cap_minutes(len(STATE["pass_todo"]), window)
+        FORCE_RATE = pick_rate(STATE["attempt_seq"])
+        PROMPT_ADDENDUM = _BASE_ADDENDUM + (forced_text(FORCE_RATE) if FORCE_RATE else "")
         BUDGET["max_time_minutes"] = cap
         _s0 = SOURCE[STATE["pass_todo"][0]]                    # one task source per run_arm call
         chunk = [t for t in STATE["pass_todo"] if SOURCE[t] == _s0][:CHUNK]
@@ -310,7 +326,7 @@ try:
         if not SERVERS or not server_alive():
             stop_servers(); start_server(MODEL_DIR, TP, sub if BEST["adapter"] else None)
         part = PARTS / f"p{len([q for q in PARTS.glob('p*') if q.is_dir()]):04d}_r{SAMPLE_ROUND}_seed{SEED_BASE + seq}"
-        plog(f"chunk: {chunk} | cap {cap} min, 30 calls | adapter r{BEST['round']} | window {window:.2f} h | campaign left {campaign_left_h():.1f} h")
+        plog(f"chunk: {chunk} | cap {cap} min, 30 calls | forced graph calls {FORCE_RATE}% | adapter r{BEST['round']} | window {window:.2f} h | campaign left {campaign_left_h():.1f} h")
         noted, _ft = set(), failed_traces()
         prior = {t for t in chunk if _ft.get(t)}
         cmd = agent_cmd(sub, chunk, part, MODEL_DIR, MODEL_SLUG).replace(f"--tasks {TASKS_JSONL} --snapshots {SNAPSHOTS}",
@@ -456,6 +472,10 @@ lines = [f"# Notebook 20 summary ({now()})", "",
          f"tasks ever solved {sum(any(a['resolved'] for a in v) for v in _by.values())}/{len(POOL)}",
          "- Rounds (holdout, same budget and seed as notebook 19):"]
 _rt = [a for a in _att if a.get("prior_failure")]
+for _r in FORCE_RATES:
+    _g = [a for a in _att if (a.get("force_rate") or 0) == _r and not a.get("infra_error")]
+    if _g:
+        lines.insert(-1, f"- Forced graph-call rate {_r}%: {sum(a['resolved'] for a in _g)}/{len(_g)} sampled attempts resolved")
 for _lab, _g in (("with retry note", [a for a in _rt if a["noted"]]), ("without (same kind of retry)", [a for a in _rt if not a["noted"]])):
     lines.insert(-1, f"- Retries of failed-before tasks {_lab}: {sum(a['resolved'] for a in _g)}/{len(_g)} resolved")
 for r in STATE["rounds"]:
