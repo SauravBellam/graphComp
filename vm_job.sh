@@ -15,28 +15,21 @@ done
 log "installed this commit's scripts into $G"
 nvidia-smi --query-gpu=name,memory.used --format=csv,noheader
 
-# ------------------------------------------------------------------ JOB (Oct 15): E4B deploy rehearsal -> action agreement -> merged adapter
-HUB=~/.cache/huggingface/hub
-E4B=$(ls -d $HUB/models--google--gemma-4-E4B-it-qat-q4_0-unquantized/snapshots/*/ | head -1)
-E2B=$(ls -d $HUB/models--google--gemma-4-E2B-it-qat-q4_0-unquantized/snapshots/*/ | head -1)
-AD=~/gc/lora/rft_e4b_v1
-R=~/gc/vm_job_e4b_20261015; mkdir -p $R
+# ------------------------------------------------------------------ JOB (Oct 15): E2B, B2 vs FC (forced graph call) on all 129 tasks
+M=~/gc/data/model_e2b
+R=~/gc/runs_all129_e2b; mkdir -p $R
 
-log "STEP 1/3: deployed-budget rehearsal, E4B w4a16, dev 24, arms B2 + DEP"
-$PY $G/scripts/planB/vm/dev_runs.py --model e4b --arms B2,DEP --no-lean --out ~/gc/runs_dev_e4b_deploy
-log "STEP 1/3 done"; grep -E "^\| (B2|DEP) " ~/gc/runs_dev_e4b_deploy/summary_dev.md
+log "STEP 1/2: E2B w4a16 (gemma-4-e2b-it-qat-w4a16-ct) from Hugging Face, once (8.3 GB)"
+if [ ! -f $M/model.safetensors ]; then
+  HF_HUB_OFFLINE=0 $PY -c "import sys; from huggingface_hub import snapshot_download; snapshot_download('google/gemma-4-E2B-it-qat-w4a16-ct', local_dir=sys.argv[1])" $M
+  echo "model gemma-4-e2b-it-qat-w4a16-ct from Hugging Face google/gemma-4-E2B-it-qat-w4a16-ct $(date -u +%FT%TZ)" > ~/gc/logs/model_source_e2b.txt
+fi
+ls -la $M; df -h ~ | tail -1
+log "STEP 1/2 done"
 
-log "STEP 2/3: next-action agreement with 31B on the adapter's 39 val turns (E2B, E4B, E4B + rft_e4b_v1)"
-$PY $G/scripts/planB/lora/action_agreement.py --data $G/planB_results/lora_data/rft_31b_B2s1/train.jsonl \
-  --val-from $AD/train_meta.json --out $R/action_agreement.json \
-  --model e4b=$E4B --model e4b_rft=$E4B+$AD/adapter --model e2b=$E2B
-log "STEP 2/3 done"
-
-log "STEP 3/3: unquantized E4B base vs merged rft_e4b_v1, bf16, dev 24, B2"
-$PY $G/scripts/planB/vm/merge_lora.py --base $E4B --out ~/gc/data/model_e4b_unq
-$PY $G/scripts/planB/vm/dev_runs.py --model e4b --arms B2 --no-lean --model-dir ~/gc/data/model_e4b_unq --out ~/gc/runs_dev_e4b_unq
-$PY $G/scripts/planB/vm/merge_lora.py --base $E4B --adapter $AD/adapter --out ~/gc/data/model_e4b_merged_rft
-$PY $G/scripts/planB/vm/dev_runs.py --model e4b --arms B2 --no-lean --model-dir ~/gc/data/model_e4b_merged_rft --out ~/gc/runs_dev_e4b_merged_rft
-rm -rf ~/gc/data/model_e4b_merged_rft      # 15 GB; re-create with merge_lora.py
-for d in unq merged_rft; do grep -E "^\| B2 " ~/gc/runs_dev_e4b_$d/summary_dev.md | sed "s/^/$d: /"; done
-log "STEP 3/3 done; ALL DONE"
+log "STEP 2/2: B2 then FC on all 129 tasks (invalid-here tasks run but are excluded from rates)"
+$PY -c "import json,sys; print('\\n'.join(json.loads(l)['instance_id'] for l in open(sys.argv[1]) if l.strip()))" ~/gc/data/comp/tasks.jsonl > $R.slice.txt
+test "$(wc -l < $R.slice.txt)" -eq 129
+$PY $G/scripts/planB/vm/dev_runs.py --model e2b --arms B2,FC --no-lean --dev-slice $R.slice.txt --out $R
+grep -E "^\| (B2|FC) " $R/summary_dev.md
+log "STEP 2/2 done; ALL DONE"
