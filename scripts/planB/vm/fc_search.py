@@ -19,6 +19,9 @@ After every probe, in --out (everything a write-up needs):
   fc_search_by_category.csv / the "By problem type" section of fc_search.md: per rate, resolved within each task group
                       (repo, graph-distance x visibility cell, multi-file, async in gold, gold is entry point), from the
                       validity profile, to see which kinds of problem forcing helps or hurts
+  fc_search_tools.md  per probe: each tool's use vs outcome (resolved when used / not used, calls per resolved and
+                      unresolved task, share of calls), from scripts/planB/tool_usage.py; per-tool call counts are also
+                      columns of fc_search_tasks.csv
 """
 import argparse
 import csv
@@ -32,6 +35,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
+sys.path.insert(0, str(HERE.parent))
+import tool_usage  # noqa: E402
 GRAPH = {"get_code_neighbors", "search_similar_code", "get_code_subgraph"}
 CATEGORIES = ("repo", "cell", "multi_file", "gold_has_async", "gold_is_entry_point")   # validity-profile columns
 PROFILE = {}        # instance_id -> profile row (filled in main)
@@ -61,6 +66,7 @@ def read(out, r, valid):
                  for tc in s.get("tool_calls") or []]
         tasks.append({"rate": r, "arm": name, "instance_id": x["instance_id"], "valid": x["instance_id"] in valid,
                       **{c: PROFILE.get(x["instance_id"], {}).get(c, "") for c in CATEGORIES},
+                      **{f"calls_{k}": names.count(k) for k in tool_usage.TOOLS},
                       "resolved": bool(x.get("resolved")), "tool_calls": len(names), "graph_calls": sum(n in GRAPH for n in names),
                       "llm_calls": x.get("total_llm_calls"), "seconds": x.get("duration_seconds"),
                       "error": (x.get("error") or "")[:120]})
@@ -115,6 +121,12 @@ def report(out, res):
             w.writeheader()
             w.writerows(cat_rows)
     (out / "fc_search.md").write_text("\n".join(lines) + "\n")
+    tools_md = ["# Tool use vs outcome per probe (valid tasks; association, not causation)", ""]
+    valid = {i for i, x in PROFILE.items() if x.get("sub_valid") == "True"} or None
+    for r in sorted(res):
+        m = out / "runs" / f"{res[r]['arm']}_s1" / f"merged_{res[r]['arm']}_s1"
+        tools_md.append(tool_usage.markdown(tool_usage.table(tool_usage.per_task(m, valid)), f"{r}% ({res[r]['arm']})"))
+    (out / "fc_search_tools.md").write_text("\n".join(tools_md))
     (out / "fc_search.json").write_text(json.dumps({r: {k: v for k, v in x.items() if k != "tasks"} for r, x in res.items()},
                                                   indent=1))
     with open(out / "fc_search_tasks.csv", "w", newline="") as f:

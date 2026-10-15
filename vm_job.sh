@@ -31,8 +31,9 @@ log "STEP 2/2: forced-rate search (0% = B2 and 100% = FC first, then midpoints t
 $PY -c "import json,sys; print('\\n'.join(t for t in (json.loads(l)['instance_id'] for l in open(sys.argv[1]) if l.strip()) if t.split('_')[0] in ('fastapi', 'rich')))" ~/gc/data/comp/tasks.jsonl > $R.slice.txt
 test "$(wc -l < $R.slice.txt)" -eq 115
 $PY -I $G/scripts/planB/vm/fc_search.py --selftest
+$PY -I $G/scripts/planB/tool_usage.py --selftest
 $PY $G/scripts/planB/vm/fc_search.py --out $R --max-probes 7 --min-gap 12 -- --model e2b --no-lean --auto-concurrency --dev-slice $R.slice.txt
 cat $R/fc_search.md
-tar czf $R.fc_search.tgz -C $(dirname $R) $(basename $R)/fc_search.md $(basename $R)/fc_search.json $(basename $R)/fc_search_tasks.csv $(basename $R)/fc_search_prompts $(basename $R)/settings.json $(basename $R)/summary_dev.md
+tar czf $R.fc_search.tgz -C $(dirname $R) $(basename $R)/fc_search.md $(basename $R)/fc_search.json $(basename $R)/fc_search_tasks.csv $(basename $R)/fc_search_by_category.csv $(basename $R)/fc_search_tools.md $(basename $R)/fc_search_prompts $(basename $R)/settings.json $(basename $R)/summary_dev.md
 ls -la $R.fc_search.tgz
 log "STEP 2/2 done; ALL DONE"
