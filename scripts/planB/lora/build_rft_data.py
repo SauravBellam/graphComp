@@ -18,7 +18,7 @@ The agent step's text is stored as reasoning_content (ATIF event_type "thinking"
 renders these with the model's own chat template and puts the loss on assistant turns only. Also: manifest.json (selection,
 exclusions with reasons, per-repo counts, sources) and excluded.csv.
 """
-import argparse, csv, difflib, hashlib, json, sys
+import argparse, csv, difflib, hashlib, json, re, sys
 from collections import Counter
 from pathlib import Path
 
@@ -76,6 +76,17 @@ def route_similarity(m1, m2):
     return difflib.SequenceMatcher(None, route(m1), route(m2)).ratio()
 
 
+RETRY_NOTE = "## Notes from earlier attempts"     # notebook 20's retry note, prepended to the problem statement
+NOTE_ECHO = re.compile(r"(earlier|previous|prior) attempt", re.I)
+
+
+def strip_retry_note(text):
+    """The retry note is sampling-time guidance only: training sees the problem statement as deployed."""
+    if isinstance(text, str) and text.startswith(RETRY_NOTE) and "\n## Issue\n" in text:
+        return text.split("\n## Issue\n", 1)[1], True
+    return text, False
+
+
 def trace_to_messages(trace):
     steps = trace["steps"]
     msgs, n_graph, problems = [], 0, []
@@ -84,7 +95,8 @@ def trace_to_messages(trace):
     if not sys_ or not usr:
         return None, 0, ["no system or user step"]
     msgs.append({"role": "system", "content": sys_[0]["message"]})
-    msgs.append({"role": "user", "content": usr[0]["message"]})
+    user, noted = strip_retry_note(usr[0]["message"])
+    msgs.append({"role": "user", "content": user})
     agent = [s for s in steps if s.get("source") == "agent"]
     k, pending = 0, None
     for s in agent:
@@ -123,6 +135,8 @@ def trace_to_messages(trace):
                      "content": (obs or {}).get("content", "")})
     if msgs[-1]["role"] != "assistant" or msgs[-1].get("tool_calls"):
         problems.append("does not end with a final assistant message")
+    if noted and any(NOTE_ECHO.search(str(m.get("reasoning_content", "")) + str(m.get("content", ""))) for m in msgs if m["role"] == "assistant"):
+        problems.append("reasoning refers to the retry note (earlier attempts), which training does not show")
     return msgs, n_graph, problems
 
 

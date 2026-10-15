@@ -75,6 +75,8 @@ MAX_PER_TASK_TRAIN = 3         # verified, accurate trajectories per task in a r
 SEED_BASE = 2000               # sampling seeds: SEED_BASE + attempt number (every attempt a different seed)
 HOLDOUT_BUDGET = dict(max_tool_calls=30, max_time_minutes=8, max_turns=80, timeout_seconds=240)   # = notebook 19's holdout
 NEW_TASKS = ''' + repr(NEW_TASKS) + r'''
+RETRY_NOTES = True             # failed-before tasks get a description of earlier failed attempts (not the verbatim calls)
+RETRY_NOTE_SHARE = 2           # notes on every 2nd chunk only, so their effect is measured (attempts.jsonl "noted")
 BUDGET = dict(BUDGET, max_tool_calls=30)
 plog(f"NB20 campaign: {CAMPAIGN_H} h total, rounds {MIN_NEW_ROUNDS}..{MAX_ROUNDS}, cap {CAP_MIN_RANGE} min, new tasks {len(NEW_TASKS)}")
 '''
@@ -146,12 +148,59 @@ with open(B1_PROFILE) as f_, open(OUT / "profile_nb20.csv", "w", newline="") as 
             row["sub_valid"], row["sub_reason"] = "True", "valid with src/ shim + pytest-httpbin (NB20 check)"
         _w_.writerow(row)
 (GC / "never_train.txt").write_text("\n".join(HOLDOUT_EXTRA) + "\n")
-plog(f"pool: {len(POOL)} tasks ({len(ORDER)} from notebook 19 + {len(POOL) - len(ORDER)} new)")
+# ---- external tasks (scripts/planB/external/import_external.py output, attached as a dataset): same layout as the
+# competition data (tasks.jsonl, snapshots/, graphs/, embeddings/); wheels come from the competition data; validity is
+# re-checked on this image like the new tasks
+SOURCE = {t: (TASKS_JSONL, SNAPSHOTS) for t in ALL_IDS}
+TASK_TEXT = {t: tasks_by_id[t]["problem_statement"] for t in ALL_IDS}
+EXT_ROWS = []
+for _m in sorted(glob.glob(str(INPUT / "**/graphcomp_external.json"), recursive=True)):
+    _src = Path(_m).parent
+    _meta = json.loads(Path(_m).read_text())
+    _dst = Path("/kaggle/working/extdata") / _src.name
+    if not _dst.exists():
+        _dst.mkdir(parents=True)
+        for _d in ("snapshots", "graphs", "embeddings"):
+            os.symlink(_src / _d, _dst / _d)
+        os.symlink(DATA_ROOT / "wheels", _dst / "wheels")
+        shutil.copy(_src / "tasks.jsonl", _dst / "tasks.jsonl")
+    _rows = {json.loads(l)["instance_id"]: json.loads(l) for l in open(_dst / "tasks.jsonl") if l.strip()}
+    assert not set(_rows) & set(ALL_IDS), "external ids collide with competition ids"
+    _key = f"ext_valid::{_src.name}"
+    if _key not in STATE:
+        _vd = OUT / f"validity_ext/{_src.name}"
+        _ids = [t for t in _meta.get("valid", list(_rows))]
+        _rc = lambda mode, ids, d: (f"cd {GC} && {sys.executable} run_arm.py --mode {mode} --tasks {_dst / 'tasks.jsonl'} "
+                                    f"--snapshots {_dst / 'snapshots'} --submission {SUB} --results {d} --sandbox subprocess "
+                                    f"--task-ids {' '.join(ids)} --timeout-seconds 300 --concurrency {CONCURRENCY}")
+        sh(_rc("gold", _ids, _vd / "gold"), log=OUT / f"provenance/validity_ext_{_src.name}.log")
+        _g = [r["instance_id"] for r in read_jsonl(_vd / "gold/task_results.jsonl") if r.get("resolved")]
+        if _g:
+            sh(_rc("empty", _g, _vd / "empty"), log=OUT / f"provenance/validity_ext_{_src.name}.log")
+        _e = {r["instance_id"] for r in read_jsonl(_vd / "empty/task_results.jsonl") if r.get("resolved")}
+        save_state(**{_key: [t for t in _g if t not in _e]})
+    for t in STATE[_key]:
+        SOURCE[t] = (_dst / "tasks.jsonl", _dst / "snapshots")
+        TASK_TEXT[t] = _rows[t]["problem_statement"]
+        EXT_ROWS.append(_rows[t])
+        if t not in POOL:
+            POOL.append(t)
+    plog(f"external source {_src.name}: {len(STATE[_key])}/{len(_rows)} valid on this image -> pool {len(POOL)}")
+with open(GC / "all_tasks.jsonl", "w") as f_:          # gold patches for the accurate-tool check: competition + external
+    for t in list(tasks_by_id.values()) + EXT_ROWS:
+        f_.write(json.dumps(t) + "\n")
+if EXT_ROWS:
+    with open(OUT / "profile_nb20.csv", "a", newline="") as g_:
+        _w2 = csv.DictWriter(g_, fieldnames=list(csv.DictReader(open(B1_PROFILE)).fieldnames))
+        for r_ in EXT_ROWS:
+            _w2.writerow({"instance_id": r_["instance_id"], "repo": r_["instance_id"].split("_")[0], "sub_valid": "True",
+                          "sub_reason": "external task, valid on this image (NB20 check)"})
+plog(f"pool: {len(POOL)} tasks ({len(ORDER)} from notebook 19 + {len(POOL) - len(ORDER)} new / external)")
 '''
 
 SAMPLER_HEAD = "# STEP 4 - sampling: passes over the pool with the current best adapter; every attempt saved and indexed\n"
-SAMPLER = r'''import statistics
-from collections import defaultdict
+SAMPLER = r'''import statistics, hashlib
+from collections import defaultdict, Counter
 ATTEMPTS = OUT / "attempts.jsonl"
 B2S1 = next((dp for dp, dns, fns in walk(INPUT, maxdepth=9, skip=("snapshots", "wheels", "embeddings", "graphs", "__pycache__", ".git",
              "traces", "logs", "test_outputs", "patches", "parts")) if dp.name == "merged_B2_s1" and "task_results.jsonl" in fns), None)
@@ -172,6 +221,39 @@ def pass_order(pool):
     rate = lambda t: sum(ok for ok, _ in h[t]) / len(h[t])
     slow = lambda t: statistics.median([s for ok, s in h[t] if ok])
     return unsolved + sorted(solved, key=lambda t: (rate(t), -slow(t), t))
+sys.path.insert(0, str(GC))
+import tool_trace
+def failed_traces():
+    """Per task: trace files of earlier attempts that ran normally and did not resolve the task."""
+    f = defaultdict(list)
+    for d in ([B2S1] if B2S1 else []) + NB19_PARTS + sorted(q for q in PARTS.glob("p*") if q.is_dir()):
+        for r in read_jsonl(d / "task_results.jsonl"):
+            if not r.get("resolved") and not INFRA_RE.search(json.dumps({k: v for k, v in r.items() if isinstance(v, str)})):
+                f[r["instance_id"]].append((d / "traces" / f"trace_{r['instance_id']}.json", r))
+    return f
+def failure_note(iid, fails):
+    """Describe what earlier failed attempts did, in words; never their verbatim calls or patches (verbatim failed calls
+    raise the chance of repeating them, a runtime description removes most of that: arXiv 2608.23651; conditioning a
+    retry on the failed attempt helps: FC-SWE, arXiv 2610.07898)."""
+    edited, ends, untested = Counter(), Counter(), 0
+    for tp, r in fails:
+        rows = tool_trace.trace_run(json.load(open(tp)), {"files": [], "funcs": set()})[0] if tp.exists() else []
+        files = {x["target"].split()[0] for x in rows if x["purpose"] == "edit-src"}
+        edited.update(files)
+        err = str(r.get("error") or "").lower()
+        ends["ran out of time" if "timeout" in err or "timed out" in err else "used all tool calls" if "tool" in err and "budget" in err
+             else "submitted a patch that failed the tests" if r.get("agent_patch_size") else "made no change"] += 1
+        last = max((x["i"] for x in rows if x["purpose"] == "edit-src"), default=None)
+        untested += last is not None and not any(x["purpose"] in ("reproduce", "test") and x["i"] > last for x in rows)
+    lines = [f"## Notes from earlier attempts at this issue", f"{len(fails)} earlier attempt(s) did not pass the hidden tests."]
+    if edited:
+        lines.append("They edited: " + ", ".join(f"{p} ({n})" for p, n in edited.most_common(4)) + ".")
+    lines.append("They ended: " + ", ".join(f"{n} {k}" for k, n in ends.most_common()) + ".")
+    if untested:
+        lines.append(f"{untested} of them did not run any reproduction or test after their last edit.")
+    lines.append("The cause may be somewhere else, or need a different kind of fix. Form a different hypothesis before "
+                 "editing the same places again, and check your fix by running code before you submit.")
+    return "\n".join(lines)
 def cap_minutes(n_left, sample_h_left):
     raw = sample_h_left * 60 * CONCURRENCY / max(1, n_left) - SETUP_MIN_PER_TASK
     return round(min(max(raw, CAP_MIN_RANGE[0]), CAP_MIN_RANGE[1]) * 2) / 2
@@ -205,16 +287,28 @@ try:
             plog(f"pass {STATE['passes']}: {len(STATE['pass_todo'])} tasks, never-solved first: {STATE['pass_todo'][:6]} ...")
         cap = cap_minutes(len(STATE["pass_todo"]), window)
         BUDGET["max_time_minutes"] = cap
-        chunk = STATE["pass_todo"][:CHUNK]
+        _s0 = SOURCE[STATE["pass_todo"][0]]                    # one task source per run_arm call
+        chunk = [t for t in STATE["pass_todo"] if SOURCE[t] == _s0][:CHUNK]
         seq = STATE["attempt_seq"]
         sub = make_sub(OUT / "submissions/sample", MODEL_SLUG, Path(BEST["adapter"]) if BEST["adapter"] else None, seed=SEED_BASE + seq)
         if not SERVERS or not server_alive():
             stop_servers(); start_server(MODEL_DIR, TP, sub if BEST["adapter"] else None)
         part = PARTS / f"p{len([q for q in PARTS.glob('p*') if q.is_dir()]):04d}_r{SAMPLE_ROUND}_seed{SEED_BASE + seq}"
         plog(f"chunk: {chunk} | cap {cap} min, 30 calls | adapter r{BEST['round']} | window {window:.2f} h | campaign left {campaign_left_h():.1f} h")
+        noted, _ft = set(), failed_traces()
+        prior = {t for t in chunk if _ft.get(t)}
+        cmd = agent_cmd(sub, chunk, part, MODEL_DIR, MODEL_SLUG).replace(f"--tasks {TASKS_JSONL} --snapshots {SNAPSHOTS}",
+                                                                         f"--tasks {_s0[0]} --snapshots {_s0[1]}")
+        if RETRY_NOTES and seq % RETRY_NOTE_SHARE == 0:
+            briefs = {t: {"brief": failure_note(t, _ft[t]), "problem_sha256": hashlib.sha256(TASK_TEXT[t].encode()).hexdigest()}
+                      for t in chunk if _ft.get(t)}
+            if briefs:
+                bp = OUT / f"briefs/{part.name}.json"; bp.parent.mkdir(exist_ok=True); bp.write_text(json.dumps(briefs, indent=1))
+                cmd += f" --briefs {bp}"
+                noted = set(briefs)
         t0 = time.time()
         with Progress(part / "task_results.jsonl", len(chunk), f"sample r{SAMPLE_ROUND}", every=120):
-            sh(agent_cmd(sub, chunk, part, MODEL_DIR, MODEL_SLUG), log=part.parent / f"{part.name}.log")
+            sh(cmd, log=part.parent / f"{part.name}.log")
         chunk_secs.append(time.time() - t0)
         done, retry = [], []
         with open(ATTEMPTS, "a") as f:
@@ -223,9 +317,10 @@ try:
                 (retry if infra else done).append(r["instance_id"])
                 f.write(json.dumps({"instance_id": r["instance_id"], "resolved": bool(r.get("resolved")), "seconds": r.get("duration_seconds"),
                                     "tool_calls": r.get("tool_calls"), "cap_min": cap, "seed": SEED_BASE + seq, "part": part.name,
-                                    "adapter_round": BEST["round"], "sample_round": SAMPLE_ROUND, "infra_error": infra, "time": now()}) + "\n")
+                                    "adapter_round": BEST["round"], "sample_round": SAMPLE_ROUND, "infra_error": infra,
+                                    "noted": r["instance_id"] in noted, "prior_failure": r["instance_id"] in prior, "time": now()}) + "\n")
         missing = [t for t in chunk if t not in done and t not in retry]
-        save_state(pass_todo=retry + missing + STATE["pass_todo"][len(chunk):], attempt_seq=seq + 1)
+        save_state(pass_todo=retry + missing + [t for t in STATE["pass_todo"] if t not in chunk], attempt_seq=seq + 1)
         mark_campaign()
         k = sum(r["resolved"] for r in read_jsonl(ATTEMPTS)[-len(chunk):])
         plog(f"    chunk {chunk_secs[-1] / 60:.1f} min: {k}/{len(chunk)} resolved; infra retry {retry}; pass left {len(STATE['pass_todo'])}")
@@ -300,7 +395,7 @@ else:
     runs = ([B2S1] if B2S1 else []) + NB19_PARTS + sorted(p for p in PARTS.glob("p*") if (p / "task_results.jsonl").exists())
     _runs_file = RD / "runs.txt"; RD.mkdir(parents=True, exist_ok=True); _runs_file.write_text("\n".join(map(str, runs)) + "\n")
     sh(f"cd {GC} && {sys.executable} lora/build_rft_data.py --runs {' '.join(map(str, runs))} --profile {OUT / 'profile_nb20.csv'} "
-       f"--out {RD / 'data'} --max-per-task {MAX_PER_TASK_TRAIN} --accurate-tools {TASKS_JSONL} --order time "
+       f"--out {RD / 'data'} --max-per-task {MAX_PER_TASK_TRAIN} --accurate-tools {GC / 'all_tasks.jsonl'} --order time "
        f"--exclude {GC / 'never_train.txt'}", log=RD / "build_rft_data.log")
     TRAIN_DATA = RD / "data/train.jsonl"
     n_traj = len(read_jsonl(TRAIN_DATA))
@@ -343,6 +438,9 @@ lines = [f"# Notebook 20 summary ({now()})", "",
          f"- NB20 attempts {len(_att)} (all saved in runs/NB20/parts); resolved {sum(a['resolved'] for a in _att)}; "
          f"tasks ever solved {sum(any(a['resolved'] for a in v) for v in _by.values())}/{len(POOL)}",
          "- Rounds (holdout, same budget and seed as notebook 19):"]
+_rt = [a for a in _att if a.get("prior_failure")]
+for _lab, _g in (("with retry note", [a for a in _rt if a["noted"]]), ("without (same kind of retry)", [a for a in _rt if not a["noted"]])):
+    lines.insert(-1, f"- Retries of failed-before tasks {_lab}: {sum(a['resolved'] for a in _g)}/{len(_g)} resolved")
 for r in STATE["rounds"]:
     lo, hi = sc.wilson(r["resolved"] or 0, len(HO))
     lines.append(f"  - r{r['round']}: {r['resolved']}/{len(HO)} [{lo:.1%}, {hi:.1%}]" + (f"; trained on {r['n_train']}" if "n_train" in r else "")
