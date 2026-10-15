@@ -6,7 +6,7 @@ students. Step 5 now reads the attached SFT mix; step 6 trains only the 31B, wit
     python3 scripts/planB/notebook_builder/make_nb21.py
 """
 import json, sys
-SMOKE = "--smoke" in sys.argv     # 21s: the ~3 GPU-hours left before the quota reset, to measure the 31B training path
+SMOKE = "--smoke" in sys.argv     # 21s: shortest end-to-end check: train the 31B LoRA on ONE trajectory, write the submission
 from pathlib import Path
 R = Path("/Users/sauravbellam/Desktop/Projects/graphComp")
 U = R / "planB_results/kaggle_upload"
@@ -75,12 +75,13 @@ c = src(3).replace("NB19", "NB21")
 c = sub1(c, "SEEDS = [11, 12, 13]          # teacher replicates; with notebook 01's seed 1 that is 4 attempts per task\nSEED = SEEDS[0]",
          "SEEDS = []                    # no teacher runs in this notebook\nSEED = 1")
 c = sub1(c, "DATAGEN_END_H = 4.6           # no new teacher chunk after this\n", "")
-if SMOKE:   # whole session within ~3 GPU-hours: training stops at 1 h; the point is the measurements, not the adapter
-    c = sub1(c, "SESSION_BUDGET_H = 11.3", "SESSION_BUDGET_H = 2.8 ")
+if SMOKE:   # setup ~0.4 h + 31B load ~0.6 h + one step + zip: no validity pass, no adapter check
+    c = sub1(c, "SESSION_BUDGET_H = 11.3", "SESSION_BUDGET_H = 1.6 ")
 c = sub1(c, "TRAIN31_MAX_H, TRAIN_STUDENT_MAX_H, EVAL_ARM_H = 2.6, 0.8, 0.9",
-         f"TRAIN31_MAX_H, TRAIN_STUDENT_MAX_H, EVAL_ARM_H = {1.0 if SMOKE else 10.0}, 0, 0.5   # EVAL_ARM_H = the adapter check (31B load + 1 request)\n"
+         f"TRAIN31_MAX_H, TRAIN_STUDENT_MAX_H, EVAL_ARM_H = {0.6 if SMOKE else 10.0}, 0, {0.1 if SMOKE else 0.5}   # EVAL_ARM_H = the adapter check (31B load + 1 request)\n"
          "TRAIN_MAX_LENS = [32768, 24576, 18432]   # training window (tokens); the next one only after an out-of-memory failure\n"
-         f"MAX_TRAIN_TRAJ = {60 if SMOKE else 4000}         # picked own-data first, then one per task, then seconds\n"
+         f"MAX_TRAIN_TRAJ = {1 if SMOKE else 4000}         # picked own-data first, then one per task, then seconds\n"
+         f"SMOKE = {SMOKE}                  # True: the single shortest trajectory, 1 epoch, 1 window per step, no adapter check\n"
          "VAL_FRAC = 0.02               # of tasks, for the validation loss (2% of thousands is enough and keeps eval short)")
 i0 = c.index("STUDENTS = {'STUDENT_12B'")
 i1 = c.index("EVAL_STUDENTS = False")
@@ -100,6 +101,8 @@ DEPLOY_PROMPT.write_text((Path(SAMPLE_SUB) / "prompts/system.md").read_text() + 
 _rows = [json.loads(l) for l in open(MIX / "train_fit.jsonl")] if MIX else []
 _rows = [r for r in _rows if r.get("est_tokens", 0) <= max(TRAIN_MAX_LENS)]
 random.Random(0).shuffle(_rows)
+if SMOKE:
+    _rows = sorted(_rows, key=lambda r: r.get("est_tokens", 0))[:1]
 _own = [r for r in _rows if r.get("mix_source") == "rft"]
 _by_task = {}
 for r in _rows:
@@ -125,7 +128,7 @@ T = src(28)
 T = sub1(T, "# STEP 6 - train the LoRAs: 31B split over all 4 GPUs, then the two students side by side (E4B on GPUs 0-1, 12B on 2-3)",
          "# STEP 6 - train the 31B LoRA (4-bit model split over all 4 GPUs); training window stepped down on out-of-memory")
 old31 = T[T.index("if not OK31 and BASE31_TRAIN is not None"):T.index("# --- students in parallel")]
-T = T.replace(old31, '''for L in TRAIN_MAX_LENS:
+T = T.replace(old31, '''for L in ([18432] if SMOKE else TRAIN_MAX_LENS):
     if OK31 or BASE31_TRAIN is None:
         break
     b = _budget(TRAIN31_MAX_H, f"lora31 (window {L})")
@@ -135,7 +138,8 @@ T = T.replace(old31, '''for L in TRAIN_MAX_LENS:
     _log = OUT / f"provenance/train_lora31_len{L}.log"
     rc = sh(f"cd {GC}/lora && timeout -k 60 {int((b + 0.4) * 3600)} {sys.executable} train_lora.py --data {TRAIN_DATA} "
             f"--base {BASE31_TRAIN} --out {OUT31} --device-map auto --max-len {L} --max-target 8000 --val-frac {VAL_FRAC} "
-            f"--no-eval-start --served-model google/{MODEL_SLUG} {DEPLOY_ARGS} --time-budget-h {b:.2f}", log=_log, env=TRAIN_ENV)
+            f"--no-eval-start --served-model google/{MODEL_SLUG} {DEPLOY_ARGS} --time-budget-h {b:.2f}"
+            + (" --epochs 1 --grad-accum 1" if SMOKE else ""), log=_log, env=TRAIN_ENV)
     kill_gpu_procs()
     OK31 = _report(f"lora31 (window {L})", OUT31, rc, t0)
     _tail = _log.read_text(errors="replace")[-30000:] if _log.exists() else ""
@@ -153,7 +157,9 @@ CHECK = r'''# STEP 7 - adapter check: serve the LoRA as the scorer does; it must
 ''' + DEFS + r'''
 if not OK31:
     raise SystemExit("STOP: no trained adapter (see provenance/train_lora31_len*.log); attach this output and run again")
-if STATE.get("adapter_applies") is None:
+if SMOKE:
+    save_state(adapter_applies="not checked (smoke)")
+elif STATE.get("adapter_applies") is None:
     _chk = make_sub(OUT / "submissions/check_LORA31", MODEL_SLUG, ADAPTER31)
     stop_servers(); start_server(MODEL_DIR, TP, _chk)
     try:
@@ -192,7 +198,9 @@ assert first(13).startswith("%%writefile /kaggle/working/gc/run_arm.py") and fir
 run_arm = code("%%writefile /kaggle/working/gc/run_arm.py\n" + (SCRIPTS / "run_arm.py").read_text())
 lora = [code(f"%%writefile /kaggle/working/gc/{rel}\n" + (SCRIPTS / rel).read_text())
         for rel in ("lora/build_rft_data.py", "lora/train_lora.py", "tool_trace.py")]
-cells = ([md(HEADER), md(src(1) + DATA_NOTES), C[2], code(c)] + C[4:6] + [code(RESUME)] + C[7:13] + [run_arm] + C[14:22] + lora
+assert first(19).startswith("# STEP 1/7 - validity") and first(20).startswith("# STEP 2/7 - task order")
+cells = ([md(HEADER), md(src(1) + DATA_NOTES), C[2], code(c)] + C[4:6] + [code(RESUME)] + C[7:13] + [run_arm]
+         + (C[14:19] + [C[21]] if SMOKE else C[14:22]) + lora
          + [C[25], code(DATA), code(T), code(CHECK), code(FINAL), C[31]])
 for cell in cells:
     if cell["cell_type"] == "code":
@@ -200,12 +208,13 @@ for cell in cells:
         cell["outputs"], cell["execution_count"] = [], None
 nb["cells"] = cells
 if SMOKE:
-    nb["cells"][0] = md("# 21s — SMOKE TEST of notebook 21 (≈ 3 GPU-hours): measure the 31B training path\n\n"
-                        "Same notebook as 21 with `SESSION_BUDGET_H = 2.8`, training ≤ 1 h on ≤ 60 trajectories (attach "
-                        "`graphcomp-sft-mix-smoke`). What it measures: the largest training window that fits (32k → 24k → 18k "
-                        "on out-of-memory), the 31B load time, training throughput (`train_log.jsonl`: tokens, steps, seconds), "
-                        "whether the adapter is saved and whether vLLM applies it. Its LoRA is a by-product, not the final "
-                        "submission.\n\n" + "".join(nb["cells"][0]["source"]))
+    nb["cells"][0] = md("# 21s — SMOKE TEST of notebook 21: one trajectory → 31B LoRA → submission (≈ 1–1.5 GPU-hours)\n\n"
+                        "Question: does notebook 21's path train the 31B LoRA and write a submittable `submission.zip`? "
+                        "Trains on the single shortest trajectory of the attached `graphcomp-sft-mix-smoke` (18k window, 1 "
+                        "epoch, 1 window per step), then writes `/kaggle/working/submission/` + `submission.zip` with the "
+                        "adapter. Skipped to save time: the validity pass and the vLLM adapter check. Most of the time is the "
+                        "31B load (~35 min). Inputs: as notebook 21 (notebook 01's output not needed).\n\n"
+                        + "".join(nb["cells"][0]["source"]))
 out = U / ("notebooks/21s_SMOKE_sft_mix_lora31.ipynb" if SMOKE else "notebooks/21_sft_mix_lora31_submission.ipynb")
 json.dump(nb, open(out, "w"), indent=1)
 print(f"wrote {out} ({len(cells)} cells)")
