@@ -2,7 +2,7 @@
 """Build LoRA training data (RFT / distillation) from swegemma ATIF traces (Plan B/C, Oct 14).
 
     python build_rft_data.py --runs RUN_DIR [RUN_DIR ...] --profile PROFILE.csv --out OUT_DIR
-                             [--max-per-task 2] [--require-graph-call] [--max-est-tokens 16000] [--max-repeat-calls N]
+                             [--max-per-task 2] [--require-graph-call] [--max-est-tokens 16000] [--max-repeat-calls N] [--dedupe-routes 0.8]
 
 RUN_DIR = a merged run folder (task_results.jsonl + traces/). PROFILE = the validity profile of the environment the runs
 came from (sub_valid). A trajectory is kept only if: resolved; sub_valid; NOT in the official dev or holdout slice
@@ -17,7 +17,7 @@ The agent step's text is stored as reasoning_content (ATIF event_type "thinking"
 renders these with the model's own chat template and puts the loss on assistant turns only. Also: manifest.json (selection,
 exclusions with reasons, per-repo counts, sources) and excluded.csv.
 """
-import argparse, csv, hashlib, json, sys
+import argparse, csv, difflib, hashlib, json, sys
 from collections import Counter
 from pathlib import Path
 
@@ -38,6 +38,24 @@ def longest_repeat(msgs):
         run = run + 1 if i and c == calls[i - 1] else 1
         best = max(best, run)
     return best
+
+
+def route(msgs):
+    """Route fingerprint: the sequence of (tool, main target) over the trajectory's tool calls. Target = file path for file
+    tools, node or query for graph tools, the first word of the command for run_command. Two resolved trajectories with
+    the same route took the same path through the repository; keeping both adds a near-copy rather than a second way to
+    solve the task (route diversity: arXiv 2609.33780, 2609.31571)."""
+    out = []
+    for m in msgs:
+        for tc in m.get("tool_calls") or []:
+            f, a = tc["function"]["name"], tc["function"].get("arguments") or {}
+            tgt = a.get("filepath") or a.get("node") or a.get("query") or (str(a.get("command", "")).split() or [""])[0]
+            out.append((f, str(tgt).lstrip("./")))
+    return tuple(out)
+
+
+def route_similarity(m1, m2):
+    return difflib.SequenceMatcher(None, route(m1), route(m2)).ratio()
 
 
 def trace_to_messages(trace):
@@ -99,6 +117,10 @@ def main():
     ap.add_argument("--require-graph-call", action="store_true", help="adoption data: keep only trajectories with a graph call")
     ap.add_argument("--max-repeat-calls", type=int, help="drop trajectories with more than N consecutive identical tool calls "
                     "(spinning; off by default)")
+    ap.add_argument("--dedupe-routes", type=float, metavar="T",
+                    help="per task, drop a trajectory whose route similarity (difflib ratio over (tool, target) calls) to a "
+                         "kept one is >= T (1.0 = exact copies only). On 54 same-task pairs from the Kaggle runs (Oct 15) "
+                         "the median similarity was 0.45 and one pair reached 0.80")
     ap.add_argument("--max-est-tokens", type=int, default=16384, help="drop trajectories whose longest context is above this (16384 = the effective input budget at max_output_tokens 16384)")
     a = ap.parse_args()
 
@@ -147,6 +169,15 @@ def main():
     rows = []
     for iid, lst in sorted(cands.items()):
         lst.sort(key=lambda x: (x["tool_calls"], x["source"]))
+        if a.dedupe_routes is not None:      # fewest tool calls first, so the shortest of near-copies is kept
+            kept = []
+            for x in lst:
+                sim = max((route_similarity(x["messages"], k["messages"]) for k in kept), default=0.0)
+                if sim >= a.dedupe_routes:
+                    excluded.append((x["source"], iid, f"near-duplicate route (similarity {sim:.2f} >= {a.dedupe_routes})"))
+                else:
+                    kept.append(x)
+            lst = kept
         for x in lst[a.max_per_task:]:
             excluded.append((x["source"], iid, f"over --max-per-task {a.max_per_task}"))
         rows += lst[:a.max_per_task]
@@ -171,7 +202,7 @@ def main():
                                       "max": max((x["est_tokens"] for x in rows), default=None)},
            "excluded_reasons": dict(reasons.most_common()), "runs": a.runs, "profile": a.profile,
            "rules": {"max_per_task": a.max_per_task, "require_graph_call": a.require_graph_call, "max_est_tokens": a.max_est_tokens,
-                     "max_repeat_calls": a.max_repeat_calls,
+                     "max_repeat_calls": a.max_repeat_calls, "dedupe_routes": a.dedupe_routes,
                      "never": "official dev and holdout slices"},
            "train_sha256": hashlib.sha256((out / "train.jsonl").read_bytes()).hexdigest()[:16]}
     (out / "manifest.json").write_text(json.dumps(man, indent=1))
