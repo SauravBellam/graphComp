@@ -46,7 +46,8 @@ HEADER = """# 20 — iterative rejection-sampling campaign (~45 GPU-hours, sever
 3. **Every attempt is saved** (`runs/NB20/parts/*`, indexed in `attempts.jsonl`), passed or not.
 4. **Round** (when training is still active): training data = verified trajectories with *accurate tool use* (every source
    edit lands on the gold files/functions and a reproduction or test runs after the last edit; `tool_trace.py`), fastest
-   first, at most `MAX_PER_TASK_TRAIN` per task, never dev / holdout; **retrain from the base 31B**; score the new adapter on
+   first, at most `MAX_PER_TASK_TRAIN` per task, never dev / holdout; **retrain from the base 31B** (training windows
+   reshuffled every epoch, with a different shuffle seed each round); score the new adapter on
    the same 27-task holdout as notebook 19 (same 8-min / 30-call budget, seed 1). A round that does not beat the best stops
    training (after at least `MIN_NEW_ROUNDS` new rounds); later sessions keep sampling with the best adapter.
 5. **Submission** = the best round's adapter (or none) with the deployment budget.
@@ -405,7 +406,7 @@ else:
         b = min(TRAIN31_MAX_H, left_h() - EVAL_ARM_H - 0.4)
         stop_servers()
         rc = sh(f"cd {GC}/lora && timeout -k 60 {int((b + 0.4) * 3600)} {sys.executable} train_lora.py --data {TRAIN_DATA} "
-                f"--base {BASE31_TRAIN} --out {RD / 'lora'} --device-map auto --max-target 8000 --no-eval-start "
+                f"--base {BASE31_TRAIN} --out {RD / 'lora'} --device-map auto --max-target 8000 --no-eval-start --seed {n} "
                 f"--served-model google/{MODEL_SLUG} {DEPLOY_ARGS} --time-budget-h {b:.2f}", log=RD / "train_lora.log", env=TRAIN_ENV)
         kill_gpu_procs()
         ok = (RD / "lora/adapter/adapter_config.json").exists()
