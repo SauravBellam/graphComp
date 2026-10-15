@@ -37,6 +37,7 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent))
 import tool_usage  # noqa: E402
+import tool_trace  # noqa: E402
 GRAPH = {"get_code_neighbors", "search_similar_code", "get_code_subgraph"}
 CATEGORIES = ("repo", "cell", "multi_file", "gold_has_async", "gold_is_entry_point")   # validity-profile columns
 PROFILE = {}        # instance_id -> profile row (filled in main)
@@ -87,16 +88,17 @@ def next_rate(res, min_gap):
 
 
 def report(out, res):
-    base = res.get(0)
-    lines = ["| probe | forced rate | arm | measured graph-call share | resolved | vs B2: only this / only B2 | McNemar p | wall | why probed |",
+    ref = min(res)                       # comparisons against the lowest probed rate (B2 when 0% is probed)
+    base = res[ref]
+    lines = [f"| probe | forced rate | arm | measured graph-call share | resolved | vs {ref}%: only this / only {ref}% | McNemar p | wall | why probed |",
              "|---|---|---|---|---|---|---|---|---|"]
     for r in sorted(res):
         x = res[r]
-        if base and r != 0:
+        if r != ref:
             b, c = len(set(x["solved"]) - set(base["solved"])), len(set(base["solved"]) - set(x["solved"]))
             cmp_ = f"{b} / {c} | {mcnemar(b, c):.3f}"
         else:
-            cmp_ = "(baseline) | "
+            cmp_ = "(reference) | "
         lines.append(f"| {x.get('probe', '')} | {r}% | {x['arm']} | {x['graph_share']:.1%} | {x['resolved']}/{x['scored']} | {cmp_} "
                      f"| {x.get('wall_seconds', 0) / 3600:.1f} h | {x.get('why', '')} |")
     best = max(res, key=lambda r: (res[r]["resolved"], -r))
@@ -157,9 +159,16 @@ def main():
     ap.add_argument("--out", required=True)
     ap.add_argument("--max-probes", type=int, default=7)
     ap.add_argument("--min-gap", type=int, default=12, help="stop when the gap next to the best rate is at most this (points)")
+    ap.add_argument("--plan", choices=["search", "b2-then-avg"], default="search",
+                    help="b2-then-avg: B2 first, then forced at B2's measured graph-call share; if that does not resolve more "
+                         "than B2, stop (forced calls are a bust); otherwise continue the midpoint search above it")
+    ap.add_argument("--tasks", help="tasks.jsonl (gold patches) for tool_trace.py after every probe")
+    ap.add_argument("--start", default="0,100", help="first rates to probe; e.g. 7,100 = forced at the model's natural graph-call "
+                    "share instead of an unforced B2 run (Oct 15: the optimum is searched among forced conditions only)")
     a = ap.parse_args(argv[:argv.index("--")] if "--" in argv else argv)
     out = Path(a.out).expanduser()
-    res, todo, why = {}, [0, 100], {0: "start: 0% (B2)", 100: "start: 100% (FC)"}
+    todo = [0] if a.plan == "b2-then-avg" else [int(x) for x in a.start.split(",")]
+    res, why = {}, {r: f"start: {r}%" + (" (B2)" if r == 0 else " (FC)" if r == 100 else " (natural graph-call share)") for r in todo}
     old = json.load(open(out / "fc_search.json")) if (out / "fc_search.json").exists() else {}
     while todo and len(res) < a.max_probes:
         r = todo.pop(0)
@@ -188,6 +197,28 @@ def main():
         if not prov.get("wall_seconds"):
             res[r]["wall_seconds"] = 0
         report(out, res)
+        if a.tasks:      # deeper tracing: what each call was for, whether it reached / revealed the gold code
+            gold = {t["instance_id"]: {"patch": t["patch"], "problem": t.get("problem_statement", "") + "\n" + (t.get("hints_text") or "")}
+                    for t in map(json.loads, open(a.tasks)) if t.get("patch")}
+            m = out / "runs" / f"{arm(r)}_s1" / f"merged_{arm(r)}_s1"
+            calls, runs = tool_trace.analyze([m], gold, valid)
+            tool_trace.write(out / "fc_search_trace" / arm(r), calls, runs)
+        if a.plan == "b2-then-avg" and len(res) == 1:
+            avg = max(1, min(99, round(res[0]["graph_share"] * 100)))
+            why[avg] = f"forced at B2's measured graph-call share ({res[0]['graph_share']:.1%})"
+            todo = [avg]
+            continue
+        if a.plan == "b2-then-avg" and len(res) == 2:
+            avg = max(r_ for r_ in res if r_ != 0)
+            if res[avg]["resolved"] <= res[0]["resolved"]:
+                verdict = (f"forced calls are a bust: forced at {avg}% resolved {res[avg]['resolved']} vs B2 {res[0]['resolved']} "
+                           f"(of {res[0]['scored']}); search stopped")
+                (out / "fc_search_verdict.txt").write_text(verdict + "\n")
+                print(verdict, flush=True)
+                break
+            todo = [100]
+            why[100] = f"forced at {avg}% beat B2 ({res[avg]['resolved']} vs {res[0]['resolved']}): probe the top end"
+            continue
         if not todo:
             n = next_rate(res, a.min_gap)
             todo = [] if n is None or n in res else [n]

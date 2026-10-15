@@ -15,48 +15,23 @@ done
 log "installed this commit's scripts into $G"
 nvidia-smi --query-gpu=name,memory.used --format=csv,noheader
 
-# ------------------------------------------------------------------ JOB (Oct 15): external task import (CPU only; the GPU may be serving)
-export CUDA_VISIBLE_DEVICES="" OMP_NUM_THREADS=6 MKL_NUM_THREADS=6   # leave CPUs for the running forced-rate search
+# ------------------------------------------------------------------ JOB (Oct 15): external verified trajectories -> harness tool format (CPU only)
+# Sources: CoderForge-Preview filtered_reward1 + nebius SWE-rebench-openhands resolved; teacher Qwen3-Coder-480B only (user: only
+# models stronger than Gemma 4 31B). Each trajectory is replayed on a checkout of its task (see convert_trajs.py); resumable per unit.
+export CUDA_VISIBLE_DEVICES="" OMP_NUM_THREADS=4 MKL_NUM_THREADS=4 HF_HUB_OFFLINE=0   # the GPU search and the import job keep running
 C=~/gc/data/comp
-X=~/gc/external; O=$X/graphcomp-external; mkdir -p $X
+X=~/gc/external_trajs; O=$X/graphcomp-external-trajs; mkdir -p $X
 E=$G/scripts/planB/external
-export HF_HUB_OFFLINE=0
+FREE=$(df -BG --output=avail ~ | tail -1 | tr -dc 0-9); log "disk free: ${FREE} GB"
+[ "$FREE" -ge 12 ] || { log "need >= 12 GB free (outputs ~5 GB gz + 5 GB git cache)"; exit 1; }
+nproc; free -g | head -2
 
-log "STEP 1/5: graph builder vs the competition graphs, and the embedding smoothing depth (Spearman vs competition vectors)"
-$PY -I $E/code_graph.py --selftest
-$PY -W ignore $E/validate_graph.py $C 1 --embed Qwen/Qwen3-Embedding-0.6B --hops 0,1,2,3 | tee $X/validate_embed.txt
-HOPS=$($PY - $X/validate_embed.txt <<'PYEOF'
-import re, sys, statistics
-s = {}
-for l in open(sys.argv[1]):
-    for h, v in re.findall(r"hops (\d+): spearman (-?[\d.]+)", l):
-        s.setdefault(int(h), []).append(float(v))
-best = max(s, key=lambda h: statistics.mean(s[h]))
-print(best)
-print({h: round(statistics.mean(v), 3) for h, v in sorted(s.items())}, file=sys.stderr)
-PYEOF
-)
-log "STEP 1/5 done: smoothing hops = $HOPS"
+log "STEP 1/2: convert (replay on checkouts; git cache capped at 5 GB)"
+export CONVERT_TMP=$X/tmp; mkdir -p $CONVERT_TMP
+$PY -W ignore $E/convert_trajs.py --out $O --comp-tasks $C/tasks.jsonl --system-prompt $E/deploy_system_prompt.txt \
+    --sources coderforge,rebench_oh --workers 6 --cache $X/git_cache --cache-gb 5
 
-log "STEP 2/5: import (read our repos' rows, drop competition PRs and duplicates, snapshots, graphs, embeddings)"
-$PY -W ignore $E/import_external.py --out $O --comp-tasks $C/tasks.jsonl --hops $HOPS
-ln -sfn $C/wheels $O/wheels
-N=$(wc -l < $O/tasks.jsonl); log "STEP 2/5 done: $N tasks built"
-
-log "STEP 3/5: gold-patch pass (src/ shim + pytest-httpbin on PYTHONPATH)"
-export SWE_EXTRA_PYTHONPATH=~/gc/testdeps_httpbin
-IDS=$($PY -c "import json,sys; print(' '.join(json.loads(l)['instance_id'] for l in open(sys.argv[1]) if l.strip()))" $O/tasks.jsonl)
-RA="$PY $G/scripts/planB/run_arm.py --tasks $O/tasks.jsonl --snapshots $O/snapshots --submission $C/sample_submission --sandbox subprocess --timeout-seconds 300 --concurrency 4"
-rm -rf $X/gold $X/empty
-$RA --mode gold --results $X/gold --task-ids $IDS
-GOLD_OK=$($PY -c "import json,sys; print(' '.join(r['instance_id'] for r in map(json.loads, open(sys.argv[1])) if r.get('resolved')))" $X/gold/task_results.jsonl)
-log "STEP 3/5 done: gold resolves $(echo $GOLD_OK | wc -w)/$N"
-
-log "STEP 4/5: empty-patch pass on the gold-resolving tasks"
-if [ -n "$GOLD_OK" ]; then $RA --mode empty --results $X/empty --task-ids $GOLD_OK; fi
-$PY $E/import_external.py --out $O --comp-tasks $C/tasks.jsonl --record-validity $X/gold $X/empty
-
-log "STEP 5/5: package the Kaggle dataset (wheels link excluded)"
-tar czf $X/graphcomp-external.tgz -C $X --exclude=graphcomp-external/wheels graphcomp-external
-ls -la $X/graphcomp-external.tgz; du -sh $O/snapshots $O/graphs $O/embeddings
+log "STEP 2/2: package summary"
+cp $E/convert_trajs.py $O/
+du -sh $O/train $O/rejects $X/git_cache; df -h ~ | tail -1
 log "ALL DONE"

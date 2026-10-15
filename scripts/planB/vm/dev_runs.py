@@ -660,6 +660,8 @@ def main():
     ap.add_argument("--adapter", help="NAME=DIR: serve this LoRA and enable arm LORA (results in ~/gc/runs_dev_<model>_<NAME>)")
     ap.add_argument("--dev-slice", help="use this dev slice file instead of the official one (scripts/planB/official_slices/dev_slice.txt)")
     ap.add_argument("--chunk", type=int, default=4, help="tasks per run_arm call (resume granularity)")
+    ap.add_argument("--max-out", type=int, help="override max_output_tokens for every arm (8192 = the deployed agent: ~24k of "
+                    "input at max_model_len 32768 instead of ~16k; Oct 15: 33/115 E2B B2 tasks overflowed at 16384)")
     ap.add_argument("--auto-concurrency", action="store_true",
                     help="scale concurrency between chunks from VM load (KV cache, vLLM queue, CPU, RAM); see LoadScaler")
     ap.add_argument("--max-concurrency", type=int, default=12, help="upper bound for --auto-concurrency")
@@ -694,6 +696,9 @@ def main():
     for _n in arms + [d.name.rsplit("_s", 1)[0] for d in (OUT / "runs").iterdir()]:   # rate arms: requested and already run
         if re.fullmatch(r"FC\d{3}", _n):
             fc_rate_arm(_n)
+    if a.max_out:
+        for _cfg in ARMS.values():
+            _cfg["max_out"] = a.max_out
     bad = [x for x in arms if x not in ARMS]
     if bad:
         raise SystemExit(f"unknown arms {bad}; choose from {list(ARMS)}")
