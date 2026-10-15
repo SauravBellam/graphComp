@@ -250,7 +250,7 @@ def build_repo(short, comp_rows, a, out, rows_out, meta_out, rng):
     t0 = time.time()
     bj = work / "baseline.xml"
     r = subprocess.run([sys.executable, "-m", "coverage", "run", f"--rcfile={rc}", "-m", "pytest", "-q", "-p", "no:cacheprovider",
-                        "-o", "junit_family=xunit1", f"--junitxml={bj}", "tests"], cwd=base, env=env_for(base, a),
+                        "-o", "junit_family=xunit1", f"--junitxml={bj}", "--continue-on-collection-errors", "tests"], cwd=base, env=env_for(base, a),
                        capture_output=True, text=True, timeout=3600)
     if not bj.exists():
         log(f"{short}: baseline produced no junit (rc {r.returncode}); skipping repo\n{r.stdout[-2000:]}\n{r.stderr[-2000:]}")
@@ -258,6 +258,8 @@ def build_repo(short, comp_rows, a, out, rows_out, meta_out, rng):
     subprocess.run([sys.executable, "-m", "coverage", "json", f"--rcfile={rc}", "--show-contexts", "-o", str(work / "cov.json")],
                    cwd=base, env=env_for(base, a), check=True, capture_output=True)
     baseline = parse_junit(bj)
+    n_coll = len(re.findall(r"^ERROR collecting", r.stdout, re.M))
+    log(f"{short}: {n_coll} test files failed to collect (missing optional deps); their tests are never used")
     bad_files = {k[0] for k, (st, _) in baseline.items() if st in ("fail", "error")}
     eligible = {k for k, (st, _) in baseline.items() if st == "pass" and k[0] not in bad_files}
     log(f"{short}: baseline {len(baseline)} test functions in {time.time() - t0:.0f}s; {len(bad_files)} test files with failures "
