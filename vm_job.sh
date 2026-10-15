@@ -18,7 +18,7 @@ nvidia-smi --query-gpu=name,memory.used --format=csv,noheader
 # ------------------------------------------------------------------ JOB (Oct 15): external verified trajectories -> harness tool format (CPU only)
 # Sources: CoderForge-Preview filtered_reward1 + nebius SWE-rebench-openhands resolved; teacher Qwen3-Coder-480B only (user: only
 # models stronger than Gemma 4 31B). Each trajectory is replayed on a checkout of its task (see convert_trajs.py); resumable per unit.
-export CUDA_VISIBLE_DEVICES="" OMP_NUM_THREADS=4 MKL_NUM_THREADS=4 HF_HUB_OFFLINE=0   # the GPU search and the import job keep running
+export CUDA_VISIBLE_DEVICES="" OMP_NUM_THREADS=2 MKL_NUM_THREADS=2 HF_HUB_OFFLINE=0   # 16 vCPUs: 12 replay workers + the import job
 C=~/gc/data/comp
 X=~/gc/external_trajs; O=$X/graphcomp-external-trajs; mkdir -p $X
 E=$G/scripts/planB/external
@@ -29,7 +29,7 @@ nproc; free -g | head -2
 log "STEP 1/2: convert (replay on checkouts; git cache capped at 5 GB)"
 export CONVERT_TMP=$X/tmp; mkdir -p $CONVERT_TMP
 $PY -W ignore $E/convert_trajs.py --out $O --comp-tasks $C/tasks.jsonl --system-prompt $E/deploy_system_prompt.txt \
-    --sources coderforge,rebench_oh --workers 6 --cache $X/git_cache --cache-gb 5
+    --sources coderforge,rebench_oh --workers 12 --cache $X/git_cache --cache-gb 5
 
 log "STEP 2/2: package summary"
 cp $E/convert_trajs.py $O/
