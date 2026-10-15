@@ -36,6 +36,8 @@ def build_models(a):
     # As the sample notebook: litellm.drop_params, openai/ prefix, aliases = declared model + target name.
     import litellm
     litellm.drop_params = True
+    if a.remote_api_base:
+        return remote_registry(a)
     from adk_submission import VllmConfig, VllmServer
     try:  # newer swegemma (Kaggle wheelhouse); 0.2.11 has no swegemma.models.discovery
         from swegemma.models.discovery import validate_single_declared_model
@@ -55,6 +57,29 @@ def build_models(a):
     srv = VllmServer(VllmConfig(model=a.model_path, port=a.port), adapter_manifest=manifest)
     return srv.create_model_registry(aliases=list(dict.fromkeys([declared, a.model_alias])),
                                      model_prefix="openai/", api_key="EMPTY")
+
+
+def remote_registry(a):
+    """Teacher runs (Oct 15): the deployed agent unchanged, but its model is an OpenAI-compatible endpoint (an open-weight
+    teacher at an inference provider) instead of the local vLLM server. The key is read from the environment variable named by
+    --remote-key-env, never from the command line."""
+    from adk_submission import ModelRegistry
+    from adk_submission.resolvers.generation import install_litellm_reasoning_patch
+    from google.adk.models.lite_llm import LiteLlm
+    try:
+        from swegemma.models.discovery import validate_single_declared_model
+        declared = validate_single_declared_model(Path(a.submission))
+    except ImportError:
+        from adk_submission.discovery import discover_declared_models
+        declared = sorted(discover_declared_models(a.submission))[0]
+    install_litellm_reasoning_patch()
+    key = os.environ.get(a.remote_key_env)
+    if not key:
+        sys.exit(f"--remote-api-base given but ${a.remote_key_env} is empty")
+    reg = ModelRegistry()
+    for alias in dict.fromkeys([declared, a.model_alias]):
+        reg.register(alias, LiteLlm(model="openai/" + a.remote_model, api_base=a.remote_api_base, api_key=key))
+    return reg
 
 
 def src_layout_shim():
@@ -125,6 +150,9 @@ def main():
     ap.add_argument("--model-path", default="")
     ap.add_argument("--model-alias", default=MODEL_ALIAS)
     ap.add_argument("--port", type=int, default=8000)
+    ap.add_argument("--remote-api-base", help="OpenAI-compatible endpoint of a teacher model (instead of the local vLLM server)")
+    ap.add_argument("--remote-model", help="the teacher's model id at that endpoint")
+    ap.add_argument("--remote-key-env", default="TEACHER_API_KEY", help="environment variable holding the endpoint's API key")
     ap.add_argument("--cli-parity", action="store_true", help="no compaction/cache, CLI registry")
     ap.add_argument("--compaction-interval", type=int, default=15)
     ap.add_argument("--briefs", help="B4 push: JSON {instance_id: {brief, problem_sha256}} prepended to the problem statement")
