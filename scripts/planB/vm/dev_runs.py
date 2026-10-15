@@ -44,6 +44,8 @@ import sys
 import tarfile
 import threading
 import time
+import urllib.request
+from contextlib import nullcontext
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -430,6 +432,68 @@ def concurrency_from(info):
     return max(1, min(4, int(math.floor(m[0])))) if m else 1
 
 
+class LoadScaler:
+    """--auto-concurrency: between chunks, raise or lower the harness concurrency from what the VM went through during the
+    last chunk (sampled every 15 s): vLLM KV-cache use and queue, CPU load (sandboxes run pytest on CPU), free RAM.
+    Down if any is saturated, up only if all have headroom; one step per chunk, within [1, hi]. hi = the KV-cache
+    concurrency vLLM reports (no 4-cap) and --max-concurrency. Every decision is logged and written to the part folder."""
+    def __init__(self, conc, hi):
+        self.conc, self.hi = conc, max(1, hi)
+        self._stop, self.samples = threading.Event(), []
+
+    @staticmethod
+    def sample():
+        s = {"cpu": os.getloadavg()[0] / (os.cpu_count() or 1)}
+        try:
+            mem = dict(l.split(":", 1) for l in open("/proc/meminfo"))
+            s["mem_free"] = int(mem["MemAvailable"].split()[0]) / int(mem["MemTotal"].split()[0])
+        except Exception:
+            pass
+        try:
+            txt = urllib.request.urlopen("http://127.0.0.1:8000/metrics", timeout=3).read().decode(errors="replace")
+            val = lambda *ks: max([float(l.rsplit(" ", 1)[1]) for l in txt.splitlines()
+                                   if not l.startswith("#") and l.split("{")[0].split(" ")[0] in ks] or [0.0])
+            s["kv"] = val("vllm:kv_cache_usage_perc", "vllm:gpu_cache_usage_perc")     # 0..1
+            s["waiting"] = val("vllm:num_requests_waiting")
+        except Exception:
+            pass
+        return s
+
+    def _loop(self):
+        while not self._stop.wait(15):
+            self.samples.append(self.sample())
+
+    def __enter__(self):
+        self.samples = []
+        self._stop.clear()
+        threading.Thread(target=self._loop, daemon=True).start()
+        return self
+
+    def __exit__(self, *exc):
+        self._stop.set()
+
+    def decide(self, part):
+        S = self.samples or [self.sample()]
+        peak = lambda k, d: max((x.get(k, d) for x in S), default=d)
+        mean = lambda k, d: sum(x.get(k, d) for x in S) / len(S)
+        m = {"kv_peak": peak("kv", 0), "waiting_mean": mean("waiting", 0), "cpu_mean": mean("cpu", 0),
+             "mem_free_min": min((x.get("mem_free", 1) for x in S), default=1), "n_samples": len(S)}
+        old = self.conc
+        if m["kv_peak"] > 0.90 or m["waiting_mean"] > 0.5 or m["cpu_mean"] > 0.90 or m["mem_free_min"] < 0.10:
+            self.conc, why = max(1, old - 1), "saturated"
+        elif m["kv_peak"] < 0.60 and m["waiting_mean"] == 0 and m["cpu_mean"] < 0.60 and m["mem_free_min"] > 0.25:
+            self.conc, why = min(self.hi, old + 1), "headroom"
+        else:
+            why = "hold"
+        m.update(concurrency_used=old, concurrency_next=self.conc, decision=why, hi=self.hi)
+        (part / "load.json").write_text(json.dumps(m, indent=1))
+        plog(f"    load: KV peak {m['kv_peak']:.0%}, waiting {m['waiting_mean']:.1f}, CPU {m['cpu_mean']:.0%}, "
+             f"free RAM min {m['mem_free_min']:.0%} -> {why}: concurrency {old} -> {self.conc} (max {self.hi})")
+
+
+SCALER = None    # LoadScaler when --auto-concurrency
+
+
 # --------------------------------------------------------------------------------------------- step 4
 def part_records(parts):
     recs = {}
@@ -456,9 +520,12 @@ def run_arm_on_dev(arm, seed, dev, a, tasks, snaps, sample, model, server, conc,
     todo = [t for t in dev if not (t in recs and not recs[t][2])]
     plog(f"arm {name}: {len(dev) - len(todo)}/{len(dev)} tasks already done; {len(todo)} to run")
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M")
-    secs, k = [], 0
+    secs, k, ran = [], 0, 0
     while todo:
-        chunk, todo = todo[:a.chunk], todo[a.chunk:]
+        if SCALER:
+            conc = SCALER.conc
+        n_chunk = max(a.chunk, 2 * conc) if SCALER else a.chunk    # enough tasks for the concurrency to take effect
+        chunk, todo = todo[:n_chunk], todo[n_chunk:]
         if not server.alive():
             plog("!!! vLLM not answering: restarting once at the recorded setting")
             server.stop()
@@ -469,12 +536,15 @@ def run_arm_on_dev(arm, seed, dev, a, tasks, snaps, sample, model, server, conc,
         part = parts / f"p{len(list(parts.iterdir())):03d}_{stamp}"
         plog(f"--- {name} chunk {k}: {chunk}")
         t0 = time.time()
-        with Progress(part / "task_results.jsonl", len(chunk), f"{name} chunk {k}", every=120):
+        with Progress(part / "task_results.jsonl", len(chunk), f"{name} chunk {k}", every=120), (SCALER or nullcontext()):
             sh(run_arm_cmd("agent", tasks, snaps, sub, part, chunk, conc, model, cfg.get("budget", BUDGET)), log=root / f"{part.name}.log")
         secs.append(time.time() - t0)
+        if SCALER:
+            SCALER.decide(part)
         if server.srv and Path(server.srv.log_path).exists():
             shutil.copy(server.srv.log_path, part / "vllm_server.log")
-        rate = sum(secs) / sum(min(a.chunk, len(dev)) for _ in secs)
+        ran += len(chunk)
+        rate = sum(secs) / ran
         done_n = len([1 for t, v in part_records(parts).items() if not v[2]])
         plog(f"    {name}: {done_n}/{len(dev)} done | chunk took {_el(secs[-1])} | ETA for this arm {_el(rate * len(todo))} "
              f"| total elapsed {_el(time.time() - _T0)}")
@@ -559,7 +629,7 @@ def summary(arms_done, seed, dev, prof, settings):
             line += " | (baseline) |"
         rows.append(line)
     md = [f"# Dev-slice runs on a single L4 ({now()})", "",
-          f"- Serving: {settings.get('serve')}; concurrency {settings.get('concurrency')} (fixed for every arm)",
+          f"- Serving: {settings.get('serve')}; concurrency {settings.get('concurrency')} " + ("(start; --auto-concurrency: per-chunk values in runs/*/parts/*/load.json)" if SCALER else "(fixed for every arm)"),
           f"- Dev slice: {len(dev)} tasks, {len(valid)} resolvable on this VM (validity measured here)",
           "- Comparisons are paired on this VM only (B2 here is the baseline; Kaggle runs are a different machine type).", "",
           "| Arm | What | Tasks run | Resolved (valid tasks) | Made a graph call | Graph / tool calls | End reasons | Median s | Arm-only vs B2-only resolved, exact McNemar |",
@@ -585,6 +655,9 @@ def main():
     ap.add_argument("--adapter", help="NAME=DIR: serve this LoRA and enable arm LORA (results in ~/gc/runs_dev_<model>_<NAME>)")
     ap.add_argument("--dev-slice", help="use this dev slice file instead of the official one (scripts/planB/official_slices/dev_slice.txt)")
     ap.add_argument("--chunk", type=int, default=4, help="tasks per run_arm call (resume granularity)")
+    ap.add_argument("--auto-concurrency", action="store_true",
+                    help="scale concurrency between chunks from VM load (KV cache, vLLM queue, CPU, RAM); see LoadScaler")
+    ap.add_argument("--max-concurrency", type=int, default=12, help="upper bound for --auto-concurrency")
     ap.add_argument("--concurrency", type=int, help="override the KV-derived concurrency (only on the first run)")
     ap.add_argument("--no-loras", action="store_true", help="do not mount the sample LoRAs (frees memory; recorded)")
     ap.add_argument("--no-lean", action="store_true", help="serve without the lean settings (text only, max 4 sequences)")
@@ -660,6 +733,11 @@ def main():
                 settings["first_run"] = now()
                 sfile.write_text(json.dumps(settings, indent=1))
             plog(f"serving fixed at {settings['serve']['util']} / {settings['serve']['max_model_len']}; concurrency {settings['concurrency']}")
+            if a.auto_concurrency:
+                global SCALER
+                _kvx = [float(x) for x in re.findall(r"per request: ([\d.]+)x", " ".join(settings["serve"].get("kv", [])))]
+                SCALER = LoadScaler(settings["concurrency"], min(a.max_concurrency, int(_kvx[0]) if _kvx else a.max_concurrency))
+                plog(f"auto-concurrency on: start {SCALER.conc}, max {SCALER.hi} (KV {_kvx[:1]}x, --max-concurrency {a.max_concurrency})")
         done = []
         with step(f"STEP 4/5 - arms {arms} on the {len(dev)} dev tasks"):
             for i, arm in enumerate(arms, 1):

@@ -30,6 +30,6 @@ log "STEP 1/2 done"
 log "STEP 2/2: B2, FC, FC80, FC50 on the 115 fastapi + rich tasks (requests/httpx tests import the installed copy: never scorable here)"
 $PY -c "import json,sys; print('\\n'.join(t for t in (json.loads(l)['instance_id'] for l in open(sys.argv[1]) if l.strip()) if t.split('_')[0] in ('fastapi', 'rich')))" ~/gc/data/comp/tasks.jsonl > $R.slice.txt
 test "$(wc -l < $R.slice.txt)" -eq 115
-$PY $G/scripts/planB/vm/dev_runs.py --model e2b --arms B2,FC,FC80,FC50 --no-lean --dev-slice $R.slice.txt --out $R
+$PY $G/scripts/planB/vm/dev_runs.py --model e2b --arms B2,FC,FC80,FC50 --no-lean --auto-concurrency --dev-slice $R.slice.txt --out $R
 grep -E "^\| (B2|FC|FC80|FC50) " $R/summary_dev.md
 log "STEP 2/2 done; ALL DONE"
