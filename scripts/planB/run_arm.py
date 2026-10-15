@@ -64,10 +64,13 @@ def src_layout_shim():
     the harness's own verify_task. No effect on repos without src/ (fastapi, rich)."""
     from swegemma.sandbox import SubprocessManager
     orig = SubprocessManager.exec
+    # SWE_EXTRA_PYTHONPATH (host env, optional): extra dirs after the workspace, e.g. unpacked test-dependency wheels that
+    # the competition wheelhouse lacks (pytest-httpbin for requests). Baked in here: the sandbox env does not pass it on.
+    extra = os.environ.get("SWE_EXTRA_PYTHONPATH", "")
+    prefix = f'export PYTHONPATH="/workspace/src${{PYTHONPATH:+:$PYTHONPATH}}{":" + extra if extra else ""}"; '
 
     def exec_(self, sandbox_id, command, *, timeout=None):
-        return orig(self, sandbox_id, 'export PYTHONPATH="/workspace/src${PYTHONPATH:+:$PYTHONPATH}"; ' + command,
-                    timeout=timeout)
+        return orig(self, sandbox_id, prefix + command, timeout=timeout)
     SubprocessManager.exec = exec_
 
 
@@ -180,7 +183,7 @@ def main():
                "context_cache": None if cache_cfg is None else cache_cfg.model_dump(),
                "registry": "cli" if (a.cli_parity or a.mode != "agent") else "VllmServer.create_model_registry(openai/, drop_params) as sample notebook",
                "model_path": a.model_path, "wheels_dir": str(extra.get("wheels_dir")), "model_alias": a.model_alias, "python": platform.python_version(),
-               "versions": vers, "src_layout_shim": a.sandbox == "subprocess", "graph_dir": cfg.graph_dir, "embeddings_dir": cfg.embeddings_dir,
+               "versions": vers, "src_layout_shim": a.sandbox == "subprocess", "extra_pythonpath": os.environ.get("SWE_EXTRA_PYTHONPATH", ""), "graph_dir": cfg.graph_dir, "embeddings_dir": cfg.embeddings_dir,
                "started_unix": time.time(),
                "briefs": a.briefs and {"file": a.briefs, "n_tasks_with_brief": len(json.loads(Path(a.briefs).read_text()))}}
     (results / "run_config.json").write_text(json.dumps(run_cfg, indent=1, default=str))

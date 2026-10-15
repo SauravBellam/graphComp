@@ -15,14 +15,22 @@ done
 log "installed this commit's scripts into $G"
 nvidia-smi --query-gpu=name,memory.used --format=csv,noheader
 
-# ------------------------------------------------------------------ JOB (Oct 15): requests/httpx re-grader (src/ shim), validity on 14 tasks
+# ------------------------------------------------------------------ JOB (Oct 15): re-grader v2, src/ shim + pytest-httpbin test deps on PYTHONPATH, validity on 14 tasks
 C=~/gc/data/comp
-R=~/gc/regrade_src_shim; rm -rf $R; mkdir -p $R
+R=~/gc/regrade_src_shim_httpbin; rm -rf $R; mkdir -p $R
+TD=~/gc/testdeps_httpbin
+log "STEP 0/2: pytest-httpbin + deps (py3.12 wheels) unpacked into $TD (not installed: the shared venv stays unchanged)"
+if [ ! -d $TD/pytest_httpbin ]; then
+  rm -rf $TD.w $TD; mkdir -p $TD.w $TD
+  $PY -m pip download -q --only-binary=:all: --python-version 3.12 -d $TD.w pytest-httpbin==2.1.0 httpbin==0.10.4
+  for w in $TD.w/*.whl; do (cd $TD && $PY -m zipfile -e $w .); done
+fi
+ls $TD.w; export SWE_EXTRA_PYTHONPATH=$TD
 IDS=$($PY -c "import json,sys; print(' '.join(t for t in (json.loads(l)['instance_id'] for l in open(sys.argv[1]) if l.strip()) if t.split('_')[0] in ('requests', 'httpx')))" $C/tasks.jsonl)
 test "$(echo $IDS | wc -w)" -eq 14
 RA="$PY $G/scripts/planB/run_arm.py --tasks $C/tasks.jsonl --snapshots $C/snapshots --submission $C/sample_submission --sandbox subprocess --timeout-seconds 300 --concurrency 2"
 
-log "STEP 1/2: gold-patch pass on the 14 requests/httpx tasks (shim on)"
+log "STEP 1/2: gold-patch pass on the 14 requests/httpx tasks (src/ shim + $SWE_EXTRA_PYTHONPATH)"
 $RA --mode gold --results $R/gold --task-ids $IDS
 GOLD_OK=$($PY -c "import json,sys; print(' '.join(r['instance_id'] for r in map(json.loads, open(sys.argv[1])) if r.get('resolved')))" $R/gold/task_results.jsonl)
 log "gold resolves $(echo $GOLD_OK | wc -w)/14: $GOLD_OK"
@@ -41,7 +49,7 @@ for t in sorted(g):
     verdict = "VALID" if gp and ep is False else "gold fails" if not gp else "empty passes"
     rows.append({"instance_id": t, "gold_resolved": gp, "empty_resolved": ep, "verdict": verdict})
     print(f"{t:16s} gold={gp!s:5s} empty={ep!s:5s} -> {verdict}")
-(R / "validity_src_shim.json").write_text(json.dumps(rows, indent=1))
-print(f"VALID with the src/ shim: {sum(r['verdict'] == 'VALID' for r in rows)}/{len(rows)}")
+(R / "validity_src_shim_httpbin.json").write_text(json.dumps(rows, indent=1))
+print(f"VALID with the src/ shim + pytest-httpbin: {sum(r['verdict'] == 'VALID' for r in rows)}/{len(rows)}")
 PYEOF
 log "ALL DONE"
