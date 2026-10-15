@@ -76,8 +76,6 @@ MAX_PER_TASK_TRAIN = 3         # verified, accurate trajectories per task in a r
 SEED_BASE = 2000               # sampling seeds: SEED_BASE + attempt number (every attempt a different seed)
 HOLDOUT_BUDGET = dict(max_tool_calls=30, max_time_minutes=8, max_turns=80, timeout_seconds=240)   # = notebook 19's holdout
 NEW_TASKS = ''' + repr(NEW_TASKS) + r'''
-FORCE_RATE = None              # % of tool calls forced to be graph calls during TEACHER SAMPLING only (set from the VM
-                               # forced-rate search); training and holdout prompts never carry it, so students learn it implicitly
 RETRY_NOTES = True             # failed-before tasks get a description of earlier failed attempts (not the verbatim calls)
 RETRY_NOTE_SHARE = 2           # notes on every 2nd chunk only, so their effect is measured (attempts.jsonl "noted")
 BUDGET = dict(BUDGET, max_tool_calls=30)
@@ -202,7 +200,7 @@ plog(f"pool: {len(POOL)} tasks ({len(ORDER)} from notebook 19 + {len(POOL) - len
 '''
 
 SAMPLER_HEAD = "# STEP 4 - sampling: passes over the pool with the current best adapter; every attempt saved and indexed\n"
-SAMPLER = r'''import statistics, hashlib, math
+SAMPLER = r'''import statistics, hashlib
 from collections import defaultdict, Counter
 ATTEMPTS = OUT / "attempts.jsonl"
 B2S1 = next((dp for dp, dns, fns in walk(INPUT, maxdepth=9, skip=("snapshots", "wheels", "embeddings", "graphs", "__pycache__", ".git",
@@ -276,19 +274,6 @@ plog("rounds so far: " + ", ".join(f"r{r['round']} {r['resolved']}/{len(HO)}" fo
 TRAINING = (not STATE["training_stopped"]) and (len(STATE["rounds"]) - 2) < MAX_ROUNDS
 SAMPLE_END_H = ROUND_SAMPLE_H if TRAINING else SESSION_BUDGET_H - 0.6      # session hours at which sampling stops
 SAMPLE_ROUND = len(STATE["rounds"])            # the round these attempts feed (data for the next adapter)
-def forced_text(rate):
-    """Same schedule as dev_runs.py fc_rate_arm: call 1 forced, then evenly; 100 = every tool call."""
-    if rate >= 100:
-        return ("\n\n## Graph tools (required in this run)\nIn every turn, before any other tool call, call one of "
-                "`get_code_neighbors`, `search_similar_code` or `get_code_subgraph`.\n")
-    ks = [k for k in range(1, BUDGET["max_tool_calls"] + 1) if math.ceil(k * rate / 100) > math.ceil((k - 1) * rate / 100)]
-    return (f"\n\n## Graph tools (required on some tool calls)\nThese tool calls must be a graph-tool call (`get_code_neighbors`, "
-            f"`search_similar_code` or `get_code_subgraph`): numbers {', '.join(map(str, ks))}. Count your tool calls (`get_status` "
-            "is free and reports `tool_calls_used`). On all other tool calls, use the graph tools only when they help.\n")
-_BASE_ADDENDUM = PROMPT_ADDENDUM
-if FORCE_RATE:
-    PROMPT_ADDENDUM = _BASE_ADDENDUM + forced_text(FORCE_RATE)
-    plog(f"teacher sampling forces graph calls on {FORCE_RATE}% of tool calls (sampling prompts only)")
 chunk_secs, stop_reason = [], "sampling window over"
 try:
     sub = None
@@ -334,7 +319,7 @@ try:
                 f.write(json.dumps({"instance_id": r["instance_id"], "resolved": bool(r.get("resolved")), "seconds": r.get("duration_seconds"),
                                     "tool_calls": r.get("tool_calls"), "cap_min": cap, "seed": SEED_BASE + seq, "part": part.name,
                                     "adapter_round": BEST["round"], "sample_round": SAMPLE_ROUND, "infra_error": infra,
-                                    "noted": r["instance_id"] in noted, "prior_failure": r["instance_id"] in prior, "force_rate": FORCE_RATE, "time": now()}) + "\n")
+                                    "noted": r["instance_id"] in noted, "prior_failure": r["instance_id"] in prior, "time": now()}) + "\n")
         missing = [t for t in chunk if t not in done and t not in retry]
         save_state(pass_todo=retry + missing + [t for t in STATE["pass_todo"] if t not in chunk], attempt_seq=seq + 1)
         mark_campaign()
@@ -343,7 +328,6 @@ try:
 except Exception as e:
     stop_reason = f"error: {type(e).__name__}: {e}"
     traceback.print_exc()
-PROMPT_ADDENDUM = _BASE_ADDENDUM          # training (DEPLOY_PROMPT) and holdout runs use the deployed prompt, no forcing
 stop_servers()
 mark_campaign()
 _att = read_jsonl(ATTEMPTS)
