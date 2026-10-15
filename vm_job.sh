@@ -15,7 +15,7 @@ done
 log "installed this commit's scripts into $G"
 nvidia-smi --query-gpu=name,memory.used --format=csv,noheader
 
-# ------------------------------------------------------------------ JOB (Oct 15): E2B, B2 vs FC (forced graph call) on the 115 fastapi + rich tasks
+# ------------------------------------------------------------------ JOB (Oct 15): E2B, B2 vs FC / FC80 / FC50 (forced graph calls) on the 115 fastapi + rich tasks
 M=~/gc/data/model_e2b
 R=~/gc/runs_fr115_e2b; mkdir -p $R
 
@@ -27,9 +27,9 @@ fi
 ls -la $M; df -h ~ | tail -1
 log "STEP 1/2 done"
 
-log "STEP 2/2: B2 then FC on the 115 fastapi + rich tasks (requests/httpx tests import the installed copy: never scorable here)"
+log "STEP 2/2: B2, FC, FC80, FC50 on the 115 fastapi + rich tasks (requests/httpx tests import the installed copy: never scorable here)"
 $PY -c "import json,sys; print('\\n'.join(t for t in (json.loads(l)['instance_id'] for l in open(sys.argv[1]) if l.strip()) if t.split('_')[0] in ('fastapi', 'rich')))" ~/gc/data/comp/tasks.jsonl > $R.slice.txt
 test "$(wc -l < $R.slice.txt)" -eq 115
-$PY $G/scripts/planB/vm/dev_runs.py --model e2b --arms B2,FC --no-lean --dev-slice $R.slice.txt --out $R
-grep -E "^\| (B2|FC) " $R/summary_dev.md
+$PY $G/scripts/planB/vm/dev_runs.py --model e2b --arms B2,FC,FC80,FC50 --no-lean --dev-slice $R.slice.txt --out $R
+grep -E "^\| (B2|FC|FC80|FC50) " $R/summary_dev.md
 log "STEP 2/2 done; ALL DONE"

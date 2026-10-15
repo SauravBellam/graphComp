@@ -56,6 +56,19 @@ from gen_all import FORCED, QUALIFIED                      # noqa: E402  (identi
 ARMS = {
     "B2": dict(tools="B2", addendum="", max_out=16384, think=4096, what="baseline: all nine tools, sample prompt"),
     "FC": dict(tools="B2", addendum=FORCED, max_out=16384, think=4096, what="forced graph call every turn"),
+    # Oct 15: partial forcing (prompt only, like FC; the realized graph-call share is measured in the summary)
+    "FC80": dict(tools="B2", addendum="""
+
+## Graph tools (required on most turns)
+On four of every five turns, before any other tool call, call one of `get_code_neighbors`, `search_similar_code` or
+`get_code_subgraph`. Skip the graph call only on every fifth turn (turns 5, 10, 15, ...).
+""", max_out=16384, think=4096, what="forced graph call on 4 of 5 turns"),
+    "FC50": dict(tools="B2", addendum="""
+
+## Graph tools (required on every second turn)
+On every second turn (turns 1, 3, 5, ...), before any other tool call, call one of `get_code_neighbors`,
+`search_similar_code` or `get_code_subgraph`. On the other turns, use them only when they help.
+""", max_out=16384, think=4096, what="forced graph call on every second turn"),
     "QN": dict(tools="B2", addendum=QUALIFIED, max_out=16384, think=4096, what="qualified names in graph-tool arguments"),
     "T0": dict(tools="B2", addendum="", max_out=16384, think=0, what="thinking budget 0"),
     "O8K": dict(tools="B2", addendum="", max_out=8192, think=4096, what="max_output_tokens 8192"),
