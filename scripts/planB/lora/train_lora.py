@@ -333,7 +333,10 @@ def main():
     def loss_of(ids, pos):
         # logits only at the positions that predict a target token (logits_to_keep as an index tensor); CE in float32 chunks
         x = torch.tensor([ids], device=dev)
-        keep = torch.tensor([p - 1 for p in pos], dtype=torch.long)   # CPU index: valid on whichever GPU holds the last layer
+        # a plain list, not a tensor: accelerate's device_map hook moves tensor arguments to the FIRST GPU, while the output
+        # layer sits on the last one (Kaggle nb19, Oct 15: "indices should be either on cpu or on the same device ... cuda:3");
+        # the model indexes hidden_states[:, keep, :] with it unchanged
+        keep = [p - 1 for p in pos]
         logits = model(input_ids=x, logits_to_keep=keep, use_cache=False).logits[0]
         y = torch.tensor([ids[p] for p in pos], device=logits.device)
         tot = 0.0
