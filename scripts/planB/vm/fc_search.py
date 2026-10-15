@@ -16,6 +16,9 @@ After every probe, in --out (everything a write-up needs):
   fc_search.json      the same per probe, plus solved task lists, timestamps, tool-call totals, serving settings
   fc_search_tasks.csv one row per (probe, task): valid, resolved, tool calls, graph calls, LLM calls, seconds, error
   fc_search_prompts/  the exact system prompt each probe ran with
+  fc_search_by_category.csv / the "By problem type" section of fc_search.md: per rate, resolved within each task group
+                      (repo, graph-distance x visibility cell, multi-file, async in gold, gold is entry point), from the
+                      validity profile, to see which kinds of problem forcing helps or hurts
 """
 import argparse
 import csv
@@ -30,6 +33,8 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 GRAPH = {"get_code_neighbors", "search_similar_code", "get_code_subgraph"}
+CATEGORIES = ("repo", "cell", "multi_file", "gold_has_async", "gold_is_entry_point")   # validity-profile columns
+PROFILE = {}        # instance_id -> profile row (filled in main)
 
 
 def arm(r):
@@ -55,6 +60,7 @@ def read(out, r, valid):
         names = [tc.get("function_name") for s in (json.load(open(t)).get("steps", []) if t.exists() else [])
                  for tc in s.get("tool_calls") or []]
         tasks.append({"rate": r, "arm": name, "instance_id": x["instance_id"], "valid": x["instance_id"] in valid,
+                      **{c: PROFILE.get(x["instance_id"], {}).get(c, "") for c in CATEGORIES},
                       "resolved": bool(x.get("resolved")), "tool_calls": len(names), "graph_calls": sum(n in GRAPH for n in names),
                       "llm_calls": x.get("total_llm_calls"), "seconds": x.get("duration_seconds"),
                       "error": (x.get("error") or "")[:120]})
@@ -89,6 +95,25 @@ def report(out, res):
                      f"| {x.get('wall_seconds', 0) / 3600:.1f} h | {x.get('why', '')} |")
     best = max(res, key=lambda r: (res[r]["resolved"], -r))
     lines += ["", f"Best so far: {best}% ({res[best]['resolved']}/{res[best]['scored']})."]
+    # by problem type: valid tasks only; one row per (category, value), one column per rate
+    rates, cat_rows = sorted(res), []
+    for c in CATEGORIES:
+        for v in sorted({t[c] for r in rates for t in res[r]["tasks"] if t["valid"]}):
+            row = {"category": c, "value": v}
+            for r in rates:
+                g = [t for t in res[r]["tasks"] if t["valid"] and t[c] == v]
+                row[f"{r}%"] = f"{sum(t['resolved'] for t in g)}/{len(g)}"
+            cat_rows.append(row)
+    if cat_rows:
+        lines += ["", "## By problem type (resolved / valid tasks in the group)", "",
+                  "| category | value | " + " | ".join(f"{r}%" for r in rates) + " |",
+                  "|---|---|" + "---|" * len(rates)]
+        lines += [f"| {x['category']} | {str(x['value']).replace('|', chr(92) + '|')} | " + " | ".join(x[f"{r}%"] for r in rates) + " |"
+                  for x in cat_rows]
+        with open(out / "fc_search_by_category.csv", "w", newline="") as f:
+            w = csv.DictWriter(f, fieldnames=list(cat_rows[0]))
+            w.writeheader()
+            w.writerows(cat_rows)
     (out / "fc_search.md").write_text("\n".join(lines) + "\n")
     (out / "fc_search.json").write_text(json.dumps({r: {k: v for k, v in x.items() if k != "tasks"} for r, x in res.items()},
                                                   indent=1))
@@ -140,7 +165,8 @@ def main():
             (out / "fc_search_prompts").mkdir(exist_ok=True)
             shutil.copy(sp, out / "fc_search_prompts" / f"{arm(r)}.md")
         prof = out / "validity" / "slices" / "profile.csv"
-        valid = {x["instance_id"] for x in csv.DictReader(open(prof)) if x.get("sub_valid") == "True"}
+        PROFILE.update({x["instance_id"]: x for x in csv.DictReader(open(prof))})
+        valid = {i for i, x in PROFILE.items() if x.get("sub_valid") == "True"}
         res[r] = read(out, r, valid)
         if res[r] is None:
             sys.exit(f"no merged results for {arm(r)} after its run")
