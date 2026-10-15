@@ -29,7 +29,7 @@ Practices built in (sources in the notebook that runs this, section "Training ch
 Several GPUs: torchrun -> data-parallel (ranks load one after another; LoRA gradients averaged before each step); rank 0 logs
 and saves. More ranks than GPUs (smoke test only) share GPUs over gloo.
 """
-import argparse, json, math, os, random, re, sys, time
+import argparse, json, math, os, random, re, struct, sys, time
 WORLD, RANK, LOCAL = (int(os.environ.get(k, d)) for k, d in (("WORLD_SIZE", "1"), ("RANK", "0"), ("LOCAL_RANK", "0")))
 from pathlib import Path
 
@@ -87,6 +87,33 @@ COMPACTION_TOL = 96   # tokens; set by --fidelity-tol
 ERR_RE = re.compile(r'"status"\s*:\s*"error"')
 
 
+def broken_safetensors(d):
+    """Files whose safetensors header does not cover the file exactly. Kaggle's gemma-4-12b-it-qat-q4_0-unquantized v2 failed
+    here on Oct 15 ("incomplete metadata, file not fully covered"); the Hugging Face copy is intact. [] = all good."""
+    bad = []
+    for f in sorted(Path(d).glob("*.safetensors")) if Path(d).is_dir() else []:
+        try:
+            with open(f, "rb") as fh:
+                n = struct.unpack("<Q", fh.read(8))[0]
+                hdr = json.loads(fh.read(n))
+            end = max(v["data_offsets"][1] for k, v in hdr.items() if k != "__metadata__")
+            if f.stat().st_size != 8 + n + end:
+                bad.append(f"{f.name}: file {f.stat().st_size} bytes, header covers {8 + n + end}")
+        except Exception as e:
+            bad.append(f"{f.name}: unreadable header ({type(e).__name__}: {e})")
+    return bad
+
+
+def pick_base(spec):
+    """--base may list several candidates (comma-separated, e.g. every attached version); the first intact one is used."""
+    for c in [x.strip() for x in spec.split(",") if x.strip()]:
+        bad = broken_safetensors(c)
+        if not bad:
+            return c
+        print(f"[base] skipping {c}: broken checkpoint: {bad[:3]}", flush=True)
+    sys.exit(f"no intact base checkpoint among {spec!r}: attach another version or the Hugging Face copy")
+
+
 def turn_errored(msgs, i):
     """True if assistant turn i's tool result is an error from a tool other than run_command (SWE-Lego error masking)."""
     nxt = msgs[i + 1] if i + 1 < len(msgs) else None
@@ -94,18 +121,39 @@ def turn_errored(msgs, i):
                 and ERR_RE.search(str(nxt.get("content", ""))))
 
 
-def turn_samples(tok, traj, tools, stats):
-    """[(prompt_text, target_text, turn_index, masked)] per assistant turn, up to the first context compaction.
+def compacted_context(msgs, i, comps):
+    """The conversation the model was sent at assistant turn i, as ADK 1.36 builds it (contents._process_compaction_events):
+    every compaction made before the turn, minus those subsumed by a wider one, replaces the events in [start, end] with its
+    summary as a model turn placed at `end`. The system prompt is not an event and always stays."""
+    t = msgs[i].get("_ts")
+    live = [c for c in comps if t is not None and c["created"] <= t]
+    live = [c for c in live if not any(o is not c and o["start"] <= c["start"] and o["end"] >= c["end"]
+                                       and (o["start"] < c["start"] or o["end"] > c["end"]) for o in live)]
+    if not live:
+        return msgs[:i]
+    head = [m for m in msgs[:i] if m["role"] == "system"]
+    rest = [(m["_ts"], k, m) for k, m in enumerate(msgs[:i]) if m["role"] != "system"
+            and not any(c["start"] <= m["_ts"] <= c["end"] for c in live)]
+    rest += [(c["end"], i + j, {"role": "assistant", "content": c["summary"]}) for j, c in enumerate(live)]
+    return head + [m for _, _, m in sorted(rest, key=lambda x: (x[0], x[1]))]
 
-    The trace records each LLM call's real prompt size. Our rendering matches it to a constant offset until the harness
-    compacts the context (ADK EventsCompactionConfig: older events replaced by a summary that the trace does not store);
-    from then on the prompt cannot be reconstructed, so later turns are not used."""
+
+def turn_samples(tok, traj, tools, stats):
+    """[(prompt_text, target_text, turn_index, masked)] per assistant turn.
+
+    The trace records each LLM call's real prompt size. Our rendering matches it to a constant offset; when the harness
+    compacts the context (ADK EventsCompactionConfig: older events replaced by a summary), the prompt is rebuilt from the
+    summaries run_arm.py logs (traj["compactions"], attached by build_rft_data.py). Without them (runs before Oct 15), or if
+    the rebuilt prompt still drifts from the recorded size, the turn and every later one are not used."""
     msgs, out = traj["messages"], []
+    comps = traj.get("compactions") or []
+    stats["compactions_applied"] += len(comps)
     offset = None
     for i, m in enumerate(msgs):
         if m["role"] != "assistant":
             continue
-        prompt = render(tok, msgs[:i], tools, True)
+        ctx = compacted_context(msgs, i, comps) if comps else msgs[:i]
+        prompt = render(tok, ctx, tools, True)
         rec = m.get("_prompt_tokens")
         if rec:
             d = len(tok(prompt, add_special_tokens=False)["input_ids"]) - rec
@@ -114,7 +162,7 @@ def turn_samples(tok, traj, tools, stats):
                 stats["after_compaction"] += sum(1 for x in msgs[i:] if x["role"] == "assistant")
                 stats["compacted_trajectories"] += 1
                 break
-        full = render(tok, msgs[:i + 1], tools, False, target_idx=i)
+        full = render(tok, ctx + [m], tools, False, target_idx=len(ctx))
         if rec:                                  # fidelity: our prompt vs what the model was actually sent at this turn
             stats["prompt_tok_pairs"].append((len(tok(prompt, add_special_tokens=False)["input_ids"]), rec))
         if not full.startswith(prompt):
@@ -183,7 +231,7 @@ def window_samples(tok, traj, tools, stats, max_target, max_len):
             stats["target_too_long"] += 1
             flush(cur); cur, tgt = [], 0
             continue
-        if cur and tgt + n > max_target:
+        if cur and (tgt + n > max_target or not t[0].startswith(cur[-1][0] + cur[-1][1])):   # budget, or a compaction
             flush(cur); cur, tgt = [], 0
         cur.append(t); tgt += n
     flush(cur)
@@ -193,7 +241,8 @@ def window_samples(tok, traj, tools, stats, max_target, max_len):
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--data", required=True)
-    ap.add_argument("--base", required=True, help="HF id or local dir of the unquantized QAT checkpoint")
+    ap.add_argument("--base", required=True, help="HF id or local dir of the unquantized QAT checkpoint; several, comma-separated, "
+                    "= use the first whose safetensors are intact (broken_safetensors)")
     ap.add_argument("--out", required=True)
     ap.add_argument("--check", action="store_true", help="render and count only (CPU)")
     ap.add_argument("--rank", type=int, default=32)
@@ -228,6 +277,8 @@ def main():
     SYSTEM_PROMPT = Path(a.system_prompt).read_text() if a.system_prompt else None
     DEPLOY_BUDGET = json.loads(a.deploy_budget) if a.deploy_budget else None
     from transformers import AutoTokenizer
+    a.base = pick_base(a.base)
+    print(f"[base] {a.base}", flush=True)
     tok = AutoTokenizer.from_pretrained(a.base)
     tools = harness_tool_schemas(B2_TOOLS)
     if RANK == 0:
@@ -238,7 +289,7 @@ def main():
     n_val = max(1, round(len(tasks) * a.val_frac)) if len(tasks) > 3 else 0
     val_tasks = set(tasks[:n_val])
     stats = {"prefix_mismatch": 0, "mismatch_examples": [], "too_long": 0, "prompt_tok_pairs": [], "after_compaction": 0,
-             "compacted_trajectories": 0, "masked_turns": 0, "windows": 0, "window_fallback": 0, "target_too_long": 0}
+             "compacted_trajectories": 0, "compactions_applied": 0, "masked_turns": 0, "windows": 0, "window_fallback": 0, "target_too_long": 0}
     splits = {"train": [], "val": []}
     for t in trajs:
         for s in window_samples(tok, t, tools, stats, a.max_target, a.max_len):
@@ -251,7 +302,8 @@ def main():
            **{k: stats[k] for k in ("prefix_mismatch", "too_long", "target_too_long", "masked_turns", "windows", "window_fallback")},
            "base": a.base, "past_reasoning": a.past_reasoning, "system_prompt_replaced": bool(SYSTEM_PROMPT),
            "deploy_budget": DEPLOY_BUDGET,
-           "turns_dropped_after_compaction": stats["after_compaction"], "trajectories_compacted": stats["compacted_trajectories"]}
+           "turns_dropped_after_compaction": stats["after_compaction"], "trajectories_compacted": stats["compacted_trajectories"],
+           "compaction_summaries_applied": stats["compactions_applied"]}
     pairs = stats["prompt_tok_pairs"]
     if pairs:   # rendered prompt tokens vs the trace's recorded prompt_tokens (same turn)
         d = sorted(r - o for o, r in pairs)
@@ -333,7 +385,10 @@ def main():
     def loss_of(ids, pos):
         # logits only at the positions that predict a target token (logits_to_keep as an index tensor); CE in float32 chunks
         x = torch.tensor([ids], device=dev)
-        keep = torch.tensor([p - 1 for p in pos], dtype=torch.long)   # CPU index: valid on whichever GPU holds the last layer
+        # a plain list, not a tensor: accelerate's device_map hook moves tensor arguments to the FIRST GPU, while the output
+        # layer sits on the last one (Kaggle nb19, Oct 15: "indices should be either on cpu or on the same device ... cuda:3");
+        # the model indexes hidden_states[:, keep, :] with it unchanged
+        keep = [p - 1 for p in pos]
         logits = model(input_ids=x, logits_to_keep=keep, use_cache=False).logits[0]
         y = torch.tensor([ids[p] for p in pos], device=logits.device)
         tot = 0.0

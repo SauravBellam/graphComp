@@ -94,9 +94,10 @@ def trace_to_messages(trace):
     usr = [s for s in steps if s.get("source") == "user"]
     if not sys_ or not usr:
         return None, 0, ["no system or user step"]
+    ts = lambda s: (s.get("extra") or {}).get("timestamp")     # = the ADK event's timestamp; compactions are keyed by it
     msgs.append({"role": "system", "content": sys_[0]["message"]})
     user, noted = strip_retry_note(usr[0]["message"])
-    msgs.append({"role": "user", "content": user})
+    msgs.append({"role": "user", "content": user, "_ts": ts(usr[0])})
     agent = [s for s in steps if s.get("source") == "agent"]
     k, pending = 0, None
     for s in agent:
@@ -105,7 +106,7 @@ def trace_to_messages(trace):
         if not tcs:
             if ev == "final" or s is agent[-1]:
                 # the text-only "thinking" step just before "final" is the reasoning of the final answer
-                m = {"role": "assistant", "content": s.get("message", ""),
+                m = {"role": "assistant", "content": s.get("message", ""), "_ts": ts(s),
                      "_prompt_tokens": (pending or s).get("metrics", {}).get("prompt_tokens") if (pending or s).get("metrics") else None}
                 if pending is not None and pending.get("message") and pending.get("message") != s.get("message"):
                     m["reasoning_content"] = pending["message"]
@@ -128,11 +129,11 @@ def trace_to_messages(trace):
             calls.append({"id": cid, "type": "function",
                           # a mapping, not a JSON string: the Gemma 4 chat template raises on string arguments
                           "function": {"name": name, "arguments": tc.get("arguments") or {}}})
-        msgs.append({"role": "assistant", "content": "", "reasoning_content": s.get("message", ""), "tool_calls": calls,
+        msgs.append({"role": "assistant", "content": "", "reasoning_content": s.get("message", ""), "tool_calls": calls, "_ts": ts(s),
                      # recorded prompt size of this LLM call: train_lora.py --check compares its renderings against it
                      "_prompt_tokens": (s.get("metrics") or {}).get("prompt_tokens")})
         msgs.append({"role": "tool", "tool_call_id": calls[0]["id"], "name": calls[0]["function"]["name"],
-                     "content": (obs or {}).get("content", "")})
+                     "content": (obs or {}).get("content", ""), "_ts": ts(s)})
     if msgs[-1]["role"] != "assistant" or msgs[-1].get("tool_calls"):
         problems.append("does not end with a final assistant message")
     if noted and any(NOTE_ECHO.search(str(m.get("reasoning_content", "")) + str(m.get("content", ""))) for m in msgs if m["role"] == "assistant"):
@@ -168,6 +169,7 @@ def main():
     gold = {t["instance_id"]: t.get("patch", "") for t in map(json.loads, open(a.accurate_tools))} if a.accurate_tools else {}
     cands, excluded = {}, []
     for rd in map(Path, a.runs):
+        comps = read_jsonl(rd / "compactions.jsonl") if (rd / "compactions.jsonl").exists() else []   # run_arm.py logs these (runs before Oct 15 have none)
         for r in read_jsonl(rd / "task_results.jsonl"):
             iid = r["instance_id"]
             why = None
@@ -210,11 +212,13 @@ def main():
                     excluded.append((str(rd), iid, f"inaccurate tool use: {sig}"))
                     continue
             n_turns = sum(1 for m in msgs if m["role"] == "assistant")
+            ids = {c["id"] for m in msgs for c in m.get("tool_calls") or []}
+            mine = sorted((c for c in comps if ids & set(c.get("call_ids") or [])), key=lambda c: c["created"])
             cands.setdefault(iid, []).append({"instance_id": iid, "repo": iid.split("_")[0], "source": str(rd),
                                               "n_turns": n_turns, "est_tokens": est, "n_graph_calls": n_graph,
                                               "tool_calls": int(r.get("tool_calls") or 0),
                                               "seconds": float(r.get("duration_seconds") or 0), "tool_accuracy": sig,
-                                              "messages": msgs})
+                                              "compactions": mine, "messages": msgs})
     rows = []
     for iid, lst in sorted(cands.items()):
         lst.sort(key=lambda x: ((x["seconds"], x["tool_calls"]) if a.order == "time" else (x["tool_calls"], x["seconds"]), x["source"]))

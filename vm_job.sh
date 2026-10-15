@@ -15,23 +15,23 @@ done
 log "installed this commit's scripts into $G"
 nvidia-smi --query-gpu=name,memory.used --format=csv,noheader
 
-# ------------------------------------------------------------------ JOB (Oct 15): external verified trajectories -> harness tool format (CPU only)
-# Sources: CoderForge-Preview filtered_reward1 + nebius SWE-rebench-openhands resolved; teacher Qwen3-Coder-480B only (user: only
-# models stronger than Gemma 4 31B). Each trajectory is replayed on a checkout of its task (see convert_trajs.py); resumable per unit.
-export CUDA_VISIBLE_DEVICES="" OMP_NUM_THREADS=4 MKL_NUM_THREADS=4 HF_HUB_OFFLINE=0   # the GPU search and the import job keep running
-C=~/gc/data/comp
-X=~/gc/external_trajs; O=$X/graphcomp-external-trajs; mkdir -p $X
-E=$G/scripts/planB/external
-FREE=$(df -BG --output=avail ~ | tail -1 | tr -dc 0-9); log "disk free: ${FREE} GB"
-[ "$FREE" -ge 12 ] || { log "need >= 12 GB free (outputs ~5 GB gz + 5 GB git cache)"; exit 1; }
-nproc; free -g | head -2
+# ------------------------------------------------------------------ JOB (Oct 15): SFT mix = converted external + our RFT trajectories, deduplicated (CPU)
+# Runs after the conversion (exp ca1b26ab) finished. Dev and holdout tasks are kept (user, Oct 15). Output = Kaggle dataset
+# graphcomp-sft-mix for notebook 21 (make_nb21.py).
+export CUDA_VISIBLE_DEVICES="" OMP_NUM_THREADS=4
+L=$G/scripts/planB/lora
+CONV=~/gc/external_trajs/graphcomp-external-trajs
+O=~/gc/sft_mix/graphcomp-sft-mix; mkdir -p $(dirname $O)
+[ -f $CONV/manifest.json ] || { log "conversion output incomplete: $CONV/manifest.json missing"; exit 1; }
+RFT=$(ls $G/planB_results/lora_data/*/train.jsonl 2>/dev/null | tr '\n' ' ' || true)
+IMP=~/gc/external/graphcomp-external/tasks.jsonl
+log "inputs: converted $CONV | our RFT: ${RFT:-none} | imported external tasks: $([ -f $IMP ] && wc -l < $IMP || echo none)"
 
-log "STEP 1/2: convert (replay on checkouts; git cache capped at 5 GB)"
-export CONVERT_TMP=$X/tmp; mkdir -p $CONVERT_TMP
-$PY -W ignore $E/convert_trajs.py --out $O --comp-tasks $C/tasks.jsonl --system-prompt $E/deploy_system_prompt.txt \
-    --sources coderforge,rebench_oh --workers 6 --cache $X/git_cache --cache-gb 5
+log "STEP 1/2: merge + exact / near-duplicate removal + fit estimate + imported-task overlap"
+$PY $L/build_sft_mix.py --out $O --external $CONV ${RFT:+--rft $RFT} $([ -f $IMP ] && echo --external-tasks $IMP) \
+    --slices $G/scripts/planB/official_slices --near-dup 0.9 --fit-tokens 32768
 
-log "STEP 2/2: package summary"
-cp $E/convert_trajs.py $O/
-du -sh $O/train $O/rejects $X/git_cache; df -h ~ | tail -1
+log "STEP 2/2: package"
+cp $L/build_sft_mix.py $CONV/convert_trajs.py $O/ 2>/dev/null || cp $L/build_sft_mix.py $O/
+du -sh $O/*; df -h ~ | tail -1
 log "ALL DONE"
