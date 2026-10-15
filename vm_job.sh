@@ -16,7 +16,7 @@ log "installed this commit's scripts into $G"
 nvidia-smi --query-gpu=name,memory.used --format=csv,noheader
 
 # ------------------------------------------------------------------ JOB (Oct 15): external task import (CPU only; the GPU may be serving)
-export CUDA_VISIBLE_DEVICES=""
+export CUDA_VISIBLE_DEVICES="" OMP_NUM_THREADS=6 MKL_NUM_THREADS=6   # leave CPUs for the running forced-rate search
 C=~/gc/data/comp
 X=~/gc/external; O=$X/graphcomp-external; mkdir -p $X
 E=$G/scripts/planB/external
