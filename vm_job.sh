@@ -28,14 +28,16 @@ WANT="trustme"
 for round in 1 2 3; do
   log "round $round: adding test deps: $WANT"
   for m in $WANT; do
-    PYTHONPATH=$SWE_EXTRA_PYTHONPATH $PY -c "import $m" 2>/dev/null || $PY -m pip install -q --target $TD "$m"
+    case "$m" in _*|backports) continue;; esac            # private / Python-2 compat names, not packages
+    PYTHONPATH=$SWE_EXTRA_PYTHONPATH $PY -c "import $m" 2>/dev/null || $PY -m pip install -q --target $TD "$m" || log "pip: no package $m"
   done
   ls $TD
   rm -rf $X/gold
   $RA --mode gold --results $X/gold --task-ids $IDS
   log "round $round: gold resolves $($PY -c "import json,sys; print(sum(bool(json.loads(l).get('resolved')) for l in open(sys.argv[1])))" $X/gold/task_results.jsonl)/$(echo $IDS | wc -w)"
   WANT=$(grep -rhoE "No module named '[A-Za-z0-9_]+" $X/gold/test_outputs $X/gold/logs 2>/dev/null | sed "s/No module named '//" | sort -u | tr '\n' ' ' || true)
-  [ -z "$WANT" ] && break
+  WANT=$(echo $WANT | tr ' ' '\n' | grep -vE '^(_|backports$)' | tr '\n' ' ' || true)
+  [ -z "${WANT// /}" ] && break
 done
 GOLD_OK=$($PY -c "import json,sys; print(' '.join(r['instance_id'] for r in map(json.loads, open(sys.argv[1])) if r.get('resolved')))" $X/gold/task_results.jsonl)
 rm -rf $X/empty; mkdir -p $X/empty; : > $X/empty/task_results.jsonl
