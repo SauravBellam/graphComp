@@ -15,48 +15,36 @@ done
 log "installed this commit's scripts into $G"
 nvidia-smi --query-gpu=name,memory.used --format=csv,noheader
 
-# ------------------------------------------------------------------ JOB (Oct 15): external task import (CPU only; the GPU may be serving)
-export CUDA_VISIBLE_DEVICES="" OMP_NUM_THREADS=6 MKL_NUM_THREADS=6   # leave CPUs for the running forced-rate search
-C=~/gc/data/comp
-X=~/gc/external; O=$X/graphcomp-external; mkdir -p $X
-E=$G/scripts/planB/external
-export HF_HUB_OFFLINE=0
-
-log "STEP 1/5: graph builder vs the competition graphs, and the embedding smoothing depth (Spearman vs competition vectors)"
-$PY -I $E/code_graph.py --selftest
-$PY -W ignore $E/validate_graph.py $C 1 --embed Qwen/Qwen3-Embedding-0.6B --hops 0,1,2,3 | tee $X/validate_embed.txt
-HOPS=$($PY - $X/validate_embed.txt <<'PYEOF'
-import re, sys, statistics
-s = {}
-for l in open(sys.argv[1]):
-    for h, v in re.findall(r"hops (\d+): spearman (-?[\d.]+)", l):
-        s.setdefault(int(h), []).append(float(v))
-best = max(s, key=lambda h: statistics.mean(s[h]))
-print(best)
-print({h: round(statistics.mean(v), 3) for h, v in sorted(s.items())}, file=sys.stderr)
+# ------------------------------------------------------------------ JOB (Oct 16): why the external import's gold pass resolves 8/160 (read only)
+X=~/gc/external; O=$X/graphcomp-external
+$PY - $X/gold $O/tasks.jsonl <<'PYEOF'
+import json, sys, collections
+from pathlib import Path
+gold, tasks = Path(sys.argv[1]), {}
+for l in open(sys.argv[2]):
+    if l.strip():
+        t = json.loads(l); tasks[t["instance_id"]] = t
+rows = [json.loads(l) for l in open(gold / "task_results.jsonl") if l.strip()]
+print("fields:", sorted(rows[0]), "| task fields:", sorted(next(iter(tasks.values()))))
+src = lambda i: tasks.get(i, {}).get("source") or tasks.get(i, {}).get("dataset") or "?"
+def tail(i, n=25):
+    for p in list((gold / "test_outputs").glob(f"*{i}*")) + list((gold / "logs").glob(f"*{i}*")):
+        if p.is_file():
+            return f"--- {p.name}\n" + "\n".join(p.read_text(errors="replace").splitlines()[-n:])
+    return "(no test output file)"
+c = collections.Counter((i.split("_")[0], src(r["instance_id"]), r.get("resolved") in (True, "True"), str(r.get("test_exit_code")), str(r.get("error"))[:80])
+                        for r in rows for i in [r["instance_id"]])
+for k, v in sorted(c.items(), key=lambda x: -x[1]):
+    print(v, k)
+seen = collections.Counter()
+for r in rows:
+    i = r["instance_id"]; key = (i.split("_")[0], str(r.get("test_exit_code")))
+    if r.get("resolved") in (True, "True") or seen[key] >= 2:
+        continue
+    seen[key] += 1
+    t = tasks.get(i, {})
+    print(f"\n===== {i} exit {r.get('test_exit_code')} error {str(r.get('error'))[:200]}")
+    print("FAIL_TO_PASS:", str(t.get("FAIL_TO_PASS") or t.get("fail_to_pass"))[:300])
+    print("test cmd:", str(t.get("test_cmd") or t.get("test_command") or t.get("eval_script"))[:300])
+    print(tail(i))
 PYEOF
-)
-log "STEP 1/5 done: smoothing hops = $HOPS"
-
-log "STEP 2/5: import (read our repos' rows, drop competition PRs and duplicates, snapshots, graphs, embeddings)"
-$PY -W ignore $E/import_external.py --out $O --comp-tasks $C/tasks.jsonl --hops $HOPS
-ln -sfn $C/wheels $O/wheels
-N=$(wc -l < $O/tasks.jsonl); log "STEP 2/5 done: $N tasks built"
-
-log "STEP 3/5: gold-patch pass (src/ shim + pytest-httpbin on PYTHONPATH)"
-export SWE_EXTRA_PYTHONPATH=~/gc/testdeps_httpbin
-IDS=$($PY -c "import json,sys; print(' '.join(json.loads(l)['instance_id'] for l in open(sys.argv[1]) if l.strip()))" $O/tasks.jsonl)
-RA="$PY $G/scripts/planB/run_arm.py --tasks $O/tasks.jsonl --snapshots $O/snapshots --submission $C/sample_submission --sandbox subprocess --timeout-seconds 300 --concurrency 4"
-rm -rf $X/gold $X/empty
-$RA --mode gold --results $X/gold --task-ids $IDS
-GOLD_OK=$($PY -c "import json,sys; print(' '.join(r['instance_id'] for r in map(json.loads, open(sys.argv[1])) if r.get('resolved')))" $X/gold/task_results.jsonl)
-log "STEP 3/5 done: gold resolves $(echo $GOLD_OK | wc -w)/$N"
-
-log "STEP 4/5: empty-patch pass on the gold-resolving tasks"
-if [ -n "$GOLD_OK" ]; then $RA --mode empty --results $X/empty --task-ids $GOLD_OK; fi
-$PY $E/import_external.py --out $O --comp-tasks $C/tasks.jsonl --record-validity $X/gold $X/empty
-
-log "STEP 5/5: package the Kaggle dataset (wheels link excluded)"
-tar czf $X/graphcomp-external.tgz -C $X --exclude=graphcomp-external/wheels graphcomp-external
-ls -la $X/graphcomp-external.tgz; du -sh $O/snapshots $O/graphs $O/embeddings
-log "ALL DONE"
