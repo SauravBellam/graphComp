@@ -15,7 +15,7 @@ done
 log "installed this commit's scripts into $G"
 nvidia-smi --query-gpu=name,memory.used --format=csv,noheader
 
-# ------------------------------------------------------------------ JOB (Oct 16): external import validity v3: + pytest-asyncio (CPU only)
+# ------------------------------------------------------------------ JOB (Oct 16): external import validity v4: + pytest-trio (CPU only)
 # Missing test-only modules (first: trustme for httpx) go into a --target dir on the sandbox PYTHONPATH, never installed in
 # the venv, as pytest-httpbin is. Up to 3 rounds: gold pass -> modules named in "No module named" -> add them -> again.
 export CUDA_VISIBLE_DEVICES="" OMP_NUM_THREADS=6 MKL_NUM_THREADS=6
@@ -26,6 +26,7 @@ IDS=$($PY -c "import json,sys; print(' '.join(json.loads(l)['instance_id'] for l
 RA="$PY $G/scripts/planB/run_arm.py --tasks $O/tasks.jsonl --snapshots $O/snapshots --submission $C/sample_submission --sandbox subprocess --timeout-seconds 300 --concurrency 4"
 # v3: pytest-asyncio for old httpx's async tests; --no-deps so no second pytest lands on the path (the venv's is used)
 $PY -m pip install -q --no-deps --target $TD "pytest-asyncio==0.21.2"
+$PY -m pip install -q --no-deps --target $TD "pytest-trio==0.8.0"   # v4: old httpx [trio] tests
 WANT=""
 for round in 1 2 3; do
   log "round $round: adding test deps: $WANT"
