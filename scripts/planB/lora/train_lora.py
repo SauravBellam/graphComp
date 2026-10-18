@@ -166,6 +166,12 @@ def turn_samples(tok, traj, tools, stats):
         if rec:                                  # fidelity: our prompt vs what the model was actually sent at this turn
             stats["prompt_tok_pairs"].append((len(tok(prompt, add_special_tokens=False)["input_ids"]), rec))
         if not full.startswith(prompt):
+            if not str(m.get("reasoning_content") or "").strip() and m.get("tool_calls"):
+                # thinking on: the generation prompt opens the thought channel, but a turn with no reasoning text renders
+                # straight to its tool call (converted external steps, e.g. read_file continuation chunks). It cannot be a
+                # target without inventing a thought; it stays context only (no loss).
+                stats["no_reasoning_context_only"] = stats.get("no_reasoning_context_only", 0) + 1
+                continue
             stats["prefix_mismatch"] += 1
             if stats["prefix_mismatch"] <= 2:
                 k = next((j for j, (x, y) in enumerate(zip(prompt, full)) if x != y), min(len(prompt), len(full)))
@@ -317,6 +323,7 @@ def main():
            "sequence_tokens": {k: sum(len(i) for i, _ in v) for k, v in splits.items()},
            "max_sample_tokens": max((len(i) for v in splits.values() for i, _ in v), default=0),
            **{k: stats[k] for k in ("prefix_mismatch", "too_long", "target_too_long", "masked_turns", "windows", "window_fallback")},
+           "no_reasoning_turns_context_only": stats.get("no_reasoning_context_only", 0),
            "base": a.base, "past_reasoning": a.past_reasoning, "system_prompt_replaced": bool(SYSTEM_PROMPT),
            "deploy_budget": DEPLOY_BUDGET,
            "turns_dropped_after_compaction": stats["after_compaction"], "trajectories_compacted": stats["compacted_trajectories"],
