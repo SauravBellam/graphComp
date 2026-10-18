@@ -76,7 +76,7 @@ c = sub1(c, "SEEDS = [11, 12, 13]          # teacher replicates; with notebook 0
          "SEEDS = []                    # no teacher runs in this notebook\nSEED = 1")
 c = sub1(c, "DATAGEN_END_H = 4.6           # no new teacher chunk after this\n", "")
 # every session lasts at most SESSION_BUDGET_H (user: 11 h 30 min) and always ends with a submittable output
-c = sub1(c, "SESSION_BUDGET_H = 11.3", "SESSION_BUDGET_H = 1.6 " if SMOKE else "SESSION_BUDGET_H = 11.5")
+c = sub1(c, "SESSION_BUDGET_H = 11.3", "SESSION_BUDGET_H = 1.6 " if SMOKE else "SESSION_BUDGET_H = 11.75")   # user, Oct 18: 11 h 45 min
 c = sub1(c, "TRAIN31_MAX_H, TRAIN_STUDENT_MAX_H, EVAL_ARM_H = 2.6, 0.8, 0.9",
          f"TRAIN31_MAX_H, TRAIN_STUDENT_MAX_H, EVAL_ARM_H = {0.6 if SMOKE else 10.0}, 0, {0.1 if SMOKE else 0.5}   # EVAL_ARM_H = the adapter check (31B load + 1 request)\n"
          "TRAIN_MAX_LENS = [32768, 24576, 18432]   # training window (tokens); the next one only after an out-of-memory failure\n"
@@ -85,6 +85,7 @@ c = sub1(c, "TRAIN31_MAX_H, TRAIN_STUDENT_MAX_H, EVAL_ARM_H = 2.6, 0.8, 0.9",
          "LOAD_H = 0.6                  # 31B load inside the trainer before the first step (notebook 20: ~35 min)\n"
          "TOK_PER_S_GUESS = 150         # training tokens / s until a session has measured it (train_meta.json)\n"
          "DATA_OVERSHOOT = 1.5          # select this many times the tokens expected to fit (the trainer stops at the deadline)\n"
+         "FIRST_OVERSHOOT = 4.0         # the same before any session has measured the speed (an unused slice costs only rendering)\n"
          f"SMOKE = {SMOKE}                  # True: the single shortest trajectory, 1 epoch, 1 window per step, no adapter check\n"
          "VAL_FRAC = 0.02               # of tasks, for the validation loss (2% of thousands is enough and keeps eval short)")
 i0 = c.index("STUDENTS = {'STUDENT_12B'")
@@ -110,10 +111,36 @@ def traj_key(r):   # stable across sessions (train_lora.py records the same key 
     return r["source_traj_id"]
 TRAINED = set(STATE.get("trained_ids", []))
 TRAINED_TASKS = set(STATE.get("trained_tasks", []))
-_rows = [json.loads(l) for l in open(MIX / "train_fit.jsonl")] if MIX else []
-_rows = [r for r in _rows if r.get("est_tokens", 0) <= max(TRAIN_MAX_LENS)]
-for r in _rows:
-    traj_key(r)                         # every row gets its stable key (also the competition tail)
+def _scan(path):
+    """Light records (key, task, repo, est_tokens, source, byte offset): the 3.7 GB file is never held in memory."""
+    out_ = []
+    with open(path, "rb") as fh:
+        while True:
+            off = fh.tell(); line = fh.readline()
+            if not line:
+                break
+            if not line.strip():
+                continue
+            r = json.loads(line)
+            if r.get("est_tokens", 0) > max(TRAIN_MAX_LENS):
+                continue
+            out_.append({"source_traj_id": traj_key(r), "instance_id": r["instance_id"], "repo": r.get("repo", ""),
+                         "est_tokens": r.get("est_tokens", 0), "mix_source": r.get("mix_source", "rft"),
+                         "_file": str(path), "_off": off})
+    return out_
+_rows = _scan(MIX / "train_fit.jsonl") if MIX else []
+# our verified 31B trajectories on the competition tasks (graphcomp-comp-trajs: notebooks 01 + 19, dev/holdout included)
+COMP_FILE = next((Path(dp) / "competition_trajs.jsonl" for dp, dns, fns in walk(INPUT, maxdepth=7) if "competition_trajs.jsonl" in fns), None)
+plog(f"competition trajectories: {COMP_FILE or 'NOT FOUND: attach graphcomp-comp-trajs (only the mix copies are used)'}")
+_known = {r["source_traj_id"] for r in _rows}
+for r in (_scan(COMP_FILE) if COMP_FILE else []):
+    if r["source_traj_id"] not in _known:          # same actions = the same trajectory (the mix holds 17 of them)
+        r["mix_source"] = "rft"; _rows.append(r); _known.add(r["source_traj_id"])
+def _load(r):
+    with open(r["_file"], "rb") as fh:
+        fh.seek(r["_off"]); full = json.loads(fh.readline())
+    full["source_traj_id"] = r["source_traj_id"]; full["mix_source"] = r["mix_source"]
+    return full
 # COMPETITION trajectories (our own on the 129 tasks + external ones on the four competition repos) are trained LAST in every
 # session (user, Oct 15: "save our competition dataset for the end, we want it to see that last"), every session again
 COMP_REPOS = {"fastapi/fastapi", "tiangolo/fastapi", "textualize/rich", "psf/requests", "encode/httpx",
@@ -132,9 +159,10 @@ _queue = _first + [r for r in _rows if id(r) not in _firstset]
 # size this session's slice: tokens the trainer can process before the deadline, times DATA_OVERSHOOT
 TRAIN_DEADLINE = _T0 + (SESSION_BUDGET_H - POST_TRAIN_H) * 3600
 _tps = STATE.get("tok_per_s") or TOK_PER_S_GUESS
+_over = DATA_OVERSHOOT if STATE.get("tok_per_s") else FIRST_OVERSHOOT
 _train_s = max(0.0, TRAIN_DEADLINE - time.time() - LOAD_H * 3600)
 _comp_tok = sum(r.get("est_tokens", 0) for r in _comp)
-_budget_tok = max(0.0, _tps * _train_s * DATA_OVERSHOOT - _comp_tok)
+_budget_tok = max(0.0, _tps * _train_s * _over - _comp_tok)
 _pick, _tok = [], 0
 for r in _queue:
     if len(_pick) >= MAX_TRAIN_TRAJ or (_pick and _tok + r.get("est_tokens", 0) > _budget_tok):
@@ -148,13 +176,13 @@ TRAIN_DATA = OUT / "sft" / f"train_session{STATE.get('sessions', 1)}.jsonl"
 TRAIN_DATA.parent.mkdir(parents=True, exist_ok=True)
 with open(TRAIN_DATA, "w") as f:
     for r in _pick:
-        f.write(json.dumps(r) + "\n")
+        f.write(json.dumps(_load(r)) + "\n")
 n_traj = len(_pick)
 _new = len({task_of(r) for r in _pick} - TRAINED_TASKS)
 plog(f"session {STATE.get('sessions')}: {len(TRAINED)} trajectories / {len(TRAINED_TASKS)} problems trained before; "
      f"this slice {n_traj} trajectories (~{(_tok + _comp_tok) / 1e6:.1f}M tokens; {_new} new problems; the last {TAIL_N} = "
      f"competition trajectories, trained last) for "
-     f"{_train_s / 3600:.1f} h at {_tps:.0f} tok/s x {DATA_OVERSHOOT}; {len(_queue)} untrained left -> {TRAIN_DATA}")
+     f"{_train_s / 3600:.1f} h at {_tps:.0f} tok/s x {_over}; {len(_queue)} untrained left -> {TRAIN_DATA}")
 del _rows, _queue, _first
 '''
 
@@ -219,10 +247,13 @@ _ev = src(29)
 DEFS = "\n".join(_ev[_ev.index(a):_ev.index(b)] for a, b in (("def make_sub", "ARMS = {"), ("def adapter_changes_output", "def arm_done")))
 CHECK = r'''# STEP 7 - adapter check: serve the LoRA as the scorer does; it must change a greedy answer (a no-op adapter is not submitted)
 ''' + DEFS + r'''
-if not OK31:
-    raise SystemExit("STOP: no trained adapter (see provenance/train_lora31_len*.log); attach this output and run again")
-if SMOKE:
+if not OK31:   # still submittable: the base model, flagged (attach this output and run again to train)
+    plog("!!! NO ADAPTER this session (see provenance/train_lora31_*.log): the submission is the BASE 31B, no LoRA")
+    save_state(adapter_applies="no adapter")
+elif SMOKE:
     save_state(adapter_applies="not checked (smoke)")
+elif left_h() < 0.6:                 # the submission must still be written inside the session
+    plog(f"adapter check skipped: {left_h():.2f} h left"); save_state(adapter_applies="not checked (time)")
 elif STATE.get("adapter_applies") is None:
     _chk = make_sub(OUT / "submissions/check_LORA31", MODEL_SLUG, ADAPTER31)
     stop_servers(); start_server(MODEL_DIR, TP, _chk)
@@ -237,7 +268,7 @@ if STATE["adapter_applies"] is False:
 FINAL = r'''# STEP 8 - write the submission (the LoRA, deployment budget) and the summary
 FINAL = Path("/kaggle/working/submission")
 shutil.rmtree(FINAL, ignore_errors=True)
-shutil.copytree(make_sub(OUT / "submissions/final_LORA31", MODEL_SLUG, ADAPTER31, budget=DEPLOY_BUDGET), FINAL)
+shutil.copytree(make_sub(OUT / "submissions/final_LORA31", MODEL_SLUG, ADAPTER31 if OK31 else None, budget=DEPLOY_BUDGET), FINAL)
 _zip = Path(shutil.make_archive("/kaggle/working/submission", "zip", FINAL))   # agent.yaml at the zip root
 _size = sum(f.stat().st_size for f in FINAL.rglob("*") if f.is_file())
 assert _size < 3 * 2**30, f"submission is {_size / 2**30:.2f} GiB (limit 3 GiB)"
@@ -248,7 +279,8 @@ lines = [f"# Notebook 21 summary ({now()})", "",
          f"- Adapter changes the served output: {STATE.get('adapter_applies')}",
          f"- Sessions: {STATE.get('session_log')}; trained so far {len(STATE.get('trained_ids', []))} trajectories over "
          f"{len(STATE.get('trained_tasks', []))} problems; attach this output to the next version to continue",
-         "", "**SUBMISSION: LORA31** (no base-model arm, no holdout comparison: every task was training data)",
+         "", ("**SUBMISSION: LORA31**" if OK31 else "**SUBMISSION: BASE 31B (no adapter was trained; see the logs)**")
+         + " (no holdout comparison: every task is training data)",
          f"- deployment budget {DEPLOY_BUDGET}; worst case if all {N_TASKS_ASSUMED} tasks hit the cap: {worst_h:.1f} h of 12",
          f"- {FINAL} ({_size / 1e6:.1f} MB) and {_zip}"]
 (OUT / "SUMMARY.md").write_text("\n".join(lines) + "\n")
@@ -266,9 +298,10 @@ run_arm = code("%%writefile /kaggle/working/gc/run_arm.py\n" + (SCRIPTS / "run_a
 lora = [code(f"%%writefile /kaggle/working/gc/{rel}\n" + (SCRIPTS / rel).read_text())
         for rel in ("lora/build_rft_data.py", "lora/train_lora.py", "tool_trace.py")]
 assert first(19).startswith("# STEP 1/7 - validity") and first(20).startswith("# STEP 2/7 - task order")
+ZIP = code("".join(C[31]["source"]).replace("graphcomp_nb19.zip", "graphcomp_nb21.zip"))
 cells = ([md(HEADER), md(src(1) + DATA_NOTES), C[2], code(c)] + C[4:6] + [code(RESUME)] + C[7:13] + [run_arm]
-         + (C[14:19] + [C[21]] if SMOKE else C[14:22]) + lora
-         + [C[25], code(DATA), code(T), code(CHECK), code(FINAL), C[31]])
+         + C[14:19] + [C[21]] + lora
+         + [C[25], code(DATA), code(T), code(CHECK), code(FINAL), ZIP])
 for cell in cells:
     if cell["cell_type"] == "code":
         cell["source"] = "".join(cell["source"]).replace("NB19_STATE", "NB21_STATE").splitlines(keepends=True)

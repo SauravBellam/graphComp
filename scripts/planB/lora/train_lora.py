@@ -265,6 +265,7 @@ def main():
     ap.add_argument("--no-error-mask", action="store_true")
     ap.add_argument("--init-adapter", help="resume: continue training this LoRA (a previous session's adapter dir)")
     ap.add_argument("--stop-at", type=float, default=0, help="unix time: stop at a step boundary before it, save, exit 0")
+    ap.add_argument("--stop-after-s", type=float, default=0, help="like --stop-at, counted from the first training step")
     ap.add_argument("--save-every-min", type=float, default=30, help="checkpoint the adapter (atomically) this often")
     ap.add_argument("--keep-order", action="store_true", help="train in the data file's order (its priority), shuffled only "
                     "within blocks of --order-block windows, so a run cut short has trained the file's head")
@@ -462,6 +463,8 @@ def main():
     for sg in (signal.SIGTERM, signal.SIGINT):
         signal.signal(sg, _on_signal)
     done_i, seq_tok, last_save = 0, 0, time.time()
+    if a.stop_after_s:
+        a.stop_at = min(a.stop_at or float("inf"), time.time() + a.stop_after_s)
 
     def save(dest_name="adapter"):
         """Atomic: write to a temp dir, then rename over the old one, with the trajectories trained so far."""

@@ -15,23 +15,11 @@ done
 log "installed this commit's scripts into $G"
 nvidia-smi --query-gpu=name,memory.used --format=csv,noheader
 
-# ------------------------------------------------------------------ JOB (Oct 15): SFT mix = converted external + our RFT trajectories, deduplicated (CPU)
-# Runs after the conversion (exp ca1b26ab) finished. Dev and holdout tasks are kept (user, Oct 15). Output = Kaggle dataset
-# graphcomp-sft-mix for notebook 21 (make_nb21.py).
-export CUDA_VISIBLE_DEVICES="" OMP_NUM_THREADS=4
-L=$G/scripts/planB/lora
-CONV=~/gc/external_trajs/graphcomp-external-trajs
-O=~/gc/sft_mix/graphcomp-sft-mix; mkdir -p $(dirname $O)
-[ -f $CONV/manifest.json ] || { log "conversion output incomplete: $CONV/manifest.json missing"; exit 1; }
-RFT=$(ls $G/planB_results/lora_data/*/train.jsonl 2>/dev/null | tr '\n' ' ' || true)
-IMP=~/gc/external/graphcomp-external/tasks.jsonl
-log "inputs: converted $CONV | our RFT: ${RFT:-none} | imported external tasks: $([ -f $IMP ] && wc -l < $IMP || echo none)"
-
-log "STEP 1/2: merge + exact / near-duplicate removal + fit estimate + imported-task overlap"
-$PY $L/build_sft_mix.py --out $O --external $CONV ${RFT:+--rft $RFT} $([ -f $IMP ] && echo --external-tasks $IMP) \
-    --slices $G/scripts/planB/official_slices --near-dup 0.9 --fit-tokens 32768
-
-log "STEP 2/2: package"
-cp $L/build_sft_mix.py $CONV/convert_trajs.py $O/ 2>/dev/null || cp $L/build_sft_mix.py $O/
-du -sh $O/*; df -h ~ | tail -1
+# ------------------------------------------------------------------ JOB (Oct 18): train_lora.py session features, functional test (GPU)
+# Tiny random-weight model with the 31B's architecture; 200 real converted trajectories. See scripts/planB/lora/test_train_resume.py.
+export HF_HUB_OFFLINE=0
+nvidia-smi --query-gpu=name,memory.used --format=csv,noheader
+D=~/gc/train_test; mkdir -p $D
+head -n 200 ~/gc/sft_mix/graphcomp-sft-mix/train_fit.jsonl > $D/trajs.jsonl
+$PY $G/scripts/planB/lora/test_train_resume.py --data $D/trajs.jsonl --work $D
 log "ALL DONE"
