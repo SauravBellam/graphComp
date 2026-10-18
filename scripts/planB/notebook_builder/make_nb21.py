@@ -42,8 +42,11 @@ submittable `submission.zip`):
 1. **This session's slice** of the attached `graphcomp-sft-mix` (`train_fit.jsonl`: test-verified trajectories ≤ 32k tokens,
    duplicates removed): trajectories not trained in an earlier session, **new problems first** (the shortest trajectory of
    each never-trained problem), **shortest first**, sized to the tokens the measured training speed fits before the deadline
-   (× 1.5; the trainer stops on time anyway). **Competition trajectories go last, every session** (our own on the 129 tasks +
-   external ones on the four competition repos): the model sees them last.
+   (× 1.5; the trainer stops on time anyway), **mixed over length quartiles** rather than strictly shortest-first (SWE-Gym's
+   easy-task bias); from session 2, **~8% replay** of earlier sessions' trajectories spread through the slice (SWE-Lego's
+   cumulative curriculum; the replay result of arXiv 2609.33559). **Competition trajectories go last, every session** (our own
+   verified 31B runs + external ones on the four competition repos), **rotated**: the least-visited half each session, at most
+   3 visits each, so every session ends on competition data while no text is drilled (arXiv 2609.33559).
 2. **31B LoRA** (`train_lora.py`, QLoRA, 4-bit model split over the 4 GPUs): **continues the previous session's adapter**;
    1 pass in that order (shuffled only within blocks of 32 windows); LR decays to 30% of the peak, not 0, so the competition
    tail still moves the model; stops at a step boundary before the training deadline (session start + 11.5 h − 0.85 h), and
@@ -86,6 +89,10 @@ c = sub1(c, "TRAIN31_MAX_H, TRAIN_STUDENT_MAX_H, EVAL_ARM_H = 2.6, 0.8, 0.9",
          "TOK_PER_S_GUESS = 150         # training tokens / s until a session has measured it (train_meta.json)\n"
          "DATA_OVERSHOOT = 1.5          # select this many times the tokens expected to fit (the trainer stops at the deadline)\n"
          "FIRST_OVERSHOOT = 4.0         # the same before any session has measured the speed (an unused slice costs only rendering)\n"
+         "REPLAY_FRAC = 0.08            # tokens of earlier sessions' outside trajectories per token of new ones (session 2+)\n"
+         "COMP_MAX_VISITS = 3           # a competition trajectory is trained in at most this many sessions (rotation below)\n"
+         "COMP_PER_SESSION = 0.5        # share of the competition trajectories in each session's tail (least-visited first)\n"
+         "LENGTH_MIX = True             # new data round-robin over length quartiles, not strictly shortest-first\n"
          f"SMOKE = {SMOKE}                  # True: the single shortest trajectory, 1 epoch, 1 window per step, no adapter check\n"
          "VAL_FRAC = 0.02               # of tasks, for the validation loss (2% of thousands is enough and keeps eval short)")
 i0 = c.index("STUDENTS = {'STUDENT_12B'")
@@ -146,16 +153,41 @@ def _load(r):
 COMP_REPOS = {"fastapi/fastapi", "tiangolo/fastapi", "textualize/rich", "psf/requests", "encode/httpx",
               "fastapi", "rich", "requests", "httpx"}
 is_comp = lambda r: r.get("mix_source") == "rft" or str(r.get("repo", "")).lower() in COMP_REPOS
-_comp = sorted([r for r in _rows if is_comp(r)], key=lambda r: r.get("est_tokens", 0))
+_comp_all = sorted([r for r in _rows if is_comp(r)], key=lambda r: r.get("est_tokens", 0))
+# repeat cap (literature check, Oct 18: re-showing the same texts many times leaves a model fragile, a fresh solution per visit
+# does not, arXiv 2609.33559): a competition trajectory is trained in at most COMP_MAX_VISITS sessions. Sessions before this
+# rule (no comp_visits in the state) count as one visit for every competition trajectory they trained.
+COMP_VISITS = dict(STATE.get("comp_visits") or {k: 1 for k in (r["source_traj_id"] for r in _comp_all) if k in TRAINED})
+# rotation: each session's tail is the least-visited COMP_PER_SESSION of them (every session still ENDS on competition data, as
+# the user asked, while each text repeats about half as often); only if all are at the cap does the tail go over it (logged)
+_n_tail = max(1, round(len(_comp_all) * COMP_PER_SESSION)) if _comp_all else 0
+_under = [r for r in _comp_all if COMP_VISITS.get(r["source_traj_id"], 0) < COMP_MAX_VISITS]
+_comp = sorted(_under or _comp_all, key=lambda r: (COMP_VISITS.get(r["source_traj_id"], 0), r.get("est_tokens", 0)))[:_n_tail]
+_comp.sort(key=lambda r: r.get("est_tokens", 0))
+COMP_OVER_CAP = not _under and bool(_comp_all)
+_replay_pool = [r for r in _rows if not is_comp(r) and traj_key(r) in TRAINED]
 _rows = [r for r in _rows if not is_comp(r) and traj_key(r) not in TRAINED]
-# the rest: NEW problems (never trained) first, the shortest trajectory of each, shortest first; then everything else shortest
+def _mix_lengths(rs):
+    """Round-robin over length quartiles (short, medium, long, longest, short, ...) instead of strictly shortest-first:
+    SWE-Gym (arXiv 2412.21139) warns that successful-trajectory data is biased toward easy tasks; shortest-first would
+    sharpen that inside one session."""
+    if not LENGTH_MIX or len(rs) < 8:
+        return sorted(rs, key=lambda r: r.get("est_tokens", 0))
+    rs = sorted(rs, key=lambda r: r.get("est_tokens", 0))
+    q = [rs[i * len(rs) // 4:(i + 1) * len(rs) // 4] for i in range(4)]
+    out_ = []
+    for i in range(max(map(len, q))):
+        out_ += [b[i] for b in q if i < len(b)]
+    return out_
+# the rest: NEW problems (never trained) first, one trajectory each (the shortest of each problem), mixed over lengths; then
+# second trajectories etc., mixed the same way
 _rows.sort(key=lambda r: r.get("est_tokens", 0))
 _first, _seen = [], set(TRAINED_TASKS)
 for r in _rows:
     if task_of(r) not in _seen:
         _first.append(r); _seen.add(task_of(r))
 _firstset = {id(r) for r in _first}
-_queue = _first + [r for r in _rows if id(r) not in _firstset]
+_queue = _mix_lengths(_first) + _mix_lengths([r for r in _rows if id(r) not in _firstset])
 # size this session's slice: tokens the trainer can process before the deadline, times DATA_OVERSHOOT
 TRAIN_DEADLINE = _T0 + (SESSION_BUDGET_H - POST_TRAIN_H) * 3600
 _tps = STATE.get("tok_per_s") or TOK_PER_S_GUESS
@@ -163,12 +195,28 @@ _over = DATA_OVERSHOOT if STATE.get("tok_per_s") else FIRST_OVERSHOOT
 _train_s = max(0.0, TRAIN_DEADLINE - time.time() - LOAD_H * 3600)
 _comp_tok = sum(r.get("est_tokens", 0) for r in _comp)
 _budget_tok = max(0.0, _tps * _train_s * _over - _comp_tok)
+# replay (SWE-Lego's cumulative curriculum, arXiv 2601.01426; 2609.33559's replay): REPLAY_FRAC of the new-data tokens are
+# trajectories trained in earlier sessions, spread through the slice (not at its end)
+_replay_tok = _budget_tok * REPLAY_FRAC / (1 + REPLAY_FRAC) if _replay_pool else 0.0
+_new_budget = _budget_tok - _replay_tok
 _pick, _tok = [], 0
 for r in _queue:
-    if len(_pick) >= MAX_TRAIN_TRAJ or (_pick and _tok + r.get("est_tokens", 0) > _budget_tok):
+    if len(_pick) >= MAX_TRAIN_TRAJ:
         break
+    if _pick and _tok + r.get("est_tokens", 0) > _new_budget:
+        continue                      # too long for what is left: a shorter one may still fit
     _pick.append(r); _tok += r.get("est_tokens", 0)
+_replay, _rtok = [], 0
+for r in random.Random(STATE.get("sessions", 1)).sample(_replay_pool, len(_replay_pool)):
+    if _rtok + r.get("est_tokens", 0) <= _replay_tok:
+        _replay.append(r); _rtok += r.get("est_tokens", 0)
+if _replay:                           # spread evenly through the new data
+    step_ = max(1, len(_pick) // (len(_replay) + 1))
+    for k_, r in enumerate(_replay):
+        _pick.insert(min(len(_pick), (k_ + 1) * step_ + k_), r)
+_tok += _rtok
 TAIL_N = len(_comp)
+COMP_KEYS = [r["source_traj_id"] for r in _comp]
 _pick = _pick + _comp                 # the trainer always trains these, at the end (--tail-n)
 if SMOKE:
     _pick, TAIL_N = (_comp or _queue)[:1], 0
@@ -181,9 +229,11 @@ n_traj = len(_pick)
 _new = len({task_of(r) for r in _pick} - TRAINED_TASKS)
 plog(f"session {STATE.get('sessions')}: {len(TRAINED)} trajectories / {len(TRAINED_TASKS)} problems trained before; "
      f"this slice {n_traj} trajectories (~{(_tok + _comp_tok) / 1e6:.1f}M tokens; {_new} new problems; the last {TAIL_N} = "
-     f"competition trajectories, trained last) for "
+     f"competition trajectories, trained last; {len(_replay)} replayed from earlier sessions; "
+     f"tail = least-visited {len(_comp)} of {len(_comp_all)} competition trajectories"
+     f"{' (ALL at the ' + str(COMP_MAX_VISITS) + '-visit cap: repeating anyway so the session ends on competition data)' if COMP_OVER_CAP else ''}) for "
      f"{_train_s / 3600:.1f} h at {_tps:.0f} tok/s x {_over}; {len(_queue)} untrained left -> {TRAIN_DATA}")
-del _rows, _queue, _first
+del _rows, _queue, _first, _replay_pool
 '''
 
 # ------------------------------------------------------------------ step 6: only the 31B, training window stepped down on OOM
@@ -230,7 +280,10 @@ if OK31:
     _byid = {}
     for l_ in open(TRAIN_DATA):
         r_ = json.loads(l_); _byid[r_["source_traj_id"]] = task_of(r_)
-    save_state(trained_ids=sorted(TRAINED | set(_ids)), trained_tasks=sorted(TRAINED_TASKS | {_byid[i] for i in _ids if i in _byid}),
+    _cv = dict(COMP_VISITS)
+    for k_ in set(COMP_KEYS) & set(_ids):
+        _cv[k_] = _cv.get(k_, 0) + 1
+    save_state(comp_visits=_cv, trained_ids=sorted(TRAINED | set(_ids)), trained_tasks=sorted(TRAINED_TASKS | {_byid[i] for i in _ids if i in _byid}),
                tok_per_s=_meta.get("tok_per_s") or STATE.get("tok_per_s"), lora31_window=L, adapter_session=STATE.get("sessions"),
                adapter_applies=None, session_log=STATE.get("session_log", []) + [{"session": STATE.get("sessions"), "trained": len(_ids),
                "stopped": _meta.get("stopped"), "tok_per_s": _meta.get("tok_per_s"), "steps": _meta.get("steps"), "resumed": bool(INIT)}])
