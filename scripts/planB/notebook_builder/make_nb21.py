@@ -249,7 +249,13 @@ if ADAPTER31.exists() and STATE.get("adapter_session") != STATE.get("sessions"):
     shutil.rmtree(PREV, ignore_errors=True); shutil.move(str(OUT31), str(PREV))
 INIT = PREV / "adapter" if (PREV / "adapter" / "adapter_config.json").exists() else None
 OK31, L = False, None
-for L in ([18432] if SMOKE else TRAIN_MAX_LENS):
+# windows that ran out of memory in an earlier session are skipped, and a session never starts above the window that last
+# trained (session 1, Oct 18: 32k ran out of memory on GPU 3, which also holds the 262k-vocabulary output layer)
+_oom = set(STATE.get("oom_windows", []))
+_cap = STATE.get("lora31_window") or max(TRAIN_MAX_LENS)
+_lens = [l for l in TRAIN_MAX_LENS if l <= _cap and l not in _oom] or [min(TRAIN_MAX_LENS)]
+plog(f"lora31: training windows to try {_lens} (out of memory before: {sorted(_oom) or 'none'})")
+for L in ([18432] if SMOKE else _lens):
     if BASE31_TRAIN is None or not n_traj:
         break
     left_s = TRAIN_DEADLINE - time.time()
@@ -273,6 +279,7 @@ for L in ([18432] if SMOKE else TRAIN_MAX_LENS):
         plog("!!! lora31: resuming from the previous adapter failed; training a fresh LoRA instead (see " + str(_log) + ")")
     if OK31 or not re.search(r"out of memory|OutOfMemoryError", _tail, re.I):
         break
+    save_state(oom_windows=sorted(set(STATE.get("oom_windows", [])) | {L}))
     plog(f"lora31: out of memory with a {L}-token window; trying the next one")
 if OK31:
     _ids = json.loads((ADAPTER31 / "trained_ids.json").read_text()) if (ADAPTER31 / "trained_ids.json").exists() else []
