@@ -166,9 +166,10 @@ def turn_samples(tok, traj, tools, stats):
         if rec:                                  # fidelity: our prompt vs what the model was actually sent at this turn
             stats["prompt_tok_pairs"].append((len(tok(prompt, add_special_tokens=False)["input_ids"]), rec))
         if not full.startswith(prompt):
-            if not str(m.get("reasoning_content") or "").strip() and m.get("tool_calls"):
+            if not str(m.get("reasoning_content") or "").strip():
                 # thinking on: the generation prompt opens the thought channel, but a turn with no reasoning text renders
-                # straight to its tool call (converted external steps, e.g. read_file continuation chunks). It cannot be a
+                # straight to its tool call or answer (converted external steps, e.g. read_file continuation chunks, final
+                # answers written without a thought). It cannot be a
                 # target without inventing a thought; it stays context only (no loss).
                 stats["no_reasoning_context_only"] = stats.get("no_reasoning_context_only", 0) + 1
                 continue
