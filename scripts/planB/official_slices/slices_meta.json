@@ -1,0 +1,165 @@
+{
+ "seed": 20261012,
+ "size": 24,
+ "n_eligible": 77,
+ "rule": "eligible = a2_usable and sub_valid (every empty run fails, every gold run passes, pytest imports the workspace); sorted by repo, cell, gold_has_async, gold_is_entry_point, seeded tiebreak; dealt to the group furthest below its proportional target",
+ "n_empty_runs": 2,
+ "n_gold_runs": 2,
+ "import_check_used": true,
+ "sub_reason_by_repo": {
+  "fastapi|empty passes": 2,
+  "fastapi|gold fails": 2,
+  "fastapi|ok": 63,
+  "httpx|released copy tested": 1,
+  "requests|released copy tested": 13,
+  "rich|flaky": 1,
+  "rich|gold fails": 6,
+  "rich|ok": 41
+ },
+ "n_sub_valid": 104,
+ "n_flaky": 1,
+ "balance": {
+  "repo": {
+   "fastapi": {
+    "dev": 14,
+    "holdout": 14,
+    "rest": 16
+   },
+   "rich": {
+    "dev": 10,
+    "holdout": 10,
+    "rest": 13
+   }
+  },
+  "cell": {
+   "d0|v_high": {
+    "dev": 1,
+    "holdout": 2,
+    "rest": 4
+   },
+   "d0|v_low": {
+    "dev": 2,
+    "holdout": 0,
+    "rest": 1
+   },
+   "d1|v_high": {
+    "dev": 1,
+    "holdout": 2,
+    "rest": 1
+   },
+   "d1|v_low": {
+    "dev": 0,
+    "holdout": 0,
+    "rest": 1
+   },
+   "d2+|v_high": {
+    "dev": 3,
+    "holdout": 3,
+    "rest": 2
+   },
+   "d2+|v_low": {
+    "dev": 2,
+    "holdout": 2,
+    "rest": 2
+   },
+   "d_undef|v_high": {
+    "dev": 4,
+    "holdout": 5,
+    "rest": 7
+   },
+   "d_undef|v_low": {
+    "dev": 11,
+    "holdout": 10,
+    "rest": 11
+   }
+  },
+  "gold_has_async": {
+   "False": {
+    "dev": 21,
+    "holdout": 21,
+    "rest": 26
+   },
+   "True": {
+    "dev": 3,
+    "holdout": 3,
+    "rest": 3
+   }
+  },
+  "gold_is_entry_point": {
+   "False": {
+    "dev": 14,
+    "holdout": 15,
+    "rest": 20
+   },
+   "True": {
+    "dev": 10,
+    "holdout": 9,
+    "rest": 9
+   }
+  },
+  "multi_file": {
+   "False": {
+    "dev": 20,
+    "holdout": 17,
+    "rest": 22
+   },
+   "True": {
+    "dev": 4,
+    "holdout": 7,
+    "rest": 7
+   }
+  }
+ },
+ "dev": [
+  "fastapi_11194",
+  "fastapi_11355",
+  "fastapi_12942",
+  "fastapi_14258",
+  "fastapi_14266",
+  "fastapi_14356",
+  "fastapi_14430",
+  "fastapi_14485",
+  "fastapi_14786",
+  "fastapi_14794",
+  "fastapi_14953",
+  "fastapi_14962",
+  "fastapi_15800",
+  "fastapi_9425",
+  "rich_3052",
+  "rich_3468",
+  "rich_3480",
+  "rich_3518",
+  "rich_3521",
+  "rich_3535",
+  "rich_3905",
+  "rich_3935",
+  "rich_3944",
+  "rich_4075"
+ ],
+ "holdout": [
+  "fastapi_14099",
+  "fastapi_14297",
+  "fastapi_14303",
+  "fastapi_14360",
+  "fastapi_14361",
+  "fastapi_14372",
+  "fastapi_14463",
+  "fastapi_14482",
+  "fastapi_14512",
+  "fastapi_14616",
+  "fastapi_14873",
+  "fastapi_14986",
+  "fastapi_15589",
+  "fastapi_9753",
+  "rich_2725",
+  "rich_3061",
+  "rich_3180",
+  "rich_3278",
+  "rich_3472",
+  "rich_3675",
+  "rich_3777",
+  "rich_3882",
+  "rich_3938",
+  "rich_4076"
+ ]
+}

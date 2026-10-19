@@ -1,0 +1,33 @@
+{
+  "id": "sauravbellam/graphcomp-21-sft-mix-lora31-s3",
+  "title": "graphcomp 21 SFT mix LoRA31 s3",
+  "code_file": "21_sft_mix_lora31_submission.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_tpu": false,
+  "enable_internet": false,
+  "keywords": [
+    "gpu"
+  ],
+  "dataset_sources": [
+    "metric/gemma-4-developer-agent-wheelhouse",
+    "sauravbellam/graphcomp-planb",
+    "sauravbellam/graphcomp-train-wheels",
+    "sauravbellam/graphcomp-sft-mix",
+    "sauravbellam/graphcomp-comp-trajs"
+  ],
+  "kernel_sources": [
+    "sauravbellam/graphcomp-21-sft-mix-lora31-s2"
+  ],
+  "competition_sources": [
+    "gemma-4-developer-agent"
+  ],
+  "model_sources": [
+    "google/gemma-4/Transformers/gemma-4-31b-it-qat-q4_0-unquantized/2",
+    "google/gemma-4/Other/gemma-4-31b-it-qat-w4a16-ct/2"
+  ],
+  "docker_image": "gcr.io/kaggle-private-byod/python@sha256:37c64f7dd9c54116ecd1bcc88817c5469b88387388fade02bfa8bf3fc647d461",
+  "machine_shape": "NvidiaL4"
+}

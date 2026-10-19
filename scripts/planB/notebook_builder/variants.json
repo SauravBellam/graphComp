@@ -1,0 +1,106 @@
+[
+ {
+  "file": "01_validity_B2_s1.ipynb",
+  "tag": "B2",
+  "arm": "B2",
+  "seed": 1,
+  "scope": "all",
+  "validity": true,
+  "title": "graphcomp 01 validity B2 s1",
+  "job": "# 01 \u2014 validity + B2 baseline, seed 1\n\n**What this run is:** first the validity check in this environment (about 40 min: one gold-patch pass over the 115 fastapi/rich tasks, then an empty-patch pass over the ones the gold patch resolves), then the B2 baseline (all nine tools, sample prompt).\n\n**Compared with:** every other notebook: they all read validity and the slices from this one's output.\n\n**Tasks:** all 129, dev slice first, then the non-slice tasks, then holdout. Re-run with the previous version attached until the summary says ARM COMPLETE.\n\n**Inputs:** competition data, `metric/gemma-4-developer-agent-wheelhouse`, model `google/gemma-4` `gemma-4-31b-it-qat-w4a16-ct` v2; for a resumed run, this notebook's previous version output. Do not attach the old CPU B1 output. GPU L4 \u00d7 4. Save Version \u2192 Save & Run All. **Run this one first.**\n\nEverything below is the shared Plan B runner; only the CONFIG values differ between notebooks.\n\n---"
+ },
+ {
+  "file": "02_B3_s1.ipynb",
+  "tag": "B3",
+  "arm": "B3",
+  "seed": 1,
+  "scope": "all",
+  "validity": false,
+  "title": "graphcomp 02 B3 s1",
+  "job": "# 02 \u2014 B3 no graph tools, seed 1\n\n**What this run is:** the three graph tools removed from the agent; everything else as B2.\n\n**Compared with:** 01 (B2 s1), task by task: the pull benefit and the counterfactual need label v2.\n\n**Tasks:** all 129, dev slice first, then the non-slice tasks, then holdout. Re-run with the previous version attached until the summary says ARM COMPLETE.\n\n**Inputs:** competition data, `metric/gemma-4-developer-agent-wheelhouse`, model `google/gemma-4` `gemma-4-31b-it-qat-w4a16-ct` v2, **notebook 01's output** (validity, slices, package list), and for a resumed run **this notebook's own previous version output**. GPU L4 \u00d7 4. Save Version \u2192 Save & Run All.\n\nEverything below is the shared Plan B runner; only the CONFIG values differ between notebooks.\n\n---"
+ },
+ {
+  "file": "03_forced_call_dev_s1.ipynb",
+  "tag": "FC",
+  "arm": "B2",
+  "seed": 1,
+  "scope": "dev",
+  "validity": false,
+  "addendum": "\n\n## Graph tools (required in this run)\nIn every turn, before any other tool call, call one of `get_code_neighbors`, `search_similar_code` or `get_code_subgraph`.\nDo this on every turn, even when you already know which file to read or edit.\n",
+  "title": "graphcomp 03 forced call dev s1",
+  "job": "# 03 \u2014 forced graph call (anti-Goodhart arm), dev slice, seed 1\n\n**What this run is:** B2 with one paragraph added to the prompt that demands a graph call every turn (Plan B 4.4 test 4).\n\n**Compared with:** 01's dev-slice tasks (B2 s1). A scorecard version must score this run lower than B2.\n\n**Tasks:** the 24 dev-slice tasks only (about 1.5 to 2 h).\n\n**Inputs:** competition data, `metric/gemma-4-developer-agent-wheelhouse`, model `google/gemma-4` `gemma-4-31b-it-qat-w4a16-ct` v2, **notebook 01's output** (validity, slices, package list), and for a resumed run **this notebook's own previous version output**. GPU L4 \u00d7 4. Save Version \u2192 Save & Run All.\n\nEverything below is the shared Plan B runner; only the CONFIG values differ between notebooks.\n\n---"
+ },
+ {
+  "file": "04_qualified_names_dev_s1.ipynb",
+  "tag": "QN",
+  "arm": "B2",
+  "seed": 1,
+  "scope": "dev",
+  "validity": false,
+  "addendum": "\n\n## Naming code in graph tools\nWhen you call `get_code_neighbors` or `get_code_subgraph`, name each function, method or class by its fully qualified name in\nthe form `package.module.Class.method` (for example `rich.table.Table.add_row`), not by a bare name such as `add_row`. If you\ndo not know the qualified name yet, find it first (for example with `search_similar_code`, or by reading the file).\n",
+  "title": "graphcomp 04 qualified names dev s1",
+  "job": "# 04 \u2014 qualified names in graph-tool arguments, dev slice, seed 1\n\n**What this run is:** B2 with one paragraph asking for `package.module.Class.method` arguments (the Plan A misresolution fix; C2a's first variant).\n\n**Compared with:** 01's dev-slice tasks: resolution precision should rise toward 95%.\n\n**Tasks:** the 24 dev-slice tasks only (about 1.5 to 2 h).\n\n**Inputs:** competition data, `metric/gemma-4-developer-agent-wheelhouse`, model `google/gemma-4` `gemma-4-31b-it-qat-w4a16-ct` v2, **notebook 01's output** (validity, slices, package list), and for a resumed run **this notebook's own previous version output**. GPU L4 \u00d7 4. Save Version \u2192 Save & Run All.\n\nEverything below is the shared Plan B runner; only the CONFIG values differ between notebooks.\n\n---"
+ },
+ {
+  "file": "05_B2_s2.ipynb",
+  "tag": "B2",
+  "arm": "B2",
+  "seed": 2,
+  "scope": "all",
+  "validity": false,
+  "title": "graphcomp 05 B2 s2",
+  "job": "# 05 \u2014 B2 baseline, seed 2\n\n**What this run is:** B2 exactly as 01, seed 2.\n\n**Compared with:** 06 (B3 s2); with 01 and 07 for seed variance and pass^3.\n\n**Tasks:** all 129, dev slice first, then the non-slice tasks, then holdout. Re-run with the previous version attached until the summary says ARM COMPLETE.\n\n**Inputs:** competition data, `metric/gemma-4-developer-agent-wheelhouse`, model `google/gemma-4` `gemma-4-31b-it-qat-w4a16-ct` v2, **notebook 01's output** (validity, slices, package list), and for a resumed run **this notebook's own previous version output**. GPU L4 \u00d7 4. Save Version \u2192 Save & Run All.\n\nEverything below is the shared Plan B runner; only the CONFIG values differ between notebooks.\n\n---"
+ },
+ {
+  "file": "06_B3_s2.ipynb",
+  "tag": "B3",
+  "arm": "B3",
+  "seed": 2,
+  "scope": "all",
+  "validity": false,
+  "title": "graphcomp 06 B3 s2",
+  "job": "# 06 \u2014 B3 no graph tools, seed 2\n\n**What this run is:** B3 exactly as 02, seed 2.\n\n**Compared with:** 05 (B2 s2).\n\n**Tasks:** all 129, dev slice first, then the non-slice tasks, then holdout. Re-run with the previous version attached until the summary says ARM COMPLETE.\n\n**Inputs:** competition data, `metric/gemma-4-developer-agent-wheelhouse`, model `google/gemma-4` `gemma-4-31b-it-qat-w4a16-ct` v2, **notebook 01's output** (validity, slices, package list), and for a resumed run **this notebook's own previous version output**. GPU L4 \u00d7 4. Save Version \u2192 Save & Run All.\n\nEverything below is the shared Plan B runner; only the CONFIG values differ between notebooks.\n\n---"
+ },
+ {
+  "file": "07_B2_s3.ipynb",
+  "tag": "B2",
+  "arm": "B2",
+  "seed": 3,
+  "scope": "all",
+  "validity": false,
+  "title": "graphcomp 07 B2 s3",
+  "job": "# 07 \u2014 B2 baseline, seed 3\n\n**What this run is:** B2 exactly as 01, seed 3.\n\n**Compared with:** 08 (B3 s3).\n\n**Tasks:** all 129, dev slice first, then the non-slice tasks, then holdout. Re-run with the previous version attached until the summary says ARM COMPLETE.\n\n**Inputs:** competition data, `metric/gemma-4-developer-agent-wheelhouse`, model `google/gemma-4` `gemma-4-31b-it-qat-w4a16-ct` v2, **notebook 01's output** (validity, slices, package list), and for a resumed run **this notebook's own previous version output**. GPU L4 \u00d7 4. Save Version \u2192 Save & Run All.\n\nEverything below is the shared Plan B runner; only the CONFIG values differ between notebooks.\n\n---"
+ },
+ {
+  "file": "08_B3_s3.ipynb",
+  "tag": "B3",
+  "arm": "B3",
+  "seed": 3,
+  "scope": "all",
+  "validity": false,
+  "title": "graphcomp 08 B3 s3",
+  "job": "# 08 \u2014 B3 no graph tools, seed 3\n\n**What this run is:** B3 exactly as 02, seed 3.\n\n**Compared with:** 07 (B2 s3).\n\n**Tasks:** all 129, dev slice first, then the non-slice tasks, then holdout. Re-run with the previous version attached until the summary says ARM COMPLETE.\n\n**Inputs:** competition data, `metric/gemma-4-developer-agent-wheelhouse`, model `google/gemma-4` `gemma-4-31b-it-qat-w4a16-ct` v2, **notebook 01's output** (validity, slices, package list), and for a resumed run **this notebook's own previous version output**. GPU L4 \u00d7 4. Save Version \u2192 Save & Run All.\n\nEverything below is the shared Plan B runner; only the CONFIG values differ between notebooks.\n\n---"
+ },
+ {
+  "file": "09_thinking0_dev_s1.ipynb",
+  "tag": "T0",
+  "arm": "B2",
+  "seed": 1,
+  "scope": "dev",
+  "validity": false,
+  "think": 0,
+  "title": "graphcomp 09 thinking0 dev s1",
+  "job": "# 09 \u2014 thinking budget 0, dev slice, seed 1\n\n**What this run is:** B2 with `thinking_budget` 0 instead of 4096 (Plan B section 6).\n\n**Compared with:** 01's dev-slice tasks. Expected: necessity match moves, resolution precision does not.\n\n**Tasks:** the 24 dev-slice tasks only (about 1.5 to 2 h).\n\n**Inputs:** competition data, `metric/gemma-4-developer-agent-wheelhouse`, model `google/gemma-4` `gemma-4-31b-it-qat-w4a16-ct` v2, **notebook 01's output** (validity, slices, package list), and for a resumed run **this notebook's own previous version output**. GPU L4 \u00d7 4. Save Version \u2192 Save & Run All.\n\nEverything below is the shared Plan B runner; only the CONFIG values differ between notebooks.\n\n---"
+ },
+ {
+  "file": "10_outreserve8k_dev_s1.ipynb",
+  "tag": "O8K",
+  "arm": "B2",
+  "seed": 1,
+  "scope": "dev",
+  "validity": false,
+  "max_out": 8192,
+  "title": "graphcomp 10 outreserve8k dev s1",
+  "job": "# 10 \u2014 output reserve 8192, dev slice, seed 1\n\n**What this run is:** B2 with `max_output_tokens` 8192 instead of 16384, so the agent gets about 24k of input instead of 16k (Plan B section 6 context ablation; B0 found tasks dying at the 16k input wall).\n\n**Compared with:** 01's dev-slice tasks. Expected: fewer context-exceeded endings; waste should rise before localization falls.\n\n**Tasks:** the 24 dev-slice tasks only (about 1.5 to 2 h).\n\n**Inputs:** competition data, `metric/gemma-4-developer-agent-wheelhouse`, model `google/gemma-4` `gemma-4-31b-it-qat-w4a16-ct` v2, **notebook 01's output** (validity, slices, package list), and for a resumed run **this notebook's own previous version output**. GPU L4 \u00d7 4. Save Version \u2192 Save & Run All.\n\nEverything below is the shared Plan B runner; only the CONFIG values differ between notebooks.\n\n---"
+ }
+]

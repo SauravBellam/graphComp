@@ -1,0 +1,31 @@
+{
+ "n_trajectories": 17,
+ "n_tasks": 17,
+ "by_repo": {
+  "fastapi": 8,
+  "rich": 9
+ },
+ "assistant_turns": 540,
+ "graph_calls": 1,
+ "est_tokens_max_context": {
+  "median": 14548,
+  "max": 16080
+ },
+ "excluded_reasons": {
+  "not resolved": 61,
+  "in an official slice (dev/holdout): never trained on": 48,
+  "not valid here (empty passes)": 2,
+  "not valid here (released copy tested)": 1
+ },
+ "runs": [
+  "planB_results/graphcomp_arm_B2_s1/runs/B2_s1/merged_B2_s1"
+ ],
+ "profile": "planB_results/graphcomp_arm_B2_s1/validity/slices/profile.csv",
+ "rules": {
+  "max_per_task": 2,
+  "require_graph_call": false,
+  "max_est_tokens": 16384,
+  "never": "official dev and holdout slices"
+ },
+ "train_sha256": "d9ad3403c21f0453"
+}

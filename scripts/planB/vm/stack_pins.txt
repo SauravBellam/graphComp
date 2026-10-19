@@ -1,0 +1,62 @@
+# Oct 13: the VM's serving + harness stack without the Kaggle wheelhouse (its download is refused; it was also rebuilt).
+# Harness wheels (swegemma, adk-submission, adk-eval-core, google-adk, google-genai) come from graphComp/harness_wheels/:
+# byte-identical to the build B2_s1 used on Kaggle (sha256 checked by setup_vm.sh). Everything else is pinned to the
+# versions B2_s1 installed (provenance/wheelhouse_installed.txt and pip_freeze.json) and comes from PyPI, so the files are
+# not Kaggle's: the VM is its own condition and pairs only with VM runs (as before).
+# torch is installed first from the cu128 index (setup_vm.sh), as the Kaggle image's torch 2.10.0+cu128.
+# -- the other 36 wheelhouse packages
+anthropic==1.4.0
+apache-tvm-ffi==0.1.13.post3
+astor==0.8.1
+bitsandbytes==0.46.1
+cbor2==6.1.4
+compressed-tensors==0.15.0.1
+depyf==0.20.0
+diskcache==5.6.3
+flashinfer-cubin==0.6.6
+flashinfer-python==0.6.6
+gguf==0.19.0
+ijson==3.5.1
+interegular==0.3.3
+llguidance==1.3.0
+lm-format-enforcer==0.11.3
+loguru==0.7.3
+mistral-common==1.11.7
+model-hosting-container-standards==0.1.16
+msgspec==0.21.1
+nvidia-cudnn-frontend==1.18.0
+openai-harmony==0.0.8
+opentelemetry-exporter-otlp==1.44.0
+opentelemetry-semantic-conventions-ai==0.5.1
+outlines-core==0.2.11
+partial-json-parser==0.2.1.1.post7
+prometheus-fastapi-instrumentator==8.1.0
+pybase64==1.5.0
+pycountry==26.2.16
+pydantic-extra-types==2.11.2
+quack-kernels==0.6.4
+safetensors==0.8.0
+setproctitle==1.3.7
+tokenizers==0.22.2
+transformers==5.13.1
+vllm==0.19.1
+xgrammar==0.2.5.post1
+# -- packages the task sandboxes import, and the harness's model client (Kaggle image versions in B2_s1)
+typing-inspection==0.4.2
+fastapi==0.136.1
+starlette==0.52.1
+requests==2.32.4
+rich==13.9.4
+pygments==2.20.0
+ipython==7.34.0
+pytest==8.4.2
+litellm==1.82.4
+openai==2.32.0
+numpy==2.0.2
+httpx==0.28.1
+anyio==4.13.0
+huggingface-hub==1.11.0
+triton==3.6.0
+# pydantic 2.12.3 / pydantic-core 2.41.4 / typing-extensions 4.15.0 (the Kaggle image) are installed AFTER this file with
+# --no-deps: google-genai 2.11.0 declares pydantic>=2.12.5, but B2_s1 ran with 2.12.3 (Kaggle installs the wheelhouse
+# without resolving), and the fastapi sandboxes import pydantic, so the VM matches Kaggle rather than the declared range.

@@ -1,0 +1,130 @@
+instance_id,repo,cell,multi_file,a2_usable,gold_has_async,gold_has_async_absent,gold_is_entry_point,entry_hops,n_anchors,a2_gold_passes_post,b0_docker_empty_resolved,b0_docker_gold_resolved,b0_docker_valid,sub_import_verdict,sub_pytest_file_is_workspace,sub_empty_resolved,sub_gold_resolved,sub_gold_exit,sub_flaky,sub_valid,sub_reason
+fastapi_11194,fastapi,d_undef|v_low,False,True,True,True,False,none,2,True,False,False,False,workspace tested,True,False;False,True;True,0;0,False,True,ok
+fastapi_11355,fastapi,d_undef|v_low,False,True,False,False,False,2,0,True,False,False,False,workspace tested,True,False;False,True;True,2;2,False,True,ok
+fastapi_12942,fastapi,d2+|v_low,False,True,False,False,False,5,9,True,False,False,False,workspace tested,True,False;False,True;True,2;2,False,True,ok
+fastapi_13207,fastapi,d_undef|v_low,False,False,False,False,False,5,1,False,False,False,False,workspace tested,True,False;False,True;True,2;2,False,True,ok
+fastapi_13537,fastapi,d_undef|v_low,False,True,True,True,False,none,4,True,False,False,False,workspace tested,True,False;False,True;True,0;0,False,True,ok
+fastapi_13713,fastapi,d_undef|v_high,True,False,False,False,True,0,0,False,False,False,False,workspace tested,True,False;False,True;True,2;2,False,True,ok
+fastapi_13786,fastapi,d2+|v_high,True,False,True,True,True,0,15,False,False,False,False,workspace tested,True,False;False,True;True,2;2,False,True,ok
+fastapi_13920,fastapi,d2+|v_low,False,True,False,False,False,2,1,True,False,False,False,workspace tested,True,False;False,True;True,0;0,False,True,ok
+fastapi_14077,fastapi,d_undef|v_low,True,False,True,True,False,none,0,False,False,False,False,workspace tested,True,True;True,True;True,0;0,False,False,empty passes
+fastapi_14099,fastapi,d_undef|v_high,True,True,True,True,False,none,3,True,False,False,False,workspace tested,True,False;False,True;True,2;2,False,True,ok
+fastapi_14186,fastapi,d_undef|v_high,True,False,False,False,False,none,0,False,False,False,False,workspace tested,True,False;False,True;True,2;2,False,True,ok
+fastapi_14246,fastapi,d_undef|v_low,False,True,False,False,False,7,0,True,False,False,False,workspace tested,True,False;False,True;True,2;2,False,True,ok
+fastapi_14258,fastapi,d_undef|v_high,False,True,False,False,True,0,0,True,False,False,False,workspace tested,True,False;False,True;True,0;0,False,True,ok
+fastapi_14262,fastapi,d_undef|v_high,True,False,True,True,False,none,14,True,False,False,False,workspace tested,True,False;False,True;True,2;2,False,True,ok
+fastapi_14266,fastapi,d_undef|v_low,False,True,False,False,False,none,0,True,False,False,False,workspace tested,True,False;False,True;True,2;2,False,True,ok
+fastapi_14297,fastapi,d_undef|v_low,False,True,False,False,True,0,9,True,False,False,False,workspace tested,True,False;False,True;True,2;2,False,True,ok
+fastapi_14301,fastapi,d0|v_high,False,True,False,False,False,2,9,True,False,False,False,workspace tested,True,False;False,True;True,0;0,False,True,ok
+fastapi_14303,fastapi,d_undef|v_low,False,True,True,True,False,none,15,True,False,False,False,workspace tested,True,False;False,True;True,2;2,False,True,ok
+fastapi_14306,fastapi,d2+|v_high,True,True,True,True,True,0,5,True,False,False,False,workspace tested,True,False;False,True;True,0;0,False,True,ok
+fastapi_14349,fastapi,d_undef|v_high,False,True,False,False,False,none,0,True,False,False,False,workspace tested,True,False;False,True;True,2;2,False,True,ok
+fastapi_14356,fastapi,d2+|v_low,False,True,False,False,True,0,11,True,False,False,False,workspace tested,True,False;False,True;True,2;2,False,True,ok
+fastapi_14360,fastapi,d2+|v_low,False,True,False,False,True,0,5,True,False,False,False,workspace tested,True,False;False,True;True,2;2,False,True,ok
+fastapi_14361,fastapi,d_undef|v_high,False,True,False,False,False,none,0,True,False,False,False,workspace tested,True,False;False,True;True,2;2,False,True,ok
+fastapi_14371,fastapi,d_undef|v_low,True,False,True,True,True,0,0,False,False,False,False,workspace tested,True,False;False,True;True,2;2,False,True,ok
+fastapi_14372,fastapi,d_undef|v_low,True,True,False,False,False,none,2,True,False,False,False,workspace tested,True,False;False,True;True,0;0,False,True,ok
+fastapi_14419,fastapi,d_undef|v_high,True,True,True,True,False,2,2,True,False,False,False,workspace tested,True,False;False,True;True,0;0,False,True,ok
+fastapi_14430,fastapi,d_undef|v_low,False,True,False,False,True,0,0,True,False,False,False,workspace tested,True,False;False,True;True,2;2,False,True,ok
+fastapi_14448,fastapi,d2+|v_low,True,False,True,True,True,0,2,False,False,False,False,workspace tested,True,False;False,True;True,0;0,False,True,ok
+fastapi_14455,fastapi,d_undef|v_low,False,True,False,False,False,3,0,True,False,False,False,workspace tested,True,False;False,True;True,2;2,False,True,ok
+fastapi_14458,fastapi,d0|v_high,False,False,False,False,True,0,5,False,False,False,False,workspace tested,True,False;False,True;True,0;0,False,True,ok
+fastapi_14459,fastapi,d_undef|v_low,True,True,False,False,False,3,0,True,False,False,False,workspace tested,True,False;False,True;True,2;2,False,True,ok
+fastapi_14463,fastapi,d1|v_high,False,True,False,False,False,2,17,True,False,False,False,workspace tested,True,False;False,True;True,0;0,False,True,ok
+fastapi_14479,fastapi,d0|v_high,False,False,False,False,False,2,7,False,False,False,False,workspace tested,True,False;False,True;True,0;0,False,True,ok
+fastapi_14482,fastapi,d_undef|v_low,False,True,False,False,False,5,0,True,False,False,False,workspace tested,True,False;False,True;True,2;2,False,True,ok
+fastapi_14485,fastapi,d_undef|v_low,False,True,False,False,False,3,0,True,False,False,False,workspace tested,True,False;False,True;True,2;2,False,True,ok
+fastapi_14487,fastapi,d_undef|v_low,False,False,True,True,False,none,0,False,False,False,False,workspace tested,True,False;False,True;True,0;0,False,True,ok
+fastapi_14492,fastapi,d_undef|v_high,False,False,False,False,False,none,1,False,False,False,False,workspace tested,True,False;False,True;True,0;0,False,True,ok
+fastapi_14512,fastapi,d2+|v_low,False,True,False,False,False,2,2,True,False,False,False,workspace tested,True,False;False,True;True,2;2,False,True,ok
+fastapi_14583,fastapi,d_undef|v_low,True,True,False,False,False,1,0,True,False,False,False,workspace tested,True,False;False,True;True,2;2,False,True,ok
+fastapi_14605,fastapi,d_undef|v_high,True,False,False,False,False,none,0,False,False,False,False,workspace tested,True,False;False,True;True,2;2,False,True,ok
+fastapi_14609,fastapi,d_undef|v_high,True,False,True,True,False,none,0,True,False,False,False,workspace tested,True,False;False,True;True,2;2,False,True,ok
+fastapi_14616,fastapi,d2+|v_high,False,True,False,False,True,0,5,True,False,False,False,workspace tested,True,False;False,True;True,0;0,False,True,ok
+fastapi_14786,fastapi,d0|v_low,False,True,False,False,True,0,13,True,False,False,False,workspace tested,True,False;False,True;True,0;0,False,True,ok
+fastapi_14791,fastapi,d_undef|v_high,False,False,False,False,False,none,4,False,False,False,False,workspace tested,True,False;False,True;True,2;2,False,True,ok
+fastapi_14794,fastapi,d0|v_high,False,True,False,False,False,2,4,True,False,False,False,workspace tested,True,False;False,True;True,0;0,False,True,ok
+fastapi_14851,fastapi,d2+|v_high,False,False,True,True,False,none,2,True,False,False,False,workspace tested,True,True;True,True;True,0;0,False,False,empty passes
+fastapi_14873,fastapi,d0|v_high,False,True,False,False,False,2,7,True,False,False,False,workspace tested,True,False;False,True;True,0;0,False,True,ok
+fastapi_14953,fastapi,d_undef|v_low,True,True,False,False,False,none,5,True,False,False,False,workspace tested,True,False;False,True;True,2;2,False,True,ok
+fastapi_14962,fastapi,d_undef|v_high,True,True,True,True,False,none,1,True,False,False,False,workspace tested,True,False;False,True;True,2;2,False,True,ok
+fastapi_14964,fastapi,d0|v_high,False,True,False,False,False,none,3,True,False,False,False,workspace tested,True,False;False,True;True,2;2,False,True,ok
+fastapi_14978,fastapi,d_undef|v_low,True,False,True,True,False,none,0,True,False,False,False,workspace tested,True,False;False,True;True,2;2,False,True,ok
+fastapi_14986,fastapi,d_undef|v_high,True,True,True,False,True,0,1,True,False,False,False,workspace tested,True,False;False,True;True,0;0,False,True,ok
+fastapi_15023,fastapi,d_undef|v_low,False,False,True,True,False,none,1,False,False,False,False,workspace tested,True,False;False,True;True,2;2,False,True,ok
+fastapi_15030,fastapi,d_undef|v_high,True,False,True,True,False,none,0,True,False,False,False,workspace tested,True,False;False,True;True,2;2,False,True,ok
+fastapi_15280,fastapi,d_undef|v_low,True,True,False,False,True,0,0,True,False,False,False,workspace tested,True,False;False,True;True,0;0,False,True,ok
+fastapi_15588,fastapi,d_undef|v_high,False,True,False,False,True,0,3,True,False,False,False,workspace tested,True,False;False,True;True,0;0,False,True,ok
+fastapi_15589,fastapi,d_undef|v_low,False,True,False,False,True,0,1,True,False,False,False,workspace tested,True,False;False,True;True,0;0,False,True,ok
+fastapi_15661,fastapi,d_undef|v_undef,False,False,False,False,False,none,1,True,False,True,True,workspace tested,True,False;False,True;True,0;0,False,True,ok
+fastapi_15745,fastapi,d_undef|v_high,True,False,True,True,False,none,8,False,False,False,False,workspace tested,True,False;False,True;True,2;2,False,True,ok
+fastapi_15763,fastapi,d_undef|v_high,False,True,False,False,False,1,1,False,False,False,False,workspace tested,True,False;False,False;False,1;1,False,False,gold fails
+fastapi_15785,fastapi,d_undef|v_high,True,False,False,False,False,none,2,False,False,False,False,workspace tested,True,False;False,False;False,1;1,False,False,gold fails
+fastapi_15800,fastapi,d2+|v_high,True,True,True,True,True,0,2,True,False,False,False,workspace tested,True,False;False,True;True,0;0,False,True,ok
+fastapi_5077,fastapi,d1|v_high,False,True,False,False,False,3,11,True,False,False,False,workspace tested,True,False;False,True;True,0;0,False,True,ok
+fastapi_5624,fastapi,d_undef|v_low,False,True,False,False,False,none,0,True,False,False,False,workspace tested,True,False;False,True;True,0;0,False,True,ok
+fastapi_9425,fastapi,d_undef|v_low,False,True,False,False,False,3,1,True,False,False,False,workspace tested,True,False;False,True;True,0;0,False,True,ok
+fastapi_9555,fastapi,d2+|v_low,False,True,False,False,True,0,14,True,False,False,False,workspace tested,True,False;False,True;True,0;0,False,True,ok
+fastapi_9753,fastapi,d_undef|v_low,False,True,False,False,False,none,2,True,False,False,False,workspace tested,True,False;False,True;True,0;0,False,True,ok
+httpx_3672,httpx,d_undef|v_high,True,False,True,True,True,0,1,False,False,False,False,released copy tested (workspace shadowed),False,False;False,False;False,2;2,False,False,released copy tested
+requests_6589,requests,d0|v_high,False,False,False,False,,none,1,,False,False,False,released copy tested (workspace shadowed),False,False;False,False;False,1;1,False,False,released copy tested
+requests_6592,requests,d_undef|v_high,False,False,False,False,,none,0,,False,False,False,released copy tested (workspace shadowed),False,False;False,False;False,1;1,False,False,released copy tested
+requests_6629,requests,d0|v_low,False,False,False,False,,none,1,,False,False,False,released copy tested (workspace shadowed),False,False;False,False;False,1;1,False,False,released copy tested
+requests_6644,requests,d_undef|v_high,False,False,False,False,,none,0,,False,False,False,released copy tested (workspace shadowed),False,True;True,True;True,0;0,False,False,released copy tested
+requests_6757,requests,d_undef|v_high,True,False,False,False,False,none,0,False,False,False,False,released copy tested (workspace shadowed),False,False;False,False;False,1;1,False,False,released copy tested
+requests_7205,requests,d2+|v_high,False,True,False,False,True,0,2,True,False,False,False,released copy tested (workspace shadowed),False,False;False,False;False,1;1,False,False,released copy tested
+requests_7309,requests,d0|v_high,False,False,False,False,True,0,1,False,True,True,False,released copy tested (workspace shadowed),False,False;False,False;False,1;1,False,False,released copy tested
+requests_7315,requests,d0|v_high,False,True,False,False,True,0,4,True,True,True,False,released copy tested (workspace shadowed),False,False;False,False;False,1;1,False,False,released copy tested
+requests_7328,requests,d2+|v_high,False,True,False,False,False,4,2,True,False,False,False,released copy tested (workspace shadowed),False,False;False,False;False,1;1,False,False,released copy tested
+requests_7427,requests,d2+|v_high,False,True,False,False,True,0,1,True,True,True,False,released copy tested (workspace shadowed),False,False;False,False;False,1;1,False,False,released copy tested
+requests_7433,requests,d0|v_high,False,True,False,False,False,3,5,True,False,False,False,released copy tested (workspace shadowed),False,False;False,False;False,1;1,False,False,released copy tested
+requests_7502,requests,d0|v_high,False,True,False,False,False,6,2,True,False,False,False,released copy tested (workspace shadowed),False,False;False,False;False,1;1,False,False,released copy tested
+requests_7505,requests,d_undef|v_high,True,True,False,False,False,3,4,True,False,False,False,released copy tested (workspace shadowed),False,False;False,False;False,1;1,False,False,released copy tested
+rich_2725,rich,d1|v_high,False,True,False,False,False,none,1,True,False,True,True,workspace tested,True,False;False,True;True,0;0,False,True,ok
+rich_2943,rich,d_undef|v_high,False,True,False,False,False,none,0,True,False,True,True,workspace tested,True,False;False,True;True,0;0,False,True,ok
+rich_3006,rich,d_undef|v_low,False,False,False,False,False,none,2,True,False,True,True,workspace tested,True,False;False,True;True,0;0,False,True,ok
+rich_3043,rich,d_undef|v_low,False,False,False,False,False,none,0,False,False,True,True,workspace tested,True,False;False,True;True,0;0,False,True,ok
+rich_3052,rich,d2+|v_high,False,True,False,False,True,0,2,True,False,True,True,workspace tested,True,False;False,True;True,0;0,False,True,ok
+rich_3061,rich,d2+|v_high,False,True,False,False,True,0,1,True,False,True,True,workspace tested,True,False;False,True;True,0;0,False,True,ok
+rich_3063,rich,d_undef|v_low,False,True,False,False,True,0,0,True,False,True,True,workspace tested,True,False;False,True;True,0;0,False,True,ok
+rich_3064,rich,d_undef|v_low,False,True,False,False,False,3,0,False,False,False,False,workspace tested,True,False;False,False;False,1;1,False,False,gold fails
+rich_3067,rich,d_undef|v_low,False,False,False,False,False,none,1,False,False,True,True,workspace tested,True,False;False,True;True,0;0,False,True,ok
+rich_3105,rich,d_undef|v_low,False,False,False,False,False,none,0,False,False,True,True,workspace tested,True,False;False,True;True,0;0,False,True,ok
+rich_3130,rich,d2+|v_high,False,True,False,False,False,3,3,False,False,False,False,workspace tested,True,False;False,False;False,1;1,False,False,gold fails
+rich_3180,rich,d_undef|v_low,True,True,False,False,True,0,0,True,False,True,True,workspace tested,True,False;False,True;True,0;0,False,True,ok
+rich_3278,rich,d_undef|v_high,False,True,False,False,False,none,0,True,False,True,True,workspace tested,True,False;False,True;True,0;0,False,True,ok
+rich_3296,rich,d2+|v_high,False,True,False,False,False,1,1,False,False,False,False,workspace tested,True,False;False,False;False,1;1,False,False,gold fails
+rich_3454,rich,d0|v_high,False,False,False,False,False,none,3,False,False,True,True,workspace tested,True,False;False,True;True,0;0,False,True,ok
+rich_3468,rich,d_undef|v_low,False,True,False,False,False,none,0,True,True,True,False,workspace tested,True,False;False,True;True,0;0,False,True,ok
+rich_3469,rich,d_undef|v_low,False,True,False,False,False,1,0,False,False,False,False,workspace tested,True,False;False,False;False,1;1,False,False,gold fails
+rich_3470,rich,d_undef|v_high,False,True,False,False,False,1,0,True,False,True,True,workspace tested,True,False;False,True;True,0;0,False,True,ok
+rich_3471,rich,d0|v_low,False,True,False,False,True,0,1,True,False,True,True,workspace tested,True,False;False,True;True,0;0,False,True,ok
+rich_3472,rich,d_undef|v_low,False,True,False,False,False,4,0,False,False,False,False,workspace tested,True,False;False,True;True,0;0,False,True,ok
+rich_3480,rich,d_undef|v_low,False,True,False,False,True,0,0,True,False,True,True,workspace tested,True,False;False,True;True,0;0,False,True,ok
+rich_3486,rich,d_undef|v_high,True,True,False,False,False,none,1,True,False,False,False,workspace tested,True,False;False,False;False,0;0,False,False,gold fails
+rich_3506,rich,d0|v_high,False,True,False,False,False,2,1,True,False,True,True,workspace tested,True,False;False,True;True,0;0,False,True,ok
+rich_3518,rich,d0|v_low,False,True,False,False,True,0,2,True,False,True,True,workspace tested,True,False;False,True;True,0;0,False,True,ok
+rich_3521,rich,d2+|v_high,False,True,False,False,False,2,1,True,False,True,True,workspace tested,True,False;False,True;True,0;0,False,True,ok
+rich_3535,rich,d_undef|v_high,True,True,False,False,False,none,0,True,False,True,True,workspace tested,True,False;False,True;True,0;0,False,True,ok
+rich_3675,rich,d_undef|v_low,True,True,False,False,False,1,0,True,False,True,True,workspace tested,True,False;False,True;True,0;0,False,True,ok
+rich_3676,rich,d_undef|v_high,True,True,False,False,False,none,0,True,False,True,True,workspace tested,True,False;False,True;True,0;0,False,True,ok
+rich_3718,rich,d1|v_low,False,True,False,False,False,none,2,True,False,True,True,workspace tested,True,False;False,True;True,0;0,False,True,ok
+rich_3772,rich,d_undef|v_low,False,True,False,False,False,none,0,True,False,True,True,workspace tested,True,False;False,True;True,0;0,False,True,ok
+rich_3777,rich,d2+|v_high,True,True,False,False,False,1,1,True,False,True,True,workspace tested,True,False;False,True;True,0;0,False,True,ok
+rich_3782,rich,d_undef|v_high,False,True,False,False,True,0,0,False,False,False,False,workspace tested,True,False;False,True;False,0;1,True,False,flaky
+rich_3882,rich,d0|v_high,False,True,False,False,False,2,2,True,False,True,True,workspace tested,True,False;False,True;True,0;0,False,True,ok
+rich_3894,rich,d2+|v_high,False,True,False,False,False,2,6,True,False,True,True,workspace tested,True,False;False,True;True,0;0,False,True,ok
+rich_3905,rich,d1|v_high,False,True,False,False,False,1,6,True,False,True,True,workspace tested,True,False;False,True;True,0;0,False,True,ok
+rich_3930,rich,d_undef|v_high,True,False,False,False,False,none,0,True,False,True,True,workspace tested,True,False;False,True;True,0;0,False,True,ok
+rich_3934,rich,d_undef|v_low,True,True,False,False,False,1,0,True,False,True,True,workspace tested,True,False;False,True;True,0;0,False,True,ok
+rich_3935,rich,d_undef|v_low,False,True,False,False,False,2,0,True,False,True,True,workspace tested,True,False;False,True;True,0;0,False,True,ok
+rich_3938,rich,d_undef|v_high,True,True,False,False,True,0,0,True,False,True,True,workspace tested,True,False;False,True;True,0;0,False,True,ok
+rich_3942,rich,d_undef|v_high,True,False,False,False,False,3,0,False,False,True,True,workspace tested,True,False;False,True;True,0;0,False,True,ok
+rich_3944,rich,d_undef|v_low,False,True,False,False,True,0,0,True,False,True,True,workspace tested,True,False;False,True;True,0;0,False,True,ok
+rich_3953,rich,d_undef|v_low,False,True,False,False,True,0,0,True,False,True,True,workspace tested,True,False;False,True;True,0;0,False,True,ok
+rich_4006,rich,d0|v_high,False,True,False,False,True,0,1,True,False,True,True,workspace tested,True,False;False,True;True,0;0,False,True,ok
+rich_4070,rich,d2+|v_high,True,False,False,False,True,0,31,False,False,False,False,workspace tested,True,False;False,False;False,1;1,False,False,gold fails
+rich_4075,rich,d_undef|v_high,False,True,False,False,True,0,0,True,False,True,True,workspace tested,True,False;False,True;True,0;0,False,True,ok
+rich_4076,rich,d_undef|v_low,False,True,False,False,True,0,0,True,False,True,True,workspace tested,True,False;False,True;True,0;0,False,True,ok
+rich_4077,rich,d_undef|v_high,False,True,False,False,True,0,0,True,False,True,True,workspace tested,True,False;False,True;True,0;0,False,True,ok
+rich_4079,rich,d_undef|v_high,False,False,False,False,False,none,0,False,False,False,False,workspace tested,True,False;False,True;True,0;0,False,True,ok

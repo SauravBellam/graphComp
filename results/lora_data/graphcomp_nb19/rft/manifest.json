@@ -1,0 +1,40 @@
+{
+ "n_trajectories": 45,
+ "n_tasks": 21,
+ "by_repo": {
+  "fastapi": 25,
+  "rich": 20
+ },
+ "assistant_turns": 1078,
+ "graph_calls": 1,
+ "est_tokens_max_context": {
+  "median": 14613,
+  "max": 16191
+ },
+ "excluded_reasons": {
+  "not resolved": 143,
+  "in an official slice (dev/holdout): never trained on": 48,
+  "does not end with a final assistant message": 7,
+  "not valid here (empty passes)": 2,
+  "not valid here (released copy tested)": 1,
+  "longest context 16400 > 16384": 1,
+  "longest context 17485 > 16384": 1,
+  "longest context 17432 > 16384": 1,
+  "longest context 16630 > 16384": 1,
+  "over --max-per-task 3": 1
+ },
+ "runs": [
+  "/kaggle/input/notebooks/sauravbellam/graphcomp-01-validity-b2-s1/graphcomp_arm/runs/B2_s1/merged_B2_s1",
+  "/kaggle/working/graphcomp_arm/runs/NB19/merged_s11",
+  "/kaggle/working/graphcomp_arm/runs/NB19/merged_s12",
+  "/kaggle/working/graphcomp_arm/runs/NB19/merged_s13"
+ ],
+ "profile": "/kaggle/input/notebooks/sauravbellam/graphcomp-01-validity-b2-s1/graphcomp_arm/validity/slices/profile.csv",
+ "rules": {
+  "max_per_task": 3,
+  "require_graph_call": false,
+  "max_est_tokens": 16384,
+  "never": "official dev and holdout slices"
+ },
+ "train_sha256": "11d5060d6cfea492"
+}

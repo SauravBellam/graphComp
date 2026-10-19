@@ -1,0 +1,27 @@
+{
+ "attempts": 280,
+ "by_source": {
+  "nb01_B2_s1": 129,
+  "nb19_s11": 53,
+  "nb19_s12": 53,
+  "nb19_s13": 16,
+  "nb19_holdout_BASE31": 29
+ },
+ "resolved_valid_pool": 56,
+ "tasks_ever_solved_pool": 23,
+ "train_views": {
+  "verified_all": 45,
+  "verified_accurate": 42,
+  "nb19_train": 44
+ },
+ "holdout_BASE31": 14,
+ "never_trained": {
+  "dev": 24,
+  "holdout": 24,
+  "extra_holdout": [
+   "fastapi_15661",
+   "rich_3471",
+   "rich_3718"
+  ]
+ }
+}
