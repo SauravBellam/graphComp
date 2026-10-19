@@ -85,7 +85,7 @@ def main():
     data = w / "train.jsonl"
     data.write_text("".join(json.dumps(r) + "\n" for r in rows))
     tail_ids = {r["source_traj_id"] for r in rows[-3:]}
-    common = ["--data", str(data), "--base", str(tiny), "--device-map", "auto", "--max-len", "32768", "--max-target", "8000",
+    common = ["--data", str(data), "--base", str(tiny), "--device-map", "custom", "--max-len", "32768", "--max-target", "8000",
               "--val-frac", "0.02", "--no-eval-start", "--served-model", "google/gemma-4-31b-it-qat-w4a16-ct", "--epochs", "1",
               "--keep-order", "--tail-n", "3", "--lr-floor", "0.3", "--grad-accum", "1"]
     fails = []

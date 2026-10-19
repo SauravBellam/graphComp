@@ -245,6 +245,44 @@ def window_samples(tok, traj, tools, stats, max_target, max_len):
     return out
 
 
+def custom_device_map(base, ngpu, last_layers):
+    """Gemma 4 (31B) over ngpu GPUs, unbalanced on purpose: the last GPU holds the tied embeddings / output layer, the final
+    norm, the logits of every window and the loss, so it gets only `last_layers` decoder layers; the others are spread evenly
+    over the first ngpu-1 GPUs (session 2, Oct 19: with an even split the last GPU ran out of memory first, the others had
+    ~16 GB free). Every module the model has is placed; check_device_map raises if one is missing."""
+    from accelerate import init_empty_weights
+    from accelerate.utils import check_device_map
+    from transformers import AutoConfig, AutoModelForCausalLM
+    cfg = AutoConfig.from_pretrained(base)
+    n = cfg.get_text_config().num_hidden_layers
+    with init_empty_weights():
+        meta = AutoModelForCausalLM.from_config(cfg)
+    lm = next(name for name, _ in meta.named_modules() if name.endswith("language_model") and hasattr(_, "layers"))
+    last = ngpu - 1
+    dm = {}
+    if ngpu == 1:
+        dm = {"": 0}
+    else:
+        last_layers = max(1, min(last_layers, n - (ngpu - 1)))
+        first = n - last_layers                       # layers 0 .. first-1 over GPUs 0 .. ngpu-2
+        for i in range(n):
+            dm[f"{lm}.layers.{i}"] = last if i >= first else min(ngpu - 2, i * (ngpu - 1) // first)
+        dm[f"{lm}.embed_tokens"] = last              # tied with lm_head: one device for both
+        dm[f"{lm}.norm"] = last
+        for name, mod in meta.named_children():       # lm_head and anything else at the top level
+            if name != "model":
+                dm[name] = last
+        for name, mod in meta.model.named_children():  # vision tower etc.: not used by text training -> GPU 0
+            if f"model.{name}" != lm:
+                dm[f"model.{name}"] = 0
+        for name, mod in getattr(meta.model, lm.split(".")[-1]).named_children():
+            key = f"{lm}.{name}"
+            if not any(k == key or k.startswith(key + ".") for k in dm):
+                dm[key] = 0                           # e.g. rotary embeddings
+    check_device_map(meta, dm)
+    return dm
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--data", required=True)
@@ -264,9 +302,13 @@ def main():
     ap.add_argument("--val-frac", type=float, default=0.15)
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--quant", choices=["4bit", "none"], default="4bit")
-    ap.add_argument("--device-map", choices=["single", "auto"], default="single",
+    ap.add_argument("--device-map", choices=["single", "auto", "custom"], default="single",
                     help="auto: one process, layers spread over every visible GPU (31B); single: one GPU per process")
     ap.add_argument("--max-memory-gib", type=float, default=19.5, help="per GPU, --device-map auto")
+    ap.add_argument("--last-gpu-layers", type=int, default=9, help="--device-map custom: decoder layers on the last GPU, which "
+                    "also holds the embeddings / tied output layer and the logits (the rest are spread evenly)")
+    ap.add_argument("--leak-gib", type=float, default=1.5, help="after an OOM recovery, more than this above the pre-loop "
+                    "allocation on any GPU = memory not given back: save and exit 75 (the notebook restarts at a smaller window)")
     ap.add_argument("--time-budget-h", type=float, default=0, help="0 = no limit")
     ap.add_argument("--no-eval-start", action="store_true", help="skip the val loss before training (saves one val pass)")
     ap.add_argument("--no-error-mask", action="store_true")
@@ -367,6 +409,11 @@ def main():
         # there, leaving no room for its activations. Balanced spreads the layers evenly; max_memory stays a hard cap.
         kw = dict(dtype=torch.bfloat16, device_map="balanced", attn_implementation="sdpa",
                   max_memory={i: f"{a.max_memory_gib}GiB" for i in range(ngpu)})
+        dev = "cuda:0"
+    elif a.device_map == "custom":
+        if WORLD > 1:
+            sys.exit("--device-map custom is one process; do not use torchrun")
+        kw = dict(dtype=torch.bfloat16, device_map=custom_device_map(a.base, ngpu, a.last_gpu_layers), attn_implementation="sdpa")
         dev = "cuda:0"
     else:
         kw = dict(dtype=torch.bfloat16, device_map={"": gpu}, attn_implementation="sdpa")
@@ -520,6 +567,7 @@ def main():
         tmp.rename(dst)
 
     run, i = 0.0, 0
+    base_alloc = [torch.cuda.memory_allocated(g) for g in range(ngpu)]   # for the leak check after an OOM
     grp = []                                # positions in `order` accumulated into the current optimizer step
     while i < len(order):
         if tail_keys and a.stop_at and i < tail_start and i % accum == 0 and i >= accum:
@@ -554,6 +602,15 @@ def main():
                 oom["events"] += 1
                 oom["len_cap"] = min(oom["len_cap"], len(train[j][0]))
                 oom["skipped_pos"].update(grp + [i - 1]); grp.clear(); oom["group_failed"] = True
+                over = [round((torch.cuda.memory_allocated(g) - base_alloc[g]) / 2**30, 2) for g in range(ngpu)]
+                if max(over) > a.leak_gib:
+                    # the failed backward kept memory alive (session 2, Oct 19: every later sample then ran out of memory,
+                    # down to 4.9k tokens): save what is trained and let the notebook restart at a smaller window
+                    if RANK == 0:
+                        print(f"out of memory: {over} GiB above the pre-loop allocation was not given back; saving and "
+                              f"exiting 75 (restart at a smaller window)", flush=True)
+                    save()
+                    sys.exit(75)
                 if RANK == 0:
                     print(f"out of memory on a {len(train[j][0])}-token sample ({msg}); skipping samples of >= {oom['len_cap']} "
                           f"tokens from now on (event {oom['events']})", flush=True)

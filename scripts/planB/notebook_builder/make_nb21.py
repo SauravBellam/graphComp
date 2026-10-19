@@ -91,8 +91,9 @@ c = sub1(c, "DATAGEN_END_H = 4.6           # no new teacher chunk after this\n",
 c = sub1(c, "SESSION_BUDGET_H = 11.3", "SESSION_BUDGET_H = 1.6 " if SMOKE else "SESSION_BUDGET_H = 11.75")   # user, Oct 18: 11 h 45 min
 c = sub1(c, "TRAIN31_MAX_H, TRAIN_STUDENT_MAX_H, EVAL_ARM_H = 2.6, 0.8, 0.9",
          f"TRAIN31_MAX_H, TRAIN_STUDENT_MAX_H, EVAL_ARM_H = {0.6 if SMOKE else 10.0}, 0, {0.1 if SMOKE else 0.5}   # EVAL_ARM_H = the adapter check (31B load + 1 request)\n"
-         "TRAIN_MAX_LENS = [32768, 24576, 18432]   # training window (tokens); the next one only after an out-of-memory failure\n"
-         "MAX_TARGET_FOR = {32768: 2048, 24576: 1536, 18432: 1024}   # target tokens per window (session 1: 8000 -> the 262k-vocab logits ran GPU 3 out of memory)\n"
+         "TRAIN_MAX_LENS = [24576, 20480, 16384]   # training window (tokens); the next one after an OOM restart (session 2: 25.9k did not fit)\n"
+         "MAX_TARGET_FOR = {24576: 2048, 20480: 1536, 16384: 1024}   # target tokens per window (session 1: 8000 -> the 262k-vocab logits ran GPU 3 out of memory)\n"
+         "LAST_GPU_LAYERS = 6           # decoder layers on GPU 3, which also holds the tied embeddings/output layer + logits (18 on each other GPU)\n"
          f"MAX_TRAIN_TRAJ = {1 if SMOKE else 100000}         # cap per session (the token budget below is the real limit)\n"
          f"POST_TRAIN_H = {0.3 if SMOKE else 0.85}             # after training: adapter check (31B load + 1 request), submission, zip, margin\n"
          "LOAD_H = 0.6                  # 31B load inside the trainer before the first step (notebook 20: ~35 min)\n"
@@ -200,8 +201,10 @@ _firstset = {id(r) for r in _first}
 _queue = _mix_lengths(_first) + _mix_lengths([r for r in _rows if id(r) not in _firstset])
 # size this session's slice: tokens the trainer can process before the deadline, times DATA_OVERSHOOT
 TRAIN_DEADLINE = _T0 + (SESSION_BUDGET_H - POST_TRAIN_H) * 3600
-_tps = STATE.get("tok_per_s") or TOK_PER_S_GUESS
-_over = DATA_OVERSHOOT if STATE.get("tok_per_s") else FIRST_OVERSHOOT
+# a speed only counts if that session took optimizer steps (session 2 measured 36 tok/s over 0 steps of OOM recoveries)
+_meas = [x.get("tok_per_s") for x in STATE.get("session_log", []) if x.get("tok_per_s") and (x.get("steps") or 0) > 0]
+_tps = _meas[-1] if _meas else TOK_PER_S_GUESS
+_over = DATA_OVERSHOOT if _meas else FIRST_OVERSHOOT
 _train_s = max(0.0, TRAIN_DEADLINE - time.time() - LOAD_H * 3600)
 _comp_tok = sum(r.get("est_tokens", 0) for r in _comp)
 _budget_tok = max(0.0, _tps * _train_s * _over - _comp_tok)
@@ -276,7 +279,7 @@ for L in ([18432] if SMOKE else _lens):
         _log = OUT / f"provenance/train_lora31_s{STATE.get('sessions')}_len{L}{'_resume' if init else ''}.log"
         b = max(0.25, (TRAIN_DEADLINE - time.time()) / 3600 - LOAD_H)
         rc = sh(f"cd {GC}/lora && timeout -k 60 {int(TRAIN_DEADLINE - time.time() + 900)} {sys.executable} train_lora.py "
-                f"--data {TRAIN_DATA} --base {BASE31_TRAIN} --out {OUT31} --device-map auto --max-len {L} --max-target {MAX_TARGET_FOR.get(L, 1024)} "
+                f"--data {TRAIN_DATA} --base {BASE31_TRAIN} --out {OUT31} --device-map custom --last-gpu-layers {LAST_GPU_LAYERS} --max-len {L} --max-target {MAX_TARGET_FOR.get(L, 1024)} "
                 f"--val-frac {VAL_FRAC} --no-eval-start --served-model google/{MODEL_SLUG} {DEPLOY_ARGS} --time-budget-h {b:.2f} "
                 f"--epochs 1 --keep-order --stop-at {TRAIN_DEADLINE:.0f} --save-every-min 30 --seed {STATE.get('sessions', 1)}"
                 + (f" --tail-n {TAIL_N} --lr-floor 0.3" if TAIL_N else "")
@@ -284,6 +287,13 @@ for L in ([18432] if SMOKE else _lens):
         kill_gpu_procs()
         OK31 = _report(f"lora31 (window {L}{', resumed' if init else ''})", OUT31, rc, t0)
         _tail = _log.read_text(errors="replace")[-30000:] if _log.exists() else ""
+        if rc == 75 and OK31:           # OOM memory not given back: the trainer saved its progress; continue from it smaller
+            _part = OUT / f"lora31_partial_len{L}"
+            shutil.rmtree(_part, ignore_errors=True); shutil.move(str(OUT31), str(_part))
+            INIT, OK31 = _part / "adapter", False
+            save_state(oom_windows=sorted(set(STATE.get("oom_windows", [])) | {L}))
+            plog(f"lora31: out-of-memory memory not released at window {L}: continuing from its saved adapter at the next window")
+            break
         if OK31 or not init or re.search(r"out of memory|OutOfMemoryError", _tail, re.I):
             break
         plog("!!! lora31: resuming from the previous adapter failed; training a fresh LoRA instead (see " + str(_log) + ")")
@@ -293,6 +303,8 @@ for L in ([18432] if SMOKE else _lens):
     plog(f"lora31: out of memory with a {L}-token window; trying the next one")
 if OK31:
     _ids = json.loads((ADAPTER31 / "trained_ids.json").read_text()) if (ADAPTER31 / "trained_ids.json").exists() else []
+    for _pp in sorted(OUT.glob("lora31_partial_len*/adapter/trained_ids.json")):   # attempts that exited 75 this session
+        _ids = sorted(set(_ids) | set(json.loads(_pp.read_text())))
     _meta = json.loads((OUT31 / "train_meta.json").read_text()) if (OUT31 / "train_meta.json").exists() else {}
     _byid = {}
     for l_ in open(TRAIN_DATA):
