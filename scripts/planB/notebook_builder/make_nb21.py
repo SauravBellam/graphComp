@@ -53,7 +53,8 @@ submittable `submission.zip`):
    checkpoints the adapter every 30 min (atomically), so even a killed run leaves an adapter. The training window starts at
    32,768 tokens and steps down on out-of-memory; a resume that fails to load falls back to a fresh LoRA once.
 3. **Adapter check**: vLLM serves the adapter as the scorer does; a no-op adapter is reported (the output stays submittable).
-4. **Submission** = the LoRA with the deployment budget (≈ 5 min / 30 tool calls per task: 120 tasks fit in 12 h), plus the
+4. **Submission** = the LoRA with the deployment budget (8 min / 30 tool calls per task, user Oct 19; if all ~120 hidden tasks hit
+   the cap that is ~17.6 h, so it relies on most tasks finishing early: past 31B runs averaged ~6.3 min at concurrency 4), plus the
    state for the next session (trained trajectory ids, problems, measured tokens/s).
 
 **Inputs:** as notebook 19 (competition data, wheelhouse, `gemma-4-31b-it-qat-w4a16-ct` + `gemma-4-31b-it-qat-q4_0-unquantized`,
@@ -75,6 +76,14 @@ DATA_NOTES = """
 
 # ------------------------------------------------------------------ config (cell 3)
 c = src(3).replace("NB19", "NB21")
+# final-submission time cap (user, Oct 19): 8 minutes per task. The worst case (every task at the cap) no longer fits 12 h, so
+# the old hard assertion becomes an estimate that is printed and written to the summary.
+c = sub1(c, "DEPLOY_TIME_MIN = int(((720 - SERVE_START_MIN - MARGIN_MIN) / N_TASKS_ASSUMED - SETUP_MIN) * 2) / 2   # 5.0",
+         "DEPLOY_TIME_MIN = 8.0          # user, Oct 19 (the cap-for-every-task formula gives 5.0)")
+c = sub1(c, "assert N_TASKS_ASSUMED * (DEPLOY_BUDGET['max_time_minutes'] + SETUP_MIN) + SERVE_START_MIN + MARGIN_MIN <= 720",
+         "_worst_h = (N_TASKS_ASSUMED * (DEPLOY_BUDGET['max_time_minutes'] + SETUP_MIN) + SERVE_START_MIN) / 60\n"
+         "print(f\"deployment budget {DEPLOY_BUDGET}: if all {N_TASKS_ASSUMED} tasks hit the cap the run takes {_worst_h:.1f} h of 12 \"\n"
+         "      f\"({'FITS' if _worst_h * 60 + MARGIN_MIN <= 720 else 'DOES NOT FIT: relies on most tasks finishing before the cap'})\")")
 c = sub1(c, "SEEDS = [11, 12, 13]          # teacher replicates; with notebook 01's seed 1 that is 4 attempts per task\nSEED = SEEDS[0]",
          "SEEDS = []                    # no teacher runs in this notebook\nSEED = 1")
 c = sub1(c, "DATAGEN_END_H = 4.6           # no new teacher chunk after this\n", "")
@@ -342,7 +351,8 @@ lines = [f"# Notebook 21 summary ({now()})", "",
          f"{len(STATE.get('trained_tasks', []))} problems; attach this output to the next version to continue",
          "", ("**SUBMISSION: LORA31**" if OK31 else "**SUBMISSION: BASE 31B (no adapter was trained; see the logs)**")
          + " (no holdout comparison: every task is training data)",
-         f"- deployment budget {DEPLOY_BUDGET}; worst case if all {N_TASKS_ASSUMED} tasks hit the cap: {worst_h:.1f} h of 12",
+         f"- deployment budget {DEPLOY_BUDGET}; worst case if all {N_TASKS_ASSUMED} tasks hit the cap: {worst_h:.1f} h of 12"
+         + ("" if worst_h * 60 + MARGIN_MIN <= 720 else " (does not fit: relies on most tasks finishing before the 8-minute cap)"),
          f"- {FINAL} ({_size / 1e6:.1f} MB) and {_zip}"]
 (OUT / "SUMMARY.md").write_text("\n".join(lines) + "\n")
 save_state(submission="LORA31")
