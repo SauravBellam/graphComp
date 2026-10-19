@@ -277,6 +277,7 @@ def main():
     ap.add_argument("--keep-order", action="store_true", help="train in the data file's order (its priority), shuffled only "
                     "within blocks of --order-block windows, so a run cut short has trained the file's head")
     ap.add_argument("--order-block", type=int, default=32)
+    ap.add_argument("--max-oom-events", type=int, default=50, help="in-process out-of-memory recoveries before giving up")
     ap.add_argument("--tail-n", type=int, default=0, help="the file's last N trajectories are always trained, LAST: before the "
                     "deadline the run jumps to them in time (user: the model should see our competition data last)")
     ap.add_argument("--lr-floor", type=float, default=0.0, help="the LR decays to this fraction of the peak, not to 0 (so the "
@@ -413,7 +414,11 @@ def main():
     sched = torch.optim.lr_scheduler.LambdaLR(
         opt, lambda s: min(1.0, (s + 1) / max(1, plan["total"] // 10)) * max(a.lr_floor, 1 - s / max(1, plan["total"])))
 
+    FAKE_OOM_ABOVE = int(os.environ.get("TRAIN_LORA_FAKE_OOM_ABOVE", "0"))   # test only: simulate OOM on longer samples
+
     def loss_of(ids, pos):
+        if FAKE_OOM_ABOVE and len(ids) > FAKE_OOM_ABOVE:
+            raise torch.OutOfMemoryError(f"simulated out of memory ({len(ids)} tokens > {FAKE_OOM_ABOVE})")
         # logits only at the positions that predict a target token (logits_to_keep as an index tensor); CE in float32 chunks
         x = torch.tensor([ids], device=dev)
         # a plain list, not a tensor: accelerate's device_map hook moves tensor arguments to the FIRST GPU, while the output
@@ -427,12 +432,22 @@ def main():
             tot = tot + F.cross_entropy(logits[c:c + 1024].float(), y[c:c + 1024], reduction="sum")
         return tot / len(pos)
 
+    oom = {"len_cap": float("inf"), "events": 0, "skipped_pos": set(), "val_skipped": 0}   # in-process OOM recovery state
+
     def evaluate():
         if not splits["val"]:
             return None
         model.eval()
         with torch.no_grad():
-            v = [loss_of(i, p).item() for i, p in splits["val"][RANK::WORLD]]
+            v = []
+            for i, p in splits["val"][RANK::WORLD]:
+                if len(i) >= oom["len_cap"]:
+                    continue
+                try:
+                    v.append(loss_of(i, p).item())
+                except torch.OutOfMemoryError:
+                    oom["val_skipped"] += 1
+                    torch.cuda.empty_cache()
         model.train()
         t = torch.tensor([sum(v), len(v)], device=dev, dtype=torch.float64)
         if WORLD > 1:
@@ -485,7 +500,7 @@ def main():
         cp = tmp / "adapter_config.json"
         c_ = json.loads(cp.read_text()); c_["base_model_name_or_path"] = a.served_model; cp.write_text(json.dumps(c_, indent=2))
         seen = {}
-        for j_ in order[:done_i]:
+        for j_ in (x for k__, x in enumerate(order[:done_i]) if k__ not in oom["skipped_pos"]):
             seen[owner[j_]] = seen.get(owner[j_], 0) + 1
         need = {}
         for o_ in owner:
@@ -495,6 +510,7 @@ def main():
         tmp.rename(dst)
 
     run, i = 0.0, 0
+    grp = []                                # positions in `order` accumulated into the current optimizer step
     while i < len(order):
         if tail_keys and a.stop_at and i < tail_start and i % accum == 0 and i >= accum:
             per_sample = (time.time() - t0) / i
@@ -506,11 +522,38 @@ def main():
                 tail_start = i
         j = order[i]
         i += 1
-        loss = loss_of(*train[j]) / accum
-        loss.backward()
-        run += loss.item()
-        seq_tok += len(train[j][0])
+        if len(train[j][0]) >= oom["len_cap"]:          # as long as a sample that ran out of memory: skip
+            oom["skipped_pos"].add(i - 1)
+        else:
+            failed = False
+            try:
+                loss = loss_of(*train[j]) / accum
+                loss.backward()
+                run += loss.item()
+                seq_tok += len(train[j][0])
+                grp.append(i - 1)
+            except torch.OutOfMemoryError as e:
+                failed, msg = True, str(e).split("\n")[0][:160]
+            if failed:
+                # in-process recovery (no reload): the group's partial gradients are discarded and its optimizer step skipped
+                # (AdamW would still move the weights on zero gradients); this sample and every later one at least as long
+                # are skipped; the trajectories involved are not counted as trained
+                loss = None
+                opt.zero_grad(set_to_none=True)
+                import gc; gc.collect(); torch.cuda.empty_cache()
+                oom["events"] += 1
+                oom["len_cap"] = min(oom["len_cap"], len(train[j][0]))
+                oom["skipped_pos"].update(grp + [i - 1]); grp.clear(); oom["group_failed"] = True
+                if RANK == 0:
+                    print(f"out of memory on a {len(train[j][0])}-token sample ({msg}); skipping samples of >= {oom['len_cap']} "
+                          f"tokens from now on (event {oom['events']})", flush=True)
+                if oom["events"] > a.max_oom_events:
+                    sys.exit(f"STOP: {oom['events']} out-of-memory events: lower --max-len")
         if i % accum == 0 or i == len(order):
+            grp.clear()
+            if oom.pop("group_failed", False) or not any(p.grad is not None for p in params):
+                run = 0.0
+                continue                     # nothing (left) to apply from this group
             if WORLD > 1:                    # average LoRA gradients over ranks (equal shard lengths: every rank steps together)
                 for p in params:
                     if p.grad is None:
@@ -565,6 +608,8 @@ def main():
     save()                                               # base_model_name_or_path = the served model, + trained_ids.json
     (out / "train_meta.json").write_text(json.dumps({**rep, "args": vars(a), "steps": step, "k_eq_v_layers": keq,
                                                       "stopped": stop["why"], "seq_tokens": seq_tok,
+                                                      "oom_events": oom["events"], "oom_len_cap": None if oom["len_cap"] == float("inf") else oom["len_cap"],
+                                                      "oom_skipped_samples": len(oom["skipped_pos"]),
                                                       "tok_per_s": round(seq_tok / max(1e-9, time.time() - t0), 1),
                                                       "seconds": round(time.time() - t0)}, indent=1))
     print(f"adapter saved: {ad}")

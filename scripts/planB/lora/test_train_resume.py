@@ -106,6 +106,22 @@ def main():
     rc, out = run(common + ["--out", str(w / "B"), "--init-adapter", str(ad), "--save-every-min", "30"], w / "B.log")
     checks.update({"B exit 0": rc == 0, "B resumed": "resumed from adapter" in out,
                    "B adapter saved": (w / "B" / "adapter" / "adapter_config.json").exists()})
+    # C: simulated out-of-memory on every sample longer than the median: must recover in-process (no crash), skip them,
+    # keep training the shorter ones, and not count the skipped trajectories as trained
+    import os
+    meta_a = json.loads((w / "A" / "check.json").read_text()) if (w / "A" / "check.json").exists() else {}
+    cap = int(meta_a["max_sample_tokens"] * 0.5) if meta_a.get("max_sample_tokens") else 12000   # about half the samples
+    os.environ["TRAIN_LORA_FAKE_OOM_ABOVE"] = str(cap)
+    rc, out = run(common + ["--out", str(w / "C"), "--stop-after-s", "25", "--save-every-min", "30"], w / "C.log")
+    os.environ.pop("TRAIN_LORA_FAKE_OOM_ABOVE")
+    mc = json.loads((w / "C" / "train_meta.json").read_text()) if (w / "C" / "train_meta.json").exists() else {}
+    tc = set(json.loads((w / "C" / "adapter" / "trained_ids.json").read_text())) if (w / "C" / "adapter" / "trained_ids.json").exists() else set()
+    print(f"C: fake OOM above {cap} tokens; oom_events={mc.get('oom_events')} cap={mc.get('oom_len_cap')} "
+          f"skipped={mc.get('oom_skipped_samples')} steps={mc.get('steps')} trained={len(tc)}")
+    checks.update({"C exit 0 (no crash on OOM)": rc == 0, "C recovered in-process": (mc.get("oom_events") or 0) >= 1,
+                   "C kept training after OOM": (mc.get("steps") or 0) >= 2,
+                   "C adapter saved": (w / "C" / "adapter" / "adapter_config.json").exists(),
+                   "C length cap applied": (mc.get("oom_len_cap") or 10**9) > cap})
     for k, v in checks.items():
         print(("PASS " if v else "FAIL ") + k)
         if not v:

@@ -15,11 +15,12 @@ done
 log "installed this commit's scripts into $G"
 nvidia-smi --query-gpu=name,memory.used --format=csv,noheader
 
-# ------------------------------------------------------------------ JOB (Oct 18): train_lora.py session features, functional test (GPU)
+# ------------------------------------------------------------------ JOB (Oct 19): train_lora.py session features + in-process OOM recovery (GPU)
 # Tiny random-weight model with the 31B's architecture; 200 real converted trajectories. See scripts/planB/lora/test_train_resume.py.
 export HF_HUB_OFFLINE=0
 nvidia-smi --query-gpu=name,memory.used --format=csv,noheader
 D=~/gc/train_test; mkdir -p $D
 head -n 200 ~/gc/sft_mix/graphcomp-sft-mix/train_fit.jsonl > $D/trajs.jsonl
+rm -rf $D/A $D/B $D/C
 $PY $G/scripts/planB/lora/test_train_resume.py --data $D/trajs.jsonl --work $D
 log "ALL DONE"
