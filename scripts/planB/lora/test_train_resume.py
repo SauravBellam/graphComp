@@ -122,6 +122,20 @@ def main():
                    "C kept training after OOM": (mc.get("steps") or 0) >= 2,
                    "C adapter saved": (w / "C" / "adapter" / "adapter_config.json").exists(),
                    "C length cap applied": (mc.get("oom_len_cap") or 10**9) > cap})
+    # D: peak GPU memory of the loss on target-heavy windows (the 262k-vocabulary logits are real in the tiny model too):
+    # old loss vs checkpointed loss at --max-target 8000, and the checkpointed loss at 2048 (notebook 21's new setting)
+    peaks = {}
+    for name, tgt, env in (("old_8000", "8000", "1"), ("new_8000", "8000", "0"), ("new_2048", "2048", "0")):
+        os.environ["TRAIN_LORA_CE_NO_CKPT"] = env
+        args = [x for x in common] ; args[args.index("--max-target") + 1] = tgt
+        rc_, out_ = run(args + ["--out", str(w / f"D_{name}"), "--stop-after-s", "15", "--save-every-min", "30"], w / f"D_{name}.log")
+        recs = [json.loads(l) for l in open(w / f"D_{name}" / "train_log.jsonl")] if (w / f"D_{name}" / "train_log.jsonl").exists() else []
+        peaks[name] = max((max(r.get("gpu_mem_gb") or [0]) for r in recs), default=None)
+    os.environ.pop("TRAIN_LORA_CE_NO_CKPT", None)
+    print(f"D: peak GPU memory (GB) by loss / max-target: {peaks}")
+    checks.update({"D checkpointed loss uses less memory than the old one at 8000 targets":
+                   bool(peaks.get("old_8000") and peaks.get("new_8000") and peaks["new_8000"] < peaks["old_8000"]),
+                   "D 2048 targets use less memory than 8000": bool(peaks.get("new_2048") and peaks.get("new_8000") and peaks["new_2048"] < peaks["new_8000"])})
     for k, v in checks.items():
         print(("PASS " if v else "FAIL ") + k)
         if not v:

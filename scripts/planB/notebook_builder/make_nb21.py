@@ -83,6 +83,7 @@ c = sub1(c, "SESSION_BUDGET_H = 11.3", "SESSION_BUDGET_H = 1.6 " if SMOKE else "
 c = sub1(c, "TRAIN31_MAX_H, TRAIN_STUDENT_MAX_H, EVAL_ARM_H = 2.6, 0.8, 0.9",
          f"TRAIN31_MAX_H, TRAIN_STUDENT_MAX_H, EVAL_ARM_H = {0.6 if SMOKE else 10.0}, 0, {0.1 if SMOKE else 0.5}   # EVAL_ARM_H = the adapter check (31B load + 1 request)\n"
          "TRAIN_MAX_LENS = [32768, 24576, 18432]   # training window (tokens); the next one only after an out-of-memory failure\n"
+         "MAX_TARGET_FOR = {32768: 2048, 24576: 1536, 18432: 1024}   # target tokens per window (session 1: 8000 -> the 262k-vocab logits ran GPU 3 out of memory)\n"
          f"MAX_TRAIN_TRAJ = {1 if SMOKE else 100000}         # cap per session (the token budget below is the real limit)\n"
          f"POST_TRAIN_H = {0.3 if SMOKE else 0.85}             # after training: adapter check (31B load + 1 request), submission, zip, margin\n"
          "LOAD_H = 0.6                  # 31B load inside the trainer before the first step (notebook 20: ~35 min)\n"
@@ -266,7 +267,7 @@ for L in ([18432] if SMOKE else _lens):
         _log = OUT / f"provenance/train_lora31_s{STATE.get('sessions')}_len{L}{'_resume' if init else ''}.log"
         b = max(0.25, (TRAIN_DEADLINE - time.time()) / 3600 - LOAD_H)
         rc = sh(f"cd {GC}/lora && timeout -k 60 {int(TRAIN_DEADLINE - time.time() + 900)} {sys.executable} train_lora.py "
-                f"--data {TRAIN_DATA} --base {BASE31_TRAIN} --out {OUT31} --device-map auto --max-len {L} --max-target 8000 "
+                f"--data {TRAIN_DATA} --base {BASE31_TRAIN} --out {OUT31} --device-map auto --max-len {L} --max-target {MAX_TARGET_FOR.get(L, 1024)} "
                 f"--val-frac {VAL_FRAC} --no-eval-start --served-model google/{MODEL_SLUG} {DEPLOY_ARGS} --time-budget-h {b:.2f} "
                 f"--epochs 1 --keep-order --stop-at {TRAIN_DEADLINE:.0f} --save-every-min 30 --seed {STATE.get('sessions', 1)}"
                 + (f" --tail-n {TAIL_N} --lr-floor 0.3" if TAIL_N else "")

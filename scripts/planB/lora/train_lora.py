@@ -415,6 +415,8 @@ def main():
         opt, lambda s: min(1.0, (s + 1) / max(1, plan["total"] // 10)) * max(a.lr_floor, 1 - s / max(1, plan["total"])))
 
     FAKE_OOM_ABOVE = int(os.environ.get("TRAIN_LORA_FAKE_OOM_ABOVE", "0"))   # test only: simulate OOM on longer samples
+    CE_CHUNK = 512
+    CE_NO_CKPT = os.environ.get("TRAIN_LORA_CE_NO_CKPT") == "1"
 
     def loss_of(ids, pos):
         if FAKE_OOM_ABOVE and len(ids) > FAKE_OOM_ABOVE:
@@ -427,9 +429,17 @@ def main():
         keep = [p - 1 for p in pos]
         logits = model(input_ids=x, logits_to_keep=keep, use_cache=False).logits[0]
         y = torch.tensor([ids[p] for p in pos], device=logits.device)
+        # Gemma's 262k vocabulary: T target tokens give T x 262k logits. The float32 copy of each chunk is recomputed in the
+        # backward pass (checkpoint) instead of being kept for all chunks at once (session 1, Oct 19: at --max-target 8000 the
+        # stored float32 chunks alone were ~8 GB on GPU 3, which also holds the output layer, and every window ran out of memory)
+        from torch.utils.checkpoint import checkpoint as _ckpt
+        ce = lambda lg, yy: F.cross_entropy(lg.float(), yy, reduction="sum")
         tot = 0.0
-        for c in range(0, len(pos), 1024):
-            tot = tot + F.cross_entropy(logits[c:c + 1024].float(), y[c:c + 1024], reduction="sum")
+        for c in range(0, len(pos), CE_CHUNK):
+            if CE_NO_CKPT:                  # test only: the pre-Oct-19 loss, for a memory comparison
+                tot = tot + ce(logits[c:c + CE_CHUNK], y[c:c + CE_CHUNK])
+            else:
+                tot = tot + _ckpt(ce, logits[c:c + CE_CHUNK], y[c:c + CE_CHUNK], use_reentrant=False)
         return tot / len(pos)
 
     oom = {"len_cap": float("inf"), "events": 0, "skipped_pos": set(), "val_skipped": 0}   # in-process OOM recovery state
