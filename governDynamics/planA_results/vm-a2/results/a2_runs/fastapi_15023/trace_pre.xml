@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="1" failures="2" skipped="0" tests="7" time="2.489" timestamp="2026-10-10T23:15:43.477603+00:00" hostname="vm-a2"><testcase classname="tests.test_tutorial.test_stream_data.test_tutorial002" name="test_stream_image[tutorial002_py310-/image/stream]" time="0.301" /><testcase classname="tests.test_tutorial.test_stream_data.test_tutorial002" name="test_stream_image[tutorial002_py310-/image/stream-no-async]" time="0.026" /><testcase classname="tests.test_tutorial.test_stream_data.test_tutorial002" name="test_stream_image[tutorial002_py310-/image/stream-no-async-yield-from]" time="0.009"><failure message="assert 404 == 200&#10; +  where 404 = &lt;Response [404 Not Found]&gt;.status_code">mod = &lt;module 'docs_src.stream_data.tutorial002_py310' from '/home/sauravbellam/cache/a2/fastapi_15023/workspace/docs_src/stream_data/tutorial002_py310.py'&gt;
+client = &lt;starlette.testclient.TestClient object at 0x7fa2ad1f9e50&gt;
+path = '/image/stream-no-async-yield-from'
+
+    @pytest.mark.parametrize(
+        "path",
+        [
+            "/image/stream",
+            "/image/stream-no-async",
+            "/image/stream-no-async-yield-from",
+            "/image/stream-no-annotation",
+            "/image/stream-no-async-no-annotation",
+        ],
+    )
+    def test_stream_image(mod, client: TestClient, path: str):
+        response = client.get(path)
+&gt;       assert response.status_code == 200
+E       assert 404 == 200
+E        +  where 404 = &lt;Response [404 Not Found]&gt;.status_code
+
+tests/test_tutorial/test_stream_data/test_tutorial002.py:36: AssertionError</failure></testcase><testcase classname="tests.test_tutorial.test_stream_data.test_tutorial002" name="test_stream_image[tutorial002_py310-/image/stream-no-annotation]" time="0.015" /><testcase classname="tests.test_tutorial.test_stream_data.test_tutorial002" name="test_stream_image[tutorial002_py310-/image/stream-no-async-no-annotation]" time="0.039" /><testcase classname="tests.test_tutorial.test_stream_data.test_tutorial002" name="test_openapi_schema[tutorial002_py310]" time="0.229"><failure message="AssertionError: assert {'openapi': '...': {...}}}}}}} == {'openapi': '.....}}}}}, ...}}&#10;  &#10;  Omitting 2 identical items, use -vv to show&#10;  Differing items:&#10;  {'paths': {'/image/stream': {'get': {'summary': 'Stream Image', 'operationId': 'stream_image_image_stream_get', 'respo..._stream_no_async_no_annotation_get', 'responses': {'200': {'description': 'Successful Response', 'content': {...}}}}}}} != {'paths': {'/image/stream': {'get': {'summary': 'Stream Image', 'operationId': 'stream_image_image_stream_get', 'respo...mage_stream_no_annotation_get', 'responses': {'200': {'description': 'Successful Response', 'content': {...}}}}}, ...}}&#10;  Use -v to get more diff">client = &lt;starlette.testclient.TestClient object at 0x7fa2ade6d010&gt;
+
+    def test_openapi_schema(client: TestClient):
+        response = client.get("/openapi.json")
+        assert response.status_code == 200, response.text
+&gt;       assert response.json() == snapshot(
+            {
+                "openapi": "3.1.0",
+                "info": {"title": "FastAPI", "version": "0.1.0"},
+                "paths": {
+                    "/image/stream": {
+                        "get": {
+                            "summary": "Stream Image",
+                            "operationId": "stream_image_image_stream_get",
+                            "responses": {
+                                "200": {
+                                    "description": "Successful Response",
+                                    "content": {
+                                        "image/png": {"schema": {"type": "string"}}
+                                    },
+                                }
+                            },
+                        }
+                    },
+                    "/image/stream-no-async": {
+                        "get": {
+                            "summary": "Stream Image No Async",
+                            "operationId": "stream_image_no_async_image_stream_no_async_get",
+                            "responses": {
+                                "200": {
+                                    "description": "Successful Response",
+                                    "content": {
+                                        "image/png": {"schema": {"type": "string"}}
+                                    },
+                                }
+                            },
+                        }
+                    },
+                    "/image/stream-no-async-yield-from": {
+                        "get": {
+                            "summary": "Stream Image No Async Yield From",
+                            "operationId": "stream_image_no_async_yield_from_image_stream_no_async_yield_from_get",
+                            "responses": {
+                                "200": {
+                                    "description": "Successful Response",
+                                    "content": {
+                                        "image/png": {"schema": {"type": "string"}}
+                                    },
+                                }
+                            },
+                        }
+                    },
+                    "/image/stream-no-annotation": {
+                        "get": {
+                            "summary": "Stream Image No Annotation",
+                            "operationId": "stream_image_no_annotation_image_stream_no_annotation_get",
+                            "responses": {
+                                "200": {
+                                    "description": "Successful Response",
+                                    "content": {
+                                        "image/png": {"schema": {"type": "string"}}
+                                    },
+                                }
+                            },
+                        }
+                    },
+                    "/image/stream-no-async-no-annotation": {
+                        "get": {
+                            "summary": "Stream Image No Async No Annotation",
+                            "operationId": "stream_image_no_async_no_annotation_image_stream_no_async_no_annotation_get",
+                            "responses": {
+                                "200": {
+                                    "description": "Successful Response",
+                                    "content": {
+                                        "image/png": {"schema": {"type": "string"}}
+                                    },
+                                }
+                            },
+                        }
+                    },
+                },
+            }
+        )
+E       AssertionError: assert {'openapi': '...': {...}}}}}}} == {'openapi': '.....}}}}}, ...}}
+E         
+E         Omitting 2 identical items, use -vv to show
+E         Differing items:
+E         {'paths': {'/image/stream': {'get': {'summary': 'Stream Image', 'operationId': 'stream_image_image_stream_get', 'respo..._stream_no_async_no_annotation_get', 'responses': {'200': {'description': 'Successful Response', 'content': {...}}}}}}} != {'paths': {'/image/stream': {'get': {'summary': 'Stream Image', 'operationId': 'stream_image_image_stream_get', 'respo...mage_stream_no_annotation_get', 'responses': {'200': {'description': 'Successful Response', 'content': {...}}}}}, ...}}
+E         Use -v to get more diff
+
+tests/test_tutorial/test_stream_data/test_tutorial002.py:44: AssertionError</failure></testcase><testcase classname="tests.test_tutorial.test_stream_data.test_tutorial002" name="test_openapi_schema[tutorial002_py310]" time="0.001"><error message="failed on teardown with &quot;Failed: some snapshots in this test have incorrect values.&#10;If you just created this value with --inline-snapshot=create, the value is now created and you can ignore this message.&quot;">some snapshots in this test have incorrect values.
+If you just created this value with --inline-snapshot=create, the value is now created and you can ignore this message.</error></testcase></testsuite></testsuites>

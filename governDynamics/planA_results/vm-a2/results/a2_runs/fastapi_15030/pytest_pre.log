@@ -1,0 +1,19 @@
+
+$ /home/sauravbellam/cache/a2/fastapi_15030/venv/bin/python -s -m pytest tests/test_sse.py tests/test_tutorial/test_server_sent_events/test_tutorial001.py tests/test_tutorial/test_server_sent_events/test_tutorial002.py tests/test_tutorial/test_server_sent_events/test_tutorial003.py tests/test_tutorial/test_server_sent_events/test_tutorial004.py tests/test_tutorial/test_server_sent_events/test_tutorial005.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/fastapi_15030/trace_pre.xml
+[exit 2]
+
+==================================== ERRORS ====================================
+______________________ ERROR collecting tests/test_sse.py ______________________
+ImportError while importing test module '/home/sauravbellam/cache/a2/fastapi_15030/workspace/tests/test_sse.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/usr/lib/python3.13/importlib/__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_sse.py:8: in <module>
+    from fastapi.responses import EventSourceResponse
+E   ImportError: cannot import name 'EventSourceResponse' from 'fastapi.responses' (/home/sauravbellam/cache/a2/fastapi_15030/workspace/fastapi/responses.py)
+!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
+1 error in 3.17s
+
+

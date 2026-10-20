@@ -1,0 +1,85 @@
+
+$ /home/sauravbellam/cache/a2/rich_3043/venv/bin/python -s -m pytest tests/test_console.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/rich_3043/trace_pre.xml
+[exit 1]
+.......................................................FF....F.......... [ 75%]
+........................                                                 [100%]
+=================================== FAILURES ===================================
+_______________________________ test_export_html _______________________________
+
+    def test_export_html():
+        console = Console(record=True, width=100)
+        console.print("[b]foo <script> 'test' [link=https://example.org]Click[/link]")
+        html = console.export_html()
+        print(repr(html))
+        expected = '<!DOCTYPE html>\n<html>\n<head>\n<meta charset="UTF-8">\n<style>\n.r1 {font-weight: bold}\n.r2 {color: #ff00ff; text-decoration-color: #ff00ff; font-weight: bold}\n.r3 {color: #008000; text-decoration-color: #008000; font-weight: bold}\nbody {\n    color: #000000;\n    background-color: #ffffff;\n}\n</style>\n</head>\n<body>\n    <pre style="font-family:Menlo,\'DejaVu Sans Mono\',consolas,\'Courier New\',monospace"><code><span class="r1">foo &lt;</span><span class="r2">script</span><span class="r1">&gt; </span><span class="r3">&#x27;test&#x27;</span><span class="r1"> </span><a class="r1" href="https://example.org">Click</a>\n</code></pre>\n</body>\n</html>\n'
+>       assert html == expected
+E       assert '<!DOCTYPE ht...y>\n</html>\n' == '<!DOCTYPE ht...y>\n</html>\n'
+E         
+E         Skipping 330 identical trailing characters in diff, use -v to show
+E           <!DOCTYPE html>
+E         - <html>
+E           <head>
+E           <meta charset="UTF-8">
+E           <style>...
+E         
+E         ...Full output truncated (11 lines hidden), use '-vv' to show
+
+tests/test_console.py:533: AssertionError
+----------------------------- Captured stdout call -----------------------------
+foo <script> 'test' Click
+'<!DOCTYPE html>\n<head>\n<meta charset="UTF-8">\n<style>\n.r1 {font-weight: bold}\n.r2 {color: #ff00ff; text-decoration-color: #ff00ff; font-weight: bold}\n.r3 {color: #008000; text-decoration-color: #008000; font-weight: bold}\nbody {\n    color: #000000;\n    background-color: #ffffff;\n}\n</style>\n</head>\n<html>\n<body>\n    <pre style="font-family:Menlo,\'DejaVu Sans Mono\',consolas,\'Courier New\',monospace"><code><span class="r1">foo &lt;</span><span class="r2">script</span><span class="r1">&gt; </span><span class="r3">&#x27;test&#x27;</span><span class="r1"> </span><a class="r1" href="https://example.org">Click</a>\n</code></pre>\n</body>\n</html>\n'
+___________________________ test_export_html_inline ____________________________
+
+    def test_export_html_inline():
+        console = Console(record=True, width=100)
+        console.print("[b]foo [link=https://example.org]Click[/link]")
+        html = console.export_html(inline_styles=True)
+        print(repr(html))
+        expected = '<!DOCTYPE html>\n<html>\n<head>\n<meta charset="UTF-8">\n<style>\n\nbody {\n    color: #000000;\n    background-color: #ffffff;\n}\n</style>\n</head>\n<body>\n    <pre style="font-family:Menlo,\'DejaVu Sans Mono\',consolas,\'Courier New\',monospace"><code><span style="font-weight: bold">foo </span><span style="font-weight: bold"><a href="https://example.org">Click</a></span>\n</code></pre>\n</body>\n</html>\n'
+>       assert html == expected
+E       assert '<!DOCTYPE ht...y>\n</html>\n' == '<!DOCTYPE ht...y>\n</html>\n'
+E         
+E         Skipping 245 identical trailing characters in diff, use -v to show
+E           <!DOCTYPE html>
+E         - <html>
+E           <head>
+E           <meta charset="UTF-8">
+E           <style>...
+E         
+E         ...Full output truncated (9 lines hidden), use '-vv' to show
+
+tests/test_console.py:542: AssertionError
+----------------------------- Captured stdout call -----------------------------
+foo Click
+'<!DOCTYPE html>\n<head>\n<meta charset="UTF-8">\n<style>\n\nbody {\n    color: #000000;\n    background-color: #ffffff;\n}\n</style>\n</head>\n<html>\n<body>\n    <pre style="font-family:Menlo,\'DejaVu Sans Mono\',consolas,\'Courier New\',monospace"><code><span style="font-weight: bold">foo </span><span style="font-weight: bold"><a href="https://example.org">Click</a></span>\n</code></pre>\n</body>\n</html>\n'
+________________________________ test_save_html ________________________________
+
+    def test_save_html():
+        expected = "<!DOCTYPE html>\n<html>\n<head>\n<meta charset=\"UTF-8\">\n<style>\n\nbody {\n    color: #000000;\n    background-color: #ffffff;\n}\n</style>\n</head>\n<body>\n    <pre style=\"font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace\"><code>foo\n</code></pre>\n</body>\n</html>\n"
+        console = Console(record=True, width=100)
+        console.print("foo")
+        with tempfile.TemporaryDirectory() as path:
+            export_path = os.path.join(path, "example.html")
+            console.save_html(export_path)
+            with open(export_path, "rt") as html_file:
+                html = html_file.read()
+                print(repr(html))
+>               assert html == expected
+E               assert '<!DOCTYPE ht...y>\n</html>\n' == '<!DOCTYPE ht...y>\n</html>\n'
+E                 
+E                 Skipping 127 identical trailing characters in diff, use -v to show
+E                   <!DOCTYPE html>
+E                 - <html>
+E                   <head>
+E                   <meta charset="UTF-8">
+E                   <style>...
+E                 
+E                 ...Full output truncated (9 lines hidden), use '-vv' to show
+
+tests/test_console.py:603: AssertionError
+----------------------------- Captured stdout call -----------------------------
+foo
+'<!DOCTYPE html>\n<head>\n<meta charset="UTF-8">\n<style>\n\nbody {\n    color: #000000;\n    background-color: #ffffff;\n}\n</style>\n</head>\n<html>\n<body>\n    <pre style="font-family:Menlo,\'DejaVu Sans Mono\',consolas,\'Courier New\',monospace"><code>foo\n</code></pre>\n</body>\n</html>\n'
+3 failed, 93 passed in 0.84s
+
+

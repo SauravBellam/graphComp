@@ -1,0 +1,49 @@
+
+$ /home/sauravbellam/cache/a2/rich_3675/venv/bin/python -s -m pytest tests/test_console.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/rich_3675/trace_pre.xml
+[exit 1]
+........................................................................ [ 72%]
+..........................F                                              [100%]
+=================================== FAILURES ===================================
+_____________________________ test_tty_compatible ______________________________
+
+    def test_tty_compatible() -> None:
+        """Check TTY_COMPATIBLE environment var."""
+    
+        class FakeTTY:
+            """An file file-like which reports it is a TTY."""
+    
+            def __init__(self) -> None:
+                self.called_isatty = False
+    
+            def isatty(self) -> bool:
+                self.called_isatty = True
+                return True
+    
+        class FakeFile:
+            """A file object that reports False for isatty"""
+    
+            def __init__(self) -> None:
+                self.called_isatty = False
+    
+            def isatty(self) -> bool:
+                self.called_isatty = True
+                return False
+    
+        # Console file is not a TTY
+        console = Console(file=FakeFile())
+        # Not a TTY, so is_terminal should be False
+        assert not console.is_terminal
+        # Should have called isatty to auto-detect tty support
+        assert console.file.called_isatty
+    
+        # Not a terminal
+        console = Console(file=FakeFile(), _environ={"TTY_COMPATIBLE": "1"})
+        # env TTY_COMPATIBLE=1 should report that it is a terminal
+>       assert console.is_terminal
+E       assert False
+E        +  where False = <console width=80 None>.is_terminal
+
+tests/test_console.py:1082: AssertionError
+1 failed, 98 passed in 2.19s
+
+

@@ -1,0 +1,87 @@
+{
+  "instance_id": "rich_2725",
+  "repo": "Textualize/rich",
+  "backend": "venv",
+  "done": true,
+  "deps": {
+    "steps": [
+      {
+        "name": "pip_upgrade",
+        "cmd": "/home/sauravbellam/cache/a2/rich_2725/venv/bin/python -m pip install -q --disable-pip-version-check 'pip>=24' 'setuptools' 'wheel' pytest pytest-timeout",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "editable_no_deps",
+        "cmd": "/home/sauravbellam/cache/a2/rich_2725/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-build-isolation --no-deps -e .",
+        "exit": 2,
+        "stderr_tail": "python3.13/site-packages/pip/_internal/req/req_install.py\", line 258, in supports_pyproject_editable\n    return \"build_editable\" in self.pep517_backend._supported_features()\n                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"/home/sauravbellam/cache/a2/rich_2725/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 180, in _supported_features\n    return self._call_hook(\"_supported_features\", {})\n           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/sauravbellam/cache/a2/rich_2725/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 402, in _call_hook\n    raise BackendUnavailable(\n    ...<4 lines>...\n    )\npip._vendor.pyproject_hooks._impl.BackendUnavailable: Cannot import 'poetry.core.masonry.api'\n"
+      },
+      {
+        "name": "editable_no_deps_isolated",
+        "cmd": "/home/sauravbellam/cache/a2/rich_2725/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-deps -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "runtime_deps",
+        "cmd": "/home/sauravbellam/cache/a2/rich_2725/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "poetry_group_dev",
+        "cmd": "/home/sauravbellam/cache/a2/rich_2725/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels pytest black mypy pytest-cov attrs pre-commit asv importlib-metadata",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "rich_tests",
+        "cmd": "/home/sauravbellam/cache/a2/rich_2725/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels pytest-cov attrs ipywidgets",
+        "exit": 0,
+        "stderr_tail": ""
+      }
+    ],
+    "editable_ok": true,
+    "python": "3.13.5 (main, Aug 10 2026, 12:06:59) [GCC 14.2.0]"
+  },
+  "targets": [
+    "tests/test_table.py"
+  ],
+  "test_patch_strategy": "exact",
+  "test_patch_applied": true,
+  "pre": {
+    "exit": 1,
+    "seconds": 1.1,
+    "timeout": false,
+    "exit_meaning": "some_failed",
+    "run_class": "clean",
+    "counts": {
+      "failed": 4,
+      "passed": 15
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "ters correctly positioned.\"\"\"\n    \n        table = Table(\n            box=box.ASCII, show_header=show_header, show_footer=show_footer, padding=0\n        )\n    \n        # content rows indicated by numerals, pure dividers by letters\n        table.box.__dict__.update(\n            top_left=\"a\",\n            top=\"b\",\n            top_divider=\"c\",\n            top_right=\"d\",\n            head_left=\"1\",\n            head_vertical=\"2\",\n            head_right=\"3\",\n            head_row_left=\"e\",\n            head_row_horizontal=\"f\",\n            head_row_cross=\"g\",\n            head_row_right=\"h\",\n            mid_left=\"4\",\n            mid_vertical=\"5\",\n            mid_right=\"6\",\n            row_left=\"i\",\n            row_horizontal=\"j\",\n            row_cross=\"k\",\n            row_right=\"l\",\n            foot_left=\"7\",\n            foot_vertical=\"8\",\n            foot_right=\"9\",\n            foot_row_left=\"m\",\n            foot_row_horizontal=\"n\",\n            foot_row_cross=\"o\",\n            foot_row_right=\"p\",\n            bottom_left=\"q\",\n            bottom=\"r\",\n            bottom_divider=\"s\",\n            bottom_right=\"t\",\n        )\n    \n        # add content - note headers title case, footers upper case\n        table.add_column(\"Month\", \"MONTH\", width=5)\n        table.add_column(\"Nickname\", \"NICKNAME\", width=9)\n        table.add_column(\"Cost\", \"COST\", width=4)\n        table.add_column(\"Gross\", \"GROSS\", width=5)\n    \n        table.add_row(\"Dec\", \"Skywalker\", \"275M\", \"375M\")\n        table.add_row(\"May\", \"Solo\", \"275M\", \"393M\")\n        table.add_section()\n        table.add_row(\"Dec\", \"Last Jedi\", \"262M\", \"1333M\")\n    \n        console = Console(record=True, width=28)\n        console.print(table)\n        output = console.export_text()\n        print(repr(output))\n    \n>       assert output == expected\nE       AssertionError: assert 'abbbbbcbbbbb...rrrrsrrrrrt\\n' == 'abbbbbcbbbbb...rrrrsrrrrrt\\n'\nE         \nE         Skipping 77 identical leading characters in diff, use -v to show\nE           ffgfffffh\nE         - 4Dec  5Skywalker5275M5375M 6\nE         ? ^     ^         ^    ^     ^\nE         + 7Dec  8Skywalker8275M8375M 9\nE         ? ^     ^         ^    ^     ^...\nE         \nE         ...Full output truncated (15 lines hidden), use '-vv' to show\n\ntests/test_table.py:363: AssertionError\n----------------------------- Captured stdout call -----------------------------\nabbbbbcbbbbbbbbbcbbbbcbbbbbd\n1Month2Nickname 2Cost2Gross3\nefffffgfffffffffgffffgfffffh\n7Dec  8Skywalker8275M8375M 9\n7May  8Solo     8275M8393M 9\nijjjjjkjjjjjjjjjkjjjjkjjjjjl\n7Dec  8Last Jedi8262M81333M9\nmnnnnnonnnnnnnnnonnnnonnnnnp\n4MONTH5NICKNAME 5COST5GROSS6\nqrrrrrsrrrrrrrrrsrrrrsrrrrrt\n'abbbbbcbbbbbbbbbcbbbbcbbbbbd\\n1Month2Nickname 2Cost2Gross3\\nefffffgfffffffffgffffgfffffh\\n7Dec  8Skywalker8275M8375M 9\\n7May  8Solo     8275M8393M 9\\nijjjjjkjjjjjjjjjkjjjjkjjjjjl\\n7Dec  8Last Jedi8262M81333M9\\nmnnnnnonnnnnnnnnonnnnonnnnnp\\n4MONTH5NICKNAME 5COST5GROSS6\\nqrrrrrsrrrrrrrrrsrrrrsrrrrrt\\n'\n4 failed, 15 passed in 0.73s\n",
+    "stderr_tail": ""
+  },
+  "gold_patch_strategy": "exact",
+  "gold_patch_applied": true,
+  "post": {
+    "exit": 0,
+    "seconds": 0.9,
+    "timeout": false,
+    "exit_meaning": "all_passed",
+    "run_class": "clean",
+    "counts": {
+      "passed": 19
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "...................                                                      [100%]\n19 passed in 0.62s\n",
+    "stderr_tail": ""
+  },
+  "trace_pre_exists": true,
+  "trace_post_exists": true,
+  "seconds": 33.9
+}

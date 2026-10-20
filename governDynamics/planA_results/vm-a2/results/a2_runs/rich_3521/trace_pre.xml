@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="4" skipped="0" tests="59" time="0.848" timestamp="2026-10-10T23:23:57.368616+00:00" hostname="vm-a2"><testcase classname="test_segment" name="test_repr" file="test_segment.py" line="9" time="0.002" /><testcase classname="test_segment" name="test_line" file="test_segment.py" line="18" time="0.001" /><testcase classname="test_segment" name="test_apply_style" file="test_segment.py" line="22" time="0.001" /><testcase classname="test_segment" name="test_split_lines" file="test_segment.py" line="31" time="0.001" /><testcase classname="test_segment" name="test_split_and_crop_lines" file="test_segment.py" line="36" time="0.001" /><testcase classname="test_segment" name="test_adjust_line_length" file="test_segment.py" line="46" time="0.001" /><testcase classname="test_segment" name="test_get_line_length" file="test_segment.py" line="60" time="0.001" /><testcase classname="test_segment" name="test_get_shape" file="test_segment.py" line="64" time="0.001" /><testcase classname="test_segment" name="test_set_shape" file="test_segment.py" line="69" time="0.001" /><testcase classname="test_segment" name="test_simplify" file="test_segment.py" line="79" time="0.001" /><testcase classname="test_segment" name="test_filter_control" file="test_segment.py" line="91" time="0.001" /><testcase classname="test_segment" name="test_strip_styles" file="test_segment.py" line="100" time="0.001" /><testcase classname="test_segment" name="test_strip_links" file="test_segment.py" line="105" time="0.001" /><testcase classname="test_segment" name="test_remove_color" file="test_segment.py" line="110" time="0.001" /><testcase classname="test_segment" name="test_is_control" file="test_segment.py" line="121" time="0.001" /><testcase classname="test_segment" name="test_segments_renderable" file="test_segment.py" line="127" time="0.001" /><testcase classname="test_segment" name="test_divide" file="test_segment.py" line="138" time="0.001" /><testcase classname="test_segment" name="test_divide_complex" file="test_segment.py" line="169" time="0.135" /><testcase classname="test_segment" name="test_divide_emoji" file="test_segment.py" line="196" time="0.001" /><testcase classname="test_segment" name="test_divide_edge" file="test_segment.py" line="223" time="0.001" /><testcase classname="test_segment" name="test_divide_edge_2" file="test_segment.py" line="234" time="0.001" /><testcase classname="test_segment" name="test_split_cells_emoji[XX-4-result0]" file="test_segment.py" line="250" time="0.001" /><testcase classname="test_segment" name="test_split_cells_emoji[X-1-result1]" file="test_segment.py" line="250" time="0.001" /><testcase classname="test_segment" name="test_split_cells_emoji[\U0001f4a9-1-result2]" file="test_segment.py" line="250" time="0.001" /><testcase classname="test_segment" name="test_split_cells_emoji[XY-1-result3]" file="test_segment.py" line="250" time="0.001" /><testcase classname="test_segment" name="test_split_cells_emoji[\U0001f4a9X-1-result4]" file="test_segment.py" line="250" time="0.001" /><testcase classname="test_segment" name="test_split_cells_emoji[\U0001f4a9\U0001f4a9-1-result5]" file="test_segment.py" line="250" time="0.001" /><testcase classname="test_segment" name="test_split_cells_emoji[X\U0001f4a9Y-2-result6]" file="test_segment.py" line="250" time="0.001" /><testcase classname="test_segment" name="test_split_cells_emoji[X\U0001f4a9YZ-2-result7]" file="test_segment.py" line="250" time="0.001" /><testcase classname="test_segment" name="test_split_cells_emoji[X\U0001f4a9\U0001f4a9Z-2-result8]" file="test_segment.py" line="250" time="0.001" /><testcase classname="test_segment" name="test_split_cells_emoji[X\U0001f4a9\U0001f4a9Z-3-result9]" file="test_segment.py" line="250" time="0.001" /><testcase classname="test_segment" name="test_split_cells_emoji[X\U0001f4a9\U0001f4a9Z-4-result10]" file="test_segment.py" line="250" time="0.001" /><testcase classname="test_segment" name="test_split_cells_emoji[X\U0001f4a9\U0001f4a9Z-5-result11]" file="test_segment.py" line="250" time="0.001" /><testcase classname="test_segment" name="test_split_cells_emoji[X\U0001f4a9\U0001f4a9Z-6-result12]" file="test_segment.py" line="250" time="0.001" /><testcase classname="test_segment" name="test_split_cells_emoji[XYZABC\U0001f4a9\U0001f4a9-6-result13]" file="test_segment.py" line="250" time="0.001" /><testcase classname="test_segment" name="test_split_cells_emoji[XYZABC\U0001f4a9\U0001f4a9-7-result14]" file="test_segment.py" line="250" time="0.001" /><testcase classname="test_segment" name="test_split_cells_emoji[XYZABC\U0001f4a9\U0001f4a9-8-result15]" file="test_segment.py" line="250" time="0.001" /><testcase classname="test_segment" name="test_split_cells_emoji[XYZABC\U0001f4a9\U0001f4a9-9-result16]" file="test_segment.py" line="250" time="0.001" /><testcase classname="test_segment" name="test_split_cells_emoji[XYZABC\U0001f4a9\U0001f4a9-10-result17]" file="test_segment.py" line="250" time="0.001" /><testcase classname="test_segment" name="test_split_cells_emoji[\U0001f4a9\U0001f4a9\U0001f4a9\U0001f4a9\U0001f4a9-3-result18]" file="test_segment.py" line="250" time="0.001" /><testcase classname="test_segment" name="test_split_cells_emoji[\U0001f4a9\U0001f4a9\U0001f4a9\U0001f4a9\U0001f4a9-4-result19]" file="test_segment.py" line="250" time="0.001" /><testcase classname="test_segment" name="test_split_cells_emoji[\U0001f4a9X\U0001f4a9Y\U0001f4a9Z\U0001f4a9A\U0001f4a9-4-result20]" file="test_segment.py" line="250" time="0.001" /><testcase classname="test_segment" name="test_split_cells_emoji[XYZABC-4-result21]" file="test_segment.py" line="250" time="0.001" /><testcase classname="test_segment" name="test_split_cells_emoji[XYZABC-5-result22]" file="test_segment.py" line="250" time="0.001" /><testcase classname="test_segment" name="test_split_cells_emoji[a1\u3042\uff11\uff11bcdaef-9-result23]" file="test_segment.py" line="250" time="0.001" /><testcase classname="test_segment" name="test_split_cells_mixed[segment0]" file="test_segment.py" line="287" time="0.004" /><testcase classname="test_segment" name="test_split_cells_mixed[segment1]" file="test_segment.py" line="287" time="0.004"><failure message="AssertionError: assert 23 == 21&#10; +  where 23 = cell_len('メイド・イン・きゅんク ')&#10; +    where 'メイド・イン・きゅんク ' = Segment('メイド・イン・きゅんク ').text">segment = Segment('メイド・イン・きゅんクチュアリ☆    ')
+
+    @pytest.mark.parametrize(
+        "segment",
+        [
+            Segment("早乙女リリエル (CV: 徳井青）"),
+            Segment("メイド・イン・きゅんクチュアリ☆    "),
+            Segment("TVアニメ「メルクストーリア -無気力少年と瓶の中の少女-」 主題歌CD"),
+            Segment("南無阿弥JKうらめしや?！     "),
+            Segment("メルク (CV: 水瀬いのり)     "),
+            Segment(" メルク (CV: 水瀬いのり)     "),
+            Segment("  メルク (CV: 水瀬いのり)     "),
+            Segment("  メルク (CV: 水瀬いのり)      "),
+        ],
+    )
+    def test_split_cells_mixed(segment: Segment) -&gt; None:
+        """Check that split cells splits on cell positions."""
+        # Caused https://github.com/Textualize/textual/issues/4996 in Textual
+    
+        for position in range(0, segment.cell_length + 1):
+            left, right = Segment.split_cells(segment, position)
+            assert all(
+                cell_len(c) &gt; 0 for c in segment.text
+            )  # Sanity check there aren't any sneaky control codes
+&gt;           assert cell_len(left.text) == position
+E           AssertionError: assert 23 == 21
+E            +  where 23 = cell_len('メイド・イン・きゅんク ')
+E            +    where 'メイド・イン・きゅんク ' = Segment('メイド・イン・きゅんク ').text
+
+tests/test_segment.py:310: AssertionError</failure></testcase><testcase classname="test_segment" name="test_split_cells_mixed[segment2]" file="test_segment.py" line="287" time="0.013" /><testcase classname="test_segment" name="test_split_cells_mixed[segment3]" file="test_segment.py" line="287" time="0.004"><failure message="AssertionError: assert 21 == 19&#10; +  where 21 = cell_len('南無阿弥JKうらめしや ')&#10; +    where '南無阿弥JKうらめしや ' = Segment('南無阿弥JKうらめしや ').text">segment = Segment('南無阿弥JKうらめしや?！     ')
+
+    @pytest.mark.parametrize(
+        "segment",
+        [
+            Segment("早乙女リリエル (CV: 徳井青）"),
+            Segment("メイド・イン・きゅんクチュアリ☆    "),
+            Segment("TVアニメ「メルクストーリア -無気力少年と瓶の中の少女-」 主題歌CD"),
+            Segment("南無阿弥JKうらめしや?！     "),
+            Segment("メルク (CV: 水瀬いのり)     "),
+            Segment(" メルク (CV: 水瀬いのり)     "),
+            Segment("  メルク (CV: 水瀬いのり)     "),
+            Segment("  メルク (CV: 水瀬いのり)      "),
+        ],
+    )
+    def test_split_cells_mixed(segment: Segment) -&gt; None:
+        """Check that split cells splits on cell positions."""
+        # Caused https://github.com/Textualize/textual/issues/4996 in Textual
+    
+        for position in range(0, segment.cell_length + 1):
+            left, right = Segment.split_cells(segment, position)
+            assert all(
+                cell_len(c) &gt; 0 for c in segment.text
+            )  # Sanity check there aren't any sneaky control codes
+&gt;           assert cell_len(left.text) == position
+E           AssertionError: assert 21 == 19
+E            +  where 21 = cell_len('南無阿弥JKうらめしや ')
+E            +    where '南無阿弥JKうらめしや ' = Segment('南無阿弥JKうらめしや ').text
+
+tests/test_segment.py:310: AssertionError</failure></testcase><testcase classname="test_segment" name="test_split_cells_mixed[segment4]" file="test_segment.py" line="287" time="0.004"><failure message="AssertionError: assert 23 == 21&#10; +  where 23 = cell_len('メルク (CV: 水瀬いのり ')&#10; +    where 'メルク (CV: 水瀬いのり ' = Segment('メルク (CV: 水瀬いのり ').text">segment = Segment('メルク (CV: 水瀬いのり)     ')
+
+    @pytest.mark.parametrize(
+        "segment",
+        [
+            Segment("早乙女リリエル (CV: 徳井青）"),
+            Segment("メイド・イン・きゅんクチュアリ☆    "),
+            Segment("TVアニメ「メルクストーリア -無気力少年と瓶の中の少女-」 主題歌CD"),
+            Segment("南無阿弥JKうらめしや?！     "),
+            Segment("メルク (CV: 水瀬いのり)     "),
+            Segment(" メルク (CV: 水瀬いのり)     "),
+            Segment("  メルク (CV: 水瀬いのり)     "),
+            Segment("  メルク (CV: 水瀬いのり)      "),
+        ],
+    )
+    def test_split_cells_mixed(segment: Segment) -&gt; None:
+        """Check that split cells splits on cell positions."""
+        # Caused https://github.com/Textualize/textual/issues/4996 in Textual
+    
+        for position in range(0, segment.cell_length + 1):
+            left, right = Segment.split_cells(segment, position)
+            assert all(
+                cell_len(c) &gt; 0 for c in segment.text
+            )  # Sanity check there aren't any sneaky control codes
+&gt;           assert cell_len(left.text) == position
+E           AssertionError: assert 23 == 21
+E            +  where 23 = cell_len('メルク (CV: 水瀬いのり ')
+E            +    where 'メルク (CV: 水瀬いのり ' = Segment('メルク (CV: 水瀬いのり ').text
+
+tests/test_segment.py:310: AssertionError</failure></testcase><testcase classname="test_segment" name="test_split_cells_mixed[segment5]" file="test_segment.py" line="287" time="0.004" /><testcase classname="test_segment" name="test_split_cells_mixed[segment6]" file="test_segment.py" line="287" time="0.004" /><testcase classname="test_segment" name="test_split_cells_mixed[segment7]" file="test_segment.py" line="287" time="0.004"><failure message="AssertionError: assert 25 == 23&#10; +  where 25 = cell_len('  メルク (CV: 水瀬いのり ')&#10; +    where '  メルク (CV: 水瀬いのり ' = Segment('  メルク (CV: 水瀬いのり ').text">segment = Segment('  メルク (CV: 水瀬いのり)      ')
+
+    @pytest.mark.parametrize(
+        "segment",
+        [
+            Segment("早乙女リリエル (CV: 徳井青）"),
+            Segment("メイド・イン・きゅんクチュアリ☆    "),
+            Segment("TVアニメ「メルクストーリア -無気力少年と瓶の中の少女-」 主題歌CD"),
+            Segment("南無阿弥JKうらめしや?！     "),
+            Segment("メルク (CV: 水瀬いのり)     "),
+            Segment(" メルク (CV: 水瀬いのり)     "),
+            Segment("  メルク (CV: 水瀬いのり)     "),
+            Segment("  メルク (CV: 水瀬いのり)      "),
+        ],
+    )
+    def test_split_cells_mixed(segment: Segment) -&gt; None:
+        """Check that split cells splits on cell positions."""
+        # Caused https://github.com/Textualize/textual/issues/4996 in Textual
+    
+        for position in range(0, segment.cell_length + 1):
+            left, right = Segment.split_cells(segment, position)
+            assert all(
+                cell_len(c) &gt; 0 for c in segment.text
+            )  # Sanity check there aren't any sneaky control codes
+&gt;           assert cell_len(left.text) == position
+E           AssertionError: assert 25 == 23
+E            +  where 25 = cell_len('  メルク (CV: 水瀬いのり ')
+E            +    where '  メルク (CV: 水瀬いのり ' = Segment('  メルク (CV: 水瀬いのり ').text
+
+tests/test_segment.py:310: AssertionError</failure></testcase><testcase classname="test_segment" name="test_split_cells_doubles" file="test_segment.py" line="313" time="0.006" /><testcase classname="test_segment" name="test_split_cells_single" file="test_segment.py" line="322" time="0.003" /><testcase classname="test_segment" name="test_segment_lines_renderable" file="test_segment.py" line="331" time="0.001" /><testcase classname="test_segment" name="test_align_top" file="test_segment.py" line="352" time="0.001" /><testcase classname="test_segment" name="test_align_middle" file="test_segment.py" line="362" time="0.002" /><testcase classname="test_segment" name="test_align_bottom" file="test_segment.py" line="372" time="0.002" /></testsuite></testsuites>

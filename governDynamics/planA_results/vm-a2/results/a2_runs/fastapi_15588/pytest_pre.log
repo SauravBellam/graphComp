@@ -1,0 +1,92 @@
+
+$ /home/sauravbellam/cache/a2/fastapi_15588/venv/bin/python -s -m pytest tests/test_sse.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/fastapi_15588/trace_pre.xml
+[exit 1]
+..........FFFFFF........                                                 [100%]
+=================================== FAILURES ===================================
+_ test_server_sent_event_single_line_fields_reject_newlines[first\nsecond-event] _
+
+field_name = 'event', value = 'first\nsecond'
+
+    @pytest.mark.parametrize("field_name", ["event", "id"])
+    @pytest.mark.parametrize("value", ["first\nsecond", "first\rsecond", "first\r\nsecond"])
+    def test_server_sent_event_single_line_fields_reject_newlines(
+        field_name: str, value: str
+    ):
+>       with pytest.raises(ValueError, match=f"SSE '{field_name}' must be a single line"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/test_sse.py:229: Failed
+_ test_server_sent_event_single_line_fields_reject_newlines[first\nsecond-id] __
+
+field_name = 'id', value = 'first\nsecond'
+
+    @pytest.mark.parametrize("field_name", ["event", "id"])
+    @pytest.mark.parametrize("value", ["first\nsecond", "first\rsecond", "first\r\nsecond"])
+    def test_server_sent_event_single_line_fields_reject_newlines(
+        field_name: str, value: str
+    ):
+>       with pytest.raises(ValueError, match=f"SSE '{field_name}' must be a single line"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/test_sse.py:229: Failed
+_ test_server_sent_event_single_line_fields_reject_newlines[first\rsecond-event] _
+
+field_name = 'event', value = 'first\rsecond'
+
+    @pytest.mark.parametrize("field_name", ["event", "id"])
+    @pytest.mark.parametrize("value", ["first\nsecond", "first\rsecond", "first\r\nsecond"])
+    def test_server_sent_event_single_line_fields_reject_newlines(
+        field_name: str, value: str
+    ):
+>       with pytest.raises(ValueError, match=f"SSE '{field_name}' must be a single line"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/test_sse.py:229: Failed
+_ test_server_sent_event_single_line_fields_reject_newlines[first\rsecond-id] __
+
+field_name = 'id', value = 'first\rsecond'
+
+    @pytest.mark.parametrize("field_name", ["event", "id"])
+    @pytest.mark.parametrize("value", ["first\nsecond", "first\rsecond", "first\r\nsecond"])
+    def test_server_sent_event_single_line_fields_reject_newlines(
+        field_name: str, value: str
+    ):
+>       with pytest.raises(ValueError, match=f"SSE '{field_name}' must be a single line"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/test_sse.py:229: Failed
+_ test_server_sent_event_single_line_fields_reject_newlines[first\r\nsecond-event] _
+
+field_name = 'event', value = 'first\r\nsecond'
+
+    @pytest.mark.parametrize("field_name", ["event", "id"])
+    @pytest.mark.parametrize("value", ["first\nsecond", "first\rsecond", "first\r\nsecond"])
+    def test_server_sent_event_single_line_fields_reject_newlines(
+        field_name: str, value: str
+    ):
+>       with pytest.raises(ValueError, match=f"SSE '{field_name}' must be a single line"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/test_sse.py:229: Failed
+_ test_server_sent_event_single_line_fields_reject_newlines[first\r\nsecond-id] _
+
+field_name = 'id', value = 'first\r\nsecond'
+
+    @pytest.mark.parametrize("field_name", ["event", "id"])
+    @pytest.mark.parametrize("value", ["first\nsecond", "first\rsecond", "first\r\nsecond"])
+    def test_server_sent_event_single_line_fields_reject_newlines(
+        field_name: str, value: str
+    ):
+>       with pytest.raises(ValueError, match=f"SSE '{field_name}' must be a single line"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/test_sse.py:229: Failed
+6 failed, 18 passed in 4.27s
+
+

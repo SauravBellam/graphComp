@@ -1,0 +1,43 @@
+
+$ /home/sauravbellam/cache/a2/requests_6629/venv/bin/python -m pip install -q --disable-pip-version-check 'pip>=24' 'setuptools' 'wheel' pytest pytest-timeout
+[exit 0]
+
+
+
+$ /home/sauravbellam/cache/a2/requests_6629/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-build-isolation --no-deps -e .
+[exit 0]
+
+
+
+$ /home/sauravbellam/cache/a2/requests_6629/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e .
+[exit 0]
+
+
+
+$ /home/sauravbellam/cache/a2/requests_6629/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -r requirements-dev.txt
+[exit 0]
+
+ERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.
+pytest-timeout 2.4.0 requires pytest>=7.0.0, but you have pytest 6.2.5 which is incompatible.
+
+
+$ /home/sauravbellam/cache/a2/requests_6629/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels pytest-httpbin httpbin trustme pysocks
+[exit 0]
+
+
+
+$ /home/sauravbellam/cache/a2/requests_6629/venv/bin/python -c "import importlib,sys; print(sys.version)"
+[exit 0]
+3.13.5 (main, Aug 10 2026, 12:06:59) [GCC 14.2.0]
+
+
+
+$ git apply --unsafe-paths  /home/sauravbellam/cache/a2/requests_6629/test.patch
+[exit 0]
+
+
+
+$ git apply --unsafe-paths  /home/sauravbellam/cache/a2/requests_6629/gold.patch
+[exit 0]
+
+

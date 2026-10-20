@@ -1,0 +1,36 @@
+
+$ /home/sauravbellam/cache/a2/rich_3934/venv/bin/python -s -m pytest tests/test_live.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/rich_3934/trace_pre.xml
+[exit 1]
+..........F                                                              [100%]
+=================================== FAILURES ===================================
+_______________________________ test_live_empty ________________________________
+
+    def test_live_empty() -> None:
+        """Regression test for https://github.com/Textualize/rich/issues/3796
+    
+        No NL should be written if there was nothing rendered.
+        """
+    
+        from rich.console import Group
+    
+        console = create_capture_console(width=20, height=5)
+        console.begin_capture()
+        with Live(Group(), console=console, transient=True):
+            pass
+        result = console.end_capture()
+        print(repr(result))
+>       assert "\n" not in result
+E       AssertionError: assert '\n' not in '\x1b[?25l\r...n\x1b[?25h\r'
+E         
+E         '\n' is contained here:
+E           [?25l
+E           [2K
+E         ? ----
+E           [?25h
+
+tests/test_live.py:186: AssertionError
+----------------------------- Captured stdout call -----------------------------
+'\x1b[?25l\r\x1b[2K\n\x1b[?25h\r'
+1 failed, 10 passed in 2.71s
+
+

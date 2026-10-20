@@ -1,0 +1,988 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="12" skipped="0" tests="112" time="1.196" timestamp="2026-10-10T23:24:44.126057+00:00" hostname="vm-a2"><testcase classname="test_panel" name="test_render_panel[panel0-\u256d\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u256e\n\u2502Hello, World                                    \u2502\n\u2570\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u256f\n]" file="test_panel.py" line="36" time="0.003" /><testcase classname="test_panel" name="test_render_panel[panel1-\u256d\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u256e\n\u2502Hello, World\u2502\n\u2570\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u256f\n]" file="test_panel.py" line="36" time="0.002" /><testcase classname="test_panel" name="test_render_panel[panel2-\u256d\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u256e\n\u2502Hello, World\u2502\n\u2570\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u256f\n]" file="test_panel.py" line="36" time="0.002" /><testcase classname="test_panel" name="test_render_panel[panel3-\u256d\u2500\u2500\u2500\u2500\u2500\u2500\u256e\n\u2502Hello,\u2502\n\u2502World \u2502\n\u2570\u2500\u2500\u2500\u2500\u2500\u2500\u256f\n]" file="test_panel.py" line="36" time="0.002" /><testcase classname="test_panel" name="test_render_panel[panel4-\u256d\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u256e\n\u2502\u256d\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u256e\u2502\n\u2502\u2502Hello, World                                  \u2502\u2502\n\u2502\u2570\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u256f\u2502\n\u2570\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u256f\n]" file="test_panel.py" line="36" time="0.003" /><testcase classname="test_panel" name="test_render_panel[panel5-\u256d\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 FOO \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u256e\n\u2502Hello, World                                    \u2502\n\u2570\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u256f\n]" file="test_panel.py" line="36" time="0.003" /><testcase classname="test_panel" name="test_render_panel[panel6-\u256d\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u256e\n\u2502Hello, World                                    \u2502\n\u2570\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 FOO \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u256f\n]" file="test_panel.py" line="36" time="0.002" /><testcase classname="test_panel" name="test_console_width" file="test_panel.py" line="41" time="0.001" /><testcase classname="test_panel" name="test_fixed_width" file="test_panel.py" line="49" time="0.001" /><testcase classname="test_panel" name="test_render_size" file="test_panel.py" line="57" time="0.009"><failure message="AssertionError: assert [[Segment('╭─...╯', Style())]] == [[Segment('╭─...╯', Style())]]&#10;  &#10;  At index 0 diff: [Segment('╭─', Style()), Segment('──────────────────────────────────', Style()), Segment(' Hello ', Style()), Segment('───────────────────────────────────', Style()), Segment('─╮', Style())] != [Segment('╭─', Style()), Segment('────────────────────────────────── Hello ───────────────────────────────────'), Segment('─╮', Style())]&#10;  Use -v to get more diff">def test_render_size():
+        console = Console(width=63, height=46, legacy_windows=False)
+        options = console.options.update_dimensions(80, 4)
+        lines = console.render_lines(Panel("foo", title="Hello"), options=options)
+        print(repr(lines))
+        expected = [
+            [
+                Segment("╭─", Style()),
+                Segment(
+                    "────────────────────────────────── Hello ───────────────────────────────────"
+                ),
+                Segment("─╮", Style()),
+            ],
+            [
+                Segment("│", Style()),
+                Segment(" ", Style()),
+                Segment("foo"),
+                Segment(
+                    "                                                                         ",
+                    Style(),
+                ),
+                Segment(" ", Style()),
+                Segment("│", Style()),
+            ],
+            [
+                Segment("│", Style()),
+                Segment(" ", Style()),
+                Segment(
+                    "                                                                            ",
+                    Style(),
+                ),
+                Segment(" ", Style()),
+                Segment("│", Style()),
+            ],
+            [
+                Segment(
+                    "╰──────────────────────────────────────────────────────────────────────────────╯",
+                    Style(),
+                )
+            ],
+        ]
+&gt;       assert lines == expected
+E       AssertionError: assert [[Segment('╭─...╯', Style())]] == [[Segment('╭─...╯', Style())]]
+E         
+E         At index 0 diff: [Segment('╭─', Style()), Segment('──────────────────────────────────', Style()), Segment(' Hello ', Style()), Segment('───────────────────────────────────', Style()), Segment('─╮', Style())] != [Segment('╭─', Style()), Segment('────────────────────────────────── Hello ───────────────────────────────────'), Segment('─╮', Style())]
+E         Use -v to get more diff
+
+tests/test_panel.py:99: AssertionError</failure></testcase><testcase classname="test_text" name="test_span" file="test_text.py" line="11" time="0.001" /><testcase classname="test_text" name="test_span_split" file="test_text.py" line="18" time="0.001" /><testcase classname="test_text" name="test_span_move" file="test_text.py" line="24" time="0.001" /><testcase classname="test_text" name="test_span_right_crop" file="test_text.py" line="28" time="0.001" /><testcase classname="test_text" name="test_len" file="test_text.py" line="33" time="0.001" /><testcase classname="test_text" name="test_cell_len" file="test_text.py" line="37" time="0.001" /><testcase classname="test_text" name="test_bool" file="test_text.py" line="42" time="0.001" /><testcase classname="test_text" name="test_str" file="test_text.py" line="47" time="0.001" /><testcase classname="test_text" name="test_repr" file="test_text.py" line="51" time="0.001" /><testcase classname="test_text" name="test_add" file="test_text.py" line="55" time="0.001" /><testcase classname="test_text" name="test_eq" file="test_text.py" line="61" time="0.001" /><testcase classname="test_text" name="test_contain" file="test_text.py" line="67" time="0.001" /><testcase classname="test_text" name="test_plain_property" file="test_text.py" line="75" time="0.001" /><testcase classname="test_text" name="test_plain_property_setter" file="test_text.py" line="82" time="0.001" /><testcase classname="test_text" name="test_from_markup" file="test_text.py" line="93" time="0.001" /><testcase classname="test_text" name="test_from_ansi" file="test_text.py" line="99" time="0.004" /><testcase classname="test_text" name="test_copy" file="test_text.py" line="117" time="0.001" /><testcase classname="test_text" name="test_rstrip" file="test_text.py" line="127" time="0.001" /><testcase classname="test_text" name="test_rstrip_end" file="test_text.py" line="133" time="0.001" /><testcase classname="test_text" name="test_stylize" file="test_text.py" line="139" time="0.001" /><testcase classname="test_text" name="test_stylize_before" file="test_text.py" line="147" time="0.001" /><testcase classname="test_text" name="test_stylize_negative_index" file="test_text.py" line="154" time="0.001" /><testcase classname="test_text" name="test_highlight_regex" file="test_text.py" line="160" time="0.001" /><testcase classname="test_text" name="test_highlight_regex_callable" file="test_text.py" line="192" time="0.001" /><testcase classname="test_text" name="test_highlight_words" file="test_text.py" line="212" time="0.001" /><testcase classname="test_text" name="test_set_length" file="test_text.py" line="243" time="0.001" /><testcase classname="test_text" name="test_console_width" file="test_text.py" line="262" time="0.001" /><testcase classname="test_text" name="test_join" file="test_text.py" line="270" time="0.001" /><testcase classname="test_text" name="test_trim_spans" file="test_text.py" line="276" time="0.001" /><testcase classname="test_text" name="test_pad_left" file="test_text.py" line="283" time="0.001" /><testcase classname="test_text" name="test_pad_right" file="test_text.py" line="289" time="0.001" /><testcase classname="test_text" name="test_append" file="test_text.py" line="295" time="0.001" /><testcase classname="test_text" name="test_append_text" file="test_text.py" line="310" time="0.001" /><testcase classname="test_text" name="test_end" file="test_text.py" line="317" time="0.002" /><testcase classname="test_text" name="test_split" file="test_text.py" line="324" time="0.001" /><testcase classname="test_text" name="test_split_spans" file="test_text.py" line="343" time="0.001" /><testcase classname="test_text" name="test_divide" file="test_text.py" line="352" time="0.001" /><testcase classname="test_text" name="test_right_crop" file="test_text.py" line="395" time="0.001" /><testcase classname="test_text" name="test_wrap_3" file="test_text.py" line="403" time="0.001" /><testcase classname="test_text" name="test_wrap_4" file="test_text.py" line="413" time="0.001" /><testcase classname="test_text" name="test_wrap_wrapped_word_length_greater_than_available_width" file="test_text.py" line="422" time="0.001" /><testcase classname="test_text" name="test_wrap_cjk" file="test_text.py" line="432" time="0.001" /><testcase classname="test_text" name="test_wrap_cjk_width_mid_character" file="test_text.py" line="441" time="0.001" /><testcase classname="test_text" name="test_wrap_long" file="test_text.py" line="451" time="0.001" /><testcase classname="test_text" name="test_wrap_overflow" file="test_text.py" line="460" time="0.001" /><testcase classname="test_text" name="test_wrap_overflow_long" file="test_text.py" line="469" time="0.001" /><testcase classname="test_text" name="test_wrap_long_words" file="test_text.py" line="476" time="0.001" /><testcase classname="test_text" name="test_wrap_long_words_2" file="test_text.py" line="488" time="0.001" /><testcase classname="test_text" name="test_wrap_long_words_justify_left" file="test_text.py" line="499" time="0.001" /><testcase classname="test_text" name="test_no_wrap_no_crop" file="test_text.py" line="510" time="0.002" /><testcase classname="test_text" name="test_fit" file="test_text.py" line="524" time="0.001" /><testcase classname="test_text" name="test_wrap_tabs" file="test_text.py" line="531" time="0.001" /><testcase classname="test_text" name="test_render" file="test_text.py" line="539" time="0.003" /><testcase classname="test_text" name="test_render_simple" file="test_text.py" line="550" time="0.001" /><testcase classname="test_text" name="test_print[.-.\n]" file="test_text.py" line="558" time="0.007" /><testcase classname="test_text" name="test_print[print_text1-. .\n]" file="test_text.py" line="558" time="0.002" /><testcase classname="test_text" name="test_print[print_text2-Hello World !\n]" file="test_text.py" line="558" time="0.002" /><testcase classname="test_text" name="test_print_sep_end[.-.X]" file="test_text.py" line="572" time="0.002" /><testcase classname="test_text" name="test_print_sep_end[print_text1-..X]" file="test_text.py" line="572" time="0.002" /><testcase classname="test_text" name="test_print_sep_end[print_text2-HelloWorld!X]" file="test_text.py" line="572" time="0.002" /><testcase classname="test_text" name="test_tabs_to_spaces" file="test_text.py" line="586" time="0.001" /><testcase classname="test_text" name="test_tabs_to_spaces_spans[-4--expected_spans0]" file="test_text.py" line="609" time="0.001" /><testcase classname="test_text" name="test_tabs_to_spaces_spans[\t-4-    -expected_spans1]" file="test_text.py" line="609" time="0.002"><failure message="AssertionError: assert [Span(0, 1, '...pan(1, 4, '')] == []&#10;  &#10;  Left contains 2 more items, first extra item: Span(0, 1, '')&#10;  Use -v to get more diff">markup = '\t', tab_size = 4, expected_text = '    ', expected_spans = []
+
+    @pytest.mark.parametrize(
+        "markup,tab_size,expected_text,expected_spans",
+        [
+            ("", 4, "", []),
+            ("\t", 4, "    ", []),
+            ("\tbar", 4, "    bar", []),
+            ("foo\tbar", 4, "foo bar", []),
+            ("foo\nbar\nbaz", 4, "foo\nbar\nbaz", []),
+            (
+                "[bold]foo\tbar",
+                4,
+                "foo bar",
+                [
+                    Span(0, 4, "bold"),
+                    Span(4, 7, "bold"),
+                ],
+            ),
+            (
+                "[bold]\tbar",
+                4,
+                "    bar",
+                [
+                    Span(0, 4, "bold"),
+                    Span(4, 7, "bold"),
+                ],
+            ),
+            (
+                "\t[bold]bar",
+                4,
+                "    bar",
+                [
+                    Span(4, 7, "bold"),
+                ],
+            ),
+            (
+                "[red]foo\tbar\n[green]egg\tbaz",
+                8,
+                "foo     bar\negg     baz",
+                [
+                    Span(0, 8, "red"),
+                    Span(8, 12, "red"),
+                    Span(12, 20, "red"),
+                    Span(12, 20, "green"),
+                    Span(20, 23, "red"),
+                    Span(20, 23, "green"),
+                ],
+            ),
+            (
+                "[bold]X\tY",
+                8,
+                "X       Y",
+                [
+                    Span(0, 8, "bold"),
+                    Span(8, 9, "bold"),
+                ],
+            ),
+            (
+                "[bold]💩\t💩",
+                8,
+                "💩      💩",
+                [
+                    Span(0, 7, "bold"),
+                    Span(7, 8, "bold"),
+                ],
+            ),
+            (
+                "[bold]💩💩💩💩\t💩",
+                8,
+                "💩💩💩💩        💩",
+                [
+                    Span(0, 12, "bold"),
+                    Span(12, 13, "bold"),
+                ],
+            ),
+        ],
+    )
+    def test_tabs_to_spaces_spans(
+        markup: str, tab_size: int, expected_text: str, expected_spans: List[Span]
+    ):
+        """Test spans are correct after expand_tabs"""
+        text = Text.from_markup(markup)
+        text.expand_tabs(tab_size)
+        print(text._spans)
+        assert text.plain == expected_text
+&gt;       assert text._spans == expected_spans
+E       AssertionError: assert [Span(0, 1, '...pan(1, 4, '')] == []
+E         
+E         Left contains 2 more items, first extra item: Span(0, 1, '')
+E         Use -v to get more diff
+
+tests/test_text.py:694: AssertionError</failure></testcase><testcase classname="test_text" name="test_tabs_to_spaces_spans[\tbar-4-    bar-expected_spans2]" file="test_text.py" line="609" time="0.002"><failure message="AssertionError: assert [Span(0, 1, '...pan(4, 7, '')] == []&#10;  &#10;  Left contains 3 more items, first extra item: Span(0, 1, '')&#10;  Use -v to get more diff">markup = '\tbar', tab_size = 4, expected_text = '    bar', expected_spans = []
+
+    @pytest.mark.parametrize(
+        "markup,tab_size,expected_text,expected_spans",
+        [
+            ("", 4, "", []),
+            ("\t", 4, "    ", []),
+            ("\tbar", 4, "    bar", []),
+            ("foo\tbar", 4, "foo bar", []),
+            ("foo\nbar\nbaz", 4, "foo\nbar\nbaz", []),
+            (
+                "[bold]foo\tbar",
+                4,
+                "foo bar",
+                [
+                    Span(0, 4, "bold"),
+                    Span(4, 7, "bold"),
+                ],
+            ),
+            (
+                "[bold]\tbar",
+                4,
+                "    bar",
+                [
+                    Span(0, 4, "bold"),
+                    Span(4, 7, "bold"),
+                ],
+            ),
+            (
+                "\t[bold]bar",
+                4,
+                "    bar",
+                [
+                    Span(4, 7, "bold"),
+                ],
+            ),
+            (
+                "[red]foo\tbar\n[green]egg\tbaz",
+                8,
+                "foo     bar\negg     baz",
+                [
+                    Span(0, 8, "red"),
+                    Span(8, 12, "red"),
+                    Span(12, 20, "red"),
+                    Span(12, 20, "green"),
+                    Span(20, 23, "red"),
+                    Span(20, 23, "green"),
+                ],
+            ),
+            (
+                "[bold]X\tY",
+                8,
+                "X       Y",
+                [
+                    Span(0, 8, "bold"),
+                    Span(8, 9, "bold"),
+                ],
+            ),
+            (
+                "[bold]💩\t💩",
+                8,
+                "💩      💩",
+                [
+                    Span(0, 7, "bold"),
+                    Span(7, 8, "bold"),
+                ],
+            ),
+            (
+                "[bold]💩💩💩💩\t💩",
+                8,
+                "💩💩💩💩        💩",
+                [
+                    Span(0, 12, "bold"),
+                    Span(12, 13, "bold"),
+                ],
+            ),
+        ],
+    )
+    def test_tabs_to_spaces_spans(
+        markup: str, tab_size: int, expected_text: str, expected_spans: List[Span]
+    ):
+        """Test spans are correct after expand_tabs"""
+        text = Text.from_markup(markup)
+        text.expand_tabs(tab_size)
+        print(text._spans)
+        assert text.plain == expected_text
+&gt;       assert text._spans == expected_spans
+E       AssertionError: assert [Span(0, 1, '...pan(4, 7, '')] == []
+E         
+E         Left contains 3 more items, first extra item: Span(0, 1, '')
+E         Use -v to get more diff
+
+tests/test_text.py:694: AssertionError</failure></testcase><testcase classname="test_text" name="test_tabs_to_spaces_spans[foo\tbar-4-foo bar-expected_spans3]" file="test_text.py" line="609" time="0.002"><failure message="AssertionError: assert [Span(0, 4, '...pan(4, 7, '')] == []&#10;  &#10;  Left contains 2 more items, first extra item: Span(0, 4, '')&#10;  Use -v to get more diff">markup = 'foo\tbar', tab_size = 4, expected_text = 'foo bar'
+expected_spans = []
+
+    @pytest.mark.parametrize(
+        "markup,tab_size,expected_text,expected_spans",
+        [
+            ("", 4, "", []),
+            ("\t", 4, "    ", []),
+            ("\tbar", 4, "    bar", []),
+            ("foo\tbar", 4, "foo bar", []),
+            ("foo\nbar\nbaz", 4, "foo\nbar\nbaz", []),
+            (
+                "[bold]foo\tbar",
+                4,
+                "foo bar",
+                [
+                    Span(0, 4, "bold"),
+                    Span(4, 7, "bold"),
+                ],
+            ),
+            (
+                "[bold]\tbar",
+                4,
+                "    bar",
+                [
+                    Span(0, 4, "bold"),
+                    Span(4, 7, "bold"),
+                ],
+            ),
+            (
+                "\t[bold]bar",
+                4,
+                "    bar",
+                [
+                    Span(4, 7, "bold"),
+                ],
+            ),
+            (
+                "[red]foo\tbar\n[green]egg\tbaz",
+                8,
+                "foo     bar\negg     baz",
+                [
+                    Span(0, 8, "red"),
+                    Span(8, 12, "red"),
+                    Span(12, 20, "red"),
+                    Span(12, 20, "green"),
+                    Span(20, 23, "red"),
+                    Span(20, 23, "green"),
+                ],
+            ),
+            (
+                "[bold]X\tY",
+                8,
+                "X       Y",
+                [
+                    Span(0, 8, "bold"),
+                    Span(8, 9, "bold"),
+                ],
+            ),
+            (
+                "[bold]💩\t💩",
+                8,
+                "💩      💩",
+                [
+                    Span(0, 7, "bold"),
+                    Span(7, 8, "bold"),
+                ],
+            ),
+            (
+                "[bold]💩💩💩💩\t💩",
+                8,
+                "💩💩💩💩        💩",
+                [
+                    Span(0, 12, "bold"),
+                    Span(12, 13, "bold"),
+                ],
+            ),
+        ],
+    )
+    def test_tabs_to_spaces_spans(
+        markup: str, tab_size: int, expected_text: str, expected_spans: List[Span]
+    ):
+        """Test spans are correct after expand_tabs"""
+        text = Text.from_markup(markup)
+        text.expand_tabs(tab_size)
+        print(text._spans)
+        assert text.plain == expected_text
+&gt;       assert text._spans == expected_spans
+E       AssertionError: assert [Span(0, 4, '...pan(4, 7, '')] == []
+E         
+E         Left contains 2 more items, first extra item: Span(0, 4, '')
+E         Use -v to get more diff
+
+tests/test_text.py:694: AssertionError</failure></testcase><testcase classname="test_text" name="test_tabs_to_spaces_spans[foo\nbar\nbaz-4-foo\nbar\nbaz-expected_spans4]" file="test_text.py" line="609" time="0.001" /><testcase classname="test_text" name="test_tabs_to_spaces_spans[[bold]foo\tbar-4-foo bar-expected_spans5]" file="test_text.py" line="609" time="0.002"><failure message="AssertionError: assert [Span(0, 4, '...4, 7, 'bold')] == [Span(0, 4, '...4, 7, 'bold')]&#10;  &#10;  At index 0 diff: Span(0, 4, '') != Span(0, 4, 'bold')&#10;  Left contains 2 more items, first extra item: Span(4, 7, '')&#10;  Use -v to get more diff">markup = '[bold]foo\tbar', tab_size = 4, expected_text = 'foo bar'
+expected_spans = [Span(0, 4, 'bold'), Span(4, 7, 'bold')]
+
+    @pytest.mark.parametrize(
+        "markup,tab_size,expected_text,expected_spans",
+        [
+            ("", 4, "", []),
+            ("\t", 4, "    ", []),
+            ("\tbar", 4, "    bar", []),
+            ("foo\tbar", 4, "foo bar", []),
+            ("foo\nbar\nbaz", 4, "foo\nbar\nbaz", []),
+            (
+                "[bold]foo\tbar",
+                4,
+                "foo bar",
+                [
+                    Span(0, 4, "bold"),
+                    Span(4, 7, "bold"),
+                ],
+            ),
+            (
+                "[bold]\tbar",
+                4,
+                "    bar",
+                [
+                    Span(0, 4, "bold"),
+                    Span(4, 7, "bold"),
+                ],
+            ),
+            (
+                "\t[bold]bar",
+                4,
+                "    bar",
+                [
+                    Span(4, 7, "bold"),
+                ],
+            ),
+            (
+                "[red]foo\tbar\n[green]egg\tbaz",
+                8,
+                "foo     bar\negg     baz",
+                [
+                    Span(0, 8, "red"),
+                    Span(8, 12, "red"),
+                    Span(12, 20, "red"),
+                    Span(12, 20, "green"),
+                    Span(20, 23, "red"),
+                    Span(20, 23, "green"),
+                ],
+            ),
+            (
+                "[bold]X\tY",
+                8,
+                "X       Y",
+                [
+                    Span(0, 8, "bold"),
+                    Span(8, 9, "bold"),
+                ],
+            ),
+            (
+                "[bold]💩\t💩",
+                8,
+                "💩      💩",
+                [
+                    Span(0, 7, "bold"),
+                    Span(7, 8, "bold"),
+                ],
+            ),
+            (
+                "[bold]💩💩💩💩\t💩",
+                8,
+                "💩💩💩💩        💩",
+                [
+                    Span(0, 12, "bold"),
+                    Span(12, 13, "bold"),
+                ],
+            ),
+        ],
+    )
+    def test_tabs_to_spaces_spans(
+        markup: str, tab_size: int, expected_text: str, expected_spans: List[Span]
+    ):
+        """Test spans are correct after expand_tabs"""
+        text = Text.from_markup(markup)
+        text.expand_tabs(tab_size)
+        print(text._spans)
+        assert text.plain == expected_text
+&gt;       assert text._spans == expected_spans
+E       AssertionError: assert [Span(0, 4, '...4, 7, 'bold')] == [Span(0, 4, '...4, 7, 'bold')]
+E         
+E         At index 0 diff: Span(0, 4, '') != Span(0, 4, 'bold')
+E         Left contains 2 more items, first extra item: Span(4, 7, '')
+E         Use -v to get more diff
+
+tests/test_text.py:694: AssertionError</failure></testcase><testcase classname="test_text" name="test_tabs_to_spaces_spans[[bold]\tbar-4-    bar-expected_spans6]" file="test_text.py" line="609" time="0.002"><failure message="AssertionError: assert [Span(0, 1, '...4, 7, 'bold')] == [Span(0, 4, '...4, 7, 'bold')]&#10;  &#10;  At index 0 diff: Span(0, 1, '') != Span(0, 4, 'bold')&#10;  Left contains 3 more items, first extra item: Span(1, 4, '')&#10;  Use -v to get more diff">markup = '[bold]\tbar', tab_size = 4, expected_text = '    bar'
+expected_spans = [Span(0, 4, 'bold'), Span(4, 7, 'bold')]
+
+    @pytest.mark.parametrize(
+        "markup,tab_size,expected_text,expected_spans",
+        [
+            ("", 4, "", []),
+            ("\t", 4, "    ", []),
+            ("\tbar", 4, "    bar", []),
+            ("foo\tbar", 4, "foo bar", []),
+            ("foo\nbar\nbaz", 4, "foo\nbar\nbaz", []),
+            (
+                "[bold]foo\tbar",
+                4,
+                "foo bar",
+                [
+                    Span(0, 4, "bold"),
+                    Span(4, 7, "bold"),
+                ],
+            ),
+            (
+                "[bold]\tbar",
+                4,
+                "    bar",
+                [
+                    Span(0, 4, "bold"),
+                    Span(4, 7, "bold"),
+                ],
+            ),
+            (
+                "\t[bold]bar",
+                4,
+                "    bar",
+                [
+                    Span(4, 7, "bold"),
+                ],
+            ),
+            (
+                "[red]foo\tbar\n[green]egg\tbaz",
+                8,
+                "foo     bar\negg     baz",
+                [
+                    Span(0, 8, "red"),
+                    Span(8, 12, "red"),
+                    Span(12, 20, "red"),
+                    Span(12, 20, "green"),
+                    Span(20, 23, "red"),
+                    Span(20, 23, "green"),
+                ],
+            ),
+            (
+                "[bold]X\tY",
+                8,
+                "X       Y",
+                [
+                    Span(0, 8, "bold"),
+                    Span(8, 9, "bold"),
+                ],
+            ),
+            (
+                "[bold]💩\t💩",
+                8,
+                "💩      💩",
+                [
+                    Span(0, 7, "bold"),
+                    Span(7, 8, "bold"),
+                ],
+            ),
+            (
+                "[bold]💩💩💩💩\t💩",
+                8,
+                "💩💩💩💩        💩",
+                [
+                    Span(0, 12, "bold"),
+                    Span(12, 13, "bold"),
+                ],
+            ),
+        ],
+    )
+    def test_tabs_to_spaces_spans(
+        markup: str, tab_size: int, expected_text: str, expected_spans: List[Span]
+    ):
+        """Test spans are correct after expand_tabs"""
+        text = Text.from_markup(markup)
+        text.expand_tabs(tab_size)
+        print(text._spans)
+        assert text.plain == expected_text
+&gt;       assert text._spans == expected_spans
+E       AssertionError: assert [Span(0, 1, '...4, 7, 'bold')] == [Span(0, 4, '...4, 7, 'bold')]
+E         
+E         At index 0 diff: Span(0, 1, '') != Span(0, 4, 'bold')
+E         Left contains 3 more items, first extra item: Span(1, 4, '')
+E         Use -v to get more diff
+
+tests/test_text.py:694: AssertionError</failure></testcase><testcase classname="test_text" name="test_tabs_to_spaces_spans[\t[bold]bar-4-    bar-expected_spans7]" file="test_text.py" line="609" time="0.002"><failure message="AssertionError: assert [Span(0, 1, '...4, 7, 'bold')] == [Span(4, 7, 'bold')]&#10;  &#10;  At index 0 diff: Span(0, 1, '') != Span(4, 7, 'bold')&#10;  Left contains 3 more items, first extra item: Span(1, 4, '')&#10;  Use -v to get more diff">markup = '\t[bold]bar', tab_size = 4, expected_text = '    bar'
+expected_spans = [Span(4, 7, 'bold')]
+
+    @pytest.mark.parametrize(
+        "markup,tab_size,expected_text,expected_spans",
+        [
+            ("", 4, "", []),
+            ("\t", 4, "    ", []),
+            ("\tbar", 4, "    bar", []),
+            ("foo\tbar", 4, "foo bar", []),
+            ("foo\nbar\nbaz", 4, "foo\nbar\nbaz", []),
+            (
+                "[bold]foo\tbar",
+                4,
+                "foo bar",
+                [
+                    Span(0, 4, "bold"),
+                    Span(4, 7, "bold"),
+                ],
+            ),
+            (
+                "[bold]\tbar",
+                4,
+                "    bar",
+                [
+                    Span(0, 4, "bold"),
+                    Span(4, 7, "bold"),
+                ],
+            ),
+            (
+                "\t[bold]bar",
+                4,
+                "    bar",
+                [
+                    Span(4, 7, "bold"),
+                ],
+            ),
+            (
+                "[red]foo\tbar\n[green]egg\tbaz",
+                8,
+                "foo     bar\negg     baz",
+                [
+                    Span(0, 8, "red"),
+                    Span(8, 12, "red"),
+                    Span(12, 20, "red"),
+                    Span(12, 20, "green"),
+                    Span(20, 23, "red"),
+                    Span(20, 23, "green"),
+                ],
+            ),
+            (
+                "[bold]X\tY",
+                8,
+                "X       Y",
+                [
+                    Span(0, 8, "bold"),
+                    Span(8, 9, "bold"),
+                ],
+            ),
+            (
+                "[bold]💩\t💩",
+                8,
+                "💩      💩",
+                [
+                    Span(0, 7, "bold"),
+                    Span(7, 8, "bold"),
+                ],
+            ),
+            (
+                "[bold]💩💩💩💩\t💩",
+                8,
+                "💩💩💩💩        💩",
+                [
+                    Span(0, 12, "bold"),
+                    Span(12, 13, "bold"),
+                ],
+            ),
+        ],
+    )
+    def test_tabs_to_spaces_spans(
+        markup: str, tab_size: int, expected_text: str, expected_spans: List[Span]
+    ):
+        """Test spans are correct after expand_tabs"""
+        text = Text.from_markup(markup)
+        text.expand_tabs(tab_size)
+        print(text._spans)
+        assert text.plain == expected_text
+&gt;       assert text._spans == expected_spans
+E       AssertionError: assert [Span(0, 1, '...4, 7, 'bold')] == [Span(4, 7, 'bold')]
+E         
+E         At index 0 diff: Span(0, 1, '') != Span(4, 7, 'bold')
+E         Left contains 3 more items, first extra item: Span(1, 4, '')
+E         Use -v to get more diff
+
+tests/test_text.py:694: AssertionError</failure></testcase><testcase classname="test_text" name="test_tabs_to_spaces_spans[[red]foo\tbar\n[green]egg\tbaz-8-foo     bar\negg     baz-expected_spans8]" file="test_text.py" line="609" time="0.003"><failure message="AssertionError: assert [Span(0, 4, '... 16, ''), ...] == [Span(0, 8, '... 23, 'green')]&#10;  &#10;  At index 0 diff: Span(0, 4, '') != Span(0, 8, 'red')&#10;  Left contains 6 more items, first extra item: Span(12, 16, 'red')&#10;  Use -v to get more diff">markup = '[red]foo\tbar\n[green]egg\tbaz', tab_size = 8
+expected_text = 'foo     bar\negg     baz'
+expected_spans = [Span(0, 8, 'red'), Span(8, 12, 'red'), Span(12, 20, 'red'), Span(12, 20, 'green'), Span(20, 23, 'red'), Span(20, 23, 'green')]
+
+    @pytest.mark.parametrize(
+        "markup,tab_size,expected_text,expected_spans",
+        [
+            ("", 4, "", []),
+            ("\t", 4, "    ", []),
+            ("\tbar", 4, "    bar", []),
+            ("foo\tbar", 4, "foo bar", []),
+            ("foo\nbar\nbaz", 4, "foo\nbar\nbaz", []),
+            (
+                "[bold]foo\tbar",
+                4,
+                "foo bar",
+                [
+                    Span(0, 4, "bold"),
+                    Span(4, 7, "bold"),
+                ],
+            ),
+            (
+                "[bold]\tbar",
+                4,
+                "    bar",
+                [
+                    Span(0, 4, "bold"),
+                    Span(4, 7, "bold"),
+                ],
+            ),
+            (
+                "\t[bold]bar",
+                4,
+                "    bar",
+                [
+                    Span(4, 7, "bold"),
+                ],
+            ),
+            (
+                "[red]foo\tbar\n[green]egg\tbaz",
+                8,
+                "foo     bar\negg     baz",
+                [
+                    Span(0, 8, "red"),
+                    Span(8, 12, "red"),
+                    Span(12, 20, "red"),
+                    Span(12, 20, "green"),
+                    Span(20, 23, "red"),
+                    Span(20, 23, "green"),
+                ],
+            ),
+            (
+                "[bold]X\tY",
+                8,
+                "X       Y",
+                [
+                    Span(0, 8, "bold"),
+                    Span(8, 9, "bold"),
+                ],
+            ),
+            (
+                "[bold]💩\t💩",
+                8,
+                "💩      💩",
+                [
+                    Span(0, 7, "bold"),
+                    Span(7, 8, "bold"),
+                ],
+            ),
+            (
+                "[bold]💩💩💩💩\t💩",
+                8,
+                "💩💩💩💩        💩",
+                [
+                    Span(0, 12, "bold"),
+                    Span(12, 13, "bold"),
+                ],
+            ),
+        ],
+    )
+    def test_tabs_to_spaces_spans(
+        markup: str, tab_size: int, expected_text: str, expected_spans: List[Span]
+    ):
+        """Test spans are correct after expand_tabs"""
+        text = Text.from_markup(markup)
+        text.expand_tabs(tab_size)
+        print(text._spans)
+        assert text.plain == expected_text
+&gt;       assert text._spans == expected_spans
+E       AssertionError: assert [Span(0, 4, '... 16, ''), ...] == [Span(0, 8, '... 23, 'green')]
+E         
+E         At index 0 diff: Span(0, 4, '') != Span(0, 8, 'red')
+E         Left contains 6 more items, first extra item: Span(12, 16, 'red')
+E         Use -v to get more diff
+
+tests/test_text.py:694: AssertionError</failure></testcase><testcase classname="test_text" name="test_tabs_to_spaces_spans[[bold]X\tY-8-X       Y-expected_spans9]" file="test_text.py" line="609" time="0.002"><failure message="AssertionError: assert [Span(0, 2, '...8, 9, 'bold')] == [Span(0, 8, '...8, 9, 'bold')]&#10;  &#10;  At index 0 diff: Span(0, 2, '') != Span(0, 8, 'bold')&#10;  Left contains 3 more items, first extra item: Span(2, 8, '')&#10;  Use -v to get more diff">markup = '[bold]X\tY', tab_size = 8, expected_text = 'X       Y'
+expected_spans = [Span(0, 8, 'bold'), Span(8, 9, 'bold')]
+
+    @pytest.mark.parametrize(
+        "markup,tab_size,expected_text,expected_spans",
+        [
+            ("", 4, "", []),
+            ("\t", 4, "    ", []),
+            ("\tbar", 4, "    bar", []),
+            ("foo\tbar", 4, "foo bar", []),
+            ("foo\nbar\nbaz", 4, "foo\nbar\nbaz", []),
+            (
+                "[bold]foo\tbar",
+                4,
+                "foo bar",
+                [
+                    Span(0, 4, "bold"),
+                    Span(4, 7, "bold"),
+                ],
+            ),
+            (
+                "[bold]\tbar",
+                4,
+                "    bar",
+                [
+                    Span(0, 4, "bold"),
+                    Span(4, 7, "bold"),
+                ],
+            ),
+            (
+                "\t[bold]bar",
+                4,
+                "    bar",
+                [
+                    Span(4, 7, "bold"),
+                ],
+            ),
+            (
+                "[red]foo\tbar\n[green]egg\tbaz",
+                8,
+                "foo     bar\negg     baz",
+                [
+                    Span(0, 8, "red"),
+                    Span(8, 12, "red"),
+                    Span(12, 20, "red"),
+                    Span(12, 20, "green"),
+                    Span(20, 23, "red"),
+                    Span(20, 23, "green"),
+                ],
+            ),
+            (
+                "[bold]X\tY",
+                8,
+                "X       Y",
+                [
+                    Span(0, 8, "bold"),
+                    Span(8, 9, "bold"),
+                ],
+            ),
+            (
+                "[bold]💩\t💩",
+                8,
+                "💩      💩",
+                [
+                    Span(0, 7, "bold"),
+                    Span(7, 8, "bold"),
+                ],
+            ),
+            (
+                "[bold]💩💩💩💩\t💩",
+                8,
+                "💩💩💩💩        💩",
+                [
+                    Span(0, 12, "bold"),
+                    Span(12, 13, "bold"),
+                ],
+            ),
+        ],
+    )
+    def test_tabs_to_spaces_spans(
+        markup: str, tab_size: int, expected_text: str, expected_spans: List[Span]
+    ):
+        """Test spans are correct after expand_tabs"""
+        text = Text.from_markup(markup)
+        text.expand_tabs(tab_size)
+        print(text._spans)
+        assert text.plain == expected_text
+&gt;       assert text._spans == expected_spans
+E       AssertionError: assert [Span(0, 2, '...8, 9, 'bold')] == [Span(0, 8, '...8, 9, 'bold')]
+E         
+E         At index 0 diff: Span(0, 2, '') != Span(0, 8, 'bold')
+E         Left contains 3 more items, first extra item: Span(2, 8, '')
+E         Use -v to get more diff
+
+tests/test_text.py:694: AssertionError</failure></testcase><testcase classname="test_text" name="test_tabs_to_spaces_spans[[bold]\U0001f4a9\t\U0001f4a9-8-\U0001f4a9      \U0001f4a9-expected_spans10]" file="test_text.py" line="609" time="0.002"><failure message="AssertionError: assert '💩       💩' == '💩      💩'&#10;  &#10;  - 💩      💩&#10;  + 💩       💩&#10;  ?        +">markup = '[bold]💩\t💩', tab_size = 8, expected_text = '💩      💩'
+expected_spans = [Span(0, 7, 'bold'), Span(7, 8, 'bold')]
+
+    @pytest.mark.parametrize(
+        "markup,tab_size,expected_text,expected_spans",
+        [
+            ("", 4, "", []),
+            ("\t", 4, "    ", []),
+            ("\tbar", 4, "    bar", []),
+            ("foo\tbar", 4, "foo bar", []),
+            ("foo\nbar\nbaz", 4, "foo\nbar\nbaz", []),
+            (
+                "[bold]foo\tbar",
+                4,
+                "foo bar",
+                [
+                    Span(0, 4, "bold"),
+                    Span(4, 7, "bold"),
+                ],
+            ),
+            (
+                "[bold]\tbar",
+                4,
+                "    bar",
+                [
+                    Span(0, 4, "bold"),
+                    Span(4, 7, "bold"),
+                ],
+            ),
+            (
+                "\t[bold]bar",
+                4,
+                "    bar",
+                [
+                    Span(4, 7, "bold"),
+                ],
+            ),
+            (
+                "[red]foo\tbar\n[green]egg\tbaz",
+                8,
+                "foo     bar\negg     baz",
+                [
+                    Span(0, 8, "red"),
+                    Span(8, 12, "red"),
+                    Span(12, 20, "red"),
+                    Span(12, 20, "green"),
+                    Span(20, 23, "red"),
+                    Span(20, 23, "green"),
+                ],
+            ),
+            (
+                "[bold]X\tY",
+                8,
+                "X       Y",
+                [
+                    Span(0, 8, "bold"),
+                    Span(8, 9, "bold"),
+                ],
+            ),
+            (
+                "[bold]💩\t💩",
+                8,
+                "💩      💩",
+                [
+                    Span(0, 7, "bold"),
+                    Span(7, 8, "bold"),
+                ],
+            ),
+            (
+                "[bold]💩💩💩💩\t💩",
+                8,
+                "💩💩💩💩        💩",
+                [
+                    Span(0, 12, "bold"),
+                    Span(12, 13, "bold"),
+                ],
+            ),
+        ],
+    )
+    def test_tabs_to_spaces_spans(
+        markup: str, tab_size: int, expected_text: str, expected_spans: List[Span]
+    ):
+        """Test spans are correct after expand_tabs"""
+        text = Text.from_markup(markup)
+        text.expand_tabs(tab_size)
+        print(text._spans)
+&gt;       assert text.plain == expected_text
+E       AssertionError: assert '💩       💩' == '💩      💩'
+E         
+E         - 💩      💩
+E         + 💩       💩
+E         ?        +
+
+tests/test_text.py:693: AssertionError</failure></testcase><testcase classname="test_text" name="test_tabs_to_spaces_spans[[bold]\U0001f4a9\U0001f4a9\U0001f4a9\U0001f4a9\t\U0001f4a9-8-\U0001f4a9\U0001f4a9\U0001f4a9\U0001f4a9        \U0001f4a9-expected_spans11]" file="test_text.py" line="609" time="0.002"><failure message="AssertionError: assert '💩💩💩💩    💩' == '💩💩💩💩        💩'&#10;  &#10;  - 💩💩💩💩        💩&#10;  ?         ----&#10;  + 💩💩💩💩    💩">markup = '[bold]💩💩💩💩\t💩', tab_size = 8, expected_text = '💩💩💩💩        💩'
+expected_spans = [Span(0, 12, 'bold'), Span(12, 13, 'bold')]
+
+    @pytest.mark.parametrize(
+        "markup,tab_size,expected_text,expected_spans",
+        [
+            ("", 4, "", []),
+            ("\t", 4, "    ", []),
+            ("\tbar", 4, "    bar", []),
+            ("foo\tbar", 4, "foo bar", []),
+            ("foo\nbar\nbaz", 4, "foo\nbar\nbaz", []),
+            (
+                "[bold]foo\tbar",
+                4,
+                "foo bar",
+                [
+                    Span(0, 4, "bold"),
+                    Span(4, 7, "bold"),
+                ],
+            ),
+            (
+                "[bold]\tbar",
+                4,
+                "    bar",
+                [
+                    Span(0, 4, "bold"),
+                    Span(4, 7, "bold"),
+                ],
+            ),
+            (
+                "\t[bold]bar",
+                4,
+                "    bar",
+                [
+                    Span(4, 7, "bold"),
+                ],
+            ),
+            (
+                "[red]foo\tbar\n[green]egg\tbaz",
+                8,
+                "foo     bar\negg     baz",
+                [
+                    Span(0, 8, "red"),
+                    Span(8, 12, "red"),
+                    Span(12, 20, "red"),
+                    Span(12, 20, "green"),
+                    Span(20, 23, "red"),
+                    Span(20, 23, "green"),
+                ],
+            ),
+            (
+                "[bold]X\tY",
+                8,
+                "X       Y",
+                [
+                    Span(0, 8, "bold"),
+                    Span(8, 9, "bold"),
+                ],
+            ),
+            (
+                "[bold]💩\t💩",
+                8,
+                "💩      💩",
+                [
+                    Span(0, 7, "bold"),
+                    Span(7, 8, "bold"),
+                ],
+            ),
+            (
+                "[bold]💩💩💩💩\t💩",
+                8,
+                "💩💩💩💩        💩",
+                [
+                    Span(0, 12, "bold"),
+                    Span(12, 13, "bold"),
+                ],
+            ),
+        ],
+    )
+    def test_tabs_to_spaces_spans(
+        markup: str, tab_size: int, expected_text: str, expected_spans: List[Span]
+    ):
+        """Test spans are correct after expand_tabs"""
+        text = Text.from_markup(markup)
+        text.expand_tabs(tab_size)
+        print(text._spans)
+&gt;       assert text.plain == expected_text
+E       AssertionError: assert '💩💩💩💩    💩' == '💩💩💩💩        💩'
+E         
+E         - 💩💩💩💩        💩
+E         ?         ----
+E         + 💩💩💩💩    💩
+
+tests/test_text.py:693: AssertionError</failure></testcase><testcase classname="test_text" name="test_markup_switch" file="test_text.py" line="696" time="0.002" /><testcase classname="test_text" name="test_emoji" file="test_text.py" line="703" time="0.001" /><testcase classname="test_text" name="test_emoji_switch" file="test_text.py" line="710" time="0.001" /><testcase classname="test_text" name="test_assemble" file="test_text.py" line="717" time="0.001" /><testcase classname="test_text" name="test_assemble_meta" file="test_text.py" line="723" time="0.001" /><testcase classname="test_text" name="test_styled" file="test_text.py" line="731" time="0.001" /><testcase classname="test_text" name="test_strip_control_codes" file="test_text.py" line="738" time="0.001" /><testcase classname="test_text" name="test_get_style_at_offset" file="test_text.py" line="745" time="0.001" /><testcase classname="test_text" name="test_truncate_ellipsis[Hello-10-Hello]" file="test_text.py" line="752" time="0.001" /><testcase classname="test_text" name="test_truncate_ellipsis[Hello-5-Hello]" file="test_text.py" line="752" time="0.001" /><testcase classname="test_text" name="test_truncate_ellipsis[Hello-4-Hel\u2026]" file="test_text.py" line="752" time="0.001" /><testcase classname="test_text" name="test_truncate_ellipsis[Hello-3-He\u2026]" file="test_text.py" line="752" time="0.001" /><testcase classname="test_text" name="test_truncate_ellipsis[Hello-2-H\u2026]" file="test_text.py" line="752" time="0.001" /><testcase classname="test_text" name="test_truncate_ellipsis[Hello-1-\u2026]" file="test_text.py" line="752" time="0.001" /><testcase classname="test_text" name="test_truncate_ellipsis_pad[Hello-5-Hello]" file="test_text.py" line="769" time="0.002" /><testcase classname="test_text" name="test_truncate_ellipsis_pad[Hello-10-Hello     ]" file="test_text.py" line="769" time="0.001" /><testcase classname="test_text" name="test_truncate_ellipsis_pad[Hello-3-He\u2026]" file="test_text.py" line="769" time="0.001" /><testcase classname="test_text" name="test_pad" file="test_text.py" line="783" time="0.001" /><testcase classname="test_text" name="test_align_left" file="test_text.py" line="789" time="0.001" /><testcase classname="test_text" name="test_align_right" file="test_text.py" line="795" time="0.001" /><testcase classname="test_text" name="test_align_center" file="test_text.py" line="801" time="0.001" /><testcase classname="test_text" name="test_detect_indentation" file="test_text.py" line="807" time="0.001" /><testcase classname="test_text" name="test_indentation_guides" file="test_text.py" line="823" time="0.001" /><testcase classname="test_text" name="test_slice" file="test_text.py" line="845" time="0.001" /><testcase classname="test_text" name="test_wrap_invalid_style" file="test_text.py" line="859" time="0.003" /><testcase classname="test_text" name="test_apply_meta" file="test_text.py" line="866" time="0.001" /><testcase classname="test_text" name="test_on" file="test_text.py" line="877" time="0.001" /><testcase classname="test_text" name="test_markup_property" file="test_text.py" line="887" time="0.001" /><testcase classname="test_text" name="test_extend_style" file="test_text.py" line="903" time="0.001"><failure message="AttributeError: 'Text' object has no attribute 'extend_style'">def test_extend_style():
+        text = Text.from_markup("[red]foo[/red] [bold]bar")
+&gt;       text.extend_style(0)
+        ^^^^^^^^^^^^^^^^^
+E       AttributeError: 'Text' object has no attribute 'extend_style'
+
+tests/test_text.py:906: AttributeError</failure></testcase></testsuite></testsuites>

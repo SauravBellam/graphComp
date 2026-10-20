@@ -1,0 +1,36 @@
+
+$ /home/sauravbellam/cache/a2/rich_4079/venv/bin/python -s -m pytest tests/test_markdown.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/rich_4079/trace_post.xml
+[exit 1]
+.......F                                                                 [100%]
+=================================== FAILURES ===================================
+_______________________ test_inline_code_in_table_cells ________________________
+
+    def test_inline_code_in_table_cells() -> None:
+        """Test inline code in table cells.
+    
+        Regression test for https://github.com/Textualize/rich/issues/4038
+    
+        """
+        markdown = Markdown(
+            "| Col |\n|---|\n| `print('hello');` |\n",
+            inline_code_theme="monokai",
+            inline_code_lexer="python",
+        )
+        result = render(markdown)
+        expected = "\n\x1b[36m                 \x1b[0m\n\x1b[36m \x1b[0m\x1b[36mCol\x1b[0m\x1b[1m            \x1b[0m\x1b[36m \x1b[0m\n\x1b[36m ─────────────── \x1b[0m\n\x1b[36m \x1b[0m\x1b[38;2;248;248;242;48;2;39;40;34mprint\x1b[0m\x1b[38;2;248;248;242;48;2;39;40;34m(\x1b[0m\x1b[38;2;230;219;116;48;2;39;40;34m'\x1b[0m\x1b[38;2;230;219;116;48;2;39;40;34mhello\x1b[0m\x1b[38;2;230;219;116;48;2;39;40;34m'\x1b[0m\x1b[38;2;248;248;242;48;2;39;40;34m)\x1b[0m\x1b[38;2;248;248;242;48;2;39;40;34m;\x1b[0m\x1b[36m \x1b[0m\n\x1b[36m                 \x1b[0m\n"
+>       assert result == expected
+E       AssertionError: assert '\n\x1b[36m  ...    \x1b[0m\n' == '\n\x1b[36m  ...    \x1b[0m\n'
+E         
+E         Skipping 115 identical leading characters in diff, use -v to show
+E         - [0m[38;2;248;248;242;48;2;39;40;34mprint[0m[38;2;248;248;242;48;2;39;40;34m([0m[38;2;230;219;116;48;2;39;40;34m'[0m[38;2;230;219;116;48;2;39;40;34mhello[0m[38;2;230;219;116;48;2;39;40;34m'[0m[38;2;248;248;242;48;2;39;40;34m)[0m[38;2;248;248;242;48;2;39;40;34m;[0m[36m [0m
+E         ?           ^^^^^^^^^^^
+E         + [0m[38;2;166;226;46;48;2;39;40;34mprint[0m[38;2;248;248;242;48;2;39;40;34m([0m[38;2;230;219;116;48;2;39;40;34m'[0m[38;2;230;219;116;48;2;39;40;34mhello[0m[38;2;230;219;116;48;2;39;40;34m'...
+E         
+E         ...Full output truncated (3 lines hidden), use '-vv' to show
+
+tests/test_markdown.py:215: AssertionError
+----------------------------- Captured stdout call -----------------------------
+"\n\x1b[36m                 \x1b[0m\n\x1b[36m \x1b[0m\x1b[36mCol\x1b[0m\x1b[1m            \x1b[0m\x1b[36m \x1b[0m\n\x1b[36m ─────────────── \x1b[0m\n\x1b[36m \x1b[0m\x1b[38;2;166;226;46;48;2;39;40;34mprint\x1b[0m\x1b[38;2;248;248;242;48;2;39;40;34m(\x1b[0m\x1b[38;2;230;219;116;48;2;39;40;34m'\x1b[0m\x1b[38;2;230;219;116;48;2;39;40;34mhello\x1b[0m\x1b[38;2;230;219;116;48;2;39;40;34m'\x1b[0m\x1b[38;2;248;248;242;48;2;39;40;34m)\x1b[0m\x1b[38;2;248;248;242;48;2;39;40;34m;\x1b[0m\x1b[36m \x1b[0m\n\x1b[36m                 \x1b[0m\n"
+1 failed, 7 passed in 1.01s
+
+

@@ -1,0 +1,55 @@
+
+$ /home/sauravbellam/cache/a2/rich_3718/venv/bin/python -s -m pytest tests/test_panel.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/rich_3718/trace_pre.xml
+[exit 1]
+............F                                                            [100%]
+=================================== FAILURES ===================================
+____________________ test_title_text_with_panel_background _____________________
+
+    def test_title_text_with_panel_background() -> None:
+        """Regression test for https://github.com/Textualize/rich/issues/3569"""
+        panel = Panel(
+            "Hello, World",
+            style="on blue",
+            title=Text("title", style="red"),
+            subtitle=Text("subtitle", style="magenta bold"),
+        )
+        console = Console(
+            file=io.StringIO(),
+            width=50,
+            height=20,
+            legacy_windows=False,
+            force_terminal=True,
+            color_system="truecolor",
+        )
+        console.print(panel)
+    
+        result = console.file.getvalue()
+        print(repr(result))
+        expected = "\x1b[44m╭─\x1b[0m\x1b[44m───────────────────\x1b[0m\x1b[31;44m title \x1b[0m\x1b[44m────────────────────\x1b[0m\x1b[44m─╮\x1b[0m\n\x1b[44m│\x1b[0m\x1b[44m \x1b[0m\x1b[44mHello, World\x1b[0m\x1b[44m                                  \x1b[0m\x1b[44m \x1b[0m\x1b[44m│\x1b[0m\n\x1b[44m╰─\x1b[0m\x1b[44m──────────────────\x1b[0m\x1b[1;35;44m subtitle \x1b[0m\x1b[44m──────────────────\x1b[0m\x1b[44m─╯\x1b[0m\n"
+>       assert result == expected
+E       AssertionError: assert '\x1b[44m╭─\x...4m─╯\x1b[0m\n' == '\x1b[44m╭─\x...4m─╯\x1b[0m\n'
+E         
+E         Skipping 33 identical leading characters in diff, use -v to show
+E         - ──[0m[31;44m title [0m[44m────────────────────[0m[44m─╮[0m
+E         ?           ---
+E         + ──[0m[31m title [0m[44m────────────────────[0m[44m─╮[0m
+E           [44m│[0m[44m [0m[44mHello, World[0m[44m                                  [0m[44m [0m[44m│[0m
+E         - [44m╰─[0m[44m──────────────────[0m[1;35;44m subtitle [0m[44m──────────────────[0m[44m─╯[0m
+E         ?                                             ---
+E         + [44m╰─[0m[44m──────────────────[0m[1;35m subtitle [0m[44m──────────────────[0m[44m─╯[0m
+
+tests/test_panel.py:172: AssertionError
+----------------------------- Captured stdout call -----------------------------
+'\x1b[44m╭─\x1b[0m\x1b[44m───────────────────\x1b[0m\x1b[31m title \x1b[0m\x1b[44m────────────────────\x1b[0m\x1b[44m─╮\x1b[0m\n\x1b[44m│\x1b[0m\x1b[44m \x1b[0m\x1b[44mHello, World\x1b[0m\x1b[44m                                  \x1b[0m\x1b[44m \x1b[0m\x1b[44m│\x1b[0m\n\x1b[44m╰─\x1b[0m\x1b[44m──────────────────\x1b[0m\x1b[1;35m subtitle \x1b[0m\x1b[44m──────────────────\x1b[0m\x1b[44m─╯\x1b[0m\n'
+=============================== warnings summary ===============================
+../venv/lib/python3.13/site-packages/_pytest/python.py:124
+  /home/sauravbellam/cache/a2/rich_3718/venv/lib/python3.13/site-packages/_pytest/python.py:124: PytestRemovedIn10Warning: Passing a non-Collection iterable to parametrize is deprecated.
+  Test: test_panel.py::test_render_panel, argvalues type: zip
+  Please convert to a list or tuple.
+  See https://docs.pytest.org/en/stable/deprecations.html#parametrize-iterators
+    metafunc.parametrize(*marker.args, **marker.kwargs, _param_mark=marker)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+1 failed, 12 passed, 1 warning in 0.45s
+
+

@@ -1,0 +1,90 @@
+{
+  "instance_id": "rich_3772",
+  "repo": "Textualize/rich",
+  "backend": "venv",
+  "done": true,
+  "test_timeout": 60,
+  "deps": {
+    "steps": [
+      {
+        "name": "pip_upgrade",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3772/venv/bin/python -m pip install -q --disable-pip-version-check 'pip>=24' 'setuptools' 'wheel' pytest pytest-timeout",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "editable_no_deps",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3772/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-build-isolation --no-deps -e .",
+        "exit": 2,
+        "stderr_tail": "python3.13/site-packages/pip/_internal/req/req_install.py\", line 258, in supports_pyproject_editable\n    return \"build_editable\" in self.pep517_backend._supported_features()\n                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"/home/sauravbellam/cache/a2/rich_3772/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 180, in _supported_features\n    return self._call_hook(\"_supported_features\", {})\n           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/sauravbellam/cache/a2/rich_3772/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 402, in _call_hook\n    raise BackendUnavailable(\n    ...<4 lines>...\n    )\npip._vendor.pyproject_hooks._impl.BackendUnavailable: Cannot import 'poetry.core.masonry.api'\n"
+      },
+      {
+        "name": "editable_no_deps_isolated",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3772/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-deps -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "runtime_deps",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3772/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "poetry_group_dev",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3772/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels pytest black mypy pytest-cov attrs pre-commit asv typing-extensions",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "rich_tests",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3772/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels pytest-cov attrs ipywidgets",
+        "exit": 0,
+        "stderr_tail": ""
+      }
+    ],
+    "editable_ok": true,
+    "python": "3.13.5 (main, Aug 10 2026, 12:06:59) [GCC 14.2.0]"
+  },
+  "targets": [
+    "tests/test_traceback.py"
+  ],
+  "test_patch_strategy": "exact",
+  "test_patch_applied": true,
+  "pre": {
+    "exit": 1,
+    "seconds": 65.1,
+    "timeout": false,
+    "exit_meaning": "some_failed",
+    "run_class": "clean",
+    "counts": {
+      "failed": 1,
+      "passed": 21,
+      "skipped": 1
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "\n                return \"<exception str() failed>\"\n    \n        while True:\n            stack = Stack(\n                exc_type=safe_str(exc_type.__name__),\n                exc_value=safe_str(exc_value),\n                is_cause=is_cause,\n                notes=notes,\n            )\n    \n            if sys.version_info >= (3, 11):\n                if isinstance(exc_value, (BaseExceptionGroup, ExceptionGroup)):\n                    stack.is_group = True\n                    for exception in exc_value.exceptions:\n                        stack.exceptions.append(\n                            Traceback.extract(\n                                type(exception),\n                                exception,\n                                exception.__traceback__,\n                                show_locals=show_locals,\n                                locals_max_length=locals_max_length,\n                                locals_hide_dunder=locals_hide_dunder,\n                                locals_hide_sunder=locals_hide_sunder,\n                            )\n                        )\n    \n            if isinstance(exc_value, SyntaxError):\n                stack.syntax_error = _SyntaxError(\n                    offset=exc_value.offset or 0,\n                    filename=exc_value.filename or \"?\",\n                    lineno=exc_value.lineno or 0,\n                    line=exc_value.text or \"\",\n                    msg=exc_value.msg,\n                    notes=notes,\n                )\n    \n            stacks.append(stack)\n            append = stack.frames.append\n    \n            def get_locals(\n                iter_locals: Iterable[Tuple[str, object]],\n            ) -> Iterable[Tuple[str, object]]:\n                \"\"\"Extract locals from an iterator of key pairs.\"\"\"\n                if not (locals_hide_dunder or locals_hide_sunder):\n                    yield from iter_locals\n                    return\n                for key, value in iter_locals:\n                    if locals_hide_dunder and key.startswith(\"__\"):\n                        continue\n                    if locals_hide_sunder and key.startswith(\"_\"):\n                        continue\n                    yield key, value\n    \n            for frame_summary, line_no in walk_tb(traceback):\n                filename = frame_summary.f_code.co_filename\n    \n                last_instruction: Optional[Tuple[Tuple[int, int], Tuple[int, int]]]\n                last_instruction = None\n                if sys.version_info >= (3, 11):\n                    instruction_index = frame_summary.f_lasti // 2\n>                   instruction_position = next(\n                        islice(\n                            frame_summary.f_code.co_positions(),\n                            instruction_index,\n                            instruction_index + 1,\n                        )\n                    )\nE                   Failed: Timeout (>60.0s) from pytest-timeout.\n\nrich/traceback.py:511: Failed\n1 failed, 21 passed, 1 skipped in 61.37s (0:01:01)\n",
+    "stderr_tail": ""
+  },
+  "gold_patch_strategy": "exact",
+  "gold_patch_applied": true,
+  "post": {
+    "exit": 0,
+    "seconds": 1.7,
+    "timeout": false,
+    "exit_meaning": "all_passed",
+    "run_class": "clean",
+    "counts": {
+      "passed": 22,
+      "skipped": 1
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "...................s...                                                  [100%]\n22 passed, 1 skipped in 1.36s\n",
+    "stderr_tail": ""
+  },
+  "trace_pre_exists": true,
+  "trace_post_exists": true,
+  "seconds": 86.5
+}

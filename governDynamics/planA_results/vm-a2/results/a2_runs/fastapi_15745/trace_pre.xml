@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="1" failures="0" skipped="0" tests="1" time="1.844" timestamp="2026-10-10T23:22:24.149390+00:00" hostname="vm-a2"><testcase classname="" name="tests.test_router_include_context" time="0.000"><error message="collection failure">ImportError while importing test module '/home/sauravbellam/cache/a2/fastapi_15745/workspace/tests/test_router_include_context.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/usr/lib/python3.13/importlib/__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_router_include_context.py:6: in &lt;module&gt;
+    from fastapi.routing import (
+E   ImportError: cannot import name '_IncludedRouter' from 'fastapi.routing' (/home/sauravbellam/cache/a2/fastapi_15745/workspace/fastapi/routing.py)</error></testcase></testsuite></testsuites>

@@ -1,0 +1,88 @@
+{
+  "instance_id": "rich_3935",
+  "repo": "Textualize/rich",
+  "backend": "venv",
+  "done": true,
+  "deps": {
+    "steps": [
+      {
+        "name": "pip_upgrade",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3935/venv/bin/python -m pip install -q --disable-pip-version-check 'pip>=24' 'setuptools' 'wheel' pytest pytest-timeout",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "editable_no_deps",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3935/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-build-isolation --no-deps -e .",
+        "exit": 2,
+        "stderr_tail": "python3.13/site-packages/pip/_internal/req/req_install.py\", line 258, in supports_pyproject_editable\n    return \"build_editable\" in self.pep517_backend._supported_features()\n                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"/home/sauravbellam/cache/a2/rich_3935/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 180, in _supported_features\n    return self._call_hook(\"_supported_features\", {})\n           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/sauravbellam/cache/a2/rich_3935/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 402, in _call_hook\n    raise BackendUnavailable(\n    ...<4 lines>...\n    )\npip._vendor.pyproject_hooks._impl.BackendUnavailable: Cannot import 'poetry.core.masonry.api'\n"
+      },
+      {
+        "name": "editable_no_deps_isolated",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3935/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-deps -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "runtime_deps",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3935/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "poetry_group_dev",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3935/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels pytest black mypy pytest-cov attrs pre-commit typing-extensions",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "rich_tests",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3935/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels pytest-cov attrs ipywidgets",
+        "exit": 0,
+        "stderr_tail": ""
+      }
+    ],
+    "editable_ok": true,
+    "python": "3.13.5 (main, Aug 10 2026, 12:06:59) [GCC 14.2.0]"
+  },
+  "targets": [
+    "tests/test_columns.py",
+    "tests/test_table.py"
+  ],
+  "test_patch_strategy": "exact",
+  "test_patch_applied": true,
+  "pre": {
+    "exit": 1,
+    "seconds": 1.6,
+    "timeout": false,
+    "exit_meaning": "some_failed",
+    "run_class": "clean",
+    "counts": {
+      "failed": 2,
+      "passed": 20
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "onda (unidentified) Martes americana    American buffalo     \\nTachyglossus aculeatus     Eunectes sp.            American racer      Bison bison          \\nAnteater, giant            Andean goose            Coluber constrictor American crow        \\nMyrmecophaga tridactyla    Chloephaga melanoptera  American woodcock   Corvus brachyrhynchos\\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 equal columns, expand \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\\nChloephaga melanoptera                American racer                    Ursus americanus            \\nAnt                                   Coluber constrictor               American buffalo            \\nAnteater, australian spiny            American woodcock                 Bison bison                 \\nTachyglossus aculeatus                Scolopax minor                    American crow               \\nAnteater, giant                       Anaconda (unidentified)           Corvus brachyrhynchos       \\nMyrmecophaga tridactyla               Eunectes sp.                      American marten             \\n                                      Andean goose                      Martes americana            \\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 fixed width \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\\nAnteater,         Eunectes sp.     Coluber          Corvus           Ursus americanus \\naustralian spiny                   constrictor      brachyrhynchos                    \\nTachyglossus      Andean goose     American         American marten  American buffalo \\naculeatus                          woodcock                                           \\nAnteater, giant   Chloephaga       Scolopax minor   Martes americana Bison bison      \\n                  melanoptera                                                         \\nMyrmecophaga      Ant              Anaconda         American racer   American crow    \\ntridactyla                         (unidentified)                                     \\n\\n'\n______________________________ test_padding_width ______________________________\n\n    def test_padding_width():\n        \"\"\"Regression test for https://github.com/Textualize/rich/issues/3871\n    \n        Padding should be even between cells/\n    \n        \"\"\"\n    \n        table = Table.grid(padding=(0, 1))\n    \n        for _ in range(3):\n            table.add_column(width=3)\n    \n        for row in range(1):\n            table.add_row(*[\"a\" * 3 for _ in range(3)])\n    \n        console = Console(record=True)\n        console.print(table)\n        output = console.export_text(styles=True)\n    \n        print(repr(output))\n        expected = \"aaa aaa aaa\\n\"\n>       assert output == expected\nE       AssertionError: assert 'aaa  aaa aaa \\n' == 'aaa aaa aaa\\n'\nE         \nE         - aaa aaa aaa\nE         + aaa  aaa aaa \nE         ?     +       +\n\ntests/test_table.py:406: AssertionError\n----------------------------- Captured stdout call -----------------------------\naaa  aaa aaa \n'aaa  aaa aaa \\n'\n2 failed, 20 passed in 1.04s\n",
+    "stderr_tail": ""
+  },
+  "gold_patch_strategy": "exact",
+  "gold_patch_applied": true,
+  "post": {
+    "exit": 0,
+    "seconds": 1.1,
+    "timeout": false,
+    "exit_meaning": "all_passed",
+    "run_class": "clean",
+    "counts": {
+      "passed": 22
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "......................                                                   [100%]\n22 passed in 0.83s\n",
+    "stderr_tail": ""
+  },
+  "trace_pre_exists": true,
+  "trace_post_exists": true,
+  "seconds": 35.0
+}

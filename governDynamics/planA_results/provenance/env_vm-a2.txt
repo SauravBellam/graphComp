@@ -1,0 +1,22 @@
+host: vm-a2  16 vCPU  62 GB RAM
+os: Debian GNU/Linux 13 (trixie)
+python: Python 3.13.5
+numpy 2.2.4 scipy 1.15.3
+--- sha256 of code as run
+26ed0e2b8a79a55e9bf4d425af79d7fb33b3f41de2d9e2db87766325477b365a  planA/a1_census.py
+f562bae536deb7965f91d179d6fa87330bc97ea60a258172977cb447a38ec5ec  planA/a2/Dockerfile.audit
+c8a3c6beb9e6a61a75604c2da8317ef60e31053d34e33115bd95acc95dc9bad9  planA/a2/analyze.py
+b142383d92e9aec25ef51364c61fc8f8114f6b9a59205a23c865129b8b0e3f4e  planA/a2/run_task.py
+2642783fc1e80700cf092aa066014e1819f0cfb9e4ff3a8f81772e95e5a9ad4d  planA/a2/trace_plugin.py
+403ade92aab26958fd3e167c09c3f6ee40d817de324ad92f07ce954b13e31a3b  planA/a3_encoder.py
+a7aacd5f35585ed441fa5aa562e7411ed7c6c7dfb465b4e918c79749e58d6bf7  planA/a4_probe.py
+fe3ae1907c98d684b334447c602d519a5f375df66a5757aa54d56ca4773d2a23  planA/a5_retrieval.py
+7c4556d0eedf5c761e65dfb9af7114200e33f0a159cd564a372c7d45939d9e32  planA/a6_release.py
+5d96851bc721c19b170d33a6d9e43b2733272ca12fbf2a2718cfd249dcb02798  planA/common.py
+97862be2aba62c124bc5a37fa51f60504a8c39fe5473dd0ae1035046e4a80c46  planA/requirements.txt
+9ed6feaf589196f21f6d69be56cfd40b70d09978124cabde1eb71ee348e62fb0  planA/run_all.py
+99293c0d01218de2f67a669fb8c9c6a3e06106547c8c15ef407288d002c92d05  planA/stats.py
+eb6ba108a72df0a2e8bc84f9e4cd44b6d81865be9e634ce865fd1f6b11fce798  tests/make_fixture.py
+bba3585f5002c7d904e7de0ae1c6a3e3ee1c5aa887854efabf0c4ef566495858  tests/test_pipeline.py
+--- sha256 tasks.jsonl
+e4b3fd60f69dbc2b9213e54eeb9636db78aefe92c1d06269d73d9f5f8f3c8ad6  /home/sauravbellam/graphComp/archive/tasks.jsonl

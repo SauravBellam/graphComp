@@ -1,0 +1,29 @@
+
+$ /home/sauravbellam/cache/a2/rich_3067/venv/bin/python -s -m pytest tests/test_highlighter.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/rich_3067/trace_pre.xml
+[exit 1]
+........................................F............................... [ 87%]
+..........                                                               [100%]
+=================================== FAILURES ===================================
+__________ test_highlight_regex[ http://example.org/~folder -spans39] __________
+
+test = ' http://example.org/~folder ', spans = [Span(1, 27, 'repr.url')]
+
+    @pytest.mark.parametrize("test, spans", highlight_tests)
+    def test_highlight_regex(test: str, spans: List[Span]):
+        """Tests for the regular expressions used in ReprHighlighter."""
+        text = Text(test)
+        highlighter = ReprHighlighter()
+        highlighter.highlight(text)
+        print(text.spans)
+>       assert text.spans == spans
+E       AssertionError: assert [Span(1, 20, 'repr.url')] == [Span(1, 27, 'repr.url')]
+E         
+E         At index 0 diff: Span(1, 20, 'repr.url') != Span(1, 27, 'repr.url')
+E         Use -v to get more diff
+
+tests/test_highlighter.py:166: AssertionError
+----------------------------- Captured stdout call -----------------------------
+[Span(1, 20, 'repr.url')]
+1 failed, 81 passed in 0.50s
+
+

@@ -1,0 +1,96 @@
+{
+  "instance_id": "fastapi_14962",
+  "repo": "fastapi/fastapi",
+  "backend": "venv",
+  "done": true,
+  "deps": {
+    "steps": [
+      {
+        "name": "pip_upgrade",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14962/venv/bin/python -m pip install -q --disable-pip-version-check 'pip>=24' 'setuptools' 'wheel' pytest pytest-timeout",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "editable_no_deps",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14962/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-build-isolation --no-deps -e .",
+        "exit": 2,
+        "stderr_tail": "lib/python3.13/site-packages/pip/_internal/req/req_install.py\", line 258, in supports_pyproject_editable\n    return \"build_editable\" in self.pep517_backend._supported_features()\n                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"/home/sauravbellam/cache/a2/fastapi_14962/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 180, in _supported_features\n    return self._call_hook(\"_supported_features\", {})\n           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/sauravbellam/cache/a2/fastapi_14962/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 402, in _call_hook\n    raise BackendUnavailable(\n    ...<4 lines>...\n    )\npip._vendor.pyproject_hooks._impl.BackendUnavailable: Cannot import 'pdm.backend'\n"
+      },
+      {
+        "name": "editable_no_deps_isolated",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14962/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-deps -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "runtime_deps",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14962/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "extra_all",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14962/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e '.[all]'",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "extra_standard",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14962/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e '.[standard]'",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "fastapi_tests",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14962/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels httpx 'python-multipart' email-validator pyyaml orjson ujson 'sqlmodel' 'dirty-equals' 'pytest-asyncio' 'flask' 'passlib[bcrypt]' 'pyjwt' 'inline-snapshot'",
+        "exit": 0,
+        "stderr_tail": ""
+      }
+    ],
+    "editable_ok": true,
+    "python": "3.13.5 (main, Aug 10 2026, 12:06:59) [GCC 14.2.0]"
+  },
+  "targets": [
+    "tests/test_dump_json_fast_path.py",
+    "tests/test_tutorial/test_custom_response/test_tutorial001.py",
+    "tests/test_tutorial/test_custom_response/test_tutorial010.py"
+  ],
+  "test_patch_strategy": "exact",
+  "test_patch_applied": true,
+  "pre": {
+    "exit": 1,
+    "seconds": 4.3,
+    "timeout": false,
+    "exit_meaning": "some_failed",
+    "run_class": "clean",
+    "counts": {
+      "failed": 3,
+      "passed": 3,
+      "error": 2
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "called. Called %s times.%s\"\n                   % (self._mock_name or 'mock',\n                      self.call_count,\n                      self._calls_repr()))\n>           raise AssertionError(msg)\nE           AssertionError: Expected 'dumps' to not have been called. Called 1 times.\nE           Calls: [call({'name': 'widget', 'price': 9.99}, ensure_ascii=False, allow_nan=False, indent=None, separators=(',', ':'))].\n\n/usr/lib/python3.13/unittest/mock.py:940: AssertionError\n_________________ test_get_custom_response[tutorial010_py310] __________________\n\nclient = <starlette.testclient.TestClient object at 0x7f9e29b78b00>\n\n    def test_get_custom_response(client: TestClient):\n        response = client.get(\"/items/\")\n        assert response.status_code == 200, response.text\n>       assert response.text == snapshot(\"<h1>Items</h1><p>This is a list of items.</p>\")\nE       assert '[{\"item_id\":\"Foo\"}]' == '<h1>Items</h...of items.</p>'\nE         \nE         - <h1>Items</h1><p>This is a list of items.</p>\nE         + [{\"item_id\":\"Foo\"}]\n\ntests/test_tutorial/test_custom_response/test_tutorial010.py:23: AssertionError\n____________________ test_openapi_schema[tutorial010_py310] ____________________\n\nclient = <starlette.testclient.TestClient object at 0x7f9e29b7a060>\n\n    def test_openapi_schema(client: TestClient):\n        response = client.get(\"/openapi.json\")\n        assert response.status_code == 200, response.text\n>       assert response.json() == snapshot(\n            {\n                \"openapi\": \"3.1.0\",\n                \"info\": {\"title\": \"FastAPI\", \"version\": \"0.1.0\"},\n                \"paths\": {\n                    \"/items/\": {\n                        \"get\": {\n                            \"responses\": {\n                                \"200\": {\n                                    \"description\": \"Successful Response\",\n                                    \"content\": {\n                                        \"text/html\": {\"schema\": {\"type\": \"string\"}}\n                                    },\n                                }\n                            },\n                            \"summary\": \"Read Items\",\n                            \"operationId\": \"read_items_items__get\",\n                        }\n                    }\n                },\n            }\n        )\nE       AssertionError: assert {'openapi': '...': {...}}}}}}} == {'openapi': '...tems__get'}}}}\nE         \nE         Omitting 2 identical items, use -vv to show\nE         Differing items:\nE         {'paths': {'/items/': {'get': {'summary': 'Read Items', 'operationId': 'read_items_items__get', 'responses': {'200': {'description': 'Successful Response', 'content': {...}}}}}}} != {'paths': {'/items/': {'get': {'responses': {'200': {'description': 'Successful Response', 'content': {...}}}, 'summary': 'Read Items', 'operationId': 'read_items_items__get'}}}}\nE         Use -v to get more diff\n\ntests/test_tutorial/test_custom_response/test_tutorial010.py:29: AssertionError\n3 failed, 3 passed, 2 errors in 3.07s\n",
+    "stderr_tail": ""
+  },
+  "gold_patch_strategy": "exact",
+  "gold_patch_applied": true,
+  "post": {
+    "exit": 0,
+    "seconds": 3.4,
+    "timeout": false,
+    "exit_meaning": "all_passed",
+    "run_class": "clean",
+    "counts": {
+      "passed": 6
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "......                                                                   [100%]\n6 passed in 2.41s\n",
+    "stderr_tail": ""
+  },
+  "trace_pre_exists": true,
+  "trace_post_exists": true,
+  "seconds": 55.6
+}

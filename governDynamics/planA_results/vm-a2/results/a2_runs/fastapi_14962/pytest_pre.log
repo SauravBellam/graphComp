@@ -1,0 +1,135 @@
+
+$ /home/sauravbellam/cache/a2/fastapi_14962/venv/bin/python -s -m pytest tests/test_dump_json_fast_path.py tests/test_tutorial/test_custom_response/test_tutorial001.py tests/test_tutorial/test_custom_response/test_tutorial010.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/fastapi_14962/trace_pre.xml
+[exit 1]
+F...FEFE                                                                 [100%]
+
+═════════════════════════════════════════════════════════════════════════════════ inline-snapshot ══════════════════════════════════════════════════════════════════════════════════
+────────────────────────────────────────────────────────────────────────────────── Fix snapshots ───────────────────────────────────────────────────────────────────────────────────
+╭────────────────────────────────────────────────────────── tests/test_tutorial/test_custom_response/test_tutorial010.py ──────────────────────────────────────────────────────────╮
+│ @@ -20,7 +20,7 @@                                                                                                                                                                │
+│                                                                                                                                                                                  │
+│  def test_get_custom_response(client: TestClient):                                                                                                                               │
+│      response = client.get("/items/")                                                                                                                                            │
+│      assert response.status_code == 200, response.text                                                                                                                           │
+│ -    assert response.text == snapshot("<h1>Items</h1><p>This is a list of items.</p>")                                                                                           │
+│ +    assert response.text == snapshot('[{"item_id":"Foo"}]')                                                                                                                     │
+│                                                                                                                                                                                  │
+│                                                                                                                                                                                  │
+│  def test_openapi_schema(client: TestClient):                                                                                                                                    │
+│ @@ -36,9 +36,7 @@                                                                                                                                                                │
+│                                                                                                                                                                                  │
+│                          "responses": {                                                                                                                                          │
+│                              "200": {                                                                                                                                            │
+│                                  "description": "Successful Response",                                                                                                           │
+│ -                                "content": {                                                                                                                                    │
+│ -                                    "text/html": {"schema": {"type": "string"}}                                                                                                 │
+│ -                                },                                                                                                                                              │
+│ +                                "content": {'application/json': {'schema': {}}},                                                                                                │
+│                              }                                                                                                                                                   │
+│                          },                                                                                                                                                      │
+│                          "summary": "Read Items",                                                                                                                                │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+These changes are not applied.
+Use --inline-snapshot=fix to apply them, or use the interactive mode with --inline-snapshot=review
+
+───────────────────────────────────────────────────────────────────────────────────── Problems ─────────────────────────────────────────────────────────────────────────────────────
+inline-snapshot is not able to format your code.
+This issue can be solved by:
+ * installing inline-snapshot[black] which gives you the same formatting like in older versions
+ * adding a `format-command` to your pyproject.toml (see https://15r10nk.github.io/inline-snapshot/latest/configuration/#format-command for more information).
+
+
+
+==================================== ERRORS ====================================
+_______ ERROR at teardown of test_get_custom_response[tutorial010_py310] _______
+some snapshots in this test have incorrect values.
+If you just created this value with --inline-snapshot=create, the value is now created and you can ignore this message.
+_________ ERROR at teardown of test_openapi_schema[tutorial010_py310] __________
+some snapshots in this test have incorrect values.
+If you just created this value with --inline-snapshot=create, the value is now created and you can ignore this message.
+=================================== FAILURES ===================================
+_________________ test_default_response_class_skips_json_dumps _________________
+
+    def test_default_response_class_skips_json_dumps():
+        """When no response_class is set, the fast path serializes directly to
+        JSON bytes via Pydantic's dump_json and never calls json.dumps."""
+        with patch(
+            "starlette.responses.json.dumps", wraps=__import__("json").dumps
+        ) as mock_dumps:
+            response = client.get("/default")
+        assert response.status_code == 200
+        assert response.json() == {"name": "widget", "price": 9.99}
+>       mock_dumps.assert_not_called()
+
+tests/test_dump_json_fast_path.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <MagicMock name='dumps' id='140317295705264'>
+
+    def assert_not_called(self):
+        """assert that the mock was never called.
+        """
+        if self.call_count != 0:
+            msg = ("Expected '%s' to not have been called. Called %s times.%s"
+                   % (self._mock_name or 'mock',
+                      self.call_count,
+                      self._calls_repr()))
+>           raise AssertionError(msg)
+E           AssertionError: Expected 'dumps' to not have been called. Called 1 times.
+E           Calls: [call({'name': 'widget', 'price': 9.99}, ensure_ascii=False, allow_nan=False, indent=None, separators=(',', ':'))].
+
+/usr/lib/python3.13/unittest/mock.py:940: AssertionError
+_________________ test_get_custom_response[tutorial010_py310] __________________
+
+client = <starlette.testclient.TestClient object at 0x7f9e29b78b00>
+
+    def test_get_custom_response(client: TestClient):
+        response = client.get("/items/")
+        assert response.status_code == 200, response.text
+>       assert response.text == snapshot("<h1>Items</h1><p>This is a list of items.</p>")
+E       assert '[{"item_id":"Foo"}]' == '<h1>Items</h...of items.</p>'
+E         
+E         - <h1>Items</h1><p>This is a list of items.</p>
+E         + [{"item_id":"Foo"}]
+
+tests/test_tutorial/test_custom_response/test_tutorial010.py:23: AssertionError
+____________________ test_openapi_schema[tutorial010_py310] ____________________
+
+client = <starlette.testclient.TestClient object at 0x7f9e29b7a060>
+
+    def test_openapi_schema(client: TestClient):
+        response = client.get("/openapi.json")
+        assert response.status_code == 200, response.text
+>       assert response.json() == snapshot(
+            {
+                "openapi": "3.1.0",
+                "info": {"title": "FastAPI", "version": "0.1.0"},
+                "paths": {
+                    "/items/": {
+                        "get": {
+                            "responses": {
+                                "200": {
+                                    "description": "Successful Response",
+                                    "content": {
+                                        "text/html": {"schema": {"type": "string"}}
+                                    },
+                                }
+                            },
+                            "summary": "Read Items",
+                            "operationId": "read_items_items__get",
+                        }
+                    }
+                },
+            }
+        )
+E       AssertionError: assert {'openapi': '...': {...}}}}}}} == {'openapi': '...tems__get'}}}}
+E         
+E         Omitting 2 identical items, use -vv to show
+E         Differing items:
+E         {'paths': {'/items/': {'get': {'summary': 'Read Items', 'operationId': 'read_items_items__get', 'responses': {'200': {'description': 'Successful Response', 'content': {...}}}}}}} != {'paths': {'/items/': {'get': {'responses': {'200': {'description': 'Successful Response', 'content': {...}}}, 'summary': 'Read Items', 'operationId': 'read_items_items__get'}}}}
+E         Use -v to get more diff
+
+tests/test_tutorial/test_custom_response/test_tutorial010.py:29: AssertionError
+3 failed, 3 passed, 2 errors in 3.07s
+
+

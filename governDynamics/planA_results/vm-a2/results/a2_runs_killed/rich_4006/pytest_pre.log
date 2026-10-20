@@ -1,0 +1,5 @@
+
+$ /home/sauravbellam/cache/a2/rich_4006/venv/bin/python -s -m pytest tests/test_cells.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/rich_4006/trace_pre.xml
+[exit -9]
+........................................
+

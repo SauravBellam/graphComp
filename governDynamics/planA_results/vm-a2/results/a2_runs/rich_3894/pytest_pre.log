@@ -1,0 +1,83 @@
+
+$ /home/sauravbellam/cache/a2/rich_3894/venv/bin/python -s -m pytest tests/test_inspect.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/rich_3894/trace_pre.xml
+[exit 1]
+...s....sss...F...............................                           [100%]
+=================================== FAILURES ===================================
+____________________________ test_qualname_in_slots ____________________________
+
+    def test_qualname_in_slots():
+        from functools import lru_cache
+    
+        @lru_cache
+        class Klass:
+            __slots__ = ("__qualname__",)
+    
+        try:
+>           inspect(Klass)
+
+tests/test_inspect.py:415: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+rich/__init__.py:173: in inspect
+    _console.print(_inspect)
+rich/console.py:1698: in print
+    renderables = self._collect_renderables(
+rich/console.py:1555: in _collect_renderables
+    renderable = rich_cast(renderable)
+                 ^^^^^^^^^^^^^^^^^^^^^
+rich/protocol.py:36: in rich_cast
+    renderable = cast_method()
+                 ^^^^^^^^^^^^^
+rich/_inspect.py:76: in __rich__
+    Group(*self._render()),
+    ^^^^^^^^^^^^^^^^^^^^^^
+rich/_inspect.py:153: in _render
+    signature = self._get_signature("", obj)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+rich/_inspect.py:113: in _get_signature
+    qual_signature = Text.assemble(
+rich/text.py:397: in assemble
+    append(*part)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <text 'def ' [Span(0, 4, 'inspect.def')] ''>
+text = <member '__qualname__' of 'Klass' objects>, style = 'inspect.callable'
+
+    def append(
+        self, text: Union["Text", str], style: Optional[Union[str, "Style"]] = None
+    ) -> "Text":
+        """Add text with an optional style.
+    
+        Args:
+            text (Union[Text, str]): A str or Text to append.
+            style (str, optional): A style name. Defaults to None.
+    
+        Returns:
+            Text: Returns self for chaining.
+        """
+    
+        if not isinstance(text, (str, Text)):
+>           raise TypeError("Only str or Text can be appended to Text")
+E           TypeError: Only str or Text can be appended to Text
+
+rich/text.py:979: TypeError
+
+During handling of the above exception, another exception occurred:
+
+    def test_qualname_in_slots():
+        from functools import lru_cache
+    
+        @lru_cache
+        class Klass:
+            __slots__ = ("__qualname__",)
+    
+        try:
+            inspect(Klass)
+        except Exception as e:
+>           assert False, f"Class with __qualname__ in __slots__ shouldn't raise {e}"
+E           AssertionError: Class with __qualname__ in __slots__ shouldn't raise Only str or Text can be appended to Text
+E           assert False
+
+tests/test_inspect.py:417: AssertionError
+1 failed, 41 passed, 4 skipped in 0.98s
+
+

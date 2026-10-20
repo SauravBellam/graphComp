@@ -1,0 +1,71 @@
+
+$ /home/sauravbellam/cache/a2/rich_3180/venv/bin/python -s -m pytest tests/test_cells.py tests/test_text.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/rich_3180/trace_pre.xml
+[exit 1]
+....FFF...........................................F..................... [ 63%]
+..........................................                               [100%]
+=================================== FAILURES ===================================
+_______________________________ test_chop_cells ________________________________
+
+    def test_chop_cells():
+        """Simple example of splitting cells into lines of width 3."""
+        text = "abcdefghijk"
+>       assert chop_cells(text, 3) == ["abc", "def", "ghi", "jk"]
+E       AssertionError: assert ['kji', 'hgf', 'edc', 'ba'] == ['abc', 'def', 'ghi', 'jk']
+E         
+E         At index 0 diff: 'kji' != 'abc'
+E         Use -v to get more diff
+
+tests/test_cells.py:49: AssertionError
+____________________ test_chop_cells_double_width_boundary _____________________
+
+    def test_chop_cells_double_width_boundary():
+        """The available width lies within a double-width character."""
+        text = "ありがとう"
+>       assert chop_cells(text, 3) == ["あ", "り", "が", "と", "う"]
+E       AssertionError: assert ['う', 'と', 'が', 'り', 'あ'] == ['あ', 'り', 'が', 'と', 'う']
+E         
+E         At index 0 diff: 'う' != 'あ'
+E         Use -v to get more diff
+
+tests/test_cells.py:55: AssertionError
+_________________________ test_chop_cells_mixed_width __________________________
+
+    def test_chop_cells_mixed_width():
+        """Mixed single and double-width characters."""
+        text = "あ1り234が5と6う78"
+>       assert chop_cells(text, 3) == ["あ1", "り2", "34", "が5", "と6", "う7", "8"]
+E       AssertionError: assert ['87', 'う6', ...2', 'り1', ...] == ['あ1', 'り2', ...6', 'う7', ...]
+E         
+E         At index 0 diff: '87' != 'あ1'
+E         Use -v to get more diff
+
+tests/test_cells.py:61: AssertionError
+_____________________________ test_wrap_cjk_mixed ______________________________
+
+    def test_wrap_cjk_mixed():
+        """Regression test covering https://github.com/Textualize/rich/issues/3176 and
+        https://github.com/Textualize/textual/issues/3567 - double width characters could
+        result in text going missing when wrapping."""
+        text = Text("123ありがとうございました")
+        console = Console(width=20)  # let's ensure the width passed to wrap() wins.
+    
+        wrapped_lines = text.wrap(console, width=8)
+        with console.capture() as capture:
+            console.print(wrapped_lines)
+    
+>       assert capture.get() == "123あり\nがとうご\nざいまし\nた\n"
+E       AssertionError: assert '123あ\nりがとう\nございま\nた\n' == '123あり\nがとうご\nざいまし\nた\n'
+E         
+E         - 123あり
+E         ?     -
+E         + 123あ
+E         - がとうご
+E         ?    -
+E         + りがとう...
+E         
+E         ...Full output truncated (6 lines hidden), use '-vv' to show
+
+tests/test_text.py:463: AssertionError
+4 failed, 110 passed in 1.30s
+
+

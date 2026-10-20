@@ -1,0 +1,677 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="5" skipped="0" tests="7" time="5.033" timestamp="2026-10-10T23:17:03.924728+00:00" hostname="vm-a2"><testcase classname="tests.test_response_dependency" name="test_response_with_depends_annotated" time="0.008"><failure message="AssertionError: Cannot specify `Depends` for type &lt;class 'starlette.responses.Response'&gt;">def test_response_with_depends_annotated():
+        """Response type hint should work with Annotated[Response, Depends(...)]."""
+        app = FastAPI()
+    
+        def modify_response(response: Response) -&gt; Response:
+            response.headers["X-Custom"] = "modified"
+            return response
+    
+&gt;       @app.get("/")
+         ^^^^^^^^^^^^
+
+tests/test_response_dependency.py:22: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+fastapi/routing.py:1063: in decorator
+    self.add_api_route(
+fastapi/routing.py:1002: in add_api_route
+    route = route_class(
+fastapi/routing.py:621: in __init__
+    self.dependant = get_dependant(
+fastapi/dependencies/utils.py:281: in get_dependant
+    param_details = analyze_param(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+param_name = 'response'
+annotation = typing.Annotated[starlette.responses.Response, Depends(dependency=&lt;function test_response_with_depends_annotated.&lt;locals&gt;.modify_response at 0x7f011f6693a0&gt;, use_cache=True, scope=None)]
+value = &lt;class 'inspect._empty'&gt;, is_path_param = False
+
+    def analyze_param(
+        *,
+        param_name: str,
+        annotation: Any,
+        value: Any,
+        is_path_param: bool,
+    ) -&gt; ParamDetails:
+        field_info = None
+        depends = None
+        type_annotation: Any = Any
+        use_annotation: Any = Any
+        if annotation is not inspect.Signature.empty:
+            use_annotation = annotation
+            type_annotation = annotation
+        # Extract Annotated info
+        if get_origin(use_annotation) is Annotated:
+            annotated_args = get_args(annotation)
+            type_annotation = annotated_args[0]
+            fastapi_annotations = [
+                arg
+                for arg in annotated_args[1:]
+                if isinstance(arg, (FieldInfo, params.Depends))
+            ]
+            fastapi_specific_annotations = [
+                arg
+                for arg in fastapi_annotations
+                if isinstance(
+                    arg,
+                    (
+                        params.Param,
+                        params.Body,
+                        params.Depends,
+                    ),
+                )
+            ]
+            if fastapi_specific_annotations:
+                fastapi_annotation: Union[FieldInfo, params.Depends, None] = (
+                    fastapi_specific_annotations[-1]
+                )
+            else:
+                fastapi_annotation = None
+            # Set default for Annotated FieldInfo
+            if isinstance(fastapi_annotation, FieldInfo):
+                # Copy `field_info` because we mutate `field_info.default` below.
+                field_info = copy_field_info(
+                    field_info=fastapi_annotation,
+                    annotation=use_annotation,
+                )
+                assert (
+                    field_info.default == Undefined or field_info.default == RequiredParam
+                ), (
+                    f"`{field_info.__class__.__name__}` default value cannot be set in"
+                    f" `Annotated` for {param_name!r}. Set the default value with `=` instead."
+                )
+                if value is not inspect.Signature.empty:
+                    assert not is_path_param, "Path parameters cannot have default values"
+                    field_info.default = value
+                else:
+                    field_info.default = RequiredParam
+            # Get Annotated Depends
+            elif isinstance(fastapi_annotation, params.Depends):
+                depends = fastapi_annotation
+        # Get Depends from default value
+        if isinstance(value, params.Depends):
+            assert depends is None, (
+                "Cannot specify `Depends` in `Annotated` and default value"
+                f" together for {param_name!r}"
+            )
+            assert field_info is None, (
+                "Cannot specify a FastAPI annotation in `Annotated` and `Depends` as a"
+                f" default value together for {param_name!r}"
+            )
+            depends = value
+        # Get FieldInfo from default value
+        elif isinstance(value, FieldInfo):
+            assert field_info is None, (
+                "Cannot specify FastAPI annotations in `Annotated` and default value"
+                f" together for {param_name!r}"
+            )
+            field_info = value
+            if isinstance(field_info, FieldInfo):
+                field_info.annotation = type_annotation
+    
+        # Get Depends from type annotation
+        if depends is not None and depends.dependency is None:
+            # Copy `depends` before mutating it
+            depends = copy(depends)
+            depends = dataclasses.replace(depends, dependency=type_annotation)
+    
+        # Handle non-param type annotations like Request
+        if lenient_issubclass(
+            type_annotation,
+            (
+                Request,
+                WebSocket,
+                HTTPConnection,
+                Response,
+                StarletteBackgroundTasks,
+                SecurityScopes,
+            ),
+        ):
+&gt;           assert depends is None, f"Cannot specify `Depends` for type {type_annotation!r}"
+                   ^^^^^^^^^^^^^^^
+E           AssertionError: Cannot specify `Depends` for type &lt;class 'starlette.responses.Response'&gt;
+
+fastapi/dependencies/utils.py:463: AssertionError</failure></testcase><testcase classname="tests.test_response_dependency" name="test_response_with_depends_default" time="0.003"><failure message="AssertionError: Cannot specify `Depends` for type &lt;class 'starlette.responses.Response'&gt;">def test_response_with_depends_default():
+        """Response type hint should work with Response = Depends(...)."""
+        app = FastAPI()
+    
+        def modify_response(response: Response) -&gt; Response:
+            response.headers["X-Custom"] = "modified"
+            return response
+    
+&gt;       @app.get("/")
+         ^^^^^^^^^^^^
+
+tests/test_response_dependency.py:42: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+fastapi/routing.py:1063: in decorator
+    self.add_api_route(
+fastapi/routing.py:1002: in add_api_route
+    route = route_class(
+fastapi/routing.py:621: in __init__
+    self.dependant = get_dependant(
+fastapi/dependencies/utils.py:281: in get_dependant
+    param_details = analyze_param(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+param_name = 'response', annotation = &lt;class 'starlette.responses.Response'&gt;
+value = Depends(dependency=&lt;function test_response_with_depends_default.&lt;locals&gt;.modify_response at 0x7f011f69b880&gt;, use_cache=True, scope=None)
+is_path_param = False
+
+    def analyze_param(
+        *,
+        param_name: str,
+        annotation: Any,
+        value: Any,
+        is_path_param: bool,
+    ) -&gt; ParamDetails:
+        field_info = None
+        depends = None
+        type_annotation: Any = Any
+        use_annotation: Any = Any
+        if annotation is not inspect.Signature.empty:
+            use_annotation = annotation
+            type_annotation = annotation
+        # Extract Annotated info
+        if get_origin(use_annotation) is Annotated:
+            annotated_args = get_args(annotation)
+            type_annotation = annotated_args[0]
+            fastapi_annotations = [
+                arg
+                for arg in annotated_args[1:]
+                if isinstance(arg, (FieldInfo, params.Depends))
+            ]
+            fastapi_specific_annotations = [
+                arg
+                for arg in fastapi_annotations
+                if isinstance(
+                    arg,
+                    (
+                        params.Param,
+                        params.Body,
+                        params.Depends,
+                    ),
+                )
+            ]
+            if fastapi_specific_annotations:
+                fastapi_annotation: Union[FieldInfo, params.Depends, None] = (
+                    fastapi_specific_annotations[-1]
+                )
+            else:
+                fastapi_annotation = None
+            # Set default for Annotated FieldInfo
+            if isinstance(fastapi_annotation, FieldInfo):
+                # Copy `field_info` because we mutate `field_info.default` below.
+                field_info = copy_field_info(
+                    field_info=fastapi_annotation,
+                    annotation=use_annotation,
+                )
+                assert (
+                    field_info.default == Undefined or field_info.default == RequiredParam
+                ), (
+                    f"`{field_info.__class__.__name__}` default value cannot be set in"
+                    f" `Annotated` for {param_name!r}. Set the default value with `=` instead."
+                )
+                if value is not inspect.Signature.empty:
+                    assert not is_path_param, "Path parameters cannot have default values"
+                    field_info.default = value
+                else:
+                    field_info.default = RequiredParam
+            # Get Annotated Depends
+            elif isinstance(fastapi_annotation, params.Depends):
+                depends = fastapi_annotation
+        # Get Depends from default value
+        if isinstance(value, params.Depends):
+            assert depends is None, (
+                "Cannot specify `Depends` in `Annotated` and default value"
+                f" together for {param_name!r}"
+            )
+            assert field_info is None, (
+                "Cannot specify a FastAPI annotation in `Annotated` and `Depends` as a"
+                f" default value together for {param_name!r}"
+            )
+            depends = value
+        # Get FieldInfo from default value
+        elif isinstance(value, FieldInfo):
+            assert field_info is None, (
+                "Cannot specify FastAPI annotations in `Annotated` and default value"
+                f" together for {param_name!r}"
+            )
+            field_info = value
+            if isinstance(field_info, FieldInfo):
+                field_info.annotation = type_annotation
+    
+        # Get Depends from type annotation
+        if depends is not None and depends.dependency is None:
+            # Copy `depends` before mutating it
+            depends = copy(depends)
+            depends = dataclasses.replace(depends, dependency=type_annotation)
+    
+        # Handle non-param type annotations like Request
+        if lenient_issubclass(
+            type_annotation,
+            (
+                Request,
+                WebSocket,
+                HTTPConnection,
+                Response,
+                StarletteBackgroundTasks,
+                SecurityScopes,
+            ),
+        ):
+&gt;           assert depends is None, f"Cannot specify `Depends` for type {type_annotation!r}"
+                   ^^^^^^^^^^^^^^^
+E           AssertionError: Cannot specify `Depends` for type &lt;class 'starlette.responses.Response'&gt;
+
+fastapi/dependencies/utils.py:463: AssertionError</failure></testcase><testcase classname="tests.test_response_dependency" name="test_response_without_depends" time="0.211" /><testcase classname="tests.test_response_dependency" name="test_response_dependency_chain" time="0.005"><failure message="AssertionError: Cannot specify `Depends` for type &lt;class 'starlette.responses.Response'&gt;">def test_response_dependency_chain():
+        """Response dependency should work in a chain of dependencies."""
+        app = FastAPI()
+    
+        def first_modifier(response: Response) -&gt; Response:
+            response.headers["X-First"] = "1"
+            return response
+    
+        def second_modifier(
+            response: Annotated[Response, Depends(first_modifier)],
+        ) -&gt; Response:
+            response.headers["X-Second"] = "2"
+            return response
+    
+&gt;       @app.get("/")
+         ^^^^^^^^^^^^
+
+tests/test_response_dependency.py:85: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+fastapi/routing.py:1063: in decorator
+    self.add_api_route(
+fastapi/routing.py:1002: in add_api_route
+    route = route_class(
+fastapi/routing.py:621: in __init__
+    self.dependant = get_dependant(
+fastapi/dependencies/utils.py:281: in get_dependant
+    param_details = analyze_param(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+param_name = 'response'
+annotation = typing.Annotated[starlette.responses.Response, Depends(dependency=&lt;function test_response_dependency_chain.&lt;locals&gt;.second_modifier at 0x7f011f5fc860&gt;, use_cache=True, scope=None)]
+value = &lt;class 'inspect._empty'&gt;, is_path_param = False
+
+    def analyze_param(
+        *,
+        param_name: str,
+        annotation: Any,
+        value: Any,
+        is_path_param: bool,
+    ) -&gt; ParamDetails:
+        field_info = None
+        depends = None
+        type_annotation: Any = Any
+        use_annotation: Any = Any
+        if annotation is not inspect.Signature.empty:
+            use_annotation = annotation
+            type_annotation = annotation
+        # Extract Annotated info
+        if get_origin(use_annotation) is Annotated:
+            annotated_args = get_args(annotation)
+            type_annotation = annotated_args[0]
+            fastapi_annotations = [
+                arg
+                for arg in annotated_args[1:]
+                if isinstance(arg, (FieldInfo, params.Depends))
+            ]
+            fastapi_specific_annotations = [
+                arg
+                for arg in fastapi_annotations
+                if isinstance(
+                    arg,
+                    (
+                        params.Param,
+                        params.Body,
+                        params.Depends,
+                    ),
+                )
+            ]
+            if fastapi_specific_annotations:
+                fastapi_annotation: Union[FieldInfo, params.Depends, None] = (
+                    fastapi_specific_annotations[-1]
+                )
+            else:
+                fastapi_annotation = None
+            # Set default for Annotated FieldInfo
+            if isinstance(fastapi_annotation, FieldInfo):
+                # Copy `field_info` because we mutate `field_info.default` below.
+                field_info = copy_field_info(
+                    field_info=fastapi_annotation,
+                    annotation=use_annotation,
+                )
+                assert (
+                    field_info.default == Undefined or field_info.default == RequiredParam
+                ), (
+                    f"`{field_info.__class__.__name__}` default value cannot be set in"
+                    f" `Annotated` for {param_name!r}. Set the default value with `=` instead."
+                )
+                if value is not inspect.Signature.empty:
+                    assert not is_path_param, "Path parameters cannot have default values"
+                    field_info.default = value
+                else:
+                    field_info.default = RequiredParam
+            # Get Annotated Depends
+            elif isinstance(fastapi_annotation, params.Depends):
+                depends = fastapi_annotation
+        # Get Depends from default value
+        if isinstance(value, params.Depends):
+            assert depends is None, (
+                "Cannot specify `Depends` in `Annotated` and default value"
+                f" together for {param_name!r}"
+            )
+            assert field_info is None, (
+                "Cannot specify a FastAPI annotation in `Annotated` and `Depends` as a"
+                f" default value together for {param_name!r}"
+            )
+            depends = value
+        # Get FieldInfo from default value
+        elif isinstance(value, FieldInfo):
+            assert field_info is None, (
+                "Cannot specify FastAPI annotations in `Annotated` and default value"
+                f" together for {param_name!r}"
+            )
+            field_info = value
+            if isinstance(field_info, FieldInfo):
+                field_info.annotation = type_annotation
+    
+        # Get Depends from type annotation
+        if depends is not None and depends.dependency is None:
+            # Copy `depends` before mutating it
+            depends = copy(depends)
+            depends = dataclasses.replace(depends, dependency=type_annotation)
+    
+        # Handle non-param type annotations like Request
+        if lenient_issubclass(
+            type_annotation,
+            (
+                Request,
+                WebSocket,
+                HTTPConnection,
+                Response,
+                StarletteBackgroundTasks,
+                SecurityScopes,
+            ),
+        ):
+&gt;           assert depends is None, f"Cannot specify `Depends` for type {type_annotation!r}"
+                   ^^^^^^^^^^^^^^^
+E           AssertionError: Cannot specify `Depends` for type &lt;class 'starlette.responses.Response'&gt;
+
+fastapi/dependencies/utils.py:463: AssertionError</failure></testcase><testcase classname="tests.test_response_dependency" name="test_response_dependency_returns_different_response_instance" time="0.005"><failure message="AssertionError: Cannot specify `Depends` for type &lt;class 'starlette.responses.Response'&gt;">def test_response_dependency_returns_different_response_instance():
+        """Dependency that returns a different Response instance should work.
+    
+        When a dependency returns a new Response object (e.g., JSONResponse) instead
+        of modifying the injected one, the returned response should be used and any
+        modifications to it in the endpoint should be preserved.
+        """
+        app = FastAPI()
+    
+        def default_response() -&gt; Response:
+            response = JSONResponse(content={"status": "ok"})
+            response.headers["X-Custom"] = "initial"
+            return response
+    
+&gt;       @app.get("/")
+         ^^^^^^^^^^^^
+
+tests/test_response_dependency.py:111: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+fastapi/routing.py:1063: in decorator
+    self.add_api_route(
+fastapi/routing.py:1002: in add_api_route
+    route = route_class(
+fastapi/routing.py:621: in __init__
+    self.dependant = get_dependant(
+fastapi/dependencies/utils.py:281: in get_dependant
+    param_details = analyze_param(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+param_name = 'response'
+annotation = typing.Annotated[starlette.responses.Response, Depends(dependency=&lt;function test_response_dependency_returns_different_response_instance.&lt;locals&gt;.default_response at 0x7f011f5fd760&gt;, use_cache=True, scope=None)]
+value = &lt;class 'inspect._empty'&gt;, is_path_param = False
+
+    def analyze_param(
+        *,
+        param_name: str,
+        annotation: Any,
+        value: Any,
+        is_path_param: bool,
+    ) -&gt; ParamDetails:
+        field_info = None
+        depends = None
+        type_annotation: Any = Any
+        use_annotation: Any = Any
+        if annotation is not inspect.Signature.empty:
+            use_annotation = annotation
+            type_annotation = annotation
+        # Extract Annotated info
+        if get_origin(use_annotation) is Annotated:
+            annotated_args = get_args(annotation)
+            type_annotation = annotated_args[0]
+            fastapi_annotations = [
+                arg
+                for arg in annotated_args[1:]
+                if isinstance(arg, (FieldInfo, params.Depends))
+            ]
+            fastapi_specific_annotations = [
+                arg
+                for arg in fastapi_annotations
+                if isinstance(
+                    arg,
+                    (
+                        params.Param,
+                        params.Body,
+                        params.Depends,
+                    ),
+                )
+            ]
+            if fastapi_specific_annotations:
+                fastapi_annotation: Union[FieldInfo, params.Depends, None] = (
+                    fastapi_specific_annotations[-1]
+                )
+            else:
+                fastapi_annotation = None
+            # Set default for Annotated FieldInfo
+            if isinstance(fastapi_annotation, FieldInfo):
+                # Copy `field_info` because we mutate `field_info.default` below.
+                field_info = copy_field_info(
+                    field_info=fastapi_annotation,
+                    annotation=use_annotation,
+                )
+                assert (
+                    field_info.default == Undefined or field_info.default == RequiredParam
+                ), (
+                    f"`{field_info.__class__.__name__}` default value cannot be set in"
+                    f" `Annotated` for {param_name!r}. Set the default value with `=` instead."
+                )
+                if value is not inspect.Signature.empty:
+                    assert not is_path_param, "Path parameters cannot have default values"
+                    field_info.default = value
+                else:
+                    field_info.default = RequiredParam
+            # Get Annotated Depends
+            elif isinstance(fastapi_annotation, params.Depends):
+                depends = fastapi_annotation
+        # Get Depends from default value
+        if isinstance(value, params.Depends):
+            assert depends is None, (
+                "Cannot specify `Depends` in `Annotated` and default value"
+                f" together for {param_name!r}"
+            )
+            assert field_info is None, (
+                "Cannot specify a FastAPI annotation in `Annotated` and `Depends` as a"
+                f" default value together for {param_name!r}"
+            )
+            depends = value
+        # Get FieldInfo from default value
+        elif isinstance(value, FieldInfo):
+            assert field_info is None, (
+                "Cannot specify FastAPI annotations in `Annotated` and default value"
+                f" together for {param_name!r}"
+            )
+            field_info = value
+            if isinstance(field_info, FieldInfo):
+                field_info.annotation = type_annotation
+    
+        # Get Depends from type annotation
+        if depends is not None and depends.dependency is None:
+            # Copy `depends` before mutating it
+            depends = copy(depends)
+            depends = dataclasses.replace(depends, dependency=type_annotation)
+    
+        # Handle non-param type annotations like Request
+        if lenient_issubclass(
+            type_annotation,
+            (
+                Request,
+                WebSocket,
+                HTTPConnection,
+                Response,
+                StarletteBackgroundTasks,
+                SecurityScopes,
+            ),
+        ):
+&gt;           assert depends is None, f"Cannot specify `Depends` for type {type_annotation!r}"
+                   ^^^^^^^^^^^^^^^
+E           AssertionError: Cannot specify `Depends` for type &lt;class 'starlette.responses.Response'&gt;
+
+fastapi/dependencies/utils.py:463: AssertionError</failure></testcase><testcase classname="tests.test_response_dependency" name="test_request_with_depends_annotated" time="0.013" /><testcase classname="tests.test_response_dependency" name="test_background_tasks_with_depends_annotated" time="0.004"><failure message="AssertionError: Cannot specify `Depends` for type &lt;class 'fastapi.background.BackgroundTasks'&gt;">def test_background_tasks_with_depends_annotated():
+        """BackgroundTasks type hint should work with Annotated[BackgroundTasks, Depends(...)]."""
+        app = FastAPI()
+        task_results = []
+    
+        def background_task(message: str):
+            task_results.append(message)
+    
+        def add_background_task(background_tasks: BackgroundTasks) -&gt; BackgroundTasks:
+            background_tasks.add_task(background_task, "from dependency")
+            return background_tasks
+    
+&gt;       @app.get("/")
+         ^^^^^^^^^^^^
+
+tests/test_response_dependency.py:161: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+fastapi/routing.py:1063: in decorator
+    self.add_api_route(
+fastapi/routing.py:1002: in add_api_route
+    route = route_class(
+fastapi/routing.py:621: in __init__
+    self.dependant = get_dependant(
+fastapi/dependencies/utils.py:281: in get_dependant
+    param_details = analyze_param(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+param_name = 'background_tasks'
+annotation = typing.Annotated[fastapi.background.BackgroundTasks, Depends(dependency=&lt;function test_background_tasks_with_depends_annotated.&lt;locals&gt;.add_background_task at 0x7f011f5fdf80&gt;, use_cache=True, scope=None)]
+value = &lt;class 'inspect._empty'&gt;, is_path_param = False
+
+    def analyze_param(
+        *,
+        param_name: str,
+        annotation: Any,
+        value: Any,
+        is_path_param: bool,
+    ) -&gt; ParamDetails:
+        field_info = None
+        depends = None
+        type_annotation: Any = Any
+        use_annotation: Any = Any
+        if annotation is not inspect.Signature.empty:
+            use_annotation = annotation
+            type_annotation = annotation
+        # Extract Annotated info
+        if get_origin(use_annotation) is Annotated:
+            annotated_args = get_args(annotation)
+            type_annotation = annotated_args[0]
+            fastapi_annotations = [
+                arg
+                for arg in annotated_args[1:]
+                if isinstance(arg, (FieldInfo, params.Depends))
+            ]
+            fastapi_specific_annotations = [
+                arg
+                for arg in fastapi_annotations
+                if isinstance(
+                    arg,
+                    (
+                        params.Param,
+                        params.Body,
+                        params.Depends,
+                    ),
+                )
+            ]
+            if fastapi_specific_annotations:
+                fastapi_annotation: Union[FieldInfo, params.Depends, None] = (
+                    fastapi_specific_annotations[-1]
+                )
+            else:
+                fastapi_annotation = None
+            # Set default for Annotated FieldInfo
+            if isinstance(fastapi_annotation, FieldInfo):
+                # Copy `field_info` because we mutate `field_info.default` below.
+                field_info = copy_field_info(
+                    field_info=fastapi_annotation,
+                    annotation=use_annotation,
+                )
+                assert (
+                    field_info.default == Undefined or field_info.default == RequiredParam
+                ), (
+                    f"`{field_info.__class__.__name__}` default value cannot be set in"
+                    f" `Annotated` for {param_name!r}. Set the default value with `=` instead."
+                )
+                if value is not inspect.Signature.empty:
+                    assert not is_path_param, "Path parameters cannot have default values"
+                    field_info.default = value
+                else:
+                    field_info.default = RequiredParam
+            # Get Annotated Depends
+            elif isinstance(fastapi_annotation, params.Depends):
+                depends = fastapi_annotation
+        # Get Depends from default value
+        if isinstance(value, params.Depends):
+            assert depends is None, (
+                "Cannot specify `Depends` in `Annotated` and default value"
+                f" together for {param_name!r}"
+            )
+            assert field_info is None, (
+                "Cannot specify a FastAPI annotation in `Annotated` and `Depends` as a"
+                f" default value together for {param_name!r}"
+            )
+            depends = value
+        # Get FieldInfo from default value
+        elif isinstance(value, FieldInfo):
+            assert field_info is None, (
+                "Cannot specify FastAPI annotations in `Annotated` and default value"
+                f" together for {param_name!r}"
+            )
+            field_info = value
+            if isinstance(field_info, FieldInfo):
+                field_info.annotation = type_annotation
+    
+        # Get Depends from type annotation
+        if depends is not None and depends.dependency is None:
+            # Copy `depends` before mutating it
+            depends = copy(depends)
+            depends = dataclasses.replace(depends, dependency=type_annotation)
+    
+        # Handle non-param type annotations like Request
+        if lenient_issubclass(
+            type_annotation,
+            (
+                Request,
+                WebSocket,
+                HTTPConnection,
+                Response,
+                StarletteBackgroundTasks,
+                SecurityScopes,
+            ),
+        ):
+&gt;           assert depends is None, f"Cannot specify `Depends` for type {type_annotation!r}"
+                   ^^^^^^^^^^^^^^^
+E           AssertionError: Cannot specify `Depends` for type &lt;class 'fastapi.background.BackgroundTasks'&gt;
+
+fastapi/dependencies/utils.py:463: AssertionError</failure></testcase></testsuite></testsuites>
