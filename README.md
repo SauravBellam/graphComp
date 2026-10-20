@@ -270,3 +270,11 @@ rules.md, lit_review.md, competitor_scan.md   competition rules digest, literatu
 - **Data.** Rebuild with `convert_trajs.py` (needs the source datasets from Hugging Face) and then `build_sft_mix.py`.
   The Kaggle datasets above are the built outputs.
 - **Trainer test.** `python scripts/planB/lora/test_train_resume.py --data <trajs.jsonl> --work <dir>` on any CUDA GPU.
+
+## Merged repositories
+
+Earlier phases of this project lived in separate repos, now merged here with full history:
+
+- `is-the-map-right/` — formerly SauravBellam/is-the-map-right
+- `governDynamics/` — formerly SauravBellam/governDynamics (its side branches are kept as `governDynamics/<branch>`)
+- `audit-code-graph/` — formerly SauravBellam/Audit-of-a-Pre-Built-Code-Graph-and-Node-Embeddings
