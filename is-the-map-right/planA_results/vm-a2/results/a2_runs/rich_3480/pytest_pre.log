@@ -1,0 +1,31 @@
+
+$ /home/sauravbellam/cache/a2/rich_3480/venv/bin/python -s -m pytest tests/test_text.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=60 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/rich_3480/trace_pre.xml
+[exit 1]
+........................................................................ [ 66%]
+....................................F                                    [100%]
+=================================== FAILURES ===================================
+_________________________ test_append_loop_regression __________________________
+
+    def test_append_loop_regression() -> None:
+        """Regression text for https://github.com/Textualize/rich/issues/3479"""
+        a = Text("one", "blue")
+>       a.append(a)
+
+tests/test_text.py:1009: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+rich/text.py:999: in append
+    self._spans.extend(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+.0 = <list_iterator object at 0x7fc486b7bd30>
+
+    self._spans.extend(
+>       _Span(start + text_length, end + text_length, style)
+        for start, end, style in text._spans
+    )
+E   Failed: Timeout (>60.0s) from pytest-timeout.
+
+rich/text.py:1000: Failed
+1 failed, 108 passed in 60.90s (0:01:00)
+
+

@@ -1,0 +1,44 @@
+
+$ /home/sauravbellam/cache/a2/fastapi_12942/venv/bin/python -s -m pytest tests/test_union_body_discriminator.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/fastapi_12942/trace_pre.xml
+[exit 1]
+F                                                                        [100%]
+=================================== FAILURES ===================================
+________________________ test_discriminator_pydantic_v2 ________________________
+
+    @needs_pydanticv2
+    def test_discriminator_pydantic_v2() -> None:
+        from pydantic import Tag
+    
+        app = FastAPI()
+    
+        class FirstItem(BaseModel):
+            value: Literal["first"]
+            price: int
+    
+        class OtherItem(BaseModel):
+            value: Literal["other"]
+            price: float
+    
+        Item = Annotated[
+            Union[Annotated[FirstItem, Tag("first")], Annotated[OtherItem, Tag("other")]],
+            Field(discriminator="value"),
+        ]
+    
+        @app.post("/items/")
+        def save_union_body_discriminator(
+            item: Item, q: Annotated[str, Field(description="Query string")]
+        ) -> Dict[str, Any]:
+            return {"item": item}
+    
+        client = TestClient(app)
+        response = client.post("/items/?q=first", json={"value": "first", "price": 100})
+>       assert response.status_code == 200, response.text
+E       AssertionError: {"detail":[{"type":"missing","loc":["query","item"],"msg":"Field required","input":null}]}
+E       assert 422 == 200
+E        +  where 422 = <Response [422 Unprocessable Entity]>.status_code
+
+tests/test_union_body_discriminator.py:40: AssertionError
+- generated xml file: /home/sauravbellam/results/a2_runs/fastapi_12942/trace_pre.xml -
+1 failed in 1.95s
+
+

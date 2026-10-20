@@ -1,0 +1,13 @@
+# Audit image for A2 (dynamic call-graph oracle). Same base as the harness sandbox
+# (archive/docker/Dockerfile.sandbox: python:3.13-slim + git + pytest) but WITH network, so each
+# task's own test requirements can be installed best-effort. Build from the repo root:
+#   docker build -t graphcomp-audit:latest -f planA/a2/Dockerfile.audit planA/a2
+FROM python:3.13-slim
+RUN apt-get update -qq \
+    && apt-get install -y -qq --no-install-recommends git patch pigz build-essential \
+    && rm -rf /var/lib/apt/lists/* \
+    && pip install --no-cache-dir pytest pytest-timeout numpy
+RUN git config --global user.email "audit@local" && git config --global user.name "audit" \
+    && git config --global init.defaultBranch main
+ENV TEST_TMPDIR=/tmp PYTHONDONTWRITEBYTECODE=1
+WORKDIR /tmp

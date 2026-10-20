@@ -1,0 +1,3343 @@
+
+$ /home/sauravbellam/cache/a2/fastapi_14953/venv/bin/python -s -m pytest tests/test_request_params/test_file/test_list.py tests/test_request_params/test_file/test_optional.py tests/test_request_params/test_file/test_optional_list.py tests/test_request_params/test_file/test_required.py tests/test_tutorial/test_json_base64_bytes/test_tutorial001.py tests/test_tutorial/test_request_files/test_tutorial001.py tests/test_tutorial/test_request_files/test_tutorial001_02.py tests/test_tutorial/test_request_files/test_tutorial001_03.py tests/test_tutorial/test_request_files/test_tutorial002.py tests/test_tutorial/test_request_files/test_tutorial003.py tests/test_tutorial/test_request_forms_and_files/test_tutorial001.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/fastapi_14953/trace_pre.xml
+[exit 1]
+FF....FF......FF......FF........FF....FF......FF......FF........FF....FF [ 37%]
+......FF......FF........FF....FF......FF......FF........EEEE..........FE [ 74%]
+FE........FEFE....FEFE..........FEFE......FEFE..........FEFE             [100%]
+
+═════════════════════════════════════════════════════════════════════════════════ inline-snapshot ══════════════════════════════════════════════════════════════════════════════════
+────────────────────────────────────────────────────────────────────────────────── Fix snapshots ───────────────────────────────────────────────────────────────────────────────────
+╭─────────────────────────────────────────────────────────── tests/test_tutorial/test_request_files/test_tutorial001.py ───────────────────────────────────────────────────────────╮
+│ @@ -161,9 +161,7 @@                                                                                                                                                              │
+│                                                                                                                                                                                  │
+│                          "type": "object",                                                                                                                                       │
+│                          "properties": {                                                                                                                                         │
+│                              "file": {                                                                                                                                           │
+│ -                                "title": "File",                                                                                                                                │
+│ -                                "contentMediaType": "application/octet-stream",                                                                                                 │
+│ -                                "type": "string",                                                                                                                               │
+│ +                                "title": "File", 'format': 'binary', "type": "string",                                                                                          │
+│                              }                                                                                                                                                   │
+│                          },                                                                                                                                                      │
+│                      },                                                                                                                                                          │
+│ @@ -173,10 +171,7 @@                                                                                                                                                             │
+│                                                                                                                                                                                  │
+│                          "type": "object",                                                                                                                                       │
+│                          "properties": {                                                                                                                                         │
+│                              "file": {                                                                                                                                           │
+│ -                                "title": "File",                                                                                                                                │
+│ -                                "type": "string",                                                                                                                               │
+│ -                                "contentMediaType": "application/octet-stream",                                                                                                 │
+│ -                            }                                                                                                                                                   │
+│ +                                "title": "File", 'format': 'binary', "type": "string"}                                                                                          │
+│                          },                                                                                                                                                      │
+│                      },                                                                                                                                                          │
+│                      "ValidationError": {                                                                                                                                        │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+╭───────────────────────────────────────────────────────── tests/test_tutorial/test_request_files/test_tutorial001_02.py ──────────────────────────────────────────────────────────╮
+│ @@ -135,9 +135,7 @@                                                                                                                                                              │
+│                                                                                                                                                                                  │
+│                                  "title": "File",                                                                                                                                │
+│                                  "anyOf": [                                                                                                                                      │
+│                                      {                                                                                                                                           │
+│ -                                        "type": "string",                                                                                                                       │
+│ -                                        "contentMediaType": "application/octet-stream",                                                                                         │
+│ -                                    },                                                                                                                                          │
+│ +                                        "type": "string", 'format': 'binary'},                                                                                                  │
+│                                      {"type": "null"},                                                                                                                           │
+│                                  ],                                                                                                                                              │
+│                              }                                                                                                                                                   │
+│ @@ -151,9 +149,7 @@                                                                                                                                                              │
+│                                                                                                                                                                                  │
+│                                  "title": "File",                                                                                                                                │
+│                                  "anyOf": [                                                                                                                                      │
+│                                      {                                                                                                                                           │
+│ -                                        "type": "string",                                                                                                                       │
+│ -                                        "contentMediaType": "application/octet-stream",                                                                                         │
+│ -                                    },                                                                                                                                          │
+│ +                                        "type": "string", 'format': 'binary'},                                                                                                  │
+│                                      {"type": "null"},                                                                                                                           │
+│                                  ],                                                                                                                                              │
+│                              }                                                                                                                                                   │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+╭───────────────────────────────────────────────────────── tests/test_tutorial/test_request_files/test_tutorial001_03.py ──────────────────────────────────────────────────────────╮
+│ @@ -120,11 +120,8 @@                                                                                                                                                             │
+│                                                                                                                                                                                  │
+│                          "type": "object",                                                                                                                                       │
+│                          "properties": {                                                                                                                                         │
+│                              "file": {                                                                                                                                           │
+│ -                                "title": "File",                                                                                                                                │
+│ -                                "type": "string",                                                                                                                               │
+│ -                                "description": "A file read as bytes",                                                                                                          │
+│ -                                "contentMediaType": "application/octet-stream",                                                                                                 │
+│ -                            }                                                                                                                                                   │
+│ +                                "title": "File", 'format': 'binary', "type": "string",                                                                                          │
+│ +                                "description": "A file read as bytes"}                                                                                                          │
+│                          },                                                                                                                                                      │
+│                      },                                                                                                                                                          │
+│                      "Body_create_upload_file_uploadfile__post": {                                                                                                               │
+│ @@ -133,9 +130,7 @@                                                                                                                                                              │
+│                                                                                                                                                                                  │
+│                          "type": "object",                                                                                                                                       │
+│                          "properties": {                                                                                                                                         │
+│                              "file": {                                                                                                                                           │
+│ -                                "title": "File",                                                                                                                                │
+│ -                                "contentMediaType": "application/octet-stream",                                                                                                 │
+│ -                                "type": "string",                                                                                                                               │
+│ +                                "title": "File", 'format': 'binary', "type": "string",                                                                                          │
+│                                  "description": "A file read as UploadFile",                                                                                                     │
+│                              }                                                                                                                                                   │
+│                          },                                                                                                                                                      │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+╭─────────────────────────────────────────────────────────── tests/test_tutorial/test_request_files/test_tutorial002.py ───────────────────────────────────────────────────────────╮
+│ @@ -196,9 +196,7 @@                                                                                                                                                              │
+│                                                                                                                                                                                  │
+│                                  "title": "Files",                                                                                                                               │
+│                                  "type": "array",                                                                                                                                │
+│                                  "items": {                                                                                                                                      │
+│ -                                    "type": "string",                                                                                                                           │
+│ -                                    "contentMediaType": "application/octet-stream",                                                                                             │
+│ -                                },                                                                                                                                              │
+│ +                                    "type": "string", 'format': 'binary'},                                                                                                      │
+│                              }                                                                                                                                                   │
+│                          },                                                                                                                                                      │
+│                      },                                                                                                                                                          │
+│ @@ -211,9 +209,7 @@                                                                                                                                                              │
+│                                                                                                                                                                                  │
+│                                  "title": "Files",                                                                                                                               │
+│                                  "type": "array",                                                                                                                                │
+│                                  "items": {                                                                                                                                      │
+│ -                                    "type": "string",                                                                                                                           │
+│ -                                    "contentMediaType": "application/octet-stream",                                                                                             │
+│ -                                },                                                                                                                                              │
+│ +                                    "type": "string", 'format': 'binary'},                                                                                                      │
+│                              }                                                                                                                                                   │
+│                          },                                                                                                                                                      │
+│                      },                                                                                                                                                          │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+╭─────────────────────────────────────────────────────────── tests/test_tutorial/test_request_files/test_tutorial003.py ───────────────────────────────────────────────────────────╮
+│ @@ -166,9 +166,7 @@                                                                                                                                                              │
+│                                                                                                                                                                                  │
+│                                  "title": "Files",                                                                                                                               │
+│                                  "type": "array",                                                                                                                                │
+│                                  "items": {                                                                                                                                      │
+│ -                                    "type": "string",                                                                                                                           │
+│ -                                    "contentMediaType": "application/octet-stream",                                                                                             │
+│ -                                },                                                                                                                                              │
+│ +                                    "type": "string", 'format': 'binary'},                                                                                                      │
+│                                  "description": "Multiple files as bytes",                                                                                                       │
+│                              }                                                                                                                                                   │
+│                          },                                                                                                                                                      │
+│ @@ -182,9 +180,7 @@                                                                                                                                                              │
+│                                                                                                                                                                                  │
+│                                  "title": "Files",                                                                                                                               │
+│                                  "type": "array",                                                                                                                                │
+│                                  "items": {                                                                                                                                      │
+│ -                                    "type": "string",                                                                                                                           │
+│ -                                    "contentMediaType": "application/octet-stream",                                                                                             │
+│ -                                },                                                                                                                                              │
+│ +                                    "type": "string", 'format': 'binary'},                                                                                                      │
+│                                  "description": "Multiple files as UploadFile",                                                                                                  │
+│                              }                                                                                                                                                   │
+│                          },                                                                                                                                                      │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+╭────────────────────────────────────────────────────── tests/test_tutorial/test_request_forms_and_files/test_tutorial001.py ──────────────────────────────────────────────────────╮
+│ @@ -196,14 +196,9 @@                                                                                                                                                             │
+│                                                                                                                                                                                  │
+│                          "type": "object",                                                                                                                                       │
+│                          "properties": {                                                                                                                                         │
+│                              "file": {                                                                                                                                           │
+│ -                                "title": "File",                                                                                                                                │
+│ -                                "type": "string",                                                                                                                               │
+│ -                                "contentMediaType": "application/octet-stream",                                                                                                 │
+│ -                            },                                                                                                                                                  │
+│ +                                "title": "File", 'format': 'binary', "type": "string"},                                                                                         │
+│                              "fileb": {                                                                                                                                          │
+│ -                                "title": "Fileb",                                                                                                                               │
+│ -                                "contentMediaType": "application/octet-stream",                                                                                                 │
+│ -                                "type": "string",                                                                                                                               │
+│ +                                "title": "Fileb", 'format': 'binary', "type": "string",                                                                                         │
+│                              },                                                                                                                                                  │
+│                              "token": {"title": "Token", "type": "string"},                                                                                                      │
+│                          },                                                                                                                                                      │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+These changes are not applied.
+Use --inline-snapshot=fix to apply them, or use the interactive mode with --inline-snapshot=review
+
+───────────────────────────────────────────────────────────────────────────────────── Problems ─────────────────────────────────────────────────────────────────────────────────────
+inline-snapshot is not able to format your code.
+This issue can be solved by:
+ * installing inline-snapshot[black] which gives you the same formatting like in older versions
+ * adding a `format-command` to your pyproject.toml (see https://15r10nk.github.io/inline-snapshot/latest/configuration/#format-command for more information).
+
+
+
+==================================== ERRORS ====================================
+_____________ ERROR at setup of test_post_data[tutorial001_py310] ______________
+
+request = <SubRequest 'client' for <Function test_post_data[tutorial001_py310]>>
+
+    @pytest.fixture(
+        name="client",
+        params=[pytest.param("tutorial001_py310", marks=needs_py310)],
+    )
+    def get_client(request: pytest.FixtureRequest):
+>       mod = importlib.import_module(f"docs_src.json_base64_bytes.{request.param}")
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_tutorial/test_json_base64_bytes/test_tutorial001.py:15: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/usr/lib/python3.13/importlib/__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1310: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:488: in _call_with_frames_removed
+    ???
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'docs_src.json_base64_bytes'
+import_ = <function _gcd_import at 0x7f86cb26c4a0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'docs_src.json_base64_bytes'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+______________ ERROR at setup of test_get_data[tutorial001_py310] ______________
+
+request = <SubRequest 'client' for <Function test_get_data[tutorial001_py310]>>
+
+    @pytest.fixture(
+        name="client",
+        params=[pytest.param("tutorial001_py310", marks=needs_py310)],
+    )
+    def get_client(request: pytest.FixtureRequest):
+>       mod = importlib.import_module(f"docs_src.json_base64_bytes.{request.param}")
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_tutorial/test_json_base64_bytes/test_tutorial001.py:15: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/usr/lib/python3.13/importlib/__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1310: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:488: in _call_with_frames_removed
+    ???
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'docs_src.json_base64_bytes'
+import_ = <function _gcd_import at 0x7f86cb26c4a0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'docs_src.json_base64_bytes'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+__________ ERROR at setup of test_post_data_in_out[tutorial001_py310] __________
+
+request = <SubRequest 'client' for <Function test_post_data_in_out[tutorial001_py310]>>
+
+    @pytest.fixture(
+        name="client",
+        params=[pytest.param("tutorial001_py310", marks=needs_py310)],
+    )
+    def get_client(request: pytest.FixtureRequest):
+>       mod = importlib.import_module(f"docs_src.json_base64_bytes.{request.param}")
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_tutorial/test_json_base64_bytes/test_tutorial001.py:15: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/usr/lib/python3.13/importlib/__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1310: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:488: in _call_with_frames_removed
+    ???
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'docs_src.json_base64_bytes'
+import_ = <function _gcd_import at 0x7f86cb26c4a0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'docs_src.json_base64_bytes'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+___________ ERROR at setup of test_openapi_schema[tutorial001_py310] ___________
+
+request = <SubRequest 'client' for <Function test_openapi_schema[tutorial001_py310]>>
+
+    @pytest.fixture(
+        name="client",
+        params=[pytest.param("tutorial001_py310", marks=needs_py310)],
+    )
+    def get_client(request: pytest.FixtureRequest):
+>       mod = importlib.import_module(f"docs_src.json_base64_bytes.{request.param}")
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_tutorial/test_json_base64_bytes/test_tutorial001.py:15: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/usr/lib/python3.13/importlib/__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1310: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:488: in _call_with_frames_removed
+    ???
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'docs_src.json_base64_bytes'
+import_ = <function _gcd_import at 0x7f86cb26c4a0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'docs_src.json_base64_bytes'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+_________ ERROR at teardown of test_openapi_schema[tutorial001_py310] __________
+some snapshots in this test have incorrect values.
+If you just created this value with --inline-snapshot=create, the value is now created and you can ignore this message.
+________ ERROR at teardown of test_openapi_schema[tutorial001_an_py310] ________
+some snapshots in this test have incorrect values.
+If you just created this value with --inline-snapshot=create, the value is now created and you can ignore this message.
+________ ERROR at teardown of test_openapi_schema[tutorial001_02_py310] ________
+some snapshots in this test have incorrect values.
+If you just created this value with --inline-snapshot=create, the value is now created and you can ignore this message.
+______ ERROR at teardown of test_openapi_schema[tutorial001_02_an_py310] _______
+some snapshots in this test have incorrect values.
+If you just created this value with --inline-snapshot=create, the value is now created and you can ignore this message.
+________ ERROR at teardown of test_openapi_schema[tutorial001_03_py310] ________
+some snapshots in this test have incorrect values.
+If you just created this value with --inline-snapshot=create, the value is now created and you can ignore this message.
+______ ERROR at teardown of test_openapi_schema[tutorial001_03_an_py310] _______
+some snapshots in this test have incorrect values.
+If you just created this value with --inline-snapshot=create, the value is now created and you can ignore this message.
+_________ ERROR at teardown of test_openapi_schema[tutorial002_py310] __________
+some snapshots in this test have incorrect values.
+If you just created this value with --inline-snapshot=create, the value is now created and you can ignore this message.
+________ ERROR at teardown of test_openapi_schema[tutorial002_an_py310] ________
+some snapshots in this test have incorrect values.
+If you just created this value with --inline-snapshot=create, the value is now created and you can ignore this message.
+_________ ERROR at teardown of test_openapi_schema[tutorial003_py310] __________
+some snapshots in this test have incorrect values.
+If you just created this value with --inline-snapshot=create, the value is now created and you can ignore this message.
+________ ERROR at teardown of test_openapi_schema[tutorial003_an_py310] ________
+some snapshots in this test have incorrect values.
+If you just created this value with --inline-snapshot=create, the value is now created and you can ignore this message.
+_________ ERROR at teardown of test_openapi_schema[tutorial001_py310] __________
+some snapshots in this test have incorrect values.
+If you just created this value with --inline-snapshot=create, the value is now created and you can ignore this message.
+________ ERROR at teardown of test_openapi_schema[tutorial001_an_py310] ________
+some snapshots in this test have incorrect values.
+If you just created this value with --inline-snapshot=create, the value is now created and you can ignore this message.
+=================================== FAILURES ===================================
+________________________ test_list_schema[/list-bytes] _________________________
+
+path = '/list-bytes'
+
+    @pytest.mark.parametrize(
+        "path",
+        [
+            "/list-bytes",
+            "/list-uploadfile",
+        ],
+    )
+    def test_list_schema(path: str):
+        openapi = app.openapi()
+        body_model_name = get_body_model_name(openapi, path)
+    
+>       assert app.openapi()["components"]["schemas"][body_model_name] == {
+            "properties": {
+                "p": {
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "contentMediaType": "application/octet-stream",
+                    },
+                    "title": "P",
+                },
+            },
+            "required": ["p"],
+            "title": body_model_name,
+            "type": "object",
+        }
+E       AssertionError: assert {'properties'...y_list_bytes'} == {'properties'...pe': 'object'}
+E         
+E         Omitting 3 identical items, use -vv to show
+E         Differing items:
+E         {'properties': {'p': {'items': {'type': 'string', 'format': 'binary'}, 'type': 'array', 'title': 'P'}}} != {'properties': {'p': {'type': 'array', 'items': {'type': 'string', 'contentMediaType': 'application/octet-stream'}, 'title': 'P'}}}
+E         Use -v to get more diff
+
+tests/test_request_params/test_file/test_list.py:36: AssertionError
+______________________ test_list_schema[/list-uploadfile] ______________________
+
+path = '/list-uploadfile'
+
+    @pytest.mark.parametrize(
+        "path",
+        [
+            "/list-bytes",
+            "/list-uploadfile",
+        ],
+    )
+    def test_list_schema(path: str):
+        openapi = app.openapi()
+        body_model_name = get_body_model_name(openapi, path)
+    
+>       assert app.openapi()["components"]["schemas"][body_model_name] == {
+            "properties": {
+                "p": {
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "contentMediaType": "application/octet-stream",
+                    },
+                    "title": "P",
+                },
+            },
+            "required": ["p"],
+            "title": body_model_name,
+            "type": "object",
+        }
+E       AssertionError: assert {'properties'...t_uploadfile'} == {'properties'...pe': 'object'}
+E         
+E         Omitting 3 identical items, use -vv to show
+E         Differing items:
+E         {'properties': {'p': {'items': {'type': 'string', 'format': 'binary'}, 'type': 'array', 'title': 'P'}}} != {'properties': {'p': {'type': 'array', 'items': {'type': 'string', 'contentMediaType': 'application/octet-stream'}, 'title': 'P'}}}
+E         Use -v to get more diff
+
+tests/test_request_params/test_file/test_list.py:36: AssertionError
+__________________ test_list_alias_schema[/list-bytes-alias] ___________________
+
+path = '/list-bytes-alias'
+
+    @pytest.mark.parametrize(
+        "path",
+        [
+            "/list-bytes-alias",
+            "/list-uploadfile-alias",
+        ],
+    )
+    def test_list_alias_schema(path: str):
+        openapi = app.openapi()
+        body_model_name = get_body_model_name(openapi, path)
+    
+>       assert app.openapi()["components"]["schemas"][body_model_name] == {
+            "properties": {
+                "p_alias": {
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "contentMediaType": "application/octet-stream",
+                    },
+                    "title": "P Alias",
+                },
+            },
+            "required": ["p_alias"],
+            "title": body_model_name,
+            "type": "object",
+        }
+E       AssertionError: assert {'properties'..._bytes_alias'} == {'properties'...pe': 'object'}
+E         
+E         Omitting 3 identical items, use -vv to show
+E         Differing items:
+E         {'properties': {'p_alias': {'items': {'type': 'string', 'format': 'binary'}, 'type': 'array', 'title': 'P Alias'}}} != {'properties': {'p_alias': {'type': 'array', 'items': {'type': 'string', 'contentMediaType': 'application/octet-stream'}, 'title': 'P Alias'}}}
+E         Use -v to get more diff
+
+tests/test_request_params/test_file/test_list.py:117: AssertionError
+________________ test_list_alias_schema[/list-uploadfile-alias] ________________
+
+path = '/list-uploadfile-alias'
+
+    @pytest.mark.parametrize(
+        "path",
+        [
+            "/list-bytes-alias",
+            "/list-uploadfile-alias",
+        ],
+    )
+    def test_list_alias_schema(path: str):
+        openapi = app.openapi()
+        body_model_name = get_body_model_name(openapi, path)
+    
+>       assert app.openapi()["components"]["schemas"][body_model_name] == {
+            "properties": {
+                "p_alias": {
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "contentMediaType": "application/octet-stream",
+                    },
+                    "title": "P Alias",
+                },
+            },
+            "required": ["p_alias"],
+            "title": body_model_name,
+            "type": "object",
+        }
+E       AssertionError: assert {'properties'...adfile_alias'} == {'properties'...pe': 'object'}
+E         
+E         Omitting 3 identical items, use -vv to show
+E         Differing items:
+E         {'properties': {'p_alias': {'items': {'type': 'string', 'format': 'binary'}, 'type': 'array', 'title': 'P Alias'}}} != {'properties': {'p_alias': {'type': 'array', 'items': {'type': 'string', 'contentMediaType': 'application/octet-stream'}, 'title': 'P Alias'}}}
+E         Use -v to get more diff
+
+tests/test_request_params/test_file/test_list.py:117: AssertionError
+_______ test_list_validation_alias_schema[/list-bytes-validation-alias] ________
+
+path = '/list-bytes-validation-alias'
+
+    @pytest.mark.parametrize(
+        "path",
+        [
+            "/list-bytes-validation-alias",
+            "/list-uploadfile-validation-alias",
+        ],
+    )
+    def test_list_validation_alias_schema(path: str):
+        openapi = app.openapi()
+        body_model_name = get_body_model_name(openapi, path)
+    
+>       assert app.openapi()["components"]["schemas"][body_model_name] == {
+            "properties": {
+                "p_val_alias": {
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "contentMediaType": "application/octet-stream",
+                    },
+                    "title": "P Val Alias",
+                },
+            },
+            "required": ["p_val_alias"],
+            "title": body_model_name,
+            "type": "object",
+        }
+E       AssertionError: assert {'properties'...dation_alias'} == {'properties'...pe': 'object'}
+E         
+E         Omitting 3 identical items, use -vv to show
+E         Differing items:
+E         {'properties': {'p_val_alias': {'items': {'type': 'string', 'format': 'binary'}, 'type': 'array', 'title': 'P Val Alias'}}} != {'properties': {'p_val_alias': {'type': 'array', 'items': {'type': 'string', 'contentMediaType': 'application/octet-stream'}, 'title': 'P Val Alias'}}}
+E         Use -v to get more diff
+
+tests/test_request_params/test_file/test_list.py:226: AssertionError
+_____ test_list_validation_alias_schema[/list-uploadfile-validation-alias] _____
+
+path = '/list-uploadfile-validation-alias'
+
+    @pytest.mark.parametrize(
+        "path",
+        [
+            "/list-bytes-validation-alias",
+            "/list-uploadfile-validation-alias",
+        ],
+    )
+    def test_list_validation_alias_schema(path: str):
+        openapi = app.openapi()
+        body_model_name = get_body_model_name(openapi, path)
+    
+>       assert app.openapi()["components"]["schemas"][body_model_name] == {
+            "properties": {
+                "p_val_alias": {
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "contentMediaType": "application/octet-stream",
+                    },
+                    "title": "P Val Alias",
+                },
+            },
+            "required": ["p_val_alias"],
+            "title": body_model_name,
+            "type": "object",
+        }
+E       AssertionError: assert {'properties'...dation_alias'} == {'properties'...pe': 'object'}
+E         
+E         Omitting 3 identical items, use -vv to show
+E         Differing items:
+E         {'properties': {'p_val_alias': {'items': {'type': 'string', 'format': 'binary'}, 'type': 'array', 'title': 'P Val Alias'}}} != {'properties': {'p_val_alias': {'type': 'array', 'items': {'type': 'string', 'contentMediaType': 'application/octet-stream'}, 'title': 'P Val Alias'}}}
+E         Use -v to get more diff
+
+tests/test_request_params/test_file/test_list.py:226: AssertionError
+_ test_list_alias_and_validation_alias_schema[/list-bytes-alias-and-validation-alias] _
+
+path = '/list-bytes-alias-and-validation-alias'
+
+    @pytest.mark.parametrize(
+        "path",
+        [
+            "/list-bytes-alias-and-validation-alias",
+            "/list-uploadfile-alias-and-validation-alias",
+        ],
+    )
+    def test_list_alias_and_validation_alias_schema(path: str):
+        openapi = app.openapi()
+        body_model_name = get_body_model_name(openapi, path)
+    
+>       assert app.openapi()["components"]["schemas"][body_model_name] == {
+            "properties": {
+                "p_val_alias": {
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "contentMediaType": "application/octet-stream",
+                    },
+                    "title": "P Val Alias",
+                },
+            },
+            "required": ["p_val_alias"],
+            "title": body_model_name,
+            "type": "object",
+        }
+E       AssertionError: assert {'properties'...dation_alias'} == {'properties'...pe': 'object'}
+E         
+E         Omitting 3 identical items, use -vv to show
+E         Differing items:
+E         {'properties': {'p_val_alias': {'items': {'type': 'string', 'format': 'binary'}, 'type': 'array', 'title': 'P Val Alias'}}} != {'properties': {'p_val_alias': {'type': 'array', 'items': {'type': 'string', 'contentMediaType': 'application/octet-stream'}, 'title': 'P Val Alias'}}}
+E         Use -v to get more diff
+
+tests/test_request_params/test_file/test_list.py:346: AssertionError
+_ test_list_alias_and_validation_alias_schema[/list-uploadfile-alias-and-validation-alias] _
+
+path = '/list-uploadfile-alias-and-validation-alias'
+
+    @pytest.mark.parametrize(
+        "path",
+        [
+            "/list-bytes-alias-and-validation-alias",
+            "/list-uploadfile-alias-and-validation-alias",
+        ],
+    )
+    def test_list_alias_and_validation_alias_schema(path: str):
+        openapi = app.openapi()
+        body_model_name = get_body_model_name(openapi, path)
+    
+>       assert app.openapi()["components"]["schemas"][body_model_name] == {
+            "properties": {
+                "p_val_alias": {
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "contentMediaType": "application/octet-stream",
+                    },
+                    "title": "P Val Alias",
+                },
+            },
+            "required": ["p_val_alias"],
+            "title": body_model_name,
+            "type": "object",
+        }
+E       AssertionError: assert {'properties'...dation_alias'} == {'properties'...pe': 'object'}
+E         
+E         Omitting 3 identical items, use -vv to show
+E         Differing items:
+E         {'properties': {'p_val_alias': {'items': {'type': 'string', 'format': 'binary'}, 'type': 'array', 'title': 'P Val Alias'}}} != {'properties': {'p_val_alias': {'type': 'array', 'items': {'type': 'string', 'contentMediaType': 'application/octet-stream'}, 'title': 'P Val Alias'}}}
+E         Use -v to get more diff
+
+tests/test_request_params/test_file/test_list.py:346: AssertionError
+____________________ test_optional_schema[/optional-bytes] _____________________
+
+path = '/optional-bytes'
+
+    @pytest.mark.parametrize(
+        "path",
+        [
+            "/optional-bytes",
+            "/optional-uploadfile",
+        ],
+    )
+    def test_optional_schema(path: str):
+        openapi = app.openapi()
+        body_model_name = get_body_model_name(openapi, path)
+    
+>       assert app.openapi()["components"]["schemas"][body_model_name] == {
+            "properties": {
+                "p": {
+                    "anyOf": [
+                        {"type": "string", "contentMediaType": "application/octet-stream"},
+                        {"type": "null"},
+                    ],
+                    "title": "P",
+                }
+            },
+            "title": body_model_name,
+            "type": "object",
+        }
+E       AssertionError: assert {'properties'...tional_bytes'} == {'properties'...pe': 'object'}
+E         
+E         Omitting 2 identical items, use -vv to show
+E         Differing items:
+E         {'properties': {'p': {'anyOf': [{'type': 'string', 'format': 'binary'}, {'type': 'null'}], 'title': 'P'}}} != {'properties': {'p': {'anyOf': [{'type': 'string', 'contentMediaType': 'application/octet-stream'}, {'type': 'null'}], 'title': 'P'}}}
+E         Use -v to get more diff
+
+tests/test_request_params/test_file/test_optional.py:36: AssertionError
+__________________ test_optional_schema[/optional-uploadfile] __________________
+
+path = '/optional-uploadfile'
+
+    @pytest.mark.parametrize(
+        "path",
+        [
+            "/optional-bytes",
+            "/optional-uploadfile",
+        ],
+    )
+    def test_optional_schema(path: str):
+        openapi = app.openapi()
+        body_model_name = get_body_model_name(openapi, path)
+    
+>       assert app.openapi()["components"]["schemas"][body_model_name] == {
+            "properties": {
+                "p": {
+                    "anyOf": [
+                        {"type": "string", "contentMediaType": "application/octet-stream"},
+                        {"type": "null"},
+                    ],
+                    "title": "P",
+                }
+            },
+            "title": body_model_name,
+            "type": "object",
+        }
+E       AssertionError: assert {'properties'...l_uploadfile'} == {'properties'...pe': 'object'}
+E         
+E         Omitting 2 identical items, use -vv to show
+E         Differing items:
+E         {'properties': {'p': {'anyOf': [{'type': 'string', 'format': 'binary'}, {'type': 'null'}], 'title': 'P'}}} != {'properties': {'p': {'anyOf': [{'type': 'string', 'contentMediaType': 'application/octet-stream'}, {'type': 'null'}], 'title': 'P'}}}
+E         Use -v to get more diff
+
+tests/test_request_params/test_file/test_optional.py:36: AssertionError
+______________ test_optional_alias_schema[/optional-bytes-alias] _______________
+
+path = '/optional-bytes-alias'
+
+    @pytest.mark.parametrize(
+        "path",
+        [
+            "/optional-bytes-alias",
+            "/optional-uploadfile-alias",
+        ],
+    )
+    def test_optional_alias_schema(path: str):
+        openapi = app.openapi()
+        body_model_name = get_body_model_name(openapi, path)
+    
+>       assert app.openapi()["components"]["schemas"][body_model_name] == {
+            "properties": {
+                "p_alias": {
+                    "anyOf": [
+                        {"type": "string", "contentMediaType": "application/octet-stream"},
+                        {"type": "null"},
+                    ],
+                    "title": "P Alias",
+                }
+            },
+            "title": body_model_name,
+            "type": "object",
+        }
+E       AssertionError: assert {'properties'..._bytes_alias'} == {'properties'...pe': 'object'}
+E         
+E         Omitting 2 identical items, use -vv to show
+E         Differing items:
+E         {'properties': {'p_alias': {'anyOf': [{'type': 'string', 'format': 'binary'}, {'type': 'null'}], 'title': 'P Alias'}}} != {'properties': {'p_alias': {'anyOf': [{'type': 'string', 'contentMediaType': 'application/octet-stream'}, {'type': 'null'}], 'title': 'P Alias'}}}
+E         Use -v to get more diff
+
+tests/test_request_params/test_file/test_optional.py:108: AssertionError
+____________ test_optional_alias_schema[/optional-uploadfile-alias] ____________
+
+path = '/optional-uploadfile-alias'
+
+    @pytest.mark.parametrize(
+        "path",
+        [
+            "/optional-bytes-alias",
+            "/optional-uploadfile-alias",
+        ],
+    )
+    def test_optional_alias_schema(path: str):
+        openapi = app.openapi()
+        body_model_name = get_body_model_name(openapi, path)
+    
+>       assert app.openapi()["components"]["schemas"][body_model_name] == {
+            "properties": {
+                "p_alias": {
+                    "anyOf": [
+                        {"type": "string", "contentMediaType": "application/octet-stream"},
+                        {"type": "null"},
+                    ],
+                    "title": "P Alias",
+                }
+            },
+            "title": body_model_name,
+            "type": "object",
+        }
+E       AssertionError: assert {'properties'...adfile_alias'} == {'properties'...pe': 'object'}
+E         
+E         Omitting 2 identical items, use -vv to show
+E         Differing items:
+E         {'properties': {'p_alias': {'anyOf': [{'type': 'string', 'format': 'binary'}, {'type': 'null'}], 'title': 'P Alias'}}} != {'properties': {'p_alias': {'anyOf': [{'type': 'string', 'contentMediaType': 'application/octet-stream'}, {'type': 'null'}], 'title': 'P Alias'}}}
+E         Use -v to get more diff
+
+tests/test_request_params/test_file/test_optional.py:108: AssertionError
+___ test_optional_validation_alias_schema[/optional-bytes-validation-alias] ____
+
+path = '/optional-bytes-validation-alias'
+
+    @pytest.mark.parametrize(
+        "path",
+        [
+            "/optional-bytes-validation-alias",
+            "/optional-uploadfile-validation-alias",
+        ],
+    )
+    def test_optional_validation_alias_schema(path: str):
+        openapi = app.openapi()
+        body_model_name = get_body_model_name(openapi, path)
+    
+>       assert app.openapi()["components"]["schemas"][body_model_name] == {
+            "properties": {
+                "p_val_alias": {
+                    "anyOf": [
+                        {"type": "string", "contentMediaType": "application/octet-stream"},
+                        {"type": "null"},
+                    ],
+                    "title": "P Val Alias",
+                }
+            },
+            "title": body_model_name,
+            "type": "object",
+        }
+E       AssertionError: assert {'properties'...dation_alias'} == {'properties'...pe': 'object'}
+E         
+E         Omitting 2 identical items, use -vv to show
+E         Differing items:
+E         {'properties': {'p_val_alias': {'anyOf': [{'type': 'string', 'format': 'binary'}, {'type': 'null'}], 'title': 'P Val Alias'}}} != {'properties': {'p_val_alias': {'anyOf': [{'type': 'string', 'contentMediaType': 'application/octet-stream'}, {'type': 'null'}], 'title': 'P Val Alias'}}}
+E         Use -v to get more diff
+
+tests/test_request_params/test_file/test_optional.py:199: AssertionError
+_ test_optional_validation_alias_schema[/optional-uploadfile-validation-alias] _
+
+path = '/optional-uploadfile-validation-alias'
+
+    @pytest.mark.parametrize(
+        "path",
+        [
+            "/optional-bytes-validation-alias",
+            "/optional-uploadfile-validation-alias",
+        ],
+    )
+    def test_optional_validation_alias_schema(path: str):
+        openapi = app.openapi()
+        body_model_name = get_body_model_name(openapi, path)
+    
+>       assert app.openapi()["components"]["schemas"][body_model_name] == {
+            "properties": {
+                "p_val_alias": {
+                    "anyOf": [
+                        {"type": "string", "contentMediaType": "application/octet-stream"},
+                        {"type": "null"},
+                    ],
+                    "title": "P Val Alias",
+                }
+            },
+            "title": body_model_name,
+            "type": "object",
+        }
+E       AssertionError: assert {'properties'...dation_alias'} == {'properties'...pe': 'object'}
+E         
+E         Omitting 2 identical items, use -vv to show
+E         Differing items:
+E         {'properties': {'p_val_alias': {'anyOf': [{'type': 'string', 'format': 'binary'}, {'type': 'null'}], 'title': 'P Val Alias'}}} != {'properties': {'p_val_alias': {'anyOf': [{'type': 'string', 'contentMediaType': 'application/octet-stream'}, {'type': 'null'}], 'title': 'P Val Alias'}}}
+E         Use -v to get more diff
+
+tests/test_request_params/test_file/test_optional.py:199: AssertionError
+_ test_optional_alias_and_validation_alias_schema[/optional-bytes-alias-and-validation-alias] _
+
+path = '/optional-bytes-alias-and-validation-alias'
+
+    @pytest.mark.parametrize(
+        "path",
+        [
+            "/optional-bytes-alias-and-validation-alias",
+            "/optional-uploadfile-alias-and-validation-alias",
+        ],
+    )
+    def test_optional_alias_and_validation_alias_schema(path: str):
+        openapi = app.openapi()
+        body_model_name = get_body_model_name(openapi, path)
+    
+>       assert app.openapi()["components"]["schemas"][body_model_name] == {
+            "properties": {
+                "p_val_alias": {
+                    "anyOf": [
+                        {"type": "string", "contentMediaType": "application/octet-stream"},
+                        {"type": "null"},
+                    ],
+                    "title": "P Val Alias",
+                }
+            },
+            "title": body_model_name,
+            "type": "object",
+        }
+E       AssertionError: assert {'properties'...dation_alias'} == {'properties'...pe': 'object'}
+E         
+E         Omitting 2 identical items, use -vv to show
+E         Differing items:
+E         {'properties': {'p_val_alias': {'anyOf': [{'type': 'string', 'format': 'binary'}, {'type': 'null'}], 'title': 'P Val Alias'}}} != {'properties': {'p_val_alias': {'anyOf': [{'type': 'string', 'contentMediaType': 'application/octet-stream'}, {'type': 'null'}], 'title': 'P Val Alias'}}}
+E         Use -v to get more diff
+
+tests/test_request_params/test_file/test_optional.py:295: AssertionError
+_ test_optional_alias_and_validation_alias_schema[/optional-uploadfile-alias-and-validation-alias] _
+
+path = '/optional-uploadfile-alias-and-validation-alias'
+
+    @pytest.mark.parametrize(
+        "path",
+        [
+            "/optional-bytes-alias-and-validation-alias",
+            "/optional-uploadfile-alias-and-validation-alias",
+        ],
+    )
+    def test_optional_alias_and_validation_alias_schema(path: str):
+        openapi = app.openapi()
+        body_model_name = get_body_model_name(openapi, path)
+    
+>       assert app.openapi()["components"]["schemas"][body_model_name] == {
+            "properties": {
+                "p_val_alias": {
+                    "anyOf": [
+                        {"type": "string", "contentMediaType": "application/octet-stream"},
+                        {"type": "null"},
+                    ],
+                    "title": "P Val Alias",
+                }
+            },
+            "title": body_model_name,
+            "type": "object",
+        }
+E       AssertionError: assert {'properties'...dation_alias'} == {'properties'...pe': 'object'}
+E         
+E         Omitting 2 identical items, use -vv to show
+E         Differing items:
+E         {'properties': {'p_val_alias': {'anyOf': [{'type': 'string', 'format': 'binary'}, {'type': 'null'}], 'title': 'P Val Alias'}}} != {'properties': {'p_val_alias': {'anyOf': [{'type': 'string', 'contentMediaType': 'application/octet-stream'}, {'type': 'null'}], 'title': 'P Val Alias'}}}
+E         Use -v to get more diff
+
+tests/test_request_params/test_file/test_optional.py:295: AssertionError
+_______________ test_optional_list_schema[/optional-list-bytes] ________________
+
+path = '/optional-list-bytes'
+
+    @pytest.mark.parametrize(
+        "path",
+        [
+            "/optional-list-bytes",
+            "/optional-list-uploadfile",
+        ],
+    )
+    def test_optional_list_schema(path: str):
+        openapi = app.openapi()
+        body_model_name = get_body_model_name(openapi, path)
+    
+>       assert app.openapi()["components"]["schemas"][body_model_name] == {
+            "properties": {
+                "p": {
+                    "anyOf": [
+                        {
+                            "type": "array",
+                            "items": {
+                                "type": "string",
+                                "contentMediaType": "application/octet-stream",
+                            },
+                        },
+                        {"type": "null"},
+                    ],
+                    "title": "P",
+                }
+            },
+            "title": body_model_name,
+            "type": "object",
+        }
+E       AssertionError: assert {'properties'...t_bytes_post'} == {'properties'...pe': 'object'}
+E         
+E         Omitting 2 identical items, use -vv to show
+E         Differing items:
+E         {'properties': {'p': {'anyOf': [{'items': {'type': 'string', 'format': 'binary'}, 'type': 'array'}, {'type': 'null'}], 'title': 'P'}}} != {'properties': {'p': {'anyOf': [{'type': 'array', 'items': {'type': 'string', 'contentMediaType': 'application/octet-stream'}}, {'type': 'null'}], 'title': 'P'}}}
+E         Use -v to get more diff
+
+tests/test_request_params/test_file/test_optional_list.py:38: AssertionError
+_____________ test_optional_list_schema[/optional-list-uploadfile] _____________
+
+path = '/optional-list-uploadfile'
+
+    @pytest.mark.parametrize(
+        "path",
+        [
+            "/optional-list-bytes",
+            "/optional-list-uploadfile",
+        ],
+    )
+    def test_optional_list_schema(path: str):
+        openapi = app.openapi()
+        body_model_name = get_body_model_name(openapi, path)
+    
+>       assert app.openapi()["components"]["schemas"][body_model_name] == {
+            "properties": {
+                "p": {
+                    "anyOf": [
+                        {
+                            "type": "array",
+                            "items": {
+                                "type": "string",
+                                "contentMediaType": "application/octet-stream",
+                            },
+                        },
+                        {"type": "null"},
+                    ],
+                    "title": "P",
+                }
+            },
+            "title": body_model_name,
+            "type": "object",
+        }
+E       AssertionError: assert {'properties'...oadfile_post'} == {'properties'...pe': 'object'}
+E         
+E         Omitting 2 identical items, use -vv to show
+E         Differing items:
+E         {'properties': {'p': {'anyOf': [{'items': {'type': 'string', 'format': 'binary'}, 'type': 'array'}, {'type': 'null'}], 'title': 'P'}}} != {'properties': {'p': {'anyOf': [{'type': 'array', 'items': {'type': 'string', 'contentMediaType': 'application/octet-stream'}}, {'type': 'null'}], 'title': 'P'}}}
+E         Use -v to get more diff
+
+tests/test_request_params/test_file/test_optional_list.py:38: AssertionError
+_________ test_optional_list_alias_schema[/optional-list-bytes-alias] __________
+
+path = '/optional-list-bytes-alias'
+
+    @pytest.mark.parametrize(
+        "path",
+        [
+            "/optional-list-bytes-alias",
+            "/optional-list-uploadfile-alias",
+        ],
+    )
+    def test_optional_list_alias_schema(path: str):
+        openapi = app.openapi()
+        body_model_name = get_body_model_name(openapi, path)
+    
+>       assert app.openapi()["components"]["schemas"][body_model_name] == {
+            "properties": {
+                "p_alias": {
+                    "anyOf": [
+                        {
+                            "type": "array",
+                            "items": {
+                                "type": "string",
+                                "contentMediaType": "application/octet-stream",
+                            },
+                        },
+                        {"type": "null"},
+                    ],
+                    "title": "P Alias",
+                }
+            },
+            "title": body_model_name,
+            "type": "object",
+        }
+E       AssertionError: assert {'properties'...s_alias_post'} == {'properties'...pe': 'object'}
+E         
+E         Omitting 2 identical items, use -vv to show
+E         Differing items:
+E         {'properties': {'p_alias': {'anyOf': [{'items': {'type': 'string', 'format': 'binary'}, 'type': 'array'}, {'type': 'null'}], 'title': 'P Alias'}}} != {'properties': {'p_alias': {'anyOf': [{'type': 'array', 'items': {'type': 'string', 'contentMediaType': 'application/octet-stream'}}, {'type': 'null'}], 'title': 'P Alias'}}}
+E         Use -v to get more diff
+
+tests/test_request_params/test_file/test_optional_list.py:116: AssertionError
+_______ test_optional_list_alias_schema[/optional-list-uploadfile-alias] _______
+
+path = '/optional-list-uploadfile-alias'
+
+    @pytest.mark.parametrize(
+        "path",
+        [
+            "/optional-list-bytes-alias",
+            "/optional-list-uploadfile-alias",
+        ],
+    )
+    def test_optional_list_alias_schema(path: str):
+        openapi = app.openapi()
+        body_model_name = get_body_model_name(openapi, path)
+    
+>       assert app.openapi()["components"]["schemas"][body_model_name] == {
+            "properties": {
+                "p_alias": {
+                    "anyOf": [
+                        {
+                            "type": "array",
+                            "items": {
+                                "type": "string",
+                                "contentMediaType": "application/octet-stream",
+                            },
+                        },
+                        {"type": "null"},
+                    ],
+                    "title": "P Alias",
+                }
+            },
+            "title": body_model_name,
+            "type": "object",
+        }
+E       AssertionError: assert {'properties'...e_alias_post'} == {'properties'...pe': 'object'}
+E         
+E         Omitting 2 identical items, use -vv to show
+E         Differing items:
+E         {'properties': {'p_alias': {'anyOf': [{'items': {'type': 'string', 'format': 'binary'}, 'type': 'array'}, {'type': 'null'}], 'title': 'P Alias'}}} != {'properties': {'p_alias': {'anyOf': [{'type': 'array', 'items': {'type': 'string', 'contentMediaType': 'application/octet-stream'}}, {'type': 'null'}], 'title': 'P Alias'}}}
+E         Use -v to get more diff
+
+tests/test_request_params/test_file/test_optional_list.py:116: AssertionError
+_ test_optional_validation_alias_schema[/optional-list-bytes-validation-alias] _
+
+path = '/optional-list-bytes-validation-alias'
+
+    @pytest.mark.parametrize(
+        "path",
+        [
+            "/optional-list-bytes-validation-alias",
+            "/optional-list-uploadfile-validation-alias",
+        ],
+    )
+    def test_optional_validation_alias_schema(path: str):
+        openapi = app.openapi()
+        body_model_name = get_body_model_name(openapi, path)
+    
+>       assert app.openapi()["components"]["schemas"][body_model_name] == {
+            "properties": {
+                "p_val_alias": {
+                    "anyOf": [
+                        {
+                            "type": "array",
+                            "items": {
+                                "type": "string",
+                                "contentMediaType": "application/octet-stream",
+                            },
+                        },
+                        {"type": "null"},
+                    ],
+                    "title": "P Val Alias",
+                }
+            },
+            "title": body_model_name,
+            "type": "object",
+        }
+E       AssertionError: assert {'properties'...n_alias_post'} == {'properties'...pe': 'object'}
+E         
+E         Omitting 2 identical items, use -vv to show
+E         Differing items:
+E         {'properties': {'p_val_alias': {'anyOf': [{'items': {'type': 'string', 'format': 'binary'}, 'type': 'array'}, {'type': 'null'}], 'title': 'P Val Alias'}}} != {'properties': {'p_val_alias': {'anyOf': [{'type': 'array', 'items': {'type': 'string', 'contentMediaType': 'application/octet-stream'}}, {'type': 'null'}], 'title': 'P Val Alias'}}}
+E         Use -v to get more diff
+
+tests/test_request_params/test_file/test_optional_list.py:208: AssertionError
+_ test_optional_validation_alias_schema[/optional-list-uploadfile-validation-alias] _
+
+path = '/optional-list-uploadfile-validation-alias'
+
+    @pytest.mark.parametrize(
+        "path",
+        [
+            "/optional-list-bytes-validation-alias",
+            "/optional-list-uploadfile-validation-alias",
+        ],
+    )
+    def test_optional_validation_alias_schema(path: str):
+        openapi = app.openapi()
+        body_model_name = get_body_model_name(openapi, path)
+    
+>       assert app.openapi()["components"]["schemas"][body_model_name] == {
+            "properties": {
+                "p_val_alias": {
+                    "anyOf": [
+                        {
+                            "type": "array",
+                            "items": {
+                                "type": "string",
+                                "contentMediaType": "application/octet-stream",
+                            },
+                        },
+                        {"type": "null"},
+                    ],
+                    "title": "P Val Alias",
+                }
+            },
+            "title": body_model_name,
+            "type": "object",
+        }
+E       AssertionError: assert {'properties'...n_alias_post'} == {'properties'...pe': 'object'}
+E         
+E         Omitting 2 identical items, use -vv to show
+E         Differing items:
+E         {'properties': {'p_val_alias': {'anyOf': [{'items': {'type': 'string', 'format': 'binary'}, 'type': 'array'}, {'type': 'null'}], 'title': 'P Val Alias'}}} != {'properties': {'p_val_alias': {'anyOf': [{'type': 'array', 'items': {'type': 'string', 'contentMediaType': 'application/octet-stream'}}, {'type': 'null'}], 'title': 'P Val Alias'}}}
+E         Use -v to get more diff
+
+tests/test_request_params/test_file/test_optional_list.py:208: AssertionError
+_ test_optional_list_alias_and_validation_alias_schema[/optional-list-bytes-alias-and-validation-alias] _
+
+path = '/optional-list-bytes-alias-and-validation-alias'
+
+    @pytest.mark.parametrize(
+        "path",
+        [
+            "/optional-list-bytes-alias-and-validation-alias",
+            "/optional-list-uploadfile-alias-and-validation-alias",
+        ],
+    )
+    def test_optional_list_alias_and_validation_alias_schema(path: str):
+        openapi = app.openapi()
+        body_model_name = get_body_model_name(openapi, path)
+    
+>       assert app.openapi()["components"]["schemas"][body_model_name] == {
+            "properties": {
+                "p_val_alias": {
+                    "anyOf": [
+                        {
+                            "type": "array",
+                            "items": {
+                                "type": "string",
+                                "contentMediaType": "application/octet-stream",
+                            },
+                        },
+                        {"type": "null"},
+                    ],
+                    "title": "P Val Alias",
+                }
+            },
+            "title": body_model_name,
+            "type": "object",
+        }
+E       AssertionError: assert {'properties'...n_alias_post'} == {'properties'...pe': 'object'}
+E         
+E         Omitting 2 identical items, use -vv to show
+E         Differing items:
+E         {'properties': {'p_val_alias': {'anyOf': [{'items': {'type': 'string', 'format': 'binary'}, 'type': 'array'}, {'type': 'null'}], 'title': 'P Val Alias'}}} != {'properties': {'p_val_alias': {'anyOf': [{'type': 'array', 'items': {'type': 'string', 'contentMediaType': 'application/octet-stream'}}, {'type': 'null'}], 'title': 'P Val Alias'}}}
+E         Use -v to get more diff
+
+tests/test_request_params/test_file/test_optional_list.py:307: AssertionError
+_ test_optional_list_alias_and_validation_alias_schema[/optional-list-uploadfile-alias-and-validation-alias] _
+
+path = '/optional-list-uploadfile-alias-and-validation-alias'
+
+    @pytest.mark.parametrize(
+        "path",
+        [
+            "/optional-list-bytes-alias-and-validation-alias",
+            "/optional-list-uploadfile-alias-and-validation-alias",
+        ],
+    )
+    def test_optional_list_alias_and_validation_alias_schema(path: str):
+        openapi = app.openapi()
+        body_model_name = get_body_model_name(openapi, path)
+    
+>       assert app.openapi()["components"]["schemas"][body_model_name] == {
+            "properties": {
+                "p_val_alias": {
+                    "anyOf": [
+                        {
+                            "type": "array",
+                            "items": {
+                                "type": "string",
+                                "contentMediaType": "application/octet-stream",
+                            },
+                        },
+                        {"type": "null"},
+                    ],
+                    "title": "P Val Alias",
+                }
+            },
+            "title": body_model_name,
+            "type": "object",
+        }
+E       AssertionError: assert {'properties'...n_alias_post'} == {'properties'...pe': 'object'}
+E         
+E         Omitting 2 identical items, use -vv to show
+E         Differing items:
+E         {'properties': {'p_val_alias': {'anyOf': [{'items': {'type': 'string', 'format': 'binary'}, 'type': 'array'}, {'type': 'null'}], 'title': 'P Val Alias'}}} != {'properties': {'p_val_alias': {'anyOf': [{'type': 'array', 'items': {'type': 'string', 'contentMediaType': 'application/octet-stream'}}, {'type': 'null'}], 'title': 'P Val Alias'}}}
+E         Use -v to get more diff
+
+tests/test_request_params/test_file/test_optional_list.py:307: AssertionError
+____________________ test_required_schema[/required-bytes] _____________________
+
+path = '/required-bytes'
+
+    @pytest.mark.parametrize(
+        "path",
+        [
+            "/required-bytes",
+            "/required-uploadfile",
+        ],
+    )
+    def test_required_schema(path: str):
+        openapi = app.openapi()
+        body_model_name = get_body_model_name(openapi, path)
+    
+>       assert app.openapi()["components"]["schemas"][body_model_name] == {
+            "properties": {
+                "p": {
+                    "title": "P",
+                    "type": "string",
+                    "contentMediaType": "application/octet-stream",
+                },
+            },
+            "required": ["p"],
+            "title": body_model_name,
+            "type": "object",
+        }
+E       AssertionError: assert {'properties'...quired_bytes'} == {'properties'...pe': 'object'}
+E         
+E         Omitting 3 identical items, use -vv to show
+E         Differing items:
+E         {'properties': {'p': {'type': 'string', 'format': 'binary', 'title': 'P'}}} != {'properties': {'p': {'title': 'P', 'type': 'string', 'contentMediaType': 'application/octet-stream'}}}
+E         Use -v to get more diff
+
+tests/test_request_params/test_file/test_required.py:36: AssertionError
+__________________ test_required_schema[/required-uploadfile] __________________
+
+path = '/required-uploadfile'
+
+    @pytest.mark.parametrize(
+        "path",
+        [
+            "/required-bytes",
+            "/required-uploadfile",
+        ],
+    )
+    def test_required_schema(path: str):
+        openapi = app.openapi()
+        body_model_name = get_body_model_name(openapi, path)
+    
+>       assert app.openapi()["components"]["schemas"][body_model_name] == {
+            "properties": {
+                "p": {
+                    "title": "P",
+                    "type": "string",
+                    "contentMediaType": "application/octet-stream",
+                },
+            },
+            "required": ["p"],
+            "title": body_model_name,
+            "type": "object",
+        }
+E       AssertionError: assert {'properties'...d_uploadfile'} == {'properties'...pe': 'object'}
+E         
+E         Omitting 3 identical items, use -vv to show
+E         Differing items:
+E         {'properties': {'p': {'type': 'string', 'format': 'binary', 'title': 'P'}}} != {'properties': {'p': {'title': 'P', 'type': 'string', 'contentMediaType': 'application/octet-stream'}}}
+E         Use -v to get more diff
+
+tests/test_request_params/test_file/test_required.py:36: AssertionError
+______________ test_required_alias_schema[/required-bytes-alias] _______________
+
+path = '/required-bytes-alias'
+
+    @pytest.mark.parametrize(
+        "path",
+        [
+            "/required-bytes-alias",
+            "/required-uploadfile-alias",
+        ],
+    )
+    def test_required_alias_schema(path: str):
+        openapi = app.openapi()
+        body_model_name = get_body_model_name(openapi, path)
+    
+>       assert app.openapi()["components"]["schemas"][body_model_name] == {
+            "properties": {
+                "p_alias": {
+                    "title": "P Alias",
+                    "type": "string",
+                    "contentMediaType": "application/octet-stream",
+                },
+            },
+            "required": ["p_alias"],
+            "title": body_model_name,
+            "type": "object",
+        }
+E       AssertionError: assert {'properties'..._bytes_alias'} == {'properties'...pe': 'object'}
+E         
+E         Omitting 3 identical items, use -vv to show
+E         Differing items:
+E         {'properties': {'p_alias': {'type': 'string', 'format': 'binary', 'title': 'P Alias'}}} != {'properties': {'p_alias': {'title': 'P Alias', 'type': 'string', 'contentMediaType': 'application/octet-stream'}}}
+E         Use -v to get more diff
+
+tests/test_request_params/test_file/test_required.py:114: AssertionError
+____________ test_required_alias_schema[/required-uploadfile-alias] ____________
+
+path = '/required-uploadfile-alias'
+
+    @pytest.mark.parametrize(
+        "path",
+        [
+            "/required-bytes-alias",
+            "/required-uploadfile-alias",
+        ],
+    )
+    def test_required_alias_schema(path: str):
+        openapi = app.openapi()
+        body_model_name = get_body_model_name(openapi, path)
+    
+>       assert app.openapi()["components"]["schemas"][body_model_name] == {
+            "properties": {
+                "p_alias": {
+                    "title": "P Alias",
+                    "type": "string",
+                    "contentMediaType": "application/octet-stream",
+                },
+            },
+            "required": ["p_alias"],
+            "title": body_model_name,
+            "type": "object",
+        }
+E       AssertionError: assert {'properties'...adfile_alias'} == {'properties'...pe': 'object'}
+E         
+E         Omitting 3 identical items, use -vv to show
+E         Differing items:
+E         {'properties': {'p_alias': {'type': 'string', 'format': 'binary', 'title': 'P Alias'}}} != {'properties': {'p_alias': {'title': 'P Alias', 'type': 'string', 'contentMediaType': 'application/octet-stream'}}}
+E         Use -v to get more diff
+
+tests/test_request_params/test_file/test_required.py:114: AssertionError
+___ test_required_validation_alias_schema[/required-bytes-validation-alias] ____
+
+path = '/required-bytes-validation-alias'
+
+    @pytest.mark.parametrize(
+        "path",
+        [
+            "/required-bytes-validation-alias",
+            "/required-uploadfile-validation-alias",
+        ],
+    )
+    def test_required_validation_alias_schema(path: str):
+        openapi = app.openapi()
+        body_model_name = get_body_model_name(openapi, path)
+    
+>       assert app.openapi()["components"]["schemas"][body_model_name] == {
+            "properties": {
+                "p_val_alias": {
+                    "title": "P Val Alias",
+                    "type": "string",
+                    "contentMediaType": "application/octet-stream",
+                },
+            },
+            "required": ["p_val_alias"],
+            "title": body_model_name,
+            "type": "object",
+        }
+E       AssertionError: assert {'properties'...dation_alias'} == {'properties'...pe': 'object'}
+E         
+E         Omitting 3 identical items, use -vv to show
+E         Differing items:
+E         {'properties': {'p_val_alias': {'type': 'string', 'format': 'binary', 'title': 'P Val Alias'}}} != {'properties': {'p_val_alias': {'title': 'P Val Alias', 'type': 'string', 'contentMediaType': 'application/octet-stream'}}}
+E         Use -v to get more diff
+
+tests/test_request_params/test_file/test_required.py:222: AssertionError
+_ test_required_validation_alias_schema[/required-uploadfile-validation-alias] _
+
+path = '/required-uploadfile-validation-alias'
+
+    @pytest.mark.parametrize(
+        "path",
+        [
+            "/required-bytes-validation-alias",
+            "/required-uploadfile-validation-alias",
+        ],
+    )
+    def test_required_validation_alias_schema(path: str):
+        openapi = app.openapi()
+        body_model_name = get_body_model_name(openapi, path)
+    
+>       assert app.openapi()["components"]["schemas"][body_model_name] == {
+            "properties": {
+                "p_val_alias": {
+                    "title": "P Val Alias",
+                    "type": "string",
+                    "contentMediaType": "application/octet-stream",
+                },
+            },
+            "required": ["p_val_alias"],
+            "title": body_model_name,
+            "type": "object",
+        }
+E       AssertionError: assert {'properties'...dation_alias'} == {'properties'...pe': 'object'}
+E         
+E         Omitting 3 identical items, use -vv to show
+E         Differing items:
+E         {'properties': {'p_val_alias': {'type': 'string', 'format': 'binary', 'title': 'P Val Alias'}}} != {'properties': {'p_val_alias': {'title': 'P Val Alias', 'type': 'string', 'contentMediaType': 'application/octet-stream'}}}
+E         Use -v to get more diff
+
+tests/test_request_params/test_file/test_required.py:222: AssertionError
+_ test_required_alias_and_validation_alias_schema[/required-bytes-alias-and-validation-alias] _
+
+path = '/required-bytes-alias-and-validation-alias'
+
+    @pytest.mark.parametrize(
+        "path",
+        [
+            "/required-bytes-alias-and-validation-alias",
+            "/required-uploadfile-alias-and-validation-alias",
+        ],
+    )
+    def test_required_alias_and_validation_alias_schema(path: str):
+        openapi = app.openapi()
+        body_model_name = get_body_model_name(openapi, path)
+    
+>       assert app.openapi()["components"]["schemas"][body_model_name] == {
+            "properties": {
+                "p_val_alias": {
+                    "title": "P Val Alias",
+                    "type": "string",
+                    "contentMediaType": "application/octet-stream",
+                },
+            },
+            "required": ["p_val_alias"],
+            "title": body_model_name,
+            "type": "object",
+        }
+E       AssertionError: assert {'properties'...dation_alias'} == {'properties'...pe': 'object'}
+E         
+E         Omitting 3 identical items, use -vv to show
+E         Differing items:
+E         {'properties': {'p_val_alias': {'type': 'string', 'format': 'binary', 'title': 'P Val Alias'}}} != {'properties': {'p_val_alias': {'title': 'P Val Alias', 'type': 'string', 'contentMediaType': 'application/octet-stream'}}}
+E         Use -v to get more diff
+
+tests/test_request_params/test_file/test_required.py:335: AssertionError
+_ test_required_alias_and_validation_alias_schema[/required-uploadfile-alias-and-validation-alias] _
+
+path = '/required-uploadfile-alias-and-validation-alias'
+
+    @pytest.mark.parametrize(
+        "path",
+        [
+            "/required-bytes-alias-and-validation-alias",
+            "/required-uploadfile-alias-and-validation-alias",
+        ],
+    )
+    def test_required_alias_and_validation_alias_schema(path: str):
+        openapi = app.openapi()
+        body_model_name = get_body_model_name(openapi, path)
+    
+>       assert app.openapi()["components"]["schemas"][body_model_name] == {
+            "properties": {
+                "p_val_alias": {
+                    "title": "P Val Alias",
+                    "type": "string",
+                    "contentMediaType": "application/octet-stream",
+                },
+            },
+            "required": ["p_val_alias"],
+            "title": body_model_name,
+            "type": "object",
+        }
+E       AssertionError: assert {'properties'...dation_alias'} == {'properties'...pe': 'object'}
+E         
+E         Omitting 3 identical items, use -vv to show
+E         Differing items:
+E         {'properties': {'p_val_alias': {'type': 'string', 'format': 'binary', 'title': 'P Val Alias'}}} != {'properties': {'p_val_alias': {'title': 'P Val Alias', 'type': 'string', 'contentMediaType': 'application/octet-stream'}}}
+E         Use -v to get more diff
+
+tests/test_request_params/test_file/test_required.py:335: AssertionError
+____________________ test_openapi_schema[tutorial001_py310] ____________________
+
+client = <starlette.testclient.TestClient object at 0x7f86c7d4da90>
+
+    def test_openapi_schema(client: TestClient):
+        response = client.get("/openapi.json")
+        assert response.status_code == 200, response.text
+>       assert response.json() == snapshot(
+            {
+                "openapi": "3.1.0",
+                "info": {"title": "FastAPI", "version": "0.1.0"},
+                "paths": {
+                    "/files/": {
+                        "post": {
+                            "responses": {
+                                "200": {
+                                    "description": "Successful Response",
+                                    "content": {"application/json": {"schema": {}}},
+                                },
+                                "422": {
+                                    "description": "Validation Error",
+                                    "content": {
+                                        "application/json": {
+                                            "schema": {
+                                                "$ref": "#/components/schemas/HTTPValidationError"
+                                            }
+                                        }
+                                    },
+                                },
+                            },
+                            "summary": "Create File",
+                            "operationId": "create_file_files__post",
+                            "requestBody": {
+                                "content": {
+                                    "multipart/form-data": {
+                                        "schema": {
+                                            "$ref": "#/components/schemas/Body_create_file_files__post"
+                                        }
+                                    }
+                                },
+                                "required": True,
+                            },
+                        }
+                    },
+                    "/uploadfile/": {
+                        "post": {
+                            "responses": {
+                                "200": {
+                                    "description": "Successful Response",
+                                    "content": {"application/json": {"schema": {}}},
+                                },
+                                "422": {
+                                    "description": "Validation Error",
+                                    "content": {
+                                        "application/json": {
+                                            "schema": {
+                                                "$ref": "#/components/schemas/HTTPValidationError"
+                                            }
+                                        }
+                                    },
+                                },
+                            },
+                            "summary": "Create Upload File",
+                            "operationId": "create_upload_file_uploadfile__post",
+                            "requestBody": {
+                                "content": {
+                                    "multipart/form-data": {
+                                        "schema": {
+                                            "$ref": "#/components/schemas/Body_create_upload_file_uploadfile__post"
+                                        }
+                                    }
+                                },
+                                "required": True,
+                            },
+                        }
+                    },
+                },
+                "components": {
+                    "schemas": {
+                        "Body_create_upload_file_uploadfile__post": {
+                            "title": "Body_create_upload_file_uploadfile__post",
+                            "required": ["file"],
+                            "type": "object",
+                            "properties": {
+                                "file": {
+                                    "title": "File",
+                                    "contentMediaType": "application/octet-stream",
+                                    "type": "string",
+                                }
+                            },
+                        },
+                        "Body_create_file_files__post": {
+                            "title": "Body_create_file_files__post",
+                            "required": ["file"],
+                            "type": "object",
+                            "properties": {
+                                "file": {
+                                    "title": "File",
+                                    "type": "string",
+                                    "contentMediaType": "application/octet-stream",
+                                }
+                            },
+                        },
+                        "ValidationError": {
+                            "title": "ValidationError",
+                            "required": ["loc", "msg", "type"],
+                            "type": "object",
+                            "properties": {
+                                "loc": {
+                                    "title": "Location",
+                                    "type": "array",
+                                    "items": {
+                                        "anyOf": [{"type": "string"}, {"type": "integer"}]
+                                    },
+                                },
+                                "msg": {"title": "Message", "type": "string"},
+                                "type": {"title": "Error Type", "type": "string"},
+                                "input": {"title": "Input"},
+                                "ctx": {"title": "Context", "type": "object"},
+                            },
+                        },
+                        "HTTPValidationError": {
+                            "title": "HTTPValidationError",
+                            "type": "object",
+                            "properties": {
+                                "detail": {
+                                    "title": "Detail",
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ValidationError"
+                                    },
+                                }
+                            },
+                        },
+                    }
+                },
+            }
+        )
+E       AssertionError: assert {'openapi': '...tionError'}}}} == {'openapi': '...': {...}}}}}}}
+E         
+E         Omitting 3 identical items, use -vv to show
+E         Differing items:
+E         {'components': {'schemas': {'Body_create_file_files__post': {'properties': {'file': {'type': 'string', 'format': 'bina...'input': {'title': 'Input'}, ...}, 'type': 'object', 'required': ['loc', 'msg', 'type'], 'title': 'ValidationError'}}}} != {'components': {'schemas': {'Body_create_upload_file_uploadfile__post': {'title': 'Body_create_upload_file_uploadfile_...PValidationError', 'type': 'object', 'properties': {'detail': {'title': 'Detail', 'type': 'array', 'items': {...}}}}}}}
+E         Use -v to get more diff
+
+tests/test_tutorial/test_request_files/test_tutorial001.py:86: AssertionError
+__________________ test_openapi_schema[tutorial001_an_py310] ___________________
+
+client = <starlette.testclient.TestClient object at 0x7f86c7d5ab30>
+
+    def test_openapi_schema(client: TestClient):
+        response = client.get("/openapi.json")
+        assert response.status_code == 200, response.text
+>       assert response.json() == snapshot(
+            {
+                "openapi": "3.1.0",
+                "info": {"title": "FastAPI", "version": "0.1.0"},
+                "paths": {
+                    "/files/": {
+                        "post": {
+                            "responses": {
+                                "200": {
+                                    "description": "Successful Response",
+                                    "content": {"application/json": {"schema": {}}},
+                                },
+                                "422": {
+                                    "description": "Validation Error",
+                                    "content": {
+                                        "application/json": {
+                                            "schema": {
+                                                "$ref": "#/components/schemas/HTTPValidationError"
+                                            }
+                                        }
+                                    },
+                                },
+                            },
+                            "summary": "Create File",
+                            "operationId": "create_file_files__post",
+                            "requestBody": {
+                                "content": {
+                                    "multipart/form-data": {
+                                        "schema": {
+                                            "$ref": "#/components/schemas/Body_create_file_files__post"
+                                        }
+                                    }
+                                },
+                                "required": True,
+                            },
+                        }
+                    },
+                    "/uploadfile/": {
+                        "post": {
+                            "responses": {
+                                "200": {
+                                    "description": "Successful Response",
+                                    "content": {"application/json": {"schema": {}}},
+                                },
+                                "422": {
+                                    "description": "Validation Error",
+                                    "content": {
+                                        "application/json": {
+                                            "schema": {
+                                                "$ref": "#/components/schemas/HTTPValidationError"
+                                            }
+                                        }
+                                    },
+                                },
+                            },
+                            "summary": "Create Upload File",
+                            "operationId": "create_upload_file_uploadfile__post",
+                            "requestBody": {
+                                "content": {
+                                    "multipart/form-data": {
+                                        "schema": {
+                                            "$ref": "#/components/schemas/Body_create_upload_file_uploadfile__post"
+                                        }
+                                    }
+                                },
+                                "required": True,
+                            },
+                        }
+                    },
+                },
+                "components": {
+                    "schemas": {
+                        "Body_create_upload_file_uploadfile__post": {
+                            "title": "Body_create_upload_file_uploadfile__post",
+                            "required": ["file"],
+                            "type": "object",
+                            "properties": {
+                                "file": {
+                                    "title": "File",
+                                    "contentMediaType": "application/octet-stream",
+                                    "type": "string",
+                                }
+                            },
+                        },
+                        "Body_create_file_files__post": {
+                            "title": "Body_create_file_files__post",
+                            "required": ["file"],
+                            "type": "object",
+                            "properties": {
+                                "file": {
+                                    "title": "File",
+                                    "type": "string",
+                                    "contentMediaType": "application/octet-stream",
+                                }
+                            },
+                        },
+                        "ValidationError": {
+                            "title": "ValidationError",
+                            "required": ["loc", "msg", "type"],
+                            "type": "object",
+                            "properties": {
+                                "loc": {
+                                    "title": "Location",
+                                    "type": "array",
+                                    "items": {
+                                        "anyOf": [{"type": "string"}, {"type": "integer"}]
+                                    },
+                                },
+                                "msg": {"title": "Message", "type": "string"},
+                                "type": {"title": "Error Type", "type": "string"},
+                                "input": {"title": "Input"},
+                                "ctx": {"title": "Context", "type": "object"},
+                            },
+                        },
+                        "HTTPValidationError": {
+                            "title": "HTTPValidationError",
+                            "type": "object",
+                            "properties": {
+                                "detail": {
+                                    "title": "Detail",
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ValidationError"
+                                    },
+                                }
+                            },
+                        },
+                    }
+                },
+            }
+        )
+E       AssertionError: assert {'openapi': '...tionError'}}}} == {'openapi': '...': {...}}}}}}}
+E         
+E         Omitting 3 identical items, use -vv to show
+E         Differing items:
+E         {'components': {'schemas': {'Body_create_file_files__post': {'properties': {'file': {'type': 'string', 'format': 'bina...'input': {'title': 'Input'}, ...}, 'type': 'object', 'required': ['loc', 'msg', 'type'], 'title': 'ValidationError'}}}} != {'components': {'schemas': {'Body_create_upload_file_uploadfile__post': {'title': 'Body_create_upload_file_uploadfile_...PValidationError', 'type': 'object', 'properties': {'detail': {'title': 'Detail', 'type': 'array', 'items': {...}}}}}}}
+E         Use -v to get more diff
+
+tests/test_tutorial/test_request_files/test_tutorial001.py:86: AssertionError
+__________________ test_openapi_schema[tutorial001_02_py310] ___________________
+
+client = <starlette.testclient.TestClient object at 0x7f86c74d5e10>
+
+    def test_openapi_schema(client: TestClient):
+        response = client.get("/openapi.json")
+        assert response.status_code == 200, response.text
+>       assert response.json() == snapshot(
+            {
+                "openapi": "3.1.0",
+                "info": {"title": "FastAPI", "version": "0.1.0"},
+                "paths": {
+                    "/files/": {
+                        "post": {
+                            "summary": "Create File",
+                            "operationId": "create_file_files__post",
+                            "requestBody": {
+                                "content": {
+                                    "multipart/form-data": {
+                                        "schema": {
+                                            "$ref": "#/components/schemas/Body_create_file_files__post"
+                                        }
+                                    }
+                                }
+                            },
+                            "responses": {
+                                "200": {
+                                    "description": "Successful Response",
+                                    "content": {"application/json": {"schema": {}}},
+                                },
+                                "422": {
+                                    "description": "Validation Error",
+                                    "content": {
+                                        "application/json": {
+                                            "schema": {
+                                                "$ref": "#/components/schemas/HTTPValidationError"
+                                            }
+                                        }
+                                    },
+                                },
+                            },
+                        }
+                    },
+                    "/uploadfile/": {
+                        "post": {
+                            "summary": "Create Upload File",
+                            "operationId": "create_upload_file_uploadfile__post",
+                            "requestBody": {
+                                "content": {
+                                    "multipart/form-data": {
+                                        "schema": {
+                                            "$ref": "#/components/schemas/Body_create_upload_file_uploadfile__post"
+                                        }
+                                    }
+                                }
+                            },
+                            "responses": {
+                                "200": {
+                                    "description": "Successful Response",
+                                    "content": {"application/json": {"schema": {}}},
+                                },
+                                "422": {
+                                    "description": "Validation Error",
+                                    "content": {
+                                        "application/json": {
+                                            "schema": {
+                                                "$ref": "#/components/schemas/HTTPValidationError"
+                                            }
+                                        }
+                                    },
+                                },
+                            },
+                        }
+                    },
+                },
+                "components": {
+                    "schemas": {
+                        "Body_create_file_files__post": {
+                            "title": "Body_create_file_files__post",
+                            "type": "object",
+                            "properties": {
+                                "file": {
+                                    "title": "File",
+                                    "anyOf": [
+                                        {
+                                            "type": "string",
+                                            "contentMediaType": "application/octet-stream",
+                                        },
+                                        {"type": "null"},
+                                    ],
+                                }
+                            },
+                        },
+                        "Body_create_upload_file_uploadfile__post": {
+                            "title": "Body_create_upload_file_uploadfile__post",
+                            "type": "object",
+                            "properties": {
+                                "file": {
+                                    "title": "File",
+                                    "anyOf": [
+                                        {
+                                            "type": "string",
+                                            "contentMediaType": "application/octet-stream",
+                                        },
+                                        {"type": "null"},
+                                    ],
+                                }
+                            },
+                        },
+                        "HTTPValidationError": {
+                            "title": "HTTPValidationError",
+                            "type": "object",
+                            "properties": {
+                                "detail": {
+                                    "title": "Detail",
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ValidationError"
+                                    },
+                                }
+                            },
+                        },
+                        "ValidationError": {
+                            "title": "ValidationError",
+                            "required": ["loc", "msg", "type"],
+                            "type": "object",
+                            "properties": {
+                                "ctx": {"title": "Context", "type": "object"},
+                                "input": {"title": "Input"},
+                                "loc": {
+                                    "title": "Location",
+                                    "type": "array",
+                                    "items": {
+                                        "anyOf": [{"type": "string"}, {"type": "integer"}]
+                                    },
+                                },
+                                "msg": {"title": "Message", "type": "string"},
+                                "type": {"title": "Error Type", "type": "string"},
+                            },
+                        },
+                    }
+                },
+            }
+        )
+E       AssertionError: assert {'openapi': '...tionError'}}}} == {'openapi': '...ng'}, ...}}}}}
+E         
+E         Omitting 3 identical items, use -vv to show
+E         Differing items:
+E         {'components': {'schemas': {'Body_create_file_files__post': {'properties': {'file': {'anyOf': [...], 'title': 'File'}}...'input': {'title': 'Input'}, ...}, 'type': 'object', 'required': ['loc', 'msg', 'type'], 'title': 'ValidationError'}}}} != {'components': {'schemas': {'Body_create_file_files__post': {'title': 'Body_create_file_files__post', 'type': 'object'... 'loc': {'title': 'Location', 'type': 'array', 'items': {...}}, 'msg': {'title': 'Message', 'type': 'string'}, ...}}}}}
+E         Use -v to get more diff
+
+tests/test_tutorial/test_request_files/test_tutorial001_02.py:60: AssertionError
+_________________ test_openapi_schema[tutorial001_02_an_py310] _________________
+
+client = <starlette.testclient.TestClient object at 0x7f86c74d7070>
+
+    def test_openapi_schema(client: TestClient):
+        response = client.get("/openapi.json")
+        assert response.status_code == 200, response.text
+>       assert response.json() == snapshot(
+            {
+                "openapi": "3.1.0",
+                "info": {"title": "FastAPI", "version": "0.1.0"},
+                "paths": {
+                    "/files/": {
+                        "post": {
+                            "summary": "Create File",
+                            "operationId": "create_file_files__post",
+                            "requestBody": {
+                                "content": {
+                                    "multipart/form-data": {
+                                        "schema": {
+                                            "$ref": "#/components/schemas/Body_create_file_files__post"
+                                        }
+                                    }
+                                }
+                            },
+                            "responses": {
+                                "200": {
+                                    "description": "Successful Response",
+                                    "content": {"application/json": {"schema": {}}},
+                                },
+                                "422": {
+                                    "description": "Validation Error",
+                                    "content": {
+                                        "application/json": {
+                                            "schema": {
+                                                "$ref": "#/components/schemas/HTTPValidationError"
+                                            }
+                                        }
+                                    },
+                                },
+                            },
+                        }
+                    },
+                    "/uploadfile/": {
+                        "post": {
+                            "summary": "Create Upload File",
+                            "operationId": "create_upload_file_uploadfile__post",
+                            "requestBody": {
+                                "content": {
+                                    "multipart/form-data": {
+                                        "schema": {
+                                            "$ref": "#/components/schemas/Body_create_upload_file_uploadfile__post"
+                                        }
+                                    }
+                                }
+                            },
+                            "responses": {
+                                "200": {
+                                    "description": "Successful Response",
+                                    "content": {"application/json": {"schema": {}}},
+                                },
+                                "422": {
+                                    "description": "Validation Error",
+                                    "content": {
+                                        "application/json": {
+                                            "schema": {
+                                                "$ref": "#/components/schemas/HTTPValidationError"
+                                            }
+                                        }
+                                    },
+                                },
+                            },
+                        }
+                    },
+                },
+                "components": {
+                    "schemas": {
+                        "Body_create_file_files__post": {
+                            "title": "Body_create_file_files__post",
+                            "type": "object",
+                            "properties": {
+                                "file": {
+                                    "title": "File",
+                                    "anyOf": [
+                                        {
+                                            "type": "string",
+                                            "contentMediaType": "application/octet-stream",
+                                        },
+                                        {"type": "null"},
+                                    ],
+                                }
+                            },
+                        },
+                        "Body_create_upload_file_uploadfile__post": {
+                            "title": "Body_create_upload_file_uploadfile__post",
+                            "type": "object",
+                            "properties": {
+                                "file": {
+                                    "title": "File",
+                                    "anyOf": [
+                                        {
+                                            "type": "string",
+                                            "contentMediaType": "application/octet-stream",
+                                        },
+                                        {"type": "null"},
+                                    ],
+                                }
+                            },
+                        },
+                        "HTTPValidationError": {
+                            "title": "HTTPValidationError",
+                            "type": "object",
+                            "properties": {
+                                "detail": {
+                                    "title": "Detail",
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ValidationError"
+                                    },
+                                }
+                            },
+                        },
+                        "ValidationError": {
+                            "title": "ValidationError",
+                            "required": ["loc", "msg", "type"],
+                            "type": "object",
+                            "properties": {
+                                "ctx": {"title": "Context", "type": "object"},
+                                "input": {"title": "Input"},
+                                "loc": {
+                                    "title": "Location",
+                                    "type": "array",
+                                    "items": {
+                                        "anyOf": [{"type": "string"}, {"type": "integer"}]
+                                    },
+                                },
+                                "msg": {"title": "Message", "type": "string"},
+                                "type": {"title": "Error Type", "type": "string"},
+                            },
+                        },
+                    }
+                },
+            }
+        )
+E       AssertionError: assert {'openapi': '...tionError'}}}} == {'openapi': '...ng'}, ...}}}}}
+E         
+E         Omitting 3 identical items, use -vv to show
+E         Differing items:
+E         {'components': {'schemas': {'Body_create_file_files__post': {'properties': {'file': {'anyOf': [...], 'title': 'File'}}...'input': {'title': 'Input'}, ...}, 'type': 'object', 'required': ['loc', 'msg', 'type'], 'title': 'ValidationError'}}}} != {'components': {'schemas': {'Body_create_file_files__post': {'title': 'Body_create_file_files__post', 'type': 'object'... 'loc': {'title': 'Location', 'type': 'array', 'items': {...}}, 'msg': {'title': 'Message', 'type': 'string'}, ...}}}}}
+E         Use -v to get more diff
+
+tests/test_tutorial/test_request_files/test_tutorial001_02.py:60: AssertionError
+__________________ test_openapi_schema[tutorial001_03_py310] ___________________
+
+client = <starlette.testclient.TestClient object at 0x7f86c739a6d0>
+
+    def test_openapi_schema(client: TestClient):
+        response = client.get("/openapi.json")
+        assert response.status_code == 200, response.text
+>       assert response.json() == snapshot(
+            {
+                "openapi": "3.1.0",
+                "info": {"title": "FastAPI", "version": "0.1.0"},
+                "paths": {
+                    "/files/": {
+                        "post": {
+                            "summary": "Create File",
+                            "operationId": "create_file_files__post",
+                            "requestBody": {
+                                "content": {
+                                    "multipart/form-data": {
+                                        "schema": {
+                                            "$ref": "#/components/schemas/Body_create_file_files__post"
+                                        }
+                                    }
+                                },
+                                "required": True,
+                            },
+                            "responses": {
+                                "200": {
+                                    "description": "Successful Response",
+                                    "content": {"application/json": {"schema": {}}},
+                                },
+                                "422": {
+                                    "description": "Validation Error",
+                                    "content": {
+                                        "application/json": {
+                                            "schema": {
+                                                "$ref": "#/components/schemas/HTTPValidationError"
+                                            }
+                                        }
+                                    },
+                                },
+                            },
+                        }
+                    },
+                    "/uploadfile/": {
+                        "post": {
+                            "summary": "Create Upload File",
+                            "operationId": "create_upload_file_uploadfile__post",
+                            "requestBody": {
+                                "content": {
+                                    "multipart/form-data": {
+                                        "schema": {
+                                            "$ref": "#/components/schemas/Body_create_upload_file_uploadfile__post"
+                                        }
+                                    }
+                                },
+                                "required": True,
+                            },
+                            "responses": {
+                                "200": {
+                                    "description": "Successful Response",
+                                    "content": {"application/json": {"schema": {}}},
+                                },
+                                "422": {
+                                    "description": "Validation Error",
+                                    "content": {
+                                        "application/json": {
+                                            "schema": {
+                                                "$ref": "#/components/schemas/HTTPValidationError"
+                                            }
+                                        }
+                                    },
+                                },
+                            },
+                        }
+                    },
+                },
+                "components": {
+                    "schemas": {
+                        "Body_create_file_files__post": {
+                            "title": "Body_create_file_files__post",
+                            "required": ["file"],
+                            "type": "object",
+                            "properties": {
+                                "file": {
+                                    "title": "File",
+                                    "type": "string",
+                                    "description": "A file read as bytes",
+                                    "contentMediaType": "application/octet-stream",
+                                }
+                            },
+                        },
+                        "Body_create_upload_file_uploadfile__post": {
+                            "title": "Body_create_upload_file_uploadfile__post",
+                            "required": ["file"],
+                            "type": "object",
+                            "properties": {
+                                "file": {
+                                    "title": "File",
+                                    "contentMediaType": "application/octet-stream",
+                                    "type": "string",
+                                    "description": "A file read as UploadFile",
+                                }
+                            },
+                        },
+                        "HTTPValidationError": {
+                            "title": "HTTPValidationError",
+                            "type": "object",
+                            "properties": {
+                                "detail": {
+                                    "title": "Detail",
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ValidationError"
+                                    },
+                                }
+                            },
+                        },
+                        "ValidationError": {
+                            "title": "ValidationError",
+                            "required": ["loc", "msg", "type"],
+                            "type": "object",
+                            "properties": {
+                                "loc": {
+                                    "title": "Location",
+                                    "type": "array",
+                                    "items": {
+                                        "anyOf": [{"type": "string"}, {"type": "integer"}]
+                                    },
+                                },
+                                "msg": {"title": "Message", "type": "string"},
+                                "type": {"title": "Error Type", "type": "string"},
+                                "input": {"title": "Input"},
+                                "ctx": {"title": "Context", "type": "object"},
+                            },
+                        },
+                    }
+                },
+            }
+        )
+E       AssertionError: assert {'openapi': '...tionError'}}}} == {'openapi': '...ut'}, ...}}}}}
+E         
+E         Omitting 3 identical items, use -vv to show
+E         Differing items:
+E         {'components': {'schemas': {'Body_create_file_files__post': {'properties': {'file': {'type': 'string', 'format': 'bina...'input': {'title': 'Input'}, ...}, 'type': 'object', 'required': ['loc', 'msg', 'type'], 'title': 'ValidationError'}}}} != {'components': {'schemas': {'Body_create_file_files__post': {'title': 'Body_create_file_files__post', 'required': ['fi... 'Message', 'type': 'string'}, 'type': {'title': 'Error Type', 'type': 'string'}, 'input': {'title': 'Input'}, ...}}}}}
+E         Use -v to get more diff
+
+tests/test_tutorial/test_request_files/test_tutorial001_03.py:45: AssertionError
+_________________ test_openapi_schema[tutorial001_03_an_py310] _________________
+
+client = <starlette.testclient.TestClient object at 0x7f86c7033d90>
+
+    def test_openapi_schema(client: TestClient):
+        response = client.get("/openapi.json")
+        assert response.status_code == 200, response.text
+>       assert response.json() == snapshot(
+            {
+                "openapi": "3.1.0",
+                "info": {"title": "FastAPI", "version": "0.1.0"},
+                "paths": {
+                    "/files/": {
+                        "post": {
+                            "summary": "Create File",
+                            "operationId": "create_file_files__post",
+                            "requestBody": {
+                                "content": {
+                                    "multipart/form-data": {
+                                        "schema": {
+                                            "$ref": "#/components/schemas/Body_create_file_files__post"
+                                        }
+                                    }
+                                },
+                                "required": True,
+                            },
+                            "responses": {
+                                "200": {
+                                    "description": "Successful Response",
+                                    "content": {"application/json": {"schema": {}}},
+                                },
+                                "422": {
+                                    "description": "Validation Error",
+                                    "content": {
+                                        "application/json": {
+                                            "schema": {
+                                                "$ref": "#/components/schemas/HTTPValidationError"
+                                            }
+                                        }
+                                    },
+                                },
+                            },
+                        }
+                    },
+                    "/uploadfile/": {
+                        "post": {
+                            "summary": "Create Upload File",
+                            "operationId": "create_upload_file_uploadfile__post",
+                            "requestBody": {
+                                "content": {
+                                    "multipart/form-data": {
+                                        "schema": {
+                                            "$ref": "#/components/schemas/Body_create_upload_file_uploadfile__post"
+                                        }
+                                    }
+                                },
+                                "required": True,
+                            },
+                            "responses": {
+                                "200": {
+                                    "description": "Successful Response",
+                                    "content": {"application/json": {"schema": {}}},
+                                },
+                                "422": {
+                                    "description": "Validation Error",
+                                    "content": {
+                                        "application/json": {
+                                            "schema": {
+                                                "$ref": "#/components/schemas/HTTPValidationError"
+                                            }
+                                        }
+                                    },
+                                },
+                            },
+                        }
+                    },
+                },
+                "components": {
+                    "schemas": {
+                        "Body_create_file_files__post": {
+                            "title": "Body_create_file_files__post",
+                            "required": ["file"],
+                            "type": "object",
+                            "properties": {
+                                "file": {
+                                    "title": "File",
+                                    "type": "string",
+                                    "description": "A file read as bytes",
+                                    "contentMediaType": "application/octet-stream",
+                                }
+                            },
+                        },
+                        "Body_create_upload_file_uploadfile__post": {
+                            "title": "Body_create_upload_file_uploadfile__post",
+                            "required": ["file"],
+                            "type": "object",
+                            "properties": {
+                                "file": {
+                                    "title": "File",
+                                    "contentMediaType": "application/octet-stream",
+                                    "type": "string",
+                                    "description": "A file read as UploadFile",
+                                }
+                            },
+                        },
+                        "HTTPValidationError": {
+                            "title": "HTTPValidationError",
+                            "type": "object",
+                            "properties": {
+                                "detail": {
+                                    "title": "Detail",
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ValidationError"
+                                    },
+                                }
+                            },
+                        },
+                        "ValidationError": {
+                            "title": "ValidationError",
+                            "required": ["loc", "msg", "type"],
+                            "type": "object",
+                            "properties": {
+                                "loc": {
+                                    "title": "Location",
+                                    "type": "array",
+                                    "items": {
+                                        "anyOf": [{"type": "string"}, {"type": "integer"}]
+                                    },
+                                },
+                                "msg": {"title": "Message", "type": "string"},
+                                "type": {"title": "Error Type", "type": "string"},
+                                "input": {"title": "Input"},
+                                "ctx": {"title": "Context", "type": "object"},
+                            },
+                        },
+                    }
+                },
+            }
+        )
+E       AssertionError: assert {'openapi': '...tionError'}}}} == {'openapi': '...ut'}, ...}}}}}
+E         
+E         Omitting 3 identical items, use -vv to show
+E         Differing items:
+E         {'components': {'schemas': {'Body_create_file_files__post': {'properties': {'file': {'type': 'string', 'format': 'bina...'input': {'title': 'Input'}, ...}, 'type': 'object', 'required': ['loc', 'msg', 'type'], 'title': 'ValidationError'}}}} != {'components': {'schemas': {'Body_create_file_files__post': {'title': 'Body_create_file_files__post', 'required': ['fi... 'Message', 'type': 'string'}, 'type': {'title': 'Error Type', 'type': 'string'}, 'input': {'title': 'Input'}, ...}}}}}
+E         Use -v to get more diff
+
+tests/test_tutorial/test_request_files/test_tutorial001_03.py:45: AssertionError
+____________________ test_openapi_schema[tutorial002_py310] ____________________
+
+client = <starlette.testclient.TestClient object at 0x7f86c739b070>
+
+    def test_openapi_schema(client: TestClient):
+        response = client.get("/openapi.json")
+        assert response.status_code == 200, response.text
+>       assert response.json() == snapshot(
+            {
+                "openapi": "3.1.0",
+                "info": {"title": "FastAPI", "version": "0.1.0"},
+                "paths": {
+                    "/files/": {
+                        "post": {
+                            "responses": {
+                                "200": {
+                                    "description": "Successful Response",
+                                    "content": {"application/json": {"schema": {}}},
+                                },
+                                "422": {
+                                    "description": "Validation Error",
+                                    "content": {
+                                        "application/json": {
+                                            "schema": {
+                                                "$ref": "#/components/schemas/HTTPValidationError"
+                                            }
+                                        }
+                                    },
+                                },
+                            },
+                            "summary": "Create Files",
+                            "operationId": "create_files_files__post",
+                            "requestBody": {
+                                "content": {
+                                    "multipart/form-data": {
+                                        "schema": {
+                                            "$ref": "#/components/schemas/Body_create_files_files__post"
+                                        }
+                                    }
+                                },
+                                "required": True,
+                            },
+                        }
+                    },
+                    "/uploadfiles/": {
+                        "post": {
+                            "responses": {
+                                "200": {
+                                    "description": "Successful Response",
+                                    "content": {"application/json": {"schema": {}}},
+                                },
+                                "422": {
+                                    "description": "Validation Error",
+                                    "content": {
+                                        "application/json": {
+                                            "schema": {
+                                                "$ref": "#/components/schemas/HTTPValidationError"
+                                            }
+                                        }
+                                    },
+                                },
+                            },
+                            "summary": "Create Upload Files",
+                            "operationId": "create_upload_files_uploadfiles__post",
+                            "requestBody": {
+                                "content": {
+                                    "multipart/form-data": {
+                                        "schema": {
+                                            "$ref": "#/components/schemas/Body_create_upload_files_uploadfiles__post"
+                                        }
+                                    }
+                                },
+                                "required": True,
+                            },
+                        }
+                    },
+                    "/": {
+                        "get": {
+                            "responses": {
+                                "200": {
+                                    "description": "Successful Response",
+                                    "content": {"application/json": {"schema": {}}},
+                                }
+                            },
+                            "summary": "Main",
+                            "operationId": "main__get",
+                        }
+                    },
+                },
+                "components": {
+                    "schemas": {
+                        "Body_create_upload_files_uploadfiles__post": {
+                            "title": "Body_create_upload_files_uploadfiles__post",
+                            "required": ["files"],
+                            "type": "object",
+                            "properties": {
+                                "files": {
+                                    "title": "Files",
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string",
+                                        "contentMediaType": "application/octet-stream",
+                                    },
+                                }
+                            },
+                        },
+                        "Body_create_files_files__post": {
+                            "title": "Body_create_files_files__post",
+                            "required": ["files"],
+                            "type": "object",
+                            "properties": {
+                                "files": {
+                                    "title": "Files",
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string",
+                                        "contentMediaType": "application/octet-stream",
+                                    },
+                                }
+                            },
+                        },
+                        "ValidationError": {
+                            "title": "ValidationError",
+                            "required": ["loc", "msg", "type"],
+                            "type": "object",
+                            "properties": {
+                                "loc": {
+                                    "title": "Location",
+                                    "type": "array",
+                                    "items": {
+                                        "anyOf": [{"type": "string"}, {"type": "integer"}]
+                                    },
+                                },
+                                "msg": {"title": "Message", "type": "string"},
+                                "type": {"title": "Error Type", "type": "string"},
+                                "input": {"title": "Input"},
+                                "ctx": {"title": "Context", "type": "object"},
+                            },
+                        },
+                        "HTTPValidationError": {
+                            "title": "HTTPValidationError",
+                            "type": "object",
+                            "properties": {
+                                "detail": {
+                                    "title": "Detail",
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ValidationError"
+                                    },
+                                }
+                            },
+                        },
+                    }
+                },
+            }
+        )
+E       AssertionError: assert {'openapi': '...tionError'}}}} == {'openapi': '...': {...}}}}}}}
+E         
+E         Omitting 3 identical items, use -vv to show
+E         Differing items:
+E         {'components': {'schemas': {'Body_create_files_files__post': {'properties': {'files': {'items': {...}, 'type': 'array'...'input': {'title': 'Input'}, ...}, 'type': 'object', 'required': ['loc', 'msg', 'type'], 'title': 'ValidationError'}}}} != {'components': {'schemas': {'Body_create_upload_files_uploadfiles__post': {'title': 'Body_create_upload_files_uploadfi...PValidationError', 'type': 'object', 'properties': {'detail': {'title': 'Detail', 'type': 'array', 'items': {...}}}}}}}
+E         Use -v to get more diff
+
+tests/test_tutorial/test_request_files/test_tutorial002.py:106: AssertionError
+__________________ test_openapi_schema[tutorial002_an_py310] ___________________
+
+client = <starlette.testclient.TestClient object at 0x7f86c72d58d0>
+
+    def test_openapi_schema(client: TestClient):
+        response = client.get("/openapi.json")
+        assert response.status_code == 200, response.text
+>       assert response.json() == snapshot(
+            {
+                "openapi": "3.1.0",
+                "info": {"title": "FastAPI", "version": "0.1.0"},
+                "paths": {
+                    "/files/": {
+                        "post": {
+                            "responses": {
+                                "200": {
+                                    "description": "Successful Response",
+                                    "content": {"application/json": {"schema": {}}},
+                                },
+                                "422": {
+                                    "description": "Validation Error",
+                                    "content": {
+                                        "application/json": {
+                                            "schema": {
+                                                "$ref": "#/components/schemas/HTTPValidationError"
+                                            }
+                                        }
+                                    },
+                                },
+                            },
+                            "summary": "Create Files",
+                            "operationId": "create_files_files__post",
+                            "requestBody": {
+                                "content": {
+                                    "multipart/form-data": {
+                                        "schema": {
+                                            "$ref": "#/components/schemas/Body_create_files_files__post"
+                                        }
+                                    }
+                                },
+                                "required": True,
+                            },
+                        }
+                    },
+                    "/uploadfiles/": {
+                        "post": {
+                            "responses": {
+                                "200": {
+                                    "description": "Successful Response",
+                                    "content": {"application/json": {"schema": {}}},
+                                },
+                                "422": {
+                                    "description": "Validation Error",
+                                    "content": {
+                                        "application/json": {
+                                            "schema": {
+                                                "$ref": "#/components/schemas/HTTPValidationError"
+                                            }
+                                        }
+                                    },
+                                },
+                            },
+                            "summary": "Create Upload Files",
+                            "operationId": "create_upload_files_uploadfiles__post",
+                            "requestBody": {
+                                "content": {
+                                    "multipart/form-data": {
+                                        "schema": {
+                                            "$ref": "#/components/schemas/Body_create_upload_files_uploadfiles__post"
+                                        }
+                                    }
+                                },
+                                "required": True,
+                            },
+                        }
+                    },
+                    "/": {
+                        "get": {
+                            "responses": {
+                                "200": {
+                                    "description": "Successful Response",
+                                    "content": {"application/json": {"schema": {}}},
+                                }
+                            },
+                            "summary": "Main",
+                            "operationId": "main__get",
+                        }
+                    },
+                },
+                "components": {
+                    "schemas": {
+                        "Body_create_upload_files_uploadfiles__post": {
+                            "title": "Body_create_upload_files_uploadfiles__post",
+                            "required": ["files"],
+                            "type": "object",
+                            "properties": {
+                                "files": {
+                                    "title": "Files",
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string",
+                                        "contentMediaType": "application/octet-stream",
+                                    },
+                                }
+                            },
+                        },
+                        "Body_create_files_files__post": {
+                            "title": "Body_create_files_files__post",
+                            "required": ["files"],
+                            "type": "object",
+                            "properties": {
+                                "files": {
+                                    "title": "Files",
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string",
+                                        "contentMediaType": "application/octet-stream",
+                                    },
+                                }
+                            },
+                        },
+                        "ValidationError": {
+                            "title": "ValidationError",
+                            "required": ["loc", "msg", "type"],
+                            "type": "object",
+                            "properties": {
+                                "loc": {
+                                    "title": "Location",
+                                    "type": "array",
+                                    "items": {
+                                        "anyOf": [{"type": "string"}, {"type": "integer"}]
+                                    },
+                                },
+                                "msg": {"title": "Message", "type": "string"},
+                                "type": {"title": "Error Type", "type": "string"},
+                                "input": {"title": "Input"},
+                                "ctx": {"title": "Context", "type": "object"},
+                            },
+                        },
+                        "HTTPValidationError": {
+                            "title": "HTTPValidationError",
+                            "type": "object",
+                            "properties": {
+                                "detail": {
+                                    "title": "Detail",
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ValidationError"
+                                    },
+                                }
+                            },
+                        },
+                    }
+                },
+            }
+        )
+E       AssertionError: assert {'openapi': '...tionError'}}}} == {'openapi': '...': {...}}}}}}}
+E         
+E         Omitting 3 identical items, use -vv to show
+E         Differing items:
+E         {'components': {'schemas': {'Body_create_files_files__post': {'properties': {'files': {'items': {...}, 'type': 'array'...'input': {'title': 'Input'}, ...}, 'type': 'object', 'required': ['loc', 'msg', 'type'], 'title': 'ValidationError'}}}} != {'components': {'schemas': {'Body_create_upload_files_uploadfiles__post': {'title': 'Body_create_upload_files_uploadfi...PValidationError', 'type': 'object', 'properties': {'detail': {'title': 'Detail', 'type': 'array', 'items': {...}}}}}}}
+E         Use -v to get more diff
+
+tests/test_tutorial/test_request_files/test_tutorial002.py:106: AssertionError
+____________________ test_openapi_schema[tutorial003_py310] ____________________
+
+client = <starlette.testclient.TestClient object at 0x7f86c66303d0>
+
+    def test_openapi_schema(client: TestClient):
+        response = client.get("/openapi.json")
+        assert response.status_code == 200, response.text
+>       assert response.json() == snapshot(
+            {
+                "openapi": "3.1.0",
+                "info": {"title": "FastAPI", "version": "0.1.0"},
+                "paths": {
+                    "/files/": {
+                        "post": {
+                            "summary": "Create Files",
+                            "operationId": "create_files_files__post",
+                            "requestBody": {
+                                "content": {
+                                    "multipart/form-data": {
+                                        "schema": {
+                                            "$ref": "#/components/schemas/Body_create_files_files__post"
+                                        }
+                                    }
+                                },
+                                "required": True,
+                            },
+                            "responses": {
+                                "200": {
+                                    "description": "Successful Response",
+                                    "content": {"application/json": {"schema": {}}},
+                                },
+                                "422": {
+                                    "description": "Validation Error",
+                                    "content": {
+                                        "application/json": {
+                                            "schema": {
+                                                "$ref": "#/components/schemas/HTTPValidationError"
+                                            }
+                                        }
+                                    },
+                                },
+                            },
+                        }
+                    },
+                    "/uploadfiles/": {
+                        "post": {
+                            "summary": "Create Upload Files",
+                            "operationId": "create_upload_files_uploadfiles__post",
+                            "requestBody": {
+                                "content": {
+                                    "multipart/form-data": {
+                                        "schema": {
+                                            "$ref": "#/components/schemas/Body_create_upload_files_uploadfiles__post"
+                                        }
+                                    }
+                                },
+                                "required": True,
+                            },
+                            "responses": {
+                                "200": {
+                                    "description": "Successful Response",
+                                    "content": {"application/json": {"schema": {}}},
+                                },
+                                "422": {
+                                    "description": "Validation Error",
+                                    "content": {
+                                        "application/json": {
+                                            "schema": {
+                                                "$ref": "#/components/schemas/HTTPValidationError"
+                                            }
+                                        }
+                                    },
+                                },
+                            },
+                        }
+                    },
+                    "/": {
+                        "get": {
+                            "summary": "Main",
+                            "operationId": "main__get",
+                            "responses": {
+                                "200": {
+                                    "description": "Successful Response",
+                                    "content": {"application/json": {"schema": {}}},
+                                }
+                            },
+                        }
+                    },
+                },
+                "components": {
+                    "schemas": {
+                        "Body_create_files_files__post": {
+                            "title": "Body_create_files_files__post",
+                            "required": ["files"],
+                            "type": "object",
+                            "properties": {
+                                "files": {
+                                    "title": "Files",
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string",
+                                        "contentMediaType": "application/octet-stream",
+                                    },
+                                    "description": "Multiple files as bytes",
+                                }
+                            },
+                        },
+                        "Body_create_upload_files_uploadfiles__post": {
+                            "title": "Body_create_upload_files_uploadfiles__post",
+                            "required": ["files"],
+                            "type": "object",
+                            "properties": {
+                                "files": {
+                                    "title": "Files",
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string",
+                                        "contentMediaType": "application/octet-stream",
+                                    },
+                                    "description": "Multiple files as UploadFile",
+                                }
+                            },
+                        },
+                        "HTTPValidationError": {
+                            "title": "HTTPValidationError",
+                            "type": "object",
+                            "properties": {
+                                "detail": {
+                                    "title": "Detail",
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ValidationError"
+                                    },
+                                }
+                            },
+                        },
+                        "ValidationError": {
+                            "title": "ValidationError",
+                            "required": ["loc", "msg", "type"],
+                            "type": "object",
+                            "properties": {
+                                "loc": {
+                                    "title": "Location",
+                                    "type": "array",
+                                    "items": {
+                                        "anyOf": [{"type": "string"}, {"type": "integer"}]
+                                    },
+                                },
+                                "msg": {"title": "Message", "type": "string"},
+                                "type": {"title": "Error Type", "type": "string"},
+                                "input": {"title": "Input"},
+                                "ctx": {"title": "Context", "type": "object"},
+                            },
+                        },
+                    }
+                },
+            }
+        )
+E       AssertionError: assert {'openapi': '...tionError'}}}} == {'openapi': '...ut'}, ...}}}}}
+E         
+E         Omitting 3 identical items, use -vv to show
+E         Differing items:
+E         {'components': {'schemas': {'Body_create_files_files__post': {'properties': {'files': {'items': {...}, 'type': 'array'...'input': {'title': 'Input'}, ...}, 'type': 'object', 'required': ['loc', 'msg', 'type'], 'title': 'ValidationError'}}}} != {'components': {'schemas': {'Body_create_files_files__post': {'title': 'Body_create_files_files__post', 'required': ['... 'Message', 'type': 'string'}, 'type': {'title': 'Error Type', 'type': 'string'}, 'input': {'title': 'Input'}, ...}}}}}
+E         Use -v to get more diff
+
+tests/test_tutorial/test_request_files/test_tutorial003.py:76: AssertionError
+__________________ test_openapi_schema[tutorial003_an_py310] ___________________
+
+client = <starlette.testclient.TestClient object at 0x7f86c6632270>
+
+    def test_openapi_schema(client: TestClient):
+        response = client.get("/openapi.json")
+        assert response.status_code == 200, response.text
+>       assert response.json() == snapshot(
+            {
+                "openapi": "3.1.0",
+                "info": {"title": "FastAPI", "version": "0.1.0"},
+                "paths": {
+                    "/files/": {
+                        "post": {
+                            "summary": "Create Files",
+                            "operationId": "create_files_files__post",
+                            "requestBody": {
+                                "content": {
+                                    "multipart/form-data": {
+                                        "schema": {
+                                            "$ref": "#/components/schemas/Body_create_files_files__post"
+                                        }
+                                    }
+                                },
+                                "required": True,
+                            },
+                            "responses": {
+                                "200": {
+                                    "description": "Successful Response",
+                                    "content": {"application/json": {"schema": {}}},
+                                },
+                                "422": {
+                                    "description": "Validation Error",
+                                    "content": {
+                                        "application/json": {
+                                            "schema": {
+                                                "$ref": "#/components/schemas/HTTPValidationError"
+                                            }
+                                        }
+                                    },
+                                },
+                            },
+                        }
+                    },
+                    "/uploadfiles/": {
+                        "post": {
+                            "summary": "Create Upload Files",
+                            "operationId": "create_upload_files_uploadfiles__post",
+                            "requestBody": {
+                                "content": {
+                                    "multipart/form-data": {
+                                        "schema": {
+                                            "$ref": "#/components/schemas/Body_create_upload_files_uploadfiles__post"
+                                        }
+                                    }
+                                },
+                                "required": True,
+                            },
+                            "responses": {
+                                "200": {
+                                    "description": "Successful Response",
+                                    "content": {"application/json": {"schema": {}}},
+                                },
+                                "422": {
+                                    "description": "Validation Error",
+                                    "content": {
+                                        "application/json": {
+                                            "schema": {
+                                                "$ref": "#/components/schemas/HTTPValidationError"
+                                            }
+                                        }
+                                    },
+                                },
+                            },
+                        }
+                    },
+                    "/": {
+                        "get": {
+                            "summary": "Main",
+                            "operationId": "main__get",
+                            "responses": {
+                                "200": {
+                                    "description": "Successful Response",
+                                    "content": {"application/json": {"schema": {}}},
+                                }
+                            },
+                        }
+                    },
+                },
+                "components": {
+                    "schemas": {
+                        "Body_create_files_files__post": {
+                            "title": "Body_create_files_files__post",
+                            "required": ["files"],
+                            "type": "object",
+                            "properties": {
+                                "files": {
+                                    "title": "Files",
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string",
+                                        "contentMediaType": "application/octet-stream",
+                                    },
+                                    "description": "Multiple files as bytes",
+                                }
+                            },
+                        },
+                        "Body_create_upload_files_uploadfiles__post": {
+                            "title": "Body_create_upload_files_uploadfiles__post",
+                            "required": ["files"],
+                            "type": "object",
+                            "properties": {
+                                "files": {
+                                    "title": "Files",
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string",
+                                        "contentMediaType": "application/octet-stream",
+                                    },
+                                    "description": "Multiple files as UploadFile",
+                                }
+                            },
+                        },
+                        "HTTPValidationError": {
+                            "title": "HTTPValidationError",
+                            "type": "object",
+                            "properties": {
+                                "detail": {
+                                    "title": "Detail",
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ValidationError"
+                                    },
+                                }
+                            },
+                        },
+                        "ValidationError": {
+                            "title": "ValidationError",
+                            "required": ["loc", "msg", "type"],
+                            "type": "object",
+                            "properties": {
+                                "loc": {
+                                    "title": "Location",
+                                    "type": "array",
+                                    "items": {
+                                        "anyOf": [{"type": "string"}, {"type": "integer"}]
+                                    },
+                                },
+                                "msg": {"title": "Message", "type": "string"},
+                                "type": {"title": "Error Type", "type": "string"},
+                                "input": {"title": "Input"},
+                                "ctx": {"title": "Context", "type": "object"},
+                            },
+                        },
+                    }
+                },
+            }
+        )
+E       AssertionError: assert {'openapi': '...tionError'}}}} == {'openapi': '...ut'}, ...}}}}}
+E         
+E         Omitting 3 identical items, use -vv to show
+E         Differing items:
+E         {'components': {'schemas': {'Body_create_files_files__post': {'properties': {'files': {'items': {...}, 'type': 'array'...'input': {'title': 'Input'}, ...}, 'type': 'object', 'required': ['loc', 'msg', 'type'], 'title': 'ValidationError'}}}} != {'components': {'schemas': {'Body_create_files_files__post': {'title': 'Body_create_files_files__post', 'required': ['... 'Message', 'type': 'string'}, 'type': {'title': 'Error Type', 'type': 'string'}, 'input': {'title': 'Input'}, ...}}}}}
+E         Use -v to get more diff
+
+tests/test_tutorial/test_request_files/test_tutorial003.py:76: AssertionError
+____________________ test_openapi_schema[tutorial001_py310] ____________________
+
+client = <starlette.testclient.TestClient object at 0x7f86c662a350>
+
+    def test_openapi_schema(client: TestClient):
+        response = client.get("/openapi.json")
+        assert response.status_code == 200, response.text
+>       assert response.json() == snapshot(
+            {
+                "openapi": "3.1.0",
+                "info": {"title": "FastAPI", "version": "0.1.0"},
+                "paths": {
+                    "/files/": {
+                        "post": {
+                            "responses": {
+                                "200": {
+                                    "description": "Successful Response",
+                                    "content": {"application/json": {"schema": {}}},
+                                },
+                                "422": {
+                                    "description": "Validation Error",
+                                    "content": {
+                                        "application/json": {
+                                            "schema": {
+                                                "$ref": "#/components/schemas/HTTPValidationError"
+                                            }
+                                        }
+                                    },
+                                },
+                            },
+                            "summary": "Create File",
+                            "operationId": "create_file_files__post",
+                            "requestBody": {
+                                "content": {
+                                    "multipart/form-data": {
+                                        "schema": {
+                                            "$ref": "#/components/schemas/Body_create_file_files__post"
+                                        }
+                                    }
+                                },
+                                "required": True,
+                            },
+                        }
+                    }
+                },
+                "components": {
+                    "schemas": {
+                        "Body_create_file_files__post": {
+                            "title": "Body_create_file_files__post",
+                            "required": ["file", "fileb", "token"],
+                            "type": "object",
+                            "properties": {
+                                "file": {
+                                    "title": "File",
+                                    "type": "string",
+                                    "contentMediaType": "application/octet-stream",
+                                },
+                                "fileb": {
+                                    "title": "Fileb",
+                                    "contentMediaType": "application/octet-stream",
+                                    "type": "string",
+                                },
+                                "token": {"title": "Token", "type": "string"},
+                            },
+                        },
+                        "ValidationError": {
+                            "title": "ValidationError",
+                            "required": ["loc", "msg", "type"],
+                            "type": "object",
+                            "properties": {
+                                "loc": {
+                                    "title": "Location",
+                                    "type": "array",
+                                    "items": {
+                                        "anyOf": [{"type": "string"}, {"type": "integer"}]
+                                    },
+                                },
+                                "msg": {"title": "Message", "type": "string"},
+                                "type": {"title": "Error Type", "type": "string"},
+                                "input": {"title": "Input"},
+                                "ctx": {"title": "Context", "type": "object"},
+                            },
+                        },
+                        "HTTPValidationError": {
+                            "title": "HTTPValidationError",
+                            "type": "object",
+                            "properties": {
+                                "detail": {
+                                    "title": "Detail",
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ValidationError"
+                                    },
+                                }
+                            },
+                        },
+                    }
+                },
+            }
+        )
+E       AssertionError: assert {'openapi': '...tionError'}}}} == {'openapi': '...': {...}}}}}}}
+E         
+E         Omitting 3 identical items, use -vv to show
+E         Differing items:
+E         {'components': {'schemas': {'Body_create_file_files__post': {'properties': {'file': {'type': 'string', 'format': 'bina...'input': {'title': 'Input'}, ...}, 'type': 'object', 'required': ['loc', 'msg', 'type'], 'title': 'ValidationError'}}}} != {'components': {'schemas': {'Body_create_file_files__post': {'title': 'Body_create_file_files__post', 'required': ['fi...PValidationError', 'type': 'object', 'properties': {'detail': {'title': 'Detail', 'type': 'array', 'items': {...}}}}}}}
+E         Use -v to get more diff
+
+tests/test_tutorial/test_request_forms_and_files/test_tutorial001.py:153: AssertionError
+__________________ test_openapi_schema[tutorial001_an_py310] ___________________
+
+client = <starlette.testclient.TestClient object at 0x7f86c65b57f0>
+
+    def test_openapi_schema(client: TestClient):
+        response = client.get("/openapi.json")
+        assert response.status_code == 200, response.text
+>       assert response.json() == snapshot(
+            {
+                "openapi": "3.1.0",
+                "info": {"title": "FastAPI", "version": "0.1.0"},
+                "paths": {
+                    "/files/": {
+                        "post": {
+                            "responses": {
+                                "200": {
+                                    "description": "Successful Response",
+                                    "content": {"application/json": {"schema": {}}},
+                                },
+                                "422": {
+                                    "description": "Validation Error",
+                                    "content": {
+                                        "application/json": {
+                                            "schema": {
+                                                "$ref": "#/components/schemas/HTTPValidationError"
+                                            }
+                                        }
+                                    },
+                                },
+                            },
+                            "summary": "Create File",
+                            "operationId": "create_file_files__post",
+                            "requestBody": {
+                                "content": {
+                                    "multipart/form-data": {
+                                        "schema": {
+                                            "$ref": "#/components/schemas/Body_create_file_files__post"
+                                        }
+                                    }
+                                },
+                                "required": True,
+                            },
+                        }
+                    }
+                },
+                "components": {
+                    "schemas": {
+                        "Body_create_file_files__post": {
+                            "title": "Body_create_file_files__post",
+                            "required": ["file", "fileb", "token"],
+                            "type": "object",
+                            "properties": {
+                                "file": {
+                                    "title": "File",
+                                    "type": "string",
+                                    "contentMediaType": "application/octet-stream",
+                                },
+                                "fileb": {
+                                    "title": "Fileb",
+                                    "contentMediaType": "application/octet-stream",
+                                    "type": "string",
+                                },
+                                "token": {"title": "Token", "type": "string"},
+                            },
+                        },
+                        "ValidationError": {
+                            "title": "ValidationError",
+                            "required": ["loc", "msg", "type"],
+                            "type": "object",
+                            "properties": {
+                                "loc": {
+                                    "title": "Location",
+                                    "type": "array",
+                                    "items": {
+                                        "anyOf": [{"type": "string"}, {"type": "integer"}]
+                                    },
+                                },
+                                "msg": {"title": "Message", "type": "string"},
+                                "type": {"title": "Error Type", "type": "string"},
+                                "input": {"title": "Input"},
+                                "ctx": {"title": "Context", "type": "object"},
+                            },
+                        },
+                        "HTTPValidationError": {
+                            "title": "HTTPValidationError",
+                            "type": "object",
+                            "properties": {
+                                "detail": {
+                                    "title": "Detail",
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ValidationError"
+                                    },
+                                }
+                            },
+                        },
+                    }
+                },
+            }
+        )
+E       AssertionError: assert {'openapi': '...tionError'}}}} == {'openapi': '...': {...}}}}}}}
+E         
+E         Omitting 3 identical items, use -vv to show
+E         Differing items:
+E         {'components': {'schemas': {'Body_create_file_files__post': {'properties': {'file': {'type': 'string', 'format': 'bina...'input': {'title': 'Input'}, ...}, 'type': 'object', 'required': ['loc', 'msg', 'type'], 'title': 'ValidationError'}}}} != {'components': {'schemas': {'Body_create_file_files__post': {'title': 'Body_create_file_files__post', 'required': ['fi...PValidationError', 'type': 'object', 'properties': {'detail': {'title': 'Detail', 'type': 'array', 'items': {...}}}}}}}
+E         Use -v to get more diff
+
+tests/test_tutorial/test_request_forms_and_files/test_tutorial001.py:153: AssertionError
+44 failed, 144 passed, 16 errors in 8.29s
+
+

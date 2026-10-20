@@ -1,0 +1,258 @@
+[a3] fastapi_ee22a4b8ca46dcce26c8c183afc4992a888d8be2: dim=256 unit_norm=False pc1=0.4437052011489868 cos_to_mean=0.8701868057250977
+[a3] requests_6f205ff422bccd5e4c4fc0b64c5f3e7df5181db6: dim=256 unit_norm=False pc1=0.4986895024776459 cos_to_mean=0.9291485548019409
+[a3] rich_fc41075a3206d2a5fd846c6f41c4d2becab814fa: dim=256 unit_norm=False pc1=0.6750233173370361 cos_to_mean=0.9480270743370056
+[a3] httpx_4acf5c2c37714cc63b5cf71b3e284fca83c90311: dim=256 unit_norm=False pc1=0.7484788298606873 cos_to_mean=0.9329036474227905
+[a3] fastapi_cb83b83dcf78eab4ea17d504db5abcda705fbdc4: dim=256 unit_norm=False pc1=0.44436129927635193 cos_to_mean=0.8702179193496704
+[a3] fastapi_22b02e26f9e8c7e32bd8266e2b0ebe8bb3a0db2b: dim=256 unit_norm=False pc1=0.44388672709465027 cos_to_mean=0.870159387588501
+[a3] fastapi_48d58ae3b6ef4ded5a4794618c00345667256d98: dim=256 unit_norm=False pc1=0.44994503259658813 cos_to_mean=0.8709185719490051
+[a3] fastapi_1e78a36b7310003f0ff634627d8a7bc53c6ccdee: dim=256 unit_norm=False pc1=0.44906896352767944 cos_to_mean=0.8710289597511292
+[a3] fastapi_6ee87478d821171139264cd9cd17cbd2232934ce: dim=256 unit_norm=False pc1=0.44568169116973877 cos_to_mean=0.8700282573699951
+[a3] fastapi_bc06e4296d588f39f38c7ac2fc96d3913c565962: dim=256 unit_norm=False pc1=0.44860726594924927 cos_to_mean=0.8711493015289307
+Loading weights:   0%|          | 0/314 [00:00<?, ?it/s]Loading weights: 100%|██████████| 314/314 [00:00<00:00, 6531.27it/s]
+[a3] google/embeddinggemma-300m fastapi_ee22a4b8ca46dcce26c8c183afc4992a888d8be2 text/none: cos_mean=-0.0072 >=.99=0.00 spearman=0.095
+[a3] google/embeddinggemma-300m fastapi_ee22a4b8ca46dcce26c8c183afc4992a888d8be2 text/document: cos_mean=0.0049 >=.99=0.00 spearman=0.111
+[a3] google/embeddinggemma-300m fastapi_ee22a4b8ca46dcce26c8c183afc4992a888d8be2 text/code_retrieval_query: cos_mean=0.0012 >=.99=0.00 spearman=0.077
+[a3] google/embeddinggemma-300m fastapi_ee22a4b8ca46dcce26c8c183afc4992a888d8be2 text/search_result: cos_mean=-0.0101 >=.99=0.00 spearman=0.081
+[a3] google/embeddinggemma-300m fastapi_ee22a4b8ca46dcce26c8c183afc4992a888d8be2 name/none: cos_mean=0.0279 >=.99=0.00 spearman=0.072
+[a3] google/embeddinggemma-300m fastapi_ee22a4b8ca46dcce26c8c183afc4992a888d8be2 name/document: cos_mean=0.0354 >=.99=0.00 spearman=0.102
+[a3] google/embeddinggemma-300m fastapi_ee22a4b8ca46dcce26c8c183afc4992a888d8be2 id/none: cos_mean=0.0279 >=.99=0.00 spearman=0.072
+[a3] google/embeddinggemma-300m fastapi_ee22a4b8ca46dcce26c8c183afc4992a888d8be2 id/document: cos_mean=0.0354 >=.99=0.00 spearman=0.102
+[a3] google/embeddinggemma-300m fastapi_ee22a4b8ca46dcce26c8c183afc4992a888d8be2 name_text/none: cos_mean=-0.0016 >=.99=0.00 spearman=0.104
+[a3] google/embeddinggemma-300m fastapi_ee22a4b8ca46dcce26c8c183afc4992a888d8be2 name_text/document: cos_mean=0.0074 >=.99=0.00 spearman=0.116
+[a3] google/embeddinggemma-300m requests_6f205ff422bccd5e4c4fc0b64c5f3e7df5181db6 text/none: cos_mean=0.0366 >=.99=0.00 spearman=0.124
+[a3] google/embeddinggemma-300m requests_6f205ff422bccd5e4c4fc0b64c5f3e7df5181db6 text/document: cos_mean=0.0435 >=.99=0.00 spearman=0.163
+[a3] google/embeddinggemma-300m requests_6f205ff422bccd5e4c4fc0b64c5f3e7df5181db6 text/code_retrieval_query: cos_mean=0.0367 >=.99=0.00 spearman=0.099
+[a3] google/embeddinggemma-300m requests_6f205ff422bccd5e4c4fc0b64c5f3e7df5181db6 text/search_result: cos_mean=0.0334 >=.99=0.00 spearman=0.128
+[a3] google/embeddinggemma-300m requests_6f205ff422bccd5e4c4fc0b64c5f3e7df5181db6 name/none: cos_mean=0.0419 >=.99=0.00 spearman=0.041
+[a3] google/embeddinggemma-300m requests_6f205ff422bccd5e4c4fc0b64c5f3e7df5181db6 name/document: cos_mean=0.0611 >=.99=0.00 spearman=0.069
+[a3] google/embeddinggemma-300m requests_6f205ff422bccd5e4c4fc0b64c5f3e7df5181db6 id/none: cos_mean=0.0419 >=.99=0.00 spearman=0.041
+[a3] google/embeddinggemma-300m requests_6f205ff422bccd5e4c4fc0b64c5f3e7df5181db6 id/document: cos_mean=0.0611 >=.99=0.00 spearman=0.069
+[a3] google/embeddinggemma-300m requests_6f205ff422bccd5e4c4fc0b64c5f3e7df5181db6 name_text/none: cos_mean=0.0360 >=.99=0.00 spearman=0.145
+[a3] google/embeddinggemma-300m requests_6f205ff422bccd5e4c4fc0b64c5f3e7df5181db6 name_text/document: cos_mean=0.0487 >=.99=0.00 spearman=0.160
+[a3] google/embeddinggemma-300m rich_fc41075a3206d2a5fd846c6f41c4d2becab814fa text/none: cos_mean=0.0001 >=.99=0.00 spearman=0.112
+[a3] google/embeddinggemma-300m rich_fc41075a3206d2a5fd846c6f41c4d2becab814fa text/document: cos_mean=0.0063 >=.99=0.00 spearman=0.118
+[a3] google/embeddinggemma-300m rich_fc41075a3206d2a5fd846c6f41c4d2becab814fa text/code_retrieval_query: cos_mean=-0.0010 >=.99=0.00 spearman=0.108
+[a3] google/embeddinggemma-300m rich_fc41075a3206d2a5fd846c6f41c4d2becab814fa text/search_result: cos_mean=-0.0082 >=.99=0.00 spearman=0.131
+[a3] google/embeddinggemma-300m rich_fc41075a3206d2a5fd846c6f41c4d2becab814fa name/none: cos_mean=0.0271 >=.99=0.00 spearman=0.080
+[a3] google/embeddinggemma-300m rich_fc41075a3206d2a5fd846c6f41c4d2becab814fa name/document: cos_mean=0.0300 >=.99=0.00 spearman=0.078
+[a3] google/embeddinggemma-300m rich_fc41075a3206d2a5fd846c6f41c4d2becab814fa id/none: cos_mean=0.0271 >=.99=0.00 spearman=0.080
+[a3] google/embeddinggemma-300m rich_fc41075a3206d2a5fd846c6f41c4d2becab814fa id/document: cos_mean=0.0300 >=.99=0.00 spearman=0.078
+[a3] google/embeddinggemma-300m rich_fc41075a3206d2a5fd846c6f41c4d2becab814fa name_text/none: cos_mean=0.0040 >=.99=0.00 spearman=0.124
+[a3] google/embeddinggemma-300m rich_fc41075a3206d2a5fd846c6f41c4d2becab814fa name_text/document: cos_mean=0.0105 >=.99=0.00 spearman=0.128
+[a3] google/embeddinggemma-300m httpx_4acf5c2c37714cc63b5cf71b3e284fca83c90311 text/none: cos_mean=0.0313 >=.99=0.00 spearman=0.154
+[a3] google/embeddinggemma-300m httpx_4acf5c2c37714cc63b5cf71b3e284fca83c90311 text/document: cos_mean=0.0385 >=.99=0.00 spearman=0.148
+[a3] google/embeddinggemma-300m httpx_4acf5c2c37714cc63b5cf71b3e284fca83c90311 text/code_retrieval_query: cos_mean=0.0141 >=.99=0.00 spearman=0.139
+[a3] google/embeddinggemma-300m httpx_4acf5c2c37714cc63b5cf71b3e284fca83c90311 text/search_result: cos_mean=0.0254 >=.99=0.00 spearman=0.174
+[a3] google/embeddinggemma-300m httpx_4acf5c2c37714cc63b5cf71b3e284fca83c90311 name/none: cos_mean=0.0441 >=.99=0.00 spearman=0.100
+[a3] google/embeddinggemma-300m httpx_4acf5c2c37714cc63b5cf71b3e284fca83c90311 name/document: cos_mean=0.0734 >=.99=0.00 spearman=0.100
+[a3] google/embeddinggemma-300m httpx_4acf5c2c37714cc63b5cf71b3e284fca83c90311 id/none: cos_mean=0.0441 >=.99=0.00 spearman=0.100
+[a3] google/embeddinggemma-300m httpx_4acf5c2c37714cc63b5cf71b3e284fca83c90311 id/document: cos_mean=0.0734 >=.99=0.00 spearman=0.100
+[a3] google/embeddinggemma-300m httpx_4acf5c2c37714cc63b5cf71b3e284fca83c90311 name_text/none: cos_mean=0.0426 >=.99=0.00 spearman=0.150
+[a3] google/embeddinggemma-300m httpx_4acf5c2c37714cc63b5cf71b3e284fca83c90311 name_text/document: cos_mean=0.0535 >=.99=0.00 spearman=0.140
+[a3] google/embeddinggemma-300m fastapi_cb83b83dcf78eab4ea17d504db5abcda705fbdc4 text/none: cos_mean=-0.0082 >=.99=0.00 spearman=0.054
+[a3] google/embeddinggemma-300m fastapi_cb83b83dcf78eab4ea17d504db5abcda705fbdc4 text/document: cos_mean=0.0052 >=.99=0.00 spearman=0.055
+[a3] google/embeddinggemma-300m fastapi_cb83b83dcf78eab4ea17d504db5abcda705fbdc4 text/code_retrieval_query: cos_mean=0.0015 >=.99=0.00 spearman=0.052
+[a3] google/embeddinggemma-300m fastapi_cb83b83dcf78eab4ea17d504db5abcda705fbdc4 text/search_result: cos_mean=-0.0097 >=.99=0.00 spearman=0.037
+[a3] google/embeddinggemma-300m fastapi_cb83b83dcf78eab4ea17d504db5abcda705fbdc4 name/none: cos_mean=0.0232 >=.99=0.00 spearman=0.028
+[a3] google/embeddinggemma-300m fastapi_cb83b83dcf78eab4ea17d504db5abcda705fbdc4 name/document: cos_mean=0.0325 >=.99=0.00 spearman=0.063
+[a3] google/embeddinggemma-300m fastapi_cb83b83dcf78eab4ea17d504db5abcda705fbdc4 id/none: cos_mean=0.0232 >=.99=0.00 spearman=0.028
+[a3] google/embeddinggemma-300m fastapi_cb83b83dcf78eab4ea17d504db5abcda705fbdc4 id/document: cos_mean=0.0325 >=.99=0.00 spearman=0.063
+[a3] google/embeddinggemma-300m fastapi_cb83b83dcf78eab4ea17d504db5abcda705fbdc4 name_text/none: cos_mean=-0.0029 >=.99=0.00 spearman=0.046
+[a3] google/embeddinggemma-300m fastapi_cb83b83dcf78eab4ea17d504db5abcda705fbdc4 name_text/document: cos_mean=0.0083 >=.99=0.00 spearman=0.060
+[a3] google/embeddinggemma-300m fastapi_22b02e26f9e8c7e32bd8266e2b0ebe8bb3a0db2b text/none: cos_mean=-0.0007 >=.99=0.00 spearman=0.054
+[a3] google/embeddinggemma-300m fastapi_22b02e26f9e8c7e32bd8266e2b0ebe8bb3a0db2b text/document: cos_mean=0.0120 >=.99=0.00 spearman=0.052
+[a3] google/embeddinggemma-300m fastapi_22b02e26f9e8c7e32bd8266e2b0ebe8bb3a0db2b text/code_retrieval_query: cos_mean=0.0093 >=.99=0.00 spearman=0.042
+[a3] google/embeddinggemma-300m fastapi_22b02e26f9e8c7e32bd8266e2b0ebe8bb3a0db2b text/search_result: cos_mean=-0.0011 >=.99=0.00 spearman=0.029
+[a3] google/embeddinggemma-300m fastapi_22b02e26f9e8c7e32bd8266e2b0ebe8bb3a0db2b name/none: cos_mean=0.0318 >=.99=0.00 spearman=0.028
+[a3] google/embeddinggemma-300m fastapi_22b02e26f9e8c7e32bd8266e2b0ebe8bb3a0db2b name/document: cos_mean=0.0420 >=.99=0.00 spearman=0.041
+[a3] google/embeddinggemma-300m fastapi_22b02e26f9e8c7e32bd8266e2b0ebe8bb3a0db2b id/none: cos_mean=0.0318 >=.99=0.00 spearman=0.028
+[a3] google/embeddinggemma-300m fastapi_22b02e26f9e8c7e32bd8266e2b0ebe8bb3a0db2b id/document: cos_mean=0.0420 >=.99=0.00 spearman=0.041
+[a3] google/embeddinggemma-300m fastapi_22b02e26f9e8c7e32bd8266e2b0ebe8bb3a0db2b name_text/none: cos_mean=0.0059 >=.99=0.00 spearman=0.064
+[a3] google/embeddinggemma-300m fastapi_22b02e26f9e8c7e32bd8266e2b0ebe8bb3a0db2b name_text/document: cos_mean=0.0173 >=.99=0.00 spearman=0.069
+[a3] google/embeddinggemma-300m fastapi_48d58ae3b6ef4ded5a4794618c00345667256d98 text/none: cos_mean=0.0052 >=.99=0.00 spearman=0.059
+[a3] google/embeddinggemma-300m fastapi_48d58ae3b6ef4ded5a4794618c00345667256d98 text/document: cos_mean=0.0163 >=.99=0.00 spearman=0.054
+[a3] google/embeddinggemma-300m fastapi_48d58ae3b6ef4ded5a4794618c00345667256d98 text/code_retrieval_query: cos_mean=0.0123 >=.99=0.00 spearman=0.046
+[a3] google/embeddinggemma-300m fastapi_48d58ae3b6ef4ded5a4794618c00345667256d98 text/search_result: cos_mean=0.0024 >=.99=0.00 spearman=0.033
+[a3] google/embeddinggemma-300m fastapi_48d58ae3b6ef4ded5a4794618c00345667256d98 name/none: cos_mean=0.0347 >=.99=0.00 spearman=0.048
+[a3] google/embeddinggemma-300m fastapi_48d58ae3b6ef4ded5a4794618c00345667256d98 name/document: cos_mean=0.0403 >=.99=0.00 spearman=0.067
+[a3] google/embeddinggemma-300m fastapi_48d58ae3b6ef4ded5a4794618c00345667256d98 id/none: cos_mean=0.0347 >=.99=0.00 spearman=0.048
+[a3] google/embeddinggemma-300m fastapi_48d58ae3b6ef4ded5a4794618c00345667256d98 id/document: cos_mean=0.0403 >=.99=0.00 spearman=0.067
+[a3] google/embeddinggemma-300m fastapi_48d58ae3b6ef4ded5a4794618c00345667256d98 name_text/none: cos_mean=0.0091 >=.99=0.00 spearman=0.065
+[a3] google/embeddinggemma-300m fastapi_48d58ae3b6ef4ded5a4794618c00345667256d98 name_text/document: cos_mean=0.0176 >=.99=0.00 spearman=0.073
+[a3] google/embeddinggemma-300m fastapi_1e78a36b7310003f0ff634627d8a7bc53c6ccdee text/none: cos_mean=-0.0083 >=.99=0.00 spearman=0.093
+[a3] google/embeddinggemma-300m fastapi_1e78a36b7310003f0ff634627d8a7bc53c6ccdee text/document: cos_mean=0.0046 >=.99=0.00 spearman=0.112
+[a3] google/embeddinggemma-300m fastapi_1e78a36b7310003f0ff634627d8a7bc53c6ccdee text/code_retrieval_query: cos_mean=0.0008 >=.99=0.00 spearman=0.096
+[a3] google/embeddinggemma-300m fastapi_1e78a36b7310003f0ff634627d8a7bc53c6ccdee text/search_result: cos_mean=-0.0105 >=.99=0.00 spearman=0.094
+[a3] google/embeddinggemma-300m fastapi_1e78a36b7310003f0ff634627d8a7bc53c6ccdee name/none: cos_mean=0.0295 >=.99=0.00 spearman=0.051
+[a3] google/embeddinggemma-300m fastapi_1e78a36b7310003f0ff634627d8a7bc53c6ccdee name/document: cos_mean=0.0377 >=.99=0.00 spearman=0.058
+[a3] google/embeddinggemma-300m fastapi_1e78a36b7310003f0ff634627d8a7bc53c6ccdee id/none: cos_mean=0.0295 >=.99=0.00 spearman=0.051
+[a3] google/embeddinggemma-300m fastapi_1e78a36b7310003f0ff634627d8a7bc53c6ccdee id/document: cos_mean=0.0377 >=.99=0.00 spearman=0.058
+[a3] google/embeddinggemma-300m fastapi_1e78a36b7310003f0ff634627d8a7bc53c6ccdee name_text/none: cos_mean=-0.0004 >=.99=0.00 spearman=0.107
+[a3] google/embeddinggemma-300m fastapi_1e78a36b7310003f0ff634627d8a7bc53c6ccdee name_text/document: cos_mean=0.0095 >=.99=0.00 spearman=0.123
+[a3] google/embeddinggemma-300m fastapi_6ee87478d821171139264cd9cd17cbd2232934ce text/none: cos_mean=-0.0079 >=.99=0.00 spearman=0.102
+[a3] google/embeddinggemma-300m fastapi_6ee87478d821171139264cd9cd17cbd2232934ce text/document: cos_mean=0.0045 >=.99=0.00 spearman=0.115
+[a3] google/embeddinggemma-300m fastapi_6ee87478d821171139264cd9cd17cbd2232934ce text/code_retrieval_query: cos_mean=-0.0009 >=.99=0.00 spearman=0.085
+[a3] google/embeddinggemma-300m fastapi_6ee87478d821171139264cd9cd17cbd2232934ce text/search_result: cos_mean=-0.0119 >=.99=0.00 spearman=0.071
+[a3] google/embeddinggemma-300m fastapi_6ee87478d821171139264cd9cd17cbd2232934ce name/none: cos_mean=0.0300 >=.99=0.00 spearman=0.083
+[a3] google/embeddinggemma-300m fastapi_6ee87478d821171139264cd9cd17cbd2232934ce name/document: cos_mean=0.0360 >=.99=0.00 spearman=0.128
+[a3] google/embeddinggemma-300m fastapi_6ee87478d821171139264cd9cd17cbd2232934ce id/none: cos_mean=0.0300 >=.99=0.00 spearman=0.083
+[a3] google/embeddinggemma-300m fastapi_6ee87478d821171139264cd9cd17cbd2232934ce id/document: cos_mean=0.0360 >=.99=0.00 spearman=0.128
+[a3] google/embeddinggemma-300m fastapi_6ee87478d821171139264cd9cd17cbd2232934ce name_text/none: cos_mean=-0.0011 >=.99=0.00 spearman=0.115
+[a3] google/embeddinggemma-300m fastapi_6ee87478d821171139264cd9cd17cbd2232934ce name_text/document: cos_mean=0.0088 >=.99=0.00 spearman=0.141
+[a3] google/embeddinggemma-300m fastapi_bc06e4296d588f39f38c7ac2fc96d3913c565962 text/none: cos_mean=-0.0000 >=.99=0.00 spearman=0.029
+[a3] google/embeddinggemma-300m fastapi_bc06e4296d588f39f38c7ac2fc96d3913c565962 text/document: cos_mean=0.0118 >=.99=0.00 spearman=0.033
+[a3] google/embeddinggemma-300m fastapi_bc06e4296d588f39f38c7ac2fc96d3913c565962 text/code_retrieval_query: cos_mean=0.0079 >=.99=0.00 spearman=0.033
+[a3] google/embeddinggemma-300m fastapi_bc06e4296d588f39f38c7ac2fc96d3913c565962 text/search_result: cos_mean=-0.0016 >=.99=0.00 spearman=0.027
+[a3] google/embeddinggemma-300m fastapi_bc06e4296d588f39f38c7ac2fc96d3913c565962 name/none: cos_mean=0.0357 >=.99=0.00 spearman=0.051
+[a3] google/embeddinggemma-300m fastapi_bc06e4296d588f39f38c7ac2fc96d3913c565962 name/document: cos_mean=0.0421 >=.99=0.00 spearman=0.069
+[a3] google/embeddinggemma-300m fastapi_bc06e4296d588f39f38c7ac2fc96d3913c565962 id/none: cos_mean=0.0357 >=.99=0.00 spearman=0.051
+[a3] google/embeddinggemma-300m fastapi_bc06e4296d588f39f38c7ac2fc96d3913c565962 id/document: cos_mean=0.0421 >=.99=0.00 spearman=0.069
+[a3] google/embeddinggemma-300m fastapi_bc06e4296d588f39f38c7ac2fc96d3913c565962 name_text/none: cos_mean=0.0062 >=.99=0.00 spearman=0.033
+[a3] google/embeddinggemma-300m fastapi_bc06e4296d588f39f38c7ac2fc96d3913c565962 name_text/document: cos_mean=0.0166 >=.99=0.00 spearman=0.045
+Loading weights:   0%|          | 0/1376 [00:00<?, ?it/s]Loading weights:  29%|██▉       | 405/1376 [00:00<00:00, 4028.17it/s]Loading weights:  59%|█████▊    | 808/1376 [00:00<00:00, 3917.15it/s]Loading weights: 100%|██████████| 1376/1376 [00:00<00:00, 4636.02it/s]
+[a3] cannot load google/embeddinggemma-2: EmbeddingGemma2Processor requires the PIL library but it was not found in your environment. You can install it with pip:
+`pip install pillow`. Please note that you may need to restart your runtime after installation.
+
+To install the required dependencies, run:
+pip install -U "sentence-transformers[image]"
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|██████████| 103/103 [00:00<00:00, 5692.02it/s]
+[a3] sentence-transformers/all-MiniLM-L6-v2 fastapi_ee22a4b8ca46dcce26c8c183afc4992a888d8be2 text/none: cos_mean=0.0104 >=.99=0.00 spearman=0.008
+[a3] sentence-transformers/all-MiniLM-L6-v2 fastapi_ee22a4b8ca46dcce26c8c183afc4992a888d8be2 text/document: cos_mean=-0.0052 >=.99=0.00 spearman=-0.009
+[a3] sentence-transformers/all-MiniLM-L6-v2 fastapi_ee22a4b8ca46dcce26c8c183afc4992a888d8be2 text/code_retrieval_query: cos_mean=-0.0139 >=.99=0.00 spearman=-0.011
+[a3] sentence-transformers/all-MiniLM-L6-v2 fastapi_ee22a4b8ca46dcce26c8c183afc4992a888d8be2 text/search_result: cos_mean=-0.0117 >=.99=0.00 spearman=-0.000
+[a3] sentence-transformers/all-MiniLM-L6-v2 fastapi_ee22a4b8ca46dcce26c8c183afc4992a888d8be2 name/none: cos_mean=0.0081 >=.99=0.00 spearman=0.030
+[a3] sentence-transformers/all-MiniLM-L6-v2 fastapi_ee22a4b8ca46dcce26c8c183afc4992a888d8be2 name/document: cos_mean=-0.0204 >=.99=0.00 spearman=0.033
+[a3] sentence-transformers/all-MiniLM-L6-v2 fastapi_ee22a4b8ca46dcce26c8c183afc4992a888d8be2 id/none: cos_mean=0.0081 >=.99=0.00 spearman=0.030
+[a3] sentence-transformers/all-MiniLM-L6-v2 fastapi_ee22a4b8ca46dcce26c8c183afc4992a888d8be2 id/document: cos_mean=-0.0204 >=.99=0.00 spearman=0.033
+[a3] sentence-transformers/all-MiniLM-L6-v2 fastapi_ee22a4b8ca46dcce26c8c183afc4992a888d8be2 name_text/none: cos_mean=0.0095 >=.99=0.00 spearman=-0.002
+[a3] sentence-transformers/all-MiniLM-L6-v2 fastapi_ee22a4b8ca46dcce26c8c183afc4992a888d8be2 name_text/document: cos_mean=-0.0018 >=.99=0.00 spearman=0.004
+[a3] sentence-transformers/all-MiniLM-L6-v2 requests_6f205ff422bccd5e4c4fc0b64c5f3e7df5181db6 text/none: cos_mean=-0.0238 >=.99=0.00 spearman=0.155
+[a3] sentence-transformers/all-MiniLM-L6-v2 requests_6f205ff422bccd5e4c4fc0b64c5f3e7df5181db6 text/document: cos_mean=-0.0412 >=.99=0.00 spearman=0.108
+[a3] sentence-transformers/all-MiniLM-L6-v2 requests_6f205ff422bccd5e4c4fc0b64c5f3e7df5181db6 text/code_retrieval_query: cos_mean=-0.0364 >=.99=0.00 spearman=0.074
+[a3] sentence-transformers/all-MiniLM-L6-v2 requests_6f205ff422bccd5e4c4fc0b64c5f3e7df5181db6 text/search_result: cos_mean=-0.0371 >=.99=0.00 spearman=0.103
+[a3] sentence-transformers/all-MiniLM-L6-v2 requests_6f205ff422bccd5e4c4fc0b64c5f3e7df5181db6 name/none: cos_mean=-0.0090 >=.99=0.00 spearman=0.067
+[a3] sentence-transformers/all-MiniLM-L6-v2 requests_6f205ff422bccd5e4c4fc0b64c5f3e7df5181db6 name/document: cos_mean=-0.0518 >=.99=0.00 spearman=0.028
+[a3] sentence-transformers/all-MiniLM-L6-v2 requests_6f205ff422bccd5e4c4fc0b64c5f3e7df5181db6 id/none: cos_mean=-0.0090 >=.99=0.00 spearman=0.067
+[a3] sentence-transformers/all-MiniLM-L6-v2 requests_6f205ff422bccd5e4c4fc0b64c5f3e7df5181db6 id/document: cos_mean=-0.0518 >=.99=0.00 spearman=0.028
+[a3] sentence-transformers/all-MiniLM-L6-v2 requests_6f205ff422bccd5e4c4fc0b64c5f3e7df5181db6 name_text/none: cos_mean=-0.0312 >=.99=0.00 spearman=0.169
+[a3] sentence-transformers/all-MiniLM-L6-v2 requests_6f205ff422bccd5e4c4fc0b64c5f3e7df5181db6 name_text/document: cos_mean=-0.0438 >=.99=0.00 spearman=0.129
+[a3] sentence-transformers/all-MiniLM-L6-v2 rich_fc41075a3206d2a5fd846c6f41c4d2becab814fa text/none: cos_mean=0.0150 >=.99=0.00 spearman=0.124
+[a3] sentence-transformers/all-MiniLM-L6-v2 rich_fc41075a3206d2a5fd846c6f41c4d2becab814fa text/document: cos_mean=-0.0029 >=.99=0.00 spearman=0.112
+[a3] sentence-transformers/all-MiniLM-L6-v2 rich_fc41075a3206d2a5fd846c6f41c4d2becab814fa text/code_retrieval_query: cos_mean=-0.0041 >=.99=0.00 spearman=0.108
+[a3] sentence-transformers/all-MiniLM-L6-v2 rich_fc41075a3206d2a5fd846c6f41c4d2becab814fa text/search_result: cos_mean=-0.0071 >=.99=0.00 spearman=0.100
+[a3] sentence-transformers/all-MiniLM-L6-v2 rich_fc41075a3206d2a5fd846c6f41c4d2becab814fa name/none: cos_mean=0.0355 >=.99=0.00 spearman=0.122
+[a3] sentence-transformers/all-MiniLM-L6-v2 rich_fc41075a3206d2a5fd846c6f41c4d2becab814fa name/document: cos_mean=-0.0116 >=.99=0.00 spearman=0.116
+[a3] sentence-transformers/all-MiniLM-L6-v2 rich_fc41075a3206d2a5fd846c6f41c4d2becab814fa id/none: cos_mean=0.0355 >=.99=0.00 spearman=0.122
+[a3] sentence-transformers/all-MiniLM-L6-v2 rich_fc41075a3206d2a5fd846c6f41c4d2becab814fa id/document: cos_mean=-0.0116 >=.99=0.00 spearman=0.116
+[a3] sentence-transformers/all-MiniLM-L6-v2 rich_fc41075a3206d2a5fd846c6f41c4d2becab814fa name_text/none: cos_mean=0.0162 >=.99=0.00 spearman=0.154
+[a3] sentence-transformers/all-MiniLM-L6-v2 rich_fc41075a3206d2a5fd846c6f41c4d2becab814fa name_text/document: cos_mean=-0.0007 >=.99=0.00 spearman=0.134
+[a3] sentence-transformers/all-MiniLM-L6-v2 httpx_4acf5c2c37714cc63b5cf71b3e284fca83c90311 text/none: cos_mean=0.0013 >=.99=0.00 spearman=0.178
+[a3] sentence-transformers/all-MiniLM-L6-v2 httpx_4acf5c2c37714cc63b5cf71b3e284fca83c90311 text/document: cos_mean=-0.0279 >=.99=0.00 spearman=0.179
+[a3] sentence-transformers/all-MiniLM-L6-v2 httpx_4acf5c2c37714cc63b5cf71b3e284fca83c90311 text/code_retrieval_query: cos_mean=-0.0163 >=.99=0.00 spearman=0.208
+[a3] sentence-transformers/all-MiniLM-L6-v2 httpx_4acf5c2c37714cc63b5cf71b3e284fca83c90311 text/search_result: cos_mean=-0.0103 >=.99=0.00 spearman=0.194
+[a3] sentence-transformers/all-MiniLM-L6-v2 httpx_4acf5c2c37714cc63b5cf71b3e284fca83c90311 name/none: cos_mean=0.0161 >=.99=0.00 spearman=0.147
+[a3] sentence-transformers/all-MiniLM-L6-v2 httpx_4acf5c2c37714cc63b5cf71b3e284fca83c90311 name/document: cos_mean=-0.0440 >=.99=0.00 spearman=0.159
+[a3] sentence-transformers/all-MiniLM-L6-v2 httpx_4acf5c2c37714cc63b5cf71b3e284fca83c90311 id/none: cos_mean=0.0161 >=.99=0.00 spearman=0.147
+[a3] sentence-transformers/all-MiniLM-L6-v2 httpx_4acf5c2c37714cc63b5cf71b3e284fca83c90311 id/document: cos_mean=-0.0440 >=.99=0.00 spearman=0.159
+[a3] sentence-transformers/all-MiniLM-L6-v2 httpx_4acf5c2c37714cc63b5cf71b3e284fca83c90311 name_text/none: cos_mean=0.0083 >=.99=0.00 spearman=0.206
+[a3] sentence-transformers/all-MiniLM-L6-v2 httpx_4acf5c2c37714cc63b5cf71b3e284fca83c90311 name_text/document: cos_mean=-0.0229 >=.99=0.00 spearman=0.204
+[a3] sentence-transformers/all-MiniLM-L6-v2 fastapi_cb83b83dcf78eab4ea17d504db5abcda705fbdc4 text/none: cos_mean=0.0091 >=.99=0.00 spearman=0.007
+[a3] sentence-transformers/all-MiniLM-L6-v2 fastapi_cb83b83dcf78eab4ea17d504db5abcda705fbdc4 text/document: cos_mean=-0.0070 >=.99=0.00 spearman=0.008
+[a3] sentence-transformers/all-MiniLM-L6-v2 fastapi_cb83b83dcf78eab4ea17d504db5abcda705fbdc4 text/code_retrieval_query: cos_mean=-0.0153 >=.99=0.00 spearman=0.004
+[a3] sentence-transformers/all-MiniLM-L6-v2 fastapi_cb83b83dcf78eab4ea17d504db5abcda705fbdc4 text/search_result: cos_mean=-0.0132 >=.99=0.00 spearman=0.005
+[a3] sentence-transformers/all-MiniLM-L6-v2 fastapi_cb83b83dcf78eab4ea17d504db5abcda705fbdc4 name/none: cos_mean=0.0053 >=.99=0.00 spearman=0.034
+[a3] sentence-transformers/all-MiniLM-L6-v2 fastapi_cb83b83dcf78eab4ea17d504db5abcda705fbdc4 name/document: cos_mean=-0.0243 >=.99=0.00 spearman=0.025
+[a3] sentence-transformers/all-MiniLM-L6-v2 fastapi_cb83b83dcf78eab4ea17d504db5abcda705fbdc4 id/none: cos_mean=0.0053 >=.99=0.00 spearman=0.034
+[a3] sentence-transformers/all-MiniLM-L6-v2 fastapi_cb83b83dcf78eab4ea17d504db5abcda705fbdc4 id/document: cos_mean=-0.0243 >=.99=0.00 spearman=0.025
+[a3] sentence-transformers/all-MiniLM-L6-v2 fastapi_cb83b83dcf78eab4ea17d504db5abcda705fbdc4 name_text/none: cos_mean=0.0087 >=.99=0.00 spearman=0.007
+[a3] sentence-transformers/all-MiniLM-L6-v2 fastapi_cb83b83dcf78eab4ea17d504db5abcda705fbdc4 name_text/document: cos_mean=-0.0034 >=.99=0.00 spearman=0.011
+[a3] sentence-transformers/all-MiniLM-L6-v2 fastapi_22b02e26f9e8c7e32bd8266e2b0ebe8bb3a0db2b text/none: cos_mean=0.0069 >=.99=0.00 spearman=-0.022
+[a3] sentence-transformers/all-MiniLM-L6-v2 fastapi_22b02e26f9e8c7e32bd8266e2b0ebe8bb3a0db2b text/document: cos_mean=-0.0086 >=.99=0.00 spearman=-0.040
+[a3] sentence-transformers/all-MiniLM-L6-v2 fastapi_22b02e26f9e8c7e32bd8266e2b0ebe8bb3a0db2b text/code_retrieval_query: cos_mean=-0.0172 >=.99=0.00 spearman=-0.041
+[a3] sentence-transformers/all-MiniLM-L6-v2 fastapi_22b02e26f9e8c7e32bd8266e2b0ebe8bb3a0db2b text/search_result: cos_mean=-0.0144 >=.99=0.00 spearman=-0.040
+[a3] sentence-transformers/all-MiniLM-L6-v2 fastapi_22b02e26f9e8c7e32bd8266e2b0ebe8bb3a0db2b name/none: cos_mean=0.0082 >=.99=0.00 spearman=0.039
+[a3] sentence-transformers/all-MiniLM-L6-v2 fastapi_22b02e26f9e8c7e32bd8266e2b0ebe8bb3a0db2b name/document: cos_mean=-0.0186 >=.99=0.00 spearman=0.018
+[a3] sentence-transformers/all-MiniLM-L6-v2 fastapi_22b02e26f9e8c7e32bd8266e2b0ebe8bb3a0db2b id/none: cos_mean=0.0082 >=.99=0.00 spearman=0.039
+[a3] sentence-transformers/all-MiniLM-L6-v2 fastapi_22b02e26f9e8c7e32bd8266e2b0ebe8bb3a0db2b id/document: cos_mean=-0.0186 >=.99=0.00 spearman=0.018
+[a3] sentence-transformers/all-MiniLM-L6-v2 fastapi_22b02e26f9e8c7e32bd8266e2b0ebe8bb3a0db2b name_text/none: cos_mean=0.0060 >=.99=0.00 spearman=-0.009
+[a3] sentence-transformers/all-MiniLM-L6-v2 fastapi_22b02e26f9e8c7e32bd8266e2b0ebe8bb3a0db2b name_text/document: cos_mean=-0.0050 >=.99=0.00 spearman=-0.021
+[a3] sentence-transformers/all-MiniLM-L6-v2 fastapi_48d58ae3b6ef4ded5a4794618c00345667256d98 text/none: cos_mean=0.0121 >=.99=0.00 spearman=-0.035
+[a3] sentence-transformers/all-MiniLM-L6-v2 fastapi_48d58ae3b6ef4ded5a4794618c00345667256d98 text/document: cos_mean=-0.0067 >=.99=0.00 spearman=-0.042
+[a3] sentence-transformers/all-MiniLM-L6-v2 fastapi_48d58ae3b6ef4ded5a4794618c00345667256d98 text/code_retrieval_query: cos_mean=-0.0133 >=.99=0.00 spearman=-0.040
+[a3] sentence-transformers/all-MiniLM-L6-v2 fastapi_48d58ae3b6ef4ded5a4794618c00345667256d98 text/search_result: cos_mean=-0.0112 >=.99=0.00 spearman=-0.025
+[a3] sentence-transformers/all-MiniLM-L6-v2 fastapi_48d58ae3b6ef4ded5a4794618c00345667256d98 name/none: cos_mean=0.0058 >=.99=0.00 spearman=0.035
+[a3] sentence-transformers/all-MiniLM-L6-v2 fastapi_48d58ae3b6ef4ded5a4794618c00345667256d98 name/document: cos_mean=-0.0231 >=.99=0.00 spearman=0.012
+[a3] sentence-transformers/all-MiniLM-L6-v2 fastapi_48d58ae3b6ef4ded5a4794618c00345667256d98 id/none: cos_mean=0.0058 >=.99=0.00 spearman=0.035
+[a3] sentence-transformers/all-MiniLM-L6-v2 fastapi_48d58ae3b6ef4ded5a4794618c00345667256d98 id/document: cos_mean=-0.0231 >=.99=0.00 spearman=0.012
+[a3] sentence-transformers/all-MiniLM-L6-v2 fastapi_48d58ae3b6ef4ded5a4794618c00345667256d98 name_text/none: cos_mean=0.0072 >=.99=0.00 spearman=-0.010
+[a3] sentence-transformers/all-MiniLM-L6-v2 fastapi_48d58ae3b6ef4ded5a4794618c00345667256d98 name_text/document: cos_mean=-0.0050 >=.99=0.00 spearman=-0.022
+[a3] sentence-transformers/all-MiniLM-L6-v2 fastapi_1e78a36b7310003f0ff634627d8a7bc53c6ccdee text/none: cos_mean=0.0109 >=.99=0.00 spearman=0.024
+[a3] sentence-transformers/all-MiniLM-L6-v2 fastapi_1e78a36b7310003f0ff634627d8a7bc53c6ccdee text/document: cos_mean=-0.0059 >=.99=0.00 spearman=0.022
+[a3] sentence-transformers/all-MiniLM-L6-v2 fastapi_1e78a36b7310003f0ff634627d8a7bc53c6ccdee text/code_retrieval_query: cos_mean=-0.0145 >=.99=0.00 spearman=-0.011
+[a3] sentence-transformers/all-MiniLM-L6-v2 fastapi_1e78a36b7310003f0ff634627d8a7bc53c6ccdee text/search_result: cos_mean=-0.0119 >=.99=0.00 spearman=-0.007
+[a3] sentence-transformers/all-MiniLM-L6-v2 fastapi_1e78a36b7310003f0ff634627d8a7bc53c6ccdee name/none: cos_mean=0.0058 >=.99=0.00 spearman=0.047
+[a3] sentence-transformers/all-MiniLM-L6-v2 fastapi_1e78a36b7310003f0ff634627d8a7bc53c6ccdee name/document: cos_mean=-0.0227 >=.99=0.00 spearman=0.029
+[a3] sentence-transformers/all-MiniLM-L6-v2 fastapi_1e78a36b7310003f0ff634627d8a7bc53c6ccdee id/none: cos_mean=0.0058 >=.99=0.00 spearman=0.047
+[a3] sentence-transformers/all-MiniLM-L6-v2 fastapi_1e78a36b7310003f0ff634627d8a7bc53c6ccdee id/document: cos_mean=-0.0227 >=.99=0.00 spearman=0.029
+[a3] sentence-transformers/all-MiniLM-L6-v2 fastapi_1e78a36b7310003f0ff634627d8a7bc53c6ccdee name_text/none: cos_mean=0.0096 >=.99=0.00 spearman=0.049
+[a3] sentence-transformers/all-MiniLM-L6-v2 fastapi_1e78a36b7310003f0ff634627d8a7bc53c6ccdee name_text/document: cos_mean=-0.0024 >=.99=0.00 spearman=0.045
+[a3] sentence-transformers/all-MiniLM-L6-v2 fastapi_6ee87478d821171139264cd9cd17cbd2232934ce text/none: cos_mean=0.0155 >=.99=0.00 spearman=-0.040
+[a3] sentence-transformers/all-MiniLM-L6-v2 fastapi_6ee87478d821171139264cd9cd17cbd2232934ce text/document: cos_mean=-0.0020 >=.99=0.00 spearman=-0.031
+[a3] sentence-transformers/all-MiniLM-L6-v2 fastapi_6ee87478d821171139264cd9cd17cbd2232934ce text/code_retrieval_query: cos_mean=-0.0106 >=.99=0.00 spearman=-0.032
+[a3] sentence-transformers/all-MiniLM-L6-v2 fastapi_6ee87478d821171139264cd9cd17cbd2232934ce text/search_result: cos_mean=-0.0088 >=.99=0.00 spearman=-0.024
+[a3] sentence-transformers/all-MiniLM-L6-v2 fastapi_6ee87478d821171139264cd9cd17cbd2232934ce name/none: cos_mean=0.0113 >=.99=0.00 spearman=0.009
+[a3] sentence-transformers/all-MiniLM-L6-v2 fastapi_6ee87478d821171139264cd9cd17cbd2232934ce name/document: cos_mean=-0.0184 >=.99=0.00 spearman=-0.000
+[a3] sentence-transformers/all-MiniLM-L6-v2 fastapi_6ee87478d821171139264cd9cd17cbd2232934ce id/none: cos_mean=0.0113 >=.99=0.00 spearman=0.009
+[a3] sentence-transformers/all-MiniLM-L6-v2 fastapi_6ee87478d821171139264cd9cd17cbd2232934ce id/document: cos_mean=-0.0184 >=.99=0.00 spearman=-0.000
+[a3] sentence-transformers/all-MiniLM-L6-v2 fastapi_6ee87478d821171139264cd9cd17cbd2232934ce name_text/none: cos_mean=0.0126 >=.99=0.00 spearman=-0.006
+[a3] sentence-transformers/all-MiniLM-L6-v2 fastapi_6ee87478d821171139264cd9cd17cbd2232934ce name_text/document: cos_mean=0.0003 >=.99=0.00 spearman=-0.003
+[a3] sentence-transformers/all-MiniLM-L6-v2 fastapi_bc06e4296d588f39f38c7ac2fc96d3913c565962 text/none: cos_mean=0.0059 >=.99=0.00 spearman=-0.012
+[a3] sentence-transformers/all-MiniLM-L6-v2 fastapi_bc06e4296d588f39f38c7ac2fc96d3913c565962 text/document: cos_mean=-0.0111 >=.99=0.00 spearman=-0.039
+[a3] sentence-transformers/all-MiniLM-L6-v2 fastapi_bc06e4296d588f39f38c7ac2fc96d3913c565962 text/code_retrieval_query: cos_mean=-0.0176 >=.99=0.00 spearman=-0.050
+[a3] sentence-transformers/all-MiniLM-L6-v2 fastapi_bc06e4296d588f39f38c7ac2fc96d3913c565962 text/search_result: cos_mean=-0.0147 >=.99=0.00 spearman=-0.034
+[a3] sentence-transformers/all-MiniLM-L6-v2 fastapi_bc06e4296d588f39f38c7ac2fc96d3913c565962 name/none: cos_mean=0.0043 >=.99=0.00 spearman=0.003
+[a3] sentence-transformers/all-MiniLM-L6-v2 fastapi_bc06e4296d588f39f38c7ac2fc96d3913c565962 name/document: cos_mean=-0.0249 >=.99=0.00 spearman=-0.004
+[a3] sentence-transformers/all-MiniLM-L6-v2 fastapi_bc06e4296d588f39f38c7ac2fc96d3913c565962 id/none: cos_mean=0.0043 >=.99=0.00 spearman=0.003
+[a3] sentence-transformers/all-MiniLM-L6-v2 fastapi_bc06e4296d588f39f38c7ac2fc96d3913c565962 id/document: cos_mean=-0.0249 >=.99=0.00 spearman=-0.004
+[a3] sentence-transformers/all-MiniLM-L6-v2 fastapi_bc06e4296d588f39f38c7ac2fc96d3913c565962 name_text/none: cos_mean=0.0039 >=.99=0.00 spearman=-0.007
+[a3] sentence-transformers/all-MiniLM-L6-v2 fastapi_bc06e4296d588f39f38c7ac2fc96d3913c565962 name_text/document: cos_mean=-0.0085 >=.99=0.00 spearman=-0.018
+{
+  "models": {
+    "google/embeddinggemma-300m": {
+      "best": {
+        "model": "google/embeddinggemma-300m",
+        "graph_key": "httpx_4acf5c2c37714cc63b5cf71b3e284fca83c90311",
+        "variant": "name",
+        "prompt": "document",
+        "n": 200,
+        "cos_mean": 0.07337541878223419,
+        "cos_median": 0.07419028133153915,
+        "share_ge_0.99": 0.0,
+        "share_ge_0.95": 0.0,
+        "spearman_pairwise": 0.09966420825065046,
+        "model_dim": 256
+      },
+      "identified": false
+    },
+    "google/embeddinggemma-2": {
+      "error": "EmbeddingGemma2Processor requires the PIL library but it was not found in your environment. You can install it with pip:\n`pip install pillow`. Please note that you may need to restart your runtime after installation.\n\nTo install the required dependencies, run:\npip install -U \"sentence-transformers[image]\""
+    },
+    "sentence-transformers/all-MiniLM-L6-v2": {
+      "best": {
+        "model": "sentence-transformers/all-MiniLM-L6-v2",
+        "graph_key": "rich_fc41075a3206d2a5fd846c6f41c4d2becab814fa",
+        "variant": "name",
+        "prompt": "none",
+        "n": 200,
+        "cos_mean": 0.035520508885383606,
+        "cos_median": 0.04062406346201897,
+        "share_ge_0.99": 0.0,
+        "share_ge_0.95": 0.0,
+        "spearman_pairwise": 0.1216914519928243,
+        "model_dim": 256
+      },
+      "identified": false
+    }
+  },
+  "identified_encoder": null
+}

@@ -1,0 +1,21 @@
+
+$ /home/sauravbellam/cache/a2/rich_3063/venv/bin/python -s -m pytest tests/test_markup.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/rich_3063/trace_pre.xml
+[exit 1]
+...F.................                                                    [100%]
+=================================== FAILURES ===================================
+__________________________ test_escape_backslash_end ___________________________
+
+    def test_escape_backslash_end():
+        # https://github.com/Textualize/rich/issues/2987
+        value = "C:\\"
+>       assert escape(value) == "C:\\\\"
+E       AssertionError: assert 'C:\\' == 'C:\\\\'
+E         
+E         - C:\\
+E         ?    -
+E         + C:\
+
+tests/test_markup.py:50: AssertionError
+1 failed, 20 passed in 0.33s
+
+

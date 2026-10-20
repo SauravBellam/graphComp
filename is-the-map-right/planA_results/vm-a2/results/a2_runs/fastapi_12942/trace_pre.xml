@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="1.807" timestamp="2026-10-10T23:18:27.855198+00:00" hostname="vm-a2"><testcase classname="tests.test_union_body_discriminator" name="test_discriminator_pydantic_v2" time="0.194"><failure message="AssertionError: {&quot;detail&quot;:[{&quot;type&quot;:&quot;missing&quot;,&quot;loc&quot;:[&quot;query&quot;,&quot;item&quot;],&quot;msg&quot;:&quot;Field required&quot;,&quot;input&quot;:null}]}&#10;assert 422 == 200&#10; +  where 422 = &lt;Response [422 Unprocessable Entity]&gt;.status_code">@needs_pydanticv2
+    def test_discriminator_pydantic_v2() -&gt; None:
+        from pydantic import Tag
+    
+        app = FastAPI()
+    
+        class FirstItem(BaseModel):
+            value: Literal["first"]
+            price: int
+    
+        class OtherItem(BaseModel):
+            value: Literal["other"]
+            price: float
+    
+        Item = Annotated[
+            Union[Annotated[FirstItem, Tag("first")], Annotated[OtherItem, Tag("other")]],
+            Field(discriminator="value"),
+        ]
+    
+        @app.post("/items/")
+        def save_union_body_discriminator(
+            item: Item, q: Annotated[str, Field(description="Query string")]
+        ) -&gt; Dict[str, Any]:
+            return {"item": item}
+    
+        client = TestClient(app)
+        response = client.post("/items/?q=first", json={"value": "first", "price": 100})
+&gt;       assert response.status_code == 200, response.text
+E       AssertionError: {"detail":[{"type":"missing","loc":["query","item"],"msg":"Field required","input":null}]}
+E       assert 422 == 200
+E        +  where 422 = &lt;Response [422 Unprocessable Entity]&gt;.status_code
+
+tests/test_union_body_discriminator.py:40: AssertionError</failure></testcase></testsuite></testsuites>

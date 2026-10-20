@@ -1,0 +1,110 @@
+{
+  "instance_id": "fastapi_14512",
+  "repo": "fastapi/fastapi",
+  "backend": "venv",
+  "done": true,
+  "deps": {
+    "steps": [
+      {
+        "name": "pip_upgrade",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14512/venv/bin/python -m pip install -q --disable-pip-version-check 'pip>=24' 'setuptools' 'wheel' pytest pytest-timeout",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "editable_no_deps",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14512/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-build-isolation --no-deps -e .",
+        "exit": 2,
+        "stderr_tail": "lib/python3.13/site-packages/pip/_internal/req/req_install.py\", line 258, in supports_pyproject_editable\n    return \"build_editable\" in self.pep517_backend._supported_features()\n                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"/home/sauravbellam/cache/a2/fastapi_14512/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 180, in _supported_features\n    return self._call_hook(\"_supported_features\", {})\n           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/sauravbellam/cache/a2/fastapi_14512/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 402, in _call_hook\n    raise BackendUnavailable(\n    ...<4 lines>...\n    )\npip._vendor.pyproject_hooks._impl.BackendUnavailable: Cannot import 'pdm.backend'\n"
+      },
+      {
+        "name": "editable_no_deps_isolated",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14512/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-deps -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "runtime_deps",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14512/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "extra_all",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14512/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e '.[all]'",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "extra_standard",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14512/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e '.[standard]'",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "req_requirements-tests.txt",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14512/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -r requirements-tests.txt",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "req_requirements-docs-tests.txt",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14512/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -r requirements-docs-tests.txt",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "req_requirements.txt",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14512/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -r requirements.txt",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "fastapi_tests",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14512/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels httpx 'python-multipart' email-validator pyyaml orjson ujson 'sqlmodel' 'dirty-equals' 'pytest-asyncio' 'flask' 'passlib[bcrypt]' 'pyjwt' 'inline-snapshot'",
+        "exit": 0,
+        "stderr_tail": ""
+      }
+    ],
+    "editable_ok": true,
+    "python": "3.13.5 (main, Aug 10 2026, 12:06:59) [GCC 14.2.0]"
+  },
+  "targets": [
+    "tests/test_union_body_discriminator_annotated.py"
+  ],
+  "test_patch_strategy": "exact",
+  "test_patch_applied": true,
+  "pre": {
+    "exit": 1,
+    "seconds": 7.2,
+    "timeout": false,
+    "exit_meaning": "some_failed",
+    "run_class": "clean",
+    "counts": {
+      "error": 3
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "nion import MissingDefinitionForUnionRef\n    \n                raise MissingDefinitionForUnionRef(original_schema['schema_ref'])\n    \n            # If using a referenceable union as discriminated (e.g. `type Pet = Cat | Dog; field: Pet = Field(discriminator=...)`):\n            if def_schema['type'] == 'union':\n                original_schema = def_schema.copy()\n                original_schema.pop('ref')\n    \n        if original_schema['type'] != 'union':\n            # This likely indicates that the schema was a single-item union that was simplified.\n            # In this case, we do the same thing we do in\n            # `pydantic._internal._discriminated_union._ApplyInferredDiscriminator._apply_to_root`, namely,\n            # package the generated schema back into a single-item union.\n            original_schema = core_schema.union_schema([original_schema])\n    \n        tagged_union_choices = {}\n        for choice in original_schema['choices']:\n            tag = None\n            if isinstance(choice, tuple):\n                choice, tag = choice\n            metadata = cast('CoreMetadata | None', choice.get('metadata'))\n            if metadata is not None:\n                tag = metadata.get('pydantic_internal_union_tag_key') or tag\n            if tag is None:\n                if choice['type'] == 'definition-ref':\n                    # If choice was built from a PEP 695 type alias, try to resolve the def:\n                    resolved_choice = _resolve_ref(choice)\n                    if resolved_choice is not None:\n                        choice = resolved_choice\n                        metadata = cast('CoreMetadata | None', choice.get('metadata'))\n                        if metadata is not None:\n                            tag = metadata.get('pydantic_internal_union_tag_key')\n    \n                if tag is None:\n>                   raise PydanticUserError(\n                        f'`Tag` not provided for choice {choice} used with `Discriminator`',\n                        code='callable-discriminator-no-tag',\n                    )\nE                   pydantic.errors.PydanticUserError: `Tag` not provided for choice {'type': 'tagged-union', 'choices': {'cat': {'type': 'definition-ref', 'schema_ref': 'tests.test_union_body_discriminator_annotated.client_fixture.<locals>.Cat:400437888', 'metadata': {'pydantic_internal_union_tag_key': 'cat'}}, 'dog': {'type': 'definition-ref', 'schema_ref': 'tests.test_union_body_discriminator_annotated.client_fixture.<locals>.Dog:401401296', 'metadata': {'pydantic_internal_union_tag_key': 'dog'}}}, 'discriminator': <function client_fixture.<locals>.get_pet_type at 0x7fe0ce947ba0>} used with `Discriminator`\nE                   \nE                   For further information visit https://errors.pydantic.dev/2.14/u/callable-discriminator-no-tag\n\n../venv/lib/python3.13/site-packages/pydantic/types.py:3176: PydanticUserError\n- generated xml file: /home/sauravbellam/results/a2_runs/fastapi_14512/trace_pre.xml -\n3 errors in 6.22s\n",
+    "stderr_tail": ""
+  },
+  "gold_patch_strategy": "exact",
+  "gold_patch_applied": true,
+  "post": {
+    "exit": 0,
+    "seconds": 3.1,
+    "timeout": false,
+    "exit_meaning": "all_passed",
+    "run_class": "clean",
+    "counts": {
+      "passed": 3
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "...                                                                      [100%]\n- generated xml file: /home/sauravbellam/results/a2_runs/fastapi_14512/trace_post.xml -\n3 passed in 2.02s\n",
+    "stderr_tail": ""
+  },
+  "trace_pre_exists": true,
+  "trace_post_exists": true,
+  "seconds": 102.8
+}

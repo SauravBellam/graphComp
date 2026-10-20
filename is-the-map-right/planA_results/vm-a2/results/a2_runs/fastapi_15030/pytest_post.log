@@ -1,0 +1,7 @@
+
+$ /home/sauravbellam/cache/a2/fastapi_15030/venv/bin/python -s -m pytest tests/test_sse.py tests/test_tutorial/test_server_sent_events/test_tutorial001.py tests/test_tutorial/test_server_sent_events/test_tutorial002.py tests/test_tutorial/test_server_sent_events/test_tutorial003.py tests/test_tutorial/test_server_sent_events/test_tutorial004.py tests/test_tutorial/test_server_sent_events/test_tutorial005.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/fastapi_15030/trace_post.xml
+[exit 0]
+.................................                                        [100%]
+33 passed in 4.22s
+
+

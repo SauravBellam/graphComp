@@ -1,0 +1,113 @@
+{
+  "instance_id": "fastapi_14246",
+  "repo": "fastapi/fastapi",
+  "backend": "venv",
+  "done": true,
+  "deps": {
+    "steps": [
+      {
+        "name": "pip_upgrade",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14246/venv/bin/python -m pip install -q --disable-pip-version-check 'pip>=24' 'setuptools' 'wheel' pytest pytest-timeout",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "editable_no_deps",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14246/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-build-isolation --no-deps -e .",
+        "exit": 2,
+        "stderr_tail": "lib/python3.13/site-packages/pip/_internal/req/req_install.py\", line 258, in supports_pyproject_editable\n    return \"build_editable\" in self.pep517_backend._supported_features()\n                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"/home/sauravbellam/cache/a2/fastapi_14246/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 180, in _supported_features\n    return self._call_hook(\"_supported_features\", {})\n           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/sauravbellam/cache/a2/fastapi_14246/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 402, in _call_hook\n    raise BackendUnavailable(\n    ...<4 lines>...\n    )\npip._vendor.pyproject_hooks._impl.BackendUnavailable: Cannot import 'pdm.backend'\n"
+      },
+      {
+        "name": "editable_no_deps_isolated",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14246/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-deps -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "runtime_deps",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14246/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "extra_all",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14246/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e '.[all]'",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "extra_standard",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14246/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e '.[standard]'",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "req_requirements-tests.txt",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14246/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -r requirements-tests.txt",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "req_requirements-docs-tests.txt",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14246/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -r requirements-docs-tests.txt",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "req_requirements.txt",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14246/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -r requirements.txt",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "fastapi_tests",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14246/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels httpx 'python-multipart' email-validator pyyaml orjson ujson 'sqlmodel' 'dirty-equals' 'pytest-asyncio' 'flask' 'passlib[bcrypt]' 'pyjwt' 'inline-snapshot'",
+        "exit": 0,
+        "stderr_tail": ""
+      }
+    ],
+    "editable_ok": true,
+    "python": "3.13.5 (main, Aug 10 2026, 12:06:59) [GCC 14.2.0]"
+  },
+  "targets": [
+    "tests/test_no_schema_split.py",
+    "tests/test_pydantic_v1_v2_multifile/test_multifile.py"
+  ],
+  "test_patch_strategy": "exact",
+  "test_patch_applied": true,
+  "pre": {
+    "exit": 1,
+    "seconds": 6.0,
+    "timeout": false,
+    "exit_meaning": "some_failed",
+    "run_class": "clean",
+    "counts": {
+      "failed": 1,
+      "passed": 14,
+      "error": 1
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "                   \"items\": {\n                                                \"$ref\": \"#/components/schemas/tests__test_pydantic_v1_v2_multifile__modelsv2b__SubItem\"\n                                            },\n                                            \"type\": \"array\",\n                                            \"title\": \"Dup Multi\",\n                                            \"default\": [],\n                                        },\n                                    },\n                                    \"type\": \"object\",\n                                    \"required\": [\"dup_title\", \"dup_size\", \"dup_sub\"],\n                                    \"title\": \"Item\",\n                                },\n                                \"tests__test_pydantic_v1_v2_multifile__modelsv2b__ItemInList\": {\n                                    \"properties\": {\n                                        \"dup_name2\": {\n                                            \"type\": \"string\",\n                                            \"title\": \"Dup Name2\",\n                                        }\n                                    },\n                                    \"type\": \"object\",\n                                    \"required\": [\"dup_name2\"],\n                                    \"title\": \"ItemInList\",\n                                },\n                                \"tests__test_pydantic_v1_v2_multifile__modelsv2b__SubItem\": {\n                                    \"properties\": {\n                                        \"dup_sub_name\": {\n                                            \"type\": \"string\",\n                                            \"title\": \"Dup Sub Name\",\n                                        }\n                                    },\n                                    \"type\": \"object\",\n                                    \"required\": [\"dup_sub_name\"],\n                                    \"title\": \"SubItem\",\n                                },\n                            }\n                        ),\n                    ),\n                },\n            }\n        )\nE       AssertionError: assert {'components'...List'}}, ...}} == {'components'...List'}}, ...}}\nE         \nE         Omitting 3 identical items, use -vv to show\nE         Differing items:\nE         {'components': {'schemas': {'Body_handle_v2_items_in_list_to_v1_item_in_list_v2_to_v1_list_of_items_to_list_of_items_p...title': 'New Sub Name', 'type': 'string'}}, 'required': ['new_sub_name'], 'title': 'SubItem', 'type': 'object'}, ...}}} != {'components': {'schemas': {'Body_handle_v2_items_in_list_to_v1_item_in_list_v2_to_v1_list_of_items_to_list_of_items_p...or Type', 'type': 'string'}}, 'required': ['loc', 'msg', 'type'], 'title': 'ValidationError', 'type': 'object'}, ...}}}\nE         Use -v to get more diff\n\ntests/test_pydantic_v1_v2_multifile/test_multifile.py:283: AssertionError\n- generated xml file: /home/sauravbellam/results/a2_runs/fastapi_14246/trace_pre.xml -\n1 failed, 14 passed, 1 error in 4.71s\n",
+    "stderr_tail": ""
+  },
+  "gold_patch_strategy": "exact",
+  "gold_patch_applied": true,
+  "post": {
+    "exit": 0,
+    "seconds": 3.8,
+    "timeout": false,
+    "exit_meaning": "all_passed",
+    "run_class": "clean",
+    "counts": {
+      "passed": 15
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "...............                                                          [100%]\n- generated xml file: /home/sauravbellam/results/a2_runs/fastapi_14246/trace_post.xml -\n15 passed in 2.78s\n",
+    "stderr_tail": ""
+  },
+  "trace_pre_exists": true,
+  "trace_post_exists": true,
+  "seconds": 88.7
+}

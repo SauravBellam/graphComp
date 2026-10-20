@@ -1,0 +1,87 @@
+{
+  "instance_id": "rich_3953",
+  "repo": "Textualize/rich",
+  "backend": "venv",
+  "done": true,
+  "deps": {
+    "steps": [
+      {
+        "name": "pip_upgrade",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3953/venv/bin/python -m pip install -q --disable-pip-version-check 'pip>=24' 'setuptools' 'wheel' pytest pytest-timeout",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "editable_no_deps",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3953/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-build-isolation --no-deps -e .",
+        "exit": 2,
+        "stderr_tail": "python3.13/site-packages/pip/_internal/req/req_install.py\", line 258, in supports_pyproject_editable\n    return \"build_editable\" in self.pep517_backend._supported_features()\n                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"/home/sauravbellam/cache/a2/rich_3953/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 180, in _supported_features\n    return self._call_hook(\"_supported_features\", {})\n           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/sauravbellam/cache/a2/rich_3953/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 402, in _call_hook\n    raise BackendUnavailable(\n    ...<4 lines>...\n    )\npip._vendor.pyproject_hooks._impl.BackendUnavailable: Cannot import 'poetry.core.masonry.api'\n"
+      },
+      {
+        "name": "editable_no_deps_isolated",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3953/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-deps -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "runtime_deps",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3953/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "poetry_group_dev",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3953/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels pytest black mypy pytest-cov attrs pre-commit typing-extensions",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "rich_tests",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3953/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels pytest-cov attrs ipywidgets",
+        "exit": 0,
+        "stderr_tail": ""
+      }
+    ],
+    "editable_ok": true,
+    "python": "3.13.5 (main, Aug 10 2026, 12:06:59) [GCC 14.2.0]"
+  },
+  "targets": [
+    "tests/test_cells.py"
+  ],
+  "test_patch_strategy": "exact",
+  "test_patch_applied": true,
+  "pre": {
+    "exit": 1,
+    "seconds": 0.7,
+    "timeout": false,
+    "exit_meaning": "some_failed",
+    "run_class": "clean",
+    "counts": {
+      "failed": 2,
+      "passed": 54
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "......................................................FF                 [100%]\n=================================== FAILURES ===================================\n___________________________________ test_zwj ___________________________________\n\n    def test_zwj():\n        \"\"\"Test special case of zero width joiners\"\"\"\n        assert cell_len(\"\") == 0\n>       assert cell_len(\"\\u200d\") == 0\n               ^^^^^^^^^^^^^^^^^^\n\ntests/test_cells.py:195: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \nrich/cells.py:106: in cell_len\n    return cached_cell_len(text, unicode_version)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nrich/cells.py:92: in cached_cell_len\n    return _cell_len(text, unicode_version)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\ntext = '\\u200d', unicode_version = 'auto'\n\n    def _cell_len(text: str, unicode_version: str) -> int:\n        \"\"\"Get the cell length of a string (length as it appears in the terminal).\n    \n        Args:\n            text: String to measure.\n            unicode_version: Unicode version, `\"auto\"` to auto detect, `\"latest\"` for the latest unicode version.\n    \n        Returns:\n            Length of string in terminal cells.\n        \"\"\"\n    \n        if _is_single_cell_widths(text):\n            return len(text)\n    \n        # \"\\u200d\" is zero width joiner\n        # \"\\ufe0f\" is variation selector 16\n        if \"\\u200d\" not in text and \"\\ufe0f\" not in text:\n            # Simplest case with no unicode stuff that changes the size\n            return sum(\n                get_character_cell_size(character, unicode_version) for character in text\n            )\n    \n        cell_table = load_cell_table(unicode_version)\n        total_width = 0\n        last_measured_character: str | None = None\n    \n        SPECIAL = {\"\\u200d\", \"\\ufe0f\"}\n    \n        iter_characters = iter(text)\n    \n        for character in iter_characters:\n            if character in SPECIAL:\n                if character == \"\\u200d\":\n>                   next(iter_characters)\nE                   StopIteration\n\nrich/cells.py:143: StopIteration\n______________________________ test_non_printable ______________________________\n\n    def test_non_printable():\n        \"\"\"Non printable characters should report a width of 0.\"\"\"\n        for ordinal in range(31):\n            character = chr(ordinal)\n>           assert cell_len(character) == 0\nE           AssertionError: assert 1 == 0\nE            +  where 1 = cell_len('\\x01')\n\ntests/test_cells.py:206: AssertionError\n2 failed, 54 passed in 0.35s\n",
+    "stderr_tail": ""
+  },
+  "gold_patch_strategy": "exact",
+  "gold_patch_applied": true,
+  "post": {
+    "exit": 0,
+    "seconds": 0.6,
+    "timeout": false,
+    "exit_meaning": "all_passed",
+    "run_class": "clean",
+    "counts": {
+      "passed": 56
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "........................................................                 [100%]\n56 passed in 0.33s\n",
+    "stderr_tail": ""
+  },
+  "trace_pre_exists": true,
+  "trace_post_exists": true,
+  "seconds": 32.9
+}

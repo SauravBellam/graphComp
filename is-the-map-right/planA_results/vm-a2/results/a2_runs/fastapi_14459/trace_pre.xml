@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="2" failures="2" skipped="0" tests="8" time="2.364" timestamp="2026-10-10T23:19:49.929892+00:00" hostname="vm-a2"><testcase classname="tests.test_security_oauth2_authorization_code_bearer_scopes_openapi" name="test_root" time="0.236" /><testcase classname="tests.test_security_oauth2_authorization_code_bearer_scopes_openapi" name="test_read_with_oauth2_scheme" time="0.008" /><testcase classname="tests.test_security_oauth2_authorization_code_bearer_scopes_openapi" name="test_read_with_get_token" time="0.015" /><testcase classname="tests.test_security_oauth2_authorization_code_bearer_scopes_openapi" name="test_read_token" time="0.016" /><testcase classname="tests.test_security_oauth2_authorization_code_bearer_scopes_openapi" name="test_create_token" time="0.007" /><testcase classname="tests.test_security_oauth2_authorization_code_bearer_scopes_openapi" name="test_openapi_schema" time="0.214"><failure message="AssertionError: assert {'components'...h2 Scheme'}}}} == {'components'...h2 Scheme'}}}}&#10;  &#10;  Omitting 3 identical items, use -vv to show&#10;  Differing items:&#10;  {'paths': {'/': {'get': {'operationId': 'root__get', 'responses': {'200': {'content': {...}, 'description': 'Successfu...uccessful Response'}}, 'security': [{'OAuth2AuthorizationCodeBearer': [...]}], 'summary': 'Read With Oauth2 Scheme'}}}} != {'paths': {'/': {'get': {'operationId': 'root__get', 'responses': {'200': {'content': {...}, 'description': 'Successfu...uccessful Response'}}, 'security': [{'OAuth2AuthorizationCodeBearer': [...]}], 'summary': 'Read With Oauth2 Scheme'}}}}&#10;  Use -v to get more diff">def test_openapi_schema():
+        response = client.get("/openapi.json")
+        assert response.status_code == 200, response.text
+&gt;       assert response.json() == snapshot(
+            {
+                "openapi": "3.1.0",
+                "info": {"title": "FastAPI", "version": "0.1.0"},
+                "paths": {
+                    "/": {
+                        "get": {
+                            "summary": "Root",
+                            "operationId": "root__get",
+                            "responses": {
+                                "200": {
+                                    "description": "Successful Response",
+                                    "content": {"application/json": {"schema": {}}},
+                                }
+                            },
+                            "security": [{"OAuth2AuthorizationCodeBearer": []}],
+                        }
+                    },
+                    "/with-oauth2-scheme": {
+                        "get": {
+                            "summary": "Read With Oauth2 Scheme",
+                            "operationId": "read_with_oauth2_scheme_with_oauth2_scheme_get",
+                            "responses": {
+                                "200": {
+                                    "description": "Successful Response",
+                                    "content": {"application/json": {"schema": {}}},
+                                }
+                            },
+                            "security": [
+                                {"OAuth2AuthorizationCodeBearer": ["read", "write"]}
+                            ],
+                        }
+                    },
+                    "/with-get-token": {
+                        "get": {
+                            "summary": "Read With Get Token",
+                            "operationId": "read_with_get_token_with_get_token_get",
+                            "responses": {
+                                "200": {
+                                    "description": "Successful Response",
+                                    "content": {"application/json": {"schema": {}}},
+                                }
+                            },
+                            "security": [
+                                {"OAuth2AuthorizationCodeBearer": ["read", "write"]}
+                            ],
+                        }
+                    },
+                    "/items/": {
+                        "get": {
+                            "summary": "Read Items",
+                            "operationId": "read_items_items__get",
+                            "responses": {
+                                "200": {
+                                    "description": "Successful Response",
+                                    "content": {"application/json": {"schema": {}}},
+                                }
+                            },
+                            "security": [
+                                {"OAuth2AuthorizationCodeBearer": ["read"]},
+                            ],
+                        },
+                        "post": {
+                            "summary": "Create Item",
+                            "operationId": "create_item_items__post",
+                            "responses": {
+                                "200": {
+                                    "description": "Successful Response",
+                                    "content": {"application/json": {"schema": {}}},
+                                }
+                            },
+                            "security": [
+                                {"OAuth2AuthorizationCodeBearer": ["read", "write"]},
+                            ],
+                        },
+                    },
+                },
+                "components": {
+                    "securitySchemes": {
+                        "OAuth2AuthorizationCodeBearer": {
+                            "type": "oauth2",
+                            "flows": {
+                                "authorizationCode": {
+                                    "scopes": {
+                                        "read": "Read access",
+                                        "write": "Write access",
+                                    },
+                                    "authorizationUrl": "authorize",
+                                    "tokenUrl": "token",
+                                }
+                            },
+                        }
+                    }
+                },
+            }
+        )
+E       AssertionError: assert {'components'...h2 Scheme'}}}} == {'components'...h2 Scheme'}}}}
+E         
+E         Omitting 3 identical items, use -vv to show
+E         Differing items:
+E         {'paths': {'/': {'get': {'operationId': 'root__get', 'responses': {'200': {'content': {...}, 'description': 'Successfu...uccessful Response'}}, 'security': [{'OAuth2AuthorizationCodeBearer': [...]}], 'summary': 'Read With Oauth2 Scheme'}}}} != {'paths': {'/': {'get': {'operationId': 'root__get', 'responses': {'200': {'content': {...}, 'description': 'Successfu...uccessful Response'}}, 'security': [{'OAuth2AuthorizationCodeBearer': [...]}], 'summary': 'Read With Oauth2 Scheme'}}}}
+E         Use -v to get more diff
+
+tests/test_security_oauth2_authorization_code_bearer_scopes_openapi.py:103: AssertionError</failure></testcase><testcase classname="tests.test_security_oauth2_authorization_code_bearer_scopes_openapi" name="test_openapi_schema" time="0.000"><error message="failed on teardown with &quot;Failed: some snapshots in this test have incorrect values.&#10;If you just created this value with --inline-snapshot=create, the value is now created and you can ignore this message.&quot;">some snapshots in this test have incorrect values.
+If you just created this value with --inline-snapshot=create, the value is now created and you can ignore this message.</error></testcase><testcase classname="tests.test_security_oauth2_authorization_code_bearer_scopes_openapi_simple" name="test_read_admin" time="0.005" /><testcase classname="tests.test_security_oauth2_authorization_code_bearer_scopes_openapi_simple" name="test_openapi_schema" time="0.059"><failure message="AssertionError: assert {'components'...ead Admin'}}}} == {'components'...ead Admin'}}}}&#10;  &#10;  Omitting 3 identical items, use -vv to show&#10;  Differing items:&#10;  {'paths': {'/admin': {'get': {'operationId': 'read_admin_admin_get', 'responses': {'200': {'content': {...}, 'description': 'Successful Response'}}, 'security': [{'OAuth2AuthorizationCodeBearer': []}], 'summary': 'Read Admin'}}}} != {'paths': {'/admin': {'get': {'operationId': 'read_admin_admin_get', 'responses': {'200': {'content': {...}, 'description': 'Successful Response'}}, 'security': [{'OAuth2AuthorizationCodeBearer': [...]}], 'summary': 'Read Admin'}}}}&#10;  Use -v to get more diff">def test_openapi_schema():
+        response = client.get("/openapi.json")
+        assert response.status_code == 200, response.text
+&gt;       assert response.json() == snapshot(
+            {
+                "openapi": "3.1.0",
+                "info": {"title": "FastAPI", "version": "0.1.0"},
+                "paths": {
+                    "/admin": {
+                        "get": {
+                            "summary": "Read Admin",
+                            "operationId": "read_admin_admin_get",
+                            "responses": {
+                                "200": {
+                                    "description": "Successful Response",
+                                    "content": {"application/json": {"schema": {}}},
+                                }
+                            },
+                            "security": [
+                                {"OAuth2AuthorizationCodeBearer": ["read", "write"]}
+                            ],
+                        }
+                    }
+                },
+                "components": {
+                    "securitySchemes": {
+                        "OAuth2AuthorizationCodeBearer": {
+                            "type": "oauth2",
+                            "flows": {
+                                "authorizationCode": {
+                                    "scopes": {
+                                        "read": "Read access",
+                                        "write": "Write access",
+                                    },
+                                    "authorizationUrl": "api/oauth/authorize",
+                                    "tokenUrl": "/api/oauth/token",
+                                }
+                            },
+                        }
+                    }
+                },
+            }
+        )
+E       AssertionError: assert {'components'...ead Admin'}}}} == {'components'...ead Admin'}}}}
+E         
+E         Omitting 3 identical items, use -vv to show
+E         Differing items:
+E         {'paths': {'/admin': {'get': {'operationId': 'read_admin_admin_get', 'responses': {'200': {'content': {...}, 'description': 'Successful Response'}}, 'security': [{'OAuth2AuthorizationCodeBearer': []}], 'summary': 'Read Admin'}}}} != {'paths': {'/admin': {'get': {'operationId': 'read_admin_admin_get', 'responses': {'200': {'content': {...}, 'description': 'Successful Response'}}, 'security': [{'OAuth2AuthorizationCodeBearer': [...]}], 'summary': 'Read Admin'}}}}
+E         Use -v to get more diff
+
+tests/test_security_oauth2_authorization_code_bearer_scopes_openapi_simple.py:40: AssertionError</failure></testcase><testcase classname="tests.test_security_oauth2_authorization_code_bearer_scopes_openapi_simple" name="test_openapi_schema" time="0.001"><error message="failed on teardown with &quot;Failed: some snapshots in this test have incorrect values.&#10;If you just created this value with --inline-snapshot=create, the value is now created and you can ignore this message.&quot;">some snapshots in this test have incorrect values.
+If you just created this value with --inline-snapshot=create, the value is now created and you can ignore this message.</error></testcase></testsuite></testsuites>

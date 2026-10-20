@@ -1,0 +1,76 @@
+{
+  "instance_id": "requests_6629",
+  "repo": "psf/requests",
+  "backend": "venv",
+  "done": true,
+  "deps": {
+    "steps": [
+      {
+        "name": "pip_upgrade",
+        "cmd": "/home/sauravbellam/cache/a2/requests_6629/venv/bin/python -m pip install -q --disable-pip-version-check 'pip>=24' 'setuptools' 'wheel' pytest pytest-timeout",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "editable_no_deps",
+        "cmd": "/home/sauravbellam/cache/a2/requests_6629/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-build-isolation --no-deps -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "runtime_deps",
+        "cmd": "/home/sauravbellam/cache/a2/requests_6629/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "req_requirements-dev.txt",
+        "cmd": "/home/sauravbellam/cache/a2/requests_6629/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -r requirements-dev.txt",
+        "exit": 0,
+        "stderr_tail": "ERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.\npytest-timeout 2.4.0 requires pytest>=7.0.0, but you have pytest 6.2.5 which is incompatible.\n"
+      },
+      {
+        "name": "requests_httpbin",
+        "cmd": "/home/sauravbellam/cache/a2/requests_6629/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels pytest-httpbin httpbin trustme pysocks",
+        "exit": 0,
+        "stderr_tail": ""
+      }
+    ],
+    "editable_ok": true,
+    "python": "3.13.5 (main, Aug 10 2026, 12:06:59) [GCC 14.2.0]"
+  },
+  "targets": [
+    "tests/test_requests.py"
+  ],
+  "test_patch_strategy": "exact",
+  "test_patch_applied": true,
+  "pre": {
+    "exit": 1,
+    "seconds": 0.4,
+    "timeout": false,
+    "exit_meaning": "some_failed",
+    "run_class": "no_tests",
+    "counts": {},
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "",
+    "stderr_tail": "s.py\", line 121, in _multicall\n    res = hook_impl.function(*args)\n  File \"/home/sauravbellam/cache/a2/requests_6629/venv/lib/python3.13/site-packages/_pytest/config/__init__.py\", line 1003, in pytest_cmdline_parse\n    self.parse(args)\n    ~~~~~~~~~~^^^^^^\n  File \"/home/sauravbellam/cache/a2/requests_6629/venv/lib/python3.13/site-packages/_pytest/config/__init__.py\", line 1283, in parse\n    self._preparse(args, addopts=addopts)\n    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/sauravbellam/cache/a2/requests_6629/venv/lib/python3.13/site-packages/_pytest/config/__init__.py\", line 1172, in _preparse\n    self.pluginmanager.load_setuptools_entrypoints(\"pytest11\")\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^\n  File \"/home/sauravbellam/cache/a2/requests_6629/venv/lib/python3.13/site-packages/pluggy/_manager.py\", line 416, in load_setuptools_entrypoints\n    plugin = ep.load()\n  File \"/usr/lib/python3.13/importlib/metadata/__init__.py\", line 179, in load\n    module = import_module(match.group('module'))\n  File \"/usr/lib/python3.13/importlib/__init__.py\", line 88, in import_module\n    return _bootstrap._gcd_import(name[level:], package, level)\n           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<frozen importlib._bootstrap>\", line 1387, in _gcd_import\n  File \"<frozen importlib._bootstrap>\", line 1360, in _find_and_load\n  File \"<frozen importlib._bootstrap>\", line 1331, in _find_and_load_unlocked\n  File \"<frozen importlib._bootstrap>\", line 935, in _load_unlocked\n  File \"/home/sauravbellam/cache/a2/requests_6629/venv/lib/python3.13/site-packages/_pytest/assertion/rewrite.py\", line 170, in exec_module\n    exec(co, module.__dict__)\n    ~~~~^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/sauravbellam/cache/a2/requests_6629/venv/lib/python3.13/site-packages/pytest_timeout.py\", line 22, in <module>\n    SESSION_TIMEOUT_KEY = pytest.StashKey[float]()\n                          ^^^^^^^^^^^^^^^\nAttributeError: module 'pytest' has no attribute 'StashKey'\n"
+  },
+  "gold_patch_strategy": "exact",
+  "gold_patch_applied": true,
+  "post": {
+    "exit": 1,
+    "seconds": 0.4,
+    "timeout": false,
+    "exit_meaning": "some_failed",
+    "run_class": "no_tests",
+    "counts": {},
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "",
+    "stderr_tail": "s.py\", line 121, in _multicall\n    res = hook_impl.function(*args)\n  File \"/home/sauravbellam/cache/a2/requests_6629/venv/lib/python3.13/site-packages/_pytest/config/__init__.py\", line 1003, in pytest_cmdline_parse\n    self.parse(args)\n    ~~~~~~~~~~^^^^^^\n  File \"/home/sauravbellam/cache/a2/requests_6629/venv/lib/python3.13/site-packages/_pytest/config/__init__.py\", line 1283, in parse\n    self._preparse(args, addopts=addopts)\n    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/sauravbellam/cache/a2/requests_6629/venv/lib/python3.13/site-packages/_pytest/config/__init__.py\", line 1172, in _preparse\n    self.pluginmanager.load_setuptools_entrypoints(\"pytest11\")\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^\n  File \"/home/sauravbellam/cache/a2/requests_6629/venv/lib/python3.13/site-packages/pluggy/_manager.py\", line 416, in load_setuptools_entrypoints\n    plugin = ep.load()\n  File \"/usr/lib/python3.13/importlib/metadata/__init__.py\", line 179, in load\n    module = import_module(match.group('module'))\n  File \"/usr/lib/python3.13/importlib/__init__.py\", line 88, in import_module\n    return _bootstrap._gcd_import(name[level:], package, level)\n           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<frozen importlib._bootstrap>\", line 1387, in _gcd_import\n  File \"<frozen importlib._bootstrap>\", line 1360, in _find_and_load\n  File \"<frozen importlib._bootstrap>\", line 1331, in _find_and_load_unlocked\n  File \"<frozen importlib._bootstrap>\", line 935, in _load_unlocked\n  File \"/home/sauravbellam/cache/a2/requests_6629/venv/lib/python3.13/site-packages/_pytest/assertion/rewrite.py\", line 170, in exec_module\n    exec(co, module.__dict__)\n    ~~~~^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/sauravbellam/cache/a2/requests_6629/venv/lib/python3.13/site-packages/pytest_timeout.py\", line 22, in <module>\n    SESSION_TIMEOUT_KEY = pytest.StashKey[float]()\n                          ^^^^^^^^^^^^^^^\nAttributeError: module 'pytest' has no attribute 'StashKey'\n"
+  },
+  "trace_pre_exists": false,
+  "trace_post_exists": false,
+  "seconds": 32.4
+}

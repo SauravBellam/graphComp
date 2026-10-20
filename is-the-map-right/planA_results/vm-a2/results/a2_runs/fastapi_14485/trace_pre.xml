@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="2" failures="0" skipped="0" tests="2" time="3.841" timestamp="2026-10-10T23:18:37.845967+00:00" hostname="vm-a2"><testcase classname="tests.test_stringified_annotation_dependency" name="test_get" time="0.006"><error message="failed on setup with &quot;NameError: name 'AsyncGenerator' is not defined&quot;">@pytest.fixture(name="client")
+    def client_fixture() -&gt; TestClient:
+        app = FastAPI()
+    
+&gt;       @app.get("/")
+         ^^^^^^^^^^^^
+
+tests/test_stringified_annotation_dependency.py:36: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+fastapi/routing.py:1128: in decorator
+    self.add_api_route(
+fastapi/routing.py:1067: in add_api_route
+    route = route_class(
+fastapi/routing.py:686: in __init__
+    self.dependant = get_dependant(
+fastapi/dependencies/utils.py:303: in get_dependant
+    sub_dependant = get_dependant(
+fastapi/dependencies/utils.py:277: in get_dependant
+    endpoint_signature = get_typed_signature(call)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^
+fastapi/dependencies/utils.py:214: in get_typed_signature
+    signature = inspect.signature(call, eval_str=True)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.13/inspect.py:3375: in signature
+    return Signature.from_callable(obj, follow_wrapped=follow_wrapped,
+/usr/lib/python3.13/inspect.py:3098: in from_callable
+    return _signature_from_callable(obj, sigcls=cls,
+/usr/lib/python3.13/inspect.py:2587: in _signature_from_callable
+    return _signature_from_function(sigcls, obj,
+/usr/lib/python3.13/inspect.py:2410: in _signature_from_function
+    annotations = get_annotations(func, globals=globals, locals=locals, eval_str=eval_str)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.13/inspect.py:292: in get_annotations
+    value if not isinstance(value, str) else eval(value, globals, locals)
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+&gt;   ???
+E   NameError: name 'AsyncGenerator' is not defined
+
+&lt;string&gt;:1: NameError</error></testcase><testcase classname="tests.test_stringified_annotation_dependency" name="test_openapi_schema" time="0.004"><error message="failed on setup with &quot;NameError: name 'AsyncGenerator' is not defined&quot;">@pytest.fixture(name="client")
+    def client_fixture() -&gt; TestClient:
+        app = FastAPI()
+    
+&gt;       @app.get("/")
+         ^^^^^^^^^^^^
+
+tests/test_stringified_annotation_dependency.py:36: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+fastapi/routing.py:1128: in decorator
+    self.add_api_route(
+fastapi/routing.py:1067: in add_api_route
+    route = route_class(
+fastapi/routing.py:686: in __init__
+    self.dependant = get_dependant(
+fastapi/dependencies/utils.py:303: in get_dependant
+    sub_dependant = get_dependant(
+fastapi/dependencies/utils.py:277: in get_dependant
+    endpoint_signature = get_typed_signature(call)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^
+fastapi/dependencies/utils.py:214: in get_typed_signature
+    signature = inspect.signature(call, eval_str=True)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.13/inspect.py:3375: in signature
+    return Signature.from_callable(obj, follow_wrapped=follow_wrapped,
+/usr/lib/python3.13/inspect.py:3098: in from_callable
+    return _signature_from_callable(obj, sigcls=cls,
+/usr/lib/python3.13/inspect.py:2587: in _signature_from_callable
+    return _signature_from_function(sigcls, obj,
+/usr/lib/python3.13/inspect.py:2410: in _signature_from_function
+    annotations = get_annotations(func, globals=globals, locals=locals, eval_str=eval_str)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.13/inspect.py:292: in get_annotations
+    value if not isinstance(value, str) else eval(value, globals, locals)
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+&gt;   ???
+E   NameError: name 'AsyncGenerator' is not defined
+
+&lt;string&gt;:1: NameError</error></testcase></testsuite></testsuites>

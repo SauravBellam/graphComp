@@ -1,0 +1,110 @@
+{
+  "instance_id": "fastapi_14306",
+  "repo": "fastapi/fastapi",
+  "backend": "venv",
+  "done": true,
+  "deps": {
+    "steps": [
+      {
+        "name": "pip_upgrade",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14306/venv/bin/python -m pip install -q --disable-pip-version-check 'pip>=24' 'setuptools' 'wheel' pytest pytest-timeout",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "editable_no_deps",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14306/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-build-isolation --no-deps -e .",
+        "exit": 2,
+        "stderr_tail": "lib/python3.13/site-packages/pip/_internal/req/req_install.py\", line 258, in supports_pyproject_editable\n    return \"build_editable\" in self.pep517_backend._supported_features()\n                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"/home/sauravbellam/cache/a2/fastapi_14306/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 180, in _supported_features\n    return self._call_hook(\"_supported_features\", {})\n           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/sauravbellam/cache/a2/fastapi_14306/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 402, in _call_hook\n    raise BackendUnavailable(\n    ...<4 lines>...\n    )\npip._vendor.pyproject_hooks._impl.BackendUnavailable: Cannot import 'pdm.backend'\n"
+      },
+      {
+        "name": "editable_no_deps_isolated",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14306/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-deps -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "runtime_deps",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14306/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "extra_all",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14306/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e '.[all]'",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "extra_standard",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14306/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e '.[standard]'",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "req_requirements-tests.txt",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14306/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -r requirements-tests.txt",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "req_requirements-docs-tests.txt",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14306/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -r requirements-docs-tests.txt",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "req_requirements.txt",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14306/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -r requirements.txt",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "fastapi_tests",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14306/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels httpx 'python-multipart' email-validator pyyaml orjson ujson 'sqlmodel' 'dirty-equals' 'pytest-asyncio' 'flask' 'passlib[bcrypt]' 'pyjwt' 'inline-snapshot'",
+        "exit": 0,
+        "stderr_tail": ""
+      }
+    ],
+    "editable_ok": true,
+    "python": "3.13.5 (main, Aug 10 2026, 12:06:59) [GCC 14.2.0]"
+  },
+  "targets": [
+    "tests/test_validation_error_context.py"
+  ],
+  "test_patch_strategy": "exact",
+  "test_patch_applied": true,
+  "pre": {
+    "exit": 1,
+    "seconds": 3.5,
+    "timeout": false,
+    "exit_meaning": "some_failed",
+    "run_class": "clean",
+    "counts": {
+      "failed": 7
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "ception is not None\n        error_str = str(captured_exception.exception)\n>       assert \"websocket_endpoint\" in error_str\nE       assert 'websocket_endpoint' in \"[{'type': 'int_parsing', 'loc': ('path', 'item_id'), 'msg': 'Input should be a valid integer, unable to parse string as an integer', 'input': 'invalid'}]\"\n\ntests/test_validation_error_context.py:123: AssertionError\n________ test_subapp_request_validation_error_includes_endpoint_context ________\n\n    def test_subapp_request_validation_error_includes_endpoint_context():\n        captured_exception.exception = None\n        try:\n            client.get(\"/sub/items/\")\n        except Exception:\n            pass\n    \n        assert captured_exception.exception is not None\n        error_str = str(captured_exception.exception)\n>       assert \"get_sub_item\" in error_str\nE       assert 'get_sub_item' in \"1 validation errors:\\n  {'type': 'missing', 'loc': ('response', 'id'), 'msg': 'Field required', 'input': {'name': 'Widget'}}\\n\"\n\ntests/test_validation_error_context.py:136: AssertionError\n_______ test_subapp_websocket_validation_error_includes_endpoint_context _______\n\n    def test_subapp_websocket_validation_error_includes_endpoint_context():\n        captured_exception.exception = None\n        try:\n            with client.websocket_connect(\"/sub/ws/invalid\"):\n                pass  # pragma: no cover\n        except Exception:\n            pass\n    \n        assert captured_exception.exception is not None\n        error_str = str(captured_exception.exception)\n>       assert \"subapp_websocket_endpoint\" in error_str\nE       assert 'subapp_websocket_endpoint' in \"[{'type': 'int_parsing', 'loc': ('path', 'item_id'), 'msg': 'Input should be a valid integer, unable to parse string as an integer', 'input': 'invalid'}]\"\n\ntests/test_validation_error_context.py:150: AssertionError\n_____________________ test_validation_error_with_only_path _____________________\n\n    def test_validation_error_with_only_path():\n        errors = [{\"type\": \"missing\", \"loc\": (\"body\", \"name\"), \"msg\": \"Field required\"}]\n>       exc = RequestValidationError(errors, endpoint_ctx={\"path\": \"GET /api/test\"})\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE       TypeError: RequestValidationError.__init__() got an unexpected keyword argument 'endpoint_ctx'\n\ntests/test_validation_error_context.py:156: TypeError\n____________________ test_validation_error_with_no_context _____________________\n\n    def test_validation_error_with_no_context():\n        errors = [{\"type\": \"missing\", \"loc\": (\"body\", \"name\"), \"msg\": \"Field required\"}]\n>       exc = RequestValidationError(errors, endpoint_ctx={})\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE       TypeError: RequestValidationError.__init__() got an unexpected keyword argument 'endpoint_ctx'\n\ntests/test_validation_error_context.py:164: TypeError\n- generated xml file: /home/sauravbellam/results/a2_runs/fastapi_14306/trace_pre.xml -\n7 failed in 2.10s\n",
+    "stderr_tail": ""
+  },
+  "gold_patch_strategy": "exact",
+  "gold_patch_applied": true,
+  "post": {
+    "exit": 0,
+    "seconds": 2.4,
+    "timeout": false,
+    "exit_meaning": "all_passed",
+    "run_class": "clean",
+    "counts": {
+      "passed": 7
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": ".......                                                                  [100%]\n- generated xml file: /home/sauravbellam/results/a2_runs/fastapi_14306/trace_post.xml -\n7 passed in 1.49s\n",
+    "stderr_tail": ""
+  },
+  "trace_pre_exists": true,
+  "trace_post_exists": true,
+  "seconds": 100.3
+}

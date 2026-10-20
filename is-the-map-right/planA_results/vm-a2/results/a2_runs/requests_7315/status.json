@@ -1,0 +1,80 @@
+{
+  "instance_id": "requests_7315",
+  "repo": "psf/requests",
+  "backend": "venv",
+  "done": true,
+  "deps": {
+    "steps": [
+      {
+        "name": "pip_upgrade",
+        "cmd": "/home/sauravbellam/cache/a2/requests_7315/venv/bin/python -m pip install -q --disable-pip-version-check 'pip>=24' 'setuptools' 'wheel' pytest pytest-timeout",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "editable_no_deps",
+        "cmd": "/home/sauravbellam/cache/a2/requests_7315/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-build-isolation --no-deps -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "runtime_deps",
+        "cmd": "/home/sauravbellam/cache/a2/requests_7315/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "req_requirements-dev.txt",
+        "cmd": "/home/sauravbellam/cache/a2/requests_7315/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -r requirements-dev.txt",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "requests_httpbin",
+        "cmd": "/home/sauravbellam/cache/a2/requests_7315/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels pytest-httpbin httpbin trustme pysocks",
+        "exit": 0,
+        "stderr_tail": ""
+      }
+    ],
+    "editable_ok": true,
+    "python": "3.13.5 (main, Aug 10 2026, 12:06:59) [GCC 14.2.0]"
+  },
+  "targets": [
+    "tests/test_adapters.py"
+  ],
+  "test_patch_strategy": "exact",
+  "test_patch_applied": true,
+  "pre": {
+    "exit": 1,
+    "seconds": 1.3,
+    "timeout": false,
+    "exit_meaning": "some_failed",
+    "run_class": "clean",
+    "counts": {
+      "failed": 1
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "F                                                                        [100%]\n=================================== FAILURES ===================================\n_______________ test_request_url_handles_leading_path_separators _______________\n\n    def test_request_url_handles_leading_path_separators():\n        \"\"\"See also https://github.com/psf/requests/issues/6643.\"\"\"\n        a = requests.adapters.HTTPAdapter()\n        p = requests.Request(method=\"GET\", url=\"http://127.0.0.1:10000//v:h\").prepare()\n>       assert \"//v:h\" == a.request_url(p, {})\nE       AssertionError: assert '//v:h' == '/v:h'\nE         \nE         - /v:h\nE         + //v:h\nE         ? +\n\ntests/test_adapters.py:8: AssertionError\n- generated xml file: /home/sauravbellam/results/a2_runs/requests_7315/trace_pre.xml -\n1 failed in 0.14s\n",
+    "stderr_tail": "[2026-10-10 23:15:26,837] WARNING in core: flasgger is not installed; serving the static landing page at / and skipping the Swagger UI and /spec.json.\n"
+  },
+  "gold_patch_strategy": "exact",
+  "gold_patch_applied": true,
+  "post": {
+    "exit": 0,
+    "seconds": 1.1,
+    "timeout": false,
+    "exit_meaning": "all_passed",
+    "run_class": "clean",
+    "counts": {
+      "passed": 1
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": ".                                                                        [100%]\n- generated xml file: /home/sauravbellam/results/a2_runs/requests_7315/trace_post.xml -\n1 passed in 0.06s\n",
+    "stderr_tail": "[2026-10-10 23:15:28,100] WARNING in core: flasgger is not installed; serving the static landing page at / and skipping the Swagger UI and /spec.json.\n"
+  },
+  "trace_pre_exists": true,
+  "trace_post_exists": true,
+  "seconds": 33.2
+}

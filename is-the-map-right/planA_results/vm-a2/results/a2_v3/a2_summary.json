@@ -1,0 +1,6185 @@
+{
+  "coverage": {
+    "n_tasks": 129,
+    "run_class": {
+      "import_error": 2,
+      "clean": 114,
+      "collection_error": 9,
+      "no_tests": 4
+    },
+    "usable": {
+      "k": 91,
+      "n": 129,
+      "p": 0.7054,
+      "lo": 0.6217,
+      "hi": 0.7772
+    },
+    "per_repo": {
+      "fastapi/fastapi": {
+        "n": 67,
+        "usable": 45,
+        "run_class": {
+          "import_error": 1,
+          "clean": 58,
+          "collection_error": 8
+        }
+      },
+      "psf/requests": {
+        "n": 13,
+        "usable": 7,
+        "run_class": {
+          "clean": 8,
+          "collection_error": 1,
+          "no_tests": 4
+        }
+      },
+      "Textualize/rich": {
+        "n": 48,
+        "usable": 39,
+        "run_class": {
+          "clean": 47,
+          "import_error": 1
+        }
+      },
+      "encode/httpx": {
+        "n": 1,
+        "usable": 0,
+        "run_class": {
+          "clean": 1
+        }
+      }
+    },
+    "patch_strategies": {
+      "test": {
+        "exact": 129
+      },
+      "gold": {
+        "exact": 129
+      }
+    },
+    "top_missing_modules": [
+      [
+        "scripts.prepare_release",
+        1
+      ],
+      [
+        "rich._unicode_data",
+        1
+      ],
+      [
+        "docs_src.json_base64_bytes",
+        1
+      ]
+    ],
+    "f2p_check": {
+      "tasks_all_expected_confirmed": 55,
+      "tasks_all_expected_confirmed_or_uncollected": 63,
+      "tasks_harness_resolved_post": 92,
+      "tasks_strict": 55,
+      "tasks_strict_truly_added": 55,
+      "pre_skipped": 0,
+      "truly_added_expected": 379,
+      "truly_added_confirmed": 187,
+      "tasks_edges_from_post": 11,
+      "expected": 488,
+      "confirmed": 189,
+      "uncollected_pre": 118,
+      "pre_passed": 174,
+      "post_failed": 7,
+      "not_collected": 0
+    },
+    "static_reachability_sources": {
+      "tasks_with_test_node_source": 25,
+      "tasks_with_entry_source": 114
+    }
+  },
+  "usable_tasks": {
+    "n_tasks": 91,
+    "all_direct": {
+      "recall_representable": {
+        "num": 7998.0,
+        "den": 21059.0,
+        "ratio": 0.3798,
+        "lo": 0.3549,
+        "hi": 0.4145,
+        "n_tasks": 91
+      },
+      "recall_agent_facing": {
+        "num": 7998.0,
+        "den": 24344.0,
+        "ratio": 0.3285,
+        "lo": 0.3041,
+        "hi": 0.3614,
+        "n_tasks": 91
+      },
+      "miss_share_by_cause": {
+        "missed_between_nodes": {
+          "num": 13061.0,
+          "den": 16346.0,
+          "ratio": 0.799,
+          "lo": 0.7244,
+          "hi": 0.8651,
+          "n_tasks": 91
+        },
+        "absent_async": {
+          "num": 460.0,
+          "den": 16346.0,
+          "ratio": 0.0281,
+          "lo": 0.0172,
+          "hi": 0.045,
+          "n_tasks": 91
+        },
+        "absent_nested": {
+          "num": 1002.0,
+          "den": 16346.0,
+          "ratio": 0.0613,
+          "lo": 0.056,
+          "hi": 0.0673,
+          "n_tasks": 91
+        },
+        "absent_sync": {
+          "num": 1823.0,
+          "den": 16346.0,
+          "ratio": 0.1115,
+          "lo": 0.0461,
+          "hi": 0.1816,
+          "n_tasks": 91
+        }
+      },
+      "unmapped_module_edges": 26
+    },
+    "all_any": {
+      "recall_representable": {
+        "num": 8032.0,
+        "den": 21653.0,
+        "ratio": 0.3709,
+        "lo": 0.3482,
+        "hi": 0.4022,
+        "n_tasks": 91
+      },
+      "recall_agent_facing": {
+        "num": 8032.0,
+        "den": 25267.0,
+        "ratio": 0.3179,
+        "lo": 0.294,
+        "hi": 0.3484,
+        "n_tasks": 91
+      },
+      "miss_share_by_cause": {
+        "missed_between_nodes": {
+          "num": 13621.0,
+          "den": 17235.0,
+          "ratio": 0.7903,
+          "lo": 0.7185,
+          "hi": 0.8556,
+          "n_tasks": 91
+        },
+        "absent_async": {
+          "num": 632.0,
+          "den": 17235.0,
+          "ratio": 0.0367,
+          "lo": 0.0231,
+          "hi": 0.0567,
+          "n_tasks": 91
+        },
+        "absent_nested": {
+          "num": 1090.0,
+          "den": 17235.0,
+          "ratio": 0.0632,
+          "lo": 0.0563,
+          "hi": 0.0706,
+          "n_tasks": 91
+        },
+        "absent_sync": {
+          "num": 1892.0,
+          "den": 17235.0,
+          "ratio": 0.1098,
+          "lo": 0.0468,
+          "hi": 0.1753,
+          "n_tasks": 91
+        }
+      },
+      "unmapped_module_edges": 26
+    },
+    "nontest_direct": {
+      "recall_representable": {
+        "num": 5430.0,
+        "den": 14331.0,
+        "ratio": 0.3789,
+        "lo": 0.3437,
+        "hi": 0.4247,
+        "n_tasks": 91
+      },
+      "recall_agent_facing": {
+        "num": 5430.0,
+        "den": 15398.0,
+        "ratio": 0.3526,
+        "lo": 0.3224,
+        "hi": 0.3922,
+        "n_tasks": 91
+      },
+      "miss_share_by_cause": {
+        "missed_between_nodes": {
+          "num": 8901.0,
+          "den": 9968.0,
+          "ratio": 0.893,
+          "lo": 0.8687,
+          "hi": 0.9107,
+          "n_tasks": 91
+        },
+        "absent_async": {
+          "num": 361.0,
+          "den": 9968.0,
+          "ratio": 0.0362,
+          "lo": 0.0227,
+          "hi": 0.0546,
+          "n_tasks": 91
+        },
+        "absent_nested": {
+          "num": 699.0,
+          "den": 9968.0,
+          "ratio": 0.0701,
+          "lo": 0.0643,
+          "hi": 0.0773,
+          "n_tasks": 91
+        },
+        "absent_sync": {
+          "num": 7.0,
+          "den": 9968.0,
+          "ratio": 0.0007,
+          "lo": 0.0001,
+          "hi": 0.0018,
+          "n_tasks": 91
+        }
+      },
+      "unmapped_module_edges": 0
+    },
+    "nontest_any": {
+      "recall_representable": {
+        "num": 5436.0,
+        "den": 14793.0,
+        "ratio": 0.3675,
+        "lo": 0.336,
+        "hi": 0.4072,
+        "n_tasks": 91
+      },
+      "recall_agent_facing": {
+        "num": 5436.0,
+        "den": 16041.0,
+        "ratio": 0.3389,
+        "lo": 0.3132,
+        "hi": 0.3714,
+        "n_tasks": 91
+      },
+      "miss_share_by_cause": {
+        "missed_between_nodes": {
+          "num": 9357.0,
+          "den": 10605.0,
+          "ratio": 0.8823,
+          "lo": 0.8554,
+          "hi": 0.9023,
+          "n_tasks": 91
+        },
+        "absent_async": {
+          "num": 515.0,
+          "den": 10605.0,
+          "ratio": 0.0486,
+          "lo": 0.0313,
+          "hi": 0.0718,
+          "n_tasks": 91
+        },
+        "absent_nested": {
+          "num": 723.0,
+          "den": 10605.0,
+          "ratio": 0.0682,
+          "lo": 0.0632,
+          "hi": 0.074,
+          "n_tasks": 91
+        },
+        "absent_sync": {
+          "num": 10.0,
+          "den": 10605.0,
+          "ratio": 0.0009,
+          "lo": 0.0002,
+          "hi": 0.0021,
+          "n_tasks": 91
+        }
+      },
+      "unmapped_module_edges": 0
+    },
+    "gold_direct": {
+      "recall_representable": {
+        "num": 603.0,
+        "den": 1043.0,
+        "ratio": 0.5781,
+        "lo": 0.4074,
+        "hi": 0.6995,
+        "n_tasks": 91
+      },
+      "recall_agent_facing": {
+        "num": 603.0,
+        "den": 1197.0,
+        "ratio": 0.5038,
+        "lo": 0.3375,
+        "hi": 0.6256,
+        "n_tasks": 91
+      },
+      "miss_share_by_cause": {
+        "missed_between_nodes": {
+          "num": 440.0,
+          "den": 594.0,
+          "ratio": 0.7407,
+          "lo": 0.58,
+          "hi": 0.8569,
+          "n_tasks": 91
+        },
+        "absent_async": {
+          "num": 41.0,
+          "den": 594.0,
+          "ratio": 0.069,
+          "lo": 0.0272,
+          "hi": 0.1338,
+          "n_tasks": 91
+        },
+        "absent_nested": {
+          "num": 34.0,
+          "den": 594.0,
+          "ratio": 0.0572,
+          "lo": 0.0276,
+          "hi": 0.0974,
+          "n_tasks": 91
+        },
+        "absent_sync": {
+          "num": 79.0,
+          "den": 594.0,
+          "ratio": 0.133,
+          "lo": 0.0423,
+          "hi": 0.2864,
+          "n_tasks": 91
+        }
+      },
+      "unmapped_module_edges": 0
+    },
+    "gold_any": {
+      "recall_representable": {
+        "num": 604.0,
+        "den": 1073.0,
+        "ratio": 0.5629,
+        "lo": 0.3934,
+        "hi": 0.684,
+        "n_tasks": 91
+      },
+      "recall_agent_facing": {
+        "num": 604.0,
+        "den": 1236.0,
+        "ratio": 0.4887,
+        "lo": 0.3235,
+        "hi": 0.6106,
+        "n_tasks": 91
+      },
+      "miss_share_by_cause": {
+        "missed_between_nodes": {
+          "num": 469.0,
+          "den": 632.0,
+          "ratio": 0.7421,
+          "lo": 0.5896,
+          "hi": 0.8558,
+          "n_tasks": 91
+        },
+        "absent_async": {
+          "num": 47.0,
+          "den": 632.0,
+          "ratio": 0.0744,
+          "lo": 0.0308,
+          "hi": 0.139,
+          "n_tasks": 91
+        },
+        "absent_nested": {
+          "num": 36.0,
+          "den": 632.0,
+          "ratio": 0.057,
+          "lo": 0.0272,
+          "hi": 0.0962,
+          "n_tasks": 91
+        },
+        "absent_sync": {
+          "num": 80.0,
+          "den": 632.0,
+          "ratio": 0.1266,
+          "lo": 0.0409,
+          "hi": 0.2717,
+          "n_tasks": 91
+        }
+      },
+      "unmapped_module_edges": 0
+    },
+    "observed_precision": {
+      "num": 8013.0,
+      "den": 37433.0,
+      "ratio": 0.2141,
+      "lo": 0.1998,
+      "hi": 0.2275,
+      "n_tasks": 91
+    },
+    "nontest_node_coverage": {
+      "num": 17154.0,
+      "den": 102985.0,
+      "ratio": 0.1666,
+      "lo": 0.1509,
+      "hi": 0.1817,
+      "n_tasks": 91
+    },
+    "tasks_gold_absent_but_executed": {
+      "k": 3,
+      "n": 91,
+      "p": 0.033,
+      "lo": 0.0113,
+      "hi": 0.0925
+    },
+    "tasks_gold_in_graph_executed": {
+      "k": 72,
+      "n": 91,
+      "p": 0.7912,
+      "lo": 0.6968,
+      "hi": 0.8621
+    },
+    "tasks_static_sources_defined": {
+      "k": 10,
+      "n": 91,
+      "p": 0.1099,
+      "lo": 0.0608,
+      "hi": 0.1906
+    },
+    "tasks_gold_static_reachable": {
+      "k": 5,
+      "n": 91,
+      "p": 0.0549,
+      "lo": 0.0237,
+      "hi": 0.1222
+    },
+    "tasks_gold_static_reachable_given_sources": {
+      "k": 5,
+      "n": 10,
+      "p": 0.5,
+      "lo": 0.2366,
+      "hi": 0.7634
+    },
+    "tasks_gold_executed_not_static": {
+      "k": 67,
+      "n": 91,
+      "p": 0.7363,
+      "lo": 0.6375,
+      "hi": 0.8159
+    },
+    "tasks_entry_sources_defined": {
+      "k": 86,
+      "n": 91,
+      "p": 0.9451,
+      "lo": 0.8778,
+      "hi": 0.9763
+    },
+    "tasks_gold_static_reachable_entry": {
+      "k": 69,
+      "n": 72,
+      "p": 0.9583,
+      "lo": 0.8845,
+      "hi": 0.9857
+    },
+    "tasks_gold_all_executed_reachable_entry": {
+      "k": 69,
+      "n": 72,
+      "p": 0.9583,
+      "lo": 0.8845,
+      "hi": 0.9857
+    },
+    "tasks_gold_executed_not_static_entry": {
+      "k": 3,
+      "n": 72,
+      "p": 0.0417,
+      "lo": 0.0143,
+      "hi": 0.1155
+    },
+    "tasks_gold_executed_is_entry": {
+      "k": 32,
+      "n": 72,
+      "p": 0.4444,
+      "lo": 0.3354,
+      "hi": 0.5591
+    },
+    "tasks_gold_reachable_entry_undirected_only": {
+      "k": 0,
+      "n": 72,
+      "p": 0.0,
+      "lo": 0.0,
+      "hi": 0.0507
+    },
+    "gold_min_hops_from_entry_hist": {
+      "0": 32,
+      "3": 9,
+      "6": 1,
+      "4": 2,
+      "2": 13,
+      "5": 2,
+      "None": 3,
+      "7": 1,
+      "1": 9
+    },
+    "f2p_statuses": {
+      "expected": 362,
+      "confirmed": 189,
+      "uncollected_pre": 0,
+      "pre_skipped": 0,
+      "pre_passed": 167,
+      "post_failed": 6,
+      "not_collected": 0
+    },
+    "f2p_statuses_truly_added": {
+      "expected": 255,
+      "confirmed": 187,
+      "uncollected_pre": 0,
+      "pre_skipped": 0,
+      "pre_passed": 68,
+      "post_failed": 0,
+      "not_collected": 0
+    },
+    "tasks_harness_resolved_post": {
+      "k": 84,
+      "n": 91,
+      "p": 0.9231,
+      "lo": 0.8496,
+      "hi": 0.9622
+    },
+    "gold_status_counts": {
+      "in_graph_executed": 114,
+      "in_graph_not_executed": 56,
+      "absent_executed": 4,
+      "absent_not_executed": 8,
+      "new_symbol_executed_post": 59,
+      "new_symbol_not_executed": 18
+    },
+    "per_task_recall_representable_any": {
+      "mean": 0.5354,
+      "lo": 0.4938,
+      "hi": 0.5816,
+      "n": 91
+    }
+  },
+  "strict_tasks": {
+    "n_tasks": 55,
+    "all_direct": {
+      "recall_representable": {
+        "num": 4483.0,
+        "den": 12111.0,
+        "ratio": 0.3702,
+        "lo": 0.3398,
+        "hi": 0.4123,
+        "n_tasks": 55
+      },
+      "recall_agent_facing": {
+        "num": 4483.0,
+        "den": 14231.0,
+        "ratio": 0.315,
+        "lo": 0.2851,
+        "hi": 0.3565,
+        "n_tasks": 55
+      },
+      "miss_share_by_cause": {
+        "missed_between_nodes": {
+          "num": 7628.0,
+          "den": 9748.0,
+          "ratio": 0.7825,
+          "lo": 0.6903,
+          "hi": 0.8775,
+          "n_tasks": 55
+        },
+        "absent_async": {
+          "num": 198.0,
+          "den": 9748.0,
+          "ratio": 0.0203,
+          "lo": 0.0087,
+          "hi": 0.04,
+          "n_tasks": 55
+        },
+        "absent_nested": {
+          "num": 615.0,
+          "den": 9748.0,
+          "ratio": 0.0631,
+          "lo": 0.056,
+          "hi": 0.0709,
+          "n_tasks": 55
+        },
+        "absent_sync": {
+          "num": 1307.0,
+          "den": 9748.0,
+          "ratio": 0.1341,
+          "lo": 0.037,
+          "hi": 0.2231,
+          "n_tasks": 55
+        }
+      },
+      "unmapped_module_edges": 26
+    },
+    "all_any": {
+      "recall_representable": {
+        "num": 4510.0,
+        "den": 12472.0,
+        "ratio": 0.3616,
+        "lo": 0.3338,
+        "hi": 0.4004,
+        "n_tasks": 55
+      },
+      "recall_agent_facing": {
+        "num": 4510.0,
+        "den": 14764.0,
+        "ratio": 0.3055,
+        "lo": 0.2759,
+        "hi": 0.3456,
+        "n_tasks": 55
+      },
+      "miss_share_by_cause": {
+        "missed_between_nodes": {
+          "num": 7962.0,
+          "den": 10254.0,
+          "ratio": 0.7765,
+          "lo": 0.688,
+          "hi": 0.8709,
+          "n_tasks": 55
+        },
+        "absent_async": {
+          "num": 275.0,
+          "den": 10254.0,
+          "ratio": 0.0268,
+          "lo": 0.0122,
+          "hi": 0.0512,
+          "n_tasks": 55
+        },
+        "absent_nested": {
+          "num": 679.0,
+          "den": 10254.0,
+          "ratio": 0.0662,
+          "lo": 0.0568,
+          "hi": 0.0754,
+          "n_tasks": 55
+        },
+        "absent_sync": {
+          "num": 1338.0,
+          "den": 10254.0,
+          "ratio": 0.1305,
+          "lo": 0.0364,
+          "hi": 0.214,
+          "n_tasks": 55
+        }
+      },
+      "unmapped_module_edges": 26
+    },
+    "nontest_direct": {
+      "recall_representable": {
+        "num": 3037.0,
+        "den": 8417.0,
+        "ratio": 0.3608,
+        "lo": 0.3207,
+        "hi": 0.4158,
+        "n_tasks": 55
+      },
+      "recall_agent_facing": {
+        "num": 3037.0,
+        "den": 8973.0,
+        "ratio": 0.3385,
+        "lo": 0.3024,
+        "hi": 0.3864,
+        "n_tasks": 55
+      },
+      "miss_share_by_cause": {
+        "missed_between_nodes": {
+          "num": 5380.0,
+          "den": 5936.0,
+          "ratio": 0.9063,
+          "lo": 0.876,
+          "hi": 0.9264,
+          "n_tasks": 55
+        },
+        "absent_async": {
+          "num": 154.0,
+          "den": 5936.0,
+          "ratio": 0.0259,
+          "lo": 0.0113,
+          "hi": 0.0493,
+          "n_tasks": 55
+        },
+        "absent_nested": {
+          "num": 396.0,
+          "den": 5936.0,
+          "ratio": 0.0667,
+          "lo": 0.0589,
+          "hi": 0.0765,
+          "n_tasks": 55
+        },
+        "absent_sync": {
+          "num": 6.0,
+          "den": 5936.0,
+          "ratio": 0.001,
+          "lo": 0.0,
+          "hi": 0.0028,
+          "n_tasks": 55
+        }
+      },
+      "unmapped_module_edges": 0
+    },
+    "nontest_any": {
+      "recall_representable": {
+        "num": 3042.0,
+        "den": 8680.0,
+        "ratio": 0.3505,
+        "lo": 0.3141,
+        "hi": 0.3988,
+        "n_tasks": 55
+      },
+      "recall_agent_facing": {
+        "num": 3042.0,
+        "den": 9320.0,
+        "ratio": 0.3264,
+        "lo": 0.2954,
+        "hi": 0.3661,
+        "n_tasks": 55
+      },
+      "miss_share_by_cause": {
+        "missed_between_nodes": {
+          "num": 5638.0,
+          "den": 6278.0,
+          "ratio": 0.8981,
+          "lo": 0.8651,
+          "hi": 0.9203,
+          "n_tasks": 55
+        },
+        "absent_async": {
+          "num": 223.0,
+          "den": 6278.0,
+          "ratio": 0.0355,
+          "lo": 0.0171,
+          "hi": 0.0635,
+          "n_tasks": 55
+        },
+        "absent_nested": {
+          "num": 411.0,
+          "den": 6278.0,
+          "ratio": 0.0655,
+          "lo": 0.0587,
+          "hi": 0.0736,
+          "n_tasks": 55
+        },
+        "absent_sync": {
+          "num": 6.0,
+          "den": 6278.0,
+          "ratio": 0.001,
+          "lo": 0.0,
+          "hi": 0.0026,
+          "n_tasks": 55
+        }
+      },
+      "unmapped_module_edges": 0
+    },
+    "gold_direct": {
+      "recall_representable": {
+        "num": 235.0,
+        "den": 428.0,
+        "ratio": 0.5491,
+        "lo": 0.348,
+        "hi": 0.7005,
+        "n_tasks": 55
+      },
+      "recall_agent_facing": {
+        "num": 235.0,
+        "den": 532.0,
+        "ratio": 0.4417,
+        "lo": 0.2629,
+        "hi": 0.6167,
+        "n_tasks": 55
+      },
+      "miss_share_by_cause": {
+        "missed_between_nodes": {
+          "num": 193.0,
+          "den": 297.0,
+          "ratio": 0.6498,
+          "lo": 0.4238,
+          "hi": 0.8571,
+          "n_tasks": 55
+        },
+        "absent_async": {
+          "num": 20.0,
+          "den": 297.0,
+          "ratio": 0.0673,
+          "lo": 0.0127,
+          "hi": 0.1502,
+          "n_tasks": 55
+        },
+        "absent_nested": {
+          "num": 24.0,
+          "den": 297.0,
+          "ratio": 0.0808,
+          "lo": 0.0243,
+          "hi": 0.1662,
+          "n_tasks": 55
+        },
+        "absent_sync": {
+          "num": 60.0,
+          "den": 297.0,
+          "ratio": 0.202,
+          "lo": 0.0344,
+          "hi": 0.4477,
+          "n_tasks": 55
+        }
+      },
+      "unmapped_module_edges": 0
+    },
+    "gold_any": {
+      "recall_representable": {
+        "num": 236.0,
+        "den": 447.0,
+        "ratio": 0.528,
+        "lo": 0.3276,
+        "hi": 0.6815,
+        "n_tasks": 55
+      },
+      "recall_agent_facing": {
+        "num": 236.0,
+        "den": 556.0,
+        "ratio": 0.4245,
+        "lo": 0.2505,
+        "hi": 0.5973,
+        "n_tasks": 55
+      },
+      "miss_share_by_cause": {
+        "missed_between_nodes": {
+          "num": 211.0,
+          "den": 320.0,
+          "ratio": 0.6594,
+          "lo": 0.4442,
+          "hi": 0.86,
+          "n_tasks": 55
+        },
+        "absent_async": {
+          "num": 25.0,
+          "den": 320.0,
+          "ratio": 0.0781,
+          "lo": 0.0165,
+          "hi": 0.1672,
+          "n_tasks": 55
+        },
+        "absent_nested": {
+          "num": 24.0,
+          "den": 320.0,
+          "ratio": 0.075,
+          "lo": 0.0228,
+          "hi": 0.1496,
+          "n_tasks": 55
+        },
+        "absent_sync": {
+          "num": 60.0,
+          "den": 320.0,
+          "ratio": 0.1875,
+          "lo": 0.0312,
+          "hi": 0.4237,
+          "n_tasks": 55
+        }
+      },
+      "unmapped_module_edges": 0
+    },
+    "observed_precision": {
+      "num": 4498.0,
+      "den": 21166.0,
+      "ratio": 0.2125,
+      "lo": 0.1917,
+      "hi": 0.2325,
+      "n_tasks": 55
+    },
+    "nontest_node_coverage": {
+      "num": 9855.0,
+      "den": 61037.0,
+      "ratio": 0.1615,
+      "lo": 0.1408,
+      "hi": 0.1837,
+      "n_tasks": 55
+    },
+    "tasks_gold_absent_but_executed": {
+      "k": 2,
+      "n": 55,
+      "p": 0.0364,
+      "lo": 0.01,
+      "hi": 0.1232
+    },
+    "tasks_gold_in_graph_executed": {
+      "k": 43,
+      "n": 55,
+      "p": 0.7818,
+      "lo": 0.6563,
+      "hi": 0.8705
+    },
+    "tasks_static_sources_defined": {
+      "k": 5,
+      "n": 55,
+      "p": 0.0909,
+      "lo": 0.0395,
+      "hi": 0.1958
+    },
+    "tasks_gold_static_reachable": {
+      "k": 4,
+      "n": 55,
+      "p": 0.0727,
+      "lo": 0.0286,
+      "hi": 0.1726
+    },
+    "tasks_gold_static_reachable_given_sources": {
+      "k": 4,
+      "n": 5,
+      "p": 0.8,
+      "lo": 0.3755,
+      "hi": 0.9638
+    },
+    "tasks_gold_executed_not_static": {
+      "k": 39,
+      "n": 55,
+      "p": 0.7091,
+      "lo": 0.5786,
+      "hi": 0.8123
+    },
+    "tasks_entry_sources_defined": {
+      "k": 51,
+      "n": 55,
+      "p": 0.9273,
+      "lo": 0.8274,
+      "hi": 0.9714
+    },
+    "tasks_gold_static_reachable_entry": {
+      "k": 42,
+      "n": 43,
+      "p": 0.9767,
+      "lo": 0.8794,
+      "hi": 0.9959
+    },
+    "tasks_gold_all_executed_reachable_entry": {
+      "k": 42,
+      "n": 43,
+      "p": 0.9767,
+      "lo": 0.8794,
+      "hi": 0.9959
+    },
+    "tasks_gold_executed_not_static_entry": {
+      "k": 1,
+      "n": 43,
+      "p": 0.0233,
+      "lo": 0.0041,
+      "hi": 0.1206
+    },
+    "tasks_gold_executed_is_entry": {
+      "k": 17,
+      "n": 43,
+      "p": 0.3953,
+      "lo": 0.2637,
+      "hi": 0.5442
+    },
+    "tasks_gold_reachable_entry_undirected_only": {
+      "k": 0,
+      "n": 43,
+      "p": 0.0,
+      "lo": 0.0,
+      "hi": 0.082
+    },
+    "gold_min_hops_from_entry_hist": {
+      "0": 17,
+      "3": 7,
+      "6": 1,
+      "2": 10,
+      "5": 1,
+      "1": 5,
+      "None": 1,
+      "4": 1
+    },
+    "f2p_statuses": {
+      "expected": 126,
+      "confirmed": 126,
+      "uncollected_pre": 0,
+      "pre_skipped": 0,
+      "pre_passed": 0,
+      "post_failed": 0,
+      "not_collected": 0
+    },
+    "f2p_statuses_truly_added": {
+      "expected": 124,
+      "confirmed": 124,
+      "uncollected_pre": 0,
+      "pre_skipped": 0,
+      "pre_passed": 0,
+      "post_failed": 0,
+      "not_collected": 0
+    },
+    "tasks_harness_resolved_post": {
+      "k": 50,
+      "n": 55,
+      "p": 0.9091,
+      "lo": 0.8042,
+      "hi": 0.9605
+    },
+    "gold_status_counts": {
+      "in_graph_executed": 65,
+      "in_graph_not_executed": 25,
+      "absent_executed": 2,
+      "absent_not_executed": 4,
+      "new_symbol_executed_post": 46,
+      "new_symbol_not_executed": 9
+    },
+    "per_task_recall_representable_any": {
+      "mean": 0.5299,
+      "lo": 0.4677,
+      "hi": 0.5905,
+      "n": 55
+    }
+  },
+  "strict_truly_added_tasks": {
+    "n_tasks": 55,
+    "all_direct": {
+      "recall_representable": {
+        "num": 4512.0,
+        "den": 12237.0,
+        "ratio": 0.3687,
+        "lo": 0.3398,
+        "hi": 0.4115,
+        "n_tasks": 55
+      },
+      "recall_agent_facing": {
+        "num": 4512.0,
+        "den": 14368.0,
+        "ratio": 0.314,
+        "lo": 0.2846,
+        "hi": 0.3574,
+        "n_tasks": 55
+      },
+      "miss_share_by_cause": {
+        "missed_between_nodes": {
+          "num": 7725.0,
+          "den": 9856.0,
+          "ratio": 0.7838,
+          "lo": 0.691,
+          "hi": 0.8773,
+          "n_tasks": 55
+        },
+        "absent_async": {
+          "num": 198.0,
+          "den": 9856.0,
+          "ratio": 0.0201,
+          "lo": 0.0086,
+          "hi": 0.0398,
+          "n_tasks": 55
+        },
+        "absent_nested": {
+          "num": 619.0,
+          "den": 9856.0,
+          "ratio": 0.0628,
+          "lo": 0.0562,
+          "hi": 0.0701,
+          "n_tasks": 55
+        },
+        "absent_sync": {
+          "num": 1314.0,
+          "den": 9856.0,
+          "ratio": 0.1333,
+          "lo": 0.0364,
+          "hi": 0.2215,
+          "n_tasks": 55
+        }
+      },
+      "unmapped_module_edges": 26
+    },
+    "all_any": {
+      "recall_representable": {
+        "num": 4539.0,
+        "den": 12597.0,
+        "ratio": 0.3603,
+        "lo": 0.3336,
+        "hi": 0.4,
+        "n_tasks": 55
+      },
+      "recall_agent_facing": {
+        "num": 4539.0,
+        "den": 14901.0,
+        "ratio": 0.3046,
+        "lo": 0.2755,
+        "hi": 0.3458,
+        "n_tasks": 55
+      },
+      "miss_share_by_cause": {
+        "missed_between_nodes": {
+          "num": 8058.0,
+          "den": 10362.0,
+          "ratio": 0.7776,
+          "lo": 0.6883,
+          "hi": 0.8706,
+          "n_tasks": 55
+        },
+        "absent_async": {
+          "num": 275.0,
+          "den": 10362.0,
+          "ratio": 0.0265,
+          "lo": 0.0122,
+          "hi": 0.0505,
+          "n_tasks": 55
+        },
+        "absent_nested": {
+          "num": 683.0,
+          "den": 10362.0,
+          "ratio": 0.0659,
+          "lo": 0.0567,
+          "hi": 0.075,
+          "n_tasks": 55
+        },
+        "absent_sync": {
+          "num": 1346.0,
+          "den": 10362.0,
+          "ratio": 0.1299,
+          "lo": 0.0357,
+          "hi": 0.2125,
+          "n_tasks": 55
+        }
+      },
+      "unmapped_module_edges": 26
+    },
+    "nontest_direct": {
+      "recall_representable": {
+        "num": 3060.0,
+        "den": 8526.0,
+        "ratio": 0.3589,
+        "lo": 0.3199,
+        "hi": 0.4168,
+        "n_tasks": 55
+      },
+      "recall_agent_facing": {
+        "num": 3060.0,
+        "den": 9084.0,
+        "ratio": 0.3369,
+        "lo": 0.3021,
+        "hi": 0.3876,
+        "n_tasks": 55
+      },
+      "miss_share_by_cause": {
+        "missed_between_nodes": {
+          "num": 5466.0,
+          "den": 6024.0,
+          "ratio": 0.9074,
+          "lo": 0.8782,
+          "hi": 0.9264,
+          "n_tasks": 55
+        },
+        "absent_async": {
+          "num": 154.0,
+          "den": 6024.0,
+          "ratio": 0.0256,
+          "lo": 0.0112,
+          "hi": 0.0481,
+          "n_tasks": 55
+        },
+        "absent_nested": {
+          "num": 398.0,
+          "den": 6024.0,
+          "ratio": 0.0661,
+          "lo": 0.0584,
+          "hi": 0.0753,
+          "n_tasks": 55
+        },
+        "absent_sync": {
+          "num": 6.0,
+          "den": 6024.0,
+          "ratio": 0.001,
+          "lo": 0.0,
+          "hi": 0.0029,
+          "n_tasks": 55
+        }
+      },
+      "unmapped_module_edges": 0
+    },
+    "nontest_any": {
+      "recall_representable": {
+        "num": 3065.0,
+        "den": 8789.0,
+        "ratio": 0.3487,
+        "lo": 0.3132,
+        "hi": 0.3987,
+        "n_tasks": 55
+      },
+      "recall_agent_facing": {
+        "num": 3065.0,
+        "den": 9431.0,
+        "ratio": 0.325,
+        "lo": 0.2954,
+        "hi": 0.3671,
+        "n_tasks": 55
+      },
+      "miss_share_by_cause": {
+        "missed_between_nodes": {
+          "num": 5724.0,
+          "den": 6366.0,
+          "ratio": 0.8992,
+          "lo": 0.8678,
+          "hi": 0.921,
+          "n_tasks": 55
+        },
+        "absent_async": {
+          "num": 223.0,
+          "den": 6366.0,
+          "ratio": 0.035,
+          "lo": 0.0168,
+          "hi": 0.0624,
+          "n_tasks": 55
+        },
+        "absent_nested": {
+          "num": 413.0,
+          "den": 6366.0,
+          "ratio": 0.0649,
+          "lo": 0.0583,
+          "hi": 0.0725,
+          "n_tasks": 55
+        },
+        "absent_sync": {
+          "num": 6.0,
+          "den": 6366.0,
+          "ratio": 0.0009,
+          "lo": 0.0,
+          "hi": 0.0027,
+          "n_tasks": 55
+        }
+      },
+      "unmapped_module_edges": 0
+    },
+    "gold_direct": {
+      "recall_representable": {
+        "num": 353.0,
+        "den": 582.0,
+        "ratio": 0.6065,
+        "lo": 0.4143,
+        "hi": 0.7361,
+        "n_tasks": 55
+      },
+      "recall_agent_facing": {
+        "num": 353.0,
+        "den": 691.0,
+        "ratio": 0.5109,
+        "lo": 0.3068,
+        "hi": 0.6568,
+        "n_tasks": 55
+      },
+      "miss_share_by_cause": {
+        "missed_between_nodes": {
+          "num": 229.0,
+          "den": 338.0,
+          "ratio": 0.6775,
+          "lo": 0.4517,
+          "hi": 0.8636,
+          "n_tasks": 55
+        },
+        "absent_async": {
+          "num": 20.0,
+          "den": 338.0,
+          "ratio": 0.0592,
+          "lo": 0.0103,
+          "hi": 0.1338,
+          "n_tasks": 55
+        },
+        "absent_nested": {
+          "num": 26.0,
+          "den": 338.0,
+          "ratio": 0.0769,
+          "lo": 0.0275,
+          "hi": 0.1524,
+          "n_tasks": 55
+        },
+        "absent_sync": {
+          "num": 63.0,
+          "den": 338.0,
+          "ratio": 0.1864,
+          "lo": 0.0395,
+          "hi": 0.416,
+          "n_tasks": 55
+        }
+      },
+      "unmapped_module_edges": 0
+    },
+    "gold_any": {
+      "recall_representable": {
+        "num": 354.0,
+        "den": 601.0,
+        "ratio": 0.589,
+        "lo": 0.3959,
+        "hi": 0.7167,
+        "n_tasks": 55
+      },
+      "recall_agent_facing": {
+        "num": 354.0,
+        "den": 715.0,
+        "ratio": 0.4951,
+        "lo": 0.2941,
+        "hi": 0.6427,
+        "n_tasks": 55
+      },
+      "miss_share_by_cause": {
+        "missed_between_nodes": {
+          "num": 247.0,
+          "den": 361.0,
+          "ratio": 0.6842,
+          "lo": 0.4725,
+          "hi": 0.865,
+          "n_tasks": 55
+        },
+        "absent_async": {
+          "num": 25.0,
+          "den": 361.0,
+          "ratio": 0.0693,
+          "lo": 0.0144,
+          "hi": 0.149,
+          "n_tasks": 55
+        },
+        "absent_nested": {
+          "num": 26.0,
+          "den": 361.0,
+          "ratio": 0.072,
+          "lo": 0.026,
+          "hi": 0.1401,
+          "n_tasks": 55
+        },
+        "absent_sync": {
+          "num": 63.0,
+          "den": 361.0,
+          "ratio": 0.1745,
+          "lo": 0.0365,
+          "hi": 0.392,
+          "n_tasks": 55
+        }
+      },
+      "unmapped_module_edges": 0
+    },
+    "observed_precision": {
+      "num": 4527.0,
+      "den": 21227.0,
+      "ratio": 0.2133,
+      "lo": 0.1927,
+      "hi": 0.2331,
+      "n_tasks": 55
+    },
+    "nontest_node_coverage": {
+      "num": 9892.0,
+      "den": 61037.0,
+      "ratio": 0.1621,
+      "lo": 0.1402,
+      "hi": 0.1844,
+      "n_tasks": 55
+    },
+    "tasks_gold_absent_but_executed": {
+      "k": 2,
+      "n": 55,
+      "p": 0.0364,
+      "lo": 0.01,
+      "hi": 0.1232
+    },
+    "tasks_gold_in_graph_executed": {
+      "k": 43,
+      "n": 55,
+      "p": 0.7818,
+      "lo": 0.6563,
+      "hi": 0.8705
+    },
+    "tasks_static_sources_defined": {
+      "k": 5,
+      "n": 55,
+      "p": 0.0909,
+      "lo": 0.0395,
+      "hi": 0.1958
+    },
+    "tasks_gold_static_reachable": {
+      "k": 4,
+      "n": 55,
+      "p": 0.0727,
+      "lo": 0.0286,
+      "hi": 0.1726
+    },
+    "tasks_gold_static_reachable_given_sources": {
+      "k": 4,
+      "n": 5,
+      "p": 0.8,
+      "lo": 0.3755,
+      "hi": 0.9638
+    },
+    "tasks_gold_executed_not_static": {
+      "k": 39,
+      "n": 55,
+      "p": 0.7091,
+      "lo": 0.5786,
+      "hi": 0.8123
+    },
+    "tasks_entry_sources_defined": {
+      "k": 51,
+      "n": 55,
+      "p": 0.9273,
+      "lo": 0.8274,
+      "hi": 0.9714
+    },
+    "tasks_gold_static_reachable_entry": {
+      "k": 42,
+      "n": 43,
+      "p": 0.9767,
+      "lo": 0.8794,
+      "hi": 0.9959
+    },
+    "tasks_gold_all_executed_reachable_entry": {
+      "k": 42,
+      "n": 43,
+      "p": 0.9767,
+      "lo": 0.8794,
+      "hi": 0.9959
+    },
+    "tasks_gold_executed_not_static_entry": {
+      "k": 1,
+      "n": 43,
+      "p": 0.0233,
+      "lo": 0.0041,
+      "hi": 0.1206
+    },
+    "tasks_gold_executed_is_entry": {
+      "k": 18,
+      "n": 43,
+      "p": 0.4186,
+      "lo": 0.2838,
+      "hi": 0.5667
+    },
+    "tasks_gold_reachable_entry_undirected_only": {
+      "k": 0,
+      "n": 43,
+      "p": 0.0,
+      "lo": 0.0,
+      "hi": 0.082
+    },
+    "gold_min_hops_from_entry_hist": {
+      "0": 18,
+      "3": 7,
+      "6": 1,
+      "2": 9,
+      "5": 1,
+      "1": 5,
+      "None": 1,
+      "4": 1
+    },
+    "f2p_statuses": {
+      "expected": 231,
+      "confirmed": 126,
+      "uncollected_pre": 0,
+      "pre_skipped": 0,
+      "pre_passed": 99,
+      "post_failed": 6,
+      "not_collected": 0
+    },
+    "f2p_statuses_truly_added": {
+      "expected": 126,
+      "confirmed": 126,
+      "uncollected_pre": 0,
+      "pre_skipped": 0,
+      "pre_passed": 0,
+      "post_failed": 0,
+      "not_collected": 0
+    },
+    "tasks_harness_resolved_post": {
+      "k": 49,
+      "n": 55,
+      "p": 0.8909,
+      "lo": 0.7817,
+      "hi": 0.949
+    },
+    "gold_status_counts": {
+      "in_graph_executed": 69,
+      "in_graph_not_executed": 29,
+      "absent_executed": 2,
+      "absent_not_executed": 4,
+      "new_symbol_executed_post": 47,
+      "new_symbol_not_executed": 11
+    },
+    "per_task_recall_representable_any": {
+      "mean": 0.5289,
+      "lo": 0.4679,
+      "hi": 0.588,
+      "n": 55
+    }
+  },
+  "usable_plus_post_edge_tasks": {
+    "n_tasks": 97,
+    "all_direct": {
+      "recall_representable": {
+        "num": 8388.0,
+        "den": 21944.0,
+        "ratio": 0.3822,
+        "lo": 0.3573,
+        "hi": 0.4187,
+        "n_tasks": 97
+      },
+      "recall_agent_facing": {
+        "num": 8388.0,
+        "den": 25369.0,
+        "ratio": 0.3306,
+        "lo": 0.3058,
+        "hi": 0.3621,
+        "n_tasks": 97
+      },
+      "miss_share_by_cause": {
+        "missed_between_nodes": {
+          "num": 13556.0,
+          "den": 16981.0,
+          "ratio": 0.7983,
+          "lo": 0.7242,
+          "hi": 0.8632,
+          "n_tasks": 97
+        },
+        "absent_async": {
+          "num": 498.0,
+          "den": 16981.0,
+          "ratio": 0.0293,
+          "lo": 0.018,
+          "hi": 0.0455,
+          "n_tasks": 97
+        },
+        "absent_nested": {
+          "num": 1039.0,
+          "den": 16981.0,
+          "ratio": 0.0612,
+          "lo": 0.0558,
+          "hi": 0.0675,
+          "n_tasks": 97
+        },
+        "absent_sync": {
+          "num": 1888.0,
+          "den": 16981.0,
+          "ratio": 0.1112,
+          "lo": 0.0483,
+          "hi": 0.181,
+          "n_tasks": 97
+        }
+      },
+      "unmapped_module_edges": 34
+    },
+    "all_any": {
+      "recall_representable": {
+        "num": 8422.0,
+        "den": 22572.0,
+        "ratio": 0.3731,
+        "lo": 0.3505,
+        "hi": 0.4053,
+        "n_tasks": 97
+      },
+      "recall_agent_facing": {
+        "num": 8422.0,
+        "den": 26358.0,
+        "ratio": 0.3195,
+        "lo": 0.2955,
+        "hi": 0.3497,
+        "n_tasks": 97
+      },
+      "miss_share_by_cause": {
+        "missed_between_nodes": {
+          "num": 14150.0,
+          "den": 17936.0,
+          "ratio": 0.7889,
+          "lo": 0.7185,
+          "hi": 0.8531,
+          "n_tasks": 97
+        },
+        "absent_async": {
+          "num": 693.0,
+          "den": 17936.0,
+          "ratio": 0.0386,
+          "lo": 0.0247,
+          "hi": 0.0585,
+          "n_tasks": 97
+        },
+        "absent_nested": {
+          "num": 1127.0,
+          "den": 17936.0,
+          "ratio": 0.0628,
+          "lo": 0.056,
+          "hi": 0.0703,
+          "n_tasks": 97
+        },
+        "absent_sync": {
+          "num": 1966.0,
+          "den": 17936.0,
+          "ratio": 0.1096,
+          "lo": 0.0488,
+          "hi": 0.1744,
+          "n_tasks": 97
+        }
+      },
+      "unmapped_module_edges": 40
+    },
+    "nontest_direct": {
+      "recall_representable": {
+        "num": 5679.0,
+        "den": 14852.0,
+        "ratio": 0.3824,
+        "lo": 0.3471,
+        "hi": 0.4292,
+        "n_tasks": 97
+      },
+      "recall_agent_facing": {
+        "num": 5679.0,
+        "den": 15989.0,
+        "ratio": 0.3552,
+        "lo": 0.3241,
+        "hi": 0.3955,
+        "n_tasks": 97
+      },
+      "miss_share_by_cause": {
+        "missed_between_nodes": {
+          "num": 9173.0,
+          "den": 10310.0,
+          "ratio": 0.8897,
+          "lo": 0.8655,
+          "hi": 0.9078,
+          "n_tasks": 97
+        },
+        "absent_async": {
+          "num": 379.0,
+          "den": 10310.0,
+          "ratio": 0.0368,
+          "lo": 0.0233,
+          "hi": 0.0555,
+          "n_tasks": 97
+        },
+        "absent_nested": {
+          "num": 734.0,
+          "den": 10310.0,
+          "ratio": 0.0712,
+          "lo": 0.0649,
+          "hi": 0.0785,
+          "n_tasks": 97
+        },
+        "absent_sync": {
+          "num": 24.0,
+          "den": 10310.0,
+          "ratio": 0.0023,
+          "lo": 0.0006,
+          "hi": 0.005,
+          "n_tasks": 97
+        }
+      },
+      "unmapped_module_edges": 0
+    },
+    "nontest_any": {
+      "recall_representable": {
+        "num": 5685.0,
+        "den": 15343.0,
+        "ratio": 0.3705,
+        "lo": 0.3394,
+        "hi": 0.4124,
+        "n_tasks": 97
+      },
+      "recall_agent_facing": {
+        "num": 5685.0,
+        "den": 16681.0,
+        "ratio": 0.3408,
+        "lo": 0.3147,
+        "hi": 0.3743,
+        "n_tasks": 97
+      },
+      "miss_share_by_cause": {
+        "missed_between_nodes": {
+          "num": 9658.0,
+          "den": 10996.0,
+          "ratio": 0.8783,
+          "lo": 0.8522,
+          "hi": 0.8986,
+          "n_tasks": 97
+        },
+        "absent_async": {
+          "num": 550.0,
+          "den": 10996.0,
+          "ratio": 0.05,
+          "lo": 0.033,
+          "hi": 0.0729,
+          "n_tasks": 97
+        },
+        "absent_nested": {
+          "num": 758.0,
+          "den": 10996.0,
+          "ratio": 0.0689,
+          "lo": 0.0637,
+          "hi": 0.0748,
+          "n_tasks": 97
+        },
+        "absent_sync": {
+          "num": 30.0,
+          "den": 10996.0,
+          "ratio": 0.0027,
+          "lo": 0.0009,
+          "hi": 0.0054,
+          "n_tasks": 97
+        }
+      },
+      "unmapped_module_edges": 0
+    },
+    "gold_direct": {
+      "recall_representable": {
+        "num": 603.0,
+        "den": 1043.0,
+        "ratio": 0.5781,
+        "lo": 0.4168,
+        "hi": 0.7012,
+        "n_tasks": 97
+      },
+      "recall_agent_facing": {
+        "num": 603.0,
+        "den": 1197.0,
+        "ratio": 0.5038,
+        "lo": 0.3436,
+        "hi": 0.6282,
+        "n_tasks": 97
+      },
+      "miss_share_by_cause": {
+        "missed_between_nodes": {
+          "num": 440.0,
+          "den": 594.0,
+          "ratio": 0.7407,
+          "lo": 0.578,
+          "hi": 0.8595,
+          "n_tasks": 97
+        },
+        "absent_async": {
+          "num": 41.0,
+          "den": 594.0,
+          "ratio": 0.069,
+          "lo": 0.0273,
+          "hi": 0.1315,
+          "n_tasks": 97
+        },
+        "absent_nested": {
+          "num": 34.0,
+          "den": 594.0,
+          "ratio": 0.0572,
+          "lo": 0.0278,
+          "hi": 0.1025,
+          "n_tasks": 97
+        },
+        "absent_sync": {
+          "num": 79.0,
+          "den": 594.0,
+          "ratio": 0.133,
+          "lo": 0.043,
+          "hi": 0.2872,
+          "n_tasks": 97
+        }
+      },
+      "unmapped_module_edges": 0
+    },
+    "gold_any": {
+      "recall_representable": {
+        "num": 604.0,
+        "den": 1073.0,
+        "ratio": 0.5629,
+        "lo": 0.4022,
+        "hi": 0.6835,
+        "n_tasks": 97
+      },
+      "recall_agent_facing": {
+        "num": 604.0,
+        "den": 1236.0,
+        "ratio": 0.4887,
+        "lo": 0.3308,
+        "hi": 0.6131,
+        "n_tasks": 97
+      },
+      "miss_share_by_cause": {
+        "missed_between_nodes": {
+          "num": 469.0,
+          "den": 632.0,
+          "ratio": 0.7421,
+          "lo": 0.5879,
+          "hi": 0.8576,
+          "n_tasks": 97
+        },
+        "absent_async": {
+          "num": 47.0,
+          "den": 632.0,
+          "ratio": 0.0744,
+          "lo": 0.0294,
+          "hi": 0.1358,
+          "n_tasks": 97
+        },
+        "absent_nested": {
+          "num": 36.0,
+          "den": 632.0,
+          "ratio": 0.057,
+          "lo": 0.0276,
+          "hi": 0.0978,
+          "n_tasks": 97
+        },
+        "absent_sync": {
+          "num": 80.0,
+          "den": 632.0,
+          "ratio": 0.1266,
+          "lo": 0.0413,
+          "hi": 0.2721,
+          "n_tasks": 97
+        }
+      },
+      "unmapped_module_edges": 0
+    },
+    "observed_precision": {
+      "num": 8403.0,
+      "den": 39488.0,
+      "ratio": 0.2128,
+      "lo": 0.1983,
+      "hi": 0.2256,
+      "n_tasks": 97
+    },
+    "nontest_node_coverage": {
+      "num": 18077.0,
+      "den": 109510.0,
+      "ratio": 0.1651,
+      "lo": 0.15,
+      "hi": 0.1798,
+      "n_tasks": 97
+    },
+    "tasks_gold_absent_but_executed": {
+      "k": 3,
+      "n": 97,
+      "p": 0.0309,
+      "lo": 0.0106,
+      "hi": 0.087
+    },
+    "tasks_gold_in_graph_executed": {
+      "k": 72,
+      "n": 97,
+      "p": 0.7423,
+      "lo": 0.6472,
+      "hi": 0.8189
+    },
+    "tasks_static_sources_defined": {
+      "k": 10,
+      "n": 97,
+      "p": 0.1031,
+      "lo": 0.057,
+      "hi": 0.1795
+    },
+    "tasks_gold_static_reachable": {
+      "k": 5,
+      "n": 97,
+      "p": 0.0515,
+      "lo": 0.0222,
+      "hi": 0.115
+    },
+    "tasks_gold_static_reachable_given_sources": {
+      "k": 5,
+      "n": 10,
+      "p": 0.5,
+      "lo": 0.2366,
+      "hi": 0.7634
+    },
+    "tasks_gold_executed_not_static": {
+      "k": 67,
+      "n": 97,
+      "p": 0.6907,
+      "lo": 0.593,
+      "hi": 0.774
+    },
+    "tasks_entry_sources_defined": {
+      "k": 91,
+      "n": 97,
+      "p": 0.9381,
+      "lo": 0.8716,
+      "hi": 0.9713
+    },
+    "tasks_gold_static_reachable_entry": {
+      "k": 69,
+      "n": 72,
+      "p": 0.9583,
+      "lo": 0.8845,
+      "hi": 0.9857
+    },
+    "tasks_gold_all_executed_reachable_entry": {
+      "k": 69,
+      "n": 72,
+      "p": 0.9583,
+      "lo": 0.8845,
+      "hi": 0.9857
+    },
+    "tasks_gold_executed_not_static_entry": {
+      "k": 3,
+      "n": 72,
+      "p": 0.0417,
+      "lo": 0.0143,
+      "hi": 0.1155
+    },
+    "tasks_gold_executed_is_entry": {
+      "k": 32,
+      "n": 72,
+      "p": 0.4444,
+      "lo": 0.3354,
+      "hi": 0.5591
+    },
+    "tasks_gold_reachable_entry_undirected_only": {
+      "k": 0,
+      "n": 72,
+      "p": 0.0,
+      "lo": 0.0,
+      "hi": 0.0507
+    },
+    "gold_min_hops_from_entry_hist": {
+      "0": 32,
+      "3": 9,
+      "6": 1,
+      "4": 2,
+      "2": 13,
+      "5": 2,
+      "None": 3,
+      "7": 1,
+      "1": 9
+    },
+    "f2p_statuses": {
+      "expected": 444,
+      "confirmed": 189,
+      "uncollected_pre": 82,
+      "pre_skipped": 0,
+      "pre_passed": 167,
+      "post_failed": 6,
+      "not_collected": 0
+    },
+    "f2p_statuses_truly_added": {
+      "expected": 337,
+      "confirmed": 187,
+      "uncollected_pre": 82,
+      "pre_skipped": 0,
+      "pre_passed": 68,
+      "post_failed": 0,
+      "not_collected": 0
+    },
+    "tasks_harness_resolved_post": {
+      "k": 90,
+      "n": 97,
+      "p": 0.9278,
+      "lo": 0.8585,
+      "hi": 0.9646
+    },
+    "gold_status_counts": {
+      "in_graph_executed": 114,
+      "in_graph_not_executed": 214,
+      "absent_executed": 4,
+      "absent_not_executed": 23,
+      "new_symbol_executed_post": 59,
+      "new_symbol_not_executed": 40
+    },
+    "per_task_recall_representable_any": {
+      "mean": 0.5378,
+      "lo": 0.4975,
+      "hi": 0.5821,
+      "n": 96
+    }
+  },
+  "post_edge_tasks_only": {
+    "n_tasks": 6,
+    "all_direct": {
+      "recall_representable": {
+        "num": 390.0,
+        "den": 885.0,
+        "ratio": 0.4407,
+        "lo": 0.3307,
+        "hi": 0.7853,
+        "n_tasks": 6
+      },
+      "recall_agent_facing": {
+        "num": 390.0,
+        "den": 1025.0,
+        "ratio": 0.3805,
+        "lo": 0.2951,
+        "hi": 0.5852,
+        "n_tasks": 6
+      },
+      "miss_share_by_cause": {
+        "missed_between_nodes": {
+          "num": 495.0,
+          "den": 635.0,
+          "ratio": 0.7795,
+          "lo": 0.2785,
+          "hi": 0.8821,
+          "n_tasks": 6
+        },
+        "absent_async": {
+          "num": 38.0,
+          "den": 635.0,
+          "ratio": 0.0598,
+          "lo": 0.002,
+          "hi": 0.3214,
+          "n_tasks": 6
+        },
+        "absent_nested": {
+          "num": 37.0,
+          "den": 635.0,
+          "ratio": 0.0583,
+          "lo": 0.0334,
+          "hi": 0.136,
+          "n_tasks": 6
+        },
+        "absent_sync": {
+          "num": 65.0,
+          "den": 635.0,
+          "ratio": 0.1024,
+          "lo": 0.0363,
+          "hi": 0.4941,
+          "n_tasks": 6
+        }
+      },
+      "unmapped_module_edges": 8
+    },
+    "all_any": {
+      "recall_representable": {
+        "num": 390.0,
+        "den": 919.0,
+        "ratio": 0.4244,
+        "lo": 0.3271,
+        "hi": 0.7106,
+        "n_tasks": 6
+      },
+      "recall_agent_facing": {
+        "num": 390.0,
+        "den": 1091.0,
+        "ratio": 0.3575,
+        "lo": 0.2871,
+        "hi": 0.508,
+        "n_tasks": 6
+      },
+      "miss_share_by_cause": {
+        "missed_between_nodes": {
+          "num": 529.0,
+          "den": 701.0,
+          "ratio": 0.7546,
+          "lo": 0.3031,
+          "hi": 0.8739,
+          "n_tasks": 6
+        },
+        "absent_async": {
+          "num": 61.0,
+          "den": 701.0,
+          "ratio": 0.087,
+          "lo": 0.0128,
+          "hi": 0.3382,
+          "n_tasks": 6
+        },
+        "absent_nested": {
+          "num": 37.0,
+          "den": 701.0,
+          "ratio": 0.0528,
+          "lo": 0.0308,
+          "hi": 0.1003,
+          "n_tasks": 6
+        },
+        "absent_sync": {
+          "num": 74.0,
+          "den": 701.0,
+          "ratio": 0.1056,
+          "lo": 0.0369,
+          "hi": 0.4375,
+          "n_tasks": 6
+        }
+      },
+      "unmapped_module_edges": 14
+    },
+    "nontest_direct": {
+      "recall_representable": {
+        "num": 249.0,
+        "den": 521.0,
+        "ratio": 0.4779,
+        "lo": 0.277,
+        "hi": 0.7853,
+        "n_tasks": 6
+      },
+      "recall_agent_facing": {
+        "num": 249.0,
+        "den": 591.0,
+        "ratio": 0.4213,
+        "lo": 0.2533,
+        "hi": 0.6667,
+        "n_tasks": 6
+      },
+      "miss_share_by_cause": {
+        "missed_between_nodes": {
+          "num": 272.0,
+          "den": 342.0,
+          "ratio": 0.7953,
+          "lo": 0.4667,
+          "hi": 0.8821,
+          "n_tasks": 6
+        },
+        "absent_async": {
+          "num": 18.0,
+          "den": 342.0,
+          "ratio": 0.0526,
+          "lo": 0.002,
+          "hi": 0.2273,
+          "n_tasks": 6
+        },
+        "absent_nested": {
+          "num": 35.0,
+          "den": 342.0,
+          "ratio": 0.1023,
+          "lo": 0.0669,
+          "hi": 0.1879,
+          "n_tasks": 6
+        },
+        "absent_sync": {
+          "num": 17.0,
+          "den": 342.0,
+          "ratio": 0.0497,
+          "lo": 0.0117,
+          "hi": 0.2917,
+          "n_tasks": 6
+        }
+      },
+      "unmapped_module_edges": 0
+    },
+    "nontest_any": {
+      "recall_representable": {
+        "num": 249.0,
+        "den": 550.0,
+        "ratio": 0.4527,
+        "lo": 0.2721,
+        "hi": 0.7106,
+        "n_tasks": 6
+      },
+      "recall_agent_facing": {
+        "num": 249.0,
+        "den": 640.0,
+        "ratio": 0.3891,
+        "lo": 0.2463,
+        "hi": 0.5768,
+        "n_tasks": 6
+      },
+      "miss_share_by_cause": {
+        "missed_between_nodes": {
+          "num": 301.0,
+          "den": 391.0,
+          "ratio": 0.7698,
+          "lo": 0.4885,
+          "hi": 0.8707,
+          "n_tasks": 6
+        },
+        "absent_async": {
+          "num": 35.0,
+          "den": 391.0,
+          "ratio": 0.0895,
+          "lo": 0.0172,
+          "hi": 0.2653,
+          "n_tasks": 6
+        },
+        "absent_nested": {
+          "num": 35.0,
+          "den": 391.0,
+          "ratio": 0.0895,
+          "lo": 0.0565,
+          "hi": 0.1383,
+          "n_tasks": 6
+        },
+        "absent_sync": {
+          "num": 20.0,
+          "den": 391.0,
+          "ratio": 0.0512,
+          "lo": 0.0145,
+          "hi": 0.2329,
+          "n_tasks": 6
+        }
+      },
+      "unmapped_module_edges": 0
+    },
+    "gold_direct": {
+      "recall_representable": {
+        "num": 0.0,
+        "den": 0.0,
+        "ratio": null,
+        "lo": null,
+        "hi": null,
+        "n_tasks": 6
+      },
+      "recall_agent_facing": {
+        "num": 0.0,
+        "den": 0.0,
+        "ratio": null,
+        "lo": null,
+        "hi": null,
+        "n_tasks": 6
+      },
+      "miss_share_by_cause": {
+        "missed_between_nodes": {
+          "num": 0.0,
+          "den": 0.0,
+          "ratio": null,
+          "lo": null,
+          "hi": null,
+          "n_tasks": 6
+        },
+        "absent_async": {
+          "num": 0.0,
+          "den": 0.0,
+          "ratio": null,
+          "lo": null,
+          "hi": null,
+          "n_tasks": 6
+        },
+        "absent_nested": {
+          "num": 0.0,
+          "den": 0.0,
+          "ratio": null,
+          "lo": null,
+          "hi": null,
+          "n_tasks": 6
+        },
+        "absent_sync": {
+          "num": 0.0,
+          "den": 0.0,
+          "ratio": null,
+          "lo": null,
+          "hi": null,
+          "n_tasks": 6
+        }
+      },
+      "unmapped_module_edges": 0
+    },
+    "gold_any": {
+      "recall_representable": {
+        "num": 0.0,
+        "den": 0.0,
+        "ratio": null,
+        "lo": null,
+        "hi": null,
+        "n_tasks": 6
+      },
+      "recall_agent_facing": {
+        "num": 0.0,
+        "den": 0.0,
+        "ratio": null,
+        "lo": null,
+        "hi": null,
+        "n_tasks": 6
+      },
+      "miss_share_by_cause": {
+        "missed_between_nodes": {
+          "num": 0.0,
+          "den": 0.0,
+          "ratio": null,
+          "lo": null,
+          "hi": null,
+          "n_tasks": 6
+        },
+        "absent_async": {
+          "num": 0.0,
+          "den": 0.0,
+          "ratio": null,
+          "lo": null,
+          "hi": null,
+          "n_tasks": 6
+        },
+        "absent_nested": {
+          "num": 0.0,
+          "den": 0.0,
+          "ratio": null,
+          "lo": null,
+          "hi": null,
+          "n_tasks": 6
+        },
+        "absent_sync": {
+          "num": 0.0,
+          "den": 0.0,
+          "ratio": null,
+          "lo": null,
+          "hi": null,
+          "n_tasks": 6
+        }
+      },
+      "unmapped_module_edges": 0
+    },
+    "observed_precision": {
+      "num": 390.0,
+      "den": 2055.0,
+      "ratio": 0.1898,
+      "lo": 0.1225,
+      "hi": 0.2453,
+      "n_tasks": 6
+    },
+    "nontest_node_coverage": {
+      "num": 923.0,
+      "den": 6525.0,
+      "ratio": 0.1415,
+      "lo": 0.084,
+      "hi": 0.1933,
+      "n_tasks": 6
+    },
+    "tasks_gold_absent_but_executed": {
+      "k": 0,
+      "n": 6,
+      "p": 0.0,
+      "lo": 0.0,
+      "hi": 0.3903
+    },
+    "tasks_gold_in_graph_executed": {
+      "k": 0,
+      "n": 6,
+      "p": 0.0,
+      "lo": 0.0,
+      "hi": 0.3903
+    },
+    "tasks_static_sources_defined": {
+      "k": 0,
+      "n": 6,
+      "p": 0.0,
+      "lo": 0.0,
+      "hi": 0.3903
+    },
+    "tasks_gold_static_reachable": {
+      "k": 0,
+      "n": 6,
+      "p": 0.0,
+      "lo": 0.0,
+      "hi": 0.3903
+    },
+    "tasks_gold_static_reachable_given_sources": {
+      "k": 0,
+      "n": 0,
+      "p": null,
+      "lo": null,
+      "hi": null
+    },
+    "tasks_gold_executed_not_static": {
+      "k": 0,
+      "n": 6,
+      "p": 0.0,
+      "lo": 0.0,
+      "hi": 0.3903
+    },
+    "tasks_entry_sources_defined": {
+      "k": 5,
+      "n": 6,
+      "p": 0.8333,
+      "lo": 0.4365,
+      "hi": 0.9699
+    },
+    "tasks_gold_static_reachable_entry": {
+      "k": 0,
+      "n": 0,
+      "p": null,
+      "lo": null,
+      "hi": null
+    },
+    "tasks_gold_all_executed_reachable_entry": {
+      "k": 0,
+      "n": 0,
+      "p": null,
+      "lo": null,
+      "hi": null
+    },
+    "tasks_gold_executed_not_static_entry": {
+      "k": 0,
+      "n": 0,
+      "p": null,
+      "lo": null,
+      "hi": null
+    },
+    "tasks_gold_executed_is_entry": {
+      "k": 0,
+      "n": 0,
+      "p": null,
+      "lo": null,
+      "hi": null
+    },
+    "tasks_gold_reachable_entry_undirected_only": {
+      "k": 0,
+      "n": 0,
+      "p": null,
+      "lo": null,
+      "hi": null
+    },
+    "gold_min_hops_from_entry_hist": {},
+    "f2p_statuses": {
+      "expected": 82,
+      "confirmed": 0,
+      "uncollected_pre": 82,
+      "pre_skipped": 0,
+      "pre_passed": 0,
+      "post_failed": 0,
+      "not_collected": 0
+    },
+    "f2p_statuses_truly_added": {
+      "expected": 82,
+      "confirmed": 0,
+      "uncollected_pre": 82,
+      "pre_skipped": 0,
+      "pre_passed": 0,
+      "post_failed": 0,
+      "not_collected": 0
+    },
+    "tasks_harness_resolved_post": {
+      "k": 6,
+      "n": 6,
+      "p": 1.0,
+      "lo": 0.6097,
+      "hi": 1.0
+    },
+    "gold_status_counts": {
+      "in_graph_executed": 0,
+      "in_graph_not_executed": 158,
+      "absent_executed": 0,
+      "absent_not_executed": 15,
+      "new_symbol_executed_post": 0,
+      "new_symbol_not_executed": 22
+    },
+    "per_task_recall_representable_any": {
+      "mean": 0.5814,
+      "lo": 0.4216,
+      "hi": 0.7151,
+      "n": 5
+    }
+  },
+  "all_analyzed_tasks": {
+    "n_tasks": 125,
+    "all_direct": {
+      "recall_representable": {
+        "num": 11212.0,
+        "den": 28751.0,
+        "ratio": 0.39,
+        "lo": 0.3657,
+        "hi": 0.4198,
+        "n_tasks": 125
+      },
+      "recall_agent_facing": {
+        "num": 11212.0,
+        "den": 33406.0,
+        "ratio": 0.3356,
+        "lo": 0.314,
+        "hi": 0.3623,
+        "n_tasks": 125
+      },
+      "miss_share_by_cause": {
+        "missed_between_nodes": {
+          "num": 17539.0,
+          "den": 22194.0,
+          "ratio": 0.7903,
+          "lo": 0.7326,
+          "hi": 0.847,
+          "n_tasks": 125
+        },
+        "absent_async": {
+          "num": 898.0,
+          "den": 22194.0,
+          "ratio": 0.0405,
+          "lo": 0.0256,
+          "hi": 0.061,
+          "n_tasks": 125
+        },
+        "absent_nested": {
+          "num": 1326.0,
+          "den": 22194.0,
+          "ratio": 0.0597,
+          "lo": 0.0549,
+          "hi": 0.0651,
+          "n_tasks": 125
+        },
+        "absent_sync": {
+          "num": 2431.0,
+          "den": 22194.0,
+          "ratio": 0.1095,
+          "lo": 0.0557,
+          "hi": 0.1634,
+          "n_tasks": 125
+        }
+      },
+      "unmapped_module_edges": 35
+    },
+    "all_any": {
+      "recall_representable": {
+        "num": 11256.0,
+        "den": 29626.0,
+        "ratio": 0.3799,
+        "lo": 0.3575,
+        "hi": 0.4067,
+        "n_tasks": 125
+      },
+      "recall_agent_facing": {
+        "num": 11256.0,
+        "den": 34771.0,
+        "ratio": 0.3237,
+        "lo": 0.3029,
+        "hi": 0.3479,
+        "n_tasks": 125
+      },
+      "miss_share_by_cause": {
+        "missed_between_nodes": {
+          "num": 18370.0,
+          "den": 23515.0,
+          "ratio": 0.7812,
+          "lo": 0.7253,
+          "hi": 0.8373,
+          "n_tasks": 125
+        },
+        "absent_async": {
+          "num": 1168.0,
+          "den": 23515.0,
+          "ratio": 0.0497,
+          "lo": 0.0331,
+          "hi": 0.0722,
+          "n_tasks": 125
+        },
+        "absent_nested": {
+          "num": 1449.0,
+          "den": 23515.0,
+          "ratio": 0.0616,
+          "lo": 0.0555,
+          "hi": 0.0679,
+          "n_tasks": 125
+        },
+        "absent_sync": {
+          "num": 2528.0,
+          "den": 23515.0,
+          "ratio": 0.1075,
+          "lo": 0.056,
+          "hi": 0.1583,
+          "n_tasks": 125
+        }
+      },
+      "unmapped_module_edges": 41
+    },
+    "nontest_direct": {
+      "recall_representable": {
+        "num": 7665.0,
+        "den": 19300.0,
+        "ratio": 0.3972,
+        "lo": 0.3629,
+        "hi": 0.4391,
+        "n_tasks": 125
+      },
+      "recall_agent_facing": {
+        "num": 7665.0,
+        "den": 20932.0,
+        "ratio": 0.3662,
+        "lo": 0.3372,
+        "hi": 0.4009,
+        "n_tasks": 125
+      },
+      "miss_share_by_cause": {
+        "missed_between_nodes": {
+          "num": 11635.0,
+          "den": 13267.0,
+          "ratio": 0.877,
+          "lo": 0.8495,
+          "hi": 0.897,
+          "n_tasks": 125
+        },
+        "absent_async": {
+          "num": 600.0,
+          "den": 13267.0,
+          "ratio": 0.0452,
+          "lo": 0.0304,
+          "hi": 0.0645,
+          "n_tasks": 125
+        },
+        "absent_nested": {
+          "num": 950.0,
+          "den": 13267.0,
+          "ratio": 0.0716,
+          "lo": 0.0663,
+          "hi": 0.0784,
+          "n_tasks": 125
+        },
+        "absent_sync": {
+          "num": 82.0,
+          "den": 13267.0,
+          "ratio": 0.0062,
+          "lo": 0.0014,
+          "hi": 0.0141,
+          "n_tasks": 125
+        }
+      },
+      "unmapped_module_edges": 0
+    },
+    "nontest_any": {
+      "recall_representable": {
+        "num": 7673.0,
+        "den": 19996.0,
+        "ratio": 0.3837,
+        "lo": 0.3534,
+        "hi": 0.4203,
+        "n_tasks": 125
+      },
+      "recall_agent_facing": {
+        "num": 7673.0,
+        "den": 21915.0,
+        "ratio": 0.3501,
+        "lo": 0.3257,
+        "hi": 0.3783,
+        "n_tasks": 125
+      },
+      "miss_share_by_cause": {
+        "missed_between_nodes": {
+          "num": 12323.0,
+          "den": 14242.0,
+          "ratio": 0.8653,
+          "lo": 0.836,
+          "hi": 0.8869,
+          "n_tasks": 125
+        },
+        "absent_async": {
+          "num": 841.0,
+          "den": 14242.0,
+          "ratio": 0.0591,
+          "lo": 0.0416,
+          "hi": 0.0815,
+          "n_tasks": 125
+        },
+        "absent_nested": {
+          "num": 983.0,
+          "den": 14242.0,
+          "ratio": 0.069,
+          "lo": 0.0645,
+          "hi": 0.0746,
+          "n_tasks": 125
+        },
+        "absent_sync": {
+          "num": 95.0,
+          "den": 14242.0,
+          "ratio": 0.0067,
+          "lo": 0.0016,
+          "hi": 0.0147,
+          "n_tasks": 125
+        }
+      },
+      "unmapped_module_edges": 0
+    },
+    "gold_direct": {
+      "recall_representable": {
+        "num": 698.0,
+        "den": 1244.0,
+        "ratio": 0.5611,
+        "lo": 0.4113,
+        "hi": 0.6829,
+        "n_tasks": 125
+      },
+      "recall_agent_facing": {
+        "num": 698.0,
+        "den": 1443.0,
+        "ratio": 0.4837,
+        "lo": 0.3444,
+        "hi": 0.5995,
+        "n_tasks": 125
+      },
+      "miss_share_by_cause": {
+        "missed_between_nodes": {
+          "num": 546.0,
+          "den": 745.0,
+          "ratio": 0.7329,
+          "lo": 0.5821,
+          "hi": 0.8472,
+          "n_tasks": 125
+        },
+        "absent_async": {
+          "num": 83.0,
+          "den": 745.0,
+          "ratio": 0.1114,
+          "lo": 0.048,
+          "hi": 0.2012,
+          "n_tasks": 125
+        },
+        "absent_nested": {
+          "num": 36.0,
+          "den": 745.0,
+          "ratio": 0.0483,
+          "lo": 0.0241,
+          "hi": 0.083,
+          "n_tasks": 125
+        },
+        "absent_sync": {
+          "num": 80.0,
+          "den": 745.0,
+          "ratio": 0.1074,
+          "lo": 0.0341,
+          "hi": 0.2459,
+          "n_tasks": 125
+        }
+      },
+      "unmapped_module_edges": 0
+    },
+    "gold_any": {
+      "recall_representable": {
+        "num": 699.0,
+        "den": 1288.0,
+        "ratio": 0.5427,
+        "lo": 0.3935,
+        "hi": 0.6628,
+        "n_tasks": 125
+      },
+      "recall_agent_facing": {
+        "num": 699.0,
+        "den": 1505.0,
+        "ratio": 0.4645,
+        "lo": 0.3256,
+        "hi": 0.578,
+        "n_tasks": 125
+      },
+      "miss_share_by_cause": {
+        "missed_between_nodes": {
+          "num": 589.0,
+          "den": 806.0,
+          "ratio": 0.7308,
+          "lo": 0.591,
+          "hi": 0.8411,
+          "n_tasks": 125
+        },
+        "absent_async": {
+          "num": 98.0,
+          "den": 806.0,
+          "ratio": 0.1216,
+          "lo": 0.0592,
+          "hi": 0.2083,
+          "n_tasks": 125
+        },
+        "absent_nested": {
+          "num": 38.0,
+          "den": 806.0,
+          "ratio": 0.0471,
+          "lo": 0.0229,
+          "hi": 0.0792,
+          "n_tasks": 125
+        },
+        "absent_sync": {
+          "num": 81.0,
+          "den": 806.0,
+          "ratio": 0.1005,
+          "lo": 0.0327,
+          "hi": 0.2299,
+          "n_tasks": 125
+        }
+      },
+      "unmapped_module_edges": 0
+    },
+    "observed_precision": {
+      "num": 11233.0,
+      "den": 52061.0,
+      "ratio": 0.2158,
+      "lo": 0.2042,
+      "hi": 0.2278,
+      "n_tasks": 125
+    },
+    "nontest_node_coverage": {
+      "num": 23585.0,
+      "den": 140943.0,
+      "ratio": 0.1673,
+      "lo": 0.1541,
+      "hi": 0.1808,
+      "n_tasks": 125
+    },
+    "tasks_gold_absent_but_executed": {
+      "k": 7,
+      "n": 125,
+      "p": 0.056,
+      "lo": 0.0274,
+      "hi": 0.1111
+    },
+    "tasks_gold_in_graph_executed": {
+      "k": 84,
+      "n": 125,
+      "p": 0.672,
+      "lo": 0.5856,
+      "hi": 0.7481
+    },
+    "tasks_static_sources_defined": {
+      "k": 25,
+      "n": 125,
+      "p": 0.2,
+      "lo": 0.1393,
+      "hi": 0.2786
+    },
+    "tasks_gold_static_reachable": {
+      "k": 10,
+      "n": 125,
+      "p": 0.08,
+      "lo": 0.044,
+      "hi": 0.141
+    },
+    "tasks_gold_static_reachable_given_sources": {
+      "k": 10,
+      "n": 25,
+      "p": 0.4,
+      "lo": 0.234,
+      "hi": 0.5926
+    },
+    "tasks_gold_executed_not_static": {
+      "k": 76,
+      "n": 125,
+      "p": 0.608,
+      "lo": 0.5204,
+      "hi": 0.6891
+    },
+    "tasks_entry_sources_defined": {
+      "k": 114,
+      "n": 125,
+      "p": 0.912,
+      "lo": 0.8493,
+      "hi": 0.9502
+    },
+    "tasks_gold_static_reachable_entry": {
+      "k": 80,
+      "n": 84,
+      "p": 0.9524,
+      "lo": 0.8839,
+      "hi": 0.9813
+    },
+    "tasks_gold_all_executed_reachable_entry": {
+      "k": 79,
+      "n": 84,
+      "p": 0.9405,
+      "lo": 0.8681,
+      "hi": 0.9743
+    },
+    "tasks_gold_executed_not_static_entry": {
+      "k": 5,
+      "n": 84,
+      "p": 0.0595,
+      "lo": 0.0257,
+      "hi": 0.1319
+    },
+    "tasks_gold_executed_is_entry": {
+      "k": 40,
+      "n": 84,
+      "p": 0.4762,
+      "lo": 0.3728,
+      "hi": 0.5817
+    },
+    "tasks_gold_reachable_entry_undirected_only": {
+      "k": 0,
+      "n": 84,
+      "p": 0.0,
+      "lo": 0.0,
+      "hi": 0.0437
+    },
+    "gold_min_hops_from_entry_hist": {
+      "0": 40,
+      "3": 10,
+      "6": 1,
+      "4": 2,
+      "2": 14,
+      "5": 3,
+      "None": 4,
+      "7": 1,
+      "1": 9
+    },
+    "f2p_statuses": {
+      "expected": 488,
+      "confirmed": 189,
+      "uncollected_pre": 118,
+      "pre_skipped": 0,
+      "pre_passed": 174,
+      "post_failed": 7,
+      "not_collected": 0
+    },
+    "f2p_statuses_truly_added": {
+      "expected": 379,
+      "confirmed": 187,
+      "uncollected_pre": 116,
+      "pre_skipped": 0,
+      "pre_passed": 75,
+      "post_failed": 1,
+      "not_collected": 0
+    },
+    "tasks_harness_resolved_post": {
+      "k": 92,
+      "n": 125,
+      "p": 0.736,
+      "lo": 0.6525,
+      "hi": 0.8054
+    },
+    "gold_status_counts": {
+      "in_graph_executed": 138,
+      "in_graph_not_executed": 329,
+      "absent_executed": 16,
+      "absent_not_executed": 41,
+      "new_symbol_executed_post": 71,
+      "new_symbol_not_executed": 112
+    },
+    "per_task_recall_representable_any": {
+      "mean": 0.5326,
+      "lo": 0.4958,
+      "hi": 0.5704,
+      "n": 124
+    }
+  },
+  "per_repo_usable": {
+    "fastapi/fastapi": {
+      "n_tasks": 45,
+      "all_direct": {
+        "recall_representable": {
+          "num": 2428.0,
+          "den": 3366.0,
+          "ratio": 0.7213,
+          "lo": 0.6831,
+          "hi": 0.7588,
+          "n_tasks": 45
+        },
+        "recall_agent_facing": {
+          "num": 2428.0,
+          "den": 4267.0,
+          "ratio": 0.569,
+          "lo": 0.5338,
+          "hi": 0.6061,
+          "n_tasks": 45
+        },
+        "miss_share_by_cause": {
+          "missed_between_nodes": {
+            "num": 938.0,
+            "den": 1839.0,
+            "ratio": 0.5101,
+            "lo": 0.4287,
+            "hi": 0.5801,
+            "n_tasks": 45
+          },
+          "absent_async": {
+            "num": 460.0,
+            "den": 1839.0,
+            "ratio": 0.2501,
+            "lo": 0.199,
+            "hi": 0.3078,
+            "n_tasks": 45
+          },
+          "absent_nested": {
+            "num": 186.0,
+            "den": 1839.0,
+            "ratio": 0.1011,
+            "lo": 0.0786,
+            "hi": 0.1259,
+            "n_tasks": 45
+          },
+          "absent_sync": {
+            "num": 255.0,
+            "den": 1839.0,
+            "ratio": 0.1387,
+            "lo": 0.0669,
+            "hi": 0.2458,
+            "n_tasks": 45
+          }
+        },
+        "unmapped_module_edges": 26
+      },
+      "all_any": {
+        "recall_representable": {
+          "num": 2428.0,
+          "den": 3701.0,
+          "ratio": 0.656,
+          "lo": 0.6248,
+          "hi": 0.6852,
+          "n_tasks": 45
+        },
+        "recall_agent_facing": {
+          "num": 2428.0,
+          "den": 4800.0,
+          "ratio": 0.5058,
+          "lo": 0.4769,
+          "hi": 0.5357,
+          "n_tasks": 45
+        },
+        "miss_share_by_cause": {
+          "missed_between_nodes": {
+            "num": 1273.0,
+            "den": 2372.0,
+            "ratio": 0.5367,
+            "lo": 0.4713,
+            "hi": 0.5955,
+            "n_tasks": 45
+          },
+          "absent_async": {
+            "num": 632.0,
+            "den": 2372.0,
+            "ratio": 0.2664,
+            "lo": 0.2201,
+            "hi": 0.3169,
+            "n_tasks": 45
+          },
+          "absent_nested": {
+            "num": 199.0,
+            "den": 2372.0,
+            "ratio": 0.0839,
+            "lo": 0.066,
+            "hi": 0.1031,
+            "n_tasks": 45
+          },
+          "absent_sync": {
+            "num": 268.0,
+            "den": 2372.0,
+            "ratio": 0.113,
+            "lo": 0.0565,
+            "hi": 0.1959,
+            "n_tasks": 45
+          }
+        },
+        "unmapped_module_edges": 26
+      },
+      "nontest_direct": {
+        "recall_representable": {
+          "num": 2308.0,
+          "den": 3056.0,
+          "ratio": 0.7552,
+          "lo": 0.7423,
+          "hi": 0.7714,
+          "n_tasks": 45
+        },
+        "recall_agent_facing": {
+          "num": 2308.0,
+          "den": 3581.0,
+          "ratio": 0.6445,
+          "lo": 0.6248,
+          "hi": 0.6666,
+          "n_tasks": 45
+        },
+        "miss_share_by_cause": {
+          "missed_between_nodes": {
+            "num": 748.0,
+            "den": 1273.0,
+            "ratio": 0.5876,
+            "lo": 0.5506,
+            "hi": 0.6267,
+            "n_tasks": 45
+          },
+          "absent_async": {
+            "num": 361.0,
+            "den": 1273.0,
+            "ratio": 0.2836,
+            "lo": 0.2512,
+            "hi": 0.3115,
+            "n_tasks": 45
+          },
+          "absent_nested": {
+            "num": 158.0,
+            "den": 1273.0,
+            "ratio": 0.1241,
+            "lo": 0.1071,
+            "hi": 0.143,
+            "n_tasks": 45
+          },
+          "absent_sync": {
+            "num": 6.0,
+            "den": 1273.0,
+            "ratio": 0.0047,
+            "lo": 0.0,
+            "hi": 0.0112,
+            "n_tasks": 45
+          }
+        },
+        "unmapped_module_edges": 0
+      },
+      "nontest_any": {
+        "recall_representable": {
+          "num": 2308.0,
+          "den": 3377.0,
+          "ratio": 0.6834,
+          "lo": 0.6729,
+          "hi": 0.6957,
+          "n_tasks": 45
+        },
+        "recall_agent_facing": {
+          "num": 2308.0,
+          "den": 4062.0,
+          "ratio": 0.5682,
+          "lo": 0.5525,
+          "hi": 0.5855,
+          "n_tasks": 45
+        },
+        "miss_share_by_cause": {
+          "missed_between_nodes": {
+            "num": 1069.0,
+            "den": 1754.0,
+            "ratio": 0.6095,
+            "lo": 0.5792,
+            "hi": 0.6435,
+            "n_tasks": 45
+          },
+          "absent_async": {
+            "num": 515.0,
+            "den": 1754.0,
+            "ratio": 0.2936,
+            "lo": 0.2667,
+            "hi": 0.3178,
+            "n_tasks": 45
+          },
+          "absent_nested": {
+            "num": 162.0,
+            "den": 1754.0,
+            "ratio": 0.0924,
+            "lo": 0.0792,
+            "hi": 0.1062,
+            "n_tasks": 45
+          },
+          "absent_sync": {
+            "num": 8.0,
+            "den": 1754.0,
+            "ratio": 0.0046,
+            "lo": 0.0,
+            "hi": 0.01,
+            "n_tasks": 45
+          }
+        },
+        "unmapped_module_edges": 0
+      },
+      "gold_direct": {
+        "recall_representable": {
+          "num": 107.0,
+          "den": 150.0,
+          "ratio": 0.7133,
+          "lo": 0.5952,
+          "hi": 0.8242,
+          "n_tasks": 45
+        },
+        "recall_agent_facing": {
+          "num": 107.0,
+          "den": 260.0,
+          "ratio": 0.4115,
+          "lo": 0.273,
+          "hi": 0.5846,
+          "n_tasks": 45
+        },
+        "miss_share_by_cause": {
+          "missed_between_nodes": {
+            "num": 43.0,
+            "den": 153.0,
+            "ratio": 0.281,
+            "lo": 0.1189,
+            "hi": 0.5542,
+            "n_tasks": 45
+          },
+          "absent_async": {
+            "num": 41.0,
+            "den": 153.0,
+            "ratio": 0.268,
+            "lo": 0.1081,
+            "hi": 0.5053,
+            "n_tasks": 45
+          },
+          "absent_nested": {
+            "num": 10.0,
+            "den": 153.0,
+            "ratio": 0.0654,
+            "lo": 0.013,
+            "hi": 0.1531,
+            "n_tasks": 45
+          },
+          "absent_sync": {
+            "num": 59.0,
+            "den": 153.0,
+            "ratio": 0.3856,
+            "lo": 0.0726,
+            "hi": 0.6667,
+            "n_tasks": 45
+          }
+        },
+        "unmapped_module_edges": 0
+      },
+      "gold_any": {
+        "recall_representable": {
+          "num": 107.0,
+          "den": 175.0,
+          "ratio": 0.6114,
+          "lo": 0.5,
+          "hi": 0.7278,
+          "n_tasks": 45
+        },
+        "recall_agent_facing": {
+          "num": 107.0,
+          "den": 294.0,
+          "ratio": 0.3639,
+          "lo": 0.2458,
+          "hi": 0.5115,
+          "n_tasks": 45
+        },
+        "miss_share_by_cause": {
+          "missed_between_nodes": {
+            "num": 68.0,
+            "den": 187.0,
+            "ratio": 0.3636,
+            "lo": 0.1845,
+            "hi": 0.6271,
+            "n_tasks": 45
+          },
+          "absent_async": {
+            "num": 47.0,
+            "den": 187.0,
+            "ratio": 0.2513,
+            "lo": 0.1065,
+            "hi": 0.44,
+            "n_tasks": 45
+          },
+          "absent_nested": {
+            "num": 12.0,
+            "den": 187.0,
+            "ratio": 0.0642,
+            "lo": 0.011,
+            "hi": 0.1429,
+            "n_tasks": 45
+          },
+          "absent_sync": {
+            "num": 60.0,
+            "den": 187.0,
+            "ratio": 0.3209,
+            "lo": 0.0593,
+            "hi": 0.5968,
+            "n_tasks": 45
+          }
+        },
+        "unmapped_module_edges": 0
+      },
+      "observed_precision": {
+        "num": 2428.0,
+        "den": 14744.0,
+        "ratio": 0.1647,
+        "lo": 0.15,
+        "hi": 0.1777,
+        "n_tasks": 45
+      },
+      "nontest_node_coverage": {
+        "num": 7324.0,
+        "den": 56269.0,
+        "ratio": 0.1302,
+        "lo": 0.1221,
+        "hi": 0.1389,
+        "n_tasks": 45
+      },
+      "tasks_gold_absent_but_executed": {
+        "k": 3,
+        "n": 45,
+        "p": 0.0667,
+        "lo": 0.0229,
+        "hi": 0.1786
+      },
+      "tasks_gold_in_graph_executed": {
+        "k": 35,
+        "n": 45,
+        "p": 0.7778,
+        "lo": 0.6373,
+        "hi": 0.8746
+      },
+      "tasks_static_sources_defined": {
+        "k": 5,
+        "n": 45,
+        "p": 0.1111,
+        "lo": 0.0484,
+        "hi": 0.235
+      },
+      "tasks_gold_static_reachable": {
+        "k": 0,
+        "n": 45,
+        "p": 0.0,
+        "lo": 0.0,
+        "hi": 0.0787
+      },
+      "tasks_gold_static_reachable_given_sources": {
+        "k": 0,
+        "n": 5,
+        "p": 0.0,
+        "lo": 0.0,
+        "hi": 0.4345
+      },
+      "tasks_gold_executed_not_static": {
+        "k": 35,
+        "n": 45,
+        "p": 0.7778,
+        "lo": 0.6373,
+        "hi": 0.8746
+      },
+      "tasks_entry_sources_defined": {
+        "k": 45,
+        "n": 45,
+        "p": 1.0,
+        "lo": 0.9213,
+        "hi": 1.0
+      },
+      "tasks_gold_static_reachable_entry": {
+        "k": 32,
+        "n": 35,
+        "p": 0.9143,
+        "lo": 0.7762,
+        "hi": 0.9704
+      },
+      "tasks_gold_all_executed_reachable_entry": {
+        "k": 32,
+        "n": 35,
+        "p": 0.9143,
+        "lo": 0.7762,
+        "hi": 0.9704
+      },
+      "tasks_gold_executed_not_static_entry": {
+        "k": 3,
+        "n": 35,
+        "p": 0.0857,
+        "lo": 0.0296,
+        "hi": 0.2238
+      },
+      "tasks_gold_executed_is_entry": {
+        "k": 14,
+        "n": 35,
+        "p": 0.4,
+        "lo": 0.2555,
+        "hi": 0.5643
+      },
+      "tasks_gold_reachable_entry_undirected_only": {
+        "k": 0,
+        "n": 35,
+        "p": 0.0,
+        "lo": 0.0,
+        "hi": 0.0989
+      },
+      "gold_min_hops_from_entry_hist": {
+        "0": 14,
+        "2": 8,
+        "5": 2,
+        "None": 3,
+        "3": 5,
+        "7": 1,
+        "1": 2
+      },
+      "f2p_statuses": {
+        "expected": 182,
+        "confirmed": 135,
+        "uncollected_pre": 0,
+        "pre_skipped": 0,
+        "pre_passed": 47,
+        "post_failed": 0,
+        "not_collected": 0
+      },
+      "f2p_statuses_truly_added": {
+        "expected": 182,
+        "confirmed": 135,
+        "uncollected_pre": 0,
+        "pre_skipped": 0,
+        "pre_passed": 47,
+        "post_failed": 0,
+        "not_collected": 0
+      },
+      "tasks_harness_resolved_post": {
+        "k": 44,
+        "n": 45,
+        "p": 0.9778,
+        "lo": 0.8843,
+        "hi": 0.9961
+      },
+      "gold_status_counts": {
+        "in_graph_executed": 54,
+        "in_graph_not_executed": 22,
+        "absent_executed": 4,
+        "absent_not_executed": 8,
+        "new_symbol_executed_post": 52,
+        "new_symbol_not_executed": 14
+      },
+      "per_task_recall_representable_any": {
+        "mean": 0.6894,
+        "lo": 0.6657,
+        "hi": 0.7184,
+        "n": 45
+      }
+    },
+    "psf/requests": {
+      "n_tasks": 7,
+      "all_direct": {
+        "recall_representable": {
+          "num": 1014.0,
+          "den": 2771.0,
+          "ratio": 0.3659,
+          "lo": 0.3398,
+          "hi": 0.4476,
+          "n_tasks": 7
+        },
+        "recall_agent_facing": {
+          "num": 1014.0,
+          "den": 4455.0,
+          "ratio": 0.2276,
+          "lo": 0.2089,
+          "hi": 0.2867,
+          "n_tasks": 7
+        },
+        "miss_share_by_cause": {
+          "missed_between_nodes": {
+            "num": 1757.0,
+            "den": 3441.0,
+            "ratio": 0.5106,
+            "lo": 0.4975,
+            "hi": 0.5166,
+            "n_tasks": 7
+          },
+          "absent_async": {
+            "num": 0.0,
+            "den": 3441.0,
+            "ratio": 0.0,
+            "lo": 0.0,
+            "hi": 0.0,
+            "n_tasks": 7
+          },
+          "absent_nested": {
+            "num": 263.0,
+            "den": 3441.0,
+            "ratio": 0.0764,
+            "lo": 0.0722,
+            "hi": 0.0901,
+            "n_tasks": 7
+          },
+          "absent_sync": {
+            "num": 1421.0,
+            "den": 3441.0,
+            "ratio": 0.413,
+            "lo": 0.4078,
+            "hi": 0.4156,
+            "n_tasks": 7
+          }
+        },
+        "unmapped_module_edges": 0
+      },
+      "all_any": {
+        "recall_representable": {
+          "num": 1048.0,
+          "den": 3018.0,
+          "ratio": 0.3472,
+          "lo": 0.3214,
+          "hi": 0.4279,
+          "n_tasks": 7
+        },
+        "recall_agent_facing": {
+          "num": 1048.0,
+          "den": 4814.0,
+          "ratio": 0.2177,
+          "lo": 0.1991,
+          "hi": 0.2767,
+          "n_tasks": 7
+        },
+        "miss_share_by_cause": {
+          "missed_between_nodes": {
+            "num": 1970.0,
+            "den": 3766.0,
+            "ratio": 0.5231,
+            "lo": 0.5117,
+            "hi": 0.5283,
+            "n_tasks": 7
+          },
+          "absent_async": {
+            "num": 0.0,
+            "den": 3766.0,
+            "ratio": 0.0,
+            "lo": 0.0,
+            "hi": 0.0,
+            "n_tasks": 7
+          },
+          "absent_nested": {
+            "num": 338.0,
+            "den": 3766.0,
+            "ratio": 0.0898,
+            "lo": 0.0856,
+            "hi": 0.1009,
+            "n_tasks": 7
+          },
+          "absent_sync": {
+            "num": 1458.0,
+            "den": 3766.0,
+            "ratio": 0.3871,
+            "lo": 0.3836,
+            "hi": 0.3897,
+            "n_tasks": 7
+          }
+        },
+        "unmapped_module_edges": 0
+      },
+      "nontest_direct": {
+        "recall_representable": {
+          "num": 427.0,
+          "den": 987.0,
+          "ratio": 0.4326,
+          "lo": 0.4251,
+          "hi": 0.4544,
+          "n_tasks": 7
+        },
+        "recall_agent_facing": {
+          "num": 427.0,
+          "den": 1006.0,
+          "ratio": 0.4245,
+          "lo": 0.4163,
+          "hi": 0.445,
+          "n_tasks": 7
+        },
+        "miss_share_by_cause": {
+          "missed_between_nodes": {
+            "num": 560.0,
+            "den": 579.0,
+            "ratio": 0.9672,
+            "lo": 0.9503,
+            "hi": 0.9767,
+            "n_tasks": 7
+          },
+          "absent_async": {
+            "num": 0.0,
+            "den": 579.0,
+            "ratio": 0.0,
+            "lo": 0.0,
+            "hi": 0.0,
+            "n_tasks": 7
+          },
+          "absent_nested": {
+            "num": 19.0,
+            "den": 579.0,
+            "ratio": 0.0328,
+            "lo": 0.0233,
+            "hi": 0.0497,
+            "n_tasks": 7
+          },
+          "absent_sync": {
+            "num": 0.0,
+            "den": 579.0,
+            "ratio": 0.0,
+            "lo": 0.0,
+            "hi": 0.0,
+            "n_tasks": 7
+          }
+        },
+        "unmapped_module_edges": 0
+      },
+      "nontest_any": {
+        "recall_representable": {
+          "num": 433.0,
+          "den": 1127.0,
+          "ratio": 0.3842,
+          "lo": 0.3751,
+          "hi": 0.4071,
+          "n_tasks": 7
+        },
+        "recall_agent_facing": {
+          "num": 433.0,
+          "den": 1166.0,
+          "ratio": 0.3714,
+          "lo": 0.3615,
+          "hi": 0.3938,
+          "n_tasks": 7
+        },
+        "miss_share_by_cause": {
+          "missed_between_nodes": {
+            "num": 694.0,
+            "den": 733.0,
+            "ratio": 0.9468,
+            "lo": 0.9337,
+            "hi": 0.9543,
+            "n_tasks": 7
+          },
+          "absent_async": {
+            "num": 0.0,
+            "den": 733.0,
+            "ratio": 0.0,
+            "lo": 0.0,
+            "hi": 0.0,
+            "n_tasks": 7
+          },
+          "absent_nested": {
+            "num": 39.0,
+            "den": 733.0,
+            "ratio": 0.0532,
+            "lo": 0.0457,
+            "hi": 0.0663,
+            "n_tasks": 7
+          },
+          "absent_sync": {
+            "num": 0.0,
+            "den": 733.0,
+            "ratio": 0.0,
+            "lo": 0.0,
+            "hi": 0.0,
+            "n_tasks": 7
+          }
+        },
+        "unmapped_module_edges": 0
+      },
+      "gold_direct": {
+        "recall_representable": {
+          "num": 23.0,
+          "den": 54.0,
+          "ratio": 0.4259,
+          "lo": 0.2596,
+          "hi": 0.7692,
+          "n_tasks": 7
+        },
+        "recall_agent_facing": {
+          "num": 23.0,
+          "den": 73.0,
+          "ratio": 0.3151,
+          "lo": 0.1875,
+          "hi": 0.5714,
+          "n_tasks": 7
+        },
+        "miss_share_by_cause": {
+          "missed_between_nodes": {
+            "num": 31.0,
+            "den": 50.0,
+            "ratio": 0.62,
+            "lo": 0.375,
+            "hi": 0.8116,
+            "n_tasks": 7
+          },
+          "absent_async": {
+            "num": 0.0,
+            "den": 50.0,
+            "ratio": 0.0,
+            "lo": 0.0,
+            "hi": 0.0,
+            "n_tasks": 7
+          },
+          "absent_nested": {
+            "num": 15.0,
+            "den": 50.0,
+            "ratio": 0.3,
+            "lo": 0.0698,
+            "hi": 0.4902,
+            "n_tasks": 7
+          },
+          "absent_sync": {
+            "num": 4.0,
+            "den": 50.0,
+            "ratio": 0.08,
+            "lo": 0.022,
+            "hi": 0.2593,
+            "n_tasks": 7
+          }
+        },
+        "unmapped_module_edges": 0
+      },
+      "gold_any": {
+        "recall_representable": {
+          "num": 24.0,
+          "den": 59.0,
+          "ratio": 0.4068,
+          "lo": 0.2368,
+          "hi": 0.766,
+          "n_tasks": 7
+        },
+        "recall_agent_facing": {
+          "num": 24.0,
+          "den": 78.0,
+          "ratio": 0.3077,
+          "lo": 0.1765,
+          "hi": 0.5818,
+          "n_tasks": 7
+        },
+        "miss_share_by_cause": {
+          "missed_between_nodes": {
+            "num": 35.0,
+            "den": 54.0,
+            "ratio": 0.6481,
+            "lo": 0.4,
+            "hi": 0.8289,
+            "n_tasks": 7
+          },
+          "absent_async": {
+            "num": 0.0,
+            "den": 54.0,
+            "ratio": 0.0,
+            "lo": 0.0,
+            "hi": 0.0,
+            "n_tasks": 7
+          },
+          "absent_nested": {
+            "num": 15.0,
+            "den": 54.0,
+            "ratio": 0.2778,
+            "lo": 0.0638,
+            "hi": 0.4615,
+            "n_tasks": 7
+          },
+          "absent_sync": {
+            "num": 4.0,
+            "den": 54.0,
+            "ratio": 0.0741,
+            "lo": 0.0204,
+            "hi": 0.2414,
+            "n_tasks": 7
+          }
+        },
+        "unmapped_module_edges": 0
+      },
+      "observed_precision": {
+        "num": 1036.0,
+        "den": 3019.0,
+        "ratio": 0.3432,
+        "lo": 0.3379,
+        "hi": 0.3555,
+        "n_tasks": 7
+      },
+      "nontest_node_coverage": {
+        "num": 810.0,
+        "den": 2055.0,
+        "ratio": 0.3942,
+        "lo": 0.2569,
+        "hi": 0.5319,
+        "n_tasks": 7
+      },
+      "tasks_gold_absent_but_executed": {
+        "k": 0,
+        "n": 7,
+        "p": 0.0,
+        "lo": 0.0,
+        "hi": 0.3543
+      },
+      "tasks_gold_in_graph_executed": {
+        "k": 7,
+        "n": 7,
+        "p": 1.0,
+        "lo": 0.6457,
+        "hi": 1.0
+      },
+      "tasks_static_sources_defined": {
+        "k": 5,
+        "n": 7,
+        "p": 0.7143,
+        "lo": 0.3589,
+        "hi": 0.9178
+      },
+      "tasks_gold_static_reachable": {
+        "k": 5,
+        "n": 7,
+        "p": 0.7143,
+        "lo": 0.3589,
+        "hi": 0.9178
+      },
+      "tasks_gold_static_reachable_given_sources": {
+        "k": 5,
+        "n": 5,
+        "p": 1.0,
+        "lo": 0.5655,
+        "hi": 1.0
+      },
+      "tasks_gold_executed_not_static": {
+        "k": 2,
+        "n": 7,
+        "p": 0.2857,
+        "lo": 0.0822,
+        "hi": 0.6411
+      },
+      "tasks_entry_sources_defined": {
+        "k": 7,
+        "n": 7,
+        "p": 1.0,
+        "lo": 0.6457,
+        "hi": 1.0
+      },
+      "tasks_gold_static_reachable_entry": {
+        "k": 7,
+        "n": 7,
+        "p": 1.0,
+        "lo": 0.6457,
+        "hi": 1.0
+      },
+      "tasks_gold_all_executed_reachable_entry": {
+        "k": 7,
+        "n": 7,
+        "p": 1.0,
+        "lo": 0.6457,
+        "hi": 1.0
+      },
+      "tasks_gold_executed_not_static_entry": {
+        "k": 0,
+        "n": 7,
+        "p": 0.0,
+        "lo": 0.0,
+        "hi": 0.3543
+      },
+      "tasks_gold_executed_is_entry": {
+        "k": 3,
+        "n": 7,
+        "p": 0.4286,
+        "lo": 0.1582,
+        "hi": 0.7495
+      },
+      "tasks_gold_reachable_entry_undirected_only": {
+        "k": 0,
+        "n": 7,
+        "p": 0.0,
+        "lo": 0.0,
+        "hi": 0.3543
+      },
+      "gold_min_hops_from_entry_hist": {
+        "3": 2,
+        "6": 1,
+        "0": 3,
+        "4": 1
+      },
+      "f2p_statuses": {
+        "expected": 8,
+        "confirmed": 7,
+        "uncollected_pre": 0,
+        "pre_skipped": 0,
+        "pre_passed": 1,
+        "post_failed": 0,
+        "not_collected": 0
+      },
+      "f2p_statuses_truly_added": {
+        "expected": 8,
+        "confirmed": 7,
+        "uncollected_pre": 0,
+        "pre_skipped": 0,
+        "pre_passed": 1,
+        "post_failed": 0,
+        "not_collected": 0
+      },
+      "tasks_harness_resolved_post": {
+        "k": 7,
+        "n": 7,
+        "p": 1.0,
+        "lo": 0.6457,
+        "hi": 1.0
+      },
+      "gold_status_counts": {
+        "in_graph_executed": 8,
+        "in_graph_not_executed": 1,
+        "absent_executed": 0,
+        "absent_not_executed": 0,
+        "new_symbol_executed_post": 1,
+        "new_symbol_not_executed": 0
+      },
+      "per_task_recall_representable_any": {
+        "mean": 0.5083,
+        "lo": 0.3459,
+        "hi": 0.6976,
+        "n": 7
+      }
+    },
+    "Textualize/rich": {
+      "n_tasks": 39,
+      "all_direct": {
+        "recall_representable": {
+          "num": 4556.0,
+          "den": 14922.0,
+          "ratio": 0.3053,
+          "lo": 0.2951,
+          "hi": 0.3181,
+          "n_tasks": 39
+        },
+        "recall_agent_facing": {
+          "num": 4556.0,
+          "den": 15622.0,
+          "ratio": 0.2916,
+          "lo": 0.2819,
+          "hi": 0.3034,
+          "n_tasks": 39
+        },
+        "miss_share_by_cause": {
+          "missed_between_nodes": {
+            "num": 10366.0,
+            "den": 11066.0,
+            "ratio": 0.9367,
+            "lo": 0.9286,
+            "hi": 0.9435,
+            "n_tasks": 39
+          },
+          "absent_async": {
+            "num": 0.0,
+            "den": 11066.0,
+            "ratio": 0.0,
+            "lo": 0.0,
+            "hi": 0.0,
+            "n_tasks": 39
+          },
+          "absent_nested": {
+            "num": 553.0,
+            "den": 11066.0,
+            "ratio": 0.05,
+            "lo": 0.0469,
+            "hi": 0.0537,
+            "n_tasks": 39
+          },
+          "absent_sync": {
+            "num": 147.0,
+            "den": 11066.0,
+            "ratio": 0.0133,
+            "lo": 0.0085,
+            "hi": 0.0197,
+            "n_tasks": 39
+          }
+        },
+        "unmapped_module_edges": 0
+      },
+      "all_any": {
+        "recall_representable": {
+          "num": 4556.0,
+          "den": 14934.0,
+          "ratio": 0.3051,
+          "lo": 0.2949,
+          "hi": 0.3178,
+          "n_tasks": 39
+        },
+        "recall_agent_facing": {
+          "num": 4556.0,
+          "den": 15653.0,
+          "ratio": 0.2911,
+          "lo": 0.2814,
+          "hi": 0.3029,
+          "n_tasks": 39
+        },
+        "miss_share_by_cause": {
+          "missed_between_nodes": {
+            "num": 10378.0,
+            "den": 11097.0,
+            "ratio": 0.9352,
+            "lo": 0.9265,
+            "hi": 0.9424,
+            "n_tasks": 39
+          },
+          "absent_async": {
+            "num": 0.0,
+            "den": 11097.0,
+            "ratio": 0.0,
+            "lo": 0.0,
+            "hi": 0.0,
+            "n_tasks": 39
+          },
+          "absent_nested": {
+            "num": 553.0,
+            "den": 11097.0,
+            "ratio": 0.0498,
+            "lo": 0.0468,
+            "hi": 0.0536,
+            "n_tasks": 39
+          },
+          "absent_sync": {
+            "num": 166.0,
+            "den": 11097.0,
+            "ratio": 0.015,
+            "lo": 0.0099,
+            "hi": 0.0216,
+            "n_tasks": 39
+          }
+        },
+        "unmapped_module_edges": 0
+      },
+      "nontest_direct": {
+        "recall_representable": {
+          "num": 2695.0,
+          "den": 10288.0,
+          "ratio": 0.262,
+          "lo": 0.2559,
+          "hi": 0.2686,
+          "n_tasks": 39
+        },
+        "recall_agent_facing": {
+          "num": 2695.0,
+          "den": 10811.0,
+          "ratio": 0.2493,
+          "lo": 0.2431,
+          "hi": 0.2557,
+          "n_tasks": 39
+        },
+        "miss_share_by_cause": {
+          "missed_between_nodes": {
+            "num": 7593.0,
+            "den": 8116.0,
+            "ratio": 0.9356,
+            "lo": 0.9295,
+            "hi": 0.9409,
+            "n_tasks": 39
+          },
+          "absent_async": {
+            "num": 0.0,
+            "den": 8116.0,
+            "ratio": 0.0,
+            "lo": 0.0,
+            "hi": 0.0,
+            "n_tasks": 39
+          },
+          "absent_nested": {
+            "num": 522.0,
+            "den": 8116.0,
+            "ratio": 0.0643,
+            "lo": 0.059,
+            "hi": 0.0703,
+            "n_tasks": 39
+          },
+          "absent_sync": {
+            "num": 1.0,
+            "den": 8116.0,
+            "ratio": 0.0001,
+            "lo": 0.0,
+            "hi": 0.0004,
+            "n_tasks": 39
+          }
+        },
+        "unmapped_module_edges": 0
+      },
+      "nontest_any": {
+        "recall_representable": {
+          "num": 2695.0,
+          "den": 10289.0,
+          "ratio": 0.2619,
+          "lo": 0.2558,
+          "hi": 0.2685,
+          "n_tasks": 39
+        },
+        "recall_agent_facing": {
+          "num": 2695.0,
+          "den": 10813.0,
+          "ratio": 0.2492,
+          "lo": 0.2431,
+          "hi": 0.2557,
+          "n_tasks": 39
+        },
+        "miss_share_by_cause": {
+          "missed_between_nodes": {
+            "num": 7594.0,
+            "den": 8118.0,
+            "ratio": 0.9355,
+            "lo": 0.9294,
+            "hi": 0.9409,
+            "n_tasks": 39
+          },
+          "absent_async": {
+            "num": 0.0,
+            "den": 8118.0,
+            "ratio": 0.0,
+            "lo": 0.0,
+            "hi": 0.0,
+            "n_tasks": 39
+          },
+          "absent_nested": {
+            "num": 522.0,
+            "den": 8118.0,
+            "ratio": 0.0643,
+            "lo": 0.059,
+            "hi": 0.0703,
+            "n_tasks": 39
+          },
+          "absent_sync": {
+            "num": 2.0,
+            "den": 8118.0,
+            "ratio": 0.0002,
+            "lo": 0.0,
+            "hi": 0.0006,
+            "n_tasks": 39
+          }
+        },
+        "unmapped_module_edges": 0
+      },
+      "gold_direct": {
+        "recall_representable": {
+          "num": 473.0,
+          "den": 839.0,
+          "ratio": 0.5638,
+          "lo": 0.3268,
+          "hi": 0.7106,
+          "n_tasks": 39
+        },
+        "recall_agent_facing": {
+          "num": 473.0,
+          "den": 864.0,
+          "ratio": 0.5475,
+          "lo": 0.314,
+          "hi": 0.6916,
+          "n_tasks": 39
+        },
+        "miss_share_by_cause": {
+          "missed_between_nodes": {
+            "num": 366.0,
+            "den": 391.0,
+            "ratio": 0.9361,
+            "lo": 0.9023,
+            "hi": 0.9597,
+            "n_tasks": 39
+          },
+          "absent_async": {
+            "num": 0.0,
+            "den": 391.0,
+            "ratio": 0.0,
+            "lo": 0.0,
+            "hi": 0.0,
+            "n_tasks": 39
+          },
+          "absent_nested": {
+            "num": 9.0,
+            "den": 391.0,
+            "ratio": 0.023,
+            "lo": 0.0102,
+            "hi": 0.0368,
+            "n_tasks": 39
+          },
+          "absent_sync": {
+            "num": 16.0,
+            "den": 391.0,
+            "ratio": 0.0409,
+            "lo": 0.0222,
+            "hi": 0.0712,
+            "n_tasks": 39
+          }
+        },
+        "unmapped_module_edges": 0
+      },
+      "gold_any": {
+        "recall_representable": {
+          "num": 473.0,
+          "den": 839.0,
+          "ratio": 0.5638,
+          "lo": 0.3268,
+          "hi": 0.7106,
+          "n_tasks": 39
+        },
+        "recall_agent_facing": {
+          "num": 473.0,
+          "den": 864.0,
+          "ratio": 0.5475,
+          "lo": 0.314,
+          "hi": 0.6916,
+          "n_tasks": 39
+        },
+        "miss_share_by_cause": {
+          "missed_between_nodes": {
+            "num": 366.0,
+            "den": 391.0,
+            "ratio": 0.9361,
+            "lo": 0.9023,
+            "hi": 0.9597,
+            "n_tasks": 39
+          },
+          "absent_async": {
+            "num": 0.0,
+            "den": 391.0,
+            "ratio": 0.0,
+            "lo": 0.0,
+            "hi": 0.0,
+            "n_tasks": 39
+          },
+          "absent_nested": {
+            "num": 9.0,
+            "den": 391.0,
+            "ratio": 0.023,
+            "lo": 0.0102,
+            "hi": 0.0368,
+            "n_tasks": 39
+          },
+          "absent_sync": {
+            "num": 16.0,
+            "den": 391.0,
+            "ratio": 0.0409,
+            "lo": 0.0222,
+            "hi": 0.0712,
+            "n_tasks": 39
+          }
+        },
+        "unmapped_module_edges": 0
+      },
+      "observed_precision": {
+        "num": 4549.0,
+        "den": 19670.0,
+        "ratio": 0.2313,
+        "lo": 0.2183,
+        "hi": 0.2434,
+        "n_tasks": 39
+      },
+      "nontest_node_coverage": {
+        "num": 9020.0,
+        "den": 44661.0,
+        "ratio": 0.202,
+        "lo": 0.1739,
+        "hi": 0.2299,
+        "n_tasks": 39
+      },
+      "tasks_gold_absent_but_executed": {
+        "k": 0,
+        "n": 39,
+        "p": 0.0,
+        "lo": 0.0,
+        "hi": 0.0897
+      },
+      "tasks_gold_in_graph_executed": {
+        "k": 30,
+        "n": 39,
+        "p": 0.7692,
+        "lo": 0.6166,
+        "hi": 0.8735
+      },
+      "tasks_static_sources_defined": {
+        "k": 0,
+        "n": 39,
+        "p": 0.0,
+        "lo": 0.0,
+        "hi": 0.0897
+      },
+      "tasks_gold_static_reachable": {
+        "k": 0,
+        "n": 39,
+        "p": 0.0,
+        "lo": 0.0,
+        "hi": 0.0897
+      },
+      "tasks_gold_static_reachable_given_sources": {
+        "k": 0,
+        "n": 0,
+        "p": null,
+        "lo": null,
+        "hi": null
+      },
+      "tasks_gold_executed_not_static": {
+        "k": 30,
+        "n": 39,
+        "p": 0.7692,
+        "lo": 0.6166,
+        "hi": 0.8735
+      },
+      "tasks_entry_sources_defined": {
+        "k": 34,
+        "n": 39,
+        "p": 0.8718,
+        "lo": 0.7329,
+        "hi": 0.944
+      },
+      "tasks_gold_static_reachable_entry": {
+        "k": 30,
+        "n": 30,
+        "p": 1.0,
+        "lo": 0.8865,
+        "hi": 1.0
+      },
+      "tasks_gold_all_executed_reachable_entry": {
+        "k": 30,
+        "n": 30,
+        "p": 1.0,
+        "lo": 0.8865,
+        "hi": 1.0
+      },
+      "tasks_gold_executed_not_static_entry": {
+        "k": 0,
+        "n": 30,
+        "p": 0.0,
+        "lo": 0.0,
+        "hi": 0.1135
+      },
+      "tasks_gold_executed_is_entry": {
+        "k": 15,
+        "n": 30,
+        "p": 0.5,
+        "lo": 0.3315,
+        "hi": 0.6685
+      },
+      "tasks_gold_reachable_entry_undirected_only": {
+        "k": 0,
+        "n": 30,
+        "p": 0.0,
+        "lo": 0.0,
+        "hi": 0.1135
+      },
+      "gold_min_hops_from_entry_hist": {
+        "0": 15,
+        "1": 7,
+        "2": 5,
+        "4": 1,
+        "3": 2
+      },
+      "f2p_statuses": {
+        "expected": 172,
+        "confirmed": 47,
+        "uncollected_pre": 0,
+        "pre_skipped": 0,
+        "pre_passed": 119,
+        "post_failed": 6,
+        "not_collected": 0
+      },
+      "f2p_statuses_truly_added": {
+        "expected": 65,
+        "confirmed": 45,
+        "uncollected_pre": 0,
+        "pre_skipped": 0,
+        "pre_passed": 20,
+        "post_failed": 0,
+        "not_collected": 0
+      },
+      "tasks_harness_resolved_post": {
+        "k": 33,
+        "n": 39,
+        "p": 0.8462,
+        "lo": 0.7027,
+        "hi": 0.9275
+      },
+      "gold_status_counts": {
+        "in_graph_executed": 52,
+        "in_graph_not_executed": 33,
+        "absent_executed": 0,
+        "absent_not_executed": 0,
+        "new_symbol_executed_post": 6,
+        "new_symbol_not_executed": 4
+      },
+      "per_task_recall_representable_any": {
+        "mean": 0.3624,
+        "lo": 0.3129,
+        "hi": 0.425,
+        "n": 39
+      }
+    },
+    "encode/httpx": {
+      "n_tasks": 0
+    }
+  },
+  "per_repo_all": {
+    "fastapi/fastapi": {
+      "n_tasks": 67,
+      "all_direct": {
+        "recall_representable": {
+          "num": 4063.0,
+          "den": 5903.0,
+          "ratio": 0.6883,
+          "lo": 0.6564,
+          "hi": 0.7272,
+          "n_tasks": 67
+        },
+        "recall_agent_facing": {
+          "num": 4063.0,
+          "den": 7613.0,
+          "ratio": 0.5337,
+          "lo": 0.5014,
+          "hi": 0.5729,
+          "n_tasks": 67
+        },
+        "miss_share_by_cause": {
+          "missed_between_nodes": {
+            "num": 1840.0,
+            "den": 3550.0,
+            "ratio": 0.5183,
+            "lo": 0.4476,
+            "hi": 0.5786,
+            "n_tasks": 67
+          },
+          "absent_async": {
+            "num": 898.0,
+            "den": 3550.0,
+            "ratio": 0.253,
+            "lo": 0.2054,
+            "hi": 0.302,
+            "n_tasks": 67
+          },
+          "absent_nested": {
+            "num": 319.0,
+            "den": 3550.0,
+            "ratio": 0.0899,
+            "lo": 0.0744,
+            "hi": 0.109,
+            "n_tasks": 67
+          },
+          "absent_sync": {
+            "num": 493.0,
+            "den": 3550.0,
+            "ratio": 0.1389,
+            "lo": 0.0685,
+            "hi": 0.2237,
+            "n_tasks": 67
+          }
+        },
+        "unmapped_module_edges": 35
+      },
+      "all_any": {
+        "recall_representable": {
+          "num": 4063.0,
+          "den": 6447.0,
+          "ratio": 0.6302,
+          "lo": 0.6039,
+          "hi": 0.6608,
+          "n_tasks": 67
+        },
+        "recall_agent_facing": {
+          "num": 4063.0,
+          "den": 8488.0,
+          "ratio": 0.4787,
+          "lo": 0.4514,
+          "hi": 0.511,
+          "n_tasks": 67
+        },
+        "miss_share_by_cause": {
+          "missed_between_nodes": {
+            "num": 2384.0,
+            "den": 4425.0,
+            "ratio": 0.5388,
+            "lo": 0.4804,
+            "hi": 0.5912,
+            "n_tasks": 67
+          },
+          "absent_async": {
+            "num": 1168.0,
+            "den": 4425.0,
+            "ratio": 0.264,
+            "lo": 0.2227,
+            "hi": 0.3066,
+            "n_tasks": 67
+          },
+          "absent_nested": {
+            "num": 347.0,
+            "den": 4425.0,
+            "ratio": 0.0784,
+            "lo": 0.0649,
+            "hi": 0.094,
+            "n_tasks": 67
+          },
+          "absent_sync": {
+            "num": 526.0,
+            "den": 4425.0,
+            "ratio": 0.1189,
+            "lo": 0.0608,
+            "hi": 0.1903,
+            "n_tasks": 67
+          }
+        },
+        "unmapped_module_edges": 41
+      },
+      "nontest_direct": {
+        "recall_representable": {
+          "num": 3729.0,
+          "den": 5018.0,
+          "ratio": 0.7431,
+          "lo": 0.7297,
+          "hi": 0.758,
+          "n_tasks": 67
+        },
+        "recall_agent_facing": {
+          "num": 3729.0,
+          "den": 5972.0,
+          "ratio": 0.6244,
+          "lo": 0.6047,
+          "hi": 0.6463,
+          "n_tasks": 67
+        },
+        "miss_share_by_cause": {
+          "missed_between_nodes": {
+            "num": 1289.0,
+            "den": 2243.0,
+            "ratio": 0.5747,
+            "lo": 0.5379,
+            "hi": 0.6096,
+            "n_tasks": 67
+          },
+          "absent_async": {
+            "num": 600.0,
+            "den": 2243.0,
+            "ratio": 0.2675,
+            "lo": 0.2405,
+            "hi": 0.2951,
+            "n_tasks": 67
+          },
+          "absent_nested": {
+            "num": 276.0,
+            "den": 2243.0,
+            "ratio": 0.123,
+            "lo": 0.1076,
+            "hi": 0.1399,
+            "n_tasks": 67
+          },
+          "absent_sync": {
+            "num": 78.0,
+            "den": 2243.0,
+            "ratio": 0.0348,
+            "lo": 0.0061,
+            "hi": 0.075,
+            "n_tasks": 67
+          }
+        },
+        "unmapped_module_edges": 0
+      },
+      "nontest_any": {
+        "recall_representable": {
+          "num": 3729.0,
+          "den": 5534.0,
+          "ratio": 0.6738,
+          "lo": 0.6621,
+          "hi": 0.6862,
+          "n_tasks": 67
+        },
+        "recall_agent_facing": {
+          "num": 3729.0,
+          "den": 6747.0,
+          "ratio": 0.5527,
+          "lo": 0.5352,
+          "hi": 0.5711,
+          "n_tasks": 67
+        },
+        "miss_share_by_cause": {
+          "missed_between_nodes": {
+            "num": 1805.0,
+            "den": 3018.0,
+            "ratio": 0.5981,
+            "lo": 0.5678,
+            "hi": 0.6275,
+            "n_tasks": 67
+          },
+          "absent_async": {
+            "num": 841.0,
+            "den": 3018.0,
+            "ratio": 0.2787,
+            "lo": 0.2567,
+            "hi": 0.302,
+            "n_tasks": 67
+          },
+          "absent_nested": {
+            "num": 282.0,
+            "den": 3018.0,
+            "ratio": 0.0934,
+            "lo": 0.0815,
+            "hi": 0.1061,
+            "n_tasks": 67
+          },
+          "absent_sync": {
+            "num": 90.0,
+            "den": 3018.0,
+            "ratio": 0.0298,
+            "lo": 0.006,
+            "hi": 0.0627,
+            "n_tasks": 67
+          }
+        },
+        "unmapped_module_edges": 0
+      },
+      "gold_direct": {
+        "recall_representable": {
+          "num": 158.0,
+          "den": 223.0,
+          "ratio": 0.7085,
+          "lo": 0.6165,
+          "hi": 0.8083,
+          "n_tasks": 67
+        },
+        "recall_agent_facing": {
+          "num": 158.0,
+          "den": 375.0,
+          "ratio": 0.4213,
+          "lo": 0.2964,
+          "hi": 0.5642,
+          "n_tasks": 67
+        },
+        "miss_share_by_cause": {
+          "missed_between_nodes": {
+            "num": 65.0,
+            "den": 217.0,
+            "ratio": 0.2995,
+            "lo": 0.1374,
+            "hi": 0.5172,
+            "n_tasks": 67
+          },
+          "absent_async": {
+            "num": 83.0,
+            "den": 217.0,
+            "ratio": 0.3825,
+            "lo": 0.1884,
+            "hi": 0.6011,
+            "n_tasks": 67
+          },
+          "absent_nested": {
+            "num": 10.0,
+            "den": 217.0,
+            "ratio": 0.0461,
+            "lo": 0.009,
+            "hi": 0.1095,
+            "n_tasks": 67
+          },
+          "absent_sync": {
+            "num": 59.0,
+            "den": 217.0,
+            "ratio": 0.2719,
+            "lo": 0.038,
+            "hi": 0.5693,
+            "n_tasks": 67
+          }
+        },
+        "unmapped_module_edges": 0
+      },
+      "gold_any": {
+        "recall_representable": {
+          "num": 158.0,
+          "den": 262.0,
+          "ratio": 0.6031,
+          "lo": 0.509,
+          "hi": 0.6971,
+          "n_tasks": 67
+        },
+        "recall_agent_facing": {
+          "num": 158.0,
+          "den": 432.0,
+          "ratio": 0.3657,
+          "lo": 0.2609,
+          "hi": 0.4823,
+          "n_tasks": 67
+        },
+        "miss_share_by_cause": {
+          "missed_between_nodes": {
+            "num": 104.0,
+            "den": 274.0,
+            "ratio": 0.3796,
+            "lo": 0.2193,
+            "hi": 0.5845,
+            "n_tasks": 67
+          },
+          "absent_async": {
+            "num": 98.0,
+            "den": 274.0,
+            "ratio": 0.3577,
+            "lo": 0.1958,
+            "hi": 0.5253,
+            "n_tasks": 67
+          },
+          "absent_nested": {
+            "num": 12.0,
+            "den": 274.0,
+            "ratio": 0.0438,
+            "lo": 0.0072,
+            "hi": 0.0968,
+            "n_tasks": 67
+          },
+          "absent_sync": {
+            "num": 60.0,
+            "den": 274.0,
+            "ratio": 0.219,
+            "lo": 0.0317,
+            "hi": 0.48,
+            "n_tasks": 67
+          }
+        },
+        "unmapped_module_edges": 0
+      },
+      "observed_precision": {
+        "num": 4063.0,
+        "den": 23098.0,
+        "ratio": 0.1759,
+        "lo": 0.1613,
+        "hi": 0.189,
+        "n_tasks": 67
+      },
+      "nontest_node_coverage": {
+        "num": 11191.0,
+        "den": 82750.0,
+        "ratio": 0.1352,
+        "lo": 0.1268,
+        "hi": 0.1441,
+        "n_tasks": 67
+      },
+      "tasks_gold_absent_but_executed": {
+        "k": 7,
+        "n": 67,
+        "p": 0.1045,
+        "lo": 0.0515,
+        "hi": 0.2003
+      },
+      "tasks_gold_in_graph_executed": {
+        "k": 42,
+        "n": 67,
+        "p": 0.6269,
+        "lo": 0.5072,
+        "hi": 0.7328
+      },
+      "tasks_static_sources_defined": {
+        "k": 17,
+        "n": 67,
+        "p": 0.2537,
+        "lo": 0.1649,
+        "hi": 0.3693
+      },
+      "tasks_gold_static_reachable": {
+        "k": 2,
+        "n": 67,
+        "p": 0.0299,
+        "lo": 0.0082,
+        "hi": 0.1025
+      },
+      "tasks_gold_static_reachable_given_sources": {
+        "k": 2,
+        "n": 17,
+        "p": 0.1176,
+        "lo": 0.0329,
+        "hi": 0.3434
+      },
+      "tasks_gold_executed_not_static": {
+        "k": 41,
+        "n": 67,
+        "p": 0.6119,
+        "lo": 0.4922,
+        "hi": 0.7195
+      },
+      "tasks_entry_sources_defined": {
+        "k": 62,
+        "n": 67,
+        "p": 0.9254,
+        "lo": 0.8369,
+        "hi": 0.9677
+      },
+      "tasks_gold_static_reachable_entry": {
+        "k": 39,
+        "n": 42,
+        "p": 0.9286,
+        "lo": 0.8099,
+        "hi": 0.9754
+      },
+      "tasks_gold_all_executed_reachable_entry": {
+        "k": 38,
+        "n": 42,
+        "p": 0.9048,
+        "lo": 0.7793,
+        "hi": 0.9623
+      },
+      "tasks_gold_executed_not_static_entry": {
+        "k": 4,
+        "n": 42,
+        "p": 0.0952,
+        "lo": 0.0377,
+        "hi": 0.2207
+      },
+      "tasks_gold_executed_is_entry": {
+        "k": 19,
+        "n": 42,
+        "p": 0.4524,
+        "lo": 0.3122,
+        "hi": 0.6005
+      },
+      "tasks_gold_reachable_entry_undirected_only": {
+        "k": 0,
+        "n": 42,
+        "p": 0.0,
+        "lo": 0.0,
+        "hi": 0.0838
+      },
+      "gold_min_hops_from_entry_hist": {
+        "0": 19,
+        "2": 9,
+        "5": 3,
+        "None": 3,
+        "3": 5,
+        "7": 1,
+        "1": 2
+      },
+      "f2p_statuses": {
+        "expected": 291,
+        "confirmed": 135,
+        "uncollected_pre": 103,
+        "pre_skipped": 0,
+        "pre_passed": 53,
+        "post_failed": 0,
+        "not_collected": 0
+      },
+      "f2p_statuses_truly_added": {
+        "expected": 291,
+        "confirmed": 135,
+        "uncollected_pre": 103,
+        "pre_skipped": 0,
+        "pre_passed": 53,
+        "post_failed": 0,
+        "not_collected": 0
+      },
+      "tasks_harness_resolved_post": {
+        "k": 50,
+        "n": 67,
+        "p": 0.7463,
+        "lo": 0.6307,
+        "hi": 0.8351
+      },
+      "gold_status_counts": {
+        "in_graph_executed": 66,
+        "in_graph_not_executed": 259,
+        "absent_executed": 16,
+        "absent_not_executed": 36,
+        "new_symbol_executed_post": 63,
+        "new_symbol_not_executed": 93
+      },
+      "per_task_recall_representable_any": {
+        "mean": 0.671,
+        "lo": 0.6494,
+        "hi": 0.6948,
+        "n": 66
+      }
+    },
+    "psf/requests": {
+      "n_tasks": 9,
+      "all_direct": {
+        "recall_representable": {
+          "num": 1283.0,
+          "den": 3464.0,
+          "ratio": 0.3704,
+          "lo": 0.341,
+          "hi": 0.4649,
+          "n_tasks": 9
+        },
+        "recall_agent_facing": {
+          "num": 1283.0,
+          "den": 5554.0,
+          "ratio": 0.231,
+          "lo": 0.2106,
+          "hi": 0.3004,
+          "n_tasks": 9
+        },
+        "miss_share_by_cause": {
+          "missed_between_nodes": {
+            "num": 2181.0,
+            "den": 4271.0,
+            "ratio": 0.5107,
+            "lo": 0.4976,
+            "hi": 0.516,
+            "n_tasks": 9
+          },
+          "absent_async": {
+            "num": 0.0,
+            "den": 4271.0,
+            "ratio": 0.0,
+            "lo": 0.0,
+            "hi": 0.0,
+            "n_tasks": 9
+          },
+          "absent_nested": {
+            "num": 325.0,
+            "den": 4271.0,
+            "ratio": 0.0761,
+            "lo": 0.0714,
+            "hi": 0.0907,
+            "n_tasks": 9
+          },
+          "absent_sync": {
+            "num": 1765.0,
+            "den": 4271.0,
+            "ratio": 0.4133,
+            "lo": 0.4095,
+            "hi": 0.4155,
+            "n_tasks": 9
+          }
+        },
+        "unmapped_module_edges": 0
+      },
+      "all_any": {
+        "recall_representable": {
+          "num": 1327.0,
+          "den": 3777.0,
+          "ratio": 0.3513,
+          "lo": 0.3226,
+          "hi": 0.4455,
+          "n_tasks": 9
+        },
+        "recall_agent_facing": {
+          "num": 1327.0,
+          "den": 6007.0,
+          "ratio": 0.2209,
+          "lo": 0.2009,
+          "hi": 0.2892,
+          "n_tasks": 9
+        },
+        "miss_share_by_cause": {
+          "missed_between_nodes": {
+            "num": 2450.0,
+            "den": 4680.0,
+            "ratio": 0.5235,
+            "lo": 0.512,
+            "hi": 0.5284,
+            "n_tasks": 9
+          },
+          "absent_async": {
+            "num": 0.0,
+            "den": 4680.0,
+            "ratio": 0.0,
+            "lo": 0.0,
+            "hi": 0.0,
+            "n_tasks": 9
+          },
+          "absent_nested": {
+            "num": 420.0,
+            "den": 4680.0,
+            "ratio": 0.0897,
+            "lo": 0.0854,
+            "hi": 0.1025,
+            "n_tasks": 9
+          },
+          "absent_sync": {
+            "num": 1810.0,
+            "den": 4680.0,
+            "ratio": 0.3868,
+            "lo": 0.3835,
+            "hi": 0.3889,
+            "n_tasks": 9
+          }
+        },
+        "unmapped_module_edges": 0
+      },
+      "nontest_direct": {
+        "recall_representable": {
+          "num": 526.0,
+          "den": 1215.0,
+          "ratio": 0.4329,
+          "lo": 0.4245,
+          "hi": 0.461,
+          "n_tasks": 9
+        },
+        "recall_agent_facing": {
+          "num": 526.0,
+          "den": 1242.0,
+          "ratio": 0.4235,
+          "lo": 0.4146,
+          "hi": 0.4481,
+          "n_tasks": 9
+        },
+        "miss_share_by_cause": {
+          "missed_between_nodes": {
+            "num": 689.0,
+            "den": 716.0,
+            "ratio": 0.9623,
+            "lo": 0.9439,
+            "hi": 0.974,
+            "n_tasks": 9
+          },
+          "absent_async": {
+            "num": 0.0,
+            "den": 716.0,
+            "ratio": 0.0,
+            "lo": 0.0,
+            "hi": 0.0,
+            "n_tasks": 9
+          },
+          "absent_nested": {
+            "num": 27.0,
+            "den": 716.0,
+            "ratio": 0.0377,
+            "lo": 0.026,
+            "hi": 0.0561,
+            "n_tasks": 9
+          },
+          "absent_sync": {
+            "num": 0.0,
+            "den": 716.0,
+            "ratio": 0.0,
+            "lo": 0.0,
+            "hi": 0.0,
+            "n_tasks": 9
+          }
+        },
+        "unmapped_module_edges": 0
+      },
+      "nontest_any": {
+        "recall_representable": {
+          "num": 534.0,
+          "den": 1394.0,
+          "ratio": 0.3831,
+          "lo": 0.3734,
+          "hi": 0.4127,
+          "n_tasks": 9
+        },
+        "recall_agent_facing": {
+          "num": 534.0,
+          "den": 1448.0,
+          "ratio": 0.3688,
+          "lo": 0.3587,
+          "hi": 0.3967,
+          "n_tasks": 9
+        },
+        "miss_share_by_cause": {
+          "missed_between_nodes": {
+            "num": 860.0,
+            "den": 914.0,
+            "ratio": 0.9409,
+            "lo": 0.924,
+            "hi": 0.9515,
+            "n_tasks": 9
+          },
+          "absent_async": {
+            "num": 0.0,
+            "den": 914.0,
+            "ratio": 0.0,
+            "lo": 0.0,
+            "hi": 0.0,
+            "n_tasks": 9
+          },
+          "absent_nested": {
+            "num": 54.0,
+            "den": 914.0,
+            "ratio": 0.0591,
+            "lo": 0.0485,
+            "hi": 0.076,
+            "n_tasks": 9
+          },
+          "absent_sync": {
+            "num": 0.0,
+            "den": 914.0,
+            "ratio": 0.0,
+            "lo": 0.0,
+            "hi": 0.0,
+            "n_tasks": 9
+          }
+        },
+        "unmapped_module_edges": 0
+      },
+      "gold_direct": {
+        "recall_representable": {
+          "num": 25.0,
+          "den": 56.0,
+          "ratio": 0.4464,
+          "lo": 0.2766,
+          "hi": 0.8043,
+          "n_tasks": 9
+        },
+        "recall_agent_facing": {
+          "num": 25.0,
+          "den": 75.0,
+          "ratio": 0.3333,
+          "lo": 0.2063,
+          "hi": 0.625,
+          "n_tasks": 9
+        },
+        "miss_share_by_cause": {
+          "missed_between_nodes": {
+            "num": 31.0,
+            "den": 50.0,
+            "ratio": 0.62,
+            "lo": 0.3824,
+            "hi": 0.8182,
+            "n_tasks": 9
+          },
+          "absent_async": {
+            "num": 0.0,
+            "den": 50.0,
+            "ratio": 0.0,
+            "lo": 0.0,
+            "hi": 0.0,
+            "n_tasks": 9
+          },
+          "absent_nested": {
+            "num": 15.0,
+            "den": 50.0,
+            "ratio": 0.3,
+            "lo": 0.0513,
+            "hi": 0.4921,
+            "n_tasks": 9
+          },
+          "absent_sync": {
+            "num": 4.0,
+            "den": 50.0,
+            "ratio": 0.08,
+            "lo": 0.0198,
+            "hi": 0.2857,
+            "n_tasks": 9
+          }
+        },
+        "unmapped_module_edges": 0
+      },
+      "gold_any": {
+        "recall_representable": {
+          "num": 26.0,
+          "den": 61.0,
+          "ratio": 0.4262,
+          "lo": 0.2526,
+          "hi": 0.8,
+          "n_tasks": 9
+        },
+        "recall_agent_facing": {
+          "num": 26.0,
+          "den": 80.0,
+          "ratio": 0.325,
+          "lo": 0.1932,
+          "hi": 0.6316,
+          "n_tasks": 9
+        },
+        "miss_share_by_cause": {
+          "missed_between_nodes": {
+            "num": 35.0,
+            "den": 54.0,
+            "ratio": 0.6481,
+            "lo": 0.4103,
+            "hi": 0.8333,
+            "n_tasks": 9
+          },
+          "absent_async": {
+            "num": 0.0,
+            "den": 54.0,
+            "ratio": 0.0,
+            "lo": 0.0,
+            "hi": 0.0,
+            "n_tasks": 9
+          },
+          "absent_nested": {
+            "num": 15.0,
+            "den": 54.0,
+            "ratio": 0.2778,
+            "lo": 0.0465,
+            "hi": 0.4615,
+            "n_tasks": 9
+          },
+          "absent_sync": {
+            "num": 4.0,
+            "den": 54.0,
+            "ratio": 0.0741,
+            "lo": 0.0183,
+            "hi": 0.2727,
+            "n_tasks": 9
+          }
+        },
+        "unmapped_module_edges": 0
+      },
+      "observed_precision": {
+        "num": 1313.0,
+        "den": 3825.0,
+        "ratio": 0.3433,
+        "lo": 0.338,
+        "hi": 0.354,
+        "n_tasks": 9
+      },
+      "nontest_node_coverage": {
+        "num": 1023.0,
+        "den": 2629.0,
+        "ratio": 0.3891,
+        "lo": 0.2335,
+        "hi": 0.543,
+        "n_tasks": 9
+      },
+      "tasks_gold_absent_but_executed": {
+        "k": 0,
+        "n": 9,
+        "p": 0.0,
+        "lo": 0.0,
+        "hi": 0.2991
+      },
+      "tasks_gold_in_graph_executed": {
+        "k": 8,
+        "n": 9,
+        "p": 0.8889,
+        "lo": 0.565,
+        "hi": 0.9801
+      },
+      "tasks_static_sources_defined": {
+        "k": 7,
+        "n": 9,
+        "p": 0.7778,
+        "lo": 0.4526,
+        "hi": 0.9368
+      },
+      "tasks_gold_static_reachable": {
+        "k": 7,
+        "n": 9,
+        "p": 0.7778,
+        "lo": 0.4526,
+        "hi": 0.9368
+      },
+      "tasks_gold_static_reachable_given_sources": {
+        "k": 7,
+        "n": 7,
+        "p": 1.0,
+        "lo": 0.6457,
+        "hi": 1.0
+      },
+      "tasks_gold_executed_not_static": {
+        "k": 2,
+        "n": 9,
+        "p": 0.2222,
+        "lo": 0.0632,
+        "hi": 0.5474
+      },
+      "tasks_entry_sources_defined": {
+        "k": 9,
+        "n": 9,
+        "p": 1.0,
+        "lo": 0.7009,
+        "hi": 1.0
+      },
+      "tasks_gold_static_reachable_entry": {
+        "k": 8,
+        "n": 8,
+        "p": 1.0,
+        "lo": 0.6756,
+        "hi": 1.0
+      },
+      "tasks_gold_all_executed_reachable_entry": {
+        "k": 8,
+        "n": 8,
+        "p": 1.0,
+        "lo": 0.6756,
+        "hi": 1.0
+      },
+      "tasks_gold_executed_not_static_entry": {
+        "k": 0,
+        "n": 8,
+        "p": 0.0,
+        "lo": 0.0,
+        "hi": 0.3244
+      },
+      "tasks_gold_executed_is_entry": {
+        "k": 4,
+        "n": 8,
+        "p": 0.5,
+        "lo": 0.2152,
+        "hi": 0.7848
+      },
+      "tasks_gold_reachable_entry_undirected_only": {
+        "k": 0,
+        "n": 8,
+        "p": 0.0,
+        "lo": 0.0,
+        "hi": 0.3244
+      },
+      "gold_min_hops_from_entry_hist": {
+        "3": 2,
+        "6": 1,
+        "0": 4,
+        "4": 1
+      },
+      "f2p_statuses": {
+        "expected": 11,
+        "confirmed": 7,
+        "uncollected_pre": 3,
+        "pre_skipped": 0,
+        "pre_passed": 1,
+        "post_failed": 0,
+        "not_collected": 0
+      },
+      "f2p_statuses_truly_added": {
+        "expected": 9,
+        "confirmed": 7,
+        "uncollected_pre": 1,
+        "pre_skipped": 0,
+        "pre_passed": 1,
+        "post_failed": 0,
+        "not_collected": 0
+      },
+      "tasks_harness_resolved_post": {
+        "k": 7,
+        "n": 9,
+        "p": 0.7778,
+        "lo": 0.4526,
+        "hi": 0.9368
+      },
+      "gold_status_counts": {
+        "in_graph_executed": 9,
+        "in_graph_not_executed": 2,
+        "absent_executed": 0,
+        "absent_not_executed": 0,
+        "new_symbol_executed_post": 1,
+        "new_symbol_not_executed": 0
+      },
+      "per_task_recall_representable_any": {
+        "mean": 0.5286,
+        "lo": 0.3604,
+        "hi": 0.6997,
+        "n": 9
+      }
+    },
+    "Textualize/rich": {
+      "n_tasks": 48,
+      "all_direct": {
+        "recall_representable": {
+          "num": 5815.0,
+          "den": 19177.0,
+          "ratio": 0.3032,
+          "lo": 0.295,
+          "hi": 0.3133,
+          "n_tasks": 48
+        },
+        "recall_agent_facing": {
+          "num": 5815.0,
+          "den": 20032.0,
+          "ratio": 0.2903,
+          "lo": 0.2824,
+          "hi": 0.2993,
+          "n_tasks": 48
+        },
+        "miss_share_by_cause": {
+          "missed_between_nodes": {
+            "num": 13362.0,
+            "den": 14217.0,
+            "ratio": 0.9399,
+            "lo": 0.9329,
+            "hi": 0.946,
+            "n_tasks": 48
+          },
+          "absent_async": {
+            "num": 0.0,
+            "den": 14217.0,
+            "ratio": 0.0,
+            "lo": 0.0,
+            "hi": 0.0,
+            "n_tasks": 48
+          },
+          "absent_nested": {
+            "num": 682.0,
+            "den": 14217.0,
+            "ratio": 0.048,
+            "lo": 0.0452,
+            "hi": 0.0512,
+            "n_tasks": 48
+          },
+          "absent_sync": {
+            "num": 173.0,
+            "den": 14217.0,
+            "ratio": 0.0122,
+            "lo": 0.0076,
+            "hi": 0.0178,
+            "n_tasks": 48
+          }
+        },
+        "unmapped_module_edges": 0
+      },
+      "all_any": {
+        "recall_representable": {
+          "num": 5815.0,
+          "den": 19195.0,
+          "ratio": 0.3029,
+          "lo": 0.2947,
+          "hi": 0.3129,
+          "n_tasks": 48
+        },
+        "recall_agent_facing": {
+          "num": 5815.0,
+          "den": 20069.0,
+          "ratio": 0.2898,
+          "lo": 0.2818,
+          "hi": 0.2987,
+          "n_tasks": 48
+        },
+        "miss_share_by_cause": {
+          "missed_between_nodes": {
+            "num": 13380.0,
+            "den": 14254.0,
+            "ratio": 0.9387,
+            "lo": 0.9314,
+            "hi": 0.9453,
+            "n_tasks": 48
+          },
+          "absent_async": {
+            "num": 0.0,
+            "den": 14254.0,
+            "ratio": 0.0,
+            "lo": 0.0,
+            "hi": 0.0,
+            "n_tasks": 48
+          },
+          "absent_nested": {
+            "num": 682.0,
+            "den": 14254.0,
+            "ratio": 0.0478,
+            "lo": 0.0452,
+            "hi": 0.051,
+            "n_tasks": 48
+          },
+          "absent_sync": {
+            "num": 192.0,
+            "den": 14254.0,
+            "ratio": 0.0135,
+            "lo": 0.0085,
+            "hi": 0.0192,
+            "n_tasks": 48
+          }
+        },
+        "unmapped_module_edges": 0
+      },
+      "nontest_direct": {
+        "recall_representable": {
+          "num": 3410.0,
+          "den": 13048.0,
+          "ratio": 0.2613,
+          "lo": 0.2561,
+          "hi": 0.267,
+          "n_tasks": 48
+        },
+        "recall_agent_facing": {
+          "num": 3410.0,
+          "den": 13699.0,
+          "ratio": 0.2489,
+          "lo": 0.2437,
+          "hi": 0.2544,
+          "n_tasks": 48
+        },
+        "miss_share_by_cause": {
+          "missed_between_nodes": {
+            "num": 9638.0,
+            "den": 10289.0,
+            "ratio": 0.9367,
+            "lo": 0.9316,
+            "hi": 0.9417,
+            "n_tasks": 48
+          },
+          "absent_async": {
+            "num": 0.0,
+            "den": 10289.0,
+            "ratio": 0.0,
+            "lo": 0.0,
+            "hi": 0.0,
+            "n_tasks": 48
+          },
+          "absent_nested": {
+            "num": 647.0,
+            "den": 10289.0,
+            "ratio": 0.0629,
+            "lo": 0.058,
+            "hi": 0.0679,
+            "n_tasks": 48
+          },
+          "absent_sync": {
+            "num": 4.0,
+            "den": 10289.0,
+            "ratio": 0.0004,
+            "lo": 0.0,
+            "hi": 0.0011,
+            "n_tasks": 48
+          }
+        },
+        "unmapped_module_edges": 0
+      },
+      "nontest_any": {
+        "recall_representable": {
+          "num": 3410.0,
+          "den": 13049.0,
+          "ratio": 0.2613,
+          "lo": 0.256,
+          "hi": 0.267,
+          "n_tasks": 48
+        },
+        "recall_agent_facing": {
+          "num": 3410.0,
+          "den": 13701.0,
+          "ratio": 0.2489,
+          "lo": 0.2437,
+          "hi": 0.2544,
+          "n_tasks": 48
+        },
+        "miss_share_by_cause": {
+          "missed_between_nodes": {
+            "num": 9639.0,
+            "den": 10291.0,
+            "ratio": 0.9366,
+            "lo": 0.9315,
+            "hi": 0.9417,
+            "n_tasks": 48
+          },
+          "absent_async": {
+            "num": 0.0,
+            "den": 10291.0,
+            "ratio": 0.0,
+            "lo": 0.0,
+            "hi": 0.0,
+            "n_tasks": 48
+          },
+          "absent_nested": {
+            "num": 647.0,
+            "den": 10291.0,
+            "ratio": 0.0629,
+            "lo": 0.058,
+            "hi": 0.0679,
+            "n_tasks": 48
+          },
+          "absent_sync": {
+            "num": 5.0,
+            "den": 10291.0,
+            "ratio": 0.0005,
+            "lo": 0.0,
+            "hi": 0.0012,
+            "n_tasks": 48
+          }
+        },
+        "unmapped_module_edges": 0
+      },
+      "gold_direct": {
+        "recall_representable": {
+          "num": 491.0,
+          "den": 940.0,
+          "ratio": 0.5223,
+          "lo": 0.2996,
+          "hi": 0.6773,
+          "n_tasks": 48
+        },
+        "recall_agent_facing": {
+          "num": 491.0,
+          "den": 968.0,
+          "ratio": 0.5072,
+          "lo": 0.2907,
+          "hi": 0.6594,
+          "n_tasks": 48
+        },
+        "miss_share_by_cause": {
+          "missed_between_nodes": {
+            "num": 449.0,
+            "den": 477.0,
+            "ratio": 0.9413,
+            "lo": 0.9076,
+            "hi": 0.9624,
+            "n_tasks": 48
+          },
+          "absent_async": {
+            "num": 0.0,
+            "den": 477.0,
+            "ratio": 0.0,
+            "lo": 0.0,
+            "hi": 0.0,
+            "n_tasks": 48
+          },
+          "absent_nested": {
+            "num": 11.0,
+            "den": 477.0,
+            "ratio": 0.0231,
+            "lo": 0.0123,
+            "hi": 0.0354,
+            "n_tasks": 48
+          },
+          "absent_sync": {
+            "num": 17.0,
+            "den": 477.0,
+            "ratio": 0.0356,
+            "lo": 0.0179,
+            "hi": 0.0652,
+            "n_tasks": 48
+          }
+        },
+        "unmapped_module_edges": 0
+      },
+      "gold_any": {
+        "recall_representable": {
+          "num": 491.0,
+          "den": 940.0,
+          "ratio": 0.5223,
+          "lo": 0.2996,
+          "hi": 0.6773,
+          "n_tasks": 48
+        },
+        "recall_agent_facing": {
+          "num": 491.0,
+          "den": 968.0,
+          "ratio": 0.5072,
+          "lo": 0.2907,
+          "hi": 0.6594,
+          "n_tasks": 48
+        },
+        "miss_share_by_cause": {
+          "missed_between_nodes": {
+            "num": 449.0,
+            "den": 477.0,
+            "ratio": 0.9413,
+            "lo": 0.9076,
+            "hi": 0.9624,
+            "n_tasks": 48
+          },
+          "absent_async": {
+            "num": 0.0,
+            "den": 477.0,
+            "ratio": 0.0,
+            "lo": 0.0,
+            "hi": 0.0,
+            "n_tasks": 48
+          },
+          "absent_nested": {
+            "num": 11.0,
+            "den": 477.0,
+            "ratio": 0.0231,
+            "lo": 0.0123,
+            "hi": 0.0354,
+            "n_tasks": 48
+          },
+          "absent_sync": {
+            "num": 17.0,
+            "den": 477.0,
+            "ratio": 0.0356,
+            "lo": 0.0179,
+            "hi": 0.0652,
+            "n_tasks": 48
+          }
+        },
+        "unmapped_module_edges": 0
+      },
+      "observed_precision": {
+        "num": 5806.0,
+        "den": 24934.0,
+        "ratio": 0.2329,
+        "lo": 0.2199,
+        "hi": 0.2437,
+        "n_tasks": 48
+      },
+      "nontest_node_coverage": {
+        "num": 11313.0,
+        "den": 54968.0,
+        "ratio": 0.2058,
+        "lo": 0.1802,
+        "hi": 0.2316,
+        "n_tasks": 48
+      },
+      "tasks_gold_absent_but_executed": {
+        "k": 0,
+        "n": 48,
+        "p": 0.0,
+        "lo": 0.0,
+        "hi": 0.0741
+      },
+      "tasks_gold_in_graph_executed": {
+        "k": 33,
+        "n": 48,
+        "p": 0.6875,
+        "lo": 0.5467,
+        "hi": 0.8005
+      },
+      "tasks_static_sources_defined": {
+        "k": 0,
+        "n": 48,
+        "p": 0.0,
+        "lo": 0.0,
+        "hi": 0.0741
+      },
+      "tasks_gold_static_reachable": {
+        "k": 0,
+        "n": 48,
+        "p": 0.0,
+        "lo": 0.0,
+        "hi": 0.0741
+      },
+      "tasks_gold_static_reachable_given_sources": {
+        "k": 0,
+        "n": 0,
+        "p": null,
+        "lo": null,
+        "hi": null
+      },
+      "tasks_gold_executed_not_static": {
+        "k": 33,
+        "n": 48,
+        "p": 0.6875,
+        "lo": 0.5467,
+        "hi": 0.8005
+      },
+      "tasks_entry_sources_defined": {
+        "k": 42,
+        "n": 48,
+        "p": 0.875,
+        "lo": 0.753,
+        "hi": 0.9414
+      },
+      "tasks_gold_static_reachable_entry": {
+        "k": 32,
+        "n": 33,
+        "p": 0.9697,
+        "lo": 0.8468,
+        "hi": 0.9946
+      },
+      "tasks_gold_all_executed_reachable_entry": {
+        "k": 32,
+        "n": 33,
+        "p": 0.9697,
+        "lo": 0.8468,
+        "hi": 0.9946
+      },
+      "tasks_gold_executed_not_static_entry": {
+        "k": 1,
+        "n": 33,
+        "p": 0.0303,
+        "lo": 0.0054,
+        "hi": 0.1532
+      },
+      "tasks_gold_executed_is_entry": {
+        "k": 16,
+        "n": 33,
+        "p": 0.4848,
+        "lo": 0.325,
+        "hi": 0.6478
+      },
+      "tasks_gold_reachable_entry_undirected_only": {
+        "k": 0,
+        "n": 33,
+        "p": 0.0,
+        "lo": 0.0,
+        "hi": 0.1043
+      },
+      "gold_min_hops_from_entry_hist": {
+        "0": 16,
+        "1": 7,
+        "3": 3,
+        "2": 5,
+        "4": 1,
+        "None": 1
+      },
+      "f2p_statuses": {
+        "expected": 186,
+        "confirmed": 47,
+        "uncollected_pre": 12,
+        "pre_skipped": 0,
+        "pre_passed": 120,
+        "post_failed": 7,
+        "not_collected": 0
+      },
+      "f2p_statuses_truly_added": {
+        "expected": 79,
+        "confirmed": 45,
+        "uncollected_pre": 12,
+        "pre_skipped": 0,
+        "pre_passed": 21,
+        "post_failed": 1,
+        "not_collected": 0
+      },
+      "tasks_harness_resolved_post": {
+        "k": 35,
+        "n": 48,
+        "p": 0.7292,
+        "lo": 0.59,
+        "hi": 0.8343
+      },
+      "gold_status_counts": {
+        "in_graph_executed": 62,
+        "in_graph_not_executed": 53,
+        "absent_executed": 0,
+        "absent_not_executed": 0,
+        "new_symbol_executed_post": 6,
+        "new_symbol_not_executed": 11
+      },
+      "per_task_recall_representable_any": {
+        "mean": 0.349,
+        "lo": 0.3083,
+        "hi": 0.399,
+        "n": 48
+      }
+    },
+    "encode/httpx": {
+      "n_tasks": 1,
+      "all_direct": {
+        "recall_representable": {
+          "num": 51.0,
+          "den": 207.0,
+          "ratio": 0.2464,
+          "lo": 0.2464,
+          "hi": 0.2464,
+          "n_tasks": 1
+        },
+        "recall_agent_facing": {
+          "num": 51.0,
+          "den": 207.0,
+          "ratio": 0.2464,
+          "lo": 0.2464,
+          "hi": 0.2464,
+          "n_tasks": 1
+        },
+        "miss_share_by_cause": {
+          "missed_between_nodes": {
+            "num": 156.0,
+            "den": 156.0,
+            "ratio": 1.0,
+            "lo": 1.0,
+            "hi": 1.0,
+            "n_tasks": 1
+          },
+          "absent_async": {
+            "num": 0.0,
+            "den": 156.0,
+            "ratio": 0.0,
+            "lo": 0.0,
+            "hi": 0.0,
+            "n_tasks": 1
+          },
+          "absent_nested": {
+            "num": 0.0,
+            "den": 156.0,
+            "ratio": 0.0,
+            "lo": 0.0,
+            "hi": 0.0,
+            "n_tasks": 1
+          },
+          "absent_sync": {
+            "num": 0.0,
+            "den": 156.0,
+            "ratio": 0.0,
+            "lo": 0.0,
+            "hi": 0.0,
+            "n_tasks": 1
+          }
+        },
+        "unmapped_module_edges": 0
+      },
+      "all_any": {
+        "recall_representable": {
+          "num": 51.0,
+          "den": 207.0,
+          "ratio": 0.2464,
+          "lo": 0.2464,
+          "hi": 0.2464,
+          "n_tasks": 1
+        },
+        "recall_agent_facing": {
+          "num": 51.0,
+          "den": 207.0,
+          "ratio": 0.2464,
+          "lo": 0.2464,
+          "hi": 0.2464,
+          "n_tasks": 1
+        },
+        "miss_share_by_cause": {
+          "missed_between_nodes": {
+            "num": 156.0,
+            "den": 156.0,
+            "ratio": 1.0,
+            "lo": 1.0,
+            "hi": 1.0,
+            "n_tasks": 1
+          },
+          "absent_async": {
+            "num": 0.0,
+            "den": 156.0,
+            "ratio": 0.0,
+            "lo": 0.0,
+            "hi": 0.0,
+            "n_tasks": 1
+          },
+          "absent_nested": {
+            "num": 0.0,
+            "den": 156.0,
+            "ratio": 0.0,
+            "lo": 0.0,
+            "hi": 0.0,
+            "n_tasks": 1
+          },
+          "absent_sync": {
+            "num": 0.0,
+            "den": 156.0,
+            "ratio": 0.0,
+            "lo": 0.0,
+            "hi": 0.0,
+            "n_tasks": 1
+          }
+        },
+        "unmapped_module_edges": 0
+      },
+      "nontest_direct": {
+        "recall_representable": {
+          "num": 0.0,
+          "den": 19.0,
+          "ratio": 0.0,
+          "lo": 0.0,
+          "hi": 0.0,
+          "n_tasks": 1
+        },
+        "recall_agent_facing": {
+          "num": 0.0,
+          "den": 19.0,
+          "ratio": 0.0,
+          "lo": 0.0,
+          "hi": 0.0,
+          "n_tasks": 1
+        },
+        "miss_share_by_cause": {
+          "missed_between_nodes": {
+            "num": 19.0,
+            "den": 19.0,
+            "ratio": 1.0,
+            "lo": 1.0,
+            "hi": 1.0,
+            "n_tasks": 1
+          },
+          "absent_async": {
+            "num": 0.0,
+            "den": 19.0,
+            "ratio": 0.0,
+            "lo": 0.0,
+            "hi": 0.0,
+            "n_tasks": 1
+          },
+          "absent_nested": {
+            "num": 0.0,
+            "den": 19.0,
+            "ratio": 0.0,
+            "lo": 0.0,
+            "hi": 0.0,
+            "n_tasks": 1
+          },
+          "absent_sync": {
+            "num": 0.0,
+            "den": 19.0,
+            "ratio": 0.0,
+            "lo": 0.0,
+            "hi": 0.0,
+            "n_tasks": 1
+          }
+        },
+        "unmapped_module_edges": 0
+      },
+      "nontest_any": {
+        "recall_representable": {
+          "num": 0.0,
+          "den": 19.0,
+          "ratio": 0.0,
+          "lo": 0.0,
+          "hi": 0.0,
+          "n_tasks": 1
+        },
+        "recall_agent_facing": {
+          "num": 0.0,
+          "den": 19.0,
+          "ratio": 0.0,
+          "lo": 0.0,
+          "hi": 0.0,
+          "n_tasks": 1
+        },
+        "miss_share_by_cause": {
+          "missed_between_nodes": {
+            "num": 19.0,
+            "den": 19.0,
+            "ratio": 1.0,
+            "lo": 1.0,
+            "hi": 1.0,
+            "n_tasks": 1
+          },
+          "absent_async": {
+            "num": 0.0,
+            "den": 19.0,
+            "ratio": 0.0,
+            "lo": 0.0,
+            "hi": 0.0,
+            "n_tasks": 1
+          },
+          "absent_nested": {
+            "num": 0.0,
+            "den": 19.0,
+            "ratio": 0.0,
+            "lo": 0.0,
+            "hi": 0.0,
+            "n_tasks": 1
+          },
+          "absent_sync": {
+            "num": 0.0,
+            "den": 19.0,
+            "ratio": 0.0,
+            "lo": 0.0,
+            "hi": 0.0,
+            "n_tasks": 1
+          }
+        },
+        "unmapped_module_edges": 0
+      },
+      "gold_direct": {
+        "recall_representable": {
+          "num": 24.0,
+          "den": 25.0,
+          "ratio": 0.96,
+          "lo": 0.96,
+          "hi": 0.96,
+          "n_tasks": 1
+        },
+        "recall_agent_facing": {
+          "num": 24.0,
+          "den": 25.0,
+          "ratio": 0.96,
+          "lo": 0.96,
+          "hi": 0.96,
+          "n_tasks": 1
+        },
+        "miss_share_by_cause": {
+          "missed_between_nodes": {
+            "num": 1.0,
+            "den": 1.0,
+            "ratio": 1.0,
+            "lo": 1.0,
+            "hi": 1.0,
+            "n_tasks": 1
+          },
+          "absent_async": {
+            "num": 0.0,
+            "den": 1.0,
+            "ratio": 0.0,
+            "lo": 0.0,
+            "hi": 0.0,
+            "n_tasks": 1
+          },
+          "absent_nested": {
+            "num": 0.0,
+            "den": 1.0,
+            "ratio": 0.0,
+            "lo": 0.0,
+            "hi": 0.0,
+            "n_tasks": 1
+          },
+          "absent_sync": {
+            "num": 0.0,
+            "den": 1.0,
+            "ratio": 0.0,
+            "lo": 0.0,
+            "hi": 0.0,
+            "n_tasks": 1
+          }
+        },
+        "unmapped_module_edges": 0
+      },
+      "gold_any": {
+        "recall_representable": {
+          "num": 24.0,
+          "den": 25.0,
+          "ratio": 0.96,
+          "lo": 0.96,
+          "hi": 0.96,
+          "n_tasks": 1
+        },
+        "recall_agent_facing": {
+          "num": 24.0,
+          "den": 25.0,
+          "ratio": 0.96,
+          "lo": 0.96,
+          "hi": 0.96,
+          "n_tasks": 1
+        },
+        "miss_share_by_cause": {
+          "missed_between_nodes": {
+            "num": 1.0,
+            "den": 1.0,
+            "ratio": 1.0,
+            "lo": 1.0,
+            "hi": 1.0,
+            "n_tasks": 1
+          },
+          "absent_async": {
+            "num": 0.0,
+            "den": 1.0,
+            "ratio": 0.0,
+            "lo": 0.0,
+            "hi": 0.0,
+            "n_tasks": 1
+          },
+          "absent_nested": {
+            "num": 0.0,
+            "den": 1.0,
+            "ratio": 0.0,
+            "lo": 0.0,
+            "hi": 0.0,
+            "n_tasks": 1
+          },
+          "absent_sync": {
+            "num": 0.0,
+            "den": 1.0,
+            "ratio": 0.0,
+            "lo": 0.0,
+            "hi": 0.0,
+            "n_tasks": 1
+          }
+        },
+        "unmapped_module_edges": 0
+      },
+      "observed_precision": {
+        "num": 51.0,
+        "den": 204.0,
+        "ratio": 0.25,
+        "lo": 0.25,
+        "hi": 0.25,
+        "n_tasks": 1
+      },
+      "nontest_node_coverage": {
+        "num": 58.0,
+        "den": 596.0,
+        "ratio": 0.0973,
+        "lo": 0.0973,
+        "hi": 0.0973,
+        "n_tasks": 1
+      },
+      "tasks_gold_absent_but_executed": {
+        "k": 0,
+        "n": 1,
+        "p": 0.0,
+        "lo": 0.0,
+        "hi": 0.7935
+      },
+      "tasks_gold_in_graph_executed": {
+        "k": 1,
+        "n": 1,
+        "p": 1.0,
+        "lo": 0.2065,
+        "hi": 1.0
+      },
+      "tasks_static_sources_defined": {
+        "k": 1,
+        "n": 1,
+        "p": 1.0,
+        "lo": 0.2065,
+        "hi": 1.0
+      },
+      "tasks_gold_static_reachable": {
+        "k": 1,
+        "n": 1,
+        "p": 1.0,
+        "lo": 0.2065,
+        "hi": 1.0
+      },
+      "tasks_gold_static_reachable_given_sources": {
+        "k": 1,
+        "n": 1,
+        "p": 1.0,
+        "lo": 0.2065,
+        "hi": 1.0
+      },
+      "tasks_gold_executed_not_static": {
+        "k": 0,
+        "n": 1,
+        "p": 0.0,
+        "lo": 0.0,
+        "hi": 0.7935
+      },
+      "tasks_entry_sources_defined": {
+        "k": 1,
+        "n": 1,
+        "p": 1.0,
+        "lo": 0.2065,
+        "hi": 1.0
+      },
+      "tasks_gold_static_reachable_entry": {
+        "k": 1,
+        "n": 1,
+        "p": 1.0,
+        "lo": 0.2065,
+        "hi": 1.0
+      },
+      "tasks_gold_all_executed_reachable_entry": {
+        "k": 1,
+        "n": 1,
+        "p": 1.0,
+        "lo": 0.2065,
+        "hi": 1.0
+      },
+      "tasks_gold_executed_not_static_entry": {
+        "k": 0,
+        "n": 1,
+        "p": 0.0,
+        "lo": 0.0,
+        "hi": 0.7935
+      },
+      "tasks_gold_executed_is_entry": {
+        "k": 1,
+        "n": 1,
+        "p": 1.0,
+        "lo": 0.2065,
+        "hi": 1.0
+      },
+      "tasks_gold_reachable_entry_undirected_only": {
+        "k": 0,
+        "n": 1,
+        "p": 0.0,
+        "lo": 0.0,
+        "hi": 0.7935
+      },
+      "gold_min_hops_from_entry_hist": {
+        "0": 1
+      },
+      "f2p_statuses": {
+        "expected": 0,
+        "confirmed": 0,
+        "uncollected_pre": 0,
+        "pre_skipped": 0,
+        "pre_passed": 0,
+        "post_failed": 0,
+        "not_collected": 0
+      },
+      "f2p_statuses_truly_added": {
+        "expected": 0,
+        "confirmed": 0,
+        "uncollected_pre": 0,
+        "pre_skipped": 0,
+        "pre_passed": 0,
+        "post_failed": 0,
+        "not_collected": 0
+      },
+      "tasks_harness_resolved_post": {
+        "k": 0,
+        "n": 1,
+        "p": 0.0,
+        "lo": 0.0,
+        "hi": 0.7935
+      },
+      "gold_status_counts": {
+        "in_graph_executed": 1,
+        "in_graph_not_executed": 15,
+        "absent_executed": 0,
+        "absent_not_executed": 5,
+        "new_symbol_executed_post": 1,
+        "new_symbol_not_executed": 8
+      },
+      "per_task_recall_representable_any": {
+        "mean": 0.2464,
+        "lo": 0.2464,
+        "hi": 0.2464,
+        "n": 1
+      }
+    }
+  }
+}

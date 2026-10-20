@@ -1,0 +1,8 @@
+
+$ /home/sauravbellam/cache/a2/fastapi_13786/venv/bin/python -s -m pytest tests/test_security_api_key_cookie.py tests/test_security_api_key_cookie_description.py tests/test_security_api_key_header.py tests/test_security_api_key_header_description.py tests/test_security_api_key_query.py tests/test_security_api_key_query_description.py tests/test_security_http_base.py tests/test_security_http_base_description.py tests/test_security_http_basic_optional.py tests/test_security_http_basic_realm.py tests/test_security_http_basic_realm_description.py tests/test_security_http_bearer.py tests/test_security_http_bearer_description.py tests/test_security_http_digest.py tests/test_security_http_digest_description.py tests/test_security_oauth2.py tests/test_security_openid_connect.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/fastapi_13786/trace_post.xml
+[exit 0]
+.....................................................................    [100%]
+- generated xml file: /home/sauravbellam/results/a2_runs/fastapi_13786/trace_post.xml -
+69 passed in 4.48s
+
+

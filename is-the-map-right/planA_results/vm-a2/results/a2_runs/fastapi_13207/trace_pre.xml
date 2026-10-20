@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="6" time="2.079" timestamp="2026-10-10T23:20:15.714770+00:00" hostname="vm-a2"><testcase classname="tests.test_computed_fields" name="test_get[/-True]" time="0.207" /><testcase classname="tests.test_computed_fields" name="test_get[/-False]" time="0.015" /><testcase classname="tests.test_computed_fields" name="test_get[/responses-True]" time="0.014" /><testcase classname="tests.test_computed_fields" name="test_get[/responses-False]" time="0.014" /><testcase classname="tests.test_computed_fields" name="test_openapi_schema[True]" time="0.024" /><testcase classname="tests.test_computed_fields" name="test_openapi_schema[False]" time="0.023"><failure message="AssertionError: assert {'components'...Responses'}}}} == {'components'...Responses'}}}}&#10;  &#10;  Omitting 3 identical items, use -vv to show&#10;  Differing items:&#10;  {'components': {'schemas': {'Rectangle': {'properties': {'length': {'title': 'Length', 'type': 'integer'}, 'width': {'title': 'Width', 'type': 'integer'}}, 'required': ['width', 'length'], 'title': 'Rectangle', 'type': 'object'}}}} != {'components': {'schemas': {'Rectangle': {'properties': {'area': {'readOnly': True, 'title': 'Area', 'type': 'integer'...tle': 'Width', 'type': 'integer'}}, 'required': ['width', 'length', 'area'], 'title': 'Rectangle', 'type': 'object'}}}}&#10;  Use -v to get more diff">client = &lt;starlette.testclient.TestClient object at 0x7fbff8b9f2f0&gt;
+
+    @pytest.mark.parametrize("client", [True, False], indirect=True)
+    @needs_pydanticv2
+    def test_openapi_schema(client: TestClient):
+        response = client.get("/openapi.json")
+        assert response.status_code == 200, response.text
+&gt;       assert response.json() == {
+            "openapi": "3.1.0",
+            "info": {"title": "FastAPI", "version": "0.1.0"},
+            "paths": {
+                "/": {
+                    "get": {
+                        "summary": "Read Root",
+                        "operationId": "read_root__get",
+                        "responses": {
+                            "200": {
+                                "description": "Successful Response",
+                                "content": {
+                                    "application/json": {
+                                        "schema": {"$ref": "#/components/schemas/Rectangle"}
+                                    }
+                                },
+                            }
+                        },
+                    }
+                },
+                "/responses": {
+                    "get": {
+                        "summary": "Read Responses",
+                        "operationId": "read_responses_responses_get",
+                        "responses": {
+                            "200": {
+                                "description": "Successful Response",
+                                "content": {
+                                    "application/json": {
+                                        "schema": {"$ref": "#/components/schemas/Rectangle"}
+                                    }
+                                },
+                            }
+                        },
+                    }
+                },
+            },
+            "components": {
+                "schemas": {
+                    "Rectangle": {
+                        "properties": {
+                            "width": {"type": "integer", "title": "Width"},
+                            "length": {"type": "integer", "title": "Length"},
+                            "area": {"type": "integer", "title": "Area", "readOnly": True},
+                        },
+                        "type": "object",
+                        "required": ["width", "length", "area"],
+                        "title": "Rectangle",
+                    }
+                }
+            },
+        }
+E       AssertionError: assert {'components'...Responses'}}}} == {'components'...Responses'}}}}
+E         
+E         Omitting 3 identical items, use -vv to show
+E         Differing items:
+E         {'components': {'schemas': {'Rectangle': {'properties': {'length': {'title': 'Length', 'type': 'integer'}, 'width': {'title': 'Width', 'type': 'integer'}}, 'required': ['width', 'length'], 'title': 'Rectangle', 'type': 'object'}}}} != {'components': {'schemas': {'Rectangle': {'properties': {'area': {'readOnly': True, 'title': 'Area', 'type': 'integer'...tle': 'Width', 'type': 'integer'}}, 'required': ['width', 'length', 'area'], 'title': 'Rectangle', 'type': 'object'}}}}
+E         Use -v to get more diff
+
+tests/test_computed_fields.py:50: AssertionError</failure></testcase></testsuite></testsuites>

@@ -1,0 +1,85 @@
+{
+  "instance_id": "requests_7433",
+  "repo": "psf/requests",
+  "backend": "venv",
+  "done": true,
+  "deps": {
+    "steps": [
+      {
+        "name": "pip_upgrade",
+        "cmd": "/home/sauravbellam/cache/a2/requests_7433/venv/bin/python -m pip install -q --disable-pip-version-check 'pip>=24' 'setuptools' 'wheel' pytest pytest-timeout",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "editable_no_deps",
+        "cmd": "/home/sauravbellam/cache/a2/requests_7433/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-build-isolation --no-deps -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "runtime_deps",
+        "cmd": "/home/sauravbellam/cache/a2/requests_7433/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "req_requirements-dev.txt",
+        "cmd": "/home/sauravbellam/cache/a2/requests_7433/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -r requirements-dev.txt",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "requests_httpbin",
+        "cmd": "/home/sauravbellam/cache/a2/requests_7433/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels pytest-httpbin httpbin trustme pysocks",
+        "exit": 0,
+        "stderr_tail": ""
+      }
+    ],
+    "editable_ok": true,
+    "python": "3.13.5 (main, Aug 10 2026, 12:06:59) [GCC 14.2.0]"
+  },
+  "targets": [
+    "tests/test_requests.py"
+  ],
+  "test_patch_strategy": "exact",
+  "test_patch_applied": true,
+  "pre": {
+    "exit": 1,
+    "seconds": 50.6,
+    "timeout": false,
+    "exit_meaning": "some_failed",
+    "run_class": "clean",
+    "counts": {
+      "failed": 1,
+      "passed": 336,
+      "skipped": 1,
+      "xfailed": 1
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nsrc/requests/api.py:71: in request\n    return session.request(method=method, url=url, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nsrc/requests/sessions.py:635: in request\n    prep = self.prepare_request(req)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^\nsrc/requests/sessions.py:541: in prepare_request\n    p.prepare(\nsrc/requests/models.py:442: in prepare\n    self.prepare_body(data, files, json)\nsrc/requests/models.py:638: in prepare_body\n    body = self._encode_params(raw_data)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nsrc/requests/models.py:168: in _encode_params\n    for k, vs in to_key_val_list(data):\n                 ^^^^^^^^^^^^^^^^^^^^^\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nvalue = <tests.test_requests.TestRequests.test_getattr_proxy_stream_follows_redirect.<locals>.AttrProxy object at 0x7f11cd2e06e0>\n\n    def to_key_val_list(\n        value: _t.SupportsItems[_KT, _VT] | Iterable[tuple[_KT, _VT]] | None,\n    ) -> list[tuple[_KT, _VT]] | None:\n        \"\"\"Take an object and test to see if it can be represented as a\n        dictionary. If it can be, return a list of tuples, e.g.,\n    \n        ::\n    \n            >>> to_key_val_list([('key', 'val')])\n            [('key', 'val')]\n            >>> to_key_val_list({'key': 'val'})\n            [('key', 'val')]\n            >>> to_key_val_list('string')\n            Traceback (most recent call last):\n            ...\n            ValueError: cannot encode objects that are not 2-tuples\n    \n        :rtype: list\n        \"\"\"\n        if value is None:\n            return None\n    \n        if isinstance(value, (str, bytes, bool, int)):\n            raise ValueError(\"cannot encode objects that are not 2-tuples\")\n    \n        if isinstance(value, _SupportsItems):\n            return list(value.items())\n    \n>       return list(value)\n               ^^^^^^^^^^^\nE       TypeError: 'AttrProxy' object is not iterable\n\nsrc/requests/utils.py:404: TypeError\n=============================== warnings summary ===============================\ntests/test_requests.py::TestPreparingURLs::test_different_connection_pool_for_tls_settings_verify_True\ntests/test_requests.py::TestPreparingURLs::test_different_connection_pool_for_tls_settings_verify_bundle_expired_cert\ntests/test_requests.py::TestPreparingURLs::test_different_connection_pool_for_tls_settings_verify_bundle_unexpired_cert\ntests/test_requests.py::TestPreparingURLs::test_different_connection_pool_for_mtls_settings\n  /home/sauravbellam/cache/a2/requests_7433/venv/lib/python3.13/site-packages/urllib3/connectionpool.py:1129: InsecureRequestWarning: Unverified HTTPS request is being made to host 'localhost'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings\n    warnings.warn(\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n1 failed, 336 passed, 1 skipped, 1 xfailed, 4 warnings in 49.57s\n",
+    "stderr_tail": "[2026-10-10 23:15:26,041] WARNING in core: flasgger is not installed; serving the static landing page at / and skipping the Swagger UI and /spec.json.\n127.0.0.1 - - [10/Oct/2026 23:15:28] \"HEAD /get HTTP/1.1\" 200 0\n127.0.0.1 - - [10/Oct/2026 23:15:28] \"HEAD /get HTTP/1.1\" 200 0\n127.0.0.1 - - [10/Oct/2026 23:15:29] \"GET /get HTTP/1.1\" 200 272\n127.0.0.1 - - [10/Oct/2026 23:15:29] \"GET /get HTTP/1.1\" 200 272\n127.0.0.1 - - [10/Oct/2026 23:15:29] \"GET /user-agent HTTP/1.1\" 200 34\n127.0.0.1 - - [10/Oct/2026 23:15:29] \"GET /cookies HTTP/1.1\" 200 40\n127.0.0.1 - - [10/Oct/2026 23:15:29] \"GET /basic-auth/user/pass HTTP/1.1\" 200 46\n127.0.0.1 - - [10/Oct/2026 23:15:33] \"GET /digest-auth/auth/user/pass/SHA-512 HTTP/1.1\" 401 0\n127.0.0.1 - - [10/Oct/2026 23:15:33] \"GET /get?f%C3%B8%C3%B8=f%C3%B8%C3%B8 HTTP/1.1\" 200 340\n127.0.0.1 - - [10/Oct/2026 23:15:33] \"PUT /put HTTP/1.1\" 200 412\n127.0.0.1 - - [10/Oct/2026 23:15:34] \"GET / HTTP/1.1\" 200 13760\n127.0.0.1 - - [10/Oct/2026 23:15:34] \"POST /post HTTP/1.1\" 200 114657\n127.0.0.1 - - [10/Oct/2026 23:15:34] \"GET /get HTTP/1.1\" 200 208\n127.0.0.1 - - [10/Oct/2026 23:15:34] \"GET /get HTTP/1.1\" 200 285\n127.0.0.1 - - [10/Oct/2026 23:15:35] \"GET /get HTTP/1.1\" 200 272\n127.0.0.1 - - [10/Oct/2026 23:15:36] \"GET /stream/4 HTTP/1.1\" 200 1008\n127.0.0.1 - - [10/Oct/2026 23:16:07] \"GET /redirect-to?url=http%3A%2F%2F%3A1 HTTP/1.1\" 302 0\n"
+  },
+  "gold_patch_strategy": "exact",
+  "gold_patch_applied": true,
+  "post": {
+    "exit": 0,
+    "seconds": 47.3,
+    "timeout": false,
+    "exit_meaning": "all_passed",
+    "run_class": "clean",
+    "counts": {
+      "passed": 337,
+      "skipped": 1,
+      "xfailed": 1
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "........................................................................ [ 21%]\n.................................................s...................... [ 42%]\n........................................................................ [ 63%]\n........................x............................................... [ 84%]\n...................................................                      [100%]\n=============================== warnings summary ===============================\ntests/test_requests.py::TestPreparingURLs::test_different_connection_pool_for_tls_settings_verify_True\ntests/test_requests.py::TestPreparingURLs::test_different_connection_pool_for_tls_settings_verify_bundle_expired_cert\ntests/test_requests.py::TestPreparingURLs::test_different_connection_pool_for_tls_settings_verify_bundle_unexpired_cert\ntests/test_requests.py::TestPreparingURLs::test_different_connection_pool_for_mtls_settings\n  /home/sauravbellam/cache/a2/requests_7433/venv/lib/python3.13/site-packages/urllib3/connectionpool.py:1129: InsecureRequestWarning: Unverified HTTPS request is being made to host 'localhost'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings\n    warnings.warn(\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n337 passed, 1 skipped, 1 xfailed, 4 warnings in 46.18s\n",
+    "stderr_tail": "[2026-10-10 23:16:16,750] WARNING in core: flasgger is not installed; serving the static landing page at / and skipping the Swagger UI and /spec.json.\n127.0.0.1 - - [10/Oct/2026 23:16:19] \"GET /get HTTP/1.1\" 200 208\n127.0.0.1 - - [10/Oct/2026 23:16:19] \"GET /relative-redirect/20 HTTP/1.1\" 302 0\n127.0.0.1 - - [10/Oct/2026 23:16:19] \"GET /get HTTP/1.1\" 200 272\n127.0.0.1 - - [10/Oct/2026 23:16:19] \"HEAD /get HTTP/1.1\" 200 0\n127.0.0.1 - - [10/Oct/2026 23:16:19] \"GET /get HTTP/1.1\" 200 272\n127.0.0.1 - - [10/Oct/2026 23:16:19] \"HEAD /get HTTP/1.1\" 200 0\n127.0.0.1 - - [10/Oct/2026 23:16:19] \"GET /get HTTP/1.1\" 200 272\n127.0.0.1 - - [10/Oct/2026 23:16:19] \"GET /get?test=true&q=test HTTP/1.1\" 200 317\n127.0.0.1 - - [10/Oct/2026 23:16:20] \"GET /get HTTP/1.1\" 200 272\n127.0.0.1 - - [10/Oct/2026 23:16:22] \"GET /digest-auth/auth/user/pass/SHA-512 HTTP/1.1\" 200 46\n127.0.0.1 - - [10/Oct/2026 23:16:22] \"GET /digest-auth/auth/user/pass/SHA-512 HTTP/1.1\" 200 46\n127.0.0.1 - - [10/Oct/2026 23:16:22] \"GET /status/404 HTTP/1.1\" 404 0\n127.0.0.1 - - [10/Oct/2026 23:16:22] \"GET /get?foo=f%C3%B8%C3%B8 HTTP/1.1\" 200 320\n127.0.0.1 - - [10/Oct/2026 23:16:22] \"GET /%C3%B8?foo=foo HTTP/1.1\" 404 207\n127.0.0.1 - - [10/Oct/2026 23:16:23] \"GET /get HTTP/1.1\" 200 285\n127.0.0.1 - - [10/Oct/2026 23:16:23] \"GET /html HTTP/1.1\" 200 3741\n127.0.0.1 - - [10/Oct/2026 23:16:23] \"GET /get HTTP/1.1\" 200 300\n127.0.0.1 - - [10/Oct/2026 23:16:24] \"GET /get HTTP/1.1\" 200 272\n127.0.0.1 - - [10/Oct/2026 23:16:24] \"POST /post HTTP/1.1\" 200 430\n127.0.0.1 - - [10/Oct/2026 23:16:54] \"GET /status/500 HTTP/1.1\" 500 0\n127.0.0.1 - - [10/Oct/2026 23:16:54] \"GET /redirect-to?url=http%3A%2F%2F%3A1 HTTP/1.1\" 302 0\n"
+  },
+  "trace_pre_exists": true,
+  "trace_post_exists": true,
+  "seconds": 128.1
+}
