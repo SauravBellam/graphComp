@@ -1,0 +1,75 @@
+
+$ /home/sauravbellam/cache/a2/fastapi_14583/venv/bin/python -s -m pytest tests/benchmarks/test_general_performance.py tests/test_compat_params_v1.py tests/test_datetime_custom_encoder.py tests/test_filter_pydantic_sub_model/app_pv1.py tests/test_get_model_definitions_formfeed_escape.py tests/test_pydantic_v1_deprecation_warnings.py tests/test_pydantic_v1_v2_01.py tests/test_pydantic_v1_v2_list.py tests/test_pydantic_v1_v2_mixed.py tests/test_pydantic_v1_v2_multifile/main.py tests/test_pydantic_v1_v2_noneable.py tests/test_read_with_orm_mode.py tests/test_response_model_as_return_annotation.py tests/test_tutorial/test_pydantic_v1_in_v2/test_tutorial002.py tests/test_tutorial/test_pydantic_v1_in_v2/test_tutorial003.py tests/test_tutorial/test_pydantic_v1_in_v2/test_tutorial004.py tests/test_tutorial/test_request_form_models/test_tutorial002_pv1.py tests/test_tutorial/test_schema_extra_example/test_tutorial001_pv1.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/fastapi_14583/trace_pre.xml
+[exit 1]
+...........................................FFFF......................... [ 38%]
+........................................................................ [ 77%]
+.........................................                                [100%]
+=================================== FAILURES ===================================
+________________ test_warns_pydantic_v1_model_in_endpoint_param ________________
+
+    def test_warns_pydantic_v1_model_in_endpoint_param() -> None:
+        class ParamModelV1(BaseModel):
+            name: str
+    
+        app = FastAPI()
+    
+>       with pytest.warns(
+            DeprecationWarning,
+            match=r"pydantic\.v1 is deprecated.*Please update the param data:",
+        ):
+E       Failed: DID NOT WARN. No warnings of type (<class 'DeprecationWarning'>,) were emitted.
+E        Emitted warnings: [].
+
+tests/test_pydantic_v1_deprecation_warnings.py:21: Failed
+_________________ test_warns_pydantic_v1_model_in_return_type __________________
+
+    def test_warns_pydantic_v1_model_in_return_type() -> None:
+        class ReturnModelV1(BaseModel):
+            name: str
+    
+        app = FastAPI()
+    
+>       with pytest.warns(
+            DeprecationWarning,
+            match=r"pydantic\.v1 is deprecated.*Please update the response model",
+        ):
+E       Failed: DID NOT WARN. No warnings of type (<class 'DeprecationWarning'>,) were emitted.
+E        Emitted warnings: [].
+
+tests/test_pydantic_v1_deprecation_warnings.py:42: Failed
+________________ test_warns_pydantic_v1_model_in_response_model ________________
+
+    def test_warns_pydantic_v1_model_in_response_model() -> None:
+        class ResponseModelV1(BaseModel):
+            name: str
+    
+        app = FastAPI()
+    
+>       with pytest.warns(
+            DeprecationWarning,
+            match=r"pydantic\.v1 is deprecated.*Please update the response model",
+        ):
+E       Failed: DID NOT WARN. No warnings of type (<class 'DeprecationWarning'>,) were emitted.
+E        Emitted warnings: [].
+
+tests/test_pydantic_v1_deprecation_warnings.py:63: Failed
+__________ test_warns_pydantic_v1_model_in_additional_responses_model __________
+
+    def test_warns_pydantic_v1_model_in_additional_responses_model() -> None:
+        class ErrorModelV1(BaseModel):
+            detail: str
+    
+        app = FastAPI()
+    
+>       with pytest.warns(
+            DeprecationWarning,
+            match=r"pydantic\.v1 is deprecated.*In responses=\{\}, please update",
+        ):
+E       Failed: DID NOT WARN. No warnings of type (<class 'DeprecationWarning'>,) were emitted.
+E        Emitted warnings: [].
+
+tests/test_pydantic_v1_deprecation_warnings.py:84: Failed
+- generated xml file: /home/sauravbellam/results/a2_runs/fastapi_14583/trace_pre.xml -
+4 failed, 181 passed, 1 skipped in 10.67s
+
+

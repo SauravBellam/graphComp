@@ -1,0 +1,22 @@
+
+$ /home/sauravbellam/cache/a2/rich_4075/venv/bin/python -s -m pytest tests/test_console.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/rich_4075/trace_pre.xml
+[exit 1]
+.................F...................................................... [ 72%]
+............................                                             [100%]
+=================================== FAILURES ===================================
+__________________________ test_print_empty_with_end ___________________________
+
+    def test_print_empty_with_end() -> None:
+        console = Console(file=io.StringIO(), color_system="truecolor")
+        console.print(end="!")
+>       assert console.file.getvalue() == "!"
+E       AssertionError: assert '\n' == '!'
+E         
+E         Strings contain only whitespace, escaping them using repr()
+E         - '!'
+E         + '\n'
+
+tests/test_console.py:198: AssertionError
+1 failed, 99 passed in 3.16s
+
+

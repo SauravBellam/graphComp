@@ -1,0 +1,18 @@
+
+$ /home/sauravbellam/cache/a2/rich_3944/venv/bin/python -s -m pytest tests/test_cells.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/rich_3944/trace_pre.xml
+[exit 1]
+.....................................................F                   [100%]
+=================================== FAILURES ===================================
+________________________________ test_nerd_font ________________________________
+
+    def test_nerd_font():
+        """Regression test for https://github.com/Textualize/rich/issues/3943"""
+        # Not allocated by unicode, but used by nerd fonts
+>       assert cell_len("\U000f024d") == 1
+E       AssertionError: assert 0 == 1
+E        +  where 0 = cell_len('\U000f024d')
+
+tests/test_cells.py:189: AssertionError
+1 failed, 53 passed in 0.36s
+
+

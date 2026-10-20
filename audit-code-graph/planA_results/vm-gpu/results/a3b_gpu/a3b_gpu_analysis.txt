@@ -1,0 +1,46 @@
+a3b_gnn.csv: 889 rows; columns: ['graph_key', 'repo', 'n_nodes', 'n_edges', 'objective', 'features', 'cos_mean', 'cos_median', 'share_ge_0.9', 'share_ge_0.99', 'spearman_pairwise', 'knn10_overlap', 'n_eval', 'insample_cos_mean', 'insample_spearman_pairwise', 'heldout_cos_mean', 'heldout_cos_median', 'heldout_share_ge_0.9', 'train_cos_mean', 'heldout_globalmean_baseline_cos', 'heldout_cos_connected', 'heldout_cos_isolated', 'n_heldout', 'final_loss', 'seconds']
+
+== FIT: per repo means (heldout, globalmean baseline, gain over baseline as share of gap, train minus heldout)
+  Textualize/rich  both        heldout 0.9915  base 0.9483  gain +0.835  train-heldout +0.0068  n=47
+  Textualize/rich  structural  heldout 0.9909  base 0.9483  gain +0.824  train-heldout +0.0073  n=47
+  Textualize/rich  text        heldout 0.9937  base 0.9483  gain +0.878  train-heldout +0.0047  n=47
+  encode/httpx     both        heldout 0.9888  base 0.9354  gain +0.827  train-heldout +0.0104  n=1
+  encode/httpx     structural  heldout 0.9866  base 0.9354  gain +0.793  train-heldout +0.0125  n=1
+  encode/httpx     text        heldout 0.9951  base 0.9354  gain +0.924  train-heldout +0.0041  n=1
+  fastapi/fastapi  both        heldout 0.9239  base 0.8808  gain +0.362  train-heldout +0.0723  n=67
+  fastapi/fastapi  structural  heldout 0.8976  base 0.8808  gain +0.141  train-heldout +0.0981  n=67
+  fastapi/fastapi  text        heldout 0.9608  base 0.8808  gain +0.671  train-heldout +0.0361  n=67
+  psf/requests     both        heldout 0.9781  base 0.9278  gain +0.697  train-heldout +0.0205  n=12
+  psf/requests     structural  heldout 0.9773  base 0.9278  gain +0.685  train-heldout +0.0213  n=12
+  psf/requests     text        heldout 0.9815  base 0.9278  gain +0.744  train-heldout +0.0172  n=12
+
+== FIT: both minus text, per graph
+  Textualize/rich  mean -0.0022  min -0.0044  max +0.0004  both>text in 1/47 graphs
+  encode/httpx     mean -0.0063  min -0.0063  max -0.0063  both>text in 0/1 graphs
+  fastapi/fastapi  mean -0.0369  min -0.0572  max -0.0237  both>text in 0/67 graphs
+  psf/requests     mean -0.0034  min -0.0095  max +0.0013  both>text in 2/12 graphs
+  ALL              both>text in 3/127 graphs
+
+== FIT: isolated vs connected held-out nodes (text arm)
+  Textualize/rich  isolated 0.8957  connected 0.9973
+  encode/httpx     isolated 0.8948  connected 0.9986
+  fastapi/fastapi  isolated 0.9447  connected 0.9960
+  psf/requests     isolated 0.7964  connected 0.9973
+
+== LINKPRED: per repo means (cos_mean after Procrustes, spearman_pairwise, knn10_overlap) on held-out nodes
+  Textualize/rich  both            cos 0.1388  spearman 0.0917  knn10 0.1814  n=47
+  Textualize/rich  random_control  cos -0.0420  spearman -0.0003  knn10 0.0049  n=47
+  Textualize/rich  structural      cos 0.8529  spearman -0.0018  knn10 0.0140  n=47
+  Textualize/rich  text            cos 0.1612  spearman 0.0623  knn10 0.2060  n=47
+  encode/httpx     both            cos 0.0548  spearman 0.0397  knn10 0.2757  n=1
+  encode/httpx     random_control  cos -0.0651  spearman 0.0074  knn10 0.0149  n=1
+  encode/httpx     structural      cos 0.9354  spearman 0.0000  knn10 0.0155  n=1
+  encode/httpx     text            cos 0.2023  spearman 0.0939  knn10 0.4345  n=1
+  fastapi/fastapi  both            cos 0.5309  spearman 0.1816  knn10 0.0827  n=67
+  fastapi/fastapi  random_control  cos -0.0270  spearman -0.0004  knn10 0.0028  n=67
+  fastapi/fastapi  structural      cos 0.8273  spearman 0.0148  knn10 0.0050  n=67
+  fastapi/fastapi  text            cos 0.5688  spearman 0.1687  knn10 0.1994  n=67
+  psf/requests     both            cos 0.1387  spearman 0.0803  knn10 0.3122  n=12
+  psf/requests     random_control  cos -0.0665  spearman -0.0000  knn10 0.0173  n=12
+  psf/requests     structural      cos 0.9278  spearman 0.0000  knn10 0.0127  n=12
+  psf/requests     text            cos 0.1919  spearman 0.0678  knn10 0.3656  n=12

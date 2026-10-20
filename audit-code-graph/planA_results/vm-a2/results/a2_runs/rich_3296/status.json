@@ -1,0 +1,88 @@
+{
+  "instance_id": "rich_3296",
+  "repo": "Textualize/rich",
+  "backend": "venv",
+  "done": true,
+  "deps": {
+    "steps": [
+      {
+        "name": "pip_upgrade",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3296/venv/bin/python -m pip install -q --disable-pip-version-check 'pip>=24' 'setuptools' 'wheel' pytest pytest-timeout",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "editable_no_deps",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3296/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-build-isolation --no-deps -e .",
+        "exit": 2,
+        "stderr_tail": "python3.13/site-packages/pip/_internal/req/req_install.py\", line 258, in supports_pyproject_editable\n    return \"build_editable\" in self.pep517_backend._supported_features()\n                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"/home/sauravbellam/cache/a2/rich_3296/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 180, in _supported_features\n    return self._call_hook(\"_supported_features\", {})\n           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/sauravbellam/cache/a2/rich_3296/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 402, in _call_hook\n    raise BackendUnavailable(\n    ...<4 lines>...\n    )\npip._vendor.pyproject_hooks._impl.BackendUnavailable: Cannot import 'poetry.core.masonry.api'\n"
+      },
+      {
+        "name": "editable_no_deps_isolated",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3296/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-deps -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "runtime_deps",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3296/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "poetry_group_dev",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3296/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels pytest black mypy pytest-cov attrs pre-commit asv importlib-metadata",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "rich_tests",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3296/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels pytest-cov attrs ipywidgets",
+        "exit": 0,
+        "stderr_tail": ""
+      }
+    ],
+    "editable_ok": true,
+    "python": "3.13.5 (main, Aug 10 2026, 12:06:59) [GCC 14.2.0]"
+  },
+  "targets": [
+    "tests/test_syntax.py"
+  ],
+  "test_patch_strategy": "exact",
+  "test_patch_applied": true,
+  "pre": {
+    "exit": 1,
+    "seconds": 2.6,
+    "timeout": false,
+    "exit_meaning": "some_failed",
+    "run_class": "clean",
+    "counts": {
+      "failed": 9,
+      "passed": 15
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "yield\\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m \\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34mfirst\\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m,\\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m \\x1b[0m\\x1b[38;2;102;217;239;48;2;39;40;34mTrue\\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m,\\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m \\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34mprevious_value\\x1b[0m\\n'\n_______________ test_background_color_override_includes_padding ________________\n\n    def test_background_color_override_includes_padding():\n        \"\"\"Regression test for https://github.com/Textualize/rich/issues/3295\"\"\"\n    \n        syntax = Syntax(\n            \"x = 1\",\n            lexer=\"python\",\n            padding=(1, 3),\n            background_color=\"red\",\n        )\n        result = render(syntax)\n        print(repr(result))\n>       assert (\n            result\n            == \"\\x1b[41m                                                                                                    \\x1b[0m\\n\\x1b[41m   \\x1b[0m\\x1b[38;2;248;248;242;41mx\\x1b[0m\\x1b[38;2;248;248;242;41m \\x1b[0m\\x1b[38;2;255;70;137;41m=\\x1b[0m\\x1b[38;2;248;248;242;41m \\x1b[0m\\x1b[38;2;174;129;255;41m1\\x1b[0m\\x1b[41m                                                                                         \\x1b[0m\\x1b[41m   \\x1b[0m\\n\\x1b[41m                                                                                                    \\x1b[0m\\n\"\n        )\nE       AssertionError: assert '\\x1b[48;2;39...    \\x1b[0m\\n' == '\\x1b[41m    ...    \\x1b[0m\\n'\nE         \nE         - \u001b[41m                                                                                                    \u001b[0m\nE         ?    ^\nE         + \u001b[48;2;39;40;34m                                                                                                    \u001b[0m\nE         ?    ^^^^^^^^^^^^\nE         - \u001b[41m   \u001b[0m\u001b[38;2;248;248;242;41mx\u001b[0m\u001b[38;2;248;248;242;41m \u001b[0m\u001b[38;2;255;70;137;41m=\u001b[0m\u001b[38;2;248;248;242;41m \u001b[0m\u001b[38;2;174;129;255;41m1\u001b[0m\u001b[41m                                                                                         \u001b[0m\u001b[41m   \u001b[0m\nE         ?    ^^                                                       ...\nE         \nE         ...Full output truncated (7 lines hidden), use '-vv' to show\n\ntests/test_syntax.py:420: AssertionError\n----------------------------- Captured stdout call -----------------------------\n'\\x1b[48;2;39;40;34m                                                                                                    \\x1b[0m\\n\\x1b[48;2;39;40;34m   \\x1b[0m\\x1b[38;2;248;248;242;41mx\\x1b[0m\\x1b[38;2;248;248;242;41m \\x1b[0m\\x1b[38;2;255;70;137;41m=\\x1b[0m\\x1b[38;2;248;248;242;41m \\x1b[0m\\x1b[38;2;174;129;255;41m1\\x1b[0m\\x1b[41m                                                                                         \\x1b[0m\\x1b[48;2;39;40;34m   \\x1b[0m\\n\\x1b[48;2;39;40;34m                                                                                                    \\x1b[0m\\n'\n9 failed, 15 passed in 2.07s\n",
+    "stderr_tail": ""
+  },
+  "gold_patch_strategy": "exact",
+  "gold_patch_applied": true,
+  "post": {
+    "exit": 1,
+    "seconds": 1.9,
+    "timeout": false,
+    "exit_meaning": "some_failed",
+    "run_class": "clean",
+    "counts": {
+      "failed": 10,
+      "passed": 14
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "40;34m \\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34miter_values\\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m:\\x1b[0m\\n\\x1b[1;38;2;227;227;221;48;2;39;40;34m  \\x1b[0m\\x1b[38;2;101;102;96;48;2;39;40;34m10 \\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m        \\x1b[0m\\x1b[38;2;102;217;239;48;2;39;40;34myield\\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m \\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34mfirst\\x1b[0m\\x1b[1;38;2;248;248;242;48;2;39;40;34m,\\x1b[0m\\x1b[1;38;2;248;248;242;48;2;39;40;34m \\x1b[0m\\x1b[1;38;2;102;217;239;48;2;39;40;34mFalse\\x1b[0m\\x1b[1;38;2;248;248;242;48;2;39;40;34m,\\x1b[0m\\x1b[1;38;2;248;248;242;48;2;39;40;34m \\x1b[0m\\x1b[1;38;2;248;248;242;48;2;39;40;34mprevious_value\\x1b[0m\\n\\x1b[1;38;2;227;227;221;48;2;39;40;34m  \\x1b[0m\\x1b[38;2;101;102;96;48;2;39;40;34m11 \\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m        \\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34mfirst\\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m \\x1b[0m\\x1b[38;2;255;70;137;48;2;39;40;34m=\\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m \\x1b[0m\\x1b[38;2;102;217;239;48;2;39;40;34mFalse\\x1b[0m\\n\\x1b[1;38;2;227;227;221;48;2;39;40;34m  \\x1b[0m\\x1b[38;2;101;102;96;48;2;39;40;34m12 \\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m        \\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34mprevious_value\\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m \\x1b[0m\\x1b[38;2;255;70;137;48;2;39;40;34m=\\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m \\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34mvalue\\x1b[0m\\n\\x1b[1;38;2;227;227;221;48;2;39;40;34m  \\x1b[0m\\x1b[38;2;101;102;96;48;2;39;40;34m13 \\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m    \\x1b[0m\\x1b[38;2;102;217;239;48;2;39;40;34myield\\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m \\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34mfirst\\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m,\\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m \\x1b[0m\\x1b[38;2;102;217;239;48;2;39;40;34mTrue\\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m,\\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m \\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34mprevious_value\\x1b[0m\\n'\n________________________________ test_from_path ________________________________\n\n    @skip_windows_permission_error\n    def test_from_path():\n        fh, path = tempfile.mkstemp(\"example.py\")\n        try:\n            os.write(fh, b\"import this\\n\")\n            syntax = Syntax.from_path(path)\n            assert syntax.lexer\n>           assert syntax.lexer.name == \"Python\"\nE           AssertionError: assert 'IPython' == 'Python'\nE             \nE             - Python\nE             + IPython\nE             ? +\n\ntests/test_syntax.py:328: AssertionError\n___________________________ test_syntax_guess_lexer ____________________________\n\n    def test_syntax_guess_lexer():\n        assert Syntax.guess_lexer(\"banana.py\") == \"python\"\n>       assert Syntax.guess_lexer(\"banana.py\", \"import this\") == \"python\"\nE       AssertionError: assert 'ipython' == 'python'\nE         \nE         - python\nE         + ipython\nE         ? +\n\ntests/test_syntax.py:372: AssertionError\n10 failed, 14 passed in 1.49s\n",
+    "stderr_tail": ""
+  },
+  "trace_pre_exists": true,
+  "trace_post_exists": true,
+  "seconds": 35.0
+}

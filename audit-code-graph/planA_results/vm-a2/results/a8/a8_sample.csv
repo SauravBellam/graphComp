@@ -1,0 +1,1635 @@
+graph_key,repo,population,src,dst,nontest,n_tasks,channel,how,evidence_line,evidence,caller_file,caller_lineno,callee_short,callee_is_class,n_same_name,callee_in_snapshot,caller_snippet,human_label,notes
+rich_1fc7cb210ae52eb099df39818ddb9569e5b14c7b,Textualize/rich,unconfirmed,rich.text.Text.__str__,rich.text.Text,True,1,,no_reference,,,rich/text.py,173,Text,True,1,True,"    def __str__(self) -> str:
+        return self.plain",,
+rich_49117ced6648a432d85951f72dce777038f6ce09,Textualize/rich,unconfirmed,rich.padding.Padding.__rich_measure__,rich.padding.Padding,True,1,,no_reference,,,rich/padding.py,125,Padding,True,1,True,"    def __rich_measure__(
+        self, console: ""Console"", options: ""ConsoleOptions""
+    ) -> ""Measurement"":
+        max_width = options.max_width
+        extra_width = self.left + self.right
+        if max_width - extra_width < 1:
+            return Measurement(max_width, max_width)
+        measure_min, measure_max = Measurement.get(console, options, self.renderable)
+        measurement = Measurement(measure_min + extra_width, measure_max + extra_width)
+        measurement = measurement.with_maximum(max_width)
+        return measurement",,
+fastapi_1fcec88ad2df4541b6a81c4786c4d039dc745e1e,fastapi/fastapi,unconfirmed,fastapi.exceptions.ValidationException,fastapi.exceptions.WebSocketRequestValidationError,True,1,,no_reference,,,fastapi/exceptions.py,164,WebSocketRequestValidationError,True,1,True,"class ValidationException(Exception):
+    def __init__(
+        self,
+        errors: Sequence[Any],
+        *,
+        endpoint_ctx: Optional[EndpointContext] = None,
+    ) -> None:
+        self._errors = errors
+        self.endpoint_ctx = endpoint_ctx
+
+        ctx = endpoint_ctx or {}
+        self.endpoint_function = ctx.get(""function"")
+        self.endpoint_path = ctx.get(""path"")
+        self.endpoint_file = ctx.get(""file"")
+        self.endpoint_line = ctx.get(""line"")
+
+    def errors(self) -> Sequence[Any]:
+        return self._errors
+
+    def _format_endpoint_context(self) -> str:
+        if not (self.endpoint_file and self.endpoint_line and self.endpoint_function):
+            if self.endpoint_path:
+                return f""\n  Endpoint: {self.endpoint_path}""
+            return """"
+
+        context = f'\n  File ""{self.endpoint_file}"", line {self.endpoint_line}, in {self.endpoint_function}'
+        if self.endpoint_path:
+            context += f""\n    {self.endpoint_path}""
+        return context
+",,
+fastapi_cb83b83dcf78eab4ea17d504db5abcda705fbdc4,fastapi/fastapi,unconfirmed,fastapi.datastructures.Default,fastapi.routing.APIRoute,True,1,,no_reference,,,fastapi/datastructures.py,174,APIRoute,True,1,True,"def Default(value: DefaultType) -> DefaultType:
+    """"""
+    You shouldn't use this function directly.
+
+    It's used internally to recognize when a default value has been overwritten, even
+    if the overridden default value was truthy.
+    """"""
+    return DefaultPlaceholder(value)  # type: ignore",,
+rich_9f620dc50c0008c35e9f8493f198e6e593574a70,Textualize/rich,unconfirmed,rich.live._RefreshThread,rich.live.Live.start,True,1,,no_reference,,,rich/live.py,16,start,False,3,True,"class _RefreshThread(Thread):
+    """"""A thread that calls refresh() at regular intervals.""""""
+
+    def __init__(self, live: ""Live"", refresh_per_second: float) -> None:
+        self.live = live
+        self.refresh_per_second = refresh_per_second
+        self.done = Event()
+        super().__init__(daemon=True)
+
+    def stop(self) -> None:
+        self.done.set()
+
+    def run(self) -> None:
+        while not self.done.wait(1 / self.refresh_per_second):
+            with self.live._lock:
+                if not self.done.is_set():
+                    self.live.refresh()",,
+rich_8a616de8e25db3c93abaaa220c493d80878de69d,Textualize/rich,unconfirmed,rich.style.Style.null,rich.text.Text.render,True,1,,no_reference,,,rich/style.py,199,render,False,29,True,"    def null(cls) -> ""Style"":
+        """"""Create an 'null' style, equivalent to Style(), but more performant.""""""
+        return NULL_STYLE",,
+rich_368e8ad77c95a6bef8f9d332039091d1417296bc,Textualize/rich,unconfirmed,rich.highlighter.RegexHighlighter.highlight,rich.highlighter.RegexHighlighter,True,1,,no_reference,,,rich/highlighter.py,67,RegexHighlighter,True,1,True,"    def highlight(self, text: Text) -> None:
+        """"""Highlight :class:`rich.text.Text` using regular expressions.
+
+        Args:
+            text (~Text): Text to highlighted.
+
+        """"""
+
+        highlight_regex = text.highlight_regex
+        for re_highlight in self.highlights:
+            highlight_regex(re_highlight, style_prefix=self.base_style)",,
+fastapi_eead41bf4cf8587b4d86091dd3eabbb85796e717,fastapi/fastapi,unconfirmed,fastapi.openapi.models.BaseModelWithConfig,fastapi.openapi.models.Encoding,True,1,,no_reference,,,fastapi/openapi/models.py,58,Encoding,True,1,True,"class BaseModelWithConfig(BaseModel):
+    if PYDANTIC_V2:
+        model_config = {""extra"": ""allow""}
+
+    else:
+
+        class Config:
+            extra = ""allow""",,
+rich_7d36119f8378b36129502c3281a7faffef837e02,Textualize/rich,unconfirmed,rich.jupyter.JupyterMixin,rich.emoji.Emoji,True,1,,no_reference,,,rich/jupyter.py,36,Emoji,True,1,True,"class JupyterMixin:
+    """"""Add to an Rich renderable to make it render in Jupyter notebook.""""""
+
+    __slots__ = ()
+
+    def _repr_mimebundle_(
+        self: ""ConsoleRenderable"",
+        include: Sequence[str],
+        exclude: Sequence[str],
+        **kwargs: Any,
+    ) -> Dict[str, str]:
+        console = get_console()
+        segments = list(console.render(self, console.options))
+        html = _render_segments(segments)
+        text = console._render_buffer(segments)
+        data = {""text/plain"": text, ""text/html"": html}
+        if include:
+            data = {k: v for (k, v) in data.items() if k in include}
+        if exclude:
+            data = {k: v for (k, v) in data.items() if k not in exclude}
+        return data",,
+rich_0ba607dc080c9f102b5ae5346bcdb70d6e9c969d,Textualize/rich,unconfirmed,rich.containers.Lines.extend,rich.containers.Lines,True,1,,no_reference,,,rich/containers.py,105,Lines,True,1,True,"    def extend(self, lines: Iterable[""Text""]) -> None:
+        self._lines.extend(lines)",,
+rich_fc41075a3206d2a5fd846c6f41c4d2becab814fa,Textualize/rich,unconfirmed,rich.highlighter.RegexHighlighter.highlight,rich.highlighter.RegexHighlighter,True,1,,no_reference,,,rich/highlighter.py,67,RegexHighlighter,True,1,True,"    def highlight(self, text: Text) -> None:
+        """"""Highlight :class:`rich.text.Text` using regular expressions.
+
+        Args:
+            text (~Text): Text to highlighted.
+
+        """"""
+
+        highlight_regex = text.highlight_regex
+        for re_highlight in self.highlights:
+            highlight_regex(re_highlight, style_prefix=self.base_style)",,
+fastapi_972a967d5d3fa24d450637c36c6b7ad1f1d8c1b6,fastapi/fastapi,unconfirmed,fastapi.dependencies.utils.get_typed_annotation,fastapi.dependencies.utils.get_typed_return_annotation,True,1,,no_reference,,,fastapi/dependencies/utils.py,206,get_typed_return_annotation,False,1,True,"def get_typed_annotation(annotation: Any, globalns: Dict[str, Any]) -> Any:
+    if isinstance(annotation, str):
+        annotation = ForwardRef(annotation)
+        annotation = evaluate_forwardref(annotation, globalns, globalns)
+        if annotation is type(None):
+            return None
+    return annotation",,
+rich_9ec419154102acce7363e3958bec6c261864d7fb,Textualize/rich,unconfirmed,rich.style.Style._make_color,rich.style.Style,True,1,,no_reference,,,rich/style.py,146,Style,True,1,True,"        def _make_color(color: Union[Color, str]) -> Color:
+            return color if isinstance(color, Color) else Color.parse(color)",,
+fastapi_603df6e36f59cc4a3e189f506b8f36d1e816c3ac,fastapi/fastapi,unconfirmed,fastapi.datastructures.Default,fastapi.applications.FastAPI.include_router,True,1,,no_reference,,,fastapi/datastructures.py,197,include_router,False,2,True,"def Default(value: DefaultType) -> DefaultType:
+    """"""
+    You shouldn't use this function directly.
+
+    It's used internally to recognize when a default value has been overwritten, even
+    if the overridden default value was truthy.
+    """"""
+    return DefaultPlaceholder(value)  # type: ignore",,
+fastapi_e2354a0a063f2fcb890ec568f1a98e136a39fd25,fastapi/fastapi,unconfirmed,fastapi.openapi.models.BaseModelWithConfig,fastapi.openapi.models.Link,True,1,,no_reference,,,fastapi/openapi/models.py,58,Link,True,1,True,"class BaseModelWithConfig(BaseModel):
+    if PYDANTIC_V2:
+        model_config = {""extra"": ""allow""}
+
+    else:
+
+        class Config:
+            extra = ""allow""",,
+fastapi_603df6e36f59cc4a3e189f506b8f36d1e816c3ac,fastapi/fastapi,unconfirmed,fastapi.dependencies.models.Dependant.is_gen_callable,fastapi.dependencies.models.Dependant,True,1,,no_reference,,,fastapi/dependencies/models.py,92,Dependant,True,1,True,"    def is_gen_callable(self) -> bool:
+        if self.call is None:
+            return False  # pragma: no cover
+        if inspect.isgeneratorfunction(
+            _impartial(self.call)
+        ) or inspect.isgeneratorfunction(_unwrapped_call(self.call)):
+            return True
+        dunder_call = getattr(_impartial(self.call), ""__call__"", None)  # noqa: B004
+        if dunder_call is None:
+            return False  # pragma: no cover
+        if inspect.isgeneratorfunction(
+            _impartial(dunder_call)
+        ) or inspect.isgeneratorfunction(_unwrapped_call(dunder_call)):
+            return True
+        dunder_unwrapped_call = getattr(_unwrapped_call(self.call), ""__call__"", None)  # noqa: B004
+        if dunder_unwrapped_call is None:
+            return False  # pragma: no cover
+        if inspect.isgeneratorfunction(
+            _impartial(dunder_unwrapped_call)
+        ) or inspect.isgeneratorfunction(_unwrapped_call(dunder_unwrapped_call)):
+            return True
+        return False",,
+fastapi_464c359bb03f7ba72330198cc9f44df36194837d,fastapi/fastapi,unconfirmed,fastapi.openapi.models.HTTPBase,fastapi.security.http.HTTPDigest,True,1,,no_reference,,,fastapi/openapi/models.py,348,HTTPDigest,True,1,True,"class HTTPBase(SecurityBase):
+    type_: SecuritySchemeType = Field(default=SecuritySchemeType.http, alias=""type"")
+    scheme: str",,
+fastapi_c0836dc1b7f4ba91e9563c8c4ccd0ebe655bc914,fastapi/fastapi,unconfirmed,fastapi.security.base.SecurityBase,fastapi.security.api_key.APIKeyBase,True,1,,no_reference,,,fastapi/security/base.py,4,APIKeyBase,True,1,True,"class SecurityBase:
+    model: SecurityBaseModel
+    scheme_name: str",,
+rich_b6f2f7aa5b27f612f391cd28212aff51ad0d42d1,Textualize/rich,unconfirmed,rich.pretty._Line.expandable,rich.pretty._Line,True,1,,no_reference,,,rich/pretty.py,507,_Line,True,1,True,"    def expandable(self) -> bool:
+        """"""Check if the line may be expanded.""""""
+        return bool(self.node is not None and self.node.children)",,
+fastapi_60699f306b67dc1f4918ebea17f04d7a48cda645,fastapi/fastapi,unconfirmed,fastapi.temp_pydantic_v1_params.Body,fastapi.temp_pydantic_v1_params.Form,True,1,,no_reference,,,fastapi/temp_pydantic_v1_params.py,455,Form,True,3,True,"class Body(FieldInfo):  # type: ignore[misc]
+    def __init__(
+        self,
+        default: Any = Undefined,
+        *,
+        default_factory: Union[Callable[[], Any], None] = _Unset,
+        annotation: Optional[Any] = None,
+        embed: Union[bool, None] = None,
+        media_type: str = ""application/json"",
+        alias: Optional[str] = None,
+        alias_priority: Union[int, None] = _Unset,
+        # TODO: update when deprecating Pydantic v1, import these types
+        # validation_alias: str | AliasPath | AliasChoices | None
+        validation_alias: Union[str, None] = None,
+        serialization_alias: Union[str, None] = None,
+        title: Optional[str] = None,
+        description: Optional[str] = None,
+        gt: Optional[float] = None,
+        ge: Optional[float] = None,
+        lt: Optional[float] = None,
+        le: Optional[float] = None,
+        min_length: Optional[int] = None,
+        max_length: Optional[int] = None,
+        pattern: Optional[str] = None,
+        regex: Annotated[
+            Optional[str],
+            deprecated(
+                ""Deprecated in FastAPI 0.100.0 and Pydantic v2, use `pattern` instead.""
+            ),
+        ] = None,",,
+fastapi_f2687dc1bb01f4cb62eee90e656b61c38c2aaf6a,fastapi/fastapi,unconfirmed,fastapi._compat.v2.ModelField,fastapi._compat.v2.get_definitions,True,1,,no_reference,,,fastapi/_compat/v2.py,99,get_definitions,False,1,True,"class ModelField:
+    field_info: FieldInfo
+    name: str
+    mode: Literal[""validation"", ""serialization""] = ""validation""
+    config: Union[ConfigDict, None] = None
+
+    @property
+    def alias(self) -> str:
+        a = self.field_info.alias
+        return a if a is not None else self.name
+
+    @property
+    def validation_alias(self) -> Union[str, None]:
+        va = self.field_info.validation_alias
+        if isinstance(va, str) and va:
+            return va
+        return None
+
+    @property
+    def serialization_alias(self) -> Union[str, None]:
+        sa = self.field_info.serialization_alias
+        return sa or None
+
+    @property
+    def required(self) -> bool:
+        return self.field_info.is_required()
+
+    @property
+    def default(self) -> Any:
+        return self.get_default()",,
+fastapi_48d58ae3b6ef4ded5a4794618c00345667256d98,fastapi/fastapi,unconfirmed,fastapi.dependencies.utils._get_flat_fields_from_params,fastapi.dependencies.utils.get_flat_params,True,1,,no_reference,,,fastapi/dependencies/utils.py,190,get_flat_params,False,1,True,"def _get_flat_fields_from_params(fields: list[ModelField]) -> list[ModelField]:
+    if not fields:
+        return fields
+    first_field = fields[0]
+    if len(fields) == 1 and lenient_issubclass(
+        first_field.field_info.annotation, BaseModel
+    ):
+        fields_to_extract = get_cached_model_fields(first_field.field_info.annotation)
+        return fields_to_extract
+    return fields",,
+fastapi_3b4b5ab8c819dce27fbaf0aa0a9c74b7f3255ec0,fastapi/fastapi,unconfirmed,fastapi.exceptions.FastAPIError,fastapi.utils.create_model_field,True,1,,no_reference,,,fastapi/exceptions.py,144,create_model_field,False,1,True,"class FastAPIError(RuntimeError):
+    """"""
+    A generic, FastAPI-specific error.
+    """"""",,
+rich_e76f3c3ea78481342e21a7b3328075462ab69c2b,Textualize/rich,unconfirmed,rich.containers.Lines.justify,rich.cells.cell_len,True,1,,call_direct,148,words_size = sum(cell_len(word.plain) for word in words),rich/containers.py,111,cell_len,False,2,True,"    def justify(
+        self,
+        console: ""Console"",
+        width: int,
+        justify: ""JustifyMethod"" = ""left"",
+        overflow: ""OverflowMethod"" = ""fold"",
+    ) -> None:
+        """"""Justify and overflow text to a given width.
+
+        Args:
+            console (Console): Console instance.
+            width (int): Number of cells available per line.
+            justify (str, optional): Default justify method for text: ""left"", ""center"", ""full"" or ""right"". Defaults to ""left"".
+            overflow (str, optional): Default overflow for text: ""crop"", ""fold"", or ""ellipsis"". Defaults to ""fold"".
+
+        """"""
+        from .text import Text
+
+        if justify == ""left"":
+            for line in self._lines:
+                line.truncate(width, overflow=overflow, pad=True)
+        elif justify == ""center"":
+            for line in self._lines:
+                line.rstrip()
+                line.truncate(width, overflow=overflow)
+                line.pad_left((width - cell_len(line.plain)) // 2)
+                line.pad_right(width - cell_len(line.plain))
+        elif justify == ""right"":
+            for line in self._lines:
+                line.rstrip()",,
+rich_9cb198944f8184df92217efc8b20d3fffa4b4fa0,Textualize/rich,unconfirmed,rich._wrap.divide_line,rich._loop.loop_last,True,1,,call_direct,60,"for last, line in loop_last(folded_word):",rich/_wrap.py,26,loop_last,False,1,True,"def divide_line(text: str, width: int, fold: bool = True) -> list[int]:
+    """"""Given a string of text, and a width (measured in cells), return a list
+    of cell offsets which the string should be split at in order for it to fit
+    within the given width.
+
+    Args:
+        text: The text to examine.
+        width: The available cell width.
+        fold: If True, words longer than `width` will be folded onto a new line.
+
+    Returns:
+        A list of indices to break the line at.
+    """"""
+    break_positions: list[int] = []  # offsets to insert the breaks at
+    append = break_positions.append
+    cell_offset = 0
+    _cell_len = cell_len
+
+    for start, _end, word in words(text):
+        word_length = _cell_len(word.rstrip())
+        remaining_space = width - cell_offset
+        word_fits_remaining_space = remaining_space >= word_length
+
+        if word_fits_remaining_space:
+            # Simplest case - the word fits within the remaining width for this line.
+            cell_offset += _cell_len(word)
+        else:
+            # Not enough space remaining for this word on the current line.
+            if word_length > width:
+                # The word doesn't fit on any line, so we can't simply",,
+fastapi_eaf611f9ee56de4f16c837d4f487a4b9fca507c4,fastapi/fastapi,unconfirmed,fastapi.security.http.HTTPBase,fastapi.openapi.models.HTTPBase,True,1,,text_only,70,class HTTPBase(SecurityBase):,fastapi/security/http.py,70,HTTPBase,True,2,True,"class HTTPBase(SecurityBase):
+    def __init__(
+        self,
+        *,
+        scheme: str,
+        scheme_name: Optional[str] = None,
+        description: Optional[str] = None,
+        auto_error: bool = True,
+    ):
+        self.model = HTTPBaseModel(scheme=scheme, description=description)
+        self.scheme_name = scheme_name or self.__class__.__name__
+        self.auto_error = auto_error
+
+    async def __call__(
+        self, request: Request
+    ) -> Optional[HTTPAuthorizationCredentials]:
+        authorization = request.headers.get(""Authorization"")
+        scheme, credentials = get_authorization_scheme_param(authorization)
+        if not (authorization and scheme and credentials):
+            if self.auto_error:
+                raise HTTPException(
+                    status_code=HTTP_403_FORBIDDEN, detail=""Not authenticated""
+                )
+            else:
+                return None
+        return HTTPAuthorizationCredentials(scheme=scheme, credentials=credentials)",,
+rich_7a168a27c5097805b3bafa495f35e3955004ff4a,Textualize/rich,unconfirmed,rich.text.Text.split,rich.text.Text,True,1,,text_only,1074,"List[RichText]: A list of rich text, one per line of the original.",rich/text.py,1059,Text,True,1,True,"    def split(
+        self,
+        separator: str = ""\n"",
+        *,
+        include_separator: bool = False,
+        allow_blank: bool = False,
+    ) -> Lines:
+        """"""Split rich text in to lines, preserving styles.
+
+        Args:
+            separator (str, optional): String to split on. Defaults to ""\\\\n"".
+            include_separator (bool, optional): Include the separator in the lines. Defaults to False.
+            allow_blank (bool, optional): Return a blank line if the text ends with a separator. Defaults to False.
+
+        Returns:
+            List[RichText]: A list of rich text, one per line of the original.
+        """"""
+        assert separator, ""separator must not be empty""
+
+        text = self.plain
+        if separator not in text:
+            return Lines([self.copy()])
+
+        if include_separator:
+            lines = self.divide(
+                match.end() for match in re.finditer(re.escape(separator), text)
+            )
+        else:
+
+            def flatten_spans() -> Iterable[int]:",,
+rich_fc41075a3206d2a5fd846c6f41c4d2becab814fa,Textualize/rich,unconfirmed,rich.text.Text.iter_text,rich.text.Text,True,1,,text_only,790,"def iter_text() -> Iterable[""Text""]:",rich/text.py,790,Text,True,1,True,"        def iter_text() -> Iterable[""Text""]:
+            if self.plain:
+                for last, line in loop_last(lines):
+                    yield line
+                    if not last:
+                        yield self
+            else:
+                yield from lines",,
+fastapi_464c359bb03f7ba72330198cc9f44df36194837d,fastapi/fastapi,unconfirmed,fastapi.exceptions.DependencyScopeError,fastapi.exceptions.FastAPIError,True,1,,text_only,167,class DependencyScopeError(FastAPIError):,fastapi/exceptions.py,167,FastAPIError,True,1,True,"class DependencyScopeError(FastAPIError):
+    """"""
+    A dependency declared that it depends on another dependency with an invalid
+    (narrower) scope.
+    """"""",,
+httpx_4acf5c2c37714cc63b5cf71b3e284fca83c90311,encode/httpx,unconfirmed,httpx._pool.Connection,httpx._pool.Transport,True,1,,text_only,141,class Connection(Transport):,src/httpx/_pool.py,141,Transport,True,2,True,"class Connection(Transport):
+    def __init__(self, stream: Stream, origin: URL | str):
+        self._stream = stream
+        self._origin = URL(origin)
+        self._keepalive_duration = 5.0
+        self._idle_expiry = time.monotonic() + self._keepalive_duration
+        self._request_lock = Lock()
+        self._parser = HTTPParser(stream, mode='CLIENT')
+
+    # API for connection pool management...
+    def origin(self) -> URL:
+        return self._origin
+
+    def is_idle(self) -> bool:
+        return self._parser.is_idle()
+
+    def is_expired(self, when: float) -> bool:
+        return self._parser.is_idle() and when > self._idle_expiry
+
+    def is_closed(self) -> bool:
+        return self._parser.is_closed()
+
+    def description(self) -> str:
+        return self._parser.description()
+
+    # API entry points...
+    def send(self, request: Request) -> Response:
+        #async with self._request_lock:
+        #    try:
+        self._send_head(request)",,
+rich_4d6d631a3d2deddf8405522d4b8c976a6d35726c,Textualize/rich,unconfirmed,rich.highlighter.ReprHighlighter,rich.highlighter.RegexHighlighter,True,2,,text_only,80,class ReprHighlighter(RegexHighlighter):,rich/highlighter.py,80,RegexHighlighter,True,1,True,"class ReprHighlighter(RegexHighlighter):
+    """"""Highlights the text typically produced from ``__repr__`` methods.""""""
+
+    base_style = ""repr.""
+    highlights = [
+        r""(?P<tag_start><)(?P<tag_name>[-\w.:|]*)(?P<tag_contents>[\w\W]*)(?P<tag_end>>)"",
+        r'(?P<attrib_name>[\w_]{1,50})=(?P<attrib_value>""?[\w_]+""?)?',
+        r""(?P<brace>[][{}()])"",
+        _combine_regex(
+            r""(?P<ipv4>[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3})"",
+            r""(?P<ipv6>([A-Fa-f0-9]{1,4}::?){1,7}[A-Fa-f0-9]{1,4})"",
+            r""(?P<eui64>(?:[0-9A-Fa-f]{1,2}-){7}[0-9A-Fa-f]{1,2}|(?:[0-9A-Fa-f]{1,2}:){7}[0-9A-Fa-f]{1,2}|(?:[0-9A-Fa-f]{4}\.){3}[0-9A-Fa-f]{4})"",
+            r""(?P<eui48>(?:[0-9A-Fa-f]{1,2}-){5}[0-9A-Fa-f]{1,2}|(?:[0-9A-Fa-f]{1,2}:){5}[0-9A-Fa-f]{1,2}|(?:[0-9A-Fa-f]{4}\.){2}[0-9A-Fa-f]{4})"",
+            r""(?P<uuid>[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12})"",
+            r""(?P<call>[\w.]*?)\("",
+            r""\b(?P<bool_true>True)\b|\b(?P<bool_false>False)\b|\b(?P<none>None)\b"",
+            r""(?P<ellipsis>\.\.\.)"",
+            r""(?P<number_complex>(?<!\w)(?:\-?[0-9]+\.?[0-9]*(?:e[-+]?\d+?)?)(?:[-+](?:[0-9]+\.?[0-9]*(?:e[-+]?\d+)?))?j)"",
+            r""(?P<number>(?<!\w)\-?[0-9]+\.?[0-9]*(e[-+]?\d+?)?\b|0x[0-9a-fA-F]*)"",
+            r""(?P<path>\B(/[-\w._+]+)*\/)(?P<filename>[-\w._+]*)?"",
+            r""(?<![\\\w])(?P<str>b?'''.*?(?<!\\)'''|b?'.*?(?<!\\)'|b?\""\""\"".*?(?<!\\)\""\""\""|b?\"".*?(?<!\\)\"")"",
+            r""(?P<url>(file|https|http|ws|wss)://[-0-9a-zA-Z$_+!`(),.?/;:&=%#~@]*)"",
+        ),
+    ]",,
+fastapi_e2354a0a063f2fcb890ec568f1a98e136a39fd25,fastapi/fastapi,unconfirmed,fastapi.temp_pydantic_v1_params.Path,fastapi.temp_pydantic_v1_params.Param,True,1,,text_only,115,class Path(Param):  # type: ignore[misc],fastapi/temp_pydantic_v1_params.py,115,Param,True,2,True,"class Path(Param):  # type: ignore[misc]
+    in_ = ParamTypes.path
+
+    def __init__(
+        self,
+        default: Any = ...,
+        *,
+        default_factory: Union[Callable[[], Any], None] = _Unset,
+        annotation: Optional[Any] = None,
+        alias: Optional[str] = None,
+        alias_priority: Union[int, None] = _Unset,
+        # TODO: update when deprecating Pydantic v1, import these types
+        # validation_alias: str | AliasPath | AliasChoices | None
+        validation_alias: Union[str, None] = None,
+        serialization_alias: Union[str, None] = None,
+        title: Optional[str] = None,
+        description: Optional[str] = None,
+        gt: Optional[float] = None,
+        ge: Optional[float] = None,
+        lt: Optional[float] = None,
+        le: Optional[float] = None,
+        min_length: Optional[int] = None,
+        max_length: Optional[int] = None,
+        pattern: Optional[str] = None,
+        regex: Annotated[
+            Optional[str],
+            deprecated(
+                ""Deprecated in FastAPI 0.100.0 and Pydantic v2, use `pattern` instead.""
+            ),
+        ] = None,",,
+fastapi_7132a690461c2367f22556eb87c2b5eb7d9cfb45,fastapi/fastapi,unconfirmed,fastapi.security.oauth2.OAuth2,fastapi.openapi.models.OAuth2,True,1,,text_only,309,class OAuth2(SecurityBase):,fastapi/security/oauth2.py,309,OAuth2,True,2,True,"class OAuth2(SecurityBase):
+    """"""
+    This is the base class for OAuth2 authentication, an instance of it would be used
+    as a dependency. All other OAuth2 classes inherit from it and customize it for
+    each OAuth2 flow.
+
+    You normally would not create a new class inheriting from it but use one of the
+    existing subclasses, and maybe compose them if you want to support multiple flows.
+
+    Read more about it in the
+    [FastAPI docs for Security](https://fastapi.tiangolo.com/tutorial/security/).
+    """"""
+
+    def __init__(
+        self,
+        *,
+        flows: Annotated[
+            Union[OAuthFlowsModel, Dict[str, Dict[str, Any]]],
+            Doc(
+                """"""
+                The dictionary of OAuth2 flows.
+                """"""
+            ),
+        ] = OAuthFlowsModel(),
+        scheme_name: Annotated[
+            Optional[str],
+            Doc(
+                """"""
+                Security scheme name.
+",,
+rich_edc6b0a39b6df1c0e26d409bb5c5eda7149b2de6,Textualize/rich,unconfirmed,rich.text.Text.split,rich.text.Text,True,1,,text_only,1078,"List[RichText]: A list of rich text, one per line of the original.",rich/text.py,1063,Text,True,1,True,"    def split(
+        self,
+        separator: str = ""\n"",
+        *,
+        include_separator: bool = False,
+        allow_blank: bool = False,
+    ) -> Lines:
+        """"""Split rich text in to lines, preserving styles.
+
+        Args:
+            separator (str, optional): String to split on. Defaults to ""\\\\n"".
+            include_separator (bool, optional): Include the separator in the lines. Defaults to False.
+            allow_blank (bool, optional): Return a blank line if the text ends with a separator. Defaults to False.
+
+        Returns:
+            List[RichText]: A list of rich text, one per line of the original.
+        """"""
+        assert separator, ""separator must not be empty""
+
+        text = self.plain
+        if separator not in text:
+            return Lines([self.copy()])
+
+        if include_separator:
+            lines = self.divide(
+                match.end() for match in re.finditer(re.escape(separator), text)
+            )
+        else:
+
+            def flatten_spans() -> Iterable[int]:",,
+rich_8a616de8e25db3c93abaaa220c493d80878de69d,Textualize/rich,unconfirmed,rich.console.Capture.__enter__,rich.console.Capture,True,1,,text_only,334,"def __enter__(self) -> ""Capture"":",rich/console.py,334,Capture,True,1,True,"    def __enter__(self) -> ""Capture"":
+        self._console.begin_capture()
+        return self",,
+rich_577def22dd83b999c5937cb2bf2ed49600943325,Textualize/rich,unconfirmed,rich.errors.NoAltScreen,rich.errors.ConsoleError,True,1,,text_only,33,class NoAltScreen(ConsoleError):,rich/errors.py,33,ConsoleError,True,1,True,"class NoAltScreen(ConsoleError):
+    """"""Alt screen mode was required.""""""",,
+rich_c478588f3c228a4e86741a057c42b452d7bc6bce,Textualize/rich,unconfirmed,rich.markdown.ImageItem,rich.markdown.TextElement,True,1,,text_only,415,class ImageItem(TextElement):,rich/markdown.py,415,TextElement,True,1,True,"class ImageItem(TextElement):
+    """"""Renders a placeholder for an image.""""""
+
+    new_line = False
+
+    @classmethod
+    def create(cls, markdown: Markdown, token: Token) -> MarkdownElement:
+        """"""Factory to create markdown element,
+
+        Args:
+            markdown (Markdown): The parent Markdown object.
+            token (Any): A token from markdown-it.
+
+        Returns:
+            MarkdownElement: A new markdown element
+        """"""
+        return cls(str(token.attrs.get(""src"", """")), markdown.hyperlinks)
+
+    def __init__(self, destination: str, hyperlinks: bool) -> None:
+        self.destination = destination
+        self.hyperlinks = hyperlinks
+        self.link: str | None = None
+        super().__init__()
+
+    def on_enter(self, context: MarkdownContext) -> None:
+        self.link = context.current_style.link
+        self.text = Text(justify=""left"")
+        super().on_enter(context)
+
+    def __rich_console__(",,
+fastapi_a7f2dbe976bf72703376f0cd04487bfc4a849f83,fastapi/fastapi,unconfirmed,fastapi.openapi.models.RequestBody,fastapi.openapi.models.BaseModelWithConfig,True,1,,text_only,283,class RequestBody(BaseModelWithConfig):,fastapi/openapi/models.py,283,BaseModelWithConfig,True,1,True,"class RequestBody(BaseModelWithConfig):
+    description: Optional[str] = None
+    content: Dict[str, MediaType]
+    required: Optional[bool] = None",,
+rich_0ba607dc080c9f102b5ae5346bcdb70d6e9c969d,Textualize/rich,unconfirmed,rich.color_triplet.ColorTriplet,rich.palette.Palette.__getitem__,True,1,,implicit_dunder,,,rich/color_triplet.py,4,__getitem__,False,4,True,"class ColorTriplet(NamedTuple):
+    """"""The red, green, and blue components of a color.""""""
+
+    red: int
+    """"""Red component in 0 to 255 range.""""""
+    green: int
+    """"""Green component in 0 to 255 range.""""""
+    blue: int
+    """"""Blue component in 0 to 255 range.""""""
+
+    @property
+    def hex(self) -> str:
+        """"""get the color triplet in CSS style.""""""
+        red, green, blue = self
+        return f""#{red:02x}{green:02x}{blue:02x}""
+
+    @property
+    def rgb(self) -> str:
+        """"""The color in RGB format.
+
+        Returns:
+            str: An rgb color, e.g. ``""rgb(100,23,255)""``.
+        """"""
+        red, green, blue = self
+        return f""rgb({red},{green},{blue})""
+
+    @property
+    def normalized(self) -> Tuple[float, float, float]:
+        """"""Convert components into floats between 0 and 1.
+",,
+rich_c478588f3c228a4e86741a057c42b452d7bc6bce,Textualize/rich,unconfirmed,rich.markdown.MarkdownContext,rich.markdown.Markdown.__rich_console__,True,1,,implicit_dunder,,,rich/markdown.py,455,__rich_console__,False,45,True,"class MarkdownContext:
+    """"""Manages the console render state.""""""
+
+    def __init__(
+        self,
+        console: Console,
+        options: ConsoleOptions,
+        style: Style,
+        inline_code_lexer: str | None = None,
+        inline_code_theme: str = ""monokai"",
+    ) -> None:
+        self.console = console
+        self.options = options
+        self.style_stack: StyleStack = StyleStack(style)
+        self.stack: Stack[MarkdownElement] = Stack()
+
+        self._syntax: Syntax | None = None
+        if inline_code_lexer is not None:
+            self._syntax = Syntax("""", inline_code_lexer, theme=inline_code_theme)
+
+    @property
+    def current_style(self) -> Style:
+        """"""Current style which is the product of all styles on the stack.""""""
+        return self.style_stack.current
+
+    def on_text(self, text: str, node_type: str) -> None:
+        """"""Called when the parser visits text.""""""
+        if node_type in {""fence"", ""code_inline""} and self._syntax is not None:
+            highlight_text = self._syntax.highlight(text)
+            highlight_text.rstrip()",,
+fastapi_0dd42b746e17d33a74ea267a62eace9ccdccf345,fastapi/fastapi,unconfirmed,fastapi.routing._extract_endpoint_context,fastapi.exceptions.EndpointContext,True,1,,instantiation,184,ctx = EndpointContext(),fastapi/routing.py,167,EndpointContext,True,1,True,"def _extract_endpoint_context(func: Any) -> EndpointContext:
+    """"""Extract endpoint context with caching to avoid repeated file I/O.""""""
+    func_id = id(func)
+
+    if func_id in _endpoint_context_cache:
+        return _endpoint_context_cache[func_id]
+
+    try:
+        ctx: EndpointContext = {}
+
+        if (source_file := inspect.getsourcefile(func)) is not None:
+            ctx[""file""] = source_file
+        if (line_number := inspect.getsourcelines(func)[1]) is not None:
+            ctx[""line""] = line_number
+        if (func_name := getattr(func, ""__name__"", None)) is not None:
+            ctx[""function""] = func_name
+    except Exception:
+        ctx = EndpointContext()
+
+    _endpoint_context_cache[func_id] = ctx
+    return ctx",,
+fastapi_60699f306b67dc1f4918ebea17f04d7a48cda645,fastapi/fastapi,unconfirmed,fastapi.dependencies.utils.analyze_param,fastapi.temp_pydantic_v1_params.Body,True,1,,instantiation,490,field_info = params.Body(,fastapi/dependencies/utils.py,364,Body,True,3,True,"def analyze_param(
+    *,
+    param_name: str,
+    annotation: Any,
+    value: Any,
+    is_path_param: bool,
+) -> ParamDetails:
+    field_info = None
+    depends = None
+    type_annotation: Any = Any
+    use_annotation: Any = Any
+    if annotation is not inspect.Signature.empty:
+        use_annotation = annotation
+        type_annotation = annotation
+    # Extract Annotated info
+    if get_origin(use_annotation) is Annotated:
+        annotated_args = get_args(annotation)
+        type_annotation = annotated_args[0]
+        fastapi_annotations = [
+            arg
+            for arg in annotated_args[1:]
+            if isinstance(arg, (FieldInfo, may_v1.FieldInfo, params.Depends))
+        ]
+        fastapi_specific_annotations = [
+            arg
+            for arg in fastapi_annotations
+            if isinstance(
+                arg,
+                (
+                    params.Param,",,
+rich_5ba9cb56e68dcdf2db50c214d8f1412c8a50761b,Textualize/rich,unconfirmed,rich.emoji.Emoji,rich.emoji.NoEmoji,True,1,,instantiation,53,"raise NoEmoji(f""No emoji called {name!r}"")",rich/emoji.py,27,NoEmoji,True,1,True,"class Emoji(JupyterMixin):
+    __slots__ = [""name"", ""style"", ""_char"", ""variant""]
+
+    VARIANTS = {""text"": ""\uFE0E"", ""emoji"": ""\uFE0F""}
+
+    def __init__(
+        self,
+        name: str,
+        style: Union[str, Style] = ""none"",
+        variant: Optional[EmojiVariant] = None,
+    ) -> None:
+        """"""A single emoji character.
+
+        Args:
+            name (str): Name of emoji.
+            style (Union[str, Style], optional): Optional style. Defaults to None.
+
+        Raises:
+            NoEmoji: If the emoji doesn't exist.
+        """"""
+        self.name = name
+        self.style = style
+        self.variant = variant
+        try:
+            self._char = EMOJI[name]
+        except KeyError:
+            raise NoEmoji(f""No emoji called {name!r}"")
+        if variant is not None:
+            self._char += self.VARIANTS.get(variant, """")
+",,
+rich_fc41075a3206d2a5fd846c6f41c4d2becab814fa,Textualize/rich,unconfirmed,rich.table.Table._measure_column,rich.measure.Measurement,True,1,,instantiation,745,measurement = Measurement(,rich/table.py,716,Measurement,True,1,True,"    def _measure_column(
+        self,
+        console: ""Console"",
+        options: ""ConsoleOptions"",
+        column: Column,
+    ) -> Measurement:
+        """"""Get the minimum and maximum width of the column.""""""
+
+        max_width = options.max_width
+        if max_width < 1:
+            return Measurement(0, 0)
+
+        padding_width = self._get_padding_width(column._index)
+        if column.width is not None:
+            # Fixed width column
+            return Measurement(
+                column.width + padding_width, column.width + padding_width
+            ).with_maximum(max_width)
+        # Flexible column, we need to measure contents
+        min_widths: List[int] = []
+        max_widths: List[int] = []
+        append_min = min_widths.append
+        append_max = max_widths.append
+        get_render_width = Measurement.get
+        for cell in self._get_cells(console, column._index, column):
+            _min, _max = get_render_width(console, options, cell.renderable)
+            append_min(_min)
+            append_max(_max)
+
+        measurement = Measurement(",,
+fastapi_016ab760faba1813ba235d5582a014a58bd2f417,fastapi/fastapi,unconfirmed,fastapi.routing.APIRouter.api_route,fastapi.datastructures.Default,True,1,,call_in_nested_scope,1423,"response_model: Any = Default(None),",fastapi/routing.py,1419,Default,False,1,True,"    def api_route(
+        self,
+        path: str,
+        *,
+        response_model: Any = Default(None),
+        status_code: int | None = None,
+        tags: list[str | Enum] | None = None,
+        dependencies: Sequence[params.Depends] | None = None,
+        summary: str | None = None,
+        description: str | None = None,
+        response_description: str = ""Successful Response"",
+        responses: dict[int | str, dict[str, Any]] | None = None,
+        deprecated: bool | None = None,
+        methods: list[str] | None = None,
+        operation_id: str | None = None,
+        response_model_include: IncEx | None = None,
+        response_model_exclude: IncEx | None = None,
+        response_model_by_alias: bool = True,
+        response_model_exclude_unset: bool = False,
+        response_model_exclude_defaults: bool = False,
+        response_model_exclude_none: bool = False,
+        include_in_schema: bool = True,
+        response_class: type[Response] = Default(JSONResponse),
+        name: str | None = None,
+        callbacks: list[BaseRoute] | None = None,
+        openapi_extra: dict[str, Any] | None = None,
+        generate_unique_id_function: Callable[[APIRoute], str] = Default(
+            generate_unique_id
+        ),
+    ) -> Callable[[DecoratedCallable], DecoratedCallable]:",,
+rich_4101991898ee7a09fe1706daca24af5e1e054862,Textualize/rich,unconfirmed,rich.console.Console,rich.highlighter.ReprHighlighter,True,1,,call_in_nested_scope,658,"highlighter: Optional[""HighlighterType""] = ReprHighlighter(),",rich/console.py,593,ReprHighlighter,True,1,True,"class Console:
+    """"""A high level console interface.
+
+    Args:
+        color_system (str, optional): The color system supported by your terminal,
+            either ``""standard""``, ``""256""`` or ``""truecolor""``. Leave as ``""auto""`` to autodetect.
+        force_terminal (Optional[bool], optional): Enable/disable terminal control codes, or None to auto-detect terminal. Defaults to None.
+        force_jupyter (Optional[bool], optional): Enable/disable Jupyter rendering, or None to auto-detect Jupyter. Defaults to None.
+        force_interactive (Optional[bool], optional): Enable/disable interactive mode, or None to auto detect. Defaults to None.
+        soft_wrap (Optional[bool], optional): Set soft wrap default on print method. Defaults to False.
+        theme (Theme, optional): An optional style theme object, or ``None`` for default theme.
+        stderr (bool, optional): Use stderr rather than stdout if ``file`` is not specified. Defaults to False.
+        file (IO, optional): A file object where the console should write to. Defaults to stdout.
+        quiet (bool, Optional): Boolean to suppress all output. Defaults to False.
+        width (int, optional): The width of the terminal. Leave as default to auto-detect width.
+        height (int, optional): The height of the terminal. Leave as default to auto-detect height.
+        style (StyleType, optional): Style to apply to all output, or None for no style. Defaults to None.
+        no_color (Optional[bool], optional): Enabled no color mode, or None to auto detect. Defaults to None.
+        tab_size (int, optional): Number of spaces used to replace a tab character. Defaults to 8.
+        record (bool, optional): Boolean to enable recording of terminal output,
+            required to call :meth:`export_html`, :meth:`export_svg`, and :meth:`export_text`. Defaults to False.
+        markup (bool, optional): Boolean to enable :ref:`console_markup`. Defaults to True.
+        emoji (bool, optional): Enable emoji code. Defaults to True.
+        emoji_variant (str, optional): Optional emoji variant, either ""text"" or ""emoji"". Defaults to None.
+        highlight (bool, optional): Enable automatic highlighting. Defaults to True.
+        log_time (bool, optional): Boolean to enable logging of time by :meth:`log` methods. Defaults to True.
+        log_path (bool, optional): Boolean to enable the logging of the caller by :meth:`log`. Defaults to True.
+        log_time_format (Union[str, TimeFormatterCallable], optional): If ``log_time`` is enabled, either string for strftime or callable that formats the time. Defaults to ""[%X] "".
+        highlighter (HighlighterType, optional): Default highlighter.
+        legacy_windows (bool, optional): Enable legacy Windows mode, or ``None`` to auto detect. Defaults to ``None``.",,
+rich_c478588f3c228a4e86741a057c42b452d7bc6bce,Textualize/rich,unconfirmed,rich.text.Text.divide,rich.text.Text,True,1,,referenced,1125,_Text = Text,rich/text.py,1103,Text,True,1,True,"    def divide(self, offsets: Iterable[int]) -> Lines:
+        """"""Divide text in to a number of lines at given offsets.
+
+        Args:
+            offsets (Iterable[int]): Offsets used to divide text.
+
+        Returns:
+            Lines: New RichText instances between offsets.
+        """"""
+        _offsets = list(offsets)
+
+        if not _offsets:
+            return Lines([self.copy()])
+
+        text = self.plain
+        text_length = len(text)
+        divide_offsets = [0, *_offsets, text_length]
+        line_ranges = list(zip(divide_offsets, divide_offsets[1:]))
+
+        style = self.style
+        justify = self.justify
+        overflow = self.overflow
+        _Text = Text
+        new_lines = Lines(
+            _Text(
+                text[start:end],
+                style=style,
+                justify=justify,
+                overflow=overflow,
+            )",,
+rich_7a168a27c5097805b3bafa495f35e3955004ff4a,Textualize/rich,unconfirmed,rich.segment.Segment.adjust_line_length,rich.segment.Segment,True,1,,referenced,332,new_line: List[Segment],rich/segment.py,313,Segment,True,1,True,"    def adjust_line_length(
+        cls,
+        line: List[""Segment""],
+        length: int,
+        style: Optional[Style] = None,
+        pad: bool = True,
+    ) -> List[""Segment""]:
+        """"""Adjust a line to a given width (cropping or padding as required).
+
+        Args:
+            segments (Iterable[Segment]): A list of segments in a single line.
+            length (int): The desired width of the line.
+            style (Style, optional): The style of padding if used (space on the end). Defaults to None.
+            pad (bool, optional): Pad lines with spaces if they are shorter than `length`. Defaults to True.
+
+        Returns:
+            List[Segment]: A line of segments with the desired length.
+        """"""
+        line_length = sum(segment.cell_length for segment in line)
+        new_line: List[Segment]
+
+        if line_length < length:
+            if pad:
+                new_line = line + [cls("" "" * (length - line_length), style)]
+            else:
+                new_line = line[:]
+        elif line_length > length:
+            new_line = []
+            append = new_line.append
+            line_length = 0",,
+rich_2b5d648b2c62960deb6439f4204ed8fa6eb3cf7b,Textualize/rich,unconfirmed,rich.traceback.Traceback._render_syntax_error,rich.text.Text.assemble,True,1,,call_attr_other,613,text = Text.assemble(,rich/traceback.py,608,assemble,False,1,True,"    def _render_syntax_error(self, syntax_error: _SyntaxError) -> RenderResult:
+        highlighter = ReprHighlighter()
+        path_highlighter = PathHighlighter()
+        if syntax_error.filename != ""<stdin>"":
+            if os.path.exists(syntax_error.filename):
+                text = Text.assemble(
+                    (f"" {syntax_error.filename}"", ""pygments.string""),
+                    ("":"", ""pygments.text""),
+                    (str(syntax_error.lineno), ""pygments.number""),
+                    style=""pygments.text"",
+                )
+                yield path_highlighter(text)
+        syntax_error_text = highlighter(syntax_error.line.rstrip())
+        syntax_error_text.no_wrap = True
+        offset = min(syntax_error.offset - 1, len(syntax_error_text))
+        syntax_error_text.stylize(""bold underline"", offset, offset)
+        syntax_error_text += Text.from_markup(
+            ""\n"" + "" "" * offset + ""[traceback.offset]▲[/]"",
+            style=""pygments.text"",
+        )
+        yield syntax_error_text",,
+rich_c595fa95068dd2c5095d25446b2f0571bc0b3995,Textualize/rich,unconfirmed,rich.console.Console.print,rich.segment.Segment.apply_style,True,1,,call_attr_other,1732,"extend(Segment.apply_style(line, render_style))",rich/console.py,1648,apply_style,False,1,True,"    def print(
+        self,
+        *objects: Any,
+        sep: str = "" "",
+        end: str = ""\n"",
+        style: Optional[Union[str, Style]] = None,
+        justify: Optional[JustifyMethod] = None,
+        overflow: Optional[OverflowMethod] = None,
+        no_wrap: Optional[bool] = None,
+        emoji: Optional[bool] = None,
+        markup: Optional[bool] = None,
+        highlight: Optional[bool] = None,
+        width: Optional[int] = None,
+        height: Optional[int] = None,
+        crop: bool = True,
+        soft_wrap: Optional[bool] = None,
+        new_line_start: bool = False,
+    ) -> None:
+        """"""Print to the console.
+
+        Args:
+            objects (positional args): Objects to log to the terminal.
+            sep (str, optional): String to write between print data. Defaults to "" "".
+            end (str, optional): String to write at end of print data. Defaults to ""\\\\n"".
+            style (Union[str, Style], optional): A style to apply to output. Defaults to None.
+            justify (str, optional): Justify method: ""default"", ""left"", ""right"", ""center"", or ""full"". Defaults to ``None``.
+            overflow (str, optional): Overflow method: ""ignore"", ""crop"", ""fold"", or ""ellipsis"". Defaults to None.
+            no_wrap (Optional[bool], optional): Disable word wrapping. Defaults to None.
+            emoji (Optional[bool], optional): Enable emoji code, or ``None`` to use console default. Defaults to ``None``.
+            markup (Optional[bool], optional): Enable markup, or ``None`` to use console default. Defaults to ``None``.",,
+rich_8a616de8e25db3c93abaaa220c493d80878de69d,Textualize/rich,missed,rich.segment.Segment.strip_links,rich.style.Style.__bool__,True,1,direct,implicit_dunder,,,rich/segment.py,537,__bool__,False,4,True,"    def strip_links(cls, segments: Iterable[""Segment""]) -> Iterable[""Segment""]:
+        """"""Remove all links from an iterable of styles.
+
+        Args:
+            segments (Iterable[Segment]): An iterable segments.
+
+        Yields:
+            Segment: Segments with link removed.
+        """"""
+        for segment in segments:
+            if segment.control or segment.style is None:
+                yield segment
+            else:
+                text, style, _control = segment
+                yield cls(text, style.update_link(None) if style else None)",,
+requests_0e322af87745eff34caffe4df68456ebc20d9068,psf/requests,missed,requests.models.PreparedRequest.prepare_headers,requests.structures.CaseInsensitiveDict.__iter__,True,1,vialib,implicit_dunder,,,src/requests/models.py,483,__iter__,False,4,True,"    def prepare_headers(self, headers):
+        """"""Prepares the given HTTP headers.""""""
+
+        self.headers = CaseInsensitiveDict()
+        if headers:
+            for header in headers.items():
+                # Raise exception on invalid header value.
+                check_header_validity(header)
+                name, value = header
+                self.headers[to_native_string(name)] = value",,
+rich_2b5d648b2c62960deb6439f4204ed8fa6eb3cf7b,Textualize/rich,missed,rich.text.Text.append,rich.text.Text.__len__,True,1,direct,implicit_dunder,,,rich/text.py,965,__len__,False,2,True,"    def append(
+        self, text: Union[""Text"", str], style: Optional[Union[str, ""Style""]] = None
+    ) -> ""Text"":
+        """"""Add text with an optional style.
+
+        Args:
+            text (Union[Text, str]): A str or Text to append.
+            style (str, optional): A style name. Defaults to None.
+
+        Returns:
+            Text: Returns self for chaining.
+        """"""
+
+        if not isinstance(text, (str, Text)):
+            raise TypeError(""Only str or Text can be appended to Text"")
+
+        if len(text):
+            if isinstance(text, str):
+                sanitized_text = strip_control_codes(text)
+                self._text.append(sanitized_text)
+                offset = len(self)
+                text_length = len(sanitized_text)
+                if style:
+                    self._spans.append(Span(offset, offset + text_length, style))
+                self._length += text_length
+            elif isinstance(text, Text):
+                _Span = Span
+                if style is not None:
+                    raise ValueError(
+                        ""style must not be set when appending Text instance""",,
+rich_49117ced6648a432d85951f72dce777038f6ce09,Textualize/rich,missed,rich.console.Console.log,rich.console.Console.__enter__,True,1,direct,implicit_dunder,,,rich/console.py,1921,__enter__,False,12,True,"    def log(
+        self,
+        *objects: Any,
+        sep: str = "" "",
+        end: str = ""\n"",
+        style: Optional[Union[str, Style]] = None,
+        justify: Optional[JustifyMethod] = None,
+        emoji: Optional[bool] = None,
+        markup: Optional[bool] = None,
+        highlight: Optional[bool] = None,
+        log_locals: bool = False,
+        _stack_offset: int = 1,
+    ) -> None:
+        """"""Log rich content to the terminal.
+
+        Args:
+            objects (positional args): Objects to log to the terminal.
+            sep (str, optional): String to write between print data. Defaults to "" "".
+            end (str, optional): String to write at end of print data. Defaults to ""\\\\n"".
+            style (Union[str, Style], optional): A style to apply to output. Defaults to None.
+            justify (str, optional): One of ""left"", ""right"", ""center"", or ""full"". Defaults to ``None``.
+            emoji (Optional[bool], optional): Enable emoji code, or ``None`` to use console default. Defaults to None.
+            markup (Optional[bool], optional): Enable markup, or ``None`` to use console default. Defaults to None.
+            highlight (Optional[bool], optional): Enable automatic highlighting, or ``None`` to use console default. Defaults to None.
+            log_locals (bool, optional): Boolean to enable logging of locals where ``log()``
+                was called. Defaults to False.
+            _stack_offset (int, optional): Offset of caller from end of call stack. Defaults to 1.
+        """"""
+        if not objects:
+            objects = (NewLine(),)",,
+rich_05ff970926cbd0b5d0acb6fc18cdbd1fc971e582,Textualize/rich,missed,rich.markup.render,rich.style.Style.normalize,True,1,direct,call_direct,220,"normalized_tag = _Tag(normalize(tag.name), tag.parameters)",rich/markup.py,106,normalize,False,2,True,"def render(
+    markup: str,
+    style: Union[str, Style] = """",
+    emoji: bool = True,
+    emoji_variant: Optional[EmojiVariant] = None,
+) -> Text:
+    """"""Render console markup in to a Text instance.
+
+    Args:
+        markup (str): A string containing console markup.
+        style: (Union[str, Style]): The style to use.
+        emoji (bool, optional): Also render emoji code. Defaults to True.
+        emoji_variant (str, optional): Optional emoji variant, either ""text"" or ""emoji"". Defaults to None.
+
+
+    Raises:
+        MarkupError: If there is a syntax error in the markup.
+
+    Returns:
+        Text: A test instance.
+    """"""
+    emoji_replace = _emoji_replace
+    if ""["" not in markup:
+        return Text(
+            emoji_replace(markup, default_variant=emoji_variant) if emoji else markup,
+            style=style,
+        )
+    text = Text(style=style)
+    append = text.append
+    normalize = Style.normalize",,
+fastapi_740ec2787b25e59f7aa9e3df1db09d4489c22718,fastapi/fastapi,missed,fastapi.dependencies.utils.get_dependant,fastapi.dependencies.utils.analyze_param,True,1,direct,call_direct,259,param_details = analyze_param(,fastapi/dependencies/utils.py,229,analyze_param,False,1,True,"def get_dependant(
+    *,
+    path: str,
+    call: Callable[..., Any],
+    name: Optional[str] = None,
+    own_oauth_scopes: Optional[List[str]] = None,
+    parent_oauth_scopes: Optional[List[str]] = None,
+    use_cache: bool = True,
+    scope: Union[Literal[""function"", ""request""], None] = None,
+) -> Dependant:
+    dependant = Dependant(
+        call=call,
+        name=name,
+        path=path,
+        use_cache=use_cache,
+        scope=scope,
+        own_oauth_scopes=own_oauth_scopes,
+        parent_oauth_scopes=parent_oauth_scopes,
+    )
+    current_scopes = (parent_oauth_scopes or []) + (own_oauth_scopes or [])
+    path_param_names = get_path_param_names(path)
+    endpoint_signature = get_typed_signature(call)
+    signature_params = endpoint_signature.parameters
+    if isinstance(call, SecurityBase):
+        security_requirement = SecurityRequirement(
+            security_scheme=call, scopes=current_scopes
+        )
+        dependant.security_requirements.append(security_requirement)
+    for param_name, param in signature_params.items():
+        is_path_param = param_name in path_param_names",,
+rich_e2a982d5ea747f0deb7f78e8eaa5b4be7d9194cf,Textualize/rich,missed,rich.text.Text.assemble,rich.text.Text.append,True,1,direct,call_direct,396,append(*part),rich/text.py,356,append,False,3,True,"    def assemble(
+        cls,
+        *parts: Union[str, ""Text"", Tuple[str, StyleType]],
+        style: Union[str, Style] = """",
+        justify: Optional[""JustifyMethod""] = None,
+        overflow: Optional[""OverflowMethod""] = None,
+        no_wrap: Optional[bool] = None,
+        end: str = ""\n"",
+        tab_size: int = 8,
+        meta: Optional[Dict[str, Any]] = None,
+    ) -> ""Text"":
+        """"""Construct a text instance by combining a sequence of strings with optional styles.
+        The positional arguments should be either strings, or a tuple of string + style.
+
+        Args:
+            style (Union[str, Style], optional): Base style for text. Defaults to """".
+            justify (str, optional): Justify method: ""left"", ""center"", ""full"", ""right"". Defaults to None.
+            overflow (str, optional): Overflow method: ""crop"", ""fold"", ""ellipsis"". Defaults to None.
+            no_wrap (bool, optional): Disable text wrapping, or None for default. Defaults to None.
+            end (str, optional): Character to end text with. Defaults to ""\\\\n"".
+            tab_size (int): Number of spaces per tab, or ``None`` to use ``console.tab_size``. Defaults to None.
+            meta (Dict[str, Any], optional). Meta data to apply to text, or None for no meta data. Default to None
+
+        Returns:
+            Text: A new text instance.
+        """"""
+        text = cls(
+            style=style,
+            justify=justify,
+            overflow=overflow,",,
+rich_58ac15120fe254886c10d6253667733c83604cb4,Textualize/rich,missed,rich.console.Console.width,rich.console.Console.size,True,1,direct,referenced,1063,return self.size.width,rich/console.py,1057,size,False,1,True,"    def width(self) -> int:
+        """"""Get the width of the console.
+
+        Returns:
+            int: The width (in characters) of the console.
+        """"""
+        return self.size.width",,
+fastapi_6b53786f626db95a42fd0f66afd360bab161f4b1,fastapi/fastapi,missed,fastapi.dependencies.utils.get_flat_dependant,fastapi.dependencies.models.Dependant.oauth_scopes,True,1,vialib,referenced,175,"parent_oauth_scopes=flat_dependant.oauth_scopes,",fastapi/dependencies/utils.py,134,oauth_scopes,False,1,True,"def get_flat_dependant(
+    dependant: Dependant,
+    *,
+    skip_repeats: bool = False,
+    visited: Optional[list[DependencyCacheKey]] = None,
+    parent_oauth_scopes: Optional[list[str]] = None,
+) -> Dependant:
+    if visited is None:
+        visited = []
+    visited.append(dependant.cache_key)
+    use_parent_oauth_scopes = (parent_oauth_scopes or []) + (
+        dependant.oauth_scopes or []
+    )
+
+    flat_dependant = Dependant(
+        path_params=dependant.path_params.copy(),
+        query_params=dependant.query_params.copy(),
+        header_params=dependant.header_params.copy(),
+        cookie_params=dependant.cookie_params.copy(),
+        body_params=dependant.body_params.copy(),
+        name=dependant.name,
+        call=dependant.call,
+        request_param_name=dependant.request_param_name,
+        websocket_param_name=dependant.websocket_param_name,
+        http_connection_param_name=dependant.http_connection_param_name,
+        response_param_name=dependant.response_param_name,
+        background_tasks_param_name=dependant.background_tasks_param_name,
+        security_scopes_param_name=dependant.security_scopes_param_name,
+        own_oauth_scopes=dependant.own_oauth_scopes,
+        parent_oauth_scopes=use_parent_oauth_scopes,",,
+fastapi_6513d4daa16a536d17743de6a292f49bd06388a4,fastapi/fastapi,missed,fastapi._compat.v2.get_schema_from_model_field,fastapi._compat.v2.ModelField.serialization_alias,True,1,direct,referenced,253,else (field.serialization_alias or field.alias),fastapi/_compat/v2.py,236,serialization_alias,False,1,True,"def get_schema_from_model_field(
+    *,
+    field: ModelField,
+    model_name_map: ModelNameMap,
+    field_mapping: dict[
+        tuple[ModelField, Literal[""validation"", ""serialization""]], JsonSchemaValue
+    ],
+    separate_input_output_schemas: bool = True,
+) -> dict[str, Any]:
+    override_mode: Union[Literal[""validation""], None] = (
+        None
+        if (separate_input_output_schemas or _has_computed_fields(field))
+        else ""validation""
+    )
+    field_alias = (
+        (field.validation_alias or field.alias)
+        if field.mode == ""validation""
+        else (field.serialization_alias or field.alias)
+    )
+
+    # This expects that GenerateJsonSchema was already used to generate the definitions
+    json_schema = field_mapping[(field, override_mode or field.mode)]
+    if ""$ref"" not in json_schema:
+        # TODO remove when deprecating Pydantic v1
+        # Ref: https://github.com/pydantic/pydantic/blob/d61792cc42c80b13b23e3ffa74bc37ec7c77f7d1/pydantic/schema.py#L207
+        json_schema[""title""] = field.field_info.title or field_alias.title().replace(
+            ""_"", "" ""
+        )
+    return json_schema",,
+rich_2b5d648b2c62960deb6439f4204ed8fa6eb3cf7b,Textualize/rich,missed,rich.console.Console.print,rich.console.Console.width,True,1,direct,referenced,1722,"new_segments, self.width, pad=False",rich/console.py,1629,width,False,1,True,"    def print(
+        self,
+        *objects: Any,
+        sep: str = "" "",
+        end: str = ""\n"",
+        style: Optional[Union[str, Style]] = None,
+        justify: Optional[JustifyMethod] = None,
+        overflow: Optional[OverflowMethod] = None,
+        no_wrap: Optional[bool] = None,
+        emoji: Optional[bool] = None,
+        markup: Optional[bool] = None,
+        highlight: Optional[bool] = None,
+        width: Optional[int] = None,
+        height: Optional[int] = None,
+        crop: bool = True,
+        soft_wrap: Optional[bool] = None,
+        new_line_start: bool = False,
+    ) -> None:
+        """"""Print to the console.
+
+        Args:
+            objects (positional args): Objects to log to the terminal.
+            sep (str, optional): String to write between print data. Defaults to "" "".
+            end (str, optional): String to write at end of print data. Defaults to ""\\\\n"".
+            style (Union[str, Style], optional): A style to apply to output. Defaults to None.
+            justify (str, optional): Justify method: ""default"", ""left"", ""right"", ""center"", or ""full"". Defaults to ``None``.
+            overflow (str, optional): Overflow method: ""ignore"", ""crop"", ""fold"", or ""ellipsis"". Defaults to None.
+            no_wrap (Optional[bool], optional): Disable word wrapping. Defaults to None.
+            emoji (Optional[bool], optional): Enable emoji code, or ``None`` to use console default. Defaults to ``None``.
+            markup (Optional[bool], optional): Enable markup, or ``None`` to use console default. Defaults to ``None``.",,
+rich_ae15db600976a7999d21653002f338d0761b180c,Textualize/rich,missed,rich.text.Text.wrap,rich.containers.Lines.extend,True,1,direct,call_attr_other,1243,lines.extend(new_lines),rich/text.py,1198,extend,False,2,True,"    def wrap(
+        self,
+        console: ""Console"",
+        width: int,
+        *,
+        justify: Optional[""JustifyMethod""] = None,
+        overflow: Optional[""OverflowMethod""] = None,
+        tab_size: int = 8,
+        no_wrap: Optional[bool] = None,
+    ) -> Lines:
+        """"""Word wrap the text.
+
+        Args:
+            console (Console): Console instance.
+            width (int): Number of cells available per line.
+            justify (str, optional): Justify method: ""default"", ""left"", ""center"", ""full"", ""right"". Defaults to ""default"".
+            overflow (str, optional): Overflow method: ""crop"", ""fold"", or ""ellipsis"". Defaults to None.
+            tab_size (int, optional): Default tab size. Defaults to 8.
+            no_wrap (bool, optional): Disable wrapping, Defaults to False.
+
+        Returns:
+            Lines: Number of lines.
+        """"""
+        wrap_justify = justify or self.justify or DEFAULT_JUSTIFY
+        wrap_overflow = overflow or self.overflow or DEFAULT_OVERFLOW
+
+        no_wrap = pick_bool(no_wrap, self.no_wrap, False) or overflow == ""ignore""
+
+        lines = Lines()
+        for line in self.split(allow_blank=True):",,
+rich_ae15db600976a7999d21653002f338d0761b180c,Textualize/rich,missed,rich.console.Console.render,rich.console.ConsoleOptions.reset_height,True,1,direct,call_attr_other,1330,_options = _options.reset_height(),rich/console.py,1286,reset_height,False,1,True,"    def render(
+        self, renderable: RenderableType, options: Optional[ConsoleOptions] = None
+    ) -> Iterable[Segment]:
+        """"""Render an object in to an iterable of `Segment` instances.
+
+        This method contains the logic for rendering objects with the console protocol.
+        You are unlikely to need to use it directly, unless you are extending the library.
+
+        Args:
+            renderable (RenderableType): An object supporting the console protocol, or
+                an object that may be converted to a string.
+            options (ConsoleOptions, optional): An options object, or None to use self.options. Defaults to None.
+
+        Returns:
+            Iterable[Segment]: An iterable of segments that may be rendered.
+        """"""
+
+        _options = options or self.options
+        if _options.max_width < 1:
+            # No space to render anything. This prevents potential recursion errors.
+            return
+        render_iterable: RenderResult
+
+        renderable = rich_cast(renderable)
+        if hasattr(renderable, ""__rich_console__"") and not isclass(renderable):
+            render_iterable = renderable.__rich_console__(self, _options)  # type: ignore[union-attr]
+        elif isinstance(renderable, str):
+            text_renderable = self.render_str(
+                renderable, highlight=_options.highlight, markup=_options.markup
+            )",,
+rich_0ba607dc080c9f102b5ae5346bcdb70d6e9c969d,Textualize/rich,missed,rich.console.Console._render_buffer,rich.style.Style.render,True,1,direct,call_attr_other,2113,style.render(,rich/console.py,2101,render,False,29,True,"    def _render_buffer(self, buffer: Iterable[Segment]) -> str:
+        """"""Render buffered output, and clear buffer.""""""
+        output: List[str] = []
+        append = output.append
+        color_system = self._color_system
+        legacy_windows = self.legacy_windows
+        not_terminal = not self.is_terminal
+        if self.no_color and color_system:
+            buffer = Segment.remove_color(buffer)
+        for text, style, control in buffer:
+            if style:
+                append(
+                    style.render(
+                        text,
+                        color_system=color_system,
+                        legacy_windows=legacy_windows,
+                    )
+                )
+            elif not (not_terminal and control):
+                append(text)
+
+        rendered = """".join(output)
+        return rendered",,
+rich_577def22dd83b999c5937cb2bf2ed49600943325,Textualize/rich,missed,rich.console.Console._render_buffer,rich.style.Style.render,True,1,direct,call_attr_other,2079,style.render(,rich/console.py,2067,render,False,29,True,"    def _render_buffer(self, buffer: Iterable[Segment]) -> str:
+        """"""Render buffered output, and clear buffer.""""""
+        output: List[str] = []
+        append = output.append
+        color_system = self._color_system
+        legacy_windows = self.legacy_windows
+        not_terminal = not self.is_terminal
+        if self.no_color and color_system:
+            buffer = Segment.remove_color(buffer)
+        for text, style, control in buffer:
+            if style:
+                append(
+                    style.render(
+                        text,
+                        color_system=color_system,
+                        legacy_windows=legacy_windows,
+                    )
+                )
+            elif not (not_terminal and control):
+                append(text)
+
+        rendered = """".join(output)
+        return rendered",,
+rich_6764b24739b580c0c32ff5ef0b971ed4cfcf4f75,Textualize/rich,missed,rich.segment.Segment.split_and_crop_lines,rich.console.Console.render,True,1,direct,text_only,291,generated from console.render.,rich/segment.py,279,render,False,29,True,"    def split_and_crop_lines(
+        cls,
+        segments: Iterable[""Segment""],
+        length: int,
+        style: Optional[Style] = None,
+        pad: bool = True,
+        include_new_lines: bool = True,
+    ) -> Iterable[List[""Segment""]]:
+        """"""Split segments in to lines, and crop lines greater than a given length.
+
+        Args:
+            segments (Iterable[Segment]): An iterable of segments, probably
+                generated from console.render.
+            length (int): Desired line length.
+            style (Style, optional): Style to use for any padding.
+            pad (bool): Enable padding of lines that are less than `length`.
+
+        Returns:
+            Iterable[List[Segment]]: An iterable of lines of segments.
+        """"""
+        line: List[Segment] = []
+        append = line.append
+
+        adjust_line_length = cls.adjust_line_length
+        new_line_segment = cls(""\n"")
+
+        for segment in segments:
+            if ""\n"" in segment.text and not segment.control:
+                text, segment_style, _ = segment
+                while text:",,
+fastapi_740ec2787b25e59f7aa9e3df1db09d4489c22718,fastapi/fastapi,missed,fastapi.routing.APIRoute,fastapi.utils.generate_unique_id,True,1,direct,text_only,541,generate_unique_id_function: Union[,fastapi/routing.py,510,generate_unique_id,False,1,True,"class APIRoute(routing.Route):
+    def __init__(
+        self,
+        path: str,
+        endpoint: Callable[..., Any],
+        *,
+        response_model: Any = Default(None),
+        status_code: Optional[int] = None,
+        tags: Optional[List[Union[str, Enum]]] = None,
+        dependencies: Optional[Sequence[params.Depends]] = None,
+        summary: Optional[str] = None,
+        description: Optional[str] = None,
+        response_description: str = ""Successful Response"",
+        responses: Optional[Dict[Union[int, str], Dict[str, Any]]] = None,
+        deprecated: Optional[bool] = None,
+        name: Optional[str] = None,
+        methods: Optional[Union[Set[str], List[str]]] = None,
+        operation_id: Optional[str] = None,
+        response_model_include: Optional[IncEx] = None,
+        response_model_exclude: Optional[IncEx] = None,
+        response_model_by_alias: bool = True,
+        response_model_exclude_unset: bool = False,
+        response_model_exclude_defaults: bool = False,
+        response_model_exclude_none: bool = False,
+        include_in_schema: bool = True,
+        response_class: Union[Type[Response], DefaultPlaceholder] = Default(
+            JSONResponse
+        ),
+        dependency_overrides_provider: Optional[Any] = None,
+        callbacks: Optional[List[BaseRoute]] = None,",,
+rich_aca9467ec6a482b3bed1ba7d2e3de72271c5f817,Textualize/rich,missed,rich.console.Console.end_capture,rich.console.Console._exit_buffer,True,1,direct,call_self,878,self._exit_buffer(),rich/console.py,870,_exit_buffer,False,1,True,"    def end_capture(self) -> str:
+        """"""End capture mode and return captured string.
+
+        Returns:
+            str: Console output.
+        """"""
+        render_result = self._render_buffer(self._buffer)
+        del self._buffer[:]
+        self._exit_buffer()
+        return render_result",,
+requests_6360477c52303c9445b45fa8744b02d05a2f0905,psf/requests,missed,requests.models.PreparedRequest.prepare_body,requests.models.PreparedRequest.prepare_content_length,True,1,direct,call_self,566,self.prepare_content_length(body),src/requests/models.py,496,prepare_content_length,False,1,True,"    def prepare_body(self, data, files, json=None):
+        """"""Prepares the given HTTP body data.""""""
+
+        # Check if file, fo, generator, iterator.
+        # If not, run through normal process.
+
+        # Nottin' on you.
+        body = None
+        content_type = None
+
+        if not data and json is not None:
+            # urllib3 requires a bytes-like body. Python 2's json.dumps
+            # provides this natively, but Python 3 gives a Unicode string.
+            content_type = ""application/json""
+
+            try:
+                body = complexjson.dumps(json, allow_nan=False)
+            except ValueError as ve:
+                raise InvalidJSONError(ve, request=self)
+
+            if not isinstance(body, bytes):
+                body = body.encode(""utf-8"")
+
+        is_stream = all(
+            [
+                hasattr(data, ""__iter__""),
+                not isinstance(data, (basestring, list, tuple, Mapping)),
+            ]
+        )
+",,
+rich_720800e6930d85ad027b1e9bd0cbb96b5e994ce3,Textualize/rich,missed,rich.console.ConsoleOptions.update,rich.console.ConsoleOptions.copy,True,1,direct,call_self,184,options = self.copy(),rich/console.py,170,copy,False,4,True,"    def update(
+        self,
+        *,
+        width: Union[int, NoChange] = NO_CHANGE,
+        min_width: Union[int, NoChange] = NO_CHANGE,
+        max_width: Union[int, NoChange] = NO_CHANGE,
+        justify: Union[Optional[JustifyMethod], NoChange] = NO_CHANGE,
+        overflow: Union[Optional[OverflowMethod], NoChange] = NO_CHANGE,
+        no_wrap: Union[Optional[bool], NoChange] = NO_CHANGE,
+        highlight: Union[Optional[bool], NoChange] = NO_CHANGE,
+        markup: Union[Optional[bool], NoChange] = NO_CHANGE,
+        height: Union[Optional[int], NoChange] = NO_CHANGE,
+    ) -> ""ConsoleOptions"":
+        """"""Update values, return a copy.""""""
+        options = self.copy()
+        if not isinstance(width, NoChange):
+            options.min_width = options.max_width = max(0, width)
+        if not isinstance(min_width, NoChange):
+            options.min_width = min_width
+        if not isinstance(max_width, NoChange):
+            options.max_width = max_width
+        if not isinstance(justify, NoChange):
+            options.justify = justify
+        if not isinstance(overflow, NoChange):
+            options.overflow = overflow
+        if not isinstance(no_wrap, NoChange):
+            options.no_wrap = no_wrap
+        if not isinstance(highlight, NoChange):
+            options.highlight = highlight
+        if not isinstance(markup, NoChange):",,
+rich_2809954800af15b4027364cebf82390fe23dc194,Textualize/rich,missed,rich.console.ConsoleOptions.reset_height,rich.console.ConsoleOptions.copy,True,1,direct,call_self,230,options = self.copy(),rich/console.py,224,copy,False,4,True,"    def reset_height(self) -> ""ConsoleOptions"":
+        """"""Return a copy of the options with height set to ``None``.
+
+        Returns:
+            ~ConsoleOptions: New console options instance.
+        """"""
+        options = self.copy()
+        options.height = None
+        return options",,
+rich_d0de442c08df8793c5ff36d9ad322ca5c47fc38c,Textualize/rich,missed,rich.table.Table._calculate_column_widths,rich.table.Table._measure_column,True,1,direct,call_self,569,"self._measure_column(console, options.update_width(width), column)",rich/table.py,523,_measure_column,False,1,True,"    def _calculate_column_widths(
+        self, console: ""Console"", options: ""ConsoleOptions""
+    ) -> List[int]:
+        """"""Calculate the widths of each column, including padding, not including borders.""""""
+        max_width = options.max_width
+        columns = self.columns
+        width_ranges = [
+            self._measure_column(console, options, column) for column in columns
+        ]
+        widths = [_range.maximum or 1 for _range in width_ranges]
+        get_padding_width = self._get_padding_width
+        extra_width = self._extra_width
+        if self.expand:
+            ratios = [col.ratio or 0 for col in columns if col.flexible]
+            if any(ratios):
+                fixed_widths = [
+                    0 if column.flexible else _range.maximum
+                    for _range, column in zip(width_ranges, columns)
+                ]
+                flex_minimum = [
+                    (column.width or 1) + get_padding_width(column._index)
+                    for column in columns
+                    if column.flexible
+                ]
+                flexible_width = max_width - sum(fixed_widths)
+                flex_widths = ratio_distribute(flexible_width, ratios, flex_minimum)
+                iter_flex_widths = iter(flex_widths)
+                for index, column in enumerate(columns):
+                    if column.flexible:
+                        widths[index] = fixed_widths[index] + next(iter_flex_widths)",,
+rich_4d6d631a3d2deddf8405522d4b8c976a6d35726c,Textualize/rich,missed,rich.prompt.PromptBase.__call__,rich.prompt.PromptBase.get_input,True,1,direct,no_reference,,,rich/prompt.py,271,get_input,False,1,True,"    def __call__(self, *, stream: Optional[TextIO] = None) -> PromptType:
+        ...",,
+requests_0b401c76b6e80a4eecf3c690085b2553f6e261ca,psf/requests,missed,requests.utils._validate_header_part,requests.exceptions.RequestException,True,1,direct,no_reference,,,src/requests/utils.py,1098,RequestException,True,1,True,"def _validate_header_part(
+    header: tuple[str | bytes, str | bytes],
+    header_part: str | bytes,
+    header_validator_index: int,
+) -> None:
+    if isinstance(header_part, str):
+        validator = _HEADER_VALIDATORS_STR[header_validator_index]
+    elif isinstance(header_part, bytes):  # type: ignore[reportUnnecessaryIsInstance]
+        # runtime guard for non-str/bytes input
+        validator = _HEADER_VALIDATORS_BYTE[header_validator_index]
+    else:
+        raise InvalidHeader(
+            f""Header part ({header_part!r}) from {header} ""
+            f""must be of type str or bytes, not {type(header_part)}""
+        )
+
+    if not validator.match(header_part):  # type: ignore[arg-type]
+        header_kind = ""name"" if header_validator_index == 0 else ""value""
+        raise InvalidHeader(
+            f""Invalid leading whitespace, reserved character(s), or return ""
+            f""character(s) in header {header_kind}: {header_part!r}""
+        )",,
+rich_8a616de8e25db3c93abaaa220c493d80878de69d,Textualize/rich,missed,rich.highlighter.JSONHighlighter.highlight,rich.highlighter.RegexHighlighter.highlight,True,1,direct,call_super,124,super().highlight(text),rich/highlighter.py,123,highlight,False,6,True,"    def highlight(self, text: Text) -> None:
+        super().highlight(text)
+
+        # Additional work to handle highlighting JSON keys
+        plain = text.plain
+        append = text.spans.append
+        whitespace = self.JSON_WHITESPACE
+        for match in re.finditer(self.JSON_STR, plain):
+            start, end = match.span()
+            cursor = end
+            while cursor < len(plain):
+                char = plain[cursor]
+                cursor += 1
+                if char == "":"":
+                    append(Span(start, end, ""json.key""))
+                elif char in whitespace:
+                    continue
+                break",,
+rich_e1e6d745f670ff3df6b8f47377c0a4006cb74066,Textualize/rich,missed,rich.highlighter.JSONHighlighter.highlight,rich.highlighter.RegexHighlighter.highlight,True,1,direct,call_super,124,super().highlight(text),rich/highlighter.py,123,highlight,False,6,True,"    def highlight(self, text: Text) -> None:
+        super().highlight(text)
+
+        # Additional work to handle highlighting JSON keys
+        plain = text.plain
+        append = text.spans.append
+        whitespace = self.JSON_WHITESPACE
+        for match in re.finditer(self.JSON_STR, plain):
+            start, end = match.span()
+            cursor = end
+            while cursor < len(plain):
+                char = plain[cursor]
+                cursor += 1
+                if char == "":"":
+                    append(Span(start, end, ""json.key""))
+                elif char in whitespace:
+                    continue
+                break",,
+rich_19c67b9a3479841e9133bea94607c89ee931d3fc,Textualize/rich,missed,rich.style.Style,rich.style._Bit,True,1,direct,instantiation,287,overline = _Bit(12),rich/style.py,40,_Bit,True,1,True,"class Style:
+    """"""A terminal style.
+
+    A terminal style consists of a color (`color`), a background color (`bgcolor`), and a number of attributes, such
+    as bold, italic etc. The attributes have 3 states: they can either be on
+    (``True``), off (``False``), or not set (``None``).
+
+    Args:
+        color (Union[Color, str], optional): Color of terminal text. Defaults to None.
+        bgcolor (Union[Color, str], optional): Color of terminal background. Defaults to None.
+        bold (bool, optional): Enable bold text. Defaults to None.
+        dim (bool, optional): Enable dim text. Defaults to None.
+        italic (bool, optional): Enable italic text. Defaults to None.
+        underline (bool, optional): Enable underlined text. Defaults to None.
+        blink (bool, optional): Enabled blinking text. Defaults to None.
+        blink2 (bool, optional): Enable fast blinking text. Defaults to None.
+        reverse (bool, optional): Enabled reverse text. Defaults to None.
+        conceal (bool, optional): Enable concealed text. Defaults to None.
+        strike (bool, optional): Enable strikethrough text. Defaults to None.
+        underline2 (bool, optional): Enable doubly underlined text. Defaults to None.
+        frame (bool, optional): Enable framed text. Defaults to None.
+        encircle (bool, optional): Enable encircled text. Defaults to None.
+        overline (bool, optional): Enable overlined text. Defaults to None.
+        link (str, link): Link URL. Defaults to None.
+
+    """"""
+
+    _color: Optional[Color]
+    _bgcolor: Optional[Color]
+    _attributes: int",,
+rich_9f620dc50c0008c35e9f8493f198e6e593574a70,Textualize/rich,missed,rich.style.Style,rich.style._Bit,True,1,direct,instantiation,278,overline = _Bit(12),rich/style.py,31,_Bit,True,1,True,"class Style:
+    """"""A terminal style.
+
+    A terminal style consists of a color (`color`), a background color (`bgcolor`), and a number of attributes, such
+    as bold, italic etc. The attributes have 3 states: they can either be on
+    (``True``), off (``False``), or not set (``None``).
+
+    Args:
+        color (Union[Color, str], optional): Color of terminal text. Defaults to None.
+        bgcolor (Union[Color, str], optional): Color of terminal background. Defaults to None.
+        bold (bool, optional): Enable bold text. Defaults to None.
+        dim (bool, optional): Enable dim text. Defaults to None.
+        italic (bool, optional): Enable italic text. Defaults to None.
+        underline (bool, optional): Enable underlined text. Defaults to None.
+        blink (bool, optional): Enabled blinking text. Defaults to None.
+        blink2 (bool, optional): Enable fast blinking text. Defaults to None.
+        reverse (bool, optional): Enabled reverse text. Defaults to None.
+        conceal (bool, optional): Enable concealed text. Defaults to None.
+        strike (bool, optional): Enable strikethrough text. Defaults to None.
+        underline2 (bool, optional): Enable doubly underlined text. Defaults to None.
+        frame (bool, optional): Enable framed text. Defaults to None.
+        encircle (bool, optional): Enable encircled text. Defaults to None.
+        overline (bool, optional): Enable overlined text. Defaults to None.
+        link (str, link): Link URL. Defaults to None.
+
+    """"""
+
+    _color: Optional[Color]
+    _bgcolor: Optional[Color]
+    _attributes: int",,
+rich_577def22dd83b999c5937cb2bf2ed49600943325,Textualize/rich,missed,rich.table.Table.__rich_console__,rich.console.Console.render,True,1,direct,call_in_nested_scope,499,return console.render(,rich/table.py,470,render,False,29,True,"    def __rich_console__(
+        self, console: ""Console"", options: ""ConsoleOptions""
+    ) -> ""RenderResult"":
+        if not self.columns:
+            yield Segment(""\n"")
+            return
+
+        max_width = options.max_width
+        if self.width is not None:
+            max_width = self.width
+
+        extra_width = self._extra_width
+        widths = self._calculate_column_widths(
+            console, options.update_width(max_width - extra_width)
+        )
+        table_width = sum(widths) + extra_width
+
+        render_options = options.update(
+            width=table_width, highlight=self.highlight, height=None
+        )
+
+        def render_annotation(
+            text: TextType, style: StyleType, justify: ""JustifyMethod"" = ""center""
+        ) -> ""RenderResult"":
+            render_text = (
+                console.render_str(text, style=style, highlight=False)
+                if isinstance(text, str)
+                else text
+            )
+            return console.render(",,
+rich_d0de442c08df8793c5ff36d9ad322ca5c47fc38c,Textualize/rich,missed,rich.panel.Panel.__rich_console__,rich.text.Text.cell_len,True,1,direct,call_in_nested_scope,177,excess_space = width - cell_len(text.plain),rich/panel.py,141,cell_len,False,2,True,"    def __rich_console__(
+        self, console: ""Console"", options: ""ConsoleOptions""
+    ) -> ""RenderResult"":
+        _padding = Padding.unpack(self.padding)
+        renderable = (
+            Padding(self.renderable, _padding) if any(_padding) else self.renderable
+        )
+        style = console.get_style(self.style)
+        partial_border_style = console.get_style(self.border_style)
+        border_style = style + partial_border_style
+        width = (
+            options.max_width
+            if self.width is None
+            else min(options.max_width, self.width)
+        )
+
+        safe_box: bool = console.safe_box if self.safe_box is None else self.safe_box
+        box = self.box.substitute(options, safe=safe_box)
+
+        def align_text(
+            text: Text, width: int, align: str, character: str, style: Style
+        ) -> Text:
+            """"""Gets new aligned text.
+
+            Args:
+                text (Text): Title or subtitle text.
+                width (int): Desired width.
+                align (str): Alignment.
+                character (str): Character for alignment.
+                style (Style): Border style",,

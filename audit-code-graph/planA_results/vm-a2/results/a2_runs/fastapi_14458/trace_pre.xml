@@ -1,0 +1,483 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="3" skipped="0" tests="12" time="6.162" timestamp="2026-10-10T23:18:55.029444+00:00" hostname="vm-a2"><testcase classname="tests.test_dependency_class" name="test_class_dependency[/callable-dependency-callable-dependency]" time="0.220" /><testcase classname="tests.test_dependency_class" name="test_class_dependency[/callable-gen-dependency-callable-gen-dependency]" time="0.012" /><testcase classname="tests.test_dependency_class" name="test_class_dependency[/async-callable-dependency-async-callable-dependency]" time="0.008" /><testcase classname="tests.test_dependency_class" name="test_class_dependency[/async-callable-gen-dependency-async-callable-gen-dependency]" time="0.008" /><testcase classname="tests.test_dependency_class" name="test_class_dependency[/synchronous-method-dependency-synchronous-method-dependency]" time="0.009" /><testcase classname="tests.test_dependency_class" name="test_class_dependency[/synchronous-method-gen-dependency-synchronous-method-gen-dependency]" time="0.009" /><testcase classname="tests.test_dependency_class" name="test_class_dependency[/asynchronous-method-dependency-asynchronous-method-dependency]" time="0.007" /><testcase classname="tests.test_dependency_class" name="test_class_dependency[/asynchronous-method-gen-dependency-asynchronous-method-gen-dependency]" time="0.007" /><testcase classname="tests.test_dependency_class" name="test_class_dependency[/callable-dependency-class-callable-dependency-class]" time="0.009" /><testcase classname="tests.test_dependency_class" name="test_class_dependency[/callable-gen-dependency-class-callable-gen-dependency-class]" time="0.010"><failure message="AttributeError: 'CallableGenDependency' object has no attribute 'throw'">cm = &lt;contextlib._GeneratorContextManager object at 0x7f1fdde3c600&gt;
+
+    @asynccontextmanager
+    async def contextmanager_in_threadpool(
+        cm: ContextManager[_T],
+    ) -&gt; AsyncGenerator[_T, None]:
+        # blocking __exit__ from running waiting on a free thread
+        # can create race conditions/deadlocks if the context manager itself
+        # has its own internal pool (e.g. a database connection pool)
+        # to avoid this we let __exit__ run without a capacity limit
+        # since we're creating a new limiter for each call, any non-zero limit
+        # works (1 is arbitrary)
+        exit_limiter = CapacityLimiter(1)
+        try:
+&gt;           yield await run_in_threadpool(cm.__enter__)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+fastapi/concurrency.py:27: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../venv/lib/python3.13/site-packages/starlette/concurrency.py:32: in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../venv/lib/python3.13/site-packages/anyio/to_thread.py:65: in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+../venv/lib/python3.13/site-packages/anyio/_backends/_asyncio.py:2706: in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+../venv/lib/python3.13/site-packages/anyio/_backends/_asyncio.py:1100: in run
+    result = context.run(func, *args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;contextlib._GeneratorContextManager object at 0x7f1fdde3c600&gt;
+
+    def __enter__(self):
+        # do not keep args and kwds alive unnecessarily
+        # they are only needed for recreation, which is not possible anymore
+        del self.args, self.kwds, self.func
+        try:
+&gt;           return next(self.gen)
+                   ^^^^^^^^^^^^^^
+E           TypeError: 'CallableGenDependency' object is not an iterator
+
+/usr/lib/python3.13/contextlib.py:141: TypeError
+
+During handling of the above exception, another exception occurred:
+
+route = '/callable-gen-dependency-class'
+value = 'callable-gen-dependency-class'
+
+    @pytest.mark.parametrize(
+        "route,value",
+        [
+            ("/callable-dependency", "callable-dependency"),
+            ("/callable-gen-dependency", "callable-gen-dependency"),
+            ("/async-callable-dependency", "async-callable-dependency"),
+            ("/async-callable-gen-dependency", "async-callable-gen-dependency"),
+            ("/synchronous-method-dependency", "synchronous-method-dependency"),
+            ("/synchronous-method-gen-dependency", "synchronous-method-gen-dependency"),
+            ("/asynchronous-method-dependency", "asynchronous-method-dependency"),
+            ("/asynchronous-method-gen-dependency", "asynchronous-method-gen-dependency"),
+            ("/callable-dependency-class", "callable-dependency-class"),
+            ("/callable-gen-dependency-class", "callable-gen-dependency-class"),
+            ("/async-callable-dependency-class", "async-callable-dependency-class"),
+            ("/async-callable-gen-dependency-class", "async-callable-gen-dependency-class"),
+        ],
+    )
+    def test_class_dependency(route, value):
+&gt;       response = client.get(route, params={"value": value})
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_dependency_class.py:152: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../venv/lib/python3.13/site-packages/starlette/testclient.py:473: in get
+    return super().get(
+../venv/lib/python3.13/site-packages/httpx/_client.py:1053: in get
+    return self.request(
+../venv/lib/python3.13/site-packages/starlette/testclient.py:445: in request
+    return super().request(
+../venv/lib/python3.13/site-packages/httpx/_client.py:825: in request
+    return self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../venv/lib/python3.13/site-packages/httpx/_client.py:914: in send
+    response = self._send_handling_auth(
+../venv/lib/python3.13/site-packages/httpx/_client.py:942: in _send_handling_auth
+    response = self._send_handling_redirects(
+../venv/lib/python3.13/site-packages/httpx/_client.py:979: in _send_handling_redirects
+    response = self._send_single_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../venv/lib/python3.13/site-packages/httpx/_client.py:1014: in _send_single_request
+    response = transport.handle_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../venv/lib/python3.13/site-packages/starlette/testclient.py:348: in handle_request
+    raise exc
+../venv/lib/python3.13/site-packages/starlette/testclient.py:345: in handle_request
+    portal.call(self.app, scope, receive, send)
+../venv/lib/python3.13/site-packages/anyio/from_thread.py:340: in call
+    return cast(T_Retval, self.start_task_soon(func, *args).result())
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.13/concurrent/futures/_base.py:456: in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.13/concurrent/futures/_base.py:401: in __get_result
+    raise self._exception
+../venv/lib/python3.13/site-packages/anyio/from_thread.py:265: in _call_func
+    retval = await retval_or_awaitable
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+fastapi/applications.py:1139: in __call__
+    await super().__call__(scope, receive, send)
+../venv/lib/python3.13/site-packages/starlette/applications.py:107: in __call__
+    await self.middleware_stack(scope, receive, send)
+../venv/lib/python3.13/site-packages/starlette/middleware/errors.py:186: in __call__
+    raise exc
+../venv/lib/python3.13/site-packages/starlette/middleware/errors.py:164: in __call__
+    await self.app(scope, receive, _send)
+../venv/lib/python3.13/site-packages/starlette/middleware/exceptions.py:63: in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+../venv/lib/python3.13/site-packages/starlette/_exception_handler.py:53: in wrapped_app
+    raise exc
+../venv/lib/python3.13/site-packages/starlette/_exception_handler.py:42: in wrapped_app
+    await app(scope, receive, sender)
+fastapi/middleware/asyncexitstack.py:18: in __call__
+    await self.app(scope, receive, send)
+../venv/lib/python3.13/site-packages/starlette/routing.py:716: in __call__
+    await self.middleware_stack(scope, receive, send)
+../venv/lib/python3.13/site-packages/starlette/routing.py:736: in app
+    await route.handle(scope, receive, send)
+../venv/lib/python3.13/site-packages/starlette/routing.py:290: in handle
+    await self.app(scope, receive, send)
+fastapi/routing.py:119: in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+../venv/lib/python3.13/site-packages/starlette/_exception_handler.py:53: in wrapped_app
+    raise exc
+../venv/lib/python3.13/site-packages/starlette/_exception_handler.py:42: in wrapped_app
+    await app(scope, receive, sender)
+fastapi/routing.py:105: in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+fastapi/routing.py:375: in app
+    solved_result = await solve_dependencies(
+fastapi/dependencies/utils.py:661: in solve_dependencies
+    solved = await _solve_generator(
+fastapi/dependencies/utils.py:575: in _solve_generator
+    return await stack.enter_async_context(cm)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.13/contextlib.py:668: in enter_async_context
+    result = await _enter(cm)
+             ^^^^^^^^^^^^^^^^
+/usr/lib/python3.13/contextlib.py:214: in __aenter__
+    return await anext(self.gen)
+           ^^^^^^^^^^^^^^^^^^^^^
+fastapi/concurrency.py:30: in contextmanager_in_threadpool
+    await anyio.to_thread.run_sync(
+../venv/lib/python3.13/site-packages/anyio/to_thread.py:65: in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+../venv/lib/python3.13/site-packages/anyio/_backends/_asyncio.py:2706: in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+../venv/lib/python3.13/site-packages/anyio/_backends/_asyncio.py:1100: in run
+    result = context.run(func, *args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;contextlib._GeneratorContextManager object at 0x7f1fdde3c600&gt;
+typ = &lt;class 'TypeError'&gt;
+value = TypeError("'CallableGenDependency' object is not an iterator")
+traceback = &lt;traceback object at 0x7f1fdebd2c00&gt;
+
+    def __exit__(self, typ, value, traceback):
+        if typ is None:
+            try:
+                next(self.gen)
+            except StopIteration:
+                return False
+            else:
+                try:
+                    raise RuntimeError("generator didn't stop")
+                finally:
+                    self.gen.close()
+        else:
+            if value is None:
+                # Need to force instantiation so we can reliably
+                # tell if we get the same exception back
+                value = typ()
+            try:
+&gt;               self.gen.throw(value)
+                ^^^^^^^^^^^^^^
+E               AttributeError: 'CallableGenDependency' object has no attribute 'throw'
+
+/usr/lib/python3.13/contextlib.py:162: AttributeError</failure></testcase><testcase classname="tests.test_dependency_class" name="test_class_dependency[/async-callable-dependency-class-async-callable-dependency-class]" time="0.005"><failure message="TypeError: object AsyncCallableDependency can't be used in 'await' expression">route = '/async-callable-dependency-class'
+value = 'async-callable-dependency-class'
+
+    @pytest.mark.parametrize(
+        "route,value",
+        [
+            ("/callable-dependency", "callable-dependency"),
+            ("/callable-gen-dependency", "callable-gen-dependency"),
+            ("/async-callable-dependency", "async-callable-dependency"),
+            ("/async-callable-gen-dependency", "async-callable-gen-dependency"),
+            ("/synchronous-method-dependency", "synchronous-method-dependency"),
+            ("/synchronous-method-gen-dependency", "synchronous-method-gen-dependency"),
+            ("/asynchronous-method-dependency", "asynchronous-method-dependency"),
+            ("/asynchronous-method-gen-dependency", "asynchronous-method-gen-dependency"),
+            ("/callable-dependency-class", "callable-dependency-class"),
+            ("/callable-gen-dependency-class", "callable-gen-dependency-class"),
+            ("/async-callable-dependency-class", "async-callable-dependency-class"),
+            ("/async-callable-gen-dependency-class", "async-callable-gen-dependency-class"),
+        ],
+    )
+    def test_class_dependency(route, value):
+&gt;       response = client.get(route, params={"value": value})
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_dependency_class.py:152: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../venv/lib/python3.13/site-packages/starlette/testclient.py:473: in get
+    return super().get(
+../venv/lib/python3.13/site-packages/httpx/_client.py:1053: in get
+    return self.request(
+../venv/lib/python3.13/site-packages/starlette/testclient.py:445: in request
+    return super().request(
+../venv/lib/python3.13/site-packages/httpx/_client.py:825: in request
+    return self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../venv/lib/python3.13/site-packages/httpx/_client.py:914: in send
+    response = self._send_handling_auth(
+../venv/lib/python3.13/site-packages/httpx/_client.py:942: in _send_handling_auth
+    response = self._send_handling_redirects(
+../venv/lib/python3.13/site-packages/httpx/_client.py:979: in _send_handling_redirects
+    response = self._send_single_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../venv/lib/python3.13/site-packages/httpx/_client.py:1014: in _send_single_request
+    response = transport.handle_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../venv/lib/python3.13/site-packages/starlette/testclient.py:348: in handle_request
+    raise exc
+../venv/lib/python3.13/site-packages/starlette/testclient.py:345: in handle_request
+    portal.call(self.app, scope, receive, send)
+../venv/lib/python3.13/site-packages/anyio/from_thread.py:340: in call
+    return cast(T_Retval, self.start_task_soon(func, *args).result())
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.13/concurrent/futures/_base.py:449: in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.13/concurrent/futures/_base.py:401: in __get_result
+    raise self._exception
+../venv/lib/python3.13/site-packages/anyio/from_thread.py:265: in _call_func
+    retval = await retval_or_awaitable
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+fastapi/applications.py:1139: in __call__
+    await super().__call__(scope, receive, send)
+../venv/lib/python3.13/site-packages/starlette/applications.py:107: in __call__
+    await self.middleware_stack(scope, receive, send)
+../venv/lib/python3.13/site-packages/starlette/middleware/errors.py:186: in __call__
+    raise exc
+../venv/lib/python3.13/site-packages/starlette/middleware/errors.py:164: in __call__
+    await self.app(scope, receive, _send)
+../venv/lib/python3.13/site-packages/starlette/middleware/exceptions.py:63: in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+../venv/lib/python3.13/site-packages/starlette/_exception_handler.py:53: in wrapped_app
+    raise exc
+../venv/lib/python3.13/site-packages/starlette/_exception_handler.py:42: in wrapped_app
+    await app(scope, receive, sender)
+fastapi/middleware/asyncexitstack.py:18: in __call__
+    await self.app(scope, receive, send)
+../venv/lib/python3.13/site-packages/starlette/routing.py:716: in __call__
+    await self.middleware_stack(scope, receive, send)
+../venv/lib/python3.13/site-packages/starlette/routing.py:736: in app
+    await route.handle(scope, receive, send)
+../venv/lib/python3.13/site-packages/starlette/routing.py:290: in handle
+    await self.app(scope, receive, send)
+fastapi/routing.py:119: in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+../venv/lib/python3.13/site-packages/starlette/_exception_handler.py:53: in wrapped_app
+    raise exc
+../venv/lib/python3.13/site-packages/starlette/_exception_handler.py:42: in wrapped_app
+    await app(scope, receive, sender)
+fastapi/routing.py:105: in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+fastapi/routing.py:375: in app
+    solved_result = await solve_dependencies(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    async def solve_dependencies(
+        *,
+        request: Union[Request, WebSocket],
+        dependant: Dependant,
+        body: Optional[Union[Dict[str, Any], FormData]] = None,
+        background_tasks: Optional[StarletteBackgroundTasks] = None,
+        response: Optional[Response] = None,
+        dependency_overrides_provider: Optional[Any] = None,
+        dependency_cache: Optional[Dict[DependencyCacheKey, Any]] = None,
+        # TODO: remove this parameter later, no longer used, not removing it yet as some
+        # people might be monkey patching this function (although that's not supported)
+        async_exit_stack: AsyncExitStack,
+        embed_body_fields: bool,
+    ) -&gt; SolvedDependency:
+        request_astack = request.scope.get("fastapi_inner_astack")
+        assert isinstance(request_astack, AsyncExitStack), (
+            "fastapi_inner_astack not found in request scope"
+        )
+        function_astack = request.scope.get("fastapi_function_astack")
+        assert isinstance(function_astack, AsyncExitStack), (
+            "fastapi_function_astack not found in request scope"
+        )
+        values: Dict[str, Any] = {}
+        errors: List[Any] = []
+        if response is None:
+            response = Response()
+            del response.headers["content-length"]
+            response.status_code = None  # type: ignore
+        if dependency_cache is None:
+            dependency_cache = {}
+        for sub_dependant in dependant.dependencies:
+            sub_dependant.call = cast(Callable[..., Any], sub_dependant.call)
+            call = sub_dependant.call
+            use_sub_dependant = sub_dependant
+            if (
+                dependency_overrides_provider
+                and dependency_overrides_provider.dependency_overrides
+            ):
+                original_call = sub_dependant.call
+                call = getattr(
+                    dependency_overrides_provider, "dependency_overrides", {}
+                ).get(original_call, original_call)
+                use_path: str = sub_dependant.path  # type: ignore
+                use_sub_dependant = get_dependant(
+                    path=use_path,
+                    call=call,
+                    name=sub_dependant.name,
+                    parent_oauth_scopes=sub_dependant.oauth_scopes,
+                    scope=sub_dependant.scope,
+                )
+    
+            solved_result = await solve_dependencies(
+                request=request,
+                dependant=use_sub_dependant,
+                body=body,
+                background_tasks=background_tasks,
+                response=response,
+                dependency_overrides_provider=dependency_overrides_provider,
+                dependency_cache=dependency_cache,
+                async_exit_stack=async_exit_stack,
+                embed_body_fields=embed_body_fields,
+            )
+            background_tasks = solved_result.background_tasks
+            if solved_result.errors:
+                errors.extend(solved_result.errors)
+                continue
+            if sub_dependant.use_cache and sub_dependant.cache_key in dependency_cache:
+                solved = dependency_cache[sub_dependant.cache_key]
+            elif (
+                use_sub_dependant.is_gen_callable or use_sub_dependant.is_async_gen_callable
+            ):
+                use_astack = request_astack
+                if sub_dependant.scope == "function":
+                    use_astack = function_astack
+                solved = await _solve_generator(
+                    dependant=use_sub_dependant,
+                    stack=use_astack,
+                    sub_values=solved_result.values,
+                )
+            elif use_sub_dependant.is_coroutine_callable:
+&gt;               solved = await call(**solved_result.values)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               TypeError: object AsyncCallableDependency can't be used in 'await' expression
+
+fastapi/dependencies/utils.py:667: TypeError</failure></testcase><testcase classname="tests.test_dependency_class" name="test_class_dependency[/async-callable-gen-dependency-class-async-callable-gen-dependency-class]" time="0.007"><failure message="TypeError: 'AsyncCallableGenDependency' object is not an async iterator">route = '/async-callable-gen-dependency-class'
+value = 'async-callable-gen-dependency-class'
+
+    @pytest.mark.parametrize(
+        "route,value",
+        [
+            ("/callable-dependency", "callable-dependency"),
+            ("/callable-gen-dependency", "callable-gen-dependency"),
+            ("/async-callable-dependency", "async-callable-dependency"),
+            ("/async-callable-gen-dependency", "async-callable-gen-dependency"),
+            ("/synchronous-method-dependency", "synchronous-method-dependency"),
+            ("/synchronous-method-gen-dependency", "synchronous-method-gen-dependency"),
+            ("/asynchronous-method-dependency", "asynchronous-method-dependency"),
+            ("/asynchronous-method-gen-dependency", "asynchronous-method-gen-dependency"),
+            ("/callable-dependency-class", "callable-dependency-class"),
+            ("/callable-gen-dependency-class", "callable-gen-dependency-class"),
+            ("/async-callable-dependency-class", "async-callable-dependency-class"),
+            ("/async-callable-gen-dependency-class", "async-callable-gen-dependency-class"),
+        ],
+    )
+    def test_class_dependency(route, value):
+&gt;       response = client.get(route, params={"value": value})
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_dependency_class.py:152: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../venv/lib/python3.13/site-packages/starlette/testclient.py:473: in get
+    return super().get(
+../venv/lib/python3.13/site-packages/httpx/_client.py:1053: in get
+    return self.request(
+../venv/lib/python3.13/site-packages/starlette/testclient.py:445: in request
+    return super().request(
+../venv/lib/python3.13/site-packages/httpx/_client.py:825: in request
+    return self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../venv/lib/python3.13/site-packages/httpx/_client.py:914: in send
+    response = self._send_handling_auth(
+../venv/lib/python3.13/site-packages/httpx/_client.py:942: in _send_handling_auth
+    response = self._send_handling_redirects(
+../venv/lib/python3.13/site-packages/httpx/_client.py:979: in _send_handling_redirects
+    response = self._send_single_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../venv/lib/python3.13/site-packages/httpx/_client.py:1014: in _send_single_request
+    response = transport.handle_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../venv/lib/python3.13/site-packages/starlette/testclient.py:348: in handle_request
+    raise exc
+../venv/lib/python3.13/site-packages/starlette/testclient.py:345: in handle_request
+    portal.call(self.app, scope, receive, send)
+../venv/lib/python3.13/site-packages/anyio/from_thread.py:340: in call
+    return cast(T_Retval, self.start_task_soon(func, *args).result())
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.13/concurrent/futures/_base.py:449: in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.13/concurrent/futures/_base.py:401: in __get_result
+    raise self._exception
+../venv/lib/python3.13/site-packages/anyio/from_thread.py:265: in _call_func
+    retval = await retval_or_awaitable
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+fastapi/applications.py:1139: in __call__
+    await super().__call__(scope, receive, send)
+../venv/lib/python3.13/site-packages/starlette/applications.py:107: in __call__
+    await self.middleware_stack(scope, receive, send)
+../venv/lib/python3.13/site-packages/starlette/middleware/errors.py:186: in __call__
+    raise exc
+../venv/lib/python3.13/site-packages/starlette/middleware/errors.py:164: in __call__
+    await self.app(scope, receive, _send)
+../venv/lib/python3.13/site-packages/starlette/middleware/exceptions.py:63: in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+../venv/lib/python3.13/site-packages/starlette/_exception_handler.py:53: in wrapped_app
+    raise exc
+../venv/lib/python3.13/site-packages/starlette/_exception_handler.py:42: in wrapped_app
+    await app(scope, receive, sender)
+fastapi/middleware/asyncexitstack.py:18: in __call__
+    await self.app(scope, receive, send)
+../venv/lib/python3.13/site-packages/starlette/routing.py:716: in __call__
+    await self.middleware_stack(scope, receive, send)
+../venv/lib/python3.13/site-packages/starlette/routing.py:736: in app
+    await route.handle(scope, receive, send)
+../venv/lib/python3.13/site-packages/starlette/routing.py:290: in handle
+    await self.app(scope, receive, send)
+fastapi/routing.py:119: in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+../venv/lib/python3.13/site-packages/starlette/_exception_handler.py:53: in wrapped_app
+    raise exc
+../venv/lib/python3.13/site-packages/starlette/_exception_handler.py:42: in wrapped_app
+    await app(scope, receive, sender)
+fastapi/routing.py:105: in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+fastapi/routing.py:375: in app
+    solved_result = await solve_dependencies(
+fastapi/dependencies/utils.py:661: in solve_dependencies
+    solved = await _solve_generator(
+fastapi/dependencies/utils.py:575: in _solve_generator
+    return await stack.enter_async_context(cm)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.13/contextlib.py:668: in enter_async_context
+    result = await _enter(cm)
+             ^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;contextlib._AsyncGeneratorContextManager object at 0x7f1fdebe6f90&gt;
+
+    async def __aenter__(self):
+        # do not keep args and kwds alive unnecessarily
+        # they are only needed for recreation, which is not possible anymore
+        del self.args, self.kwds, self.func
+        try:
+&gt;           return await anext(self.gen)
+                         ^^^^^^^^^^^^^^^
+E           TypeError: 'AsyncCallableGenDependency' object is not an async iterator
+
+/usr/lib/python3.13/contextlib.py:214: TypeError</failure></testcase></testsuite></testsuites>

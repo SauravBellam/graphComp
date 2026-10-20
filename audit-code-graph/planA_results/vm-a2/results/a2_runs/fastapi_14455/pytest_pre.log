@@ -1,0 +1,120 @@
+
+$ /home/sauravbellam/cache/a2/fastapi_14455/venv/bin/python -s -m pytest tests/test_security_oauth2_authorization_code_bearer_scopes_openapi.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/fastapi_14455/trace_pre.xml
+[exit 1]
+...FE                                                                    [100%]
+
+═════════════════════════════════════════════════════════════════════════════════ inline-snapshot ══════════════════════════════════════════════════════════════════════════════════
+────────────────────────────────────────────────────────────────────────────────── Fix snapshots ───────────────────────────────────────────────────────────────────────────────────
+╭───────────────────────────────────────────────────── tests/test_security_oauth2_authorization_code_bearer_scopes_openapi.py ─────────────────────────────────────────────────────╮
+│ @@ -92,6 +92,7 @@                                                                                                                                                                │
+│                                                                                                                                                                                  │
+│                              }                                                                                                                                                   │
+│                          },                                                                                                                                                      │
+│                          "security": [                                                                                                                                           │
+│ +                            {"OAuth2AuthorizationCodeBearer": []},                                                                                                              │
+│                              {"OAuth2AuthorizationCodeBearer": ["read"]},                                                                                                        │
+│                          ],                                                                                                                                                      │
+│                      },                                                                                                                                                          │
+│ @@ -105,6 +106,8 @@                                                                                                                                                              │
+│                                                                                                                                                                                  │
+│                              }                                                                                                                                                   │
+│                          },                                                                                                                                                      │
+│                          "security": [                                                                                                                                           │
+│ +                            {"OAuth2AuthorizationCodeBearer": []},                                                                                                              │
+│ +                            {"OAuth2AuthorizationCodeBearer": ["read"]},                                                                                                        │
+│                              {"OAuth2AuthorizationCodeBearer": ["read", "write"]},                                                                                               │
+│                          ],                                                                                                                                                      │
+│                      },                                                                                                                                                          │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+These changes are not applied.
+Use --inline-snapshot=fix to apply them, or use the interactive mode with --inline-snapshot=review
+
+
+==================================== ERRORS ====================================
+___________________ ERROR at teardown of test_openapi_schema ___________________
+some snapshots in this test have incorrect values.
+If you just created this value with --inline-snapshot=create, the value is now created and you can ignore this message.
+=================================== FAILURES ===================================
+_____________________________ test_openapi_schema ______________________________
+
+    def test_openapi_schema():
+        response = client.get("/openapi.json")
+        assert response.status_code == 200, response.text
+>       assert response.json() == snapshot(
+            {
+                "openapi": "3.1.0",
+                "info": {"title": "FastAPI", "version": "0.1.0"},
+                "paths": {
+                    "/": {
+                        "get": {
+                            "summary": "Root",
+                            "operationId": "root__get",
+                            "responses": {
+                                "200": {
+                                    "description": "Successful Response",
+                                    "content": {"application/json": {"schema": {}}},
+                                }
+                            },
+                            "security": [{"OAuth2AuthorizationCodeBearer": []}],
+                        }
+                    },
+                    "/items/": {
+                        "get": {
+                            "summary": "Read Items",
+                            "operationId": "read_items_items__get",
+                            "responses": {
+                                "200": {
+                                    "description": "Successful Response",
+                                    "content": {"application/json": {"schema": {}}},
+                                }
+                            },
+                            "security": [
+                                {"OAuth2AuthorizationCodeBearer": ["read"]},
+                            ],
+                        },
+                        "post": {
+                            "summary": "Create Item",
+                            "operationId": "create_item_items__post",
+                            "responses": {
+                                "200": {
+                                    "description": "Successful Response",
+                                    "content": {"application/json": {"schema": {}}},
+                                }
+                            },
+                            "security": [
+                                {"OAuth2AuthorizationCodeBearer": ["read", "write"]},
+                            ],
+                        },
+                    },
+                },
+                "components": {
+                    "securitySchemes": {
+                        "OAuth2AuthorizationCodeBearer": {
+                            "type": "oauth2",
+                            "flows": {
+                                "authorizationCode": {
+                                    "scopes": {
+                                        "read": "Read access",
+                                        "write": "Write access",
+                                    },
+                                    "authorizationUrl": "authorize",
+                                    "tokenUrl": "token",
+                                }
+                            },
+                        }
+                    }
+                },
+            }
+        )
+E       AssertionError: assert {'components'...eate Item'}}}} == {'components'...eate Item'}}}}
+E         
+E         Omitting 3 identical items, use -vv to show
+E         Differing items:
+E         {'paths': {'/': {'get': {'operationId': 'root__get', 'responses': {'200': {'content': {...}, 'description': 'Successfu... []}, {'OAuth2AuthorizationCodeBearer': [...]}, {'OAuth2AuthorizationCodeBearer': [...]}], 'summary': 'Create Item'}}}} != {'paths': {'/': {'get': {'operationId': 'root__get', 'responses': {'200': {'content': {...}, 'description': 'Successfu...ription': 'Successful Response'}}, 'security': [{'OAuth2AuthorizationCodeBearer': [...]}], 'summary': 'Create Item'}}}}
+E         Use -v to get more diff
+
+tests/test_security_oauth2_authorization_code_bearer_scopes_openapi.py:66: AssertionError
+- generated xml file: /home/sauravbellam/results/a2_runs/fastapi_14455/trace_pre.xml -
+1 failed, 3 passed, 1 error in 2.67s
+
+

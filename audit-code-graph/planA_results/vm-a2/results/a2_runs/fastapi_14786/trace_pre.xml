@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="9" time="2.813" timestamp="2026-10-10T23:17:04.752644+00:00" hostname="vm-a2"><testcase classname="tests.test_security_http_base" name="test_security_http_base" time="0.274" /><testcase classname="tests.test_security_http_base" name="test_security_http_base_with_whitespaces" time="0.016"><failure message="AssertionError: assert {'scheme': 'O...': ' foobar '} == {'scheme': 'O...ls': 'foobar'}&#10;  &#10;  Omitting 1 identical items, use -vv to show&#10;  Differing items:&#10;  {'credentials': ' foobar '} != {'credentials': 'foobar'}&#10;  Use -v to get more diff">def test_security_http_base_with_whitespaces():
+        response = client.get("/users/me", headers={"Authorization": "Other  foobar "})
+        assert response.status_code == 200, response.text
+&gt;       assert response.json() == {"scheme": "Other", "credentials": "foobar"}
+E       AssertionError: assert {'scheme': 'O...': ' foobar '} == {'scheme': 'O...ls': 'foobar'}
+E         
+E         Omitting 1 identical items, use -vv to show
+E         Differing items:
+E         {'credentials': ' foobar '} != {'credentials': 'foobar'}
+E         Use -v to get more diff
+
+tests/test_security_http_base.py:27: AssertionError</failure></testcase><testcase classname="tests.test_security_http_base" name="test_security_http_base_no_credentials" time="0.011" /><testcase classname="tests.test_security_http_base" name="test_openapi_schema" time="0.012" /><testcase classname="tests.test_security_oauth2_authorization_code_bearer" name="test_no_token" time="0.017" /><testcase classname="tests.test_security_oauth2_authorization_code_bearer" name="test_incorrect_token" time="0.015" /><testcase classname="tests.test_security_oauth2_authorization_code_bearer" name="test_token" time="0.013" /><testcase classname="tests.test_security_oauth2_authorization_code_bearer" name="test_token_with_whitespaces" time="0.018"><failure message="AssertionError: assert {'token': ' testtoken '} == {'token': 'testtoken'}&#10;  &#10;  Differing items:&#10;  {'token': ' testtoken '} != {'token': 'testtoken'}&#10;  Use -v to get more diff">def test_token_with_whitespaces():
+        response = client.get("/items", headers={"Authorization": "Bearer  testtoken "})
+        assert response.status_code == 200, response.text
+&gt;       assert response.json() == {"token": "testtoken"}
+E       AssertionError: assert {'token': ' testtoken '} == {'token': 'testtoken'}
+E         
+E         Differing items:
+E         {'token': ' testtoken '} != {'token': 'testtoken'}
+E         Use -v to get more diff
+
+tests/test_security_oauth2_authorization_code_bearer.py:43: AssertionError</failure></testcase><testcase classname="tests.test_security_oauth2_authorization_code_bearer" name="test_openapi_schema" time="0.016" /></testsuite></testsuites>

@@ -1,0 +1,32 @@
+{
+  "calls": {
+    "n_graphs": 127,
+    "cos_mean_avg": 0.9881,
+    "auroc_avg": 0.8977
+  },
+  "containment": {
+    "n_graphs": 127,
+    "cos_mean_avg": 0.9894,
+    "auroc_avg": 0.9032
+  },
+  "same_module": {
+    "n_graphs": 127,
+    "cos_mean_avg": 0.8904,
+    "auroc_avg": 0.6817
+  },
+  "name_overlap": {
+    "n_graphs": 127,
+    "cos_mean_avg": 0.9161,
+    "auroc_avg": 0.6751
+  },
+  "gold_cochange": {
+    "n_graphs": 51,
+    "cos_mean_avg": 0.9551,
+    "auroc_avg": 0.8059
+  },
+  "random": {
+    "n_graphs": 127,
+    "cos_mean_avg": 0.8303,
+    "auroc_avg": null
+  }
+}

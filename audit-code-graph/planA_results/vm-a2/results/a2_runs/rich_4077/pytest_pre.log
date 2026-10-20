@@ -1,0 +1,30 @@
+
+$ /home/sauravbellam/cache/a2/rich_4077/venv/bin/python -s -m pytest tests/test_file_proxy.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/rich_4077/trace_pre.xml
+[exit 1]
+...F                                                                     [100%]
+=================================== FAILURES ===================================
+_________________________________ test_isatty __________________________________
+
+    def test_isatty():
+        """Check isatty is proxied
+    
+        Regression test for https://github.com/Textualize/rich/issues/4041
+    
+        """
+    
+        class TTYFile:
+            def isatty(self) -> bool:
+                return True
+    
+        file = TTYFile()
+        console = Console()
+        file_proxy = FileProxy(console, file)
+>       assert file_proxy.isatty()
+E       assert False
+E        +  where False = <built-in method isatty of FileProxy object at 0x7f0073d7d0f0>()
+E        +    where <built-in method isatty of FileProxy object at 0x7f0073d7d0f0> = <rich.file_proxy.FileProxy object at 0x7f0073d7d0f0>.isatty
+
+tests/test_file_proxy.py:54: AssertionError
+1 failed, 3 passed in 0.32s
+
+

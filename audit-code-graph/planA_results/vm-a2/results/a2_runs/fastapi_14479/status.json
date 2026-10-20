@@ -1,0 +1,110 @@
+{
+  "instance_id": "fastapi_14479",
+  "repo": "fastapi/fastapi",
+  "backend": "venv",
+  "done": true,
+  "deps": {
+    "steps": [
+      {
+        "name": "pip_upgrade",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14479/venv/bin/python -m pip install -q --disable-pip-version-check 'pip>=24' 'setuptools' 'wheel' pytest pytest-timeout",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "editable_no_deps",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14479/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-build-isolation --no-deps -e .",
+        "exit": 2,
+        "stderr_tail": "lib/python3.13/site-packages/pip/_internal/req/req_install.py\", line 258, in supports_pyproject_editable\n    return \"build_editable\" in self.pep517_backend._supported_features()\n                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"/home/sauravbellam/cache/a2/fastapi_14479/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 180, in _supported_features\n    return self._call_hook(\"_supported_features\", {})\n           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/sauravbellam/cache/a2/fastapi_14479/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 402, in _call_hook\n    raise BackendUnavailable(\n    ...<4 lines>...\n    )\npip._vendor.pyproject_hooks._impl.BackendUnavailable: Cannot import 'pdm.backend'\n"
+      },
+      {
+        "name": "editable_no_deps_isolated",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14479/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-deps -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "runtime_deps",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14479/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "extra_all",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14479/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e '.[all]'",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "extra_standard",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14479/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e '.[standard]'",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "req_requirements-tests.txt",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14479/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -r requirements-tests.txt",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "req_requirements-docs-tests.txt",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14479/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -r requirements-docs-tests.txt",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "req_requirements.txt",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14479/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -r requirements.txt",
+        "exit": 0,
+        "stderr_tail": "WARNING: huggingface-hub 2.2.0 does not provide the extra 'inference'\n  DEPRECATION: Building 'jieba' using the legacy setup.py bdist_wheel mechanism, which will be removed in a future version. pip 25.3 will enforce this behaviour change. A possible replacement is to use the standardized build interface by setting the `--use-pep517` option, (possibly combined with `--no-build-isolation`), or adding a `pyproject.toml` file to the source tree of 'jieba'. Discussion can be found at https://github.com/pypa/pip/issues/6334\n"
+      },
+      {
+        "name": "fastapi_tests",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14479/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels httpx 'python-multipart' email-validator pyyaml orjson ujson 'sqlmodel' 'dirty-equals' 'pytest-asyncio' 'flask' 'passlib[bcrypt]' 'pyjwt' 'inline-snapshot'",
+        "exit": 0,
+        "stderr_tail": ""
+      }
+    ],
+    "editable_ok": true,
+    "python": "3.13.5 (main, Aug 10 2026, 12:06:59) [GCC 14.2.0]"
+  },
+  "targets": [
+    "tests/test_invalid_sequence_param.py"
+  ],
+  "test_patch_strategy": "exact",
+  "test_patch_applied": true,
+  "pre": {
+    "exit": 1,
+    "seconds": 4.0,
+    "timeout": false,
+    "exit_meaning": "some_failed",
+    "run_class": "clean",
+    "counts": {
+      "failed": 4
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "ault_value\n                    )\n            else:\n                field_info = params.Query(annotation=use_annotation, default=default_value)\n    \n        field = None\n        # It's a field_info, not a dependency\n        if field_info is not None:\n            # Handle field_info.in_\n            if is_path_param:\n                assert isinstance(\n                    field_info, (params.Path, temp_pydantic_v1_params.Path)\n                ), (\n                    f\"Cannot use `{field_info.__class__.__name__}` for path param\"\n                    f\" {param_name!r}\"\n                )\n            elif (\n                isinstance(field_info, (params.Param, temp_pydantic_v1_params.Param))\n                and getattr(field_info, \"in_\", None) is None\n            ):\n                field_info.in_ = params.ParamTypes.query\n            use_annotation_from_field_info = get_annotation_from_field_info(\n                use_annotation,\n                field_info,\n                param_name,\n            )\n            if isinstance(field_info, (params.Form, temp_pydantic_v1_params.Form)):\n                ensure_multipart_is_installed()\n            if not field_info.alias and getattr(field_info, \"convert_underscores\", None):\n                alias = param_name.replace(\"_\", \"-\")\n            else:\n                alias = field_info.alias or param_name\n            field_info.alias = alias\n            field = create_model_field(\n                name=param_name,\n                type_=use_annotation_from_field_info,\n                default=field_info.default,\n                alias=alias,\n                required=field_info.default\n                in (RequiredParam, may_v1.RequiredParam, Undefined),\n                field_info=field_info,\n            )\n            if is_path_param:\n                assert is_scalar_field(field=field), (\n                    \"Path params must be of one of the supported types\"\n                )\n            elif isinstance(field_info, (params.Query, temp_pydantic_v1_params.Query)):\n                assert (\n>                   is_scalar_field(field)\n                    or is_scalar_sequence_field(field)\n                    or (\n                        _is_model_class(field.type_)\n                        # For Pydantic v1\n                        and getattr(field, \"shape\", 1) == 1\n                    )\n                )\nE               AssertionError\n\nfastapi/dependencies/utils.py:548: AssertionError\n\nDuring handling of the above exception, another exception occurred:\n\n    def test_invalid_simple_dict():\n>       with pytest.raises(\n            AssertionError,\n            match=\"Query parameter 'q' must be one of the supported types\",\n        ):\nE       AssertionError: Regex pattern did not match.\nE        Regex: \"Query parameter 'q' must be one of the supported types\"\nE        Input: ''\n\ntests/test_invalid_sequence_param.py:54: AssertionError\n- generated xml file: /home/sauravbellam/results/a2_runs/fastapi_14479/trace_pre.xml -\n4 failed in 2.75s\n",
+    "stderr_tail": ""
+  },
+  "gold_patch_strategy": "exact",
+  "gold_patch_applied": true,
+  "post": {
+    "exit": 0,
+    "seconds": 2.3,
+    "timeout": false,
+    "exit_meaning": "all_passed",
+    "run_class": "clean",
+    "counts": {
+      "passed": 4
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "....                                                                     [100%]\n- generated xml file: /home/sauravbellam/results/a2_runs/fastapi_14479/trace_post.xml -\n4 passed in 1.15s\n",
+    "stderr_tail": ""
+  },
+  "trace_pre_exists": true,
+  "trace_post_exists": true,
+  "seconds": 140.3
+}

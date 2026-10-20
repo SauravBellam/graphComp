@@ -1,0 +1,93 @@
+{
+  "instance_id": "fastapi_14616",
+  "repo": "fastapi/fastapi",
+  "backend": "venv",
+  "done": true,
+  "deps": {
+    "steps": [
+      {
+        "name": "pip_upgrade",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14616/venv/bin/python -m pip install -q --disable-pip-version-check 'pip>=24' 'setuptools' 'wheel' pytest pytest-timeout",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "editable_no_deps",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14616/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-build-isolation --no-deps -e .",
+        "exit": 2,
+        "stderr_tail": "lib/python3.13/site-packages/pip/_internal/req/req_install.py\", line 258, in supports_pyproject_editable\n    return \"build_editable\" in self.pep517_backend._supported_features()\n                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"/home/sauravbellam/cache/a2/fastapi_14616/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 180, in _supported_features\n    return self._call_hook(\"_supported_features\", {})\n           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/sauravbellam/cache/a2/fastapi_14616/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 402, in _call_hook\n    raise BackendUnavailable(\n    ...<4 lines>...\n    )\npip._vendor.pyproject_hooks._impl.BackendUnavailable: Cannot import 'pdm.backend'\n"
+      },
+      {
+        "name": "editable_no_deps_isolated",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14616/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-deps -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "runtime_deps",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14616/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "extra_all",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14616/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e '.[all]'",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "extra_standard",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14616/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e '.[standard]'",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "fastapi_tests",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14616/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels httpx 'python-multipart' email-validator pyyaml orjson ujson 'sqlmodel' 'dirty-equals' 'pytest-asyncio' 'flask' 'passlib[bcrypt]' 'pyjwt' 'inline-snapshot'",
+        "exit": 0,
+        "stderr_tail": ""
+      }
+    ],
+    "editable_ok": true,
+    "python": "3.13.5 (main, Aug 10 2026, 12:06:59) [GCC 14.2.0]"
+  },
+  "targets": [
+    "tests/test_json_type.py"
+  ],
+  "test_patch_strategy": "exact",
+  "test_patch_applied": true,
+  "pre": {
+    "exit": 1,
+    "seconds": 2.9,
+    "timeout": false,
+    "exit_meaning": "some_failed",
+    "run_class": "clean",
+    "counts": {
+      "failed": 3,
+      "passed": 1
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "FFF.                                                                     [100%]\n=================================== FAILURES ===================================\n_____________________________ test_form_json_list ______________________________\n\n    def test_form_json_list():\n        response = client.post(\n            \"/form-json-list\", data={\"items\": json.dumps([\"abc\", \"def\"])}\n        )\n>       assert response.status_code == 200, response.text\nE       AssertionError: {\"detail\":[{\"type\":\"json_type\",\"loc\":[\"body\",\"items\"],\"msg\":\"JSON input should be string, bytes or bytearray\",\"input\":[\"[\\\"abc\\\", \\\"def\\\"]\"]}]}\nE       assert 422 == 200\nE        +  where 422 = <Response [422 Unprocessable Entity]>.status_code\n\ntests/test_json_type.py:38: AssertionError\n_____________________________ test_query_json_list _____________________________\n\n    def test_query_json_list():\n        response = client.get(\n            \"/query-json-list\", params={\"items\": json.dumps([\"abc\", \"def\"])}\n        )\n>       assert response.status_code == 200, response.text\nE       AssertionError: {\"detail\":[{\"type\":\"json_type\",\"loc\":[\"query\",\"items\"],\"msg\":\"JSON input should be string, bytes or bytearray\",\"input\":[\"[\\\"abc\\\", \\\"def\\\"]\"]}]}\nE       assert 422 == 200\nE        +  where 422 = <Response [422 Unprocessable Entity]>.status_code\n\ntests/test_json_type.py:46: AssertionError\n____________________________ test_header_json_list _____________________________\n\n    def test_header_json_list():\n        response = client.get(\n            \"/header-json-list\", headers={\"x-items\": json.dumps([\"abc\", \"def\"])}\n        )\n>       assert response.status_code == 200, response.text\nE       AssertionError: {\"detail\":[{\"type\":\"json_type\",\"loc\":[\"header\",\"x-items\"],\"msg\":\"JSON input should be string, bytes or bytearray\",\"input\":[\"[\\\"abc\\\", \\\"def\\\"]\"]}]}\nE       assert 422 == 200\nE        +  where 422 = <Response [422 Unprocessable Entity]>.status_code\n\ntests/test_json_type.py:54: AssertionError\n3 failed, 1 passed in 1.87s\n",
+    "stderr_tail": ""
+  },
+  "gold_patch_strategy": "exact",
+  "gold_patch_applied": true,
+  "post": {
+    "exit": 0,
+    "seconds": 2.7,
+    "timeout": false,
+    "exit_meaning": "all_passed",
+    "run_class": "clean",
+    "counts": {
+      "passed": 4
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "....                                                                     [100%]\n4 passed in 1.92s\n",
+    "stderr_tail": ""
+  },
+  "trace_pre_exists": true,
+  "trace_post_exists": true,
+  "seconds": 55.8
+}

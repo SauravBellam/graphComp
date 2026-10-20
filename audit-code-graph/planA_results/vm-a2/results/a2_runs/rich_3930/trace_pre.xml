@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="2" failures="0" skipped="0" tests="2" time="1.450" timestamp="2026-10-10T23:21:30.348054+00:00" hostname="vm-a2"><testcase classname="" name="test_cells" file="test_cells.py" time="0.000"><error message="collection failure">ImportError while importing test module '/home/sauravbellam/cache/a2/rich_3930/workspace/tests/test_cells.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/usr/lib/python3.13/importlib/__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_cells.py:8: in &lt;module&gt;
+    from rich.cells import (
+E   ImportError: cannot import name 'CellSpan' from 'rich.cells' (/home/sauravbellam/cache/a2/rich_3930/workspace/rich/cells.py)</error></testcase><testcase classname="" name="test_unicode_data" file="test_unicode_data.py" time="0.000"><error message="collection failure">ImportError while importing test module '/home/sauravbellam/cache/a2/rich_3930/workspace/tests/test_unicode_data.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/usr/lib/python3.13/importlib/__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_unicode_data.py:5: in &lt;module&gt;
+    from rich._unicode_data import VERSIONS, _parse_version, load
+E   ModuleNotFoundError: No module named 'rich._unicode_data'</error></testcase></testsuite></testsuites>

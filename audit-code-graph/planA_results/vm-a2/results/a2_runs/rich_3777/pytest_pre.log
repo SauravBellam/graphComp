@@ -1,0 +1,25 @@
+
+$ /home/sauravbellam/cache/a2/rich_3777/venv/bin/python -s -m pytest tests/test_console.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/rich_3777/trace_pre.xml
+[exit 1]
+........................................................................ [ 72%]
+.........................F.                                              [100%]
+=================================== FAILURES ===================================
+_____________________________ test_tty_interactive _____________________________
+
+    def test_tty_interactive() -> None:
+        """Check TTY_INTERACTIVE environment var."""
+    
+        # Bytes file, not interactive
+        console = Console(file=io.BytesIO())
+        assert not console.is_interactive
+    
+        # Bytes file, force interactive
+        console = Console(file=io.BytesIO(), _environ={"TTY_INTERACTIVE": "1"})
+>       assert console.is_interactive
+E       assert False
+E        +  where False = <console width=80 None>.is_interactive
+
+tests/test_console.py:1050: AssertionError
+1 failed, 98 passed in 1.79s
+
+

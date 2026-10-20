@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="4" time="1.768" timestamp="2026-10-10T23:23:23.815971+00:00" hostname="vm-a2"><testcase classname="tests.test_file_and_form_order_issue_9116" name="test_file_form_order[/file_before_form]" time="0.163" /><testcase classname="tests.test_file_and_form_order_issue_9116" name="test_file_form_order[/file_after_form]" time="0.011"><failure message="AssertionError: {&quot;detail&quot;:[{&quot;type&quot;:&quot;bytes_type&quot;,&quot;loc&quot;:[&quot;body&quot;,&quot;file&quot;],&quot;msg&quot;:&quot;Input should be a valid bytes&quot;,&quot;input&quot;:{&quot;filename&quot;:&quot;example1.txt&quot;,&quot;file&quot;:{&quot;_file&quot;:{},&quot;_max_size&quot;:1048576,&quot;_rolled&quot;:false,&quot;_TemporaryFileArgs&quot;:{&quot;mode&quot;:&quot;w+b&quot;,&quot;buffering&quot;:-1,&quot;suffix&quot;:null,&quot;prefix&quot;:null,&quot;encoding&quot;:null,&quot;newline&quot;:null,&quot;dir&quot;:null,&quot;errors&quot;:null}},&quot;size&quot;:3,&quot;headers&quot;:{&quot;content-disposition&quot;:&quot;form-data; name=\&quot;file\&quot;; filename=\&quot;example1.txt\&quot;&quot;,&quot;content-type&quot;:&quot;text/plain&quot;},&quot;_max_mem_size&quot;:1048576}}]}&#10;assert 422 == 200&#10; +  where 422 = &lt;Response [422 Unprocessable Entity]&gt;.status_code">endpoint_path = '/file_after_form'
+tmp_file_1 = PosixPath('/tmp/pytest-of-sauravbellam/pytest-11/test_file_form_order__file_aft0/example1.txt')
+
+    @pytest.mark.parametrize("endpoint_path", ("/file_before_form", "/file_after_form"))
+    def test_file_form_order(endpoint_path: str, tmp_file_1: Path):
+        response = client.post(
+            url=endpoint_path,
+            data={"city": "Thimphou"},
+            files={"file": (tmp_file_1.name, tmp_file_1.read_bytes())},
+        )
+&gt;       assert response.status_code == 200, response.text
+E       AssertionError: {"detail":[{"type":"bytes_type","loc":["body","file"],"msg":"Input should be a valid bytes","input":{"filename":"example1.txt","file":{"_file":{},"_max_size":1048576,"_rolled":false,"_TemporaryFileArgs":{"mode":"w+b","buffering":-1,"suffix":null,"prefix":null,"encoding":null,"newline":null,"dir":null,"errors":null}},"size":3,"headers":{"content-disposition":"form-data; name=\"file\"; filename=\"example1.txt\"","content-type":"text/plain"},"_max_mem_size":1048576}}]}
+E       assert 422 == 200
+E        +  where 422 = &lt;Response [422 Unprocessable Entity]&gt;.status_code
+
+tests/test_file_and_form_order_issue_9116.py:73: AssertionError</failure></testcase><testcase classname="tests.test_file_and_form_order_issue_9116" name="test_file_list_form_order[/file_list_before_form]" time="0.009" /><testcase classname="tests.test_file_and_form_order_issue_9116" name="test_file_list_form_order[/file_list_after_form]" time="0.011"><failure message="AssertionError: {&quot;detail&quot;:[{&quot;type&quot;:&quot;bytes_type&quot;,&quot;loc&quot;:[&quot;body&quot;,&quot;files&quot;,0],&quot;msg&quot;:&quot;Input should be a valid bytes&quot;,&quot;input&quot;:{&quot;filename&quot;:&quot;example1.txt&quot;,&quot;file&quot;:{&quot;_file&quot;:{},&quot;_max_size&quot;:1048576,&quot;_rolled&quot;:false,&quot;_TemporaryFileArgs&quot;:{&quot;mode&quot;:&quot;w+b&quot;,&quot;buffering&quot;:-1,&quot;suffix&quot;:null,&quot;prefix&quot;:null,&quot;encoding&quot;:null,&quot;newline&quot;:null,&quot;dir&quot;:null,&quot;errors&quot;:null}},&quot;size&quot;:3,&quot;headers&quot;:{&quot;content-disposition&quot;:&quot;form-data; name=\&quot;files\&quot;; filename=\&quot;example1.txt\&quot;&quot;,&quot;content-type&quot;:&quot;text/plain&quot;},&quot;_max_mem_size&quot;:1048576}},{&quot;type&quot;:&quot;bytes_type&quot;,&quot;loc&quot;:[&quot;body&quot;,&quot;files&quot;,1],&quot;msg&quot;:&quot;Input should be a valid bytes&quot;,&quot;input&quot;:{&quot;filename&quot;:&quot;example2.txt&quot;,&quot;file&quot;:{&quot;_file&quot;:{},&quot;_max_size&quot;:1048576,&quot;_rolled&quot;:false,&quot;_TemporaryFileArgs&quot;:{&quot;mode&quot;:&quot;w+b&quot;,&quot;buffering&quot;:-1,&quot;suffix&quot;:null,&quot;prefix&quot;:null,&quot;encoding&quot;:null,&quot;newline&quot;:null,&quot;dir&quot;:null,&quot;errors&quot;:null}},&quot;size&quot;:3,&quot;headers&quot;:{&quot;content-disposition&quot;:&quot;form-data; name=\&quot;files\&quot;; filename=\&quot;example2.txt\&quot;&quot;,&quot;content-type&quot;:&quot;text/plain&quot;},&quot;_max_mem_size&quot;:1048576}}]}&#10;assert 422 == 200&#10; +  where 422 = &lt;Response [422 Unprocessable Entity]&gt;.status_code">endpoint_path = '/file_list_after_form'
+tmp_file_1 = PosixPath('/tmp/pytest-of-sauravbellam/pytest-11/test_file_list_form_order__fil1/example1.txt')
+tmp_file_2 = PosixPath('/tmp/pytest-of-sauravbellam/pytest-11/test_file_list_form_order__fil1/example2.txt')
+
+    @pytest.mark.parametrize(
+        "endpoint_path", ("/file_list_before_form", "/file_list_after_form")
+    )
+    def test_file_list_form_order(endpoint_path: str, tmp_file_1: Path, tmp_file_2: Path):
+        response = client.post(
+            url=endpoint_path,
+            data={"city": "Thimphou"},
+            files=(
+                ("files", (tmp_file_1.name, tmp_file_1.read_bytes())),
+                ("files", (tmp_file_2.name, tmp_file_2.read_bytes())),
+            ),
+        )
+&gt;       assert response.status_code == 200, response.text
+E       AssertionError: {"detail":[{"type":"bytes_type","loc":["body","files",0],"msg":"Input should be a valid bytes","input":{"filename":"example1.txt","file":{"_file":{},"_max_size":1048576,"_rolled":false,"_TemporaryFileArgs":{"mode":"w+b","buffering":-1,"suffix":null,"prefix":null,"encoding":null,"newline":null,"dir":null,"errors":null}},"size":3,"headers":{"content-disposition":"form-data; name=\"files\"; filename=\"example1.txt\"","content-type":"text/plain"},"_max_mem_size":1048576}},{"type":"bytes_type","loc":["body","files",1],"msg":"Input should be a valid bytes","input":{"filename":"example2.txt","file":{"_file":{},"_max_size":1048576,"_rolled":false,"_TemporaryFileArgs":{"mode":"w+b","buffering":-1,"suffix":null,"prefix":null,"encoding":null,"newline":null,"dir":null,"errors":null}},"size":3,"headers":{"content-disposition":"form-data; name=\"files\"; filename=\"example2.txt\"","content-type":"text/plain"},"_max_mem_size":1048576}}]}
+E       assert 422 == 200
+E        +  where 422 = &lt;Response [422 Unprocessable Entity]&gt;.status_code
+
+tests/test_file_and_form_order_issue_9116.py:89: AssertionError</failure></testcase></testsuite></testsuites>

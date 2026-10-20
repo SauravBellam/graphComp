@@ -1,0 +1,42 @@
+{
+  "steps": [
+    {
+      "name": "pip_upgrade",
+      "cmd": "/home/sauravbellam/cache/a2/rich_3105/venv/bin/python -m pip install -q --disable-pip-version-check 'pip>=24' 'setuptools' 'wheel' pytest pytest-timeout",
+      "exit": 0,
+      "stderr_tail": ""
+    },
+    {
+      "name": "editable_no_deps",
+      "cmd": "/home/sauravbellam/cache/a2/rich_3105/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-build-isolation --no-deps -e .",
+      "exit": 2,
+      "stderr_tail": "python3.13/site-packages/pip/_internal/req/req_install.py\", line 258, in supports_pyproject_editable\n    return \"build_editable\" in self.pep517_backend._supported_features()\n                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"/home/sauravbellam/cache/a2/rich_3105/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 180, in _supported_features\n    return self._call_hook(\"_supported_features\", {})\n           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/sauravbellam/cache/a2/rich_3105/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 402, in _call_hook\n    raise BackendUnavailable(\n    ...<4 lines>...\n    )\npip._vendor.pyproject_hooks._impl.BackendUnavailable: Cannot import 'poetry.core.masonry.api'\n"
+    },
+    {
+      "name": "editable_no_deps_isolated",
+      "cmd": "/home/sauravbellam/cache/a2/rich_3105/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-deps -e .",
+      "exit": 0,
+      "stderr_tail": ""
+    },
+    {
+      "name": "runtime_deps",
+      "cmd": "/home/sauravbellam/cache/a2/rich_3105/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e .",
+      "exit": 0,
+      "stderr_tail": ""
+    },
+    {
+      "name": "poetry_group_dev",
+      "cmd": "/home/sauravbellam/cache/a2/rich_3105/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels pytest black mypy pytest-cov attrs pre-commit asv",
+      "exit": 0,
+      "stderr_tail": ""
+    },
+    {
+      "name": "rich_tests",
+      "cmd": "/home/sauravbellam/cache/a2/rich_3105/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels pytest-cov attrs ipywidgets",
+      "exit": 0,
+      "stderr_tail": ""
+    }
+  ],
+  "editable_ok": true,
+  "python": "3.13.5 (main, Aug 10 2026, 12:06:59) [GCC 14.2.0]"
+}

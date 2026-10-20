@@ -1,0 +1,27 @@
+
+$ /home/sauravbellam/cache/a2/fastapi_13537/venv/bin/python -s -m pytest tests/test_form_default.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/fastapi_13537/trace_pre.xml
+[exit 1]
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+________________________ test_form_default_url_encoded _________________________
+
+    def test_form_default_url_encoded():
+        response = client.post("/urlencoded", data={"age": ""})
+>       assert response.status_code == 200
+E       assert 422 == 200
+E        +  where 422 = <Response [422 Unprocessable Entity]>.status_code
+
+tests/test_form_default.py:28: AssertionError
+_________________________ test_form_default_multi_part _________________________
+
+    def test_form_default_multi_part():
+        response = client.post("/multipart", data={"age": ""})
+>       assert response.status_code == 200
+E       assert 422 == 200
+E        +  where 422 = <Response [422 Unprocessable Entity]>.status_code
+
+tests/test_form_default.py:34: AssertionError
+- generated xml file: /home/sauravbellam/results/a2_runs/fastapi_13537/trace_pre.xml -
+2 failed in 1.66s
+
+

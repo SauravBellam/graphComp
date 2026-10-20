@@ -1,0 +1,87 @@
+{
+  "instance_id": "rich_3718",
+  "repo": "Textualize/rich",
+  "backend": "venv",
+  "done": true,
+  "deps": {
+    "steps": [
+      {
+        "name": "pip_upgrade",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3718/venv/bin/python -m pip install -q --disable-pip-version-check 'pip>=24' 'setuptools' 'wheel' pytest pytest-timeout",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "editable_no_deps",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3718/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-build-isolation --no-deps -e .",
+        "exit": 2,
+        "stderr_tail": "python3.13/site-packages/pip/_internal/req/req_install.py\", line 258, in supports_pyproject_editable\n    return \"build_editable\" in self.pep517_backend._supported_features()\n                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"/home/sauravbellam/cache/a2/rich_3718/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 180, in _supported_features\n    return self._call_hook(\"_supported_features\", {})\n           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/sauravbellam/cache/a2/rich_3718/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 402, in _call_hook\n    raise BackendUnavailable(\n    ...<4 lines>...\n    )\npip._vendor.pyproject_hooks._impl.BackendUnavailable: Cannot import 'poetry.core.masonry.api'\n"
+      },
+      {
+        "name": "editable_no_deps_isolated",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3718/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-deps -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "runtime_deps",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3718/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "poetry_group_dev",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3718/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels pytest black mypy pytest-cov attrs pre-commit asv typing-extensions",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "rich_tests",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3718/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels pytest-cov attrs ipywidgets",
+        "exit": 0,
+        "stderr_tail": ""
+      }
+    ],
+    "editable_ok": true,
+    "python": "3.13.5 (main, Aug 10 2026, 12:06:59) [GCC 14.2.0]"
+  },
+  "targets": [
+    "tests/test_panel.py"
+  ],
+  "test_patch_strategy": "exact",
+  "test_patch_applied": true,
+  "pre": {
+    "exit": 1,
+    "seconds": 0.8,
+    "timeout": false,
+    "exit_meaning": "some_failed",
+    "run_class": "clean",
+    "counts": {
+      "failed": 1,
+      "passed": 12
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "github.com/Textualize/rich/issues/3569\"\"\"\n        panel = Panel(\n            \"Hello, World\",\n            style=\"on blue\",\n            title=Text(\"title\", style=\"red\"),\n            subtitle=Text(\"subtitle\", style=\"magenta bold\"),\n        )\n        console = Console(\n            file=io.StringIO(),\n            width=50,\n            height=20,\n            legacy_windows=False,\n            force_terminal=True,\n            color_system=\"truecolor\",\n        )\n        console.print(panel)\n    \n        result = console.file.getvalue()\n        print(repr(result))\n        expected = \"\\x1b[44m\u256d\u2500\\x1b[0m\\x1b[44m\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\\x1b[0m\\x1b[31;44m title \\x1b[0m\\x1b[44m\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\\x1b[0m\\x1b[44m\u2500\u256e\\x1b[0m\\n\\x1b[44m\u2502\\x1b[0m\\x1b[44m \\x1b[0m\\x1b[44mHello, World\\x1b[0m\\x1b[44m                                  \\x1b[0m\\x1b[44m \\x1b[0m\\x1b[44m\u2502\\x1b[0m\\n\\x1b[44m\u2570\u2500\\x1b[0m\\x1b[44m\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\\x1b[0m\\x1b[1;35;44m subtitle \\x1b[0m\\x1b[44m\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\\x1b[0m\\x1b[44m\u2500\u256f\\x1b[0m\\n\"\n>       assert result == expected\nE       AssertionError: assert '\\x1b[44m\u256d\u2500\\x...4m\u2500\u256f\\x1b[0m\\n' == '\\x1b[44m\u256d\u2500\\x...4m\u2500\u256f\\x1b[0m\\n'\nE         \nE         Skipping 33 identical leading characters in diff, use -v to show\nE         - \u2500\u2500\u001b[0m\u001b[31;44m title \u001b[0m\u001b[44m\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u001b[0m\u001b[44m\u2500\u256e\u001b[0m\nE         ?           ---\nE         + \u2500\u2500\u001b[0m\u001b[31m title \u001b[0m\u001b[44m\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u001b[0m\u001b[44m\u2500\u256e\u001b[0m\nE           \u001b[44m\u2502\u001b[0m\u001b[44m \u001b[0m\u001b[44mHello, World\u001b[0m\u001b[44m                                  \u001b[0m\u001b[44m \u001b[0m\u001b[44m\u2502\u001b[0m\nE         - \u001b[44m\u2570\u2500\u001b[0m\u001b[44m\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u001b[0m\u001b[1;35;44m subtitle \u001b[0m\u001b[44m\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u001b[0m\u001b[44m\u2500\u256f\u001b[0m\nE         ?                                             ---\nE         + \u001b[44m\u2570\u2500\u001b[0m\u001b[44m\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u001b[0m\u001b[1;35m subtitle \u001b[0m\u001b[44m\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u001b[0m\u001b[44m\u2500\u256f\u001b[0m\n\ntests/test_panel.py:172: AssertionError\n----------------------------- Captured stdout call -----------------------------\n'\\x1b[44m\u256d\u2500\\x1b[0m\\x1b[44m\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\\x1b[0m\\x1b[31m title \\x1b[0m\\x1b[44m\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\\x1b[0m\\x1b[44m\u2500\u256e\\x1b[0m\\n\\x1b[44m\u2502\\x1b[0m\\x1b[44m \\x1b[0m\\x1b[44mHello, World\\x1b[0m\\x1b[44m                                  \\x1b[0m\\x1b[44m \\x1b[0m\\x1b[44m\u2502\\x1b[0m\\n\\x1b[44m\u2570\u2500\\x1b[0m\\x1b[44m\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\\x1b[0m\\x1b[1;35m subtitle \\x1b[0m\\x1b[44m\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\\x1b[0m\\x1b[44m\u2500\u256f\\x1b[0m\\n'\n=============================== warnings summary ===============================\n../venv/lib/python3.13/site-packages/_pytest/python.py:124\n  /home/sauravbellam/cache/a2/rich_3718/venv/lib/python3.13/site-packages/_pytest/python.py:124: PytestRemovedIn10Warning: Passing a non-Collection iterable to parametrize is deprecated.\n  Test: test_panel.py::test_render_panel, argvalues type: zip\n  Please convert to a list or tuple.\n  See https://docs.pytest.org/en/stable/deprecations.html#parametrize-iterators\n    metafunc.parametrize(*marker.args, **marker.kwargs, _param_mark=marker)\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n1 failed, 12 passed, 1 warning in 0.45s\n",
+    "stderr_tail": ""
+  },
+  "gold_patch_strategy": "exact",
+  "gold_patch_applied": true,
+  "post": {
+    "exit": 0,
+    "seconds": 0.7,
+    "timeout": false,
+    "exit_meaning": "all_passed",
+    "run_class": "clean",
+    "counts": {
+      "passed": 13
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": ".............                                                            [100%]\n=============================== warnings summary ===============================\n../venv/lib/python3.13/site-packages/_pytest/python.py:124\n  /home/sauravbellam/cache/a2/rich_3718/venv/lib/python3.13/site-packages/_pytest/python.py:124: PytestRemovedIn10Warning: Passing a non-Collection iterable to parametrize is deprecated.\n  Test: test_panel.py::test_render_panel, argvalues type: zip\n  Please convert to a list or tuple.\n  See https://docs.pytest.org/en/stable/deprecations.html#parametrize-iterators\n    metafunc.parametrize(*marker.args, **marker.kwargs, _param_mark=marker)\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n13 passed, 1 warning in 0.34s\n",
+    "stderr_tail": ""
+  },
+  "trace_pre_exists": true,
+  "trace_post_exists": true,
+  "seconds": 37.3
+}

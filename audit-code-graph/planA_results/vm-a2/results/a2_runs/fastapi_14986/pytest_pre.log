@@ -1,0 +1,126 @@
+
+$ /home/sauravbellam/cache/a2/fastapi_14986/venv/bin/python -s -m pytest tests/test_openapi_cache_root_path.py tests/test_swagger_ui_escape.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/fastapi_14986/trace_pre.xml
+[exit 1]
+FF.FFF.                                                                  [100%]
+=================================== FAILURES ===================================
+_______________ test_root_path_does_not_persist_across_requests ________________
+
+    def test_root_path_does_not_persist_across_requests():
+        app = FastAPI()
+    
+        @app.get("/")
+        def read_root():  # pragma: no cover
+            return {"ok": True}
+    
+        # Attacker request with a spoofed root_path
+        attacker_client = TestClient(app, root_path="/evil-api")
+        response1 = attacker_client.get("/openapi.json")
+        data1 = response1.json()
+        assert any(s.get("url") == "/evil-api" for s in data1.get("servers", []))
+    
+        # Subsequent legitimate request with no root_path
+        clean_client = TestClient(app)
+        response2 = clean_client.get("/openapi.json")
+        data2 = response2.json()
+        servers = [s.get("url") for s in data2.get("servers", [])]
+>       assert "/evil-api" not in servers
+E       AssertionError: assert '/evil-api' not in ['/evil-api']
+
+tests/test_openapi_cache_root_path.py:23: AssertionError
+_____________ test_multiple_different_root_paths_do_not_accumulate _____________
+
+    def test_multiple_different_root_paths_do_not_accumulate():
+        app = FastAPI()
+    
+        @app.get("/")
+        def read_root():  # pragma: no cover
+            return {"ok": True}
+    
+        for prefix in ["/path-a", "/path-b", "/path-c"]:
+            c = TestClient(app, root_path=prefix)
+            c.get("/openapi.json")
+    
+        # A clean request should not have any of them
+        clean_client = TestClient(app)
+        response = clean_client.get("/openapi.json")
+        data = response.json()
+        servers = [s.get("url") for s in data.get("servers", [])]
+        for prefix in ["/path-a", "/path-b", "/path-c"]:
+>           assert prefix not in servers, (
+                f"root_path '{prefix}' leaked into clean request: {servers}"
+            )
+E           AssertionError: root_path '/path-a' leaked into clean request: ['/path-a']
+E           assert '/path-a' not in ['/path-a']
+
+tests/test_openapi_cache_root_path.py:43: AssertionError
+_____________________ test_configured_servers_not_mutated ______________________
+
+    def test_configured_servers_not_mutated():
+        configured_servers = [{"url": "https://prod.example.com"}]
+        app = FastAPI(servers=configured_servers)
+    
+        @app.get("/")
+        def read_root():  # pragma: no cover
+            return {"ok": True}
+    
+        # Request with a rogue root_path
+        attacker_client = TestClient(app, root_path="/evil")
+        attacker_client.get("/openapi.json")
+    
+        # The original servers list must be untouched
+>       assert configured_servers == [{"url": "https://prod.example.com"}]
+E       AssertionError: assert [{'url': '/ev...example.com'}] == [{'url': 'htt...example.com'}]
+E         
+E         At index 0 diff: {'url': '/evil'} != {'url': 'https://prod.example.com'}
+E         Left contains one more item: {'url': 'https://prod.example.com'}
+E         Use -v to get more diff
+
+tests/test_openapi_cache_root_path.py:75: AssertionError
+____________________ test_init_oauth_html_chars_are_escaped ____________________
+
+    def test_init_oauth_html_chars_are_escaped():
+        xss_payload = "Evil</script><script>alert(1)</script>"
+        html = get_swagger_ui_html(
+            openapi_url="/openapi.json",
+            title="Test",
+            init_oauth={"appName": xss_payload},
+        )
+        body = html.body.decode()
+    
+>       assert "</script><script>" not in body
+E       assert '</script><script>' not in '\n    <!DOC.../html>\n    '
+E         
+E         '</script><script>' is contained here:
+E           me": "Evil</script><script>alert(1)</script>"})
+E         ?           +++++++++++++++++
+E                   
+E               </script>
+E               </body>
+E               </html>
+
+tests/test_swagger_ui_escape.py:13: AssertionError
+______________ test_swagger_ui_parameters_html_chars_are_escaped _______________
+
+    def test_swagger_ui_parameters_html_chars_are_escaped():
+        html = get_swagger_ui_html(
+            openapi_url="/openapi.json",
+            title="Test",
+            swagger_ui_parameters={"customKey": "<img src=x onerror=alert(1)>"},
+        )
+        body = html.body.decode()
+>       assert "<img src=x onerror=alert(1)>" not in body
+E       assert '<img src=x ...or=alert(1)>' not in '\n    <!DOC.../html>\n    '
+E         
+E         '<img src=x onerror=alert(1)>' is contained here:
+E           tomKey": "<img src=x onerror=alert(1)>",
+E           
+E               presets: [
+E                   SwaggerUIBundle.presets.apis,
+E                   SwaggerUIBundle.SwaggerUIStandalonePreset...
+E         
+E         ...Full output truncated (6 lines hidden), use '-vv' to show
+
+tests/test_swagger_ui_escape.py:24: AssertionError
+5 failed, 2 passed in 2.66s
+
+

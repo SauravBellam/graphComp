@@ -1,0 +1,24 @@
+{
+  "argv": [
+    "/home/sauravbellam/scripts/ops/../planA/a3b_gnn.py",
+    "--data",
+    "/home/sauravbellam/graphComp/archive",
+    "--out",
+    "/home/sauravbellam/results/a3b_gpu",
+    "--graphs",
+    "all",
+    "--stages",
+    "fit",
+    "linkpred",
+    "--save-embeddings"
+  ],
+  "python": "3.13.5 (main, Aug 10 2026, 12:06:59) [GCC 14.2.0]",
+  "platform": "Linux-6.12.111+deb13-cloud-amd64-x86_64-with-glibc2.41",
+  "numpy": "2.5.4",
+  "time": "2026-10-11T16:06:08+0000",
+  "scipy": "1.18.1",
+  "torch": "2.6.0+cu124",
+  "cuda": "12.4",
+  "gpu": "NVIDIA L4",
+  "script_sha256": "c9b42f0214e62e25655c234002a613c73b2a07b65fe2f0dbd8d800c8f429f2e9"
+}

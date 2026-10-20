@@ -1,0 +1,111 @@
+{
+  "instance_id": "fastapi_14349",
+  "repo": "fastapi/fastapi",
+  "backend": "venv",
+  "done": true,
+  "deps": {
+    "steps": [
+      {
+        "name": "pip_upgrade",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14349/venv/bin/python -m pip install -q --disable-pip-version-check 'pip>=24' 'setuptools' 'wheel' pytest pytest-timeout",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "editable_no_deps",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14349/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-build-isolation --no-deps -e .",
+        "exit": 2,
+        "stderr_tail": "lib/python3.13/site-packages/pip/_internal/req/req_install.py\", line 258, in supports_pyproject_editable\n    return \"build_editable\" in self.pep517_backend._supported_features()\n                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"/home/sauravbellam/cache/a2/fastapi_14349/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 180, in _supported_features\n    return self._call_hook(\"_supported_features\", {})\n           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/sauravbellam/cache/a2/fastapi_14349/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 402, in _call_hook\n    raise BackendUnavailable(\n    ...<4 lines>...\n    )\npip._vendor.pyproject_hooks._impl.BackendUnavailable: Cannot import 'pdm.backend'\n"
+      },
+      {
+        "name": "editable_no_deps_isolated",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14349/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-deps -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "runtime_deps",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14349/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "extra_all",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14349/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e '.[all]'",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "extra_standard",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14349/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e '.[standard]'",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "req_requirements-tests.txt",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14349/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -r requirements-tests.txt",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "req_requirements-docs-tests.txt",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14349/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -r requirements-docs-tests.txt",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "req_requirements.txt",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14349/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -r requirements.txt",
+        "exit": 1,
+        "stderr_tail": "  DEPRECATION: Building 'jieba' using the legacy setup.py bdist_wheel mechanism, which will be removed in a future version. pip 25.3 will enforce this behaviour change. A possible replacement is to use the standardized build interface by setting the `--use-pep517` option, (possibly combined with `--no-build-isolation`), or adding a `pyproject.toml` file to the source tree of 'jieba'. Discussion can be found at https://github.com/pypa/pip/issues/6334\n  WARNING: Built wheel for jieba is invalid: jieba has an invalid wheel, could not read 'jieba-0.42.1.dist-info/WHEEL' file: BadZipFile('Truncated file header')\nERROR: Failed to build installable wheels for some pyproject.toml based projects (jieba)\n"
+      },
+      {
+        "name": "fastapi_tests",
+        "cmd": "/home/sauravbellam/cache/a2/fastapi_14349/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels httpx 'python-multipart' email-validator pyyaml orjson ujson 'sqlmodel' 'dirty-equals' 'pytest-asyncio' 'flask' 'passlib[bcrypt]' 'pyjwt' 'inline-snapshot'",
+        "exit": 0,
+        "stderr_tail": ""
+      }
+    ],
+    "editable_ok": true,
+    "python": "3.13.5 (main, Aug 10 2026, 12:06:59) [GCC 14.2.0]"
+  },
+  "targets": [
+    "tests/test_schema_ref_pydantic_v2.py"
+  ],
+  "test_patch_strategy": "exact",
+  "test_patch_applied": true,
+  "pre": {
+    "exit": 1,
+    "seconds": 5.7,
+    "timeout": false,
+    "exit_meaning": "some_failed",
+    "run_class": "clean",
+    "counts": {
+      "failed": 1,
+      "passed": 1
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "    await self.middleware_stack(scope, receive, send)\n../venv/lib/python3.13/site-packages/starlette/middleware/errors.py:186: in __call__\n    raise exc\n../venv/lib/python3.13/site-packages/starlette/middleware/errors.py:164: in __call__\n    await self.app(scope, receive, _send)\n../venv/lib/python3.13/site-packages/starlette/middleware/exceptions.py:63: in __call__\n    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)\n../venv/lib/python3.13/site-packages/starlette/_exception_handler.py:53: in wrapped_app\n    raise exc\n../venv/lib/python3.13/site-packages/starlette/_exception_handler.py:42: in wrapped_app\n    await app(scope, receive, sender)\nfastapi/middleware/asyncexitstack.py:18: in __call__\n    await self.app(scope, receive, send)\n../venv/lib/python3.13/site-packages/starlette/routing.py:716: in __call__\n    await self.middleware_stack(scope, receive, send)\n../venv/lib/python3.13/site-packages/starlette/routing.py:736: in app\n    await route.handle(scope, receive, send)\n../venv/lib/python3.13/site-packages/starlette/routing.py:290: in handle\n    await self.app(scope, receive, send)\n../venv/lib/python3.13/site-packages/starlette/routing.py:78: in app\n    await wrap_app_handling_exceptions(app, request)(scope, receive, send)\n../venv/lib/python3.13/site-packages/starlette/_exception_handler.py:53: in wrapped_app\n    raise exc\n../venv/lib/python3.13/site-packages/starlette/_exception_handler.py:42: in wrapped_app\n    await app(scope, receive, sender)\n../venv/lib/python3.13/site-packages/starlette/routing.py:75: in app\n    response = await f(request)\n               ^^^^^^^^^^^^^^^^\nfastapi/applications.py:1089: in openapi\n    return JSONResponse(self.openapi())\n                        ^^^^^^^^^^^^^^\nfastapi/applications.py:1060: in openapi\n    self.openapi_schema = get_openapi(\nfastapi/openapi/utils.py:504: in get_openapi\n    field_mapping, definitions = get_definitions(\nfastapi/_compat/main.py:292: in get_definitions\n    v2_field_maps, v2_definitions = v2.get_definitions(\nfastapi/_compat/v2.py:249: in get_definitions\n    new_mapping, new_definitions = _remap_definitions_and_field_mappings(\nfastapi/_compat/v2.py:331: in _remap_definitions_and_field_mappings\n    new_value = _replace_refs(\nfastapi/_compat/v2.py:273: in _replace_refs\n    new_schema[key] = _replace_refs(\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def _replace_refs(\n        *,\n        schema: Dict[str, Any],\n        old_name_to_new_name_map: Dict[str, str],\n    ) -> Dict[str, Any]:\n        new_schema = deepcopy(schema)\n        for key, value in new_schema.items():\n            if key == \"$ref\":\n>               ref_name = schema[\"$ref\"].split(\"/\")[-1]\n                           ^^^^^^^^^^^^^^^^^^^^\nE               AttributeError: 'dict' object has no attribute 'split'\n\nfastapi/_compat/v2.py:265: AttributeError\n- generated xml file: /home/sauravbellam/results/a2_runs/fastapi_14349/trace_pre.xml -\n1 failed, 1 passed in 4.01s\n",
+    "stderr_tail": ""
+  },
+  "gold_patch_strategy": "exact",
+  "gold_patch_applied": true,
+  "post": {
+    "exit": 0,
+    "seconds": 3.1,
+    "timeout": false,
+    "exit_meaning": "all_passed",
+    "run_class": "clean",
+    "counts": {
+      "passed": 2
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "..                                                                       [100%]\n- generated xml file: /home/sauravbellam/results/a2_runs/fastapi_14349/trace_post.xml -\n2 passed in 1.89s\n",
+    "stderr_tail": ""
+  },
+  "trace_pre_exists": true,
+  "trace_post_exists": true,
+  "seconds": 93.8
+}

@@ -1,0 +1,39 @@
+instance_id,repo,run_class,post_run_class,n_f2p_expected,n_f2p_confirmed,reason,source
+fastapi_13207,fastapi/fastapi,clean,clean,0,0,"clean run, no fail-to-pass test expected",a2_tasks.csv
+fastapi_13713,fastapi/fastapi,clean,clean,0,0,"clean run, no fail-to-pass test expected",a2_tasks.csv
+fastapi_13786,fastapi/fastapi,clean,clean,0,0,"clean run, no fail-to-pass test expected",a2_tasks.csv
+fastapi_14077,fastapi/fastapi,clean,clean,0,0,"clean run, no fail-to-pass test expected",a2_tasks.csv
+fastapi_14371,fastapi/fastapi,clean,clean,0,0,"clean run, no fail-to-pass test expected",a2_tasks.csv
+fastapi_14448,fastapi/fastapi,clean,clean,0,0,"clean run, no fail-to-pass test expected",a2_tasks.csv
+fastapi_14458,fastapi/fastapi,clean,clean,0,0,"clean run, no fail-to-pass test expected",a2_tasks.csv
+fastapi_14479,fastapi/fastapi,clean,clean,0,0,"clean run, no fail-to-pass test expected",a2_tasks.csv
+fastapi_14487,fastapi/fastapi,clean,clean,0,0,"clean run, no fail-to-pass test expected",a2_tasks.csv
+fastapi_14492,fastapi/fastapi,clean,clean,0,0,"clean run, no fail-to-pass test expected",a2_tasks.csv
+fastapi_14791,fastapi/fastapi,clean,clean,0,0,"clean run, no fail-to-pass test expected",a2_tasks.csv
+fastapi_14851,fastapi/fastapi,clean,clean,3,0,"clean run, expected fail-to-pass not confirmed",a2_tasks.csv
+fastapi_15023,fastapi/fastapi,clean,clean,0,0,"clean run, no fail-to-pass test expected",a2_tasks.csv
+httpx_3672,encode/httpx,clean,clean,0,0,"clean run, no fail-to-pass test expected",a2_tasks.csv
+requests_7309,psf/requests,clean,clean,0,0,"clean run, no fail-to-pass test expected",a2_tasks.csv
+rich_3006,Textualize/rich,clean,clean,1,0,"clean run, expected fail-to-pass not confirmed",a2_tasks.csv
+rich_3043,Textualize/rich,clean,clean,0,0,"clean run, no fail-to-pass test expected",a2_tasks.csv
+rich_3067,Textualize/rich,clean,clean,0,0,"clean run, no fail-to-pass test expected",a2_tasks.csv
+rich_3105,Textualize/rich,clean,clean,0,0,"clean run, no fail-to-pass test expected",a2_tasks.csv
+rich_3454,Textualize/rich,clean,clean,0,0,"clean run, no fail-to-pass test expected",a2_tasks.csv
+rich_3942,Textualize/rich,clean,clean,0,0,"clean run, no fail-to-pass test expected",a2_tasks.csv
+rich_4070,Textualize/rich,clean,clean,0,0,"clean run, no fail-to-pass test expected",a2_tasks.csv
+rich_4079,Textualize/rich,clean,clean,1,0,"clean run, expected fail-to-pass not confirmed",a2_tasks.csv
+fastapi_14186,fastapi/fastapi,collection_error,clean,0,0,pre-fix pytest collection error,a2_tasks.csv
+fastapi_14262,fastapi/fastapi,collection_error,clean,8,0,pre-fix pytest collection error,a2_tasks.csv
+fastapi_14605,fastapi/fastapi,collection_error,clean,0,0,pre-fix pytest collection error,a2_tasks.csv
+fastapi_14609,fastapi/fastapi,collection_error,clean,1,0,pre-fix pytest collection error,a2_tasks.csv
+fastapi_14978,fastapi/fastapi,collection_error,clean,22,0,pre-fix pytest collection error,a2_tasks.csv
+fastapi_15030,fastapi/fastapi,collection_error,clean,25,0,pre-fix pytest collection error,a2_tasks.csv
+fastapi_15745,fastapi/fastapi,collection_error,clean,31,0,pre-fix pytest collection error,a2_tasks.csv
+fastapi_15785,fastapi/fastapi,collection_error,clean,5,0,pre-fix pytest collection error,a2_tasks.csv
+requests_6757,psf/requests,collection_error,clean,3,0,pre-fix pytest collection error,a2_tasks.csv
+fastapi_15661,fastapi/fastapi,import_error,clean,14,0,pre-fix import error,a2_tasks.csv
+rich_3930,Textualize/rich,import_error,clean,12,0,pre-fix import error,a2_tasks.csv
+requests_6589,psf/requests,no_tests,no_tests,,,no collectable tests,a2_run_status.csv
+requests_6592,psf/requests,no_tests,no_tests,,,no collectable tests,a2_run_status.csv
+requests_6629,psf/requests,no_tests,no_tests,,,no collectable tests,a2_run_status.csv
+requests_6644,psf/requests,no_tests,no_tests,,,no collectable tests,a2_run_status.csv

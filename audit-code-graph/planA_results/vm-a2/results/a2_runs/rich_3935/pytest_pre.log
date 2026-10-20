@@ -1,0 +1,154 @@
+
+$ /home/sauravbellam/cache/a2/rich_3935/venv/bin/python -s -m pytest tests/test_columns.py tests/test_table.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/rich_3935/trace_pre.xml
+[exit 1]
+F....................F                                                   [100%]
+=================================== FAILURES ===================================
+_________________________________ test_render __________________________________
+
+    def test_render():
+        expected = "────────────────────────────────────────────── empty ───────────────────────────────────────────────\n───────────────────────────────────────────── optimal ──────────────────────────────────────────────\nUrsus americanus           American buffalo       Bison bison            American crow          \nCorvus brachyrhynchos      American marten        Martes americana       American racer         \nColuber constrictor        American woodcock      Scolopax minor         Anaconda (unidentified)\nEunectes sp.               Andean goose           Chloephaga melanoptera Ant                    \nAnteater, australian spiny Tachyglossus aculeatus Anteater, giant        Myrmecophaga tridactyla\n───────────────────────────────────────── optimal, expand ──────────────────────────────────────────\nUrsus americanus             American buffalo        Bison bison             American crow          \nCorvus brachyrhynchos        American marten         Martes americana        American racer         \nColuber constrictor          American woodcock       Scolopax minor          Anaconda (unidentified)\nEunectes sp.                 Andean goose            Chloephaga melanoptera  Ant                    \nAnteater, australian spiny   Tachyglossus aculeatus  Anteater, giant         Myrmecophaga tridactyla\n────────────────────────────────────── column first, optimal ───────────────────────────────────────\nUrsus americanus      American marten     Scolopax minor          Ant                       \nAmerican buffalo      Martes americana    Anaconda (unidentified) Anteater, australian spiny\nBison bison           American racer      Eunectes sp.            Tachyglossus aculeatus    \nAmerican crow         Coluber constrictor Andean goose            Anteater, giant           \nCorvus brachyrhynchos American woodcock   Chloephaga melanoptera  Myrmecophaga tridactyla   \n─────────────────────────────────── column first, right to left ────────────────────────────────────\nAnt                        Scolopax minor          American marten     Ursus americanus     \nAnteater, australian spiny Anaconda (unidentified) Martes americana    American buffalo     \nTachyglossus aculeatus     Eunectes sp.            American racer      Bison bison          \nAnteater, giant            Andean goose            Coluber constrictor American crow        \nMyrmecophaga tridactyla    Chloephaga melanoptera  American woodcock   Corvus brachyrhynchos\n────────────────────────────────────── equal columns, expand ───────────────────────────────────────\nChloephaga melanoptera                American racer                    Ursus americanus            \nAnt                                   Coluber constrictor               American buffalo            \nAnteater, australian spiny            American woodcock                 Bison bison                 \nTachyglossus aculeatus                Scolopax minor                    American crow               \nAnteater, giant                       Anaconda (unidentified)           Corvus brachyrhynchos       \nMyrmecophaga tridactyla               Eunectes sp.                      American marten             \n                                      Andean goose                      Martes americana            \n─────────────────────────────────────────── fixed width ────────────────────────────────────────────\nAnteater,        Eunectes sp.     Coluber          Corvus           Ursus americanus\naustralian spiny                  constrictor      brachyrhynchos                   \nTachyglossus     Andean goose     American         American marten  American buffalo\naculeatus                         woodcock                                          \nAnteater, giant  Chloephaga       Scolopax minor   Martes americana Bison bison     \n                 melanoptera                                                        \nMyrmecophaga     Ant              Anaconda         American racer   American crow   \ntridactyla                        (unidentified)                                    \n\n"
+        print("--")
+        print(expected)
+        print("--")
+>       assert render() == expected
+E       AssertionError: assert '────────────...         \n\n' == '────────────...         \n\n'
+E         
+E         Skipping 3341 identical leading characters in diff, use -v to show
+E         - r,        Eunectes sp.     Coluber          Corvus           Ursus americanus
+E         + r,         Eunectes sp.     Coluber          Corvus           Ursus americanus 
+E         ?   +                                                                           +
+E         - australian spiny                  constrictor      brachyrhynchos                   
+E         + australian spiny                   constrictor      brachyrhynchos                    ...
+E         
+E         ...Full output truncated (20 lines hidden), use '-vv' to show
+
+tests/test_columns.py:71: AssertionError
+----------------------------- Captured stdout call -----------------------------
+--
+────────────────────────────────────────────── empty ───────────────────────────────────────────────
+───────────────────────────────────────────── optimal ──────────────────────────────────────────────
+Ursus americanus           American buffalo       Bison bison            American crow          
+Corvus brachyrhynchos      American marten        Martes americana       American racer         
+Coluber constrictor        American woodcock      Scolopax minor         Anaconda (unidentified)
+Eunectes sp.               Andean goose           Chloephaga melanoptera Ant                    
+Anteater, australian spiny Tachyglossus aculeatus Anteater, giant        Myrmecophaga tridactyla
+───────────────────────────────────────── optimal, expand ──────────────────────────────────────────
+Ursus americanus             American buffalo        Bison bison             American crow          
+Corvus brachyrhynchos        American marten         Martes americana        American racer         
+Coluber constrictor          American woodcock       Scolopax minor          Anaconda (unidentified)
+Eunectes sp.                 Andean goose            Chloephaga melanoptera  Ant                    
+Anteater, australian spiny   Tachyglossus aculeatus  Anteater, giant         Myrmecophaga tridactyla
+────────────────────────────────────── column first, optimal ───────────────────────────────────────
+Ursus americanus      American marten     Scolopax minor          Ant                       
+American buffalo      Martes americana    Anaconda (unidentified) Anteater, australian spiny
+Bison bison           American racer      Eunectes sp.            Tachyglossus aculeatus    
+American crow         Coluber constrictor Andean goose            Anteater, giant           
+Corvus brachyrhynchos American woodcock   Chloephaga melanoptera  Myrmecophaga tridactyla   
+─────────────────────────────────── column first, right to left ────────────────────────────────────
+Ant                        Scolopax minor          American marten     Ursus americanus     
+Anteater, australian spiny Anaconda (unidentified) Martes americana    American buffalo     
+Tachyglossus aculeatus     Eunectes sp.            American racer      Bison bison          
+Anteater, giant            Andean goose            Coluber constrictor American crow        
+Myrmecophaga tridactyla    Chloephaga melanoptera  American woodcock   Corvus brachyrhynchos
+────────────────────────────────────── equal columns, expand ───────────────────────────────────────
+Chloephaga melanoptera                American racer                    Ursus americanus            
+Ant                                   Coluber constrictor               American buffalo            
+Anteater, australian spiny            American woodcock                 Bison bison                 
+Tachyglossus aculeatus                Scolopax minor                    American crow               
+Anteater, giant                       Anaconda (unidentified)           Corvus brachyrhynchos       
+Myrmecophaga tridactyla               Eunectes sp.                      American marten             
+                                      Andean goose                      Martes americana            
+─────────────────────────────────────────── fixed width ────────────────────────────────────────────
+Anteater,        Eunectes sp.     Coluber          Corvus           Ursus americanus
+australian spiny                  constrictor      brachyrhynchos                   
+Tachyglossus     Andean goose     American         American marten  American buffalo
+aculeatus                         woodcock                                          
+Anteater, giant  Chloephaga       Scolopax minor   Martes americana Bison bison     
+                 melanoptera                                                        
+Myrmecophaga     Ant              Anaconda         American racer   American crow   
+tridactyla                        (unidentified)                                    
+
+
+--
+────────────────────────────────────────────── empty ───────────────────────────────────────────────
+───────────────────────────────────────────── optimal ──────────────────────────────────────────────
+Ursus americanus           American buffalo       Bison bison            American crow          
+Corvus brachyrhynchos      American marten        Martes americana       American racer         
+Coluber constrictor        American woodcock      Scolopax minor         Anaconda (unidentified)
+Eunectes sp.               Andean goose           Chloephaga melanoptera Ant                    
+Anteater, australian spiny Tachyglossus aculeatus Anteater, giant        Myrmecophaga tridactyla
+───────────────────────────────────────── optimal, expand ──────────────────────────────────────────
+Ursus americanus             American buffalo        Bison bison             American crow          
+Corvus brachyrhynchos        American marten         Martes americana        American racer         
+Coluber constrictor          American woodcock       Scolopax minor          Anaconda (unidentified)
+Eunectes sp.                 Andean goose            Chloephaga melanoptera  Ant                    
+Anteater, australian spiny   Tachyglossus aculeatus  Anteater, giant         Myrmecophaga tridactyla
+────────────────────────────────────── column first, optimal ───────────────────────────────────────
+Ursus americanus      American marten     Scolopax minor          Ant                       
+American buffalo      Martes americana    Anaconda (unidentified) Anteater, australian spiny
+Bison bison           American racer      Eunectes sp.            Tachyglossus aculeatus    
+American crow         Coluber constrictor Andean goose            Anteater, giant           
+Corvus brachyrhynchos American woodcock   Chloephaga melanoptera  Myrmecophaga tridactyla   
+─────────────────────────────────── column first, right to left ────────────────────────────────────
+Ant                        Scolopax minor          American marten     Ursus americanus     
+Anteater, australian spiny Anaconda (unidentified) Martes americana    American buffalo     
+Tachyglossus aculeatus     Eunectes sp.            American racer      Bison bison          
+Anteater, giant            Andean goose            Coluber constrictor American crow        
+Myrmecophaga tridactyla    Chloephaga melanoptera  American woodcock   Corvus brachyrhynchos
+────────────────────────────────────── equal columns, expand ───────────────────────────────────────
+Chloephaga melanoptera                American racer                    Ursus americanus            
+Ant                                   Coluber constrictor               American buffalo            
+Anteater, australian spiny            American woodcock                 Bison bison                 
+Tachyglossus aculeatus                Scolopax minor                    American crow               
+Anteater, giant                       Anaconda (unidentified)           Corvus brachyrhynchos       
+Myrmecophaga tridactyla               Eunectes sp.                      American marten             
+                                      Andean goose                      Martes americana            
+─────────────────────────────────────────── fixed width ────────────────────────────────────────────
+Anteater,         Eunectes sp.     Coluber          Corvus           Ursus americanus 
+australian spiny                   constrictor      brachyrhynchos                    
+Tachyglossus      Andean goose     American         American marten  American buffalo 
+aculeatus                          woodcock                                           
+Anteater, giant   Chloephaga       Scolopax minor   Martes americana Bison bison      
+                  melanoptera                                                         
+Myrmecophaga      Ant              Anaconda         American racer   American crow    
+tridactyla                         (unidentified)                                     
+
+
+'────────────────────────────────────────────── empty ───────────────────────────────────────────────\n───────────────────────────────────────────── optimal ──────────────────────────────────────────────\nUrsus americanus           American buffalo       Bison bison            American crow          \nCorvus brachyrhynchos      American marten        Martes americana       American racer         \nColuber constrictor        American woodcock      Scolopax minor         Anaconda (unidentified)\nEunectes sp.               Andean goose           Chloephaga melanoptera Ant                    \nAnteater, australian spiny Tachyglossus aculeatus Anteater, giant        Myrmecophaga tridactyla\n───────────────────────────────────────── optimal, expand ──────────────────────────────────────────\nUrsus americanus             American buffalo        Bison bison             American crow          \nCorvus brachyrhynchos        American marten         Martes americana        American racer         \nColuber constrictor          American woodcock       Scolopax minor          Anaconda (unidentified)\nEunectes sp.                 Andean goose            Chloephaga melanoptera  Ant                    \nAnteater, australian spiny   Tachyglossus aculeatus  Anteater, giant         Myrmecophaga tridactyla\n────────────────────────────────────── column first, optimal ───────────────────────────────────────\nUrsus americanus      American marten     Scolopax minor          Ant                       \nAmerican buffalo      Martes americana    Anaconda (unidentified) Anteater, australian spiny\nBison bison           American racer      Eunectes sp.            Tachyglossus aculeatus    \nAmerican crow         Coluber constrictor Andean goose            Anteater, giant           \nCorvus brachyrhynchos American woodcock   Chloephaga melanoptera  Myrmecophaga tridactyla   \n─────────────────────────────────── column first, right to left ────────────────────────────────────\nAnt                        Scolopax minor          American marten     Ursus americanus     \nAnteater, australian spiny Anaconda (unidentified) Martes americana    American buffalo     \nTachyglossus aculeatus     Eunectes sp.            American racer      Bison bison          \nAnteater, giant            Andean goose            Coluber constrictor American crow        \nMyrmecophaga tridactyla    Chloephaga melanoptera  American woodcock   Corvus brachyrhynchos\n────────────────────────────────────── equal columns, expand ───────────────────────────────────────\nChloephaga melanoptera                American racer                    Ursus americanus            \nAnt                                   Coluber constrictor               American buffalo            \nAnteater, australian spiny            American woodcock                 Bison bison                 \nTachyglossus aculeatus                Scolopax minor                    American crow               \nAnteater, giant                       Anaconda (unidentified)           Corvus brachyrhynchos       \nMyrmecophaga tridactyla               Eunectes sp.                      American marten             \n                                      Andean goose                      Martes americana            \n─────────────────────────────────────────── fixed width ────────────────────────────────────────────\nAnteater,         Eunectes sp.     Coluber          Corvus           Ursus americanus \naustralian spiny                   constrictor      brachyrhynchos                    \nTachyglossus      Andean goose     American         American marten  American buffalo \naculeatus                          woodcock                                           \nAnteater, giant   Chloephaga       Scolopax minor   Martes americana Bison bison      \n                  melanoptera                                                         \nMyrmecophaga      Ant              Anaconda         American racer   American crow    \ntridactyla                         (unidentified)                                     \n\n'
+______________________________ test_padding_width ______________________________
+
+    def test_padding_width():
+        """Regression test for https://github.com/Textualize/rich/issues/3871
+    
+        Padding should be even between cells/
+    
+        """
+    
+        table = Table.grid(padding=(0, 1))
+    
+        for _ in range(3):
+            table.add_column(width=3)
+    
+        for row in range(1):
+            table.add_row(*["a" * 3 for _ in range(3)])
+    
+        console = Console(record=True)
+        console.print(table)
+        output = console.export_text(styles=True)
+    
+        print(repr(output))
+        expected = "aaa aaa aaa\n"
+>       assert output == expected
+E       AssertionError: assert 'aaa  aaa aaa \n' == 'aaa aaa aaa\n'
+E         
+E         - aaa aaa aaa
+E         + aaa  aaa aaa 
+E         ?     +       +
+
+tests/test_table.py:406: AssertionError
+----------------------------- Captured stdout call -----------------------------
+aaa  aaa aaa 
+'aaa  aaa aaa \n'
+2 failed, 20 passed in 1.04s
+
+

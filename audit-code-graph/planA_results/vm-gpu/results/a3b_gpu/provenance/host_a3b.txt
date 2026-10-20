@@ -1,0 +1,8 @@
+date: 2026-10-11T15:37:40Z
+host: vm-gpu
+machine-type: projects/471988509504/machineTypes/g2-standard-8
+cpu: 8 vCPU, 31 GB RAM
+NVIDIA L4, 23034 MiB, 550.163.01
+python: Python 3.13.5
+torch 2.6.0+cu124 cuda 12.4 numpy 2.5.4 scipy 1.18.1
+launch: /home/sauravbellam/gpuenv/bin/python /home/sauravbellam/scripts/ops/../planA/a3b_gnn.py --data /home/sauravbellam/graphComp/archive --out /home/sauravbellam/results/a3b_gpu --graphs all --stages fit linkpred --save-embeddings

@@ -1,0 +1,88 @@
+{
+  "instance_id": "rich_3938",
+  "repo": "Textualize/rich",
+  "backend": "venv",
+  "done": true,
+  "deps": {
+    "steps": [
+      {
+        "name": "pip_upgrade",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3938/venv/bin/python -m pip install -q --disable-pip-version-check 'pip>=24' 'setuptools' 'wheel' pytest pytest-timeout",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "editable_no_deps",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3938/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-build-isolation --no-deps -e .",
+        "exit": 2,
+        "stderr_tail": "python3.13/site-packages/pip/_internal/req/req_install.py\", line 258, in supports_pyproject_editable\n    return \"build_editable\" in self.pep517_backend._supported_features()\n                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"/home/sauravbellam/cache/a2/rich_3938/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 180, in _supported_features\n    return self._call_hook(\"_supported_features\", {})\n           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/sauravbellam/cache/a2/rich_3938/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_impl.py\", line 402, in _call_hook\n    raise BackendUnavailable(\n    ...<4 lines>...\n    )\npip._vendor.pyproject_hooks._impl.BackendUnavailable: Cannot import 'poetry.core.masonry.api'\n"
+      },
+      {
+        "name": "editable_no_deps_isolated",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3938/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels --no-deps -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "runtime_deps",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3938/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels -e .",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "poetry_group_dev",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3938/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels pytest black mypy pytest-cov attrs pre-commit typing-extensions",
+        "exit": 0,
+        "stderr_tail": ""
+      },
+      {
+        "name": "rich_tests",
+        "cmd": "/home/sauravbellam/cache/a2/rich_3938/venv/bin/python -m pip install -q --disable-pip-version-check --find-links=/home/sauravbellam/graphComp/archive/wheels pytest-cov attrs ipywidgets",
+        "exit": 0,
+        "stderr_tail": ""
+      }
+    ],
+    "editable_ok": true,
+    "python": "3.13.5 (main, Aug 10 2026, 12:06:59) [GCC 14.2.0]"
+  },
+  "targets": [
+    "tests/test_segment.py",
+    "tests/test_text.py"
+  ],
+  "test_patch_strategy": "exact",
+  "test_patch_applied": true,
+  "pre": {
+    "exit": 1,
+    "seconds": 2.1,
+    "timeout": false,
+    "exit_meaning": "some_failed",
+    "run_class": "clean",
+    "counts": {
+      "failed": 3,
+      "passed": 171
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "....FF.................................................................. [ 41%]\n........................................................................ [ 82%]\n.............................F                                           [100%]\n=================================== FAILURES ===================================\n_________________________ test_split_lines_terminator __________________________\n\n    def test_split_lines_terminator():\n        lines = [Segment(\"Hello\\nWorld\")]\n>       assert list(Segment.split_lines_terminator(lines)) == [\n                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n            ([Segment(\"Hello\")], True),\n            ([Segment(\"World\")], False),\n        ]\nE       AttributeError: type object 'Segment' has no attribute 'split_lines_terminator'\n\ntests/test_segment.py:39: AttributeError\n___________________ test_split_lines_terminator_single_line ____________________\n\n    def test_split_lines_terminator_single_line():\n        lines = [Segment(\"Hello\")]\n>       assert list(Segment.split_lines_terminator(lines)) == [\n                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n            ([Segment(\"Hello\")], False),\n        ]\nE       AttributeError: type object 'Segment' has no attribute 'split_lines_terminator'\n\ntests/test_segment.py:47: AttributeError\n____________________________ test_soft_wrap_styled _____________________________\n\n    def test_soft_wrap_styled() -> None:\n        \"\"\"Regression test for https://github.com/Textualize/rich/issues/3838\n    \n        If soft_wrap is True and a style is set, we don't want to style the new lines.\n        \"\"\"\n        console = Console(color_system=\"standard\", width=80, force_terminal=True)\n        with console.capture() as capture:\n            console.print(\"soft wrap is on\", style=\"blue on white\", soft_wrap=True)\n            console.print(\"Next line\")\n    \n        output = capture.get()\n        print(repr(output))\n        # Background is reset before \\n\n        expected = \"\\x1b[34;47msoft wrap is on\\x1b[0m\\nNext line\\n\"\n>       assert output == expected\nE       AssertionError: assert '\\x1b[34;47ms...0mNext line\\n' == '\\x1b[34;47ms...\\nNext line\\n'\nE         \nE         - \u001b[34;47msoft wrap is on\u001b[0m\nE         + \u001b[34;47msoft wrap is on\u001b[0m\u001b[34;47m\nE         ?                            ++++++++\nE         - Next line\nE         + \u001b[0mNext line\nE         ? ++++\n\ntests/test_text.py:1129: AssertionError\n----------------------------- Captured stdout call -----------------------------\n'\\x1b[34;47msoft wrap is on\\x1b[0m\\x1b[34;47m\\n\\x1b[0mNext line\\n'\n3 failed, 171 passed in 1.58s\n",
+    "stderr_tail": ""
+  },
+  "gold_patch_strategy": "exact",
+  "gold_patch_applied": true,
+  "post": {
+    "exit": 0,
+    "seconds": 1.8,
+    "timeout": false,
+    "exit_meaning": "all_passed",
+    "run_class": "clean",
+    "counts": {
+      "passed": 174
+    },
+    "missing_modules": [],
+    "collection_errors": [],
+    "stdout_tail": "........................................................................ [ 41%]\n........................................................................ [ 82%]\n..............................                                           [100%]\n174 passed in 1.44s\n",
+    "stderr_tail": ""
+  },
+  "trace_pre_exists": true,
+  "trace_post_exists": true,
+  "seconds": 39.2
+}

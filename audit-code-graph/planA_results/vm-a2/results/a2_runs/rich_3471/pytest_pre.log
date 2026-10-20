@@ -1,0 +1,109 @@
+
+$ /home/sauravbellam/cache/a2/rich_3471/venv/bin/python -s -m pytest tests/test_text.py -p trace_plugin -p no:anyio -p no:cacheprovider -o addopts= -o timeout=0 -o python_classes='Test* *Test' -q --no-header -rN --junitxml=/home/sauravbellam/results/a2_runs/rich_3471/trace_pre.xml
+[exit 1]
+........................................................................ [ 66%]
+...................................F                                     [100%]
+=================================== FAILURES ===================================
+______________________________ test_append_tokens ______________________________
+
+    def test_append_tokens() -> None:
+        """Regression test for https://github.com/Textualize/rich/issues/3014"""
+    
+        console = Console()
+        t = Text().append_tokens(
+            [
+                (
+                    "long text that will be wrapped with a control code \r\n",
+                    "red",
+                ),
+            ]
+        )
+        with console.capture() as capture:
+>           console.print(t, width=40)
+
+tests/test_text.py:999: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+rich/console.py:1710: in print
+    extend(render(renderable, render_options))
+rich/console.py:1331: in render
+    for render_output in iter_render:
+                         ^^^^^^^^^^^
+rich/text.py:694: in __rich_console__
+    lines = self.wrap(
+rich/text.py:1234: in wrap
+    new_lines = line.divide(offsets)
+                ^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <text 'long text that will be wrapped with a control code ' [Span(0, 52, 'red')]>
+offsets = [38]
+
+    def divide(self, offsets: Iterable[int]) -> Lines:
+        """Divide text in to a number of lines at given offsets.
+    
+        Args:
+            offsets (Iterable[int]): Offsets used to divide text.
+    
+        Returns:
+            Lines: New RichText instances between offsets.
+        """
+        _offsets = list(offsets)
+    
+        if not _offsets:
+            return Lines([self.copy()])
+    
+        text = self.plain
+        text_length = len(text)
+        divide_offsets = [0, *_offsets, text_length]
+        line_ranges = list(zip(divide_offsets, divide_offsets[1:]))
+    
+        style = self.style
+        justify = self.justify
+        overflow = self.overflow
+        _Text = Text
+        new_lines = Lines(
+            _Text(
+                text[start:end],
+                style=style,
+                justify=justify,
+                overflow=overflow,
+            )
+            for start, end in line_ranges
+        )
+        if not self._spans:
+            return new_lines
+    
+        _line_appends = [line._spans.append for line in new_lines._lines]
+        line_count = len(line_ranges)
+        _Span = Span
+    
+        for span_start, span_end, style in self._spans:
+            lower_bound = 0
+            upper_bound = line_count
+            start_line_no = (lower_bound + upper_bound) // 2
+    
+            while True:
+                line_start, line_end = line_ranges[start_line_no]
+                if span_start < line_start:
+                    upper_bound = start_line_no - 1
+                elif span_start > line_end:
+                    lower_bound = start_line_no + 1
+                else:
+                    break
+                start_line_no = (lower_bound + upper_bound) // 2
+    
+            if span_end < line_end:
+                end_line_no = start_line_no
+            else:
+                end_line_no = lower_bound = start_line_no
+                upper_bound = line_count
+    
+                while True:
+>                   line_start, line_end = line_ranges[end_line_no]
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^
+E                   IndexError: list index out of range
+
+rich/text.py:1164: IndexError
+1 failed, 107 passed in 1.69s
+
+

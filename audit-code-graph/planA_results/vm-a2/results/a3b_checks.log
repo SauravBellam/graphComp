@@ -1,0 +1,283 @@
+[a3b] fastapi_ee22a4b8ca46dcce26c8c183afc4992a888d8be2: 4263 nodes with vectors, 2404 edges, 3061 isolated
+[a3b] requests_6f205ff422bccd5e4c4fc0b64c5f3e7df5181db6: 759 nodes with vectors, 1884 edges, 60 isolated
+[a3b] rich_fc41075a3206d2a5fd846c6f41c4d2becab814fa: 2015 nodes with vectors, 5756 edges, 70 isolated
+[a3b] httpx_4acf5c2c37714cc63b5cf71b3e284fca83c90311: 740 nodes with vectors, 1618 edges, 21 isolated
+[a3b] fastapi_cb83b83dcf78eab4ea17d504db5abcda705fbdc4: 4256 nodes with vectors, 2396 edges, 3060 isolated
+[a3b] fastapi_22b02e26f9e8c7e32bd8266e2b0ebe8bb3a0db2b: 4259 nodes with vectors, 2402 edges, 3059 isolated
+[a3b] fastapi_48d58ae3b6ef4ded5a4794618c00345667256d98: 4194 nodes with vectors, 2362 edges, 3013 isolated
+[a3b] fastapi_1e78a36b7310003f0ff634627d8a7bc53c6ccdee: 4106 nodes with vectors, 2296 edges, 2958 isolated
+[a3b] fastapi_6ee87478d821171139264cd9cd17cbd2232934ce: 4248 nodes with vectors, 2386 edges, 3057 isolated
+[a3b] fastapi_bc06e4296d588f39f38c7ac2fc96d3913c565962: 4115 nodes with vectors, 2302 edges, 2963 isolated
+[a3b] fastapi_c0836dc1b7f4ba91e9563c8c4ccd0ebe655bc914: 4193 nodes with vectors, 2360 edges, 3013 isolated
+[a3b] fastapi_2f9c914d440e99fe8b62646b51e4d24c5bcd858b: 4151 nodes with vectors, 2324 edges, 2986 isolated
+[a3b] fastapi_94a1ee749e63591e6e275b726a66e07a25f6c407: 4128 nodes with vectors, 2324 edges, 2963 isolated
+[a3b] requests_661970d171d9c3e12e4c789c4768db647d8c4da0: 758 nodes with vectors, 1884 edges, 59 isolated
+[a3b] requests_0b401c76b6e80a4eecf3c690085b2553f6e261ca: 754 nodes with vectors, 1878 edges, 59 isolated
+[a3b] requests_b684dcb9bbf3aa557d1238e72062c4a29737dd1c: 753 nodes with vectors, 1876 edges, 59 isolated
+[a3b] requests_6360477c52303c9445b45fa8744b02d05a2f0905: 733 nodes with vectors, 1828 edges, 58 isolated
+[a3b] requests_cbce031327be4f1b4b5fd041ff4dcaa8efa2ce53: 733 nodes with vectors, 1828 edges, 58 isolated
+[a3b] requests_7407309c8a8a73aa2f4337184025d440bbedab7a: 733 nodes with vectors, 1828 edges, 58 isolated
+[a3b] requests_1b40fdd004bfc8ba5301bcf8a6908264e9b6b877: 732 nodes with vectors, 1826 edges, 58 isolated
+[a3b] rich_58ac15120fe254886c10d6253667733c83604cb4: 2017 nodes with vectors, 5770 edges, 69 isolated
+[a3b] rich_19c67b9a3479841e9133bea94607c89ee931d3fc: 2021 nodes with vectors, 5780 edges, 69 isolated
+[a3b] rich_9cb198944f8184df92217efc8b20d3fffa4b4fa0: 2016 nodes with vectors, 5768 edges, 69 isolated
+[a3b] rich_1fc7cb210ae52eb099df39818ddb9569e5b14c7b: 2015 nodes with vectors, 5766 edges, 69 isolated
+[a3b] rich_27701029082052c6541031b6f139097230253900: 2014 nodes with vectors, 5754 edges, 70 isolated
+[a3b] fastapi_e94028ab60d18080810910352bc9129e8046c92d: 4364 nodes with vectors, 2446 edges, 3121 isolated
+[a3b] fastapi_8e50c55fd90c4433ddc9096ff439da9498a8314a: 4363 nodes with vectors, 2438 edges, 3121 isolated
+[a3b] fastapi_cd31576d5704b6aef1bdadc43770238cd88aad2b: 4363 nodes with vectors, 2442 edges, 3121 isolated
+[a3b] fastapi_0dd42b746e17d33a74ea267a62eace9ccdccf345: 4353 nodes with vectors, 2434 edges, 3113 isolated
+[a3b] fastapi_464c359bb03f7ba72330198cc9f44df36194837d: 4338 nodes with vectors, 2420 edges, 3105 isolated
+[a3b] fastapi_eacbce24c9d299c6a28110d9fc8ac50f53cddb08: 4330 nodes with vectors, 2416 edges, 3099 isolated
+[a3b] fastapi_a456e92a21d5b94a67d6d0fd070218df09444443: 4330 nodes with vectors, 2416 edges, 3099 isolated
+[a3b] fastapi_2b212ddd7604891d42e2ffbafe764c334230bdb7: 4269 nodes with vectors, 2628 edges, 2940 isolated
+[a3b] fastapi_f2687dc1bb01f4cb62eee90e656b61c38c2aaf6a: 4275 nodes with vectors, 2352 edges, 3074 isolated
+[a3b] fastapi_27c0f7e75fc0ce26ca75295d455eb36f0ca033d3: 3314 nodes with vectors, 2030 edges, 2248 isolated
+[a3b] fastapi_861b22c40897a03d2d7e5926923d962121ed5e2e: 3263 nodes with vectors, 1982 edges, 2227 isolated
+[a3b] fastapi_1b3bea8b6be2220cc1544653ea785d2134fcb35b: 4596 nodes with vectors, 2624 edges, 3265 isolated
+[a3b] fastapi_566e3157a5517784c741dbf36e39687af326fe90: 3689 nodes with vectors, 2404 edges, 2450 isolated
+[a3b] fastapi_eaf611f9ee56de4f16c837d4f487a4b9fca507c4: 3685 nodes with vectors, 2402 edges, 2447 isolated
+[a3b] fastapi_1fcec88ad2df4541b6a81c4786c4d039dc745e1e: 4479 nodes with vectors, 2736 edges, 3081 isolated
+[a3b] fastapi_4a98a66778987648d2195155c9cbe0824d67b02a: 3944 nodes with vectors, 2640 edges, 2597 isolated
+[a3b] fastapi_811fa898752e7f5697733a2958ff79ad8dfb5276: 3818 nodes with vectors, 2502 edges, 2526 isolated
+[a3b] fastapi_60699f306b67dc1f4918ebea17f04d7a48cda645: 3939 nodes with vectors, 2634 edges, 2594 isolated
+[a3b] fastapi_71a17b5932e38bcf798fcd05c5bb384e6d4db5bf: 3931 nodes with vectors, 2622 edges, 2592 isolated
+[a3b] fastapi_08b09e5236e315b6f10265ed229f130d4befb4ea: 3837 nodes with vectors, 2524 edges, 2535 isolated
+[a3b] fastapi_516169428d2fa189d34318ebc469a082c49c1189: 3837 nodes with vectors, 2524 edges, 2535 isolated
+[a3b] fastapi_eb1d50479ba0ac873e4ffa08a824b1d822ca3a17: 3826 nodes with vectors, 2508 edges, 2530 isolated
+[a3b] fastapi_c57ac7bdf3613798c94caceff562a41fa16d4a2d: 3792 nodes with vectors, 2478 edges, 2515 isolated
+[a3b] fastapi_603df6e36f59cc4a3e189f506b8f36d1e816c3ac: 3822 nodes with vectors, 2508 edges, 2526 isolated
+[a3b] fastapi_aee8e78078e8a7f2736d3cab7a1cb7197356951c: 3780 nodes with vectors, 2470 edges, 2510 isolated
+[a3b] fastapi_cff2236dacb7aedcaf2d2de0873cfbc9bb2b897a: 3774 nodes with vectors, 2462 edges, 2507 isolated
+[a3b] fastapi_930b27e5fa32ce150ddcea61f0c913435ae71c83: 3775 nodes with vectors, 2466 edges, 2507 isolated
+[a3b] fastapi_4976568fc7cb7501729d8f84d946cde1e91299cd: 3768 nodes with vectors, 2460 edges, 2502 isolated
+[a3b] fastapi_5265c4f5cb4d8fb4fb5015bccf1a6de8f3fc6044: 3698 nodes with vectors, 2416 edges, 2452 isolated
+[a3b] fastapi_5126e099bdda51f261fd5a101b5f914991d31897: 3768 nodes with vectors, 2460 edges, 2502 isolated
+[a3b] fastapi_eead41bf4cf8587b4d86091dd3eabbb85796e717: 3761 nodes with vectors, 2460 edges, 2495 isolated
+[a3b] fastapi_6cf40df24d1d199fd25d034fc87fcae284fc23a2: 3750 nodes with vectors, 2452 edges, 2486 isolated
+[a3b] fastapi_c6487ed632056e450d844846a1b63be551a3cbc6: 3715 nodes with vectors, 2438 edges, 2458 isolated
+[a3b] fastapi_63d7a2b9978258d13dfc22664e60fc2110d30e20: 3717 nodes with vectors, 2438 edges, 2460 isolated
+[a3b] fastapi_972a967d5d3fa24d450637c36c6b7ad1f1d8c1b6: 3677 nodes with vectors, 2396 edges, 2442 isolated
+[a3b] fastapi_425a4c5bb1d1a8e00007e82e5188fc4d30585767: 3630 nodes with vectors, 2350 edges, 2422 isolated
+[a3b] fastapi_2cf04ee30db9df2db04a5b1e0d2c625dfbf1a211: 3627 nodes with vectors, 2350 edges, 2419 isolated
+[a3b] fastapi_7132a690461c2367f22556eb87c2b5eb7d9cfb45: 3619 nodes with vectors, 2354 edges, 2409 isolated
+[a3b] fastapi_6e49dc029541aaa896fa63c47647ccd3f066df67: 3601 nodes with vectors, 2346 edges, 2395 isolated
+[a3b] fastapi_0bdc3ca3732e3742e094bea2b320e9774659ac38: 3250 nodes with vectors, 1980 edges, 2215 isolated
+[a3b] fastapi_5c1f87c56387a96dbdddb2b1c4ec9ba48dcebc4e: 3238 nodes with vectors, 1956 edges, 2214 isolated
+[a3b] fastapi_16d75d90eb96976a57b94cc24e4018859cd54c4d: 3238 nodes with vectors, 1956 edges, 2214 isolated
+[a3b] rich_7d36119f8378b36129502c3281a7faffef837e02: 1984 nodes with vectors, 5662 edges, 69 isolated
+[a3b] rich_6764b24739b580c0c32ff5ef0b971ed4cfcf4f75: 1998 nodes with vectors, 5714 edges, 68 isolated
+[a3b] rich_1d402e0c59f8765e420a5a4440eb2fca7465d1ae: 2012 nodes with vectors, 5750 edges, 70 isolated
+[a3b] rich_36fe3f7ca9becca4777861d5e6e625f5a4a37545: 2011 nodes with vectors, 5748 edges, 70 isolated
+[a3b] rich_c595fa95068dd2c5095d25446b2f0571bc0b3995: 2010 nodes with vectors, 5750 edges, 69 isolated
+[a3b] rich_05ff970926cbd0b5d0acb6fc18cdbd1fc971e582: 2006 nodes with vectors, 5736 edges, 69 isolated
+[a3b] rich_4d6d631a3d2deddf8405522d4b8c976a6d35726c: 1986 nodes with vectors, 5674 edges, 69 isolated
+[a3b] rich_fe55a131c2780fa856464ad04d7d6dc8a1079b72: 2001 nodes with vectors, 5724 edges, 68 isolated
+[a3b] rich_96dd4b60e3a7c647c43a85ad375afa690b3bb85b: 2000 nodes with vectors, 5720 edges, 68 isolated
+[a3b] rich_53757bc234cf18977cade41a5b64f3abaccb0b85: 1986 nodes with vectors, 5674 edges, 69 isolated
+[a3b] fastapi_08924400c2c75533685148b029defcf6913f1def: 4330 nodes with vectors, 2416 edges, 3099 isolated
+[a3b] fastapi_f1d750fddad90e2faad6c3cc5c85c7687b787e89: 4401 nodes with vectors, 2726 edges, 3089 isolated
+[a3b] fastapi_202b2d2f5f331db9102b5dbcef071a9e09bed10e: 4380 nodes with vectors, 2682 edges, 3082 isolated
+[a3b] fastapi_3fe6522aaed4d36d6a38175a4a8137ee0fc62451: 4487 nodes with vectors, 2740 edges, 3087 isolated
+[a3b] fastapi_6b53786f626db95a42fd0f66afd360bab161f4b1: 4597 nodes with vectors, 2638 edges, 3262 isolated
+[a3b] fastapi_9a9c4ad5d06f5fe8ee6775a5aeaa2f83c854f263: 4377 nodes with vectors, 2666 edges, 3083 isolated
+[a3b] fastapi_6513d4daa16a536d17743de6a292f49bd06388a4: 4264 nodes with vectors, 2628 edges, 2938 isolated
+[a3b] fastapi_016ab760faba1813ba235d5582a014a58bd2f417: 4287 nodes with vectors, 2464 edges, 3062 isolated
+[a3b] fastapi_3c54a8f07b70cdd40e3d81ea319e9fcccd2481d2: 3757 nodes with vectors, 2452 edges, 2493 isolated
+[a3b] fastapi_740ec2787b25e59f7aa9e3df1db09d4489c22718: 3745 nodes with vectors, 2452 edges, 2481 isolated
+[a3b] fastapi_3b4b5ab8c819dce27fbaf0aa0a9c74b7f3255ec0: 3743 nodes with vectors, 2452 edges, 2479 isolated
+[a3b] fastapi_d2c17b603d2f986d5f3800d3bf24acba8e1f485b: 4094 nodes with vectors, 2290 edges, 2950 isolated
+[a3b] fastapi_e2354a0a063f2fcb890ec568f1a98e136a39fd25: 3698 nodes with vectors, 2416 edges, 2452 isolated
+[a3b] fastapi_54f8aeeb9a15e4d5a12401ec5549840966df0087: 4354 nodes with vectors, 2436 edges, 3113 isolated
+[a3b] fastapi_a7f2dbe976bf72703376f0cd04487bfc4a849f83: 3255 nodes with vectors, 1982 edges, 2219 isolated
+[a3b] requests_0e322af87745eff34caffe4df68456ebc20d9068: 730 nodes with vectors, 1812 edges, 58 isolated
+[a3b] requests_7a13c041dbef42f9f3feb14110f02626f6892e9a: 712 nodes with vectors, 1750 edges, 57 isolated
+[a3b] requests_382fc2c0c6c0ef0874bc65bc1175f97c073e5086: 714 nodes with vectors, 1754 edges, 57 isolated
+[a3b] requests_0b4d494192de489701d3a2e32acef8fb5d3f042e: 711 nodes with vectors, 1748 edges, 57 isolated
+[a3b] rich_e76f3c3ea78481342e21a7b3328075462ab69c2b: 1936 nodes with vectors, 5512 edges, 67 isolated
+[a3b] rich_d0de442c08df8793c5ff36d9ad322ca5c47fc38c: 1962 nodes with vectors, 5590 edges, 69 isolated
+[a3b] rich_49117ced6648a432d85951f72dce777038f6ce09: 1979 nodes with vectors, 5652 edges, 69 isolated
+[a3b] rich_ae15db600976a7999d21653002f338d0761b180c: 1954 nodes with vectors, 5570 edges, 68 isolated
+[a3b] rich_3b70db5a2997de191f7db3e422dbe4da35ca1c95: 1980 nodes with vectors, 5654 edges, 69 isolated
+[a3b] rich_2809954800af15b4027364cebf82390fe23dc194: 1978 nodes with vectors, 5648 edges, 69 isolated
+[a3b] rich_fde5d6eee3b0437eaecdcbf6f8b11aeab3a5d503: 1953 nodes with vectors, 5564 edges, 69 isolated
+[a3b] rich_edc6b0a39b6df1c0e26d409bb5c5eda7149b2de6: 1971 nodes with vectors, 5626 edges, 69 isolated
+[a3b] rich_2b5d648b2c62960deb6439f4204ed8fa6eb3cf7b: 1970 nodes with vectors, 5624 edges, 69 isolated
+[a3b] rich_5ba9cb56e68dcdf2db50c214d8f1412c8a50761b: 1969 nodes with vectors, 5620 edges, 69 isolated
+[a3b] rich_0f2f51b872d14588de3a65968f5cdde6fb5694a3: 1970 nodes with vectors, 5624 edges, 69 isolated
+[a3b] rich_66074922edabeac684434b4d87ee994fb97b0627: 1970 nodes with vectors, 5624 edges, 69 isolated
+[a3b] rich_4101991898ee7a09fe1706daca24af5e1e054862: 1964 nodes with vectors, 5594 edges, 69 isolated
+[a3b] rich_9ec419154102acce7363e3958bec6c261864d7fb: 1961 nodes with vectors, 5588 edges, 69 isolated
+[a3b] rich_b6f2f7aa5b27f612f391cd28212aff51ad0d42d1: 1959 nodes with vectors, 5584 edges, 69 isolated
+[a3b] rich_e1e6d745f670ff3df6b8f47377c0a4006cb74066: 1953 nodes with vectors, 5568 edges, 68 isolated
+[a3b] rich_e2a982d5ea747f0deb7f78e8eaa5b4be7d9194cf: 1958 nodes with vectors, 5578 edges, 69 isolated
+[a3b] rich_0ba607dc080c9f102b5ae5346bcdb70d6e9c969d: 1958 nodes with vectors, 5578 edges, 69 isolated
+[a3b] rich_c478588f3c228a4e86741a057c42b452d7bc6bce: 1957 nodes with vectors, 5574 edges, 69 isolated
+[a3b] rich_7a168a27c5097805b3bafa495f35e3955004ff4a: 1936 nodes with vectors, 5512 edges, 67 isolated
+[a3b] rich_4c5d305bb902ce97011666ada19e48d0b27b49e1: 1952 nodes with vectors, 5560 edges, 69 isolated
+[a3b] rich_610fd75c433c3dfcd9c296e8b91363979127b9fa: 1949 nodes with vectors, 5552 edges, 68 isolated
+[a3b] rich_577def22dd83b999c5937cb2bf2ed49600943325: 1944 nodes with vectors, 5538 edges, 67 isolated
+[a3b] rich_9f620dc50c0008c35e9f8493f198e6e593574a70: 1936 nodes with vectors, 5512 edges, 67 isolated
+[a3b] rich_720800e6930d85ad027b1e9bd0cbb96b5e994ce3: 1933 nodes with vectors, 5500 edges, 67 isolated
+[a3b] rich_8a616de8e25db3c93abaaa220c493d80878de69d: 1926 nodes with vectors, 5482 edges, 67 isolated
+[a3b] rich_1ad6f73a4d1d3b40ac3f879feccfaad66412bd1d: 1933 nodes with vectors, 5500 edges, 67 isolated
+[a3b] rich_0c8bb032ad3b54a32fdb8a43f5ab457c8cd6dcb1: 1926 nodes with vectors, 5482 edges, 67 isolated
+[a3b] rich_01b85ac116c4635b6ddb8b488be8254be6df2a84: 1925 nodes with vectors, 5478 edges, 67 isolated
+[a3b] rich_368e8ad77c95a6bef8f9d332039091d1417296bc: 1924 nodes with vectors, 5472 edges, 67 isolated
+[a3b] rich_aca9467ec6a482b3bed1ba7d2e3de72271c5f817: 1920 nodes with vectors, 5460 edges, 67 isolated
+/home/sauravbellam/scripts/planA/a3b_gnn.py:140: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = spearmanr(a, b).correlation
+{
+  "text_identity_pairs": 3358,
+  "text_identity_cos_mean_over_pairs": 0.9996263373635493,
+  "text_identity_share_eq1_over_pairs": 0.9004163672996632,
+  "text_identity_verdict": "mostly_text: identical text gives near-identical vectors",
+  "duplicates_share_mean": 0.1670737206122978,
+  "isolated_auroc_centroid_mean": 0.9747724415749077
+}
+[a3b] nbrmean fastapi_ee22a4b8ca46dcce26c8c183afc4992a888d8be2: cos=0.9930 vs global-mean 0.8896
+[a3b] nbrmean requests_6f205ff422bccd5e4c4fc0b64c5f3e7df5181db6: cos=0.9943 vs global-mean 0.9510
+[a3b] nbrmean rich_fc41075a3206d2a5fd846c6f41c4d2becab814fa: cos=0.9909 vs global-mean 0.9547
+[a3b] nbrmean httpx_4acf5c2c37714cc63b5cf71b3e284fca83c90311: cos=0.9938 vs global-mean 0.9411
+[a3b] nbrmean fastapi_cb83b83dcf78eab4ea17d504db5abcda705fbdc4: cos=0.9929 vs global-mean 0.8897
+[a3b] nbrmean fastapi_22b02e26f9e8c7e32bd8266e2b0ebe8bb3a0db2b: cos=0.9929 vs global-mean 0.8896
+[a3b] nbrmean fastapi_48d58ae3b6ef4ded5a4794618c00345667256d98: cos=0.9929 vs global-mean 0.8909
+[a3b] nbrmean fastapi_1e78a36b7310003f0ff634627d8a7bc53c6ccdee: cos=0.9930 vs global-mean 0.8895
+[a3b] nbrmean fastapi_6ee87478d821171139264cd9cd17cbd2232934ce: cos=0.9929 vs global-mean 0.8891
+[a3b] nbrmean fastapi_bc06e4296d588f39f38c7ac2fc96d3913c565962: cos=0.9930 vs global-mean 0.8897
+[a3b] nbrmean fastapi_c0836dc1b7f4ba91e9563c8c4ccd0ebe655bc914: cos=0.9929 vs global-mean 0.8907
+[a3b] nbrmean fastapi_2f9c914d440e99fe8b62646b51e4d24c5bcd858b: cos=0.9930 vs global-mean 0.8903
+[a3b] nbrmean fastapi_94a1ee749e63591e6e275b726a66e07a25f6c407: cos=0.9930 vs global-mean 0.8905
+[a3b] nbrmean requests_661970d171d9c3e12e4c789c4768db647d8c4da0: cos=0.9943 vs global-mean 0.9510
+[a3b] nbrmean requests_0b401c76b6e80a4eecf3c690085b2553f6e261ca: cos=0.9942 vs global-mean 0.9511
+[a3b] nbrmean requests_b684dcb9bbf3aa557d1238e72062c4a29737dd1c: cos=0.9942 vs global-mean 0.9511
+[a3b] nbrmean requests_6360477c52303c9445b45fa8744b02d05a2f0905: cos=0.9940 vs global-mean 0.9480
+[a3b] nbrmean requests_cbce031327be4f1b4b5fd041ff4dcaa8efa2ce53: cos=0.9940 vs global-mean 0.9480
+[a3b] nbrmean requests_7407309c8a8a73aa2f4337184025d440bbedab7a: cos=0.9940 vs global-mean 0.9481
+[a3b] nbrmean requests_1b40fdd004bfc8ba5301bcf8a6908264e9b6b877: cos=0.9940 vs global-mean 0.9480
+[a3b] nbrmean rich_58ac15120fe254886c10d6253667733c83604cb4: cos=0.9909 vs global-mean 0.9547
+[a3b] nbrmean rich_19c67b9a3479841e9133bea94607c89ee931d3fc: cos=0.9909 vs global-mean 0.9544
+[a3b] nbrmean rich_9cb198944f8184df92217efc8b20d3fffa4b4fa0: cos=0.9909 vs global-mean 0.9547
+[a3b] nbrmean rich_1fc7cb210ae52eb099df39818ddb9569e5b14c7b: cos=0.9909 vs global-mean 0.9546
+[a3b] nbrmean rich_27701029082052c6541031b6f139097230253900: cos=0.9909 vs global-mean 0.9547
+[a3b] nbrmean fastapi_e94028ab60d18080810910352bc9129e8046c92d: cos=0.9931 vs global-mean 0.8889
+[a3b] nbrmean fastapi_8e50c55fd90c4433ddc9096ff439da9498a8314a: cos=0.9932 vs global-mean 0.8891
+[a3b] nbrmean fastapi_cd31576d5704b6aef1bdadc43770238cd88aad2b: cos=0.9931 vs global-mean 0.8889
+[a3b] nbrmean fastapi_0dd42b746e17d33a74ea267a62eace9ccdccf345: cos=0.9932 vs global-mean 0.8890
+[a3b] nbrmean fastapi_464c359bb03f7ba72330198cc9f44df36194837d: cos=0.9933 vs global-mean 0.8885
+[a3b] nbrmean fastapi_eacbce24c9d299c6a28110d9fc8ac50f53cddb08: cos=0.9933 vs global-mean 0.8881
+[a3b] nbrmean fastapi_a456e92a21d5b94a67d6d0fd070218df09444443: cos=0.9933 vs global-mean 0.8882
+[a3b] nbrmean fastapi_2b212ddd7604891d42e2ffbafe764c334230bdb7: cos=0.9936 vs global-mean 0.8917
+[a3b] nbrmean fastapi_f2687dc1bb01f4cb62eee90e656b61c38c2aaf6a: cos=0.9932 vs global-mean 0.8864
+[a3b] nbrmean fastapi_27c0f7e75fc0ce26ca75295d455eb36f0ca033d3: cos=0.9941 vs global-mean 0.8907
+[a3b] nbrmean fastapi_861b22c40897a03d2d7e5926923d962121ed5e2e: cos=0.9941 vs global-mean 0.8918
+[a3b] nbrmean fastapi_1b3bea8b6be2220cc1544653ea785d2134fcb35b: cos=0.9936 vs global-mean 0.8880
+[a3b] nbrmean fastapi_566e3157a5517784c741dbf36e39687af326fe90: cos=0.9944 vs global-mean 0.8893
+[a3b] nbrmean fastapi_eaf611f9ee56de4f16c837d4f487a4b9fca507c4: cos=0.9944 vs global-mean 0.8892
+[a3b] nbrmean fastapi_1fcec88ad2df4541b6a81c4786c4d039dc745e1e: cos=0.9938 vs global-mean 0.8902
+[a3b] nbrmean fastapi_4a98a66778987648d2195155c9cbe0824d67b02a: cos=0.9944 vs global-mean 0.8921
+[a3b] nbrmean fastapi_811fa898752e7f5697733a2958ff79ad8dfb5276: cos=0.9944 vs global-mean 0.8922
+[a3b] nbrmean fastapi_60699f306b67dc1f4918ebea17f04d7a48cda645: cos=0.9944 vs global-mean 0.8919
+[a3b] nbrmean fastapi_71a17b5932e38bcf798fcd05c5bb384e6d4db5bf: cos=0.9944 vs global-mean 0.8926
+[a3b] nbrmean fastapi_08b09e5236e315b6f10265ed229f130d4befb4ea: cos=0.9944 vs global-mean 0.8928
+[a3b] nbrmean fastapi_516169428d2fa189d34318ebc469a082c49c1189: cos=0.9944 vs global-mean 0.8928
+[a3b] nbrmean fastapi_eb1d50479ba0ac873e4ffa08a824b1d822ca3a17: cos=0.9944 vs global-mean 0.8924
+[a3b] nbrmean fastapi_c57ac7bdf3613798c94caceff562a41fa16d4a2d: cos=0.9943 vs global-mean 0.8910
+[a3b] nbrmean fastapi_603df6e36f59cc4a3e189f506b8f36d1e816c3ac: cos=0.9944 vs global-mean 0.8925
+[a3b] nbrmean fastapi_aee8e78078e8a7f2736d3cab7a1cb7197356951c: cos=0.9943 vs global-mean 0.8910
+[a3b] nbrmean fastapi_cff2236dacb7aedcaf2d2de0873cfbc9bb2b897a: cos=0.9943 vs global-mean 0.8908
+[a3b] nbrmean fastapi_930b27e5fa32ce150ddcea61f0c913435ae71c83: cos=0.9943 vs global-mean 0.8909
+[a3b] nbrmean fastapi_4976568fc7cb7501729d8f84d946cde1e91299cd: cos=0.9942 vs global-mean 0.8911
+[a3b] nbrmean fastapi_5265c4f5cb4d8fb4fb5015bccf1a6de8f3fc6044: cos=0.9943 vs global-mean 0.8897
+[a3b] nbrmean fastapi_5126e099bdda51f261fd5a101b5f914991d31897: cos=0.9942 vs global-mean 0.8911
+[a3b] nbrmean fastapi_eead41bf4cf8587b4d86091dd3eabbb85796e717: cos=0.9943 vs global-mean 0.8912
+[a3b] nbrmean fastapi_6cf40df24d1d199fd25d034fc87fcae284fc23a2: cos=0.9943 vs global-mean 0.8911
+[a3b] nbrmean fastapi_c6487ed632056e450d844846a1b63be551a3cbc6: cos=0.9943 vs global-mean 0.8908
+[a3b] nbrmean fastapi_63d7a2b9978258d13dfc22664e60fc2110d30e20: cos=0.9943 vs global-mean 0.8908
+[a3b] nbrmean fastapi_972a967d5d3fa24d450637c36c6b7ad1f1d8c1b6: cos=0.9944 vs global-mean 0.8890
+[a3b] nbrmean fastapi_425a4c5bb1d1a8e00007e82e5188fc4d30585767: cos=0.9944 vs global-mean 0.8902
+[a3b] nbrmean fastapi_2cf04ee30db9df2db04a5b1e0d2c625dfbf1a211: cos=0.9944 vs global-mean 0.8902
+[a3b] nbrmean fastapi_7132a690461c2367f22556eb87c2b5eb7d9cfb45: cos=0.9944 vs global-mean 0.8903
+[a3b] nbrmean fastapi_6e49dc029541aaa896fa63c47647ccd3f066df67: cos=0.9944 vs global-mean 0.8899
+[a3b] nbrmean fastapi_0bdc3ca3732e3742e094bea2b320e9774659ac38: cos=0.9943 vs global-mean 0.8930
+[a3b] nbrmean fastapi_5c1f87c56387a96dbdddb2b1c4ec9ba48dcebc4e: cos=0.9942 vs global-mean 0.8929
+[a3b] nbrmean fastapi_16d75d90eb96976a57b94cc24e4018859cd54c4d: cos=0.9942 vs global-mean 0.8929
+[a3b] nbrmean rich_7d36119f8378b36129502c3281a7faffef837e02: cos=0.9909 vs global-mean 0.9549
+[a3b] nbrmean rich_6764b24739b580c0c32ff5ef0b971ed4cfcf4f75: cos=0.9909 vs global-mean 0.9545
+[a3b] nbrmean rich_1d402e0c59f8765e420a5a4440eb2fca7465d1ae: cos=0.9909 vs global-mean 0.9547
+[a3b] nbrmean rich_36fe3f7ca9becca4777861d5e6e625f5a4a37545: cos=0.9909 vs global-mean 0.9547
+[a3b] nbrmean rich_c595fa95068dd2c5095d25446b2f0571bc0b3995: cos=0.9909 vs global-mean 0.9548
+[a3b] nbrmean rich_05ff970926cbd0b5d0acb6fc18cdbd1fc971e582: cos=0.9909 vs global-mean 0.9547
+[a3b] nbrmean rich_4d6d631a3d2deddf8405522d4b8c976a6d35726c: cos=0.9909 vs global-mean 0.9550
+[a3b] nbrmean rich_fe55a131c2780fa856464ad04d7d6dc8a1079b72: cos=0.9909 vs global-mean 0.9546
+[a3b] nbrmean rich_96dd4b60e3a7c647c43a85ad375afa690b3bb85b: cos=0.9909 vs global-mean 0.9545
+[a3b] nbrmean rich_53757bc234cf18977cade41a5b64f3abaccb0b85: cos=0.9909 vs global-mean 0.9550
+[a3b] nbrmean fastapi_08924400c2c75533685148b029defcf6913f1def: cos=0.9933 vs global-mean 0.8882
+[a3b] nbrmean fastapi_f1d750fddad90e2faad6c3cc5c85c7687b787e89: cos=0.9928 vs global-mean 0.8948
+[a3b] nbrmean fastapi_202b2d2f5f331db9102b5dbcef071a9e09bed10e: cos=0.9929 vs global-mean 0.8937
+[a3b] nbrmean fastapi_3fe6522aaed4d36d6a38175a4a8137ee0fc62451: cos=0.9938 vs global-mean 0.8903
+[a3b] nbrmean fastapi_6b53786f626db95a42fd0f66afd360bab161f4b1: cos=0.9935 vs global-mean 0.8887
+[a3b] nbrmean fastapi_9a9c4ad5d06f5fe8ee6775a5aeaa2f83c854f263: cos=0.9929 vs global-mean 0.8941
+[a3b] nbrmean fastapi_6513d4daa16a536d17743de6a292f49bd06388a4: cos=0.9936 vs global-mean 0.8906
+[a3b] nbrmean fastapi_016ab760faba1813ba235d5582a014a58bd2f417: cos=0.9930 vs global-mean 0.8892
+[a3b] nbrmean fastapi_3c54a8f07b70cdd40e3d81ea319e9fcccd2481d2: cos=0.9943 vs global-mean 0.8911
+[a3b] nbrmean fastapi_740ec2787b25e59f7aa9e3df1db09d4489c22718: cos=0.9943 vs global-mean 0.8912
+[a3b] nbrmean fastapi_3b4b5ab8c819dce27fbaf0aa0a9c74b7f3255ec0: cos=0.9943 vs global-mean 0.8912
+[a3b] nbrmean fastapi_d2c17b603d2f986d5f3800d3bf24acba8e1f485b: cos=0.9930 vs global-mean 0.8893
+[a3b] nbrmean fastapi_e2354a0a063f2fcb890ec568f1a98e136a39fd25: cos=0.9943 vs global-mean 0.8897
+[a3b] nbrmean fastapi_54f8aeeb9a15e4d5a12401ec5549840966df0087: cos=0.9932 vs global-mean 0.8890
+[a3b] nbrmean fastapi_a7f2dbe976bf72703376f0cd04487bfc4a849f83: cos=0.9942 vs global-mean 0.8931
+[a3b] nbrmean requests_0e322af87745eff34caffe4df68456ebc20d9068: cos=0.9939 vs global-mean 0.9474
+[a3b] nbrmean requests_7a13c041dbef42f9f3feb14110f02626f6892e9a: cos=0.9939 vs global-mean 0.9461
+[a3b] nbrmean requests_382fc2c0c6c0ef0874bc65bc1175f97c073e5086: cos=0.9939 vs global-mean 0.9458
+[a3b] nbrmean requests_0b4d494192de489701d3a2e32acef8fb5d3f042e: cos=0.9939 vs global-mean 0.9459
+[a3b] nbrmean rich_e76f3c3ea78481342e21a7b3328075462ab69c2b: cos=0.9909 vs global-mean 0.9547
+[a3b] nbrmean rich_d0de442c08df8793c5ff36d9ad322ca5c47fc38c: cos=0.9908 vs global-mean 0.9550
+[a3b] nbrmean rich_49117ced6648a432d85951f72dce777038f6ce09: cos=0.9909 vs global-mean 0.9548
+[a3b] nbrmean rich_ae15db600976a7999d21653002f338d0761b180c: cos=0.9908 vs global-mean 0.9550
+[a3b] nbrmean rich_3b70db5a2997de191f7db3e422dbe4da35ca1c95: cos=0.9909 vs global-mean 0.9548
+[a3b] nbrmean rich_2809954800af15b4027364cebf82390fe23dc194: cos=0.9909 vs global-mean 0.9548
+[a3b] nbrmean rich_fde5d6eee3b0437eaecdcbf6f8b11aeab3a5d503: cos=0.9908 vs global-mean 0.9551
+[a3b] nbrmean rich_edc6b0a39b6df1c0e26d409bb5c5eda7149b2de6: cos=0.9908 vs global-mean 0.9551
+[a3b] nbrmean rich_2b5d648b2c62960deb6439f4204ed8fa6eb3cf7b: cos=0.9908 vs global-mean 0.9551
+[a3b] nbrmean rich_5ba9cb56e68dcdf2db50c214d8f1412c8a50761b: cos=0.9908 vs global-mean 0.9551
+[a3b] nbrmean rich_0f2f51b872d14588de3a65968f5cdde6fb5694a3: cos=0.9908 vs global-mean 0.9551
+[a3b] nbrmean rich_66074922edabeac684434b4d87ee994fb97b0627: cos=0.9908 vs global-mean 0.9551
+[a3b] nbrmean rich_4101991898ee7a09fe1706daca24af5e1e054862: cos=0.9908 vs global-mean 0.9551
+[a3b] nbrmean rich_9ec419154102acce7363e3958bec6c261864d7fb: cos=0.9909 vs global-mean 0.9550
+[a3b] nbrmean rich_b6f2f7aa5b27f612f391cd28212aff51ad0d42d1: cos=0.9908 vs global-mean 0.9551
+[a3b] nbrmean rich_e1e6d745f670ff3df6b8f47377c0a4006cb74066: cos=0.9908 vs global-mean 0.9550
+[a3b] nbrmean rich_e2a982d5ea747f0deb7f78e8eaa5b4be7d9194cf: cos=0.9908 vs global-mean 0.9550
+[a3b] nbrmean rich_0ba607dc080c9f102b5ae5346bcdb70d6e9c969d: cos=0.9908 vs global-mean 0.9549
+[a3b] nbrmean rich_c478588f3c228a4e86741a057c42b452d7bc6bce: cos=0.9908 vs global-mean 0.9550
+[a3b] nbrmean rich_7a168a27c5097805b3bafa495f35e3955004ff4a: cos=0.9909 vs global-mean 0.9547
+[a3b] nbrmean rich_4c5d305bb902ce97011666ada19e48d0b27b49e1: cos=0.9908 vs global-mean 0.9550
+[a3b] nbrmean rich_610fd75c433c3dfcd9c296e8b91363979127b9fa: cos=0.9908 vs global-mean 0.9553
+[a3b] nbrmean rich_577def22dd83b999c5937cb2bf2ed49600943325: cos=0.9908 vs global-mean 0.9550
+[a3b] nbrmean rich_9f620dc50c0008c35e9f8493f198e6e593574a70: cos=0.9909 vs global-mean 0.9547
+[a3b] nbrmean rich_720800e6930d85ad027b1e9bd0cbb96b5e994ce3: cos=0.9909 vs global-mean 0.9547
+[a3b] nbrmean rich_8a616de8e25db3c93abaaa220c493d80878de69d: cos=0.9908 vs global-mean 0.9550
+[a3b] nbrmean rich_1ad6f73a4d1d3b40ac3f879feccfaad66412bd1d: cos=0.9909 vs global-mean 0.9547
+[a3b] nbrmean rich_0c8bb032ad3b54a32fdb8a43f5ab457c8cd6dcb1: cos=0.9908 vs global-mean 0.9550
+[a3b] nbrmean rich_01b85ac116c4635b6ddb8b488be8254be6df2a84: cos=0.9908 vs global-mean 0.9550
+[a3b] nbrmean rich_368e8ad77c95a6bef8f9d332039091d1417296bc: cos=0.9908 vs global-mean 0.9550
+[a3b] nbrmean rich_aca9467ec6a482b3bed1ba7d2e3de72271c5f817: cos=0.9909 vs global-mean 0.9550
+{
+  "n_graphs": 127,
+  "stages": [
+    "checks",
+    "nbrmean"
+  ],
+  "checks": {
+    "text_identity_pairs": 3358,
+    "text_identity_cos_mean_over_pairs": 0.9996263373635493,
+    "text_identity_share_eq1_over_pairs": 0.9004163672996632,
+    "text_identity_verdict": "mostly_text: identical text gives near-identical vectors",
+    "duplicates_share_mean": 0.1670737206122978,
+    "isolated_auroc_centroid_mean": 0.9747724415749077
+  },
+  "nbrmean": {
+    "nbr_mean_cos_mean": 0.9927256773775956,
+    "global_mean_cos_mean": 0.9202411676955036
+  }
+}
